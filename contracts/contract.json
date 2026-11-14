@@ -33,7 +33,7 @@
       "provider_coverage_by_body": {
         "Earth": "verified_where_indexed",
         "Moon": "verified_only_for_processed_reference_rois",
-        "Mars": "unavailable"
+        "Mars": "verified_only_for_processed_reference_rois"
       },
       "comparability_gate": "Same method_version, projected metric CRS, 90 m analysis grid and valid-data rule. Terrain-shape comparability does not imply environmental equivalence."
     },
@@ -59,7 +59,7 @@
       "provider_coverage_by_body": {
         "Earth": "verified_where_indexed",
         "Moon": "verified_only_for_processed_reference_rois",
-        "Mars": "unavailable"
+        "Mars": "verified_only_for_processed_reference_rois"
       },
       "comparability_gate": "Same method_version, projected metric CRS, 90 m analysis grid and valid-data rule. Terrain-shape comparability does not imply environmental equivalence."
     },
@@ -85,7 +85,7 @@
       "provider_coverage_by_body": {
         "Earth": "verified_where_indexed",
         "Moon": "verified_only_for_processed_reference_rois",
-        "Mars": "unavailable"
+        "Mars": "verified_only_for_processed_reference_rois"
       },
       "comparability_gate": "Same method_version, projected metric CRS, 90 m analysis grid and valid-data rule. Terrain-shape comparability does not imply environmental equivalence."
     },
@@ -111,7 +111,33 @@
       "provider_coverage_by_body": {
         "Earth": "verified_where_indexed",
         "Moon": "verified_only_for_processed_reference_rois",
-        "Mars": "unavailable"
+        "Mars": "verified_only_for_processed_reference_rois"
+      },
+      "comparability_gate": "Same method_version, projected metric CRS, 90 m analysis grid and valid-data rule. Terrain-shape comparability does not imply environmental equivalence."
+    },
+    {
+      "id": "flat_terrain_fraction",
+      "label": "Flat terrain fraction",
+      "unit": "fraction",
+      "description": "Fraction of valid Horn slope cells strictly below 5 degrees.",
+      "method": "Same 90 m Horn 3x3 gradient grid; count(slope < 5 degrees) / count(valid slope). Incomplete neighborhoods and outer rim excluded, never filled.",
+      "method_version": "flat-terrain-fraction-1.0.0",
+      "min_value": 0.0,
+      "max_value": 1.0,
+      "scale": 0.25,
+      "scale_rationale": "Fixed engineering contrast of 25 percentage points; not calibrated to physical environmental equivalence.",
+      "extraction_scale_m": 90,
+      "valid_domain": "0 <= value <= 1",
+      "missing_policy": "Candidates missing this metric are excluded from a search that requests it.",
+      "dimension_id": "terrain_shape",
+      "value_kind": "numeric",
+      "score_role": "similarity",
+      "spatial_support": "fixed 1.98 km x 1.98 km window; 22 x 22 cells at 90 m",
+      "temporal_support": "static epoch of the source DEM release",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "verified_only_for_processed_reference_rois",
+        "Mars": "verified_only_for_processed_reference_rois"
       },
       "comparability_gate": "Same method_version, projected metric CRS, 90 m analysis grid and valid-data rule. Terrain-shape comparability does not imply environmental equivalence."
     }
@@ -860,7 +886,8 @@
       "slope_mean_deg",
       "slope_p90_deg",
       "terrain_relief_p95_p05_m",
-      "roughness_std_m"
+      "roughness_std_m",
+      "flat_terrain_fraction"
     ],
     "supported_body": "Earth",
     "note": "On-demand AOIs are bounded to a 2 km-class footprint so terrain support remains comparable to the indexed windows. Polygon holes are not supported in the MVP; the outer ring is validated and used."

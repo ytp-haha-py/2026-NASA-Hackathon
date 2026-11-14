@@ -847,7 +847,9 @@ def repo_root() -> Path:
 
 
 def default_cache_dir() -> Path:
-    return repo_root() / "data" / "cache" / "worldcover"
+    from analog_pipelines.paths import cache_dir
+
+    return cache_dir("worldcover")
 
 
 def default_earth_manifest_path() -> Path:

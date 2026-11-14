@@ -88,8 +88,8 @@ class AoiResult:
             features={
                 feature_id: FeatureValue(
                     value=value,
-                    unit="degree" if feature_id.startswith("slope_") else "meter",
-                    method_version=METHOD_VERSION,
+                    unit=FEATURE_BY_ID[feature_id].unit,
+                    method_version=FEATURE_BY_ID[feature_id].method_version,
                     extraction_scale_m=self.resolution_m,
                     valid_fraction=self.valid_fraction,
                     quality="verified",
@@ -289,6 +289,9 @@ def validate_aoi_request(
         "body": "Earth",
         "aoi": aoi_descriptor,
         "requested_features": sorted(features),
+        "feature_method_versions": {
+            key: FEATURE_BY_ID[key].method_version for key in sorted(features)
+        },
         "min_valid_fraction": MIN_VALID_FRACTION,
         "context_method_version": CONTEXT_METHOD_VERSION,
         "aoi_processing_version": AOI_PROCESSING_VERSION,

@@ -52,21 +52,21 @@ These diagrams document the current MVP, including the in-process AOI job runner
 
 | Capability | Status | Evidence |
 |---|---|---|
-| Real Earth terrain index | **5 observed windows** (Atacama, Death Valley, Lanzarote, Devon Island, Rio Tinto) | Copernicus DEM GLO-90 window reads; `pipelines/earth/manifests/` |
-| Verified lunar reference | **1 real LOLA ROI**: Shackleton rim Site04 ROI 2 | NASA PGDA `Site04_final_adj_5mpp_surf`; 5 m source → 90 m analysis; `pipelines/planetary/manifests/` |
+| Real Earth terrain index | **113 observed windows** (original five plus twelve bounded sampling envelopes) | Copernicus DEM GLO-90 window reads; `pipelines/earth/manifests/` |
+| Verified lunar reference | **18 real LOLA windows** across six south-pole sites; original Site04 ROI 2 retained | NASA PGDA `Site04_final_adj_5mpp_surf`; 5 m source → 90 m analysis; `pipelines/planetary/manifests/` |
 | On-demand Earth AOI | **Working**: bbox/polygon → 202 job → Copernicus + WorldCover → persisted and searchable | `POST /api/v1/areas/analyze`, `GET /api/v1/jobs/{id}`, `GET /api/v1/areas/{id}/features` |
-| Earth non-terrain context | **11 ESA WorldCover 2021 v200 class fractions** for all five seed AOIs | `pipelines/worldcover/manifests/`; context-only, not mineralogy |
+| Earth non-terrain context | **11 ESA WorldCover 2021 v200 class fractions** for all 113 indexed Earth windows | `pipelines/worldcover/manifests/`; context-only, not mineralogy |
 | Manual target search | Weighted normalized Euclidean, fixed scales, exclusions, hard context filters, tie-break, 1–10 limit | `POST /api/v1/search` |
 | Typed dimension catalog | Terrain similarity + land-cover context dimensions with role/method metadata | `GET /api/v1/dimensions` |
-| Reference-mode search | Rank Earth windows against the verified lunar ROI | `{"body":"Moon","reference_id":"moon-shackleton-rim-site04-roi2"}` |
+| Reference-mode search | Rank Earth windows against verified Moon or Mars references | `{"body":"Moon","reference_id":"moon-shackleton-rim-site04-roi2"}` |
+| Mars terrain reference | **5 observed Jezero CTX windows**, 20 m source → 90 m analysis | `pipelines/planetary/ctx_import.py` |
 | UI | Form, ranked list, Leaflet/OSM map, details, provenance, limitations, JSON context export | React + TypeScript |
 | Reproducible snapshots | Pinned manifest + SHA-256 + offline index rebuild; optional S3/R2 publish/fetch | `samples/snapshot/`, `pipelines/build_index.py`, `ObjectStore` |
-| Tests / CI / Compose | 228 backend/pipeline tests + frontend suite; CI jobs; Compose definitions | `scripts/verify.sh`, `.github/workflows/ci.yml` |
+| Tests / CI / Compose | Backend/pipeline tests + frontend suite; CI jobs; Compose definitions | `scripts/verify.sh`, `.github/workflows/ci.yml` |
 
 ### Explicitly not implemented / not comparable
 
 - Global/country-scale indexing and a global top 10.
-- Mars observations (interface only; no Mars reference is claimed).
 - Temperature/illumination, mineralogy, process, biology, cave, and mission-simulation features.
 - AI/LLM chat in the request path (a grounded context export exists instead).
 - Physical equivalence between Earth terrain and Moon/Mars conditions.
@@ -127,7 +127,7 @@ curl -s http://127.0.0.1:8000/api/v1/search \
   }'
 ```
 
-Observed against the committed index on 2026-11-14:
+Historical example against the original five-window index (2026-11-14), before expansion:
 
 | Rank | Window | Distance | Mean slope | Relief p95–p05 | Roughness | Data |
 |---|---|---|---:|---:|---:|---|
@@ -137,7 +137,7 @@ Observed against the committed index on 2026-11-14:
 | 4 | Atacama Desert, Chile | 1.0038 | 0.01° | 0.11 m | 0.03 m | observed |
 | 5 | Death Valley, USA | 2.0195 | 17.80° | 378.41 m | 93.25 m | observed |
 
-This is **Top 5 among 5 indexed regions**, not a global ranking. The distance is unitless, not a
+This historical example is **Top 5 among the original 5 indexed windows**. Current searches use 113 windows; rankings change with the indexed subset. The distance is unitless, not a
 "similarity percentage".
 
 ### 2. Search against the real lunar reference
@@ -148,7 +148,7 @@ curl -s http://127.0.0.1:8000/api/v1/search \
   -d '{"body":"Moon","reference_id":"moon-shackleton-rim-site04-roi2","limit":5}'
 ```
 
-Observed ranking (all four metrics, weight 1): Death Valley 0.2450, Lanzarote 1.699,
+Historical ranking against the original five Earth windows (all four metrics, weight 1): Death Valley 0.2450, Lanzarote 1.699,
 Rio Tinto 2.287, Devon Island 2.410, Atacama 3.045. This is an engineering matching score over
 terrain shape, not a physical similarity percentage.
 
@@ -179,14 +179,17 @@ Observed real run: completed in ~10 s, `area_id=earth-aoi-b36533b061ce`, 4 terra
 returned `cached: true` in ~0 s. Polygon input is supported (closed outer ring, 4–100 positions).
 Limits: sides 600–2000 m, area ≤ 4 km², latitude −80..84, no antimeridian crossing.
 
+For the bounded expansion plan, commands, path configuration, and failure limitations, see
+[`docs/TERRAIN_EXPANSION.md`](docs/TERRAIN_EXPANSION.md).
+
 ## Data status and coverage
 
 | Body / layer | Status | Source |
 |---|---|---|
-| Earth terrain | **5 observed windows** | Copernicus DEM GLO-90, `COP-DEM_GLO-90-DGED`, AWS Open Data |
-| Earth land-cover context | **11 WorldCover fractions × 5 windows** | ESA WorldCover 2021 v200, CC BY 4.0 |
-| Moon terrain reference | **1 observed ROI**, Shackleton rim Site04 ROI 2 | NASA PGDA LOLA 5 m/pix `Site04_final_adj_5mpp_surf` |
-| Mars | **not implemented** | PDS MOLA interface/roadmap only |
+| Earth terrain | **113 observed windows** | Copernicus DEM GLO-90, `COP-DEM_GLO-90-DGED`, AWS Open Data |
+| Earth land-cover context | **11 WorldCover fractions × 113 windows** | ESA WorldCover 2021 v200, CC BY 4.0 |
+| Moon terrain reference | **18 observed windows**, six LOLA sites (including original Site04 ROI 2) | NASA PGDA LOLA 5 m/pix `Site04_final_adj_5mpp_surf` |
+| Mars terrain reference | **5 observed Jezero CTX windows** | USGS Mars 2020 Science Investigation CTX DEM Mosaic |
 
 Analysis support: 1.98 km × 1.98 km window, 22 × 22 cells at 90 m, projected metric CRS,
 bilinear resampling, ≥80% valid data. On-demand AOIs use a 0.6–2 km footprint at 90 m and are
@@ -204,6 +207,7 @@ and error caveats: [`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md). Dataset matri
 | `slope_p90_deg` | degree | 0–90 | 15° | 90th percentile gradient angle |
 | `terrain_relief_p95_p05_m` | meter | 0–20000 | 200 m | p95 − p05 elevation |
 | `roughness_std_m` | meter | 0–5000 | 20 m | std dev after plane detrending |
+| `flat_terrain_fraction` | fraction | 0–1 | 0.25 | valid Horn slope cells <5° / valid slope cells |
 
 Earth land-cover fractions (`landcover_*_fraction`) are **context-only**; they never enter the
 distance. Not compared or simulated: gravity, atmosphere, radiation, regolith, mineralogy,
@@ -256,7 +260,7 @@ See [`docs/DATA_ARCHITECTURE.md`](docs/DATA_ARCHITECTURE.md).
 | `POST /api/v1/areas/{area_id}/compare` | compare an AOI with indexed candidates using the same comparator |
 | `GET /api/v1/locations/{id}` | seeded/persisted details + datasets + limitations |
 | `GET /api/v1/locations/{id}/context` | grounded JSON export for external AI |
-| `GET /api/v1/references` | verified planetary references (real LOLA ROI only) |
+| `GET /api/v1/references` | verified planetary references (verified LOLA and Jezero CTX windows) |
 | `GET /api/v1/datasets` | source/processing manifests |
 
 See [`docs/API.md`](docs/API.md). OpenAPI snapshot: `contracts/openapi.json`.

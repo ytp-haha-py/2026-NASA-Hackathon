@@ -117,6 +117,7 @@ def test_health_and_capabilities(client: TestClient):
         "slope_p90_deg",
         "terrain_relief_p95_p05_m",
         "roughness_std_m",
+        "flat_terrain_fraction",
     ]
     assert body["supported_bodies"] == ["custom"]
     assert body["indexed_candidate_count"] == 4
@@ -139,7 +140,7 @@ def test_dimensions_catalog(client: TestClient):
         "terrain_shape",
         "land_cover_context",
     ]
-    assert len(body["dimensions"][0]["features"]) == 4
+    assert len(body["dimensions"][0]["features"]) == 5
     assert len(body["context_features"]) == 11
     assert body["dimensions"][1]["score_role"] == "context_only"
 

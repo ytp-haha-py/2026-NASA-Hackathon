@@ -27,6 +27,7 @@ def test_committed_earth_manifest_matches_schema():
             "slope_p90_deg",
             "terrain_relief_p95_p05_m",
             "roughness_std_m",
+            "flat_terrain_fraction",
         }
         assert all(
             observation["quality"] == "verified" for observation in candidate["features"].values()
@@ -130,3 +131,40 @@ def test_real_manifest_seeds_and_returns_observed_results(tmp_path: Path):
 
         context = client.get(f"/api/v1/locations/{location['location_id']}/context").json()
         assert any("score_role=context_only" in fact for fact in context["source_facts"])
+
+
+def test_expanded_planetary_references_search_earth_subset(tmp_path: Path):
+    """Real committed manifests must flow through the same API consumed by the UI."""
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'expanded.db'}",
+        manifest_dir=str(EARTH_MANIFEST.parent),
+        manifest_dir_planetary=str(ROOT / "pipelines/planetary/manifests"),
+        manifest_dir_context=str(ROOT / "pipelines/worldcover/manifests"),
+        seed_include_synthetic=False,
+    )
+    with TestClient(create_app(settings)) as client:
+        response = client.get("/api/v1/references")
+        assert response.status_code == 200
+        refs = response.json()
+        assert sum(r["body"] == "Mars" for r in refs) >= 5
+        assert sum(r["body"] == "Moon" for r in refs) >= 6
+        assert any(r["reference_id"] == "moon-shackleton-rim-site04-roi2" for r in refs)
+        for ref in refs:
+            assert ref["bbox"] is None  # Planetary coordinates never become Earth bboxes.
+            response = client.post(
+                "/api/v1/search",
+                json={
+                    "body": ref["body"],
+                    "reference_id": ref["reference_id"],
+                    "limit": 3,
+                },
+            )
+            assert response.status_code == 200, response.text
+            result = response.json()
+            assert result["indexed_candidate_count"] >= 100
+            assert result["eligible_candidate_count"] == result["indexed_candidate_count"]
+            assert result["coverage_label"] == "indexed_subset"
+            assert all(row["data_kind"] == "observed" for row in result["results"])
+        detail = client.get("/api/v1/locations/earth-namib-r1c1")
+        assert detail.status_code == 200
+        assert len(detail.json()["context_observations"]) == 11

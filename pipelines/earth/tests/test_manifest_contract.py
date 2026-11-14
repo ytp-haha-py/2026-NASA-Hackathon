@@ -9,7 +9,7 @@ from datetime import datetime
 from pathlib import Path
 
 import pytest
-from analog_api.domain.features import FEATURE_BY_ID, METHOD_VERSION
+from analog_api.domain.features import FEATURE_BY_ID
 from analog_api.domain.manifest import Manifest
 from jsonschema import Draft202012Validator
 
@@ -21,6 +21,7 @@ FEATURE_IDS = {
     "slope_p90_deg",
     "terrain_relief_p95_p05_m",
     "roughness_std_m",
+    "flat_terrain_fraction",
 }
 
 
@@ -66,7 +67,7 @@ def test_every_candidate_has_all_four_verified_features(model: Manifest):
         for feature_id, observation in candidate.features.items():
             definition = FEATURE_BY_ID[feature_id]
             assert observation.unit == definition.unit
-            assert observation.method_version == METHOD_VERSION
+            assert observation.method_version == FEATURE_BY_ID[feature_id].method_version
             assert observation.quality == "verified"
             assert observation.extraction_scale_m == 90.0
             assert 0.0 <= observation.valid_fraction <= 1.0
@@ -110,7 +111,7 @@ def test_dataset_provenance_is_complete(model: Manifest):
     assert dataset.source_kind == "earth_dem"
     assert dataset.source_crs == "EPSG:4326"
     assert dataset.native_resolution_m == 90.0
-    assert dataset.processing_version == METHOD_VERSION
+    assert dataset.processing_version == "terrain-flat-extension-1.0.0"
     assert dataset.license.strip()
     assert dataset.license_url.startswith("https://")
     assert dataset.url.startswith("https://")

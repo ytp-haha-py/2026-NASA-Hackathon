@@ -1,3 +1,8 @@
+For the current bounded Earth/Moon/Mars batch extension and configurable local raw,
+cache, processed and temporary directories, see [TERRAIN_EXPANSION.md](TERRAIN_EXPANSION.md).
+Use `uv run --env-file .env` so temporary and tool cache settings apply before startup.
+Do not reset the live index containing user AOIs; use `seed --keep-existing`.
+
 # Data pipeline
 
 This document gives the actual commands for the v6 data path. `make data-*` targets are

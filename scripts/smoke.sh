@@ -205,7 +205,13 @@ expected_features = {
 }
 assert capabilities["contract_version"] == "1.0.0"
 assert capabilities["method_version"] == "terrain-metrics-1.0.0"
-assert {feature["id"] for feature in capabilities["features"]} == expected_features
+# The capability catalog is additive; the legacy synthetic fixture intentionally
+# retains four observations to exercise backward-compatible searches/details.
+assert {feature["id"] for feature in capabilities["features"]} == expected_features | {"flat_terrain_fraction"}
+flat = next(feature for feature in capabilities["features"] if feature["id"] == "flat_terrain_fraction")
+assert flat["method_version"] == "flat-terrain-fraction-1.0.0"
+assert flat["unit"] == "fraction"
+assert (flat["min_value"], flat["max_value"]) == (0.0, 1.0)
 assert capabilities["indexed_candidate_count"] == 4, capabilities["indexed_candidate_count"]
 assert capabilities["coverage"]["label"] == "indexed_subset"
 assert capabilities["coverage"]["data_kinds"] == ["synthetic"], capabilities["coverage"]

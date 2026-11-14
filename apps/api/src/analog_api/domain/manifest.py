@@ -9,7 +9,6 @@ from analog_api.domain.features import (
     CONTEXT_FEATURE_BY_ID,
     CONTEXT_METHOD_VERSION,
     FEATURE_BY_ID,
-    METHOD_VERSION,
 )
 
 
@@ -76,10 +75,10 @@ def _validate_features(features: dict[str, ObservationRecord]) -> dict[str, Obse
                 f"unit mismatch for {feature_id}: manifest uses {observation.unit!r}, "
                 f"registry requires {definition.unit!r}"
             )
-        if observation.method_version != METHOD_VERSION:
+        if observation.method_version != definition.method_version:
             raise ValueError(
                 f"incompatible method_version for {feature_id}: "
-                f"{observation.method_version!r} != {METHOD_VERSION!r}"
+                f"{observation.method_version!r} != {definition.method_version!r}"
             )
         if not (definition.min_value <= observation.value <= definition.max_value):
             raise ValueError(

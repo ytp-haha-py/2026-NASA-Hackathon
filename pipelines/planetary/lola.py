@@ -16,12 +16,11 @@ can still read a bounded window with HTTP range requests because the server adve
 bounds the requested window, refuses oversized estimates, retries at most twice, and
 caches only the small derived window under ``data/cache/lola`` (gitignored).
 
-The shared extractor is imported, never reimplemented. It transforms the lunar
-projected CRS to EPSG:4326 only to report an approximate centre. PROJ refuses that
-cross-celestial-body transform unless ``PROJ_IGNORE_CELESTIAL_BODY=YES`` is set, so
-this module sets that variable for the process. All four metrics are computed in the
-source projected CRS and are unaffected by the override. The exact extractor error
-without the override is documented in ``NASA_LOLA_STATUS.md``.
+The shared extractor is imported, never reimplemented. Centre coordinates are
+inverse-projected into the source lunar geodetic CRS, never Earth EPSG:4326.
+No cross-celestial-body override is enabled. Terrain metrics use the projected
+metric grid; the flat extension has its own registry method version. Historical
+pre-expansion access evidence remains in ``NASA_LOLA_STATUS.md``.
 """
 
 from __future__ import annotations
@@ -52,10 +51,6 @@ from pyproj import CRS, Transformer
 from rasterio.env import Env
 from rasterio.transform import Affine
 from rasterio.windows import Window, from_bounds
-
-# The shared extractor needs this to invert the lunar projected CRS to degrees for
-# its approximate centre fields. Metrics are computed in the projected CRS.
-os.environ.setdefault("PROJ_IGNORE_CELESTIAL_BODY", "YES")
 
 # ---------------------------------------------------------------------------
 # Product constants (all URLs and sizes were checked on 2026-11-14).
@@ -107,6 +102,7 @@ FEATURE_IDS = (
     "slope_p90_deg",
     "terrain_relief_p95_p05_m",
     "roughness_std_m",
+    "flat_terrain_fraction",
 )
 METRE_UNITS = {"m", "metre", "meter", "metres", "meters"}
 LUNAR_RADIUS_M = 1_737_400.0
@@ -327,7 +323,7 @@ class PreparedWindow:
     @property
     def center_lonlat(self) -> tuple[float, float]:
         crs = CRS.from_wkt(self.meta.crs_wkt)
-        transformer = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+        transformer = Transformer.from_crs(crs, crs.geodetic_crs, always_xy=True)
         lon, lat = transformer.transform(*self.center_xy)
         return float(lon), float(lat)
 
@@ -423,7 +419,9 @@ def repo_root() -> Path:
 
 
 def default_cache_dir() -> Path:
-    return repo_root() / "data" / "cache" / "lola"
+    from analog_pipelines.paths import cache_dir
+
+    return cache_dir("lola")
 
 
 def default_manifest_path() -> Path:
@@ -624,8 +622,11 @@ def rasterio_remote_env(timeout: float = DEFAULT_TIMEOUT_S) -> Env:
         GDAL_DISABLE_READDIR_ON_OPEN="EMPTY_DIR",
         CPL_VSIL_CURL_ALLOWED_EXTENSIONS=".tif,.tiff",
         CPL_VSIL_CURL_USE_HEAD="YES",
-        CPL_VSIL_CURL_MAX_RETRY=str(MAX_RETRIES),
-        GDAL_HTTP_MAX_RETRY=str(MAX_RETRIES),
+        CPL_VSIL_CURL_MAX_RETRY="0",
+        GDAL_HTTP_MAX_RETRY="0",
+        # Outer importer controls retries; serial ranges avoid server multiplexing failures.
+        GDAL_HTTP_MULTIRANGE="SERIAL",
+        GDAL_HTTP_MULTIPLEX="NO",
         GDAL_HTTP_TIMEOUT=str(max(1, int(timeout))),
         GDAL_HTTP_CONNECTTIMEOUT=str(min(20, max(1, int(timeout)))),
         GDAL_HTTP_USERAGENT=USER_AGENT,
@@ -1444,7 +1445,7 @@ def build_manifest(
     if missing:
         raise LolaImportError(
             "incomplete_features",
-            f"Extractor did not return all four registry features; missing {missing}.",
+            f"Extractor did not return all required registry features; missing {missing}.",
         )
     if not all(math.isfinite(result.features[feature_id]) for feature_id in FEATURE_IDS):
         raise LolaImportError(
@@ -1486,7 +1487,7 @@ def build_manifest(
     flags = list(dict.fromkeys(flags))
 
     reference_notes = (
-        f"Shackleton rim / lunar south pole window. ROI {roi_name}: {roi_provenance}. "
+        f"{display_name}. ROI {roi_name}: {roi_provenance}. "
         f"Window centre in source map coordinates: X={prepared.center_xy[0]:.1f} m, "
         f"Y={prepared.center_xy[1]:.1f} m. Inverse-projected centre: lon="
         f"{center_lon:.6f}, lat={center_lat:.6f} (east-positive degrees; longitude is "
@@ -1604,7 +1605,7 @@ def validate_manifest(
                 raise LolaImportError(
                     "manifest_feature_set",
                     f"Reference {reference.reference_id} does not contain exactly the "
-                    f"four registry features: {sorted(reference.features)}.",
+                    f"required registry features: {sorted(reference.features)}.",
                 )
             if any(
                 observation.quality != "verified" for observation in reference.features.values()

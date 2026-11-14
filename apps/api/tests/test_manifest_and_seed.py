@@ -142,3 +142,30 @@ def test_contract_file_matches_registry_and_analysis():
     assert contract["aoi_analysis"] == AOI_LIMITS
     for key, value in ANALYSIS_PAYLOAD.items():
         assert contract["analysis"][key] == value
+
+
+def test_reseed_refreshes_imported_values_and_preserves_unrelated_aoi(tmp_path: Path):
+    from sqlalchemy.orm import Session
+
+    payload = synthetic_manifest()
+    engine = make_engine(f"sqlite+pysqlite:///{tmp_path / 'refresh.db'}")
+    original = Manifest.model_validate(payload)
+    seed_manifests(engine, [original], reset=True)
+    untouched_id = original.candidates[-1].location_id
+    with Session(engine) as session:
+        session.get(Candidate, untouched_id).origin = "on_demand"
+        session.commit()
+    payload["candidates"] = payload["candidates"][:1]
+    payload["candidates"][0]["features"]["slope_mean_deg"]["value"] = 8.25
+    payload["datasets"][0]["notes"] = "TEST ONLY updated provenance"
+    revised = Manifest.model_validate(payload)
+    seed_manifests(engine, [revised], reset=False)
+    with Session(engine) as session:
+        row = session.get(Candidate, revised.candidates[0].location_id)
+        assert next(f.value for f in row.features if f.feature_id == "slope_mean_deg") == 8.25
+        assert (
+            session.get(Dataset, revised.datasets[0].dataset_id).notes
+            == "TEST ONLY updated provenance"
+        )
+        assert session.get(Candidate, untouched_id).origin == "on_demand"
+        assert len(session.get(Candidate, untouched_id).features) == 4

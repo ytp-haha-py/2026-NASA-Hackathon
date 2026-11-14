@@ -1,3 +1,18 @@
+# Current terrain expansion
+
+The committed manifests now contain 113 observed Earth windows, 18 observed Moon
+reference windows across Site01/04/07/11/20/23, and five observed Mars Jezero CTX
+reference windows. All Earth windows have all eleven WorldCover context fractions.
+The original Site04 ROI 2 is retained. NASA Site07 ROI 2 remains a failed range read
+and is not imported. Other initial range failures recovered with serial requests.
+
+The six lunar sites use the MOON_ME / DE421 source frame. Mars uses its own
+Mars_2000_Sphere projected frame, never Earth WGS84. MOLA remains planned as a
+separate source; the current Mars data is CTX. See [the expansion plan](TERRAIN_EXPANSION.md)
+and [catalog](../catalog/datasets.yaml) for current sources, caveats and commands.
+
+The following section records the original baseline before expansion.
+
 # Datasets and source verification
 
 This is the human-readable companion to `catalog/datasets.yaml`. Existing detailed

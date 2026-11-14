@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 import rasterio
-from analog_api.domain.features import METHOD_VERSION
+from analog_api.domain.features import FEATURE_BY_ID
 from analog_pipelines.features import (
     ExtractionError,
     angle_from_gradient,
@@ -108,6 +108,7 @@ def test_extract_features_projected_metric_source(tmp_path: Path):
         "slope_p90_deg",
         "terrain_relief_p95_p05_m",
         "roughness_std_m",
+        "flat_terrain_fraction",
     }
 
 
@@ -190,11 +191,12 @@ def test_make_observations_matches_contract_units():
         "slope_p90_deg",
         "terrain_relief_p95_p05_m",
         "roughness_std_m",
+        "flat_terrain_fraction",
     }
-    for observation in observations.values():
-        assert observation["method_version"] == METHOD_VERSION
+    for feature_id, observation in observations.items():
+        assert observation["method_version"] == FEATURE_BY_ID[feature_id].method_version
         assert observation["quality"] == "verified"
-        assert observation["unit"] in {"degree", "meter"}
+        assert observation["unit"] in {"degree", "meter", "fraction"}
     assert math.isfinite(observations["slope_mean_deg"]["value"])
 
 

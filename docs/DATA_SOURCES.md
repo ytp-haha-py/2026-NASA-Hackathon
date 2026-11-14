@@ -1,3 +1,15 @@
+# Terrain expansion source status
+
+Current manifests: 113 Earth Copernicus GLO-90 windows, eleven ESA WorldCover 2021
+v200 context fractions per Earth window, eighteen Moon LOLA windows across all six
+requested sites, and five Mars Jezero CTX DEM windows. Native resolutions are 90 m,
+10 m context, 5 m and 20 m respectively; terrain analysis stays 22×22 at 90 m.
+The source links, access timestamps, original CRS WKT, licences, checksums and crop
+coordinates are recorded in each manifest. [TERRAIN_EXPANSION.md](TERRAIN_EXPANSION.md)
+describes the bounded sampling rules and the remaining Site07 ROI 2 failure.
+
+The following access evidence documents the original five-window / one-ROI baseline.
+
 # Data sources and provenance
 
 This document distinguishes **downloaded and processed observations** from **candidate/future

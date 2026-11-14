@@ -59,7 +59,7 @@ def test_tile_ids_for_the_five_indexed_aois(earth_aois: list[Aoi]):
         "earth-devon-island": "N75W090",
         "earth-rio-tinto": "N36W009",
     }
-    assert {aoi.location_id: aoi.tile_ids for aoi in earth_aois} == {
+    assert {aoi.location_id: aoi.tile_ids for aoi in earth_aois if aoi.location_id in expected} == {
         location_id: (tile_id,) for location_id, tile_id in expected.items()
     }
 

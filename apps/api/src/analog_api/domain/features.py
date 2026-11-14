@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 
 CONTRACT_VERSION = "1.0.0"
 METHOD_VERSION = "terrain-metrics-1.0.0"
+FLAT_METHOD_VERSION = "flat-terrain-fraction-1.0.0"
 QUERY_VERSION = "search-1.0.0"
 AOI_PROCESSING_VERSION = "aoi-analysis-1.0.0"
 CONTEXT_METHOD_VERSION = "worldcover-2021-v200-1.0.0"
@@ -42,7 +43,7 @@ class FeatureDefinition:
         default_factory=lambda: {
             "Earth": "verified_where_indexed",
             "Moon": "verified_only_for_processed_reference_rois",
-            "Mars": "unavailable",
+            "Mars": "verified_only_for_processed_reference_rois",
         }
     )
     comparability_gate: str = (
@@ -154,6 +155,20 @@ FEATURES: tuple[FeatureDefinition, ...] = (
         scale_rationale="Fixed a-priori contrast scale of 20 m of detrended residual height.",
         extraction_scale_m=ANALYSIS_RESOLUTION_M,
         valid_domain="0 <= value <= 5000 meters",
+    ),
+    FeatureDefinition(
+        id="flat_terrain_fraction",
+        label="Flat terrain fraction",
+        unit="fraction",
+        description="Fraction of valid Horn slope cells strictly below 5 degrees.",
+        method="Same 90 m Horn 3x3 gradient grid; count(slope < 5 degrees) / count(valid slope). Incomplete neighborhoods and outer rim excluded, never filled.",
+        method_version=FLAT_METHOD_VERSION,
+        min_value=0.0,
+        max_value=1.0,
+        scale=0.25,
+        scale_rationale="Fixed engineering contrast of 25 percentage points; not calibrated to physical environmental equivalence.",
+        extraction_scale_m=ANALYSIS_RESOLUTION_M,
+        valid_domain="0 <= value <= 1",
     ),
 )
 

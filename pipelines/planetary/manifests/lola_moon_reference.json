@@ -1,29 +1,92 @@
 {
   "manifest_version": "1.0.0",
   "contract_version": "1.0.0",
-  "generated_by": "pipelines/planetary/lola_import.py",
-  "generated_at": "2026-11-14T06:33:40Z",
+  "generated_by": "pipelines/recompute_terrain.py",
+  "generated_at": "2026-11-14T10:22:01Z",
   "data_kind": "observed",
   "datasets": [
     {
       "dataset_id": "nasa-lola-site04-5mpp-surf",
       "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
       "product_id": "Site04_final_adj_5mpp_surf",
-      "title": "LRO-LOLA 5 m/pix surface-interpolated DEM, Shackleton rim (Site04)",
+      "title": "NASA LOLA Site04 Shackleton Rim 5 m surface DEM",
       "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_final_adj_5mpp_surf.tif",
       "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
       "license_url": "https://science.data.nasa.gov/about/license",
-      "access_timestamp": "2026-11-14T06:18:41Z",
+      "access_timestamp": "2026-11-14T10:23:14Z",
       "source_crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
       "native_resolution_m": 5.0,
-      "processing_version": "lola-import-1.0.0+terrain-metrics-1.0.0",
-      "checksum": "sha256:702aac2f93e0f36dd1025900d4e5021be17411ee735d93df7191cc33b65cf095",
+      "processing_version": "terrain-flat-extension-1.0.0",
+      "checksum": "sha256:78cc69710adcf08516e49b8b0d1d6ac8a9a3256f822fa2bb008a20434e864761",
       "source_kind": "lunar_dem",
-      "notes": "NASA PGDA LRO-LOLA product 'Site04_final_adj_5mpp_surf' (NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA); 3200x3200 px, 5.0 m/pix, float32, nodata=NaN, striped 1x3200 blocks, uncompressed, overviews=none. Product documentation: MOON_ME reference frame of DE421, south polar stereographic X/Y in metres, pixel-registered GMT convention. The product page states that about 90% of the 5 m pixels are interpolated because LOLA cross-track/inter-spot spacing leaves only about 10% direct returns; median RMS Z error is about 0.30-0.50 m and median RMS slope error about 1.5-2.5 degrees. Track geolocation uncertainty is about 10-20 cm horizontally and 2-4 cm vertically. This importer read a bounded window via HTTP range requests and cached a small derived GeoTIFF; dataset checksum is the SHA-256 of that cached window, not of the full 40.98 MB (40,980,806 bytes) product. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119."
+      "notes": "NASA PGDA LRO-LOLA product 'Site04_final_adj_5mpp_surf' (NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA); 3200x3200 px, 5.0 m/pix, float32, nodata=NaN, striped 1x3200 blocks, uncompressed, overviews=none. Product documentation: MOON_ME reference frame of DE421, south polar stereographic X/Y in metres, pixel-registered GMT convention. The product page states that about 90% of the 5 m pixels are interpolated because LOLA cross-track/inter-spot spacing leaves only about 10% direct returns; median RMS Z error is about 0.30-0.50 m and median RMS slope error about 1.5-2.5 degrees. Track geolocation uncertainty is about 10-20 cm horizontally and 2-4 cm vertically. This importer read a bounded window via HTTP range requests and cached a small derived GeoTIFF; dataset checksum is the SHA-256 of that cached window, not of the full 40.98 MB (40,980,806 bytes) product. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Batch checksum covers canonical reference records with window checksums. Published error statistics are site/ROI dependent; not per-window uncertainty estimates. Updated checksum covers canonical derived records, including individual window checksums."
     }
   ],
   "candidates": [],
   "references": [
+    {
+      "reference_id": "moon-shackleton-rim-site04-roi1",
+      "body": "Moon",
+      "display_name": "Shackleton Rim (LOLA Site04 roi1)",
+      "dataset_id": "nasa-lola-site04-5mpp-surf",
+      "lat": -89.76196621,
+      "lon": -157.06719662,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "lola_interpolated_dem",
+        "planetary_geographic_crs",
+        "roi_windows_may_overlap",
+        "source_striped_not_cog",
+        "source_has_no_overviews"
+      ],
+      "notes": "Shackleton Rim (LOLA Site04 roi1). ROI roi1: official https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_ROIs.tgz, record 1: finite DBF X/Y, or corresponding SHP polygon bbox midpoint if DBF overflows; archive sha256:8e8b788f9fdf6400f23fd36dad02138102bd1a905b4b71a5739a9a4fd8a0e07a; fixed windows may overlap other ROI-centred windows, not independent samples. Window centre in source map coordinates: X=-2812.5 m, Y=-6647.5 m. Inverse-projected centre: lon=-157.067197, lat=-89.761966 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:d15b4e371b9dd7d463b369c2939ac3376b006b0a548fd83a6599edd47e3ac4e8. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 17.831005,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 27.95462,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 366.87955,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 102.345757,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.0675,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
     {
       "reference_id": "moon-shackleton-rim-site04-roi2",
       "body": "Moon",
@@ -47,7 +110,7 @@
         "source_striped_not_cog",
         "source_has_no_overviews"
       ],
-      "notes": "Shackleton rim / lunar south pole window. ROI site04-roi2: Site04_ROIs.shp record 2; Site04_ROIs.dbf X/Y (-2757.5, -6342.5); official PGDA Site04_ROIs.tgz. Window centre in source map coordinates: X=-2757.5 m, Y=-6342.5 m. Inverse-projected centre: lon=-156.502260, lat=-89.771925 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:0db13ffd3e0d49c04ce468ce5312f4cd46fa6b2f4f99854dc4def100d0f08050. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119.",
+      "notes": "Shackleton rim / lunar south pole window. ROI site04-roi2: Site04_ROIs.shp record 2; Site04_ROIs.dbf X/Y (-2757.5, -6342.5); official PGDA Site04_ROIs.tgz. Window centre in source map coordinates: X=-2757.5 m, Y=-6342.5 m. Inverse-projected centre: lon=-156.502260, lat=-89.771925 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:33c5a1455df80de9c2bc2aadc4cdbf070dc544889df51486075196c45fbcf8c0. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded.",
       "features": {
         "slope_mean_deg": {
           "value": 17.895873,
@@ -77,6 +140,140 @@
           "value": 102.805473,
           "unit": "meter",
           "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.0475,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "reference_id": "moon-shackleton-rim-site04-roi3",
+      "body": "Moon",
+      "display_name": "Shackleton Rim (LOLA Site04 roi3)",
+      "dataset_id": "nasa-lola-site04-5mpp-surf",
+      "lat": -89.78008311,
+      "lon": -156.32757511,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "lola_interpolated_dem",
+        "planetary_geographic_crs",
+        "roi_windows_may_overlap",
+        "source_striped_not_cog",
+        "source_has_no_overviews"
+      ],
+      "notes": "Shackleton Rim (LOLA Site04 roi3). ROI roi3: official https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_ROIs.tgz, record 3: finite DBF X/Y, or corresponding SHP polygon bbox midpoint if DBF overflows; archive sha256:8e8b788f9fdf6400f23fd36dad02138102bd1a905b4b71a5739a9a4fd8a0e07a; fixed windows may overlap other ROI-centred windows, not independent samples. Window centre in source map coordinates: X=-2677.5 m, Y=-6107.5 m. Inverse-projected centre: lon=-156.327575, lat=-89.780083 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:4842206d6c4a37983a6c18155cd811c8703be94641e2c7f568590438c69b7d65. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 18.181794,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 29.665451,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 417.6468,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 103.3436,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.0575,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "reference_id": "moon-shackleton-rim-site04-roi4",
+      "body": "Moon",
+      "display_name": "Shackleton Rim (LOLA Site04 roi4)",
+      "dataset_id": "nasa-lola-site04-5mpp-surf",
+      "lat": -89.78487392,
+      "lon": -155.95947877,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "lola_interpolated_dem",
+        "planetary_geographic_crs",
+        "roi_windows_may_overlap",
+        "source_striped_not_cog",
+        "source_has_no_overviews"
+      ],
+      "notes": "Shackleton Rim (LOLA Site04 roi4). ROI roi4: official https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_ROIs.tgz, record 4: finite DBF X/Y, or corresponding SHP polygon bbox midpoint if DBF overflows; archive sha256:8e8b788f9fdf6400f23fd36dad02138102bd1a905b4b71a5739a9a4fd8a0e07a; fixed windows may overlap other ROI-centred windows, not independent samples. Window centre in source map coordinates: X=-2657.5 m, Y=-5957.5 m. Inverse-projected centre: lon=-155.959479, lat=-89.784874 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:05717679b616b0a5b5a425f81be5c6c60e267dc36b054f07345900c056ae5cdf. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 18.09705,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 29.854779,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 419.517755,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 103.350798,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.0525,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
           "extraction_scale_m": 90.0,
           "valid_fraction": 1.0,
           "quality": "verified"

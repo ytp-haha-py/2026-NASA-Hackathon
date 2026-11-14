@@ -23,7 +23,6 @@ manifest is left untouched. No synthetic values are ever substituted.
 from __future__ import annotations
 
 import argparse
-import os
 import sys
 from pathlib import Path
 
@@ -315,16 +314,6 @@ def main(argv: list[str] | None = None) -> int:
             "--product-title and --citation for the real product to avoid mislabelling.",
             file=sys.stderr,
         )
-    if os.environ.get("PROJ_IGNORE_CELESTIAL_BODY") != "YES":
-        print(
-            "ERROR [proj_body_override_required]: the shared extractor transforms the "
-            "lunar projected CRS to EPSG:4326 for its approximate centre fields; PROJ "
-            "requires PROJ_IGNORE_CELESTIAL_BODY=YES for that Moon-to-Earth transform. "
-            "The metrics themselves are computed in the projected CRS. Unset the "
-            "override or set it to YES before running this importer.",
-            file=sys.stderr,
-        )
-        return 2
     if args.max_window_mb <= 0:
         print("ERROR [invalid_byte_budget]: --max-window-mb must be positive.", file=sys.stderr)
         return 2
