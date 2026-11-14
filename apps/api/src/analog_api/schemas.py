@@ -184,11 +184,9 @@ class SearchRequest(BaseModel):
                 raise ValueError("At least one target feature must have a positive weight.")
             if self.weights:
                 raise ValueError("weights are only accepted in reference_id mode")
-        else:
-            if not self.weights:
-                return self
-            if not any(weight > 0 for weight in self.weights.values()):
-                raise ValueError("At least one weight must be positive.")
+        # Reference mode: weights are partial overrides. Unspecified reference features keep
+        # their default positive weight, so a zero override is not an all-zero query. The
+        # merged target is validated by normalize_target after reference lookup.
         return self
 
 

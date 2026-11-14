@@ -170,16 +170,20 @@ def coarse_similarity_breakdown(
     total = 0.0
     breakdown: list[dict[str, float | str]] = []
     for feature_id in target:
-        if feature_id not in candidate:
-            raise CoarseExtractionError("missing_metric", f"candidate missing {feature_id}")
         weight = float(weights.get(feature_id, 1.0))
         if not math.isfinite(weight) or weight < 0:
             raise CoarseExtractionError("invalid_weight", "weights must be finite and >= 0")
-        total += weight
+        if weight > 0:
+            if feature_id not in candidate or not math.isfinite(float(candidate[feature_id])):
+                raise CoarseExtractionError("missing_metric", f"candidate missing {feature_id}")
+            total += weight
     if total <= 0:
         raise CoarseExtractionError("zero_total_weight", "at least one positive weight is required")
     squared = 0.0
     for feature_id, target_value in target.items():
+        if feature_id not in candidate or not math.isfinite(float(candidate[feature_id])):
+            # Only zero-weight features may be absent/non-finite; they are not compared.
+            continue
         definition = COARSE_FEATURE_BY_ID[feature_id]
         delta = float(candidate[feature_id]) - float(target_value)
         weight = float(weights.get(feature_id, 1.0))

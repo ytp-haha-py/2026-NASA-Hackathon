@@ -7,8 +7,11 @@ import pytest
 from analog_api.adapters.seed import seed_manifests
 from analog_api.config import Settings
 from analog_api.data.synthetic import synthetic_manifest
+from analog_api.domain.entities import BBox, CandidateEntity, FeatureValue
 from analog_api.domain.manifest import Manifest
+from analog_api.domain.search import execute_search
 from analog_api.main import create_app
+from analog_api.schemas import SearchRequest, TargetSpec
 from fastapi.testclient import TestClient
 
 
@@ -85,6 +88,55 @@ def reference_client(tmp_path: Path, reference_manifest: Manifest):
     seed_manifests(engine, [reference_manifest], reset=True)
     app = create_app(settings)
     with TestClient(app) as test_client:
+        yield test_client
+
+
+@pytest.fixture
+def zero_weight_reference_client(tmp_path: Path):
+    """Reference with all five metrics; synthetic candidates lack flat fraction."""
+    payload = synthetic_manifest()
+    observations = {
+        "slope_mean_deg": (10.0, "degree", "terrain-metrics-1.0.0"),
+        "slope_p90_deg": (20.0, "degree", "terrain-metrics-1.0.0"),
+        "terrain_relief_p95_p05_m": (80.0, "meter", "terrain-metrics-1.0.0"),
+        "roughness_std_m": (10.0, "meter", "terrain-metrics-1.0.0"),
+        "flat_terrain_fraction": (0.4, "fraction", "flat-terrain-fraction-1.0.0"),
+    }
+    payload["references"] = [
+        {
+            "reference_id": "moon-zero-weight-reference",
+            "body": "Moon",
+            "display_name": "TEST-ONLY lunar reference with five metrics",
+            "dataset_id": "synthetic-test-fixture",
+            "lat": None,
+            "lon": None,
+            "bbox": None,
+            "window_size_m": 1980,
+            "analysis_resolution_m": 90,
+            "crs": "EPSG:3031",
+            "valid_fraction": 1.0,
+            "quality_flags": ["synthetic_fixture"],
+            "notes": "Test-only reference, not a NASA observation.",
+            "features": {
+                feature_id: {
+                    "value": value,
+                    "unit": unit,
+                    "method_version": method_version,
+                    "extraction_scale_m": 90,
+                    "valid_fraction": 1.0,
+                    "quality": "synthetic",
+                }
+                for feature_id, (value, unit, method_version) in observations.items()
+            },
+        }
+    ]
+    manifest = Manifest.model_validate(payload)
+    settings = make_settings(tmp_path, synthetic=False)
+    from analog_api.adapters.seed import make_engine
+
+    engine = make_engine(settings.database_url)
+    seed_manifests(engine, [manifest], reset=True)
+    with TestClient(create_app(settings)) as test_client:
         yield test_client
 
 
@@ -185,6 +237,116 @@ def test_search_limit_and_eligible_counts(client: TestClient):
     body = response.json()
     assert len(body["results"]) == 2
     assert body["eligible_candidate_count"] == 4
+
+
+def test_custom_zero_weight_missing_metric_stays_eligible(client: TestClient):
+    target = {
+        "slope_mean_deg": {"value": 12, "weight": 1},
+        "slope_p90_deg": {"value": 20, "weight": 1},
+        "terrain_relief_p95_p05_m": {"value": 80, "weight": 1},
+        "roughness_std_m": {"value": 10, "weight": 1},
+        "flat_terrain_fraction": {"value": 0.4, "weight": 0},
+    }
+    response = client.post("/api/v1/search", json=search_payload(target=target))
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["eligible_candidate_count"] == 4
+    assert body["excluded"] == []
+    for result in body["results"]:
+        assert "flat_terrain_fraction" not in {metric["feature_id"] for metric in result["metrics"]}
+
+
+def test_zero_weight_incompatible_method_version_stays_eligible():
+    class Repo:
+        def __init__(self, candidates: list[CandidateEntity]) -> None:
+            self.candidates = candidates
+
+        def candidate_count(self) -> int:
+            return len(self.candidates)
+
+        def list_candidates(self) -> list[CandidateEntity]:
+            return self.candidates
+
+        def data_version(self) -> str:
+            return "dv-test"
+
+    candidate = CandidateEntity(
+        location_id="earth-test",
+        display_name="TEST-ONLY candidate",
+        lat=0.0,
+        lon=0.0,
+        bbox=BBox(-0.01, -0.01, 0.01, 0.01),
+        dataset_id="synthetic-test-fixture",
+        window_size_m=1980,
+        analysis_resolution_m=90,
+        crs="EPSG:3857",
+        valid_fraction=1.0,
+        quality_flags=(),
+        notes=None,
+        data_kind="synthetic",
+        features={
+            "slope_mean_deg": FeatureValue(
+                value=10.0,
+                unit="degree",
+                method_version="terrain-metrics-1.0.0",
+                extraction_scale_m=90,
+                valid_fraction=1.0,
+                quality="synthetic",
+            ),
+            "slope_p90_deg": FeatureValue(
+                value=20.0,
+                unit="degree",
+                method_version="terrain-metrics-0.9.0",
+                extraction_scale_m=90,
+                valid_fraction=1.0,
+                quality="synthetic",
+            ),
+        },
+    )
+    request = SearchRequest(
+        body="custom",
+        target={
+            "slope_mean_deg": TargetSpec(value=10.0, weight=1.0),
+            "slope_p90_deg": TargetSpec(value=20.0, weight=0.0),
+        },
+    )
+    body = execute_search(Repo([candidate]), request)
+    assert body["eligible_candidate_count"] == 1
+    assert body["excluded"] == []
+    assert [metric["feature_id"] for metric in body["results"][0]["metrics"]] == ["slope_mean_deg"]
+
+
+def test_reference_mode_zero_weight_missing_metric_stays_eligible(
+    zero_weight_reference_client: TestClient,
+):
+    response = zero_weight_reference_client.post(
+        "/api/v1/search",
+        json={
+            "body": "Moon",
+            "reference_id": "moon-zero-weight-reference",
+            "weights": {"flat_terrain_fraction": 0.0},
+        },
+    )
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["eligible_candidate_count"] == 4
+    assert body["excluded"] == []
+    assert len(body["results"]) == 4
+    for result in body["results"]:
+        assert "flat_terrain_fraction" not in {metric["feature_id"] for metric in result["metrics"]}
+
+    # The same reference with the default positive weight still requires the metric.
+    response = zero_weight_reference_client.post(
+        "/api/v1/search",
+        json={"body": "Moon", "reference_id": "moon-zero-weight-reference"},
+    )
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["eligible_candidate_count"] == 0
+    assert body["results"] == []
+    assert all(
+        "missing_metric:flat_terrain_fraction" in item["reason"] for item in body["excluded"]
+    )
 
 
 def test_search_rejects_reference_and_target_together(client: TestClient):

@@ -271,8 +271,12 @@ def execute_search(repo: CandidateRepositoryFull, request: SearchRequest) -> dic
             if observation is None:
                 continue
             if observation.method_version != FEATURE_BY_ID[feature_id].method_version:
-                incompatible = True
-                break
+                # A zero-weight metric is not compared, so an incompatible method version
+                # must not make the candidate ineligible and must not appear in its breakdown.
+                if clean_weights[feature_id] > 0:
+                    incompatible = True
+                    break
+                continue
             if not math.isfinite(observation.value):
                 continue
             values[feature_id] = observation.value

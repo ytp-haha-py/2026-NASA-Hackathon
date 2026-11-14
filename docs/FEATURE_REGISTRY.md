@@ -75,9 +75,12 @@ silently accepted. Earth context can be used as a **hard pre-ranking filter** (`
 Missing behavior:
 
 - A requested similarity feature absent from a candidate excludes that candidate with
-  `missing_metric:<feature_id>`.
-- A different method version excludes it with `incompatible_method_version`.
-- A non-finite value is treated as missing.
+  `missing_metric:<feature_id>` only when the feature has a positive weight.
+- A different method version excludes it with `incompatible_method_version` only for a
+  positive-weight feature.
+- A non-finite value is treated as missing for a positive-weight feature.
+- A zero-weight feature is not compared: it does not require a candidate value, contributes no
+  distance term, and is omitted from the breakdown when unavailable or incompatible.
 - Context observations may be absent (`unknown`), marked failed in the AOI provider status, or
   marked `partial`; context absence never changes the terrain distance and is never reported as 0.
 - A hard constraint (planned) filters before weighted ranking; the MVP has no hard constraints.
