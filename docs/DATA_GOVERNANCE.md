@@ -17,7 +17,7 @@ adopted; see [DVC status](#dvc-status-not-adopted).
 | Offline index dry-run | Verified locally | `pipelines/build_index.py --dry-run` → `candidates=5 datasets=3 references=1 features=20 context_observations=55` |
 | Offline CI workflow | **Verified on GitHub** | [run 43569084383](https://github.com/ytp-haha-py/2026-NASA-Hackathon/actions/runs/43569084383) — `data-validation` success; `.github/workflows/data-validation.yml` (read-only, no secrets) |
 | Weekly/manual online smoke | Verified locally, never run in CI here | `bash scripts/online_smoke.sh`; `.github/workflows/data-smoke.yml` is opt-in and non-blocking |
-| Live R2 publication | **Not verified** | No credentials were used; `.github/workflows/data-publish.yml` is an unexecuted template |
+| Live R2 publication | **Verified locally** (publish + fetch, 3 objects, checksum match); GitHub workflow not run | `make data-publish` + `make data-sync SNAPSHOT_ID=snap-d3ed2ba59558e7f8` succeeded after credential correction; `.github/workflows/data-publish.yml` remains an unexecuted protected-environment template |
 | DVC | **Not adopted** | No DVC dependency, remote, or `.dvc` files exist |
 | `main` branch protection | **Not active** | Rulesets returned HTTP 403 on the current GitHub plan, and the available account lacks admin; see `docs/GITHUB_SETUP.md` |
 | `data-publish` environment protection | **Not configured** | Must be created in repository settings with required reviewers before first use |

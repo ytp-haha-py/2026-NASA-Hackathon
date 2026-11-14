@@ -672,6 +672,9 @@ def fetch_snapshot(
 def _store_for_transfer(store_root: str | None) -> ObjectStore:
     if store_root:
         return LocalObjectStore(Path(store_root))
+    from analog_pipelines.storage import load_local_env
+
+    load_local_env()
     values = os.environ
     backend = values.get(ENV_BACKEND, "").strip().lower()
     if backend in S3_BACKENDS or (

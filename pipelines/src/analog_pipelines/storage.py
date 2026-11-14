@@ -25,6 +25,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Protocol
 
 DEFAULT_LOCAL_ROOT = "data/object-store"
+_DOTENV_LOADED = False
 ENV_BACKEND = "ANALOG_OBJECT_STORE_BACKEND"
 ENV_ENDPOINT = "ANALOG_OBJECT_STORE_ENDPOINT"
 ENV_BUCKET = "ANALOG_OBJECT_STORE_BUCKET"
@@ -294,6 +295,23 @@ def _is_not_found(exc: Exception) -> bool:
     return code in {"404", "NoSuchKey", "NotFound"}
 
 
+def load_local_env(path: str | Path | None = None) -> None:
+    """Load a local, gitignored .env for operator commands without overriding real env vars.
+
+    Only used by explicit storage/publish CLI paths; the API does not need this and tests run
+    with an injected environment. Missing python-dotenv or .env is not an error.
+    """
+    global _DOTENV_LOADED
+    if _DOTENV_LOADED or os.environ.get("ANALOG_SKIP_DOTENV") == "1":
+        return
+    try:
+        from dotenv import load_dotenv
+    except ImportError:  # pragma: no cover - optional in minimal installs
+        return
+    load_dotenv(dotenv_path=path, override=False)
+    _DOTENV_LOADED = True
+
+
 def store_from_env(env: Mapping[str, str] | None = None) -> ObjectStore:
     """Return an S3-compatible store only when explicitly configured, else local.
 
@@ -301,7 +319,10 @@ def store_from_env(env: Mapping[str, str] | None = None) -> ObjectStore:
     ``s3``/``r2``/``s3-compatible``, or an endpoint and bucket are both present. An
     explicitly requested but incomplete S3 configuration raises
     :class:`ObjectStoreNotConfigured` instead of silently falling back to local storage.
+    A local .env is loaded for operator convenience unless an explicit env mapping is passed.
     """
+    if env is None:
+        load_local_env()
     values = dict(os.environ if env is None else env)
     backend = values.get(ENV_BACKEND, "").strip().lower()
     endpoint = values.get(ENV_ENDPOINT, "").strip()
