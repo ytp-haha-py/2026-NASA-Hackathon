@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { SearchResultOut } from "../api/client";
-import { formatDistance } from "../lib/format";
+import { useI18n } from "../i18n/I18nProvider";
 
 type MapPanelProps = {
   results: SearchResultOut[];
@@ -11,6 +11,7 @@ type MapPanelProps = {
 };
 
 export function MapPanel({ results, selectedId, onSelect }: MapPanelProps) {
+  const { t, tp, fmt } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
@@ -101,7 +102,11 @@ export function MapPanel({ results, selectedId, onSelect }: MapPanelProps) {
       });
 
       const label = document.createElement("span");
-      label.textContent = `#${result.rank} ${result.display_name} · distance ${formatDistance(result.distance)}`;
+      label.textContent = t("map.tooltip", {
+        rank: result.rank,
+        name: result.display_name,
+        distance: fmt.distance(result.distance),
+      });
       marker.bindTooltip(label, { direction: "top", offset: [0, -5] });
       marker.on("click", () => onSelectRef.current(result.location_id));
       marker.addTo(layer);
@@ -111,17 +116,14 @@ export function MapPanel({ results, selectedId, onSelect }: MapPanelProps) {
     }
 
     map.fitBounds(bounds, { padding: [30, 30], maxZoom: 9 });
-  }, [results, selectedId]);
+  }, [results, selectedId, t, fmt]);
 
   return (
     <section className="map-panel" aria-labelledby="map-heading">
       <div className="section-heading compact">
-        <p className="eyebrow">Spatial view</p>
-        <h2 id="map-heading">Indexed result windows</h2>
-        <p className="muted">
-          Only returned results are plotted. Pins and rectangles are not an exhaustive
-          index, and the basemap is for orientation only — not scientific evidence.
-        </p>
+        <p className="eyebrow">{t("map.eyebrow")}</p>
+        <h2 id="map-heading">{t("map.heading")}</h2>
+        <p className="muted">{t("map.intro")}</p>
       </div>
 
       <div
@@ -129,24 +131,19 @@ export function MapPanel({ results, selectedId, onSelect }: MapPanelProps) {
         className="map-canvas"
         data-testid="leaflet-map"
         role="region"
-        aria-label="Map of returned indexed Earth candidate windows"
+        aria-label={t("map.regionLabel")}
       />
 
       {basemapUnavailable && (
         <p className="map-status" role="status">
-          Basemap tiles are unavailable (offline or blocked). The ranked list and record
-          details remain fully usable without the basemap.
+          {t("map.basemapUnavailable")}
         </p>
       )}
 
       <p className="map-note">
-        {results.length === 0
-          ? "No result windows to plot yet."
-          : `${results.length} returned window${results.length === 1 ? "" : "s"} plotted. Click a pin or window rectangle to select it. Zoom in to see the 1,980 m window rectangles at this scale.`}
+        {results.length === 0 ? t("map.noWindows") : tp("map.plotted", results.length)}
       </p>
-      <p className="map-attribution-note">
-        Basemap © OpenStreetMap contributors, available under the Open Database License.
-      </p>
+      <p className="map-attribution-note">{t("map.attribution")}</p>
     </section>
   );
 }

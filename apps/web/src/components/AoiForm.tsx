@@ -8,7 +8,12 @@ import {
   providerStatusEntries,
   readAoiLimits,
 } from "../lib/aoi";
-import { formatNumber } from "../lib/format";
+import { SourceText, useI18n } from "../i18n/I18nProvider";
+import type { MessageVars } from "../i18n/translate";
+import type { MessageKey } from "../locales/en/messages";
+
+/** Stored as key + numeric variables so a language switch re-renders the message. */
+type UiMessage = { key: MessageKey; vars?: MessageVars };
 
 type AoiFormProps = {
   capabilities: CapabilitiesOut;
@@ -31,12 +36,13 @@ const EXAMPLE_BBOX: BboxForm = {
 };
 
 export function AoiForm({ capabilities, onSubmit, busy }: AoiFormProps) {
+  const { t, fmt, label } = useI18n();
   const limits = useMemo(
     () => readAoiLimits(capabilities.aoi_analysis),
     [capabilities.aoi_analysis],
   );
   const [bbox, setBbox] = useState<BboxForm>(EXAMPLE_BBOX);
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<UiMessage[]>([]);
 
   const parsed = useMemo(() => {
     const values = {
@@ -62,7 +68,7 @@ export function AoiForm({ capabilities, onSubmit, busy }: AoiFormProps) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const nextErrors: string[] = [];
+    const nextErrors: UiMessage[] = [];
     const values = {
       west: Number(bbox.west),
       south: Number(bbox.south),
@@ -71,20 +77,19 @@ export function AoiForm({ capabilities, onSubmit, busy }: AoiFormProps) {
     };
 
     if (Object.values(values).some((value) => !Number.isFinite(value))) {
-      nextErrors.push("All four bbox coordinates must be finite decimal degrees.");
+      nextErrors.push({ key: "aoiForm.errFinite" });
     } else {
       if (values.west < -180 || values.east > 180 || values.west >= values.east) {
-        nextErrors.push(
-          "Longitude must satisfy -180 ≤ west < east ≤ 180. Antimeridian-crossing AOIs are not supported.",
-        );
+        nextErrors.push({ key: "aoiForm.errLongitude" });
       }
       if (values.south >= values.north) {
-        nextErrors.push("Latitude must satisfy south < north.");
+        nextErrors.push({ key: "aoiForm.errLatitudeOrder" });
       }
       if (values.south < AOI_LATITUDE_MIN || values.north > AOI_LATITUDE_MAX) {
-        nextErrors.push(
-          `Latitude must stay within ${AOI_LATITUDE_MIN}° to ${AOI_LATITUDE_MAX}° for the Earth provider coverage.`,
-        );
+        nextErrors.push({
+          key: "aoiForm.errLatitudeRange",
+          vars: { min: AOI_LATITUDE_MIN, max: AOI_LATITUDE_MAX },
+        });
       }
 
       if (nextErrors.length === 0) {
@@ -94,25 +99,28 @@ export function AoiForm({ capabilities, onSubmit, busy }: AoiFormProps) {
         const longerSide = Math.max(widthM, heightM);
 
         if (shorterSide < limits.minSideM) {
-          nextErrors.push(
-            `AOI too small: each side must be at least ${formatNumber(limits.minSideM, 0)} m; got ${formatNumber(shorterSide, 0)} m.`,
-          );
+          nextErrors.push({
+            key: "aoiForm.errTooSmall",
+            vars: { min: limits.minSideM, actual: shorterSide },
+          });
         }
         if (longerSide > limits.maxSideM) {
-          nextErrors.push(
-            `AOI too large: each side must be at most ${formatNumber(limits.maxSideM, 0)} m; got ${formatNumber(longerSide, 0)} m.`,
-          );
+          nextErrors.push({
+            key: "aoiForm.errTooLong",
+            vars: { max: limits.maxSideM, actual: longerSide },
+          });
         }
         if (areaKm2 > limits.maxAreaKm2) {
-          nextErrors.push(
-            `AOI too large: area must be at most ${formatNumber(limits.maxAreaKm2, 1)} km²; got ${formatNumber(areaKm2, 2)} km².`,
-          );
+          nextErrors.push({
+            key: "aoiForm.errTooLargeArea",
+            vars: { max: limits.maxAreaKm2, actual: areaKm2 },
+          });
         }
       }
     }
 
     if (limits.requestedFeatures.length === 0) {
-      nextErrors.push("This API did not advertise any similarity features for AOI analysis.");
+      nextErrors.push({ key: "aoiForm.errNoFeatures" });
     }
 
     setErrors(nextErrors);
@@ -132,24 +140,43 @@ export function AoiForm({ capabilities, onSubmit, busy }: AoiFormProps) {
 
   const providerStatuses = providerStatusEntries(limits.providerStatus);
 
+  /** Formats stored numeric variables with the precision each message expects. */
+  function renderError(message: UiMessage): string {
+    const vars: MessageVars = { ...message.vars };
+    const digits =
+      message.key === "aoiForm.errTooLargeArea"
+        ? { max: 1, actual: 2 }
+        : message.key === "aoiForm.errLatitudeRange"
+          ? null
+          : { min: 0, max: 0, actual: 0 };
+    if (digits) {
+      for (const [name, fractionDigits] of Object.entries(digits)) {
+        const value = vars[name];
+        if (typeof value === "number") {
+          vars[name] = fmt.number(value, fractionDigits);
+        }
+      }
+    }
+    return t(message.key, vars);
+  }
+
+  const renderedErrors = errors.map(renderError);
+
   return (
     <form className="search-form aoi-form" onSubmit={handleSubmit} noValidate>
       <div className="section-heading">
-        <p className="eyebrow">On-demand analysis</p>
-        <h2>Analyze a new Earth AOI</h2>
-        <p className="muted">
-          Request a bounded Copernicus DEM terrain window plus ESA WorldCover land-cover
-          context. Land cover is context only and never enters the similarity distance.
-        </p>
+        <p className="eyebrow">{t("aoiForm.eyebrow")}</p>
+        <h2>{t("aoiForm.heading")}</h2>
+        <p className="muted">{t("aoiForm.intro")}</p>
       </div>
 
-      {errors.length > 0 && (
+      {renderedErrors.length > 0 && (
         <div className="alert alert-error" role="alert">
           <p>
-            <strong>Check the AOI before submitting.</strong>
+            <strong>{t("aoiForm.errorsTitle")}</strong>
           </p>
           <ul>
-            {errors.map((error) => (
+            {renderedErrors.map((error) => (
               <li key={error}>{error}</li>
             ))}
           </ul>
@@ -157,15 +184,13 @@ export function AoiForm({ capabilities, onSubmit, busy }: AoiFormProps) {
       )}
 
       <fieldset>
-        <legend>Bounding box (WGS84 decimal degrees)</legend>
+        <legend>{t("aoiForm.bboxLegend")}</legend>
         <p className="example-note">
-          <strong>Example bbox for interface testing, not a site recommendation.</strong>{" "}
-          Replace west, south, east, and north with your own area. This MVP supports bbox
-          requests; GeoJSON Polygon is accepted by the API but not drawn by this UI.
+          <strong>{t("aoiForm.exampleTitle")}</strong> {t("aoiForm.exampleBody")}
         </p>
         <div className="bbox-grid">
           <div className="number-field">
-            <label htmlFor="aoi-west">West longitude (°)</label>
+            <label htmlFor="aoi-west">{t("aoiForm.west")}</label>
             <input
               id="aoi-west"
               type="number"
@@ -176,7 +201,7 @@ export function AoiForm({ capabilities, onSubmit, busy }: AoiFormProps) {
             />
           </div>
           <div className="number-field">
-            <label htmlFor="aoi-south">South latitude (°)</label>
+            <label htmlFor="aoi-south">{t("aoiForm.south")}</label>
             <input
               id="aoi-south"
               type="number"
@@ -187,7 +212,7 @@ export function AoiForm({ capabilities, onSubmit, busy }: AoiFormProps) {
             />
           </div>
           <div className="number-field">
-            <label htmlFor="aoi-east">East longitude (°)</label>
+            <label htmlFor="aoi-east">{t("aoiForm.east")}</label>
             <input
               id="aoi-east"
               type="number"
@@ -198,7 +223,7 @@ export function AoiForm({ capabilities, onSubmit, busy }: AoiFormProps) {
             />
           </div>
           <div className="number-field">
-            <label htmlFor="aoi-north">North latitude (°)</label>
+            <label htmlFor="aoi-north">{t("aoiForm.north")}</label>
             <input
               id="aoi-north"
               type="number"
@@ -212,48 +237,66 @@ export function AoiForm({ capabilities, onSubmit, busy }: AoiFormProps) {
 
         <p className="aoi-measurement" aria-live="polite">
           {parsed
-            ? `Approx. ${formatNumber(parsed.widthM, 0)} m × ${formatNumber(parsed.heightM, 0)} m · ${formatNumber(parsed.areaKm2, 2)} km² (server recomputes on WGS84).`
-            : "Enter finite coordinates to preview the approximate AOI size."}
+            ? t("aoiForm.measurement", {
+                width: fmt.number(parsed.widthM, 0),
+                height: fmt.number(parsed.heightM, 0),
+                area: fmt.number(parsed.areaKm2, 2),
+              })
+            : t("aoiForm.measurementMissing")}
         </p>
 
         <ul className="aoi-limits">
           <li>
-            Side length: {formatNumber(limits.minSideM, 0)}–{formatNumber(limits.maxSideM, 0)} m
+            {t("aoiForm.limitSide", {
+              min: fmt.number(limits.minSideM, 0),
+              max: fmt.number(limits.maxSideM, 0),
+            })}
           </li>
-          <li>Area: at most {formatNumber(limits.maxAreaKm2, 1)} km²</li>
+          <li>{t("aoiForm.limitArea", { area: fmt.number(limits.maxAreaKm2, 1) })}</li>
           <li>
-            Latitude: {AOI_LATITUDE_MIN}° to {AOI_LATITUDE_MAX}° (provider coverage)
+            {t("aoiForm.limitLatitude", { min: AOI_LATITUDE_MIN, max: AOI_LATITUDE_MAX })}
           </li>
-          <li>Analysis resolution: {formatNumber(limits.analysisResolutionM, 0)} m</li>
-          <li>Body: {limits.supportedBody}</li>
+          <li>
+            {t("aoiForm.limitResolution", {
+              resolution: fmt.number(limits.analysisResolutionM, 0),
+            })}
+          </li>
+          <li>{t("aoiForm.limitBody", { body: label.body(limits.supportedBody) })}</li>
         </ul>
       </fieldset>
 
       <div className="provider-readiness">
-        <h3>Provider readiness</h3>
+        <h3>{t("aoiForm.providerReadiness")}</h3>
         {providerStatuses.length === 0 ? (
-          <p className="field-hint">No provider status was advertised by capabilities.</p>
+          <p className="field-hint">{t("aoiForm.noProviders")}</p>
         ) : (
           <ul>
             {providerStatuses.map(([id, status]) => (
               <li key={id}>
-                <code>{id}</code>: <strong>{status.status ?? "unknown"}</strong>
-                {status.role ? ` — ${status.role}` : ""}
+                <code>{id}</code>:{" "}
+                <strong data-status={status.status ?? "unknown"}>
+                  {label.status(status.status)}
+                </strong>
+                {status.role ? (
+                  <>
+                    {" — "}
+                    <SourceText>{status.role}</SourceText>
+                  </>
+                ) : null}
               </li>
             ))}
           </ul>
         )}
       </div>
 
-      <p className="field-hint">{limits.note}</p>
+      <p className="field-hint">
+        <SourceText>{limits.note}</SourceText>
+      </p>
 
       <button className="primary-button" type="submit" disabled={busy}>
-        {busy ? "Analyzing Earth AOI…" : "Analyze this Earth AOI"}
+        {busy ? t("aoiForm.submitting") : t("aoiForm.submit")}
       </button>
-      <p className="field-hint">
-        Cached AOIs return immediately; otherwise the API runs a durable job. Results are
-        user-requested on-demand windows, not part of a global survey.
-      </p>
+      <p className="field-hint">{t("aoiForm.submitHint")}</p>
     </form>
   );
 }
