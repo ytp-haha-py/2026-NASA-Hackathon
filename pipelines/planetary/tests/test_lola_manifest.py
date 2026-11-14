@@ -6,6 +6,7 @@ from pathlib import Path
 
 import jsonschema
 import pytest
+from analog_api.domain.features import FEATURE_BY_ID
 from analog_api.domain.manifest import Manifest
 from lola import (
     FEATURE_IDS,
@@ -32,7 +33,7 @@ def test_real_manifest_schema_and_model() -> None:
     model = Manifest.model_validate(document)
     assert model.data_kind == "observed"
     assert len(model.datasets) == 1
-    assert len(model.references) == 1
+    assert len(model.references) >= 1
     assert model.candidates == []
 
     dataset = model.datasets[0]
@@ -48,7 +49,9 @@ def test_real_manifest_schema_and_model() -> None:
     assert "90%" in dataset.notes or "90" in dataset.notes
     assert dataset.checksum is not None and dataset.checksum.startswith("sha256:")
 
-    reference = model.references[0]
+    reference = next(
+        r for r in model.references if r.reference_id == "moon-shackleton-rim-site04-roi2"
+    )
     assert reference.reference_id.startswith("moon-")
     assert reference.body == "Moon"
     assert reference.dataset_id == dataset.dataset_id
@@ -59,8 +62,8 @@ def test_real_manifest_schema_and_model() -> None:
     assert set(reference.features) == set(FEATURE_IDS)
     assert all(observation.quality == "verified" for observation in reference.features.values())
     assert all(
-        observation.method_version == "terrain-metrics-1.0.0"
-        for observation in reference.features.values()
+        observation.method_version == FEATURE_BY_ID[feature_id].method_version
+        for feature_id, observation in reference.features.items()
     )
     assert reference.lat is not None and -90.0 <= reference.lat <= 90.0
     assert reference.lon is not None and -180.0 <= reference.lon <= 180.0

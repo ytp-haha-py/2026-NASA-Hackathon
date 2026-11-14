@@ -4,6 +4,114 @@
     {
       "data_kind": "observed",
       "dataset_id": "copernicus-dem-glo90",
+      "display_name": "alps sampling window R1 C1",
+      "location_id": "earth-alps-r1c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "alps sampling window R1 C2",
+      "location_id": "earth-alps-r1c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "alps sampling window R1 C3",
+      "location_id": "earth-alps-r1c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "alps sampling window R2 C1",
+      "location_id": "earth-alps-r2c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "alps sampling window R2 C2",
+      "location_id": "earth-alps-r2c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "alps sampling window R2 C3",
+      "location_id": "earth-alps-r2c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "alps sampling window R3 C1",
+      "location_id": "earth-alps-r3c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "alps sampling window R3 C2",
+      "location_id": "earth-alps-r3c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "alps sampling window R3 C3",
+      "location_id": "earth-alps-r3c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "altiplano sampling window R1 C1",
+      "location_id": "earth-altiplano-r1c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "altiplano sampling window R1 C2",
+      "location_id": "earth-altiplano-r1c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "altiplano sampling window R1 C3",
+      "location_id": "earth-altiplano-r1c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "altiplano sampling window R2 C1",
+      "location_id": "earth-altiplano-r2c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "altiplano sampling window R2 C2",
+      "location_id": "earth-altiplano-r2c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "altiplano sampling window R2 C3",
+      "location_id": "earth-altiplano-r2c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "altiplano sampling window R3 C1",
+      "location_id": "earth-altiplano-r3c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "altiplano sampling window R3 C2",
+      "location_id": "earth-altiplano-r3c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "altiplano sampling window R3 C3",
+      "location_id": "earth-altiplano-r3c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
       "display_name": "Atacama Desert, Chile",
       "location_id": "earth-atacama-desert"
     },
@@ -22,24 +130,564 @@
     {
       "data_kind": "observed",
       "dataset_id": "copernicus-dem-glo90",
+      "display_name": "devon-polar sampling window R1 C1",
+      "location_id": "earth-devon-polar-r1c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "devon-polar sampling window R1 C2",
+      "location_id": "earth-devon-polar-r1c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "devon-polar sampling window R1 C3",
+      "location_id": "earth-devon-polar-r1c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "devon-polar sampling window R2 C1",
+      "location_id": "earth-devon-polar-r2c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "devon-polar sampling window R2 C2",
+      "location_id": "earth-devon-polar-r2c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "devon-polar sampling window R2 C3",
+      "location_id": "earth-devon-polar-r2c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "devon-polar sampling window R3 C1",
+      "location_id": "earth-devon-polar-r3c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "devon-polar sampling window R3 C2",
+      "location_id": "earth-devon-polar-r3c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "devon-polar sampling window R3 C3",
+      "location_id": "earth-devon-polar-r3c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "grand-canyon sampling window R1 C1",
+      "location_id": "earth-grand-canyon-r1c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "grand-canyon sampling window R1 C2",
+      "location_id": "earth-grand-canyon-r1c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "grand-canyon sampling window R1 C3",
+      "location_id": "earth-grand-canyon-r1c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "grand-canyon sampling window R2 C1",
+      "location_id": "earth-grand-canyon-r2c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "grand-canyon sampling window R2 C2",
+      "location_id": "earth-grand-canyon-r2c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "grand-canyon sampling window R2 C3",
+      "location_id": "earth-grand-canyon-r2c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "grand-canyon sampling window R3 C1",
+      "location_id": "earth-grand-canyon-r3c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "grand-canyon sampling window R3 C2",
+      "location_id": "earth-grand-canyon-r3c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "grand-canyon sampling window R3 C3",
+      "location_id": "earth-grand-canyon-r3c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "haughton sampling window R1 C1",
+      "location_id": "earth-haughton-r1c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "haughton sampling window R1 C2",
+      "location_id": "earth-haughton-r1c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "haughton sampling window R1 C3",
+      "location_id": "earth-haughton-r1c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "haughton sampling window R2 C1",
+      "location_id": "earth-haughton-r2c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "haughton sampling window R2 C2",
+      "location_id": "earth-haughton-r2c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "haughton sampling window R2 C3",
+      "location_id": "earth-haughton-r2c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "haughton sampling window R3 C1",
+      "location_id": "earth-haughton-r3c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "haughton sampling window R3 C2",
+      "location_id": "earth-haughton-r3c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "haughton sampling window R3 C3",
+      "location_id": "earth-haughton-r3c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "iceland sampling window R1 C1",
+      "location_id": "earth-iceland-r1c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "iceland sampling window R1 C2",
+      "location_id": "earth-iceland-r1c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "iceland sampling window R1 C3",
+      "location_id": "earth-iceland-r1c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "iceland sampling window R2 C1",
+      "location_id": "earth-iceland-r2c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "iceland sampling window R2 C2",
+      "location_id": "earth-iceland-r2c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "iceland sampling window R2 C3",
+      "location_id": "earth-iceland-r2c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "iceland sampling window R3 C1",
+      "location_id": "earth-iceland-r3c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "iceland sampling window R3 C2",
+      "location_id": "earth-iceland-r3c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "iceland sampling window R3 C3",
+      "location_id": "earth-iceland-r3c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
       "display_name": "Lanzarote volcanic terrain, Spain",
       "location_id": "earth-lanzarote"
     },
     {
       "data_kind": "observed",
       "dataset_id": "copernicus-dem-glo90",
+      "display_name": "namib sampling window R1 C1",
+      "location_id": "earth-namib-r1c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "namib sampling window R1 C2",
+      "location_id": "earth-namib-r1c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "namib sampling window R1 C3",
+      "location_id": "earth-namib-r1c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "namib sampling window R2 C1",
+      "location_id": "earth-namib-r2c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "namib sampling window R2 C2",
+      "location_id": "earth-namib-r2c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "namib sampling window R2 C3",
+      "location_id": "earth-namib-r2c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "namib sampling window R3 C1",
+      "location_id": "earth-namib-r3c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "namib sampling window R3 C2",
+      "location_id": "earth-namib-r3c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "namib sampling window R3 C3",
+      "location_id": "earth-namib-r3c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pampas sampling window R1 C1",
+      "location_id": "earth-pampas-r1c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pampas sampling window R1 C2",
+      "location_id": "earth-pampas-r1c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pampas sampling window R1 C3",
+      "location_id": "earth-pampas-r1c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pampas sampling window R2 C1",
+      "location_id": "earth-pampas-r2c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pampas sampling window R2 C2",
+      "location_id": "earth-pampas-r2c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pampas sampling window R2 C3",
+      "location_id": "earth-pampas-r2c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pampas sampling window R3 C1",
+      "location_id": "earth-pampas-r3c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pampas sampling window R3 C2",
+      "location_id": "earth-pampas-r3c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pampas sampling window R3 C3",
+      "location_id": "earth-pampas-r3c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pingualuit sampling window R1 C1",
+      "location_id": "earth-pingualuit-r1c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pingualuit sampling window R1 C2",
+      "location_id": "earth-pingualuit-r1c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pingualuit sampling window R1 C3",
+      "location_id": "earth-pingualuit-r1c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pingualuit sampling window R2 C1",
+      "location_id": "earth-pingualuit-r2c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pingualuit sampling window R2 C2",
+      "location_id": "earth-pingualuit-r2c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pingualuit sampling window R2 C3",
+      "location_id": "earth-pingualuit-r2c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pingualuit sampling window R3 C1",
+      "location_id": "earth-pingualuit-r3c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pingualuit sampling window R3 C2",
+      "location_id": "earth-pingualuit-r3c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "pingualuit sampling window R3 C3",
+      "location_id": "earth-pingualuit-r3c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
       "display_name": "Rio Tinto, Spain",
       "location_id": "earth-rio-tinto"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "sahara sampling window R1 C1",
+      "location_id": "earth-sahara-r1c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "sahara sampling window R1 C2",
+      "location_id": "earth-sahara-r1c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "sahara sampling window R1 C3",
+      "location_id": "earth-sahara-r1c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "sahara sampling window R2 C1",
+      "location_id": "earth-sahara-r2c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "sahara sampling window R2 C2",
+      "location_id": "earth-sahara-r2c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "sahara sampling window R2 C3",
+      "location_id": "earth-sahara-r2c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "sahara sampling window R3 C1",
+      "location_id": "earth-sahara-r3c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "sahara sampling window R3 C2",
+      "location_id": "earth-sahara-r3c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "sahara sampling window R3 C3",
+      "location_id": "earth-sahara-r3c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "snake-river sampling window R1 C1",
+      "location_id": "earth-snake-river-r1c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "snake-river sampling window R1 C2",
+      "location_id": "earth-snake-river-r1c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "snake-river sampling window R1 C3",
+      "location_id": "earth-snake-river-r1c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "snake-river sampling window R2 C1",
+      "location_id": "earth-snake-river-r2c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "snake-river sampling window R2 C2",
+      "location_id": "earth-snake-river-r2c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "snake-river sampling window R2 C3",
+      "location_id": "earth-snake-river-r2c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "snake-river sampling window R3 C1",
+      "location_id": "earth-snake-river-r3c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "snake-river sampling window R3 C2",
+      "location_id": "earth-snake-river-r3c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "snake-river sampling window R3 C3",
+      "location_id": "earth-snake-river-r3c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "wupatki sampling window R1 C1",
+      "location_id": "earth-wupatki-r1c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "wupatki sampling window R1 C2",
+      "location_id": "earth-wupatki-r1c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "wupatki sampling window R1 C3",
+      "location_id": "earth-wupatki-r1c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "wupatki sampling window R2 C1",
+      "location_id": "earth-wupatki-r2c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "wupatki sampling window R2 C2",
+      "location_id": "earth-wupatki-r2c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "wupatki sampling window R2 C3",
+      "location_id": "earth-wupatki-r2c3"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "wupatki sampling window R3 C1",
+      "location_id": "earth-wupatki-r3c1"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "wupatki sampling window R3 C2",
+      "location_id": "earth-wupatki-r3c2"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "wupatki sampling window R3 C3",
+      "location_id": "earth-wupatki-r3c3"
     }
   ],
   "counts": {
-    "candidates": 5,
-    "datasets": 3,
-    "manifests": 3,
-    "references": 1,
-    "seedable_manifests": 3
+    "candidates": 113,
+    "datasets": 9,
+    "manifests": 9,
+    "references": 23,
+    "seedable_manifests": 9
   },
-  "data_version": "dv-19f54b4539c8",
+  "data_version": "dv-b46f3bad38ea",
   "datasets": [
     {
       "dataset_id": "copernicus-dem-glo90",
@@ -52,7 +700,37 @@
       "verified": true
     },
     {
+      "dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "status": "verified",
+      "verified": true
+    },
+    {
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "status": "verified",
+      "verified": true
+    },
+    {
       "dataset_id": "nasa-lola-site04-5mpp-surf",
+      "status": "verified",
+      "verified": true
+    },
+    {
+      "dataset_id": "nasa-lola-site07-5mpp-surf",
+      "status": "verified",
+      "verified": true
+    },
+    {
+      "dataset_id": "nasa-lola-site11-5mpp-surf",
+      "status": "verified",
+      "verified": true
+    },
+    {
+      "dataset_id": "nasa-lola-site20-5mpp-surf",
+      "status": "verified",
+      "verified": true
+    },
+    {
+      "dataset_id": "nasa-lola-site23-5mpp-surf",
       "status": "verified",
       "verified": true
     }
@@ -60,9 +738,119 @@
   "generated_by": "pipelines/src/analog_pipelines/snapshot.py",
   "references": [
     {
+      "body": "Mars",
+      "dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "reference_id": "mars-jezero-ctx-window-01"
+    },
+    {
+      "body": "Mars",
+      "dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "reference_id": "mars-jezero-ctx-window-02"
+    },
+    {
+      "body": "Mars",
+      "dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "reference_id": "mars-jezero-ctx-window-03"
+    },
+    {
+      "body": "Mars",
+      "dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "reference_id": "mars-jezero-ctx-window-04"
+    },
+    {
+      "body": "Mars",
+      "dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "reference_id": "mars-jezero-ctx-window-05"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "reference_id": "moon-lola-site01-roi1"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "reference_id": "moon-lola-site01-roi2"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "reference_id": "moon-lola-site01-roi3"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "reference_id": "moon-lola-site01-roi4"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "reference_id": "moon-lola-site01-roi5"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "reference_id": "moon-lola-site01-roi6"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "reference_id": "moon-lola-site01-roi7"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site07-5mpp-surf",
+      "reference_id": "moon-lola-site07-roi1"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site11-5mpp-surf",
+      "reference_id": "moon-lola-site11-roi1"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site11-5mpp-surf",
+      "reference_id": "moon-lola-site11-roi2"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site11-5mpp-surf",
+      "reference_id": "moon-lola-site11-roi3"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site11-5mpp-surf",
+      "reference_id": "moon-lola-site11-roi4"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site20-5mpp-surf",
+      "reference_id": "moon-lola-site20-bounds-centre"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site23-5mpp-surf",
+      "reference_id": "moon-lola-site23-bounds-centre"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site04-5mpp-surf",
+      "reference_id": "moon-shackleton-rim-site04-roi1"
+    },
+    {
       "body": "Moon",
       "dataset_id": "nasa-lola-site04-5mpp-surf",
       "reference_id": "moon-shackleton-rim-site04-roi2"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site04-5mpp-surf",
+      "reference_id": "moon-shackleton-rim-site04-roi3"
+    },
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site04-5mpp-surf",
+      "reference_id": "moon-shackleton-rim-site04-roi4"
     }
   ]
 }

@@ -78,6 +78,7 @@ def test_local_geotiff_roundtrip_through_importer(tmp_path):
         "slope_p90_deg",
         "terrain_relief_p95_p05_m",
         "roughness_std_m",
+        "flat_terrain_fraction",
     }
     assert 0.0 < result.features["slope_mean_deg"] < 45.0
     assert result.features["slope_p90_deg"] > 0.0

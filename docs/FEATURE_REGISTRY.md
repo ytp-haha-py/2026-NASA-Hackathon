@@ -27,7 +27,7 @@ The weighted distance is an **engineering matching score**, not a scientific sim
 - Support: 1.98 km × 1.98 km window (22 × 22 cells at 90 m), projected metric CRS, bilinear
   resampling, ≥80% valid cells.
 - Comparability gate: same method version (`terrain-metrics-1.0.0`), same metric CRS/grid/valid
-  rule. Moon ROIs use their own planetary projected frame; Moon degrees are never treated as Earth
+  rule. Moon/Mars ROIs use their own planetary projected/geographic frames; their degrees are never treated as Earth
   WGS84.
 - Terrain shape is not environmental equivalence. Gravity, atmosphere, radiation, regolith,
   mineralogy, temperature, and geological history are not in the score.
@@ -87,3 +87,15 @@ Missing behavior:
 Follow `docs/DATA_PIPELINE.md` and `CONTRIBUTING.md`: Issue → source/licence/method review → registry
 entry with fixed scale and domain → shared extractor + synthetic known-value tests → manifest/API/UI
 + contract tests → snapshot/version bump. Bump the method/contract version if comparability changes.
+
+## Additive flat terrain feature
+
+`flat_terrain_fraction`: numeric similarity feature in `terrain_shape`, unit fraction,
+domain [0,1], fixed engineering scale 0.25 (25 percentage points), method version
+`flat-terrain-fraction-1.0.0`. Count valid Horn slope cells <5° and divide by valid
+Horn slope cells. Exclude the outer rim and incomplete neighborhoods. The 90 m /
+1980 m support and >=80% valid elevation rule are unchanged. All 136 indexed terrain
+windows were recalculated. Method compatibility is checked per feature, retaining
+`terrain-metrics-1.0.0` for the original four. Absent legacy flat values stay missing.
+The current production registry has five terrain similarity features; curvature and
+landform composition remain research-only per [the research gate](TERRAIN_METHOD_RESEARCH.md).

@@ -19,7 +19,7 @@ import rasterio
 from analog_api.domain.features import (
     ANALYSIS_RESOLUTION_M,
     ANALYSIS_WINDOW_M,
-    METHOD_VERSION,
+    FEATURE_BY_ID,
     MIN_VALID_FRACTION,
 )
 from pyproj import CRS, Transformer
@@ -149,6 +149,7 @@ def terrain_metrics(
         "slope_p90_deg": float(np.percentile(slope_values, 90)),
         "terrain_relief_p95_p05_m": relief,
         "roughness_std_m": roughness,
+        "flat_terrain_fraction": float(np.count_nonzero(slope_values < 5.0) / slope_values.size),
     }
 
 
@@ -258,6 +259,10 @@ def extract_features(
         raise ExtractionError(
             "invalid_centre", "Provide exactly one of center_lonlat or center_xy."
         )
+    if body != "Earth" and center_lonlat is not None:
+        raise ExtractionError(
+            "planetary_center_required", "Use source projected X/Y for planetary DEMs."
+        )
     label = source_label or str(path)
     with rasterio.open(path) as src:
         src_crs = CRS.from_user_input(src.crs) if src.crs else None
@@ -276,10 +281,9 @@ def extract_features(
         else:
             assert center_xy is not None
             x, y = center_xy
-            dst_crs = _choose_analysis_crs(
-                src_crs,
-                *Transformer.from_crs(src_crs, "EPSG:4326", always_xy=True).transform(x, y),
-            )
+            geographic_crs = src_crs.geodetic_crs if body != "Earth" else CRS("EPSG:4326")
+            lon, lat = Transformer.from_crs(src_crs, geographic_crs, always_xy=True).transform(x, y)
+            dst_crs = _choose_analysis_crs(src_crs, lon, lat)
             if body != "Earth" and not dst_crs.is_projected:
                 raise ExtractionError(
                     "unsupported_projection",
@@ -294,18 +298,11 @@ def extract_features(
         center_lon, center_lat = center_lonlat
         bbox = _bbox_wgs84(dst_transform, dst_crs)
     else:
-        transformer = Transformer.from_crs(dst_crs, "EPSG:4326", always_xy=True)
-        west_lon, south_lat = transformer.transform(
-            dst_transform.c, dst_transform.f + dst_transform.e * GRID_SIZE
-        )
-        east_lon, north_lat = transformer.transform(
-            dst_transform.c + dst_transform.a * GRID_SIZE, dst_transform.f
-        )
-        center_lon = (west_lon + east_lon) / 2.0
-        center_lat = (south_lat + north_lat) / 2.0
-        bbox = _bbox_wgs84(dst_transform, dst_crs)
-        if body != "Earth":
-            bbox = None
+        geographic_crs = dst_crs.geodetic_crs if body != "Earth" else CRS("EPSG:4326")
+        center_lon, center_lat = Transformer.from_crs(
+            dst_crs, geographic_crs, always_xy=True
+        ).transform(x, y)
+        bbox = _bbox_wgs84(dst_transform, dst_crs) if body == "Earth" else None
 
     valid_fraction = float(np.isfinite(array).sum()) / float(array.size)
     all_warnings = list(warnings) + list(warnings_extra or [])
@@ -499,17 +496,11 @@ def make_observations(
     extraction_scale_m: float = float(ANALYSIS_RESOLUTION_M),
 ) -> dict[str, dict[str, Any]]:
     """Shape feature values as the pipeline-manifest observation objects."""
-    units = {
-        "slope_mean_deg": "degree",
-        "slope_p90_deg": "degree",
-        "terrain_relief_p95_p05_m": "meter",
-        "roughness_std_m": "meter",
-    }
     return {
         feature_id: {
             "value": round(float(value), 6),
-            "unit": units[feature_id],
-            "method_version": METHOD_VERSION,
+            "unit": FEATURE_BY_ID[feature_id].unit,
+            "method_version": FEATURE_BY_ID[feature_id].method_version,
             "extraction_scale_m": extraction_scale_m,
             "valid_fraction": round(float(valid_fraction), 6),
             "quality": quality,
@@ -521,3 +512,24 @@ def make_observations(
 def angle_from_gradient(grade: float) -> float:
     """Convenience for tests: slope angle in degrees from a dimensionless grade."""
     return math.degrees(math.atan(grade))
+
+
+def flat_terrain_fraction(
+    elevation: np.ndarray,
+    cell_size_m: float,
+    cell_size_y_m: float | None = None,
+    domain_mask: np.ndarray | None = None,
+) -> float:
+    """Fraction of valid Horn-slope cells strictly below 5 degrees.
+
+    The denominator excludes the outer rim and every incomplete 3x3 neighborhood.
+    A nodata cell is never treated as flat. No padding/interpolation fills a slope.
+    This shares the original four metrics' gradient grid and analysis support.
+    """
+    slopes = horn_slope_degrees(elevation, cell_size_m, cell_size_y_m)
+    valid = np.isfinite(slopes)
+    if domain_mask is not None:
+        valid &= np.asarray(domain_mask, dtype=bool)
+    if not valid.any():
+        raise ExtractionError("insufficient_valid_data", "No valid slope cells for flat fraction.")
+    return float(np.count_nonzero(slopes[valid] < 5.0) / np.count_nonzero(valid))

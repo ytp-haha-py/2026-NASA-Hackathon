@@ -1,173 +1,383 @@
-catalog_version: "1.0.0"
-description: >-
-  Source matrix for the Planetary Analog Explorer. A dataset is marked verified only
-  when a validated manifest exists in this repository and its provenance fields were
-  copied from that manifest or an official source. Planned and unverified sources carry
-  no measurements and must not appear as observations.
+catalog_version: 1.0.0
+description: Source matrix for the Planetary Analog Explorer. A dataset is marked verified only when a
+  validated manifest exists in this repository and its provenance fields were copied from that manifest
+  or an official source. Planned and unverified sources carry no measurements and must not appear as observations.
 status_legend:
   verified: Validated manifest exists; derived observations are committed.
   in_progress: Pipeline work exists but no validated manifest at this revision.
   not_verified: Source identified, access or validation not completed.
   planned: Interface-only; no pipeline, manifest, or measurement.
 datasets:
-  - dataset_id: copernicus-dem-glo90
-    role: earth_terrain
-    status: verified
-    provider: European Space Agency (ESA) / Airbus Defence and Space; AWS Open Data mirror
-    product_id: COP-DEM_GLO-90-DGED
-    version: Copernicus DEM 2021 release, GLO-90
-    title: Copernicus DEM GLO-90 Digital Surface Model (DSM), 3 arc-second COG
-    official_urls:
-      - https://registry.opendata.aws/copernicus-dem/
-      - https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM
-    coverage: >-
-      Global land; ocean areas have no tiles. This repository indexes five 1.98 km
-      windows, not a global survey.
-    native_resolution_m: 90.0
-    source_crs: EPSG:4326
-    vertical_reference: EGM2008 heights in metres (manifest source notes)
-    temporal: >-
-      2021 product release; source WorldDEM-90 acquisitions 2010-2018 per the required
-      attribution text.
-    license: >-
-      Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry),
-      under the Copernicus Contributing Mission Data Access Licence terms
-    license_url: >-
-      https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM
-    attribution: >-
-      Produced using Copernicus WorldDEM-90 © DLR e.V. 2010-2014 and © Airbus Defence
-      and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA;
-      all rights reserved.
-    access: >-
-      Public, unsigned HTTPS Cloud Optimized GeoTIFFs mirrored at s3://copernicus-dem-90m
-      (eu-central-1). The importer performs bounded GDAL range reads and does not
-      download full tiles.
-    authentication: None (public AWS Open Data mirror).
-    redistribution: >-
-      Derived numeric values are committed with attribution and the verified licence
-      link. Raw tiles and local crops are not committed.
-    verified_against:
-      manifest: pipelines/earth/manifests/copernicus_glo90_earth.json
-      access_timestamp: "2026-11-14T06:11:16Z"
-    limitations: >-
-      Digital surface model: buildings, infrastructure, and vegetation are included.
-      No nodata value is declared in source metadata. Each 2 km window is a local
-      sample, not a characterization of the named region.
-
-  - dataset_id: esa-worldcover-2021-v200
-    role: earth_landcover_context
-    status: verified
-    provider: European Space Agency (ESA) WorldCover
-    product_id: ESA WorldCover 2021 v200
-    version: 2021 v200
-    title: ESA WorldCover 10 m 2021 v200 land cover
-    official_urls:
-      - https://esa-worldcover.org/en/data-access
-      - https://creativecommons.org/licenses/by/4.0/
-      - https://doi.org/10.5281/zenodo.7254221
-    coverage: >-
-      Global land, static 2021 annual land-cover map at 10 m (1/12000 degree) in
-      EPSG:4326. The repository samples the same five 1.98 km Earth AOIs; this is not a
-      regional or global land-cover survey.
-    native_resolution_m: 10.0
-    source_crs: EPSG:4326
-    vertical_reference: Not applicable (categorical land cover).
-    temporal: Static annual 2021 epoch; annual composite without a confirmed per-pixel date.
-    license: "CC BY 4.0 (Creative Commons Attribution 4.0 International)"
-    license_url: https://creativecommons.org/licenses/by/4.0/
-    attribution: >-
-      Zanaga, D., Van De Kerchove, R., Daems, D., De Keersmaecker, W., Brockmann, C.,
-      Kirches, G., Wevers, J., Cartus, O., Santoro, M., Fritz, S., Lesiv, M., Herold, M.,
-      Tsendbazar, N.E., Xu, P., Ramoino, F., Arino, O., 2022. ESA WorldCover 10 m 2021
-      v200. https://doi.org/10.5281/zenodo.7254221
-    access: >-
-      Public, unsigned HTTPS range requests from the AWS Open Data bucket
-      s3://esa-worldcover (eu-central-1), prefix v200/2021/map/, 3-degree tiles named
-      ESA_WorldCover_10m_2021_v200_<N|S>dd<W|E>ddd_Map.tif.
-    authentication: None (public AWS Open Data).
-    redistribution: >-
-      Derived class-fraction values are committed with CC BY 4.0 attribution. Raw
-      WorldCover rasters are not committed.
-    verified_against:
-      manifest: pipelines/worldcover/manifests/worldcover_earth_context.json
-      access_timestamp: "2026-11-14T06:20:08Z"
-    limitations: >-
-      Context only: not mineralogy, geology, a terrain measurement, or a similarity
-      feature. The published independent validation reports 76.7% overall accuracy for
-      2021 v200. Helper classes group surfaces (for example bare/sparse vegetation).
-      Small AOIs can be dominated by one class.
-
-  - dataset_id: nasa-lola-site04-5mpp-surf
-    role: moon_reference
-    status: verified
-    provider: NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA
-    product_id: Site04_final_adj_5mpp_surf
-    version: PGDA LOLA 5 m/pix south-pole product (Site04)
-    title: LRO-LOLA 5 m/pix surface-interpolated DEM, Shackleton rim (Site04)
-    official_urls:
-      - https://pgda.gsfc.nasa.gov/products/78
-      - https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_final_adj_5mpp_surf.tif
-      - https://science.data.nasa.gov/about/license
-    coverage: >-
-      Lunar south pole. The source product is 3200 x 3200 pixels; this repository uses
-      one 1.98 km analysis ROI (Site04 ROI 2), not the whole product or the whole Moon.
-    native_resolution_m: 5.0
-    source_crs: South polar stereographic in metres (full source WKT is stored in the manifest).
-    vertical_reference: Metres in the product's lunar reference frame (MOON_ME/DE421 per product documentation).
-    temporal: >-
-      Product referenced by Barker et al. (2021); the raster acquisition epoch is not
-      asserted in the manifest.
-    license: >-
-      CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page
-      requests citation and carries no restrictive notice)
-    license_url: https://science.data.nasa.gov/about/license
-    attribution: >-
-      Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing
-      Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary &
-      Space Science 203, 105119, doi:10.1016/j.pss.2020.105119.
-    access: >-
-      Public HTTPS download from NASA PGDA; bounded HTTP range requests for the ROI. No
-      credentials required.
-    authentication: None for the public product.
-    redistribution: >-
-      Derived numeric values are committed. The full 40,980,806-byte raster and local
-      crops are not committed.
-    verified_against:
-      manifest: pipelines/planetary/manifests/lola_moon_reference.json
-      access_timestamp: "2026-11-14T06:18:41Z"
-    limitations: >-
-      About 90% of 5 m pixels are interpolated from roughly 10% direct returns; median
-      RMS Z error is about 0.30-0.50 m and median RMS slope error about 1.5-2.5 degrees.
-      Do not treat 5 m texture as an independent measurement. The 90 m analysis window
-      is a local reference sample.
-
-  - dataset_id: mars-mola-megdr
-    role: mars_reference_future
-    status: planned
-    provider: NASA PDS Geosciences Node / MGS MOLA
-    product_id: null
-    version: null
-    title: Mars Orbiter Laser Altimeter (MOLA) gridded topography (MEGDR)
-    official_urls:
-      - https://pds-geosciences.wustl.edu/missions/mgs/megdr.html
-    coverage: Not assessed in this repository.
-    native_resolution_m: null
-    source_crs: null
-    vertical_reference: null
-    temporal: null
-    license: not_verified
-    license_url: null
-    attribution: not_verified
-    access: >-
-      PDS archive; authentication and exact product version have not been verified by
-      this repository.
-    authentication: not_verified
-    redistribution: not_verified
-    verified_against:
-      manifest: null
-      access_timestamp: null
-    limitations: >-
-      No Mars pipeline, manifest, feature, or preset exists. A future importer must
-      document product version, CRS, resolution, vertical datum, licence, and a bounded
-      ROI before any measurement is committed. Mars must remain absent from support
-      claims until then.
+- dataset_id: copernicus-dem-glo90
+  role: earth_terrain
+  status: verified
+  provider: European Space Agency (ESA) / Airbus Defence and Space; AWS Open Data mirror
+  product_id: COP-DEM_GLO-90-DGED
+  version: Copernicus DEM 2021 release, GLO-90
+  title: Copernicus DEM GLO-90 Digital Surface Model (DSM), 3 arc-second COG
+  official_urls:
+  - https://registry.opendata.aws/copernicus-dem/
+  - https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM
+  coverage: 113 observed 1.98 km windows in 12 sampling envelopes plus the original five; sparse indexed
+    subset, not a global survey.
+  native_resolution_m: 90.0
+  source_crs: EPSG:4326
+  vertical_reference: EGM2008 heights in metres (manifest source notes)
+  temporal: 2021 product release; source WorldDEM-90 acquisitions 2010-2018 per the required attribution
+    text.
+  license: 'Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry), under the
+    Copernicus Contributing Mission Data Access Licence terms'
+  license_url: https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM
+  attribution: Produced using Copernicus WorldDEM-90 © DLR e.V. 2010-2014 and © Airbus Defence and Space
+    GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.
+  access: Public, unsigned HTTPS Cloud Optimized GeoTIFFs mirrored at s3://copernicus-dem-90m (eu-central-1).
+    The importer performs bounded GDAL range reads and does not download full tiles.
+  authentication: None (public AWS Open Data mirror).
+  redistribution: Derived numeric values are committed with attribution and the verified licence link.
+    Raw tiles and local crops are not committed.
+  verified_against:
+    manifest: pipelines/earth/manifests/copernicus_glo90_earth.json
+    access_timestamp: '2026-11-14T10:22:46Z'
+  limitations: 'Digital surface model: buildings, infrastructure, and vegetation are included. No nodata
+    value is declared in source metadata. Each 2 km window is a local sample, not a characterization of
+    the named region.'
+  processing_version: terrain-flat-extension-1.0.0
+- dataset_id: esa-worldcover-2021-v200
+  role: earth_landcover_context
+  status: verified
+  provider: European Space Agency (ESA) WorldCover
+  product_id: ESA WorldCover 2021 v200
+  version: 2021 v200
+  title: ESA WorldCover 10 m 2021 v200 land cover
+  official_urls:
+  - https://esa-worldcover.org/en/data-access
+  - https://creativecommons.org/licenses/by/4.0/
+  - https://doi.org/10.5281/zenodo.7254221
+  coverage: 11 context-only class fractions for all 113 indexed Earth windows; static 2021 map, not a
+    global survey.
+  native_resolution_m: 10.0
+  source_crs: EPSG:4326
+  vertical_reference: Not applicable (categorical land cover).
+  temporal: Static annual 2021 epoch; annual composite without a confirmed per-pixel date.
+  license: CC BY 4.0 (Creative Commons Attribution 4.0 International)
+  license_url: https://creativecommons.org/licenses/by/4.0/
+  attribution: Zanaga, D., Van De Kerchove, R., Daems, D., De Keersmaecker, W., Brockmann, C., Kirches,
+    G., Wevers, J., Cartus, O., Santoro, M., Fritz, S., Lesiv, M., Herold, M., Tsendbazar, N.E., Xu, P.,
+    Ramoino, F., Arino, O., 2022. ESA WorldCover 10 m 2021 v200. https://doi.org/10.5281/zenodo.7254221
+  access: Public, unsigned HTTPS range requests from the AWS Open Data bucket s3://esa-worldcover (eu-central-1),
+    prefix v200/2021/map/, 3-degree tiles named ESA_WorldCover_10m_2021_v200_<N|S>dd<W|E>ddd_Map.tif.
+  authentication: None (public AWS Open Data).
+  redistribution: Derived class-fraction values are committed with CC BY 4.0 attribution. Raw WorldCover
+    rasters are not committed.
+  verified_against:
+    manifest: pipelines/worldcover/manifests/worldcover_earth_context.json
+    access_timestamp: '2026-11-14T10:00:34Z'
+  limitations: 'Context only: not mineralogy, geology, a terrain measurement, or a similarity feature.
+    The published independent validation reports 76.7% overall accuracy for 2021 v200. Helper classes
+    group surfaces (for example bare/sparse vegetation). Small AOIs can be dominated by one class.'
+  processing_version: worldcover-2021-v200-1.0.0
+- dataset_id: nasa-lola-site04-5mpp-surf
+  role: moon_reference
+  status: verified
+  provider: NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA
+  product_id: Site04_final_adj_5mpp_surf
+  version: PGDA LOLA 5 m/pix south-pole product (Site04)
+  title: LRO-LOLA 5 m/pix surface-interpolated DEM, Shackleton rim (Site04)
+  official_urls:
+  - https://pgda.gsfc.nasa.gov/products/78
+  - https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_final_adj_5mpp_surf.tif
+  - https://science.data.nasa.gov/about/license
+  coverage: 4 ROI-centred 1.98 km reference windows; windows may overlap.
+  native_resolution_m: 5.0
+  source_crs: South polar stereographic in metres (full source WKT is stored in the manifest).
+  vertical_reference: Metres in the product's lunar reference frame (MOON_ME/DE421 per product documentation).
+  temporal: Product referenced by Barker et al. (2021); the raster acquisition epoch is not asserted in
+    the manifest.
+  license: CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation
+    and carries no restrictive notice)
+  license_url: https://science.data.nasa.gov/about/license
+  attribution: 'Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites:
+    Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119,
+    doi:10.1016/j.pss.2020.105119.'
+  access: Public HTTPS download from NASA PGDA; bounded HTTP range requests for the ROI. No credentials
+    required.
+  authentication: None for the public product.
+  redistribution: Derived numeric values are committed. The full 40,980,806-byte raster and local crops
+    are not committed.
+  verified_against:
+    manifest: pipelines/planetary/manifests/lola_moon_reference.json
+    access_timestamp: '2026-11-14T10:23:14Z'
+  limitations: About 90% of 5 m pixels are interpolated from roughly 10% direct returns; median RMS Z
+    error is about 0.30-0.50 m and median RMS slope error about 1.5-2.5 degrees. Do not treat 5 m texture
+    as an independent measurement. The 90 m analysis window is a local reference sample.
+  processing_version: terrain-flat-extension-1.0.0
+- dataset_id: mars-mola-megdr
+  role: mars_reference_future
+  status: planned
+  provider: NASA PDS Geosciences Node / MGS MOLA
+  product_id: null
+  version: null
+  title: Mars Orbiter Laser Altimeter (MOLA) gridded topography (MEGDR)
+  official_urls:
+  - https://pds-geosciences.wustl.edu/missions/mgs/megdr.html
+  coverage: Not assessed in this repository.
+  native_resolution_m: null
+  source_crs: null
+  vertical_reference: null
+  temporal: null
+  license: not_verified
+  license_url: null
+  attribution: not_verified
+  access: PDS archive; authentication and exact product version have not been verified by this repository.
+  authentication: not_verified
+  redistribution: not_verified
+  verified_against:
+    manifest: null
+    access_timestamp: null
+  limitations: MOLA remains planned and is not imported. Current Mars observations instead use the separately
+    catalogued real Jezero CTX DEM.
+- dataset_id: mars2020-jezero-ctx-dem-20m
+  role: mars_reference
+  status: verified
+  provider: USGS Astrogeology Science Center / NASA Mars Missions
+  product_id: M20_JezeroCrater_CTXDEM_20m
+  version: jezero-ctx-import-1.0.0
+  title: Mars 2020 Science Investigation CTX DEM Mosaic
+  official_urls:
+  - https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif
+  - https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic
+  coverage: 5 observed local 1.98 km windows; not an exhaustive survey.
+  native_resolution_m: 20.0
+  source_crs: PROJCRS["Jezero_Crater_Projection",BASEGEOGCRS["GCS_Mars_2000_Sphere",DATUM["Mars_2000_(Sphere)",ELLIPSOID["Mars_2000_Sphere",3396190,0,LENGTHUNIT["metre",1,ID["EPSG",9001]]]],PRIMEM["Reference_Meridian",0,ANGLEUNIT["degree",0.0174532925199433,ID["EPSG",9122]]]],CONVERSION["unnamed",METHOD["Equidistant
+    Cylindrical (Spherical)",ID["EPSG",1029]],PARAMETER["Latitude of 1st standard parallel",18.4663,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8823]],PARAMETER["Longitude
+    of natural origin",0,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8802]],PARAMETER["False easting",0,LENGTHUNIT["metre",1],ID["EPSG",8806]],PARAMETER["False
+    northing",0,LENGTHUNIT["metre",1],ID["EPSG",8807]]],CS[Cartesian,2],AXIS["easting",east,ORDER[1],LENGTHUNIT["metre",1,ID["EPSG",9001]]],AXIS["northing",north,ORDER[2],LENGTHUNIT["metre",1,ID["EPSG",9001]]]]
+  vertical_reference: Metres; mosaic DEMs localized vertically to MOLA per USGS product page.
+  temporal: Static source DEM; per-pixel acquisition epoch not_verified
+  license: public domain
+  license_url: https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic
+  attribution: USGS Astrogeology Science Center / NASA Mars Missions; Mars 2020 Science Investigation
+    CTX DEM Mosaic
+  access: Single public GeoTIFF, download budget 100 MB
+  authentication: None (public)
+  redistribution: Derived values with source attribution; raw rasters not committed.
+  verified_against:
+    manifest: pipelines/planetary/manifests/ctx_mars_references.json
+    access_timestamp: '2026-11-14T09:30:36Z'
+  limitations: '20 m stereo-derived mosaic; official product page: DEMs localized vertically to MOLA.
+    Source GeoTIFF uses Mars_2000_Sphere radius 3396190 m; catalog page lists 3396160 m. Retain authoritative
+    raster CRS without substituting Earth WGS84. Elevation in metres; no absolute elevations compared
+    across bodies. Horizontal accuracy: Accurate to Control Net; per-window vertical uncertainty not verified.
+    Mosaic seams and stereo artifacts may affect metrics. Dataset checksum covers full source GeoTIFF.
+    Source redirects to USGS public S3. Citation/product documentation: https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic'
+  processing_version: terrain-flat-extension-1.0.0
+- dataset_id: nasa-lola-site01-5mpp-surf
+  role: moon_reference
+  status: verified
+  provider: NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA
+  product_id: Site01_final_adj_5mpp_surf
+  version: lola-import-1.0.0+terrain-metrics-1.0.0
+  title: NASA LOLA Site01 Connecting Ridge 5 m surface DEM
+  official_urls:
+  - https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_final_adj_5mpp_surf.tif
+  - https://science.data.nasa.gov/about/license
+  coverage: 7 observed local 1.98 km windows; not an exhaustive survey.
+  native_resolution_m: 5.0
+  source_crs: PROJCRS["unnamed",BASEGEOGCRS["unnamed ellipse",DATUM["unknown",ELLIPSOID["unnamed",1737400,0,LENGTHUNIT["metre",1,ID["EPSG",9001]]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433,ID["EPSG",9122]]]],CONVERSION["unnamed",METHOD["Polar
+    Stereographic (variant B)",ID["EPSG",9829]],PARAMETER["Latitude of standard parallel",-90,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8832]],PARAMETER["Longitude
+    of origin",0,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8833]],PARAMETER["False easting",0,LENGTHUNIT["metre",1],ID["EPSG",8806]],PARAMETER["False
+    northing",0,LENGTHUNIT["metre",1],ID["EPSG",8807]]],CS[Cartesian,2],AXIS["easting",north,ORDER[1],LENGTHUNIT["metre",1]],AXIS["northing",north,ORDER[2],LENGTHUNIT["metre",1]]]
+  vertical_reference: Surface height Z in metres; MOON_ME / DE421
+  temporal: Static source DEM; per-pixel acquisition epoch not_verified
+  license: CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation
+    and carries no restrictive notice)
+  license_url: https://science.data.nasa.gov/about/license
+  attribution: Barker et al. (2021), doi:10.1016/j.pss.2020.105119; NASA PGDA LRO-LOLA
+  access: Public unsigned HTTPS; bounded windows
+  authentication: None (public)
+  redistribution: Derived values with source attribution; raw rasters not committed.
+  verified_against:
+    manifest: pipelines/planetary/manifests/lola_site01_references.json
+    access_timestamp: '2026-11-14T10:05:01Z'
+  limitations: 'NASA PGDA LRO-LOLA product ''Site01_final_adj_5mpp_surf'' (NASA GSFC Planetary Geodesy
+    Data Archive (PGDA) / LRO-LOLA); 3200x3200 px, 5.0 m/pix, float32, nodata=NaN, striped 1x3200 blocks,
+    uncompressed, overviews=none. Product documentation: MOON_ME reference frame of DE421, south polar
+    stereographic X/Y in metres, pixel-registered GMT convention. The product page states that about 90%
+    of the 5 m pixels are interpolated because LOLA cross-track/inter-spot spacing leaves only about 10%
+    direct returns; median RMS Z error is about 0.30-0.50 m and median RMS slope error about 1.5-2.5 degrees.
+    Track geolocation uncertainty is about 10-20 cm horizontally and 2-4 cm vertically. This importer
+    read a bounded window via HTTP range requests and cached a small derived GeoTIFF; dataset checksum
+    is the SHA-256 of that cached window, not of the full 40.98 MB (40,980,810 bytes) product. Citation:
+    Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates
+    and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119.
+    Batch checksum covers canonical reference records with window checksums. Published error statistics
+    are site/ROI dependent; not per-window uncertainty estimates.'
+  processing_version: terrain-flat-extension-1.0.0
+- dataset_id: nasa-lola-site07-5mpp-surf
+  role: moon_reference
+  status: verified
+  provider: NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA
+  product_id: Site07_final_adj_5mpp_surf
+  version: lola-import-1.0.0+terrain-metrics-1.0.0
+  title: NASA LOLA Site07 Peak near Shackleton 5 m surface DEM
+  official_urls:
+  - https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site07/Site07_final_adj_5mpp_surf.tif
+  - https://science.data.nasa.gov/about/license
+  coverage: 1 observed local 1.98 km windows; not an exhaustive survey.
+  native_resolution_m: 5.0
+  source_crs: PROJCRS["unnamed",BASEGEOGCRS["unnamed ellipse",DATUM["unknown",ELLIPSOID["unnamed",1737400,0,LENGTHUNIT["metre",1,ID["EPSG",9001]]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433,ID["EPSG",9122]]]],CONVERSION["unnamed",METHOD["Polar
+    Stereographic (variant B)",ID["EPSG",9829]],PARAMETER["Latitude of standard parallel",-90,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8832]],PARAMETER["Longitude
+    of origin",0,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8833]],PARAMETER["False easting",0,LENGTHUNIT["metre",1],ID["EPSG",8806]],PARAMETER["False
+    northing",0,LENGTHUNIT["metre",1],ID["EPSG",8807]]],CS[Cartesian,2],AXIS["easting",north,ORDER[1],LENGTHUNIT["metre",1]],AXIS["northing",north,ORDER[2],LENGTHUNIT["metre",1]]]
+  vertical_reference: Surface height Z in metres; MOON_ME / DE421
+  temporal: Static source DEM; per-pixel acquisition epoch not_verified
+  license: CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation
+    and carries no restrictive notice)
+  license_url: https://science.data.nasa.gov/about/license
+  attribution: Barker et al. (2021), doi:10.1016/j.pss.2020.105119; NASA PGDA LRO-LOLA
+  access: Public unsigned HTTPS; bounded windows
+  authentication: None (public)
+  redistribution: Derived values with source attribution; raw rasters not committed.
+  verified_against:
+    manifest: pipelines/planetary/manifests/lola_site07_references.json
+    access_timestamp: '2026-11-14T10:03:04Z'
+  limitations: 'NASA PGDA LRO-LOLA product ''Site07_final_adj_5mpp_surf'' (NASA GSFC Planetary Geodesy
+    Data Archive (PGDA) / LRO-LOLA); 3200x3200 px, 5.0 m/pix, float32, nodata=NaN, striped 1x3200 blocks,
+    uncompressed, overviews=none. Product documentation: MOON_ME reference frame of DE421, south polar
+    stereographic X/Y in metres, pixel-registered GMT convention. The product page states that about 90%
+    of the 5 m pixels are interpolated because LOLA cross-track/inter-spot spacing leaves only about 10%
+    direct returns; median RMS Z error is about 0.30-0.50 m and median RMS slope error about 1.5-2.5 degrees.
+    Track geolocation uncertainty is about 10-20 cm horizontally and 2-4 cm vertically. This importer
+    read a bounded window via HTTP range requests and cached a small derived GeoTIFF; dataset checksum
+    is the SHA-256 of that cached window, not of the full 40.98 MB (40,980,808 bytes) product. Citation:
+    Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates
+    and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119.
+    Batch checksum covers canonical reference records with window checksums. Published error statistics
+    are site/ROI dependent; not per-window uncertainty estimates.'
+  processing_version: terrain-flat-extension-1.0.0
+- dataset_id: nasa-lola-site11-5mpp-surf
+  role: moon_reference
+  status: verified
+  provider: NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA
+  product_id: Site11_final_adj_5mpp_surf
+  version: lola-import-1.0.0+terrain-metrics-1.0.0
+  title: NASA LOLA Site11 de Gerlache Rim 5 m surface DEM
+  official_urls:
+  - https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site11/Site11_final_adj_5mpp_surf.tif
+  - https://science.data.nasa.gov/about/license
+  coverage: 4 observed local 1.98 km windows; not an exhaustive survey.
+  native_resolution_m: 5.0
+  source_crs: PROJCRS["unnamed",BASEGEOGCRS["unnamed ellipse",DATUM["unknown",ELLIPSOID["unnamed",1737400,0,LENGTHUNIT["metre",1,ID["EPSG",9001]]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433,ID["EPSG",9122]]]],CONVERSION["unnamed",METHOD["Polar
+    Stereographic (variant B)",ID["EPSG",9829]],PARAMETER["Latitude of standard parallel",-90,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8832]],PARAMETER["Longitude
+    of origin",0,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8833]],PARAMETER["False easting",0,LENGTHUNIT["metre",1],ID["EPSG",8806]],PARAMETER["False
+    northing",0,LENGTHUNIT["metre",1],ID["EPSG",8807]]],CS[Cartesian,2],AXIS["easting",north,ORDER[1],LENGTHUNIT["metre",1]],AXIS["northing",north,ORDER[2],LENGTHUNIT["metre",1]]]
+  vertical_reference: Surface height Z in metres; MOON_ME / DE421
+  temporal: Static source DEM; per-pixel acquisition epoch not_verified
+  license: CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation
+    and carries no restrictive notice)
+  license_url: https://science.data.nasa.gov/about/license
+  attribution: Barker et al. (2021), doi:10.1016/j.pss.2020.105119; NASA PGDA LRO-LOLA
+  access: Public unsigned HTTPS; bounded windows
+  authentication: None (public)
+  redistribution: Derived values with source attribution; raw rasters not committed.
+  verified_against:
+    manifest: pipelines/planetary/manifests/lola_site11_references.json
+    access_timestamp: '2026-11-14T10:06:30Z'
+  limitations: 'NASA PGDA LRO-LOLA product ''Site11_final_adj_5mpp_surf'' (NASA GSFC Planetary Geodesy
+    Data Archive (PGDA) / LRO-LOLA); 3200x3200 px, 5.0 m/pix, float32, nodata=NaN, striped 1x3200 blocks,
+    uncompressed, overviews=none. Product documentation: MOON_ME reference frame of DE421, south polar
+    stereographic X/Y in metres, pixel-registered GMT convention. The product page states that about 90%
+    of the 5 m pixels are interpolated because LOLA cross-track/inter-spot spacing leaves only about 10%
+    direct returns; median RMS Z error is about 0.30-0.50 m and median RMS slope error about 1.5-2.5 degrees.
+    Track geolocation uncertainty is about 10-20 cm horizontally and 2-4 cm vertically. This importer
+    read a bounded window via HTTP range requests and cached a small derived GeoTIFF; dataset checksum
+    is the SHA-256 of that cached window, not of the full 40.98 MB (40,980,806 bytes) product. Citation:
+    Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates
+    and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119.
+    Batch checksum covers canonical reference records with window checksums. Published error statistics
+    are site/ROI dependent; not per-window uncertainty estimates.'
+  processing_version: terrain-flat-extension-1.0.0
+- dataset_id: nasa-lola-site20-5mpp-surf
+  role: moon_reference
+  status: verified
+  provider: NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA
+  product_id: Site20_final_adj_5mpp_surf
+  version: lola-import-1.0.0+terrain-metrics-1.0.0
+  title: NASA LOLA Site20 Leibnitz Beta Plateau 5 m surface DEM
+  official_urls:
+  - https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site20/Site20_final_adj_5mpp_surf.tif
+  - https://science.data.nasa.gov/about/license
+  coverage: 1 observed local 1.98 km windows; not an exhaustive survey.
+  native_resolution_m: 5.0
+  source_crs: PROJCRS["unnamed",BASEGEOGCRS["unnamed ellipse",DATUM["unknown",ELLIPSOID["unnamed",1737400,0,LENGTHUNIT["metre",1,ID["EPSG",9001]]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433,ID["EPSG",9122]]]],CONVERSION["unnamed",METHOD["Polar
+    Stereographic (variant B)",ID["EPSG",9829]],PARAMETER["Latitude of standard parallel",-90,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8832]],PARAMETER["Longitude
+    of origin",0,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8833]],PARAMETER["False easting",0,LENGTHUNIT["metre",1],ID["EPSG",8806]],PARAMETER["False
+    northing",0,LENGTHUNIT["metre",1],ID["EPSG",8807]]],CS[Cartesian,2],AXIS["easting",north,ORDER[1],LENGTHUNIT["metre",1]],AXIS["northing",north,ORDER[2],LENGTHUNIT["metre",1]]]
+  vertical_reference: Surface height Z in metres; MOON_ME / DE421
+  temporal: Static source DEM; per-pixel acquisition epoch not_verified
+  license: CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation
+    and carries no restrictive notice)
+  license_url: https://science.data.nasa.gov/about/license
+  attribution: Barker et al. (2021), doi:10.1016/j.pss.2020.105119; NASA PGDA LRO-LOLA
+  access: Public unsigned HTTPS; bounded windows
+  authentication: None (public)
+  redistribution: Derived values with source attribution; raw rasters not committed.
+  verified_against:
+    manifest: pipelines/planetary/manifests/lola_site20_references.json
+    access_timestamp: '2026-11-14T10:03:48Z'
+  limitations: 'NASA PGDA LRO-LOLA product ''Site20_final_adj_5mpp_surf'' (NASA GSFC Planetary Geodesy
+    Data Archive (PGDA) / LRO-LOLA); 3200x3200 px, 5.0 m/pix, float32, nodata=NaN, striped 1x3200 blocks,
+    uncompressed, overviews=none. Product documentation: MOON_ME reference frame of DE421, south polar
+    stereographic X/Y in metres, pixel-registered GMT convention. The product page states that about 90%
+    of the 5 m pixels are interpolated because LOLA cross-track/inter-spot spacing leaves only about 10%
+    direct returns; median RMS Z error is about 0.30-0.50 m and median RMS slope error about 1.5-2.5 degrees.
+    Track geolocation uncertainty is about 10-20 cm horizontally and 2-4 cm vertically. This importer
+    read a bounded window via HTTP range requests and cached a small derived GeoTIFF; dataset checksum
+    is the SHA-256 of that cached window, not of the full 40.98 MB (40,980,802 bytes) product. Citation:
+    Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates
+    and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119.
+    Batch checksum covers canonical reference records with window checksums. Published error statistics
+    are site/ROI dependent; not per-window uncertainty estimates.'
+  processing_version: terrain-flat-extension-1.0.0
+- dataset_id: nasa-lola-site23-5mpp-surf
+  role: moon_reference
+  status: verified
+  provider: NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA
+  product_id: Site23_final_adj_5mpp_surf
+  version: lola-import-1.0.0+terrain-metrics-1.0.0
+  title: NASA LOLA Site23 Malapert Massif 5 m surface DEM
+  official_urls:
+  - https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site23/Site23_final_adj_5mpp_surf.tif
+  - https://science.data.nasa.gov/about/license
+  coverage: 1 observed local 1.98 km windows; not an exhaustive survey.
+  native_resolution_m: 5.0
+  source_crs: PROJCRS["unnamed",BASEGEOGCRS["unnamed ellipse",DATUM["unknown",ELLIPSOID["unnamed",1737400,0,LENGTHUNIT["metre",1,ID["EPSG",9001]]]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433,ID["EPSG",9122]]]],CONVERSION["unnamed",METHOD["Polar
+    Stereographic (variant B)",ID["EPSG",9829]],PARAMETER["Latitude of standard parallel",-90,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8832]],PARAMETER["Longitude
+    of origin",0,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8833]],PARAMETER["False easting",0,LENGTHUNIT["metre",1],ID["EPSG",8806]],PARAMETER["False
+    northing",0,LENGTHUNIT["metre",1],ID["EPSG",8807]]],CS[Cartesian,2],AXIS["easting",north,ORDER[1],LENGTHUNIT["metre",1]],AXIS["northing",north,ORDER[2],LENGTHUNIT["metre",1]]]
+  vertical_reference: Surface height Z in metres; MOON_ME / DE421
+  temporal: Static source DEM; per-pixel acquisition epoch not_verified
+  license: CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation
+    and carries no restrictive notice)
+  license_url: https://science.data.nasa.gov/about/license
+  attribution: Barker et al. (2021), doi:10.1016/j.pss.2020.105119; NASA PGDA LRO-LOLA
+  access: Public unsigned HTTPS; bounded windows
+  authentication: None (public)
+  redistribution: Derived values with source attribution; raw rasters not committed.
+  verified_against:
+    manifest: pipelines/planetary/manifests/lola_site23_references.json
+    access_timestamp: '2026-11-14T10:01:47Z'
+  limitations: 'NASA PGDA LRO-LOLA product ''Site23_final_adj_5mpp_surf'' (NASA GSFC Planetary Geodesy
+    Data Archive (PGDA) / LRO-LOLA); 4200x4200 px, 5.0 m/pix, float32, nodata=NaN, striped 1x4200 blocks,
+    uncompressed, overviews=none. Product documentation: MOON_ME reference frame of DE421, south polar
+    stereographic X/Y in metres, pixel-registered GMT convention. The product page states that about 90%
+    of the 5 m pixels are interpolated because LOLA cross-track/inter-spot spacing leaves only about 10%
+    direct returns; median RMS Z error is about 0.30-0.50 m and median RMS slope error about 1.5-2.5 degrees.
+    Track geolocation uncertainty is about 10-20 cm horizontally and 2-4 cm vertically. This importer
+    read a bounded window via HTTP range requests and cached a small derived GeoTIFF; dataset checksum
+    is the SHA-256 of that cached window, not of the full 70.59 MB (70,586,804 bytes) product. Citation:
+    Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates
+    and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119.
+    Batch checksum covers canonical reference records with window checksums. Published error statistics
+    are site/ROI dependent; not per-window uncertainty estimates.'
+  processing_version: terrain-flat-extension-1.0.0

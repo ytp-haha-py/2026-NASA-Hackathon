@@ -78,6 +78,19 @@ def init_db(engine: Engine) -> None:
     Base.metadata.create_all(engine)
 
 
+def _refresh_observations(row, observations, model) -> None:
+    """Update only the imported record; retain unrelated user AOIs and their data."""
+    existing = {item.feature_id: item for item in row.features}
+    row.features = [item for item in row.features if item.feature_id in observations]
+    for feature_id, observation in observations.items():
+        values = observation.model_dump()
+        if feature_id in existing:
+            for key, value in values.items():
+                setattr(existing[feature_id], key, value)
+        else:
+            row.features.append(model(feature_id=feature_id, **values))
+
+
 def seed_manifests(engine: Engine, manifests: list[Manifest], *, reset: bool = False) -> str:
     """Persist manifests idempotently. `reset=True` replaces the whole index."""
     if reset:
@@ -110,6 +123,9 @@ def seed_manifests(engine: Engine, manifests: list[Manifest], *, reset: bool = F
             )
             for dataset in manifest.datasets:
                 if dataset.dataset_id in existing_datasets:
+                    row = session.get(Dataset, dataset.dataset_id)
+                    for key, value in dataset.model_dump().items():
+                        setattr(row, key, value)
                     continue
                 session.add(
                     Dataset(
@@ -133,6 +149,17 @@ def seed_manifests(engine: Engine, manifests: list[Manifest], *, reset: bool = F
 
             for candidate in manifest.candidates:
                 if candidate.location_id in existing_candidates:
+                    # Context manifests repeat terrain fields; only their context is authoritative.
+                    if landcover_dataset_id is None:
+                        row = session.get(Candidate, candidate.location_id)
+                        for key, value in candidate.model_dump(
+                            exclude={"location_id", "bbox", "features", "context_observations"}
+                        ).items():
+                            setattr(row, key, value)
+                        row.data_kind = manifest.data_kind
+                        for key, value in candidate.bbox.model_dump().items():
+                            setattr(row, key, value)
+                        _refresh_observations(row, candidate.features, FeatureObservation)
                     continue
                 session.add(
                     Candidate(
@@ -220,6 +247,14 @@ def seed_manifests(engine: Engine, manifests: list[Manifest], *, reset: bool = F
 
             for reference in manifest.references:
                 if reference.reference_id in existing_references:
+                    row = session.get(PlanetaryReference, reference.reference_id)
+                    for key, value in reference.model_dump(
+                        exclude={"reference_id", "bbox", "features"}
+                    ).items():
+                        setattr(row, key, value)
+                    for key in ("west", "south", "east", "north"):
+                        setattr(row, key, getattr(reference.bbox, key) if reference.bbox else None)
+                    _refresh_observations(row, reference.features, ReferenceFeatureObservation)
                     continue
                 session.add(
                     PlanetaryReference(

@@ -1,0 +1,91 @@
+{
+  "manifest_version": "1.0.0",
+  "contract_version": "1.0.0",
+  "generated_by": "pipelines/recompute_terrain.py",
+  "generated_at": "2026-11-14T10:22:01Z",
+  "data_kind": "observed",
+  "datasets": [
+    {
+      "dataset_id": "nasa-lola-site07-5mpp-surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "product_id": "Site07_final_adj_5mpp_surf",
+      "title": "NASA LOLA Site07 Peak near Shackleton 5 m surface DEM",
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site07/Site07_final_adj_5mpp_surf.tif",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "access_timestamp": "2026-11-14T10:03:04Z",
+      "source_crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "native_resolution_m": 5.0,
+      "processing_version": "terrain-flat-extension-1.0.0",
+      "checksum": "sha256:668b9133d50af886603d7de178c049873fdb43e80fdd2b64491d40cd6d387f6c",
+      "source_kind": "lunar_dem",
+      "notes": "NASA PGDA LRO-LOLA product 'Site07_final_adj_5mpp_surf' (NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA); 3200x3200 px, 5.0 m/pix, float32, nodata=NaN, striped 1x3200 blocks, uncompressed, overviews=none. Product documentation: MOON_ME reference frame of DE421, south polar stereographic X/Y in metres, pixel-registered GMT convention. The product page states that about 90% of the 5 m pixels are interpolated because LOLA cross-track/inter-spot spacing leaves only about 10% direct returns; median RMS Z error is about 0.30-0.50 m and median RMS slope error about 1.5-2.5 degrees. Track geolocation uncertainty is about 10-20 cm horizontally and 2-4 cm vertically. This importer read a bounded window via HTTP range requests and cached a small derived GeoTIFF; dataset checksum is the SHA-256 of that cached window, not of the full 40.98 MB (40,980,808 bytes) product. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Batch checksum covers canonical reference records with window checksums. Published error statistics are site/ROI dependent; not per-window uncertainty estimates. Updated checksum covers canonical derived records, including individual window checksums."
+    }
+  ],
+  "candidates": [],
+  "references": [
+    {
+      "reference_id": "moon-lola-site07-roi1",
+      "body": "Moon",
+      "display_name": "Peak near Shackleton (LOLA Site07 roi1)",
+      "dataset_id": "nasa-lola-site07-5mpp-surf",
+      "lat": -88.80636301,
+      "lon": 123.54628783,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "lola_interpolated_dem",
+        "planetary_geographic_crs",
+        "roi_windows_may_overlap",
+        "source_striped_not_cog",
+        "source_has_no_overviews"
+      ],
+      "notes": "Peak near Shackleton (LOLA Site07 roi1). ROI roi1: official https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site07/Site07_ROIs.tgz, record 1: finite DBF X/Y, or corresponding SHP polygon bbox midpoint if DBF overflows; archive sha256:694d85297c40133e91570f020e46f7fd0b25c14e94f0a7c5b6d001e8728bddbe; fixed windows may overlap other ROI-centred windows, not independent samples. Window centre in source map coordinates: X=30167.5 m, Y=-20002.5 m. Inverse-projected centre: lon=123.546288, lat=-88.806363 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:a3803a438f4986224f9a705656e092148ab5cc5db5f774ff776104ef4c96fe34. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 7.396252,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 14.734784,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 177.518719,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 40.973835,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.3375,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    }
+  ]
+}

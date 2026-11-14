@@ -1,0 +1,469 @@
+{
+  "manifest_version": "1.0.0",
+  "contract_version": "1.0.0",
+  "generated_by": "pipelines/recompute_terrain.py",
+  "generated_at": "2026-11-14T10:22:01Z",
+  "data_kind": "observed",
+  "datasets": [
+    {
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "product_id": "Site01_final_adj_5mpp_surf",
+      "title": "NASA LOLA Site01 Connecting Ridge 5 m surface DEM",
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_final_adj_5mpp_surf.tif",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "access_timestamp": "2026-11-14T10:05:01Z",
+      "source_crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "native_resolution_m": 5.0,
+      "processing_version": "terrain-flat-extension-1.0.0",
+      "checksum": "sha256:5efed188b1b4d54ce8cf3cafc9a75581c85a0aae81e748a1609e248e537d8ca7",
+      "source_kind": "lunar_dem",
+      "notes": "NASA PGDA LRO-LOLA product 'Site01_final_adj_5mpp_surf' (NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA); 3200x3200 px, 5.0 m/pix, float32, nodata=NaN, striped 1x3200 blocks, uncompressed, overviews=none. Product documentation: MOON_ME reference frame of DE421, south polar stereographic X/Y in metres, pixel-registered GMT convention. The product page states that about 90% of the 5 m pixels are interpolated because LOLA cross-track/inter-spot spacing leaves only about 10% direct returns; median RMS Z error is about 0.30-0.50 m and median RMS slope error about 1.5-2.5 degrees. Track geolocation uncertainty is about 10-20 cm horizontally and 2-4 cm vertically. This importer read a bounded window via HTTP range requests and cached a small derived GeoTIFF; dataset checksum is the SHA-256 of that cached window, not of the full 40.98 MB (40,980,810 bytes) product. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Batch checksum covers canonical reference records with window checksums. Published error statistics are site/ROI dependent; not per-window uncertainty estimates. Updated checksum covers canonical derived records, including individual window checksums."
+    }
+  ],
+  "candidates": [],
+  "references": [
+    {
+      "reference_id": "moon-lola-site01-roi1",
+      "body": "Moon",
+      "display_name": "Connecting Ridge (LOLA Site01 roi1)",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "lat": -89.43892646,
+      "lon": -137.09597807,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "lola_interpolated_dem",
+        "planetary_geographic_crs",
+        "roi_windows_may_overlap",
+        "source_striped_not_cog",
+        "source_has_no_overviews"
+      ],
+      "notes": "Connecting Ridge (LOLA Site01 roi1). ROI roi1: official https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_ROIs.tgz, record 1: finite DBF X/Y, or corresponding SHP polygon bbox midpoint if DBF overflows; archive sha256:40b961417a344ce0274aecbab522e171a22f658507d82e8fb4d7bc97526ffc4f; fixed windows may overlap other ROI-centred windows, not independent samples. Window centre in source map coordinates: X=-11582.5 m, Y=-12462.5 m. Inverse-projected centre: lon=-137.095978, lat=-89.438926 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:e6b8793a6e127d8a792621d40f499bb59cdf41bfa53dc9bd002ac5da697c5b2e. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 8.161142,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 13.98682,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 162.242714,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 48.449056,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.2525,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "reference_id": "moon-lola-site01-roi2",
+      "body": "Moon",
+      "display_name": "Connecting Ridge (LOLA Site01 roi2)",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "lat": -89.43874696,
+      "lon": -137.54797525,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "lola_interpolated_dem",
+        "planetary_geographic_crs",
+        "roi_windows_may_overlap",
+        "source_striped_not_cog",
+        "source_has_no_overviews"
+      ],
+      "notes": "Connecting Ridge (LOLA Site01 roi2). ROI roi2: official https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_ROIs.tgz, record 2: finite DBF X/Y, or corresponding SHP polygon bbox midpoint if DBF overflows; archive sha256:40b961417a344ce0274aecbab522e171a22f658507d82e8fb4d7bc97526ffc4f; fixed windows may overlap other ROI-centred windows, not independent samples. Window centre in source map coordinates: X=-11487.5 m, Y=-12557.5 m. Inverse-projected centre: lon=-137.547975, lat=-89.438747 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:a6c740f9bf5c79054d68b2880b4e58657f0eb1e3c90d8ff634e61ef82d7713f8. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 7.780954,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 13.639578,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 145.667147,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 45.423009,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.27,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "reference_id": "moon-lola-site01-roi3",
+      "body": "Moon",
+      "display_name": "Connecting Ridge (LOLA Site01 roi3)",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "lat": -89.44308632,
+      "lon": -137.75997378,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "lola_interpolated_dem",
+        "planetary_geographic_crs",
+        "roi_windows_may_overlap",
+        "source_striped_not_cog",
+        "source_has_no_overviews"
+      ],
+      "notes": "Connecting Ridge (LOLA Site01 roi3). ROI roi3: official https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_ROIs.tgz, record 3: finite DBF X/Y, or corresponding SHP polygon bbox midpoint if DBF overflows; archive sha256:40b961417a344ce0274aecbab522e171a22f658507d82e8fb4d7bc97526ffc4f; fixed windows may overlap other ROI-centred windows, not independent samples. Window centre in source map coordinates: X=-11352.5 m, Y=-12502.5 m. Inverse-projected centre: lon=-137.759974, lat=-89.443086 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:a094d88b0b29d9b9ba7055dc5c235712698522693971e7bbcb77c534888bc03d. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 7.660526,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 13.35605,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 146.612774,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 45.327521,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.2775,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "reference_id": "moon-lola-site01-roi4",
+      "body": "Moon",
+      "display_name": "Connecting Ridge (LOLA Site01 roi4)",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "lat": -89.45267485,
+      "lon": -137.14865265,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "lola_interpolated_dem",
+        "planetary_geographic_crs",
+        "roi_windows_may_overlap",
+        "source_striped_not_cog",
+        "source_has_no_overviews"
+      ],
+      "notes": "Connecting Ridge (LOLA Site01 roi4). ROI roi4: official https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_ROIs.tgz, record 4: finite DBF X/Y, or corresponding SHP polygon bbox midpoint if DBF overflows; archive sha256:40b961417a344ce0274aecbab522e171a22f658507d82e8fb4d7bc97526ffc4f; fixed windows may overlap other ROI-centred windows, not independent samples. Window centre in source map coordinates: X=-11287.5 m, Y=-12167.5 m. Inverse-projected centre: lon=-137.148653, lat=-89.452675 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:e190f99ea86a723ea9fdb6a5e89291b1a529a51f768c579c5a5fafb4fd38029c. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 8.199446,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 14.212757,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 160.680241,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 53.039848,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.2675,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "reference_id": "moon-lola-site01-roi5",
+      "body": "Moon",
+      "display_name": "Connecting Ridge (LOLA Site01 roi5)",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "lat": -89.46226332,
+      "lon": -137.08753121,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "lola_interpolated_dem",
+        "planetary_geographic_crs",
+        "roi_windows_may_overlap",
+        "source_striped_not_cog",
+        "source_has_no_overviews"
+      ],
+      "notes": "Connecting Ridge (LOLA Site01 roi5). ROI roi5: official https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_ROIs.tgz, record 5: finite DBF X/Y, or corresponding SHP polygon bbox midpoint if DBF overflows; archive sha256:40b961417a344ce0274aecbab522e171a22f658507d82e8fb4d7bc97526ffc4f; fixed windows may overlap other ROI-centred windows, not independent samples. Window centre in source map coordinates: X=-11102.5 m, Y=-11942.5 m. Inverse-projected centre: lon=-137.087531, lat=-89.462263 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:ee13a7f472087bf254747f17f07da9446a853ecf674e3090cd00d36b6851a5d0. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 8.423134,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 14.643033,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 172.742079,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 54.591782,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.305,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "reference_id": "moon-lola-site01-roi6",
+      "body": "Moon",
+      "display_name": "Connecting Ridge (LOLA Site01 roi6)",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "lat": -89.47394396,
+      "lon": -137.37537081,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "lola_interpolated_dem",
+        "planetary_geographic_crs",
+        "roi_windows_may_overlap",
+        "source_striped_not_cog",
+        "source_has_no_overviews"
+      ],
+      "notes": "Connecting Ridge (LOLA Site01 roi6). ROI roi6: official https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_ROIs.tgz, record 6: finite DBF X/Y, or corresponding SHP polygon bbox midpoint if DBF overflows; archive sha256:40b961417a344ce0274aecbab522e171a22f658507d82e8fb4d7bc97526ffc4f; fixed windows may overlap other ROI-centred windows, not independent samples. Window centre in source map coordinates: X=-10802.5 m, Y=-11737.5 m. Inverse-projected centre: lon=-137.375371, lat=-89.473944 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:3260af64cdc0db874ba8c968b5cb74e610ac86f8df6c46032a2c4a30e4aaa6f0. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 8.937084,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 15.038765,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 182.784999,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 53.621185,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.26,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "reference_id": "moon-lola-site01-roi7",
+      "body": "Moon",
+      "display_name": "Connecting Ridge (LOLA Site01 roi7)",
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "lat": -89.49117902,
+      "lon": -138.48133424,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "lola_interpolated_dem",
+        "planetary_geographic_crs",
+        "roi_windows_may_overlap",
+        "source_striped_not_cog",
+        "source_has_no_overviews"
+      ],
+      "notes": "Connecting Ridge (LOLA Site01 roi7). ROI roi7: official https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_ROIs.tgz, record 7: finite DBF X/Y, or corresponding SHP polygon bbox midpoint if DBF overflows; archive sha256:40b961417a344ce0274aecbab522e171a22f658507d82e8fb4d7bc97526ffc4f; fixed windows may overlap other ROI-centred windows, not independent samples. Window centre in source map coordinates: X=-10227.5 m, Y=-11552.5 m. Inverse-projected centre: lon=-138.481334, lat=-89.491179 (east-positive degrees; longitude is ill-conditioned this close to the pole, so the X/Y centre is authoritative). Analysis window 1980 m resampled bilinearly to 90 m; source crop 414 x 414 px at 5.0 m. window_checksum=sha256:8c4873f27f86c34cbf3c4e675c31453d7bbc49efc2e51c45ed202e0ccbfce7ee. Extractor warnings: none. The 5 m LDEM is about 90% interpolated; do not treat 5 m texture as an independent measurement. The four metrics are computed from elevation in the source projected CRS. Citation: Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary & Space Science 203, 105119, doi:10.1016/j.pss.2020.105119. Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 9.798553,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 15.477833,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 193.275758,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 49.615604,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.1675,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    }
+  ]
+}

@@ -1,17 +1,17 @@
 {
   "artifacts": [
     {
-      "bytes": 1717,
+      "bytes": 25556,
       "kind": "index_summary",
       "path": "samples/snapshot/analog-demo.index-summary.json",
-      "sha256": "558e54869f4a1f0e90af9171e6c0d122914c5126ac694dd284bdccbf8d2a1d8d"
+      "sha256": "f7a3b791b25e39dbe66a6387f3aaf76307816af6fd258e0755a6b5f7171d937d"
     }
   ],
-  "created_at": "2026-11-14T06:33:40Z",
-  "data_version": "dv-19f54b4539c8",
+  "created_at": "2026-11-14T10:22:01Z",
+  "data_version": "dv-b46f3bad38ea",
   "datasets": [
     {
-      "candidate_count": 5,
+      "candidate_count": 113,
       "dataset_id": "copernicus-dem-glo90",
       "license": "Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry), under the Copernicus Contributing Mission Data Access Licence terms",
       "license_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
@@ -33,7 +33,7 @@
       "verified": true
     },
     {
-      "candidate_count": 5,
+      "candidate_count": 113,
       "dataset_id": "esa-worldcover-2021-v200",
       "license": "CC BY 4.0 (Creative Commons Attribution 4.0 International)",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
@@ -56,6 +56,50 @@
     },
     {
       "candidate_count": 0,
+      "dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "license": "public domain",
+      "license_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+      "manifest_paths": [
+        "pipelines/planetary/manifests/ctx_mars_references.json"
+      ],
+      "native_resolution_m": 20.0,
+      "observation_qualities": [
+        "verified"
+      ],
+      "product_id": "M20_JezeroCrater_CTXDEM_20m",
+      "provider": "USGS Astrogeology Science Center / NASA Mars Missions",
+      "reference_count": 5,
+      "source_crs": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "source_kind": "martian_dem",
+      "status": "verified",
+      "title": "Mars 2020 Science Investigation CTX DEM Mosaic",
+      "url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+      "verified": true
+    },
+    {
+      "candidate_count": 0,
+      "dataset_id": "nasa-lola-site01-5mpp-surf",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "manifest_paths": [
+        "pipelines/planetary/manifests/lola_site01_references.json"
+      ],
+      "native_resolution_m": 5.0,
+      "observation_qualities": [
+        "verified"
+      ],
+      "product_id": "Site01_final_adj_5mpp_surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "reference_count": 7,
+      "source_crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "source_kind": "lunar_dem",
+      "status": "verified",
+      "title": "NASA LOLA Site01 Connecting Ridge 5 m surface DEM",
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_final_adj_5mpp_surf.tif",
+      "verified": true
+    },
+    {
+      "candidate_count": 0,
       "dataset_id": "nasa-lola-site04-5mpp-surf",
       "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
       "license_url": "https://science.data.nasa.gov/about/license",
@@ -68,41 +112,171 @@
       ],
       "product_id": "Site04_final_adj_5mpp_surf",
       "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "reference_count": 4,
+      "source_crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "source_kind": "lunar_dem",
+      "status": "verified",
+      "title": "NASA LOLA Site04 Shackleton Rim 5 m surface DEM",
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_final_adj_5mpp_surf.tif",
+      "verified": true
+    },
+    {
+      "candidate_count": 0,
+      "dataset_id": "nasa-lola-site07-5mpp-surf",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "manifest_paths": [
+        "pipelines/planetary/manifests/lola_site07_references.json"
+      ],
+      "native_resolution_m": 5.0,
+      "observation_qualities": [
+        "verified"
+      ],
+      "product_id": "Site07_final_adj_5mpp_surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
       "reference_count": 1,
       "source_crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
       "source_kind": "lunar_dem",
       "status": "verified",
-      "title": "LRO-LOLA 5 m/pix surface-interpolated DEM, Shackleton rim (Site04)",
-      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_final_adj_5mpp_surf.tif",
+      "title": "NASA LOLA Site07 Peak near Shackleton 5 m surface DEM",
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site07/Site07_final_adj_5mpp_surf.tif",
+      "verified": true
+    },
+    {
+      "candidate_count": 0,
+      "dataset_id": "nasa-lola-site11-5mpp-surf",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "manifest_paths": [
+        "pipelines/planetary/manifests/lola_site11_references.json"
+      ],
+      "native_resolution_m": 5.0,
+      "observation_qualities": [
+        "verified"
+      ],
+      "product_id": "Site11_final_adj_5mpp_surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "reference_count": 4,
+      "source_crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "source_kind": "lunar_dem",
+      "status": "verified",
+      "title": "NASA LOLA Site11 de Gerlache Rim 5 m surface DEM",
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site11/Site11_final_adj_5mpp_surf.tif",
+      "verified": true
+    },
+    {
+      "candidate_count": 0,
+      "dataset_id": "nasa-lola-site20-5mpp-surf",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "manifest_paths": [
+        "pipelines/planetary/manifests/lola_site20_references.json"
+      ],
+      "native_resolution_m": 5.0,
+      "observation_qualities": [
+        "verified"
+      ],
+      "product_id": "Site20_final_adj_5mpp_surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "reference_count": 1,
+      "source_crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "source_kind": "lunar_dem",
+      "status": "verified",
+      "title": "NASA LOLA Site20 Leibnitz Beta Plateau 5 m surface DEM",
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site20/Site20_final_adj_5mpp_surf.tif",
+      "verified": true
+    },
+    {
+      "candidate_count": 0,
+      "dataset_id": "nasa-lola-site23-5mpp-surf",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "manifest_paths": [
+        "pipelines/planetary/manifests/lola_site23_references.json"
+      ],
+      "native_resolution_m": 5.0,
+      "observation_qualities": [
+        "verified"
+      ],
+      "product_id": "Site23_final_adj_5mpp_surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "reference_count": 1,
+      "source_crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "source_kind": "lunar_dem",
+      "status": "verified",
+      "title": "NASA LOLA Site23 Malapert Massif 5 m surface DEM",
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site23/Site23_final_adj_5mpp_surf.tif",
       "verified": true
     }
   ],
   "generated_by": "pipelines/src/analog_pipelines/snapshot.py",
   "manifests": [
     {
-      "bytes": 11353,
+      "bytes": 261973,
       "data_kind": "observed",
       "path": "pipelines/earth/manifests/copernicus_glo90_earth.json",
       "seedable": true,
-      "sha256": "66e0f7002da23ec3644c03c1cc42ab78a10e405b4fcccd332e10a8526308dcad"
+      "sha256": "dda333e0752816a083fae68e87ac624371cff6dddfb68b1e9b28f0b1777d55e8"
     },
     {
-      "bytes": 6719,
+      "bytes": 18312,
+      "data_kind": "observed",
+      "path": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "seedable": true,
+      "sha256": "6168256e3a03502a48a0aa812ae00365337dc819cd6a161a9f4a75ee2b158153"
+    },
+    {
+      "bytes": 19414,
       "data_kind": "observed",
       "path": "pipelines/planetary/manifests/lola_moon_reference.json",
       "seedable": true,
-      "sha256": "46f1cc05df1d294a491ca5e91e9ea713a1b74ea3b05bc345e8817f14b50b88d4"
+      "sha256": "80c91cb5992d395791e0835ce5952a99e51f52f6933643a414749ffdcb9eafcd"
     },
     {
-      "bytes": 34873,
+      "bytes": 31515,
+      "data_kind": "observed",
+      "path": "pipelines/planetary/manifests/lola_site01_references.json",
+      "seedable": true,
+      "sha256": "c8180b128cf7e49135f2fae242922eca3542ab4f1395a52986c7daf4dfabb22a"
+    },
+    {
+      "bytes": 7339,
+      "data_kind": "observed",
+      "path": "pipelines/planetary/manifests/lola_site07_references.json",
+      "seedable": true,
+      "sha256": "96912b540e51bbbff6cd906bd12e2c5da94c1c825d692dbdd7853e26afc5ed41"
+    },
+    {
+      "bytes": 19404,
+      "data_kind": "observed",
+      "path": "pipelines/planetary/manifests/lola_site11_references.json",
+      "seedable": true,
+      "sha256": "81a78d93c2c574a952a3e529e5a41c1031e1a7a2790637609a43374c86649bf8"
+    },
+    {
+      "bytes": 7307,
+      "data_kind": "observed",
+      "path": "pipelines/planetary/manifests/lola_site20_references.json",
+      "seedable": true,
+      "sha256": "f5b4e27bdef8db8b64ce8e7f3f8243dfb9fdc176b311689bad7a3a1a1e3200b3"
+    },
+    {
+      "bytes": 7290,
+      "data_kind": "observed",
+      "path": "pipelines/planetary/manifests/lola_site23_references.json",
+      "seedable": true,
+      "sha256": "450ea23631034d595ab0a708dea21d1c8f3130916fffaf23f149e2e229d5e8c5"
+    },
+    {
+      "bytes": 761741,
       "data_kind": "observed",
       "path": "pipelines/worldcover/manifests/worldcover_earth_context.json",
       "seedable": true,
-      "sha256": "24b658f8709e0ba438dd21b888af93e18eeb478fb7e0a64e925033e57a7b46d3"
+      "sha256": "8d3cc46c86abcf0836a9827c802a7c78e39f373eff0f3fcbf326d56edddccaf0"
     }
   ],
-  "notes": "Pins committed JSON manifests by SHA-256. Raw rasters and caches are not included. Indexed windows are a local subset, not a global survey.",
-  "snapshot_id": "snap-d3ed2ba59558e7f8",
+  "notes": "Bounded terrain expansion: 113 Earth, 18 Moon, 5 Mars windows; five production metrics. Curvature and landform composition remain research-only.",
+  "snapshot_id": "snap-0cef4d75b147866a",
   "snapshot_version": "1.0.0",
-  "source_commit": "be4fc4f96bd351b3ea51a9042a02ec393a092995"
+  "source_commit": null
 }

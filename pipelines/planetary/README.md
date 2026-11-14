@@ -1,3 +1,7 @@
+Current bounded terrain expansion: see [TERRAIN_EXPANSION.md](../../docs/TERRAIN_EXPANSION.md).
+The following original ingestion evidence predates the expansion; current counts and
+sources are in the committed manifests and dataset catalog.
+
 # Planetary / Moon reference — real LOLA 5 m/pix DEM
 
 This pipeline produces **one real, observed Moon reference window** for the Planetary Analog

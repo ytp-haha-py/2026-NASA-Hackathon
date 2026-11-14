@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import { App } from "./App";
 import {
   analyzeQueuedFixture,
+  capabilitiesFixture,
   aoiLocationFixture,
   emptySearchResponseFixture,
   jobCompletedFixture,
@@ -498,6 +499,56 @@ describe("context filters and Moon reference mode", () => {
       limit: 10,
     });
     expect(body).not.toHaveProperty("weights");
+  });
+});
+
+describe("flat terrain fraction", () => {
+  it("accepts the additive fraction feature supplied by the API", async () => {
+    const user = userEvent.setup();
+    const flat = {
+      ...capabilitiesFixture.features[0],
+      id: "flat_terrain_fraction", label: "Flat terrain fraction", unit: "fraction",
+      min_value: 0, max_value: 1, scale: 0.25,
+      method_version: "flat-terrain-fraction-1.0.0",
+    };
+    const fetchMock = await renderReady({
+      capabilities: () => jsonResponse({ ...capabilitiesFixture, features: [...capabilitiesFixture.features, flat] }),
+      search: () => jsonResponse(searchResponseFixture),
+    });
+    const group = await screen.findByRole("group", { name: "Flat terrain fraction" });
+    await user.click(within(group).getByRole("checkbox"));
+    const value = within(group).getByRole("spinbutton", { name: /Target value/ });
+    await user.type(value, "0.5");
+    await runSearch();
+    await screen.findByTestId("coverage-headline");
+    expect(searchRequestFromCalls(fetchMock).target?.flat_terrain_fraction).toEqual({ value: 0.5, weight: 1 });
+  });
+});
+
+describe("Mars reference mode", () => {
+  it("uses a supplied Mars reference through the existing search form", async () => {
+    const user = userEvent.setup();
+    const fetchMock = await renderReady({
+      references: () => jsonResponse([{
+        ...referenceFixture,
+        reference_id: "mars-jezero-ctx-window-01",
+        body: "Mars",
+        display_name: "TEST ONLY Jezero CTX reference",
+        notes: "TEST ONLY API fixture",
+        quality_flags: ["stereo_dem_mosaic"],
+      }]),
+      search: () => jsonResponse(searchResponseFixture),
+    });
+    const mars = screen.getByRole("option", { name: /Mars reference/ });
+    expect((mars as HTMLOptionElement).disabled).toBe(false);
+    await user.selectOptions(screen.getByLabelText("Body preset"), "Mars");
+    await runSearch();
+    await screen.findByTestId("coverage-headline");
+    expect(searchRequestFromCalls(fetchMock)).toMatchObject({
+      body: "Mars",
+      reference_id: "mars-jezero-ctx-window-01",
+      target: {},
+    });
   });
 });
 

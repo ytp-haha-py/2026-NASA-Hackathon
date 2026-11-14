@@ -565,35 +565,40 @@ def publish_snapshot(
     snapshot_id = snapshot["snapshot_id"]
     prefix = f"{SNAPSHOT_PREFIX}/{snapshot_id}"
 
-    snapshot_bytes = snapshot_path.read_bytes()
-    files = {"snapshot.json": hashlib.sha256(snapshot_bytes).hexdigest()}
-    keys = [f"{prefix}/snapshot.json"]
-    store.put_bytes(f"{prefix}/snapshot.json", snapshot_bytes, "application/json")
-
+    payloads = {"snapshot.json": snapshot_path.read_bytes()}
     basenames: set[str] = set()
     for entry in snapshot["artifacts"]:
-        source = resolve_snapshot_path(root, entry["path"])
         basename = PurePosixPath(entry["path"]).name
         if basename in basenames:
             raise SnapshotError(f"duplicate artifact basename in snapshot: {basename}")
         basenames.add(basename)
-        data = source.read_bytes()
-        actual = hashlib.sha256(data).hexdigest()
-        if actual != entry["sha256"]:
+        data = resolve_snapshot_path(root, entry["path"]).read_bytes()
+        if hashlib.sha256(data).hexdigest() != entry["sha256"]:
             raise SnapshotVerificationError(f"artifact changed during publish: {entry['path']}")
-        remote_key = f"{prefix}/artifacts/{basename}"
-        store.put_bytes(remote_key, data, "application/json")
-        files[f"artifacts/{basename}"] = actual
-        keys.append(remote_key)
-
-    checksums = {
-        "snapshot_id": snapshot_id,
-        "snapshot_version": snapshot["snapshot_version"],
-        "files": files,
-    }
-    checksums_bytes = pretty_json_bytes(checksums)
-    store.put_bytes(f"{prefix}/checksums.json", checksums_bytes, "application/json")
-    keys.append(f"{prefix}/checksums.json")
+        payloads[f"artifacts/{basename}"] = data
+    for entry in snapshot["manifests"]:
+        data = resolve_snapshot_path(root, entry["path"]).read_bytes()
+        if hashlib.sha256(data).hexdigest() != entry["sha256"]:
+            raise SnapshotVerificationError(f"manifest changed during publish: {entry['path']}")
+        payloads[entry["path"]] = data
+    files = {key: hashlib.sha256(data).hexdigest() for key, data in payloads.items()}
+    payloads["checksums.json"] = pretty_json_bytes(
+        {
+            "snapshot_id": snapshot_id,
+            "snapshot_version": snapshot["snapshot_version"],
+            "files": files,
+        }
+    )
+    # Validate all existing objects before any mutation; never rewrite an immutable revision.
+    for relative, data in payloads.items():
+        key = f"{prefix}/{relative}"
+        if store.exists(key) and store.get_bytes(key) != data:
+            raise SnapshotVerificationError(f"immutable object differs: {key}")
+    keys = []
+    for relative, data in payloads.items():
+        key = f"{prefix}/{relative}"
+        store.put_bytes(key, data, "application/json")
+        keys.append(key)
     return {"snapshot_id": snapshot_id, "prefix": prefix, "keys": keys, "checksums": files}
 
 
@@ -649,11 +654,24 @@ def fetch_snapshot(
             raise SnapshotVerificationError(f"artifact checksums.json mismatch for {basename}")
         path = destination / "artifacts" / basename
         atomic_write_bytes(path, data)
+        # Retain the original layout too, so a clean download can rebuild without Git manifests.
+        atomic_write_bytes(resolve_snapshot_path(destination, entry["path"]), data)
         artifact_paths.append(str(path))
 
     manifests_verified = 0
+    manifests_downloaded = 0
     for entry in snapshot.get("manifests") or []:
-        path = resolve_snapshot_path(root, entry["path"])
+        relative = entry["path"]
+        if relative in files:
+            data = store.get_bytes(f"{prefix}/{relative}")
+            digest = hashlib.sha256(data).hexdigest()
+            if digest != entry["sha256"] or digest != files[relative]:
+                raise SnapshotVerificationError(
+                    f"downloaded manifest checksum mismatch: {relative}"
+                )
+            atomic_write_bytes(resolve_snapshot_path(destination, relative), data)
+            manifests_downloaded += 1
+        path = resolve_snapshot_path(root, relative)
         if path.is_file():
             if sha256_file(path) != entry.get("sha256"):
                 raise SnapshotVerificationError(
@@ -666,6 +684,7 @@ def fetch_snapshot(
         "snapshot_path": str(snapshot_path),
         "artifact_paths": artifact_paths,
         "manifests_verified_locally": manifests_verified,
+        "manifests_downloaded": manifests_downloaded,
     }
 
 
