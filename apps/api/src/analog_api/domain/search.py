@@ -133,6 +133,25 @@ def _reference_target(reference: ReferenceEntity) -> tuple[dict[str, float], dic
     return target, weights
 
 
+def _filter_value(candidate: CandidateEntity, feature_id: str) -> float | None:
+    """Observed value used by a hard filter, or None when it cannot be evaluated.
+
+    Similarity features count only with a finite value from the registry's method version, so a
+    filter never mixes method versions. Missing values are never imputed.
+    """
+    if feature_id in FEATURE_BY_ID:
+        observation = candidate.features.get(feature_id)
+        if (
+            observation is None
+            or observation.method_version != FEATURE_BY_ID[feature_id].method_version
+            or not math.isfinite(observation.value)
+        ):
+            return None
+        return observation.value
+    context = candidate.context_observations.get(feature_id)
+    return None if context is None else context.value
+
+
 def _caveats(candidate: CandidateEntity) -> list[str]:
     caveats = [
         "Terrain shape only; not a claim of physical or environmental equivalence.",
@@ -231,12 +250,13 @@ def execute_search(repo: CandidateRepositoryFull, request: SearchRequest) -> dic
     for candidate in candidates:
         filter_failures: list[str] = []
         for feature_id, constraint in request.filters.items():
-            observation = candidate.context_observations.get(feature_id)
-            if observation is None:
-                filter_failures.append(f"missing_context:{feature_id}")
+            value = _filter_value(candidate, feature_id)
+            if value is None:
+                prefix = "missing_metric" if feature_id in FEATURE_BY_ID else "missing_context"
+                filter_failures.append(f"{prefix}:{feature_id}")
                 continue
-            if (constraint.min is not None and observation.value < constraint.min) or (
-                constraint.max is not None and observation.value > constraint.max
+            if (constraint.min is not None and value < constraint.min) or (
+                constraint.max is not None and value > constraint.max
             ):
                 filter_failures.append(f"filter:{feature_id}")
         if filter_failures:

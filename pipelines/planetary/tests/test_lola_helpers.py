@@ -42,7 +42,8 @@ def test_parse_source_file_url() -> None:
     ref = parse_source("file:///tmp/lola/dem.tif")
     assert ref.is_remote is False
     assert ref.path == Path("/tmp/lola/dem.tif")
-    assert ref.gdal_path == "/tmp/lola/dem.tif"
+    # GDAL gets the native path: "/tmp/lola/dem.tif" on POSIX, "\tmp\lola\dem.tif" on Windows.
+    assert ref.gdal_path == str(Path("/tmp/lola/dem.tif"))
 
 
 def test_parse_source_local_path(tmp_path: Path) -> None:

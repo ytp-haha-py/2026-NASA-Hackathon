@@ -921,7 +921,10 @@ export interface components {
             /** Weight */
             weight: number;
         };
-        /** RangeFilterIn */
+        /**
+         * RangeFilterIn
+         * @description Inclusive hard filter. Bounds are checked against the filtered feature's domain.
+         */
         RangeFilterIn: {
             /** Max */
             max?: number | null;

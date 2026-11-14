@@ -354,3 +354,69 @@ def test_unknown_reference_is_not_found(reference_client: TestClient):
     )
     assert response.status_code == 404
     assert response.json()["error"]["code"] == "not_found"
+
+
+def test_search_terrain_range_filter_excludes_out_of_range(client: TestClient):
+    unfiltered = client.post("/api/v1/search", json=search_payload()).json()
+    response = client.post(
+        "/api/v1/search",
+        json=search_payload(filters={"slope_mean_deg": {"min": 5, "max": 15}}),
+    )
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert {result["location_id"] for result in body["results"]} == {
+        "earth-synthetic-beta",
+        "earth-synthetic-gamma",
+    }
+    reasons = {item["location_id"]: item["reason"] for item in body["excluded"]}
+    assert reasons == {
+        "earth-synthetic-alpha": "filter:slope_mean_deg",
+        "earth-synthetic-delta": "filter:slope_mean_deg",
+    }
+    assert body["filters_applied"] == {"slope_mean_deg": {"min": 5.0, "max": 15.0}}
+    # A hard filter removes candidates but never changes the distance of the ones that remain.
+    before = {result["location_id"]: result["distance"] for result in unfiltered["results"]}
+    for result in body["results"]:
+        assert result["distance"] == pytest.approx(before[result["location_id"]])
+
+
+def test_search_terrain_filter_bounds_are_inclusive(client: TestClient):
+    body = client.post(
+        "/api/v1/search",
+        json=search_payload(filters={"slope_mean_deg": {"min": 6, "max": 6}}),
+    ).json()
+    assert [result["location_id"] for result in body["results"]] == ["earth-synthetic-beta"]
+
+
+def test_search_terrain_filter_on_missing_metric_excludes_without_imputing(client: TestClient):
+    body = client.post(
+        "/api/v1/search",
+        json=search_payload(filters={"flat_terrain_fraction": {"min": 0}}),
+    ).json()
+    assert body["results"] == []
+    assert {item["reason"] for item in body["excluded"]} == {"missing_metric:flat_terrain_fraction"}
+
+
+def test_search_terrain_filter_rejects_out_of_domain_bounds(client: TestClient):
+    response = client.post(
+        "/api/v1/search",
+        json=search_payload(filters={"slope_mean_deg": {"min": -1}}),
+    )
+    assert response.status_code == 422
+    assert "filter bounds for slope_mean_deg" in response.json()["error"]["message"]
+
+
+def test_search_context_filter_bounds_stay_fractions(client: TestClient):
+    response = client.post(
+        "/api/v1/search",
+        json=search_payload(filters={"landcover_bare_sparse_fraction": {"max": 1.5}}),
+    )
+    assert response.status_code == 422
+
+
+def test_search_filter_rejects_inverted_range(client: TestClient):
+    response = client.post(
+        "/api/v1/search",
+        json=search_payload(filters={"slope_mean_deg": {"min": 10, "max": 5}}),
+    )
+    assert response.status_code == 422
