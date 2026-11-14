@@ -314,3 +314,71 @@ Additional error codes: `invalid_aoi`, `aoi_too_small`, `aoi_too_large`, `invali
 
 `apps/web` generates TypeScript types from `contracts/openapi.json` with `openapi-typescript`.
 Run `npm run generate:api` after regenerating the snapshot; `npm run check:api` detects drift in CI.
+
+## Coarse global discovery (offline-first)
+
+These endpoints are additive. They require a **verified local Parquet index** built by
+`pipelines/src/analog_pipelines/coarse_index.py`. If no index is configured they do not
+fabricate data.
+
+### GET /global/coverage
+
+`status=no_index` with `row_count=0` when no index exists. With an index:
+
+```json
+{
+  "status": "ready",
+  "snapshot_id": "fixture-snapshot",
+  "label": "local_coarse_index_not_global_exhaustive",
+  "row_count": 3,
+  "regions": ["pilot"],
+  "bbox": {"west": 10.0, "south": 45.0, "east": 10.06, "north": 45.045},
+  "method_version": "coarse-terrain-250m-1.0.0",
+  "features": ["coarse feature definitions ..."],
+  "note": "Local coarse Parquet index; not an exhaustive global claim."
+}
+```
+
+### POST /global/search
+
+```json
+{
+  "target": {"coarse_slope_mean_deg": {"value": 10, "weight": 1}},
+  "limit": 5
+}
+```
+
+Returns deterministic top-K over the pinned snapshot, eligible/excluded counts and
+the coverage label. Coarse feature IDs are separate from the 90 m IDs. Missing
+metrics are excluded, never zero-filled. No index -> `409 no_indexed_data`.
+
+### GET /global/candidates/{id}
+
+Returns the coarse candidate record, including bbox, CRS, method version, source
+ids and QA flags. Missing -> 404.
+
+### POST /global/refine-plan
+
+```json
+{"candidate_id": "coarse-v1:...", "per_side": 2}
+```
+
+Returns planned 1.98 km fine windows. It does **not** run the 90 m AOI pipeline or
+download a DEM. Coarse and fine methods are explicitly different; a comparison is
+rejected rather than silently rescaled.
+
+## Typed v2 observations
+
+`GET /typed/observations?dimension=D02&body=Earth&feature_id=...` and
+`GET /typed/areas/{area_id}` expose additive typed records from the SQLite typed
+tables. Current committed real data is D01 terrain + Earth context; D02–D06 fixture
+rows are synthetic and clearly labelled. The v2 contracts live in
+`contracts/v2/*.schema.json`; v1 manifests/API remain unchanged.
+
+## Method versions
+
+- Fine: `terrain-metrics-1.0.0` and `flat-terrain-fraction-1.0.0`.
+- Coarse: `coarse-terrain-250m-1.0.0`, grid `coarse-grid-1.0.0`.
+- Six-dimension evidence: `*-evidence-0.1.0` (not scored).
+
+Never mix coarse and fine features in one distance.

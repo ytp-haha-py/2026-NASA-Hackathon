@@ -1,0 +1,503 @@
+{
+  "$defs": {
+    "DepthSupport": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "default": "surface",
+          "enum": [
+            "surface",
+            "depth_interval",
+            "unknown"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "max_m": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max M"
+        },
+        "min_m": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Min M"
+        }
+      },
+      "title": "DepthSupport",
+      "type": "object"
+    },
+    "ProcessEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "evidence_type": {
+          "title": "Evidence Type",
+          "type": "string"
+        },
+        "process_code": {
+          "title": "Process Code",
+          "type": "string"
+        },
+        "references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "process_code",
+        "evidence_type"
+      ],
+      "title": "ProcessEvidence",
+      "type": "object"
+    },
+    "SpatialSupport": {
+      "additionalProperties": false,
+      "properties": {
+        "area_km2": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Area Km2"
+        },
+        "bbox": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "number"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bbox"
+        },
+        "crs": {
+          "default": "unknown",
+          "title": "Crs",
+          "type": "string"
+        },
+        "kind": {
+          "default": "unknown",
+          "enum": [
+            "window",
+            "bbox",
+            "point",
+            "geometry",
+            "unknown"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "native_resolution_m": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Native Resolution M"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        },
+        "resolution_m": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resolution M"
+        },
+        "window_size_m": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Window Size M"
+        }
+      },
+      "title": "SpatialSupport",
+      "type": "object"
+    },
+    "TemporalSupport": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "kind": {
+          "default": "unknown",
+          "enum": [
+            "static",
+            "instant",
+            "interval",
+            "composite",
+            "unknown"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "local_solar_time": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Local Solar Time"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start"
+        }
+      },
+      "title": "TemporalSupport",
+      "type": "object"
+    },
+    "Uncertainty": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "default": "unknown",
+          "enum": [
+            "none",
+            "standard_deviation",
+            "confidence_interval",
+            "published_range",
+            "unknown"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "lower": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Lower"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "upper": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Upper"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "title": "Uncertainty",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "area_id": {
+      "title": "Area Id",
+      "type": "string"
+    },
+    "body": {
+      "enum": [
+        "Earth",
+        "Moon",
+        "Mars"
+      ],
+      "title": "Body",
+      "type": "string"
+    },
+    "depth_support": {
+      "$ref": "#/$defs/DepthSupport"
+    },
+    "dimension_code": {
+      "anyOf": [
+        {
+          "enum": [
+            "D01",
+            "D02",
+            "D03",
+            "D04",
+            "D05",
+            "D06"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Dimension Code"
+    },
+    "evidence": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ProcessEvidence"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "feature_id": {
+      "title": "Feature Id",
+      "type": "string"
+    },
+    "method_version": {
+      "title": "Method Version",
+      "type": "string"
+    },
+    "notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Notes"
+    },
+    "observation_id": {
+      "title": "Observation Id",
+      "type": "string"
+    },
+    "quality_flags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Quality Flags",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "2.0.0",
+      "default": "2.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "score_role": {
+      "default": "evidence_only",
+      "enum": [
+        "similarity",
+        "context_only",
+        "filter",
+        "evidence_only",
+        "not_comparable"
+      ],
+      "title": "Score Role",
+      "type": "string"
+    },
+    "source_asset_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Source Asset Ids",
+      "type": "array"
+    },
+    "spatial_support": {
+      "$ref": "#/$defs/SpatialSupport"
+    },
+    "state": {
+      "enum": [
+        "detected",
+        "not_detected",
+        "no_coverage",
+        "unknown",
+        "not_applicable"
+      ],
+      "title": "State",
+      "type": "string"
+    },
+    "temporal_support": {
+      "$ref": "#/$defs/TemporalSupport"
+    },
+    "uncertainty": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Uncertainty"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "unit": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Unit"
+    },
+    "value": {
+      "default": null,
+      "title": "Value"
+    },
+    "value_kind": {
+      "enum": [
+        "numeric",
+        "category",
+        "distribution",
+        "detection",
+        "timeseries",
+        "spectrum",
+        "process_evidence"
+      ],
+      "title": "Value Kind",
+      "type": "string"
+    }
+  },
+  "required": [
+    "observation_id",
+    "area_id",
+    "body",
+    "dimension_code",
+    "feature_id",
+    "value_kind",
+    "state",
+    "spatial_support",
+    "method_version",
+    "source_asset_ids"
+  ],
+  "title": "TypedObservation",
+  "type": "object"
+}

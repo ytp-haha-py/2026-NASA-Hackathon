@@ -112,6 +112,74 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/global/candidates/{candidate_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Global Candidate */
+        get: operations["global_candidate_api_v1_global_candidates__candidate_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/global/coverage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Global Coverage */
+        get: operations["global_coverage_api_v1_global_coverage_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/global/refine-plan": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Refine Plan */
+        post: operations["refine_plan_api_v1_global_refine_plan_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/global/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Global Search */
+        post: operations["global_search_api_v1_global_search_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/health": {
         parameters: {
             query?: never;
@@ -214,6 +282,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/typed/areas/{area_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Typed Area */
+        get: operations["typed_area_api_v1_typed_areas__area_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/typed/observations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Typed Observations */
+        get: operations["list_typed_observations_api_v1_typed_observations_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -306,6 +408,16 @@ export interface components {
             method_version: string;
             /** Supported Bodies */
             supported_bodies: string[];
+        };
+        /** CoarseTargetSpec */
+        CoarseTargetSpec: {
+            /** Value */
+            value: number;
+            /**
+             * Weight
+             * @default 1
+             */
+            weight: number;
         };
         /** ContextComparisonOut */
         ContextComparisonOut: {
@@ -584,6 +696,113 @@ export interface components {
             /** West */
             west: number;
         };
+        /** GlobalCoverageOut */
+        GlobalCoverageOut: {
+            /** Bbox */
+            bbox: {
+                [key: string]: number;
+            } | null;
+            /** Features */
+            features: {
+                [key: string]: unknown;
+            }[];
+            /** Label */
+            label: string;
+            /** Method Version */
+            method_version: string | null;
+            /** Note */
+            note: string;
+            /** Regions */
+            regions: string[];
+            /** Row Count */
+            row_count: number;
+            /** Snapshot Id */
+            snapshot_id: string | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "ready" | "no_index";
+        };
+        /** GlobalSearchRequest */
+        GlobalSearchRequest: {
+            /**
+             * Limit
+             * @default 10
+             */
+            limit: number;
+            /** Region Id */
+            region_id?: string | null;
+            /** Target */
+            target: {
+                [key: string]: components["schemas"]["CoarseTargetSpec"];
+            };
+            /** Weights */
+            weights?: {
+                [key: string]: number;
+            };
+        };
+        /** GlobalSearchResponse */
+        GlobalSearchResponse: {
+            /** Coverage Label */
+            coverage_label: string;
+            /** Eligible Candidate Count */
+            eligible_candidate_count: number;
+            /** Excluded Candidate Count */
+            excluded_candidate_count: number;
+            /** Index Version */
+            index_version: string;
+            /** Indexed Candidate Count */
+            indexed_candidate_count: number;
+            /** Method Version */
+            method_version: string;
+            /** Note */
+            note: string;
+            /** Results */
+            results: components["schemas"]["GlobalSearchResultOut"][];
+            /** Snapshot Id */
+            snapshot_id: string;
+        };
+        /** GlobalSearchResultOut */
+        GlobalSearchResultOut: {
+            /** Area Km2 */
+            area_km2: number;
+            /** Bbox */
+            bbox: {
+                [key: string]: number;
+            };
+            /** Body */
+            body: string;
+            /** Candidate Id */
+            candidate_id: string;
+            /** Crs */
+            crs: string;
+            /** Distance */
+            distance: number;
+            /** Flat Fraction */
+            flat_fraction: number | null;
+            /** Grid Id */
+            grid_id: string;
+            /** Method Version */
+            method_version: string;
+            /** Qa Flags */
+            qa_flags: string[];
+            /** Rank */
+            rank: number;
+            /** Region Id */
+            region_id: string;
+            /** Slope Mean Deg */
+            slope_mean_deg: number | null;
+            /** Slope P90 Deg */
+            slope_p90_deg: number | null;
+            /** Valid Fraction */
+            valid_fraction: number;
+        };
+        /** HTTPValidationError */
+        HTTPValidationError: {
+            /** Detail */
+            detail?: components["schemas"]["ValidationError"][];
+        };
         /** HealthOut */
         HealthOut: {
             /** Data Snapshot Id */
@@ -742,6 +961,44 @@ export interface components {
             /** Window Size M */
             window_size_m: number;
         };
+        /** RefinePlanOut */
+        RefinePlanOut: {
+            /** Candidate Id */
+            candidate_id: string;
+            /** Fine Method Version */
+            fine_method_version: string;
+            /** Note */
+            note: string;
+            /** Parent Method Version */
+            parent_method_version: string;
+            /** Windows */
+            windows: components["schemas"]["RefineWindowOut"][];
+        };
+        /** RefinePlanRequest */
+        RefinePlanRequest: {
+            /** Candidate Id */
+            candidate_id: string;
+            /**
+             * Per Side
+             * @default 2
+             */
+            per_side: number;
+        };
+        /** RefineWindowOut */
+        RefineWindowOut: {
+            /** Bbox Wgs84 */
+            bbox_wgs84: {
+                [key: string]: number;
+            };
+            /** Fine Window Id */
+            fine_window_id: string;
+            /** Method Version */
+            method_version: string;
+            /** Parent Candidate Id */
+            parent_candidate_id: string;
+            /** Window Size M */
+            window_size_m: number;
+        };
         /** SearchRequest */
         SearchRequest: {
             /**
@@ -843,6 +1100,19 @@ export interface components {
              * @default 1
              */
             weight: number;
+        };
+        /** ValidationError */
+        ValidationError: {
+            /** Context */
+            ctx?: Record<string, never>;
+            /** Input */
+            input?: unknown;
+            /** Location */
+            loc: (string | number)[];
+            /** Message */
+            msg: string;
+            /** Error Type */
+            type: string;
         };
     };
     responses: never;
@@ -1062,6 +1332,179 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DimensionsOut"];
+                };
+            };
+        };
+    };
+    global_candidate_api_v1_global_candidates__candidate_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                candidate_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    global_coverage_api_v1_global_coverage_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GlobalCoverageOut"];
+                };
+            };
+        };
+    };
+    refine_plan_api_v1_global_refine_plan_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RefinePlanRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RefinePlanOut"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    global_search_api_v1_global_search_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GlobalSearchRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GlobalSearchResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
                 };
             };
         };
@@ -1302,6 +1745,74 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    typed_area_api_v1_typed_areas__area_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                area_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_typed_observations_api_v1_typed_observations_get: {
+        parameters: {
+            query?: {
+                dimension?: string | null;
+                body?: string | null;
+                feature_id?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

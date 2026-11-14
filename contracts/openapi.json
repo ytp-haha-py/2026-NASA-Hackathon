@@ -253,6 +253,25 @@
         "title": "CapabilitiesOut",
         "type": "object"
       },
+      "CoarseTargetSpec": {
+        "properties": {
+          "value": {
+            "title": "Value",
+            "type": "number"
+          },
+          "weight": {
+            "default": 1.0,
+            "minimum": 0.0,
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "title": "CoarseTargetSpec",
+        "type": "object"
+      },
       "ContextComparisonOut": {
         "properties": {
           "delta": {
@@ -1033,6 +1052,315 @@
         "title": "GeoBBoxIn",
         "type": "object"
       },
+      "GlobalCoverageOut": {
+        "properties": {
+          "bbox": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bbox"
+          },
+          "features": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "method_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Method Version"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "regions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Regions",
+            "type": "array"
+          },
+          "row_count": {
+            "title": "Row Count",
+            "type": "integer"
+          },
+          "snapshot_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Snapshot Id"
+          },
+          "status": {
+            "enum": [
+              "ready",
+              "no_index"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "snapshot_id",
+          "label",
+          "row_count",
+          "regions",
+          "bbox",
+          "method_version",
+          "features",
+          "note"
+        ],
+        "title": "GlobalCoverageOut",
+        "type": "object"
+      },
+      "GlobalSearchRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "default": 10,
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "region_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Region Id"
+          },
+          "target": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/CoarseTargetSpec"
+            },
+            "title": "Target",
+            "type": "object"
+          },
+          "weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Weights",
+            "type": "object"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "title": "GlobalSearchRequest",
+        "type": "object"
+      },
+      "GlobalSearchResponse": {
+        "properties": {
+          "coverage_label": {
+            "title": "Coverage Label",
+            "type": "string"
+          },
+          "eligible_candidate_count": {
+            "title": "Eligible Candidate Count",
+            "type": "integer"
+          },
+          "excluded_candidate_count": {
+            "title": "Excluded Candidate Count",
+            "type": "integer"
+          },
+          "index_version": {
+            "title": "Index Version",
+            "type": "string"
+          },
+          "indexed_candidate_count": {
+            "title": "Indexed Candidate Count",
+            "type": "integer"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/GlobalSearchResultOut"
+            },
+            "title": "Results",
+            "type": "array"
+          },
+          "snapshot_id": {
+            "title": "Snapshot Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "snapshot_id",
+          "method_version",
+          "index_version",
+          "coverage_label",
+          "indexed_candidate_count",
+          "eligible_candidate_count",
+          "excluded_candidate_count",
+          "results",
+          "note"
+        ],
+        "title": "GlobalSearchResponse",
+        "type": "object"
+      },
+      "GlobalSearchResultOut": {
+        "properties": {
+          "area_km2": {
+            "title": "Area Km2",
+            "type": "number"
+          },
+          "bbox": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Bbox",
+            "type": "object"
+          },
+          "body": {
+            "title": "Body",
+            "type": "string"
+          },
+          "candidate_id": {
+            "title": "Candidate Id",
+            "type": "string"
+          },
+          "crs": {
+            "title": "Crs",
+            "type": "string"
+          },
+          "distance": {
+            "title": "Distance",
+            "type": "number"
+          },
+          "flat_fraction": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Flat Fraction"
+          },
+          "grid_id": {
+            "title": "Grid Id",
+            "type": "string"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "qa_flags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Qa Flags",
+            "type": "array"
+          },
+          "rank": {
+            "title": "Rank",
+            "type": "integer"
+          },
+          "region_id": {
+            "title": "Region Id",
+            "type": "string"
+          },
+          "slope_mean_deg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Slope Mean Deg"
+          },
+          "slope_p90_deg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Slope P90 Deg"
+          },
+          "valid_fraction": {
+            "title": "Valid Fraction",
+            "type": "number"
+          }
+        },
+        "required": [
+          "rank",
+          "candidate_id",
+          "grid_id",
+          "region_id",
+          "body",
+          "bbox",
+          "crs",
+          "area_km2",
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "flat_fraction",
+          "valid_fraction",
+          "method_version",
+          "distance",
+          "qa_flags"
+        ],
+        "title": "GlobalSearchResultOut",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
       "HealthOut": {
         "properties": {
           "data_snapshot_id": {
@@ -1529,6 +1857,99 @@
         "title": "ReferenceOut",
         "type": "object"
       },
+      "RefinePlanOut": {
+        "properties": {
+          "candidate_id": {
+            "title": "Candidate Id",
+            "type": "string"
+          },
+          "fine_method_version": {
+            "title": "Fine Method Version",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "parent_method_version": {
+            "title": "Parent Method Version",
+            "type": "string"
+          },
+          "windows": {
+            "items": {
+              "$ref": "#/components/schemas/RefineWindowOut"
+            },
+            "title": "Windows",
+            "type": "array"
+          }
+        },
+        "required": [
+          "candidate_id",
+          "parent_method_version",
+          "fine_method_version",
+          "windows",
+          "note"
+        ],
+        "title": "RefinePlanOut",
+        "type": "object"
+      },
+      "RefinePlanRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "candidate_id": {
+            "title": "Candidate Id",
+            "type": "string"
+          },
+          "per_side": {
+            "default": 2,
+            "maximum": 4.0,
+            "minimum": 1.0,
+            "title": "Per Side",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "candidate_id"
+        ],
+        "title": "RefinePlanRequest",
+        "type": "object"
+      },
+      "RefineWindowOut": {
+        "properties": {
+          "bbox_wgs84": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Bbox Wgs84",
+            "type": "object"
+          },
+          "fine_window_id": {
+            "title": "Fine Window Id",
+            "type": "string"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "parent_candidate_id": {
+            "title": "Parent Candidate Id",
+            "type": "string"
+          },
+          "window_size_m": {
+            "title": "Window Size M",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "fine_window_id",
+          "parent_candidate_id",
+          "bbox_wgs84",
+          "window_size_m",
+          "method_version"
+        ],
+        "title": "RefineWindowOut",
+        "type": "object"
+      },
       "SearchRequest": {
         "properties": {
           "body": {
@@ -1783,6 +2204,46 @@
           "value"
         ],
         "title": "TargetSpec",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
         "type": "object"
       }
     }
@@ -2044,6 +2505,201 @@
           }
         },
         "summary": "Dimensions"
+      }
+    },
+    "/api/v1/global/candidates/{candidate_id}": {
+      "get": {
+        "operationId": "global_candidate_api_v1_global_candidates__candidate_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "candidate_id",
+            "required": true,
+            "schema": {
+              "title": "Candidate Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Global Candidate Api V1 Global Candidates  Candidate Id  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Global Candidate"
+      }
+    },
+    "/api/v1/global/coverage": {
+      "get": {
+        "operationId": "global_coverage_api_v1_global_coverage_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalCoverageOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Global Coverage"
+      }
+    },
+    "/api/v1/global/refine-plan": {
+      "post": {
+        "operationId": "refine_plan_api_v1_global_refine_plan_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefinePlanRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefinePlanOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Refine Plan"
+      }
+    },
+    "/api/v1/global/search": {
+      "post": {
+        "operationId": "global_search_api_v1_global_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GlobalSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalSearchResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Global Search"
       }
     },
     "/api/v1/health": {
@@ -2335,6 +2991,130 @@
           }
         },
         "summary": "Search"
+      }
+    },
+    "/api/v1/typed/areas/{area_id}": {
+      "get": {
+        "operationId": "typed_area_api_v1_typed_areas__area_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "area_id",
+            "required": true,
+            "schema": {
+              "title": "Area Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Typed Area Api V1 Typed Areas  Area Id  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Typed Area"
+      }
+    },
+    "/api/v1/typed/observations": {
+      "get": {
+        "operationId": "list_typed_observations_api_v1_typed_observations_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "dimension",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Dimension"
+            }
+          },
+          {
+            "in": "query",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Body"
+            }
+          },
+          {
+            "in": "query",
+            "name": "feature_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Feature Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  "title": "Response List Typed Observations Api V1 Typed Observations Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Typed Observations"
       }
     }
   }
