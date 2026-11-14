@@ -1,0 +1,193 @@
+{
+  "generated_at": "2026-11-14T16:51:48.421371+00:00",
+  "notes": [],
+  "plan_version": "acquisition-plan-1.0.0",
+  "scope": "pilot-d05-earth",
+  "tasks": [
+    {
+      "area": {
+        "area_id": "earth-atacama-desert",
+        "bbox": {
+          "east": -68.39026303,
+          "north": -23.49102032,
+          "south": -23.5089791,
+          "west": -68.40973566
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "Atacama Desert, Chile",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S24_00_W069_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:977193b486379be9355a45920d085d2299e05cdf3a737b5b928e084c144d0be9; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "nasa-power-daily-point",
+      "dimension": "D05",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN%2CALLSKY_SFC_LW_DWN&community=RE&longitude=-68.399999&latitude=-23.500000&start=20240101&end=20240107&format=JSON",
+      "expected_bytes": 50000,
+      "method_version": "nasa-power-daily-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "community": "RE",
+        "end": "20240107",
+        "format": "JSON",
+        "latitude": "-23.500000",
+        "longitude": "-68.399999",
+        "parameters": "ALLSKY_SFC_SW_DWN,ALLSKY_SFC_LW_DWN",
+        "start": "20240101"
+      },
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D05-earth-earth-atacama-desert-2024-01-01-2024-01-07"
+    },
+    {
+      "area": {
+        "area_id": "earth-death-valley",
+        "bbox": {
+          "east": -117.08897059,
+          "north": 36.2589341,
+          "south": 36.24106488,
+          "west": -117.11103192
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "Death Valley, California, USA",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W118_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:b80951773656abd2436990f5b91bc187f9b30ec8dea400a4cbf4bab20166e0f7; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "nasa-power-daily-point",
+      "dimension": "D05",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN%2CALLSKY_SFC_LW_DWN&community=RE&longitude=-117.100001&latitude=36.249999&start=20240101&end=20240107&format=JSON",
+      "expected_bytes": 50000,
+      "method_version": "nasa-power-daily-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "community": "RE",
+        "end": "20240107",
+        "format": "JSON",
+        "latitude": "36.249999",
+        "longitude": "-117.100001",
+        "parameters": "ALLSKY_SFC_SW_DWN,ALLSKY_SFC_LW_DWN",
+        "start": "20240101"
+      },
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D05-earth-earth-death-valley-2024-01-01-2024-01-07"
+    },
+    {
+      "area": {
+        "area_id": "earth-lanzarote",
+        "bbox": {
+          "east": -13.61971584,
+          "north": 29.04903644,
+          "south": 29.03096285,
+          "west": -13.64028241
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "Lanzarote volcanic terrain, Spain",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N29_00_W014_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:20ded93c9d6af6a34ab1da3448372ce584ff6ca04a265e5ea0c6f94d896c2077; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "nasa-power-daily-point",
+      "dimension": "D05",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN%2CALLSKY_SFC_LW_DWN&community=RE&longitude=-13.629999&latitude=29.040000&start=20240101&end=20240107&format=JSON",
+      "expected_bytes": 50000,
+      "method_version": "nasa-power-daily-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "community": "RE",
+        "end": "20240107",
+        "format": "JSON",
+        "latitude": "29.040000",
+        "longitude": "-13.629999",
+        "parameters": "ALLSKY_SFC_SW_DWN,ALLSKY_SFC_LW_DWN",
+        "start": "20240101"
+      },
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D05-earth-earth-lanzarote-2024-01-01-2024-01-07"
+    },
+    {
+      "area": {
+        "area_id": "earth-devon-island",
+        "bbox": {
+          "east": -89.81318683,
+          "north": 75.40928632,
+          "south": 75.39070894,
+          "west": -89.88685478
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "Devon Island / Haughton, Nunavut, Canada",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N75_00_W090_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d8fd4561889e7a2d683446d6842432bdfac99beb698c79e42d528455a05e5585; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "nasa-power-daily-point",
+      "dimension": "D05",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN%2CALLSKY_SFC_LW_DWN&community=RE&longitude=-89.850021&latitude=75.399998&start=20240101&end=20240107&format=JSON",
+      "expected_bytes": 50000,
+      "method_version": "nasa-power-daily-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "community": "RE",
+        "end": "20240107",
+        "format": "JSON",
+        "latitude": "75.399998",
+        "longitude": "-89.850021",
+        "parameters": "ALLSKY_SFC_SW_DWN,ALLSKY_SFC_LW_DWN",
+        "start": "20240101"
+      },
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D05-earth-earth-devon-island-2024-01-01-2024-01-07"
+    },
+    {
+      "area": {
+        "area_id": "earth-sahara-r1c1",
+        "bbox": {
+          "east": 10.47995505,
+          "north": 24.48223826,
+          "south": 24.46417129,
+          "west": 10.46021483
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "sahara sampling window R1 C1",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N24_00_E010_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:bce32a5a62212f42895e4759bee66290547883ac9a8553cebb5f54d37297d8ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "nasa-power-daily-point",
+      "dimension": "D05",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN%2CALLSKY_SFC_LW_DWN&community=RE&longitude=10.470085&latitude=24.473205&start=20240101&end=20240107&format=JSON",
+      "expected_bytes": 50000,
+      "method_version": "nasa-power-daily-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "community": "RE",
+        "end": "20240107",
+        "format": "JSON",
+        "latitude": "24.473205",
+        "longitude": "10.470085",
+        "parameters": "ALLSKY_SFC_SW_DWN,ALLSKY_SFC_LW_DWN",
+        "start": "20240101"
+      },
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D05-earth-earth-sahara-r1c1-2024-01-01-2024-01-07"
+    }
+  ],
+  "totals": {
+    "by_body": {
+      "Earth": 5
+    },
+    "by_dimension": {
+      "D05": 5
+    },
+    "expected_bytes": 250000,
+    "tasks": 5
+  }
+}

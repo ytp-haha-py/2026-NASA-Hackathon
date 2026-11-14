@@ -103,6 +103,18 @@
           "default": null,
           "title": "Bbox"
         },
+        "bbox_crs": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bbox Crs"
+        },
         "crs": {
           "default": "unknown",
           "title": "Crs",
@@ -157,6 +169,33 @@
           ],
           "default": null,
           "title": "Resolution M"
+        },
+        "source_resolution_m": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Resolution M"
+        },
+        "valid_fraction": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Fraction"
         },
         "window_size_m": {
           "anyOf": [
@@ -382,6 +421,19 @@
     "feature_id": {
       "title": "Feature Id",
       "type": "string"
+    },
+    "legacy_provenance": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Legacy Provenance"
     },
     "method_version": {
       "title": "Method Version",

@@ -95,6 +95,25 @@ No command in this phase downloads a source or stages a remote file.
   zero remains a value.
 - Deterministic order: `(distance, candidate_id)`.
 
+## Grid coverage reporting
+
+`generate_region_grid` reports the projected envelope it actually generated, never a blanket
+"exhaustive" label. `GridCoverage` separates:
+
+- `requested_area_km2` — area of the projected envelope of the requested region;
+- `generated_extent_area_km2` — extent from the first cell origin to the last cell edge;
+- `covered_area_km2` — sum of generated cell footprints;
+- `stride_gap_area_km2` — internal gaps when `stride_m > window_size_m`;
+- `boundary_margin_area_km2` — ungenerated east/north boundary strips;
+- `coverage_fraction` with `coverage_denominator=projected_region_envelope_area`;
+- `uncovered_margin_m` for all four sides;
+- `valid_sampled_area_km2` and `missing_source_coverage`, which remain unset/`not_evaluated`
+  until source valid-data masks are processed;
+- `excluded_regions` for caller-declared exclusions (for example Antarctica).
+
+The default is `generated_grid_not_exhaustive`. A complete label is emitted only when both
+internal gaps and boundary margins are zero. This describes the grid, not global source coverage.
+
 ## API behaviour
 
 - No index configured: `GET /global/coverage` returns `status=no_index`,

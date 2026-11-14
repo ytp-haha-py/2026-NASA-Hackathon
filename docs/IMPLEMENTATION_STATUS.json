@@ -1,0 +1,571 @@
+{
+  "base_commit": "34ddaeba86d05483c1d404399fe3b51757117a28",
+  "dimensions": {
+    "D01": {
+      "actual_observation_counts": {
+        "Earth_fine": 565,
+        "Mars_fine_references": 5,
+        "Moon_fine_references": 18,
+        "coarse_real": 0
+      },
+      "comparison_status": "comparable_subset",
+      "evidence": [
+        "113 Earth terrain windows and immutable fine snapshot"
+      ],
+      "implementation_status": "merged",
+      "remaining_blockers": [
+        "real coarse Geomorpho index",
+        "global coverage not claimed"
+      ],
+      "scientific_data_status": "verified_subset"
+    },
+    "D02": {
+      "actual_observation_counts": {
+        "Earth_shared_geology": 0,
+        "Mars_map_units": 2,
+        "Moon_map_units": 1,
+        "quantitative_minerals": 0
+      },
+      "comparison_status": "evidence_only",
+      "evidence": [
+        "independent Geology pilot snapshot"
+      ],
+      "implementation_status": "pilot",
+      "remaining_blockers": [
+        "v2/API integration",
+        "GLiM rights",
+        "EMIT auth",
+        "lunar registration",
+        "CRISM validation"
+      ],
+      "scientific_data_status": "pilot_observations"
+    },
+    "D03": {
+      "actual_observation_counts": {},
+      "comparison_status": "not_comparable",
+      "evidence": [
+        "typed contracts and inventory only"
+      ],
+      "implementation_status": "not_started",
+      "remaining_blockers": [
+        "provider adapters and access"
+      ],
+      "scientific_data_status": "none"
+    },
+    "D04": {
+      "actual_observation_counts": {},
+      "comparison_status": "not_comparable",
+      "evidence": [
+        "typed contracts and inventory only"
+      ],
+      "implementation_status": "not_started",
+      "remaining_blockers": [
+        "provider adapters and detection semantics"
+      ],
+      "scientific_data_status": "none"
+    },
+    "D05": {
+      "actual_observation_counts": {
+        "Earth_power_timeseries": 10,
+        "Mars": 0,
+        "Moon": 0,
+        "ionizing_radiation": 0
+      },
+      "comparison_status": "context_only",
+      "evidence": [
+        "committed pipelines/pilots/d05_earth_power release",
+        "typed import and API query test"
+      ],
+      "implementation_status": "pilot",
+      "remaining_blockers": [
+        "Moon/Mars illumination",
+        "radiation detectors",
+        "no combined scalar"
+      ],
+      "scientific_data_status": "pilot_observations"
+    },
+    "D06": {
+      "actual_observation_counts": {},
+      "comparison_status": "not_comparable",
+      "evidence": [
+        "typed contracts and inventory only"
+      ],
+      "implementation_status": "not_started",
+      "remaining_blockers": [
+        "SoilGrids/WebDAV and sparse sample tables"
+      ],
+      "scientific_data_status": "none"
+    }
+  },
+  "generated_at": "2026-11-15T00:00:00+00:00",
+  "issues": [
+    {
+      "comparison_status": "not_comparable",
+      "dependencies": [
+        54
+      ],
+      "evidence": [
+        "PR #58 adds API, reference-mode, incompatible-method and null coarse regressions",
+        "local verify and backend acceptance pass on the PR branch"
+      ],
+      "implementation_status": "in_progress",
+      "number": 53,
+      "remaining_blockers": [
+        "independent review and merge"
+      ],
+      "scientific_data_status": "none",
+      "title": "Reference mode weight-0 eligibility"
+    },
+    {
+      "comparison_status": "comparable_subset",
+      "dependencies": [],
+      "evidence": [
+        "merge e2a5080",
+        "existing 113 Earth / 18 Moon / 5 Mars fine terrain windows"
+      ],
+      "implementation_status": "merged",
+      "number": 54,
+      "remaining_blockers": [
+        "real coarse index, D02-D06 real ingestion, R2/deployment"
+      ],
+      "scientific_data_status": "verified_subset",
+      "title": "Offline six-dimension foundation"
+    },
+    {
+      "comparison_status": "evidence_only",
+      "dependencies": [
+        41,
+        42
+      ],
+      "evidence": [
+        "merge 47505f2",
+        "Moon/Mars map-unit observations; zero verified quantitative mineral observations"
+      ],
+      "implementation_status": "merged",
+      "number": 57,
+      "remaining_blockers": [
+        "v2/API integration",
+        "GLiM rights",
+        "EMIT auth",
+        "lunar mineral registration",
+        "CRISM thresholds"
+      ],
+      "scientific_data_status": "pilot_observations",
+      "title": "Independent geology pilot"
+    },
+    {
+      "comparison_status": "evidence_only",
+      "dependencies": [
+        57
+      ],
+      "evidence": [
+        "Moon Ec map unit and Mars Jezero units retained as map evidence"
+      ],
+      "implementation_status": "pilot",
+      "number": 41,
+      "remaining_blockers": [
+        "common backend integration",
+        "Earth GLiM redistribution rights"
+      ],
+      "scientific_data_status": "pilot_observations",
+      "title": "D02 geologic mapping"
+    },
+    {
+      "comparison_status": "not_comparable",
+      "dependencies": [
+        57
+      ],
+      "evidence": [
+        "EMIT and CRISM remain metadata/context only",
+        "no verified quantitative mineral observation"
+      ],
+      "implementation_status": "blocked",
+      "number": 42,
+      "remaining_blockers": [
+        "Earthdata auth and EMIT granule adapter",
+        "lunar mineral registration",
+        "validated CRISM detection method"
+      ],
+      "scientific_data_status": "none",
+      "title": "D02 mineral detection"
+    },
+    {
+      "comparison_status": "not_comparable",
+      "dependencies": [
+        26,
+        27
+      ],
+      "evidence": [
+        "inventory only"
+      ],
+      "implementation_status": "not_started",
+      "number": 43,
+      "remaining_blockers": [
+        "MODIS/THEMIS/Diviner adapters and acquisition authorization"
+      ],
+      "scientific_data_status": "none",
+      "title": "D03 thermal"
+    },
+    {
+      "comparison_status": "not_comparable",
+      "dependencies": [
+        26,
+        27
+      ],
+      "evidence": [
+        "inventory only"
+      ],
+      "implementation_status": "not_started",
+      "number": 44,
+      "remaining_blockers": [
+        "snow/soil-moisture/neutron/radar providers and detection semantics"
+      ],
+      "scientific_data_status": "none",
+      "title": "D04 water and ice"
+    },
+    {
+      "comparison_status": "context_only",
+      "dependencies": [
+        26,
+        27
+      ],
+      "evidence": [
+        "10 real NASA POWER Earth context timeseries observations",
+        "5 AOIs, 2024-01-01..2024-01-07",
+        "portable release and typed import test"
+      ],
+      "implementation_status": "pilot",
+      "number": 45,
+      "remaining_blockers": [
+        "Moon/Mars illumination",
+        "ionizing-radiation detectors",
+        "no combined scalar"
+      ],
+      "scientific_data_status": "pilot_observations",
+      "title": "D05 illumination and radiation"
+    },
+    {
+      "comparison_status": "not_comparable",
+      "dependencies": [
+        26,
+        27
+      ],
+      "evidence": [
+        "inventory only"
+      ],
+      "implementation_status": "not_started",
+      "number": 46,
+      "remaining_blockers": [
+        "SoilGrids/WebDAV and sparse sample tables"
+      ],
+      "scientific_data_status": "none",
+      "title": "D06 regolith"
+    },
+    {
+      "comparison_status": "context_only",
+      "dependencies": [
+        26,
+        54,
+        58
+      ],
+      "evidence": [
+        "existing additive typed SQLite tables and /api/v1/typed endpoints",
+        "committed D05 release imports as 5 areas, 5 assets and 10 observations"
+      ],
+      "implementation_status": "in_progress",
+      "number": 47,
+      "remaining_blockers": [
+        "import D02/D03/D04/D06 real observations",
+        "area provenance columns for new migration fields"
+      ],
+      "scientific_data_status": "pilot_observations",
+      "title": "Typed persistence and six-dimension queries"
+    },
+    {
+      "comparison_status": "context_only",
+      "dependencies": [
+        33,
+        47
+      ],
+      "evidence": [
+        "existing snapshot tooling",
+        "new checksummed acquisition release manifest for D05 pilot"
+      ],
+      "implementation_status": "in_progress",
+      "number": 48,
+      "remaining_blockers": [
+        "multi-dimension aggregate snapshot",
+        "real coarse index",
+        "full restoration drill"
+      ],
+      "scientific_data_status": "pilot_observations",
+      "title": "Rebuildable multi-dimension release"
+    },
+    {
+      "comparison_status": "context_only",
+      "dependencies": [
+        38,
+        47,
+        48
+      ],
+      "evidence": [
+        "full verify and backend acceptance pass",
+        "D05 pilot is imported and queryable"
+      ],
+      "implementation_status": "in_progress",
+      "number": 49,
+      "remaining_blockers": [
+        "D02-D06 real observations and coverage reports"
+      ],
+      "scientific_data_status": "pilot_observations",
+      "title": "End-to-end six-dimension acceptance"
+    },
+    {
+      "comparison_status": "unknown",
+      "dependencies": [
+        29
+      ],
+      "evidence": [
+        "documentation audit only; no raster bytes"
+      ],
+      "implementation_status": "blocked",
+      "number": 28,
+      "remaining_blockers": [
+        "authorized bounded source acquisition"
+      ],
+      "scientific_data_status": "metadata_only",
+      "title": "Geomorpho source verification"
+    },
+    {
+      "comparison_status": "comparable_subset",
+      "dependencies": [
+        54
+      ],
+      "evidence": [
+        "local-only reader and projected footprint tests"
+      ],
+      "implementation_status": "merged",
+      "number": 29,
+      "remaining_blockers": [
+        "real source file"
+      ],
+      "scientific_data_status": "verified_subset",
+      "title": "Bounded local raster reader"
+    },
+    {
+      "comparison_status": "comparable_subset",
+      "dependencies": [
+        54
+      ],
+      "evidence": [
+        "content-derived IDs",
+        "truthful partial coverage fields and tests"
+      ],
+      "implementation_status": "in_progress",
+      "number": 30,
+      "remaining_blockers": [
+        "real regional coverage plan"
+      ],
+      "scientific_data_status": "verified_subset",
+      "title": "Deterministic metric grid"
+    },
+    {
+      "comparison_status": "comparable_subset",
+      "dependencies": [
+        54
+      ],
+      "evidence": [
+        "separate coarse method and zero-weight tests"
+      ],
+      "implementation_status": "merged",
+      "number": 31,
+      "remaining_blockers": [
+        "real coarse reference support"
+      ],
+      "scientific_data_status": "verified_subset",
+      "title": "Coarse features"
+    },
+    {
+      "comparison_status": "comparable_subset",
+      "dependencies": [
+        54
+      ],
+      "evidence": [
+        "checkpoint identity and checksum tests",
+        "new acquisition executor has analogous resume tests"
+      ],
+      "implementation_status": "merged",
+      "number": 32,
+      "remaining_blockers": [
+        "real large batch"
+      ],
+      "scientific_data_status": "verified_subset",
+      "title": "Resumable batch runner"
+    },
+    {
+      "comparison_status": "comparable_subset",
+      "dependencies": [
+        54
+      ],
+      "evidence": [
+        "immutable content-addressed partitions and snapshot tests"
+      ],
+      "implementation_status": "merged",
+      "number": 33,
+      "remaining_blockers": [
+        "R2 publication"
+      ],
+      "scientific_data_status": "verified_subset",
+      "title": "Partitioned Parquet index"
+    },
+    {
+      "comparison_status": "comparable_subset",
+      "dependencies": [
+        54
+      ],
+      "evidence": [
+        "read-only repository, deterministic top-K, fixture benchmark"
+      ],
+      "implementation_status": "merged",
+      "number": 34,
+      "remaining_blockers": [
+        "real index"
+      ],
+      "scientific_data_status": "verified_subset",
+      "title": "DuckDB coarse query"
+    },
+    {
+      "comparison_status": "not_comparable",
+      "dependencies": [
+        31,
+        34
+      ],
+      "evidence": [
+        "interfaces and comparability gate only"
+      ],
+      "implementation_status": "blocked",
+      "number": 35,
+      "remaining_blockers": [
+        "validated same-support planetary coarse products"
+      ],
+      "scientific_data_status": "none",
+      "title": "Same-support Moon/Mars coarse references"
+    },
+    {
+      "comparison_status": "not_comparable",
+      "dependencies": [
+        35
+      ],
+      "evidence": [
+        "not implemented"
+      ],
+      "implementation_status": "blocked",
+      "number": 36,
+      "remaining_blockers": [
+        "same-support references"
+      ],
+      "scientific_data_status": "none",
+      "title": "Cross-body coarse ranking"
+    },
+    {
+      "comparison_status": "comparable_subset",
+      "dependencies": [
+        54
+      ],
+      "evidence": [
+        "planning-only endpoint"
+      ],
+      "implementation_status": "merged",
+      "number": 37,
+      "remaining_blockers": [
+        "execution authorization"
+      ],
+      "scientific_data_status": "verified_subset",
+      "title": "Fine refinement plan"
+    },
+    {
+      "comparison_status": "comparable_subset",
+      "dependencies": [
+        54
+      ],
+      "evidence": [
+        "coverage/search/candidate/refine-plan endpoints with fixture index"
+      ],
+      "implementation_status": "merged",
+      "number": 38,
+      "remaining_blockers": [
+        "real index"
+      ],
+      "scientific_data_status": "verified_subset",
+      "title": "Global API"
+    },
+    {
+      "comparison_status": "context_only",
+      "dependencies": [
+        33,
+        34
+      ],
+      "evidence": [
+        "fixture report and synthetic benchmark",
+        "new acquisition report/release manifests"
+      ],
+      "implementation_status": "in_progress",
+      "number": 39,
+      "remaining_blockers": [
+        "real multi-dimension coverage"
+      ],
+      "scientific_data_status": "pilot_observations",
+      "title": "Coverage report and benchmark"
+    },
+    {
+      "comparison_status": "not_comparable",
+      "dependencies": [
+        28,
+        29
+      ],
+      "evidence": [
+        "not implemented"
+      ],
+      "implementation_status": "blocked",
+      "number": 40,
+      "remaining_blockers": [
+        "sufficient planetary support and validated method"
+      ],
+      "scientific_data_status": "none",
+      "title": "Curvature and geomorphon validation"
+    }
+  ],
+  "next_independent_tasks": [
+    "review and merge PR #58 after independent approval",
+    "open one PR for v1-v2 CRS preservation, truthful grid coverage, acquisition framework and D05 pilot",
+    "integrate the geology pilot into typed-v2 without changing its evidence-only semantics",
+    "implement D03 Earth metadata/provider path with explicit authentication blockers",
+    "implement SoilGrids/WebDAV D06 bounded point/window acquisition",
+    "implement SPICE-based Moon/Mars illumination only after frame validation"
+  ],
+  "repository": "ytp-haha-py/2026-NASA-Hackathon",
+  "status_legend": {
+    "comparison_status": [
+      "not_comparable",
+      "context_only",
+      "evidence_only",
+      "comparable_subset",
+      "unknown"
+    ],
+    "implementation_status": [
+      "not_started",
+      "in_progress",
+      "pilot",
+      "merged",
+      "blocked"
+    ],
+    "scientific_data_status": [
+      "none",
+      "metadata_only",
+      "pilot_observations",
+      "verified_subset",
+      "blocked"
+    ]
+  },
+  "work_branch": "feat/20-six-dimension-backend"
+}

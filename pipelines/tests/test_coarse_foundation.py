@@ -94,6 +94,19 @@ def test_grid_is_deterministic_metric_and_in_bounds():
     assert cells_a[0].candidate_id == cells_a[0].candidate_id
     assert coverage_a.candidate_count == coverage_b.candidate_count
     assert coverage_a.candidate_count > 0
+    assert coverage_a.sample_label == "generated_grid_not_exhaustive"
+    assert coverage_a.coverage_denominator == "projected_region_envelope_area"
+    assert 0 < coverage_a.coverage_fraction < 1
+    assert coverage_a.boundary_margin_area_km2 > 0
+    assert coverage_a.stride_gap_area_km2 == pytest.approx(0.0)
+    assert coverage_a.valid_sampled_area_km2 is None
+    assert coverage_a.missing_source_coverage == "not_evaluated"
+    assert (
+        coverage_a.covered_area_km2
+        + coverage_a.stride_gap_area_km2
+        + coverage_a.boundary_margin_area_km2
+        == pytest.approx(coverage_a.requested_area_km2)
+    )
     for cell in cells_a:
         assert cell.bbox_metric["east"] - cell.bbox_metric["west"] == pytest.approx(5000)
         assert cell.bbox_metric["south"] < cell.bbox_metric["north"]
@@ -113,6 +126,20 @@ def test_grid_plan_three_pilot_regions():
     assert len(plan.coverage) == 3
     assert all(report.candidate_count > 0 for report in plan.coverage)
     assert len({cell.candidate_id for cell in plan.cells}) == len(plan.cells)
+
+
+def test_grid_coverage_reports_stride_gaps_and_partial_boundaries():
+    region = GridRegion("stride-gap", "Stride gap", 10.0, 45.0, 10.4, 45.4)
+    cells, coverage = generate_region_grid(region, window_size_m=5000, stride_m=10000)
+    assert coverage.stride_gap_area_km2 > 0
+    assert coverage.boundary_margin_area_km2 > 0
+    assert coverage.coverage_fraction < 1
+    assert coverage.sample_label == "generated_grid_not_exhaustive"
+    assert coverage.covered_area_km2 == pytest.approx(len(cells) * 25.0)
+    assert (
+        coverage.covered_area_km2 + coverage.stride_gap_area_km2 + coverage.boundary_margin_area_km2
+        == pytest.approx(coverage.requested_area_km2)
+    )
 
 
 def test_coarse_features_use_separate_ids_and_masks():

@@ -355,27 +355,27 @@ dimensions:
     research_question: "地表受到什麼光照與輻射條件？"
     subgroups: [solar_illumination, ionizing_radiation]
     research_classes: []
-    baseline: "No D05 observations; illumination and ionizing radiation are separate"
+    baseline: "10 Earth NASA POWER context observations in the committed D05 pilot; no ionizing-radiation measurement and no cross-body D05 score"
     bodies:
       Earth:
         sources:
-          - source_id: earth-illumination-model-not-selected
-            provider: not_selected
-            product: not_selected
-            url: not_verified
-            license: not_verified
-            license_url: not_verified
-            native_resolution: not_verified
-            spatial_support: not_verified
-            temporal_support: not_verified
+          - source_id: nasa-power-daily-point
+            provider: NASA Langley Research Center / NASA POWER
+            product: NASA POWER Daily Point API (solar and longwave irradiance)
+            url: https://power.larc.nasa.gov/api/temporal/daily/point
+            license: NASA POWER data are free and open; cite NASA POWER
+            license_url: https://power.larc.nasa.gov/docs/services/api/
+            native_resolution: approximately 0.5 x 0.625 degree
+            spatial_support: Point API at AOI centre; coarse context only, not a 1.98 km measurement
+            temporal_support: Daily; pilot requested 2024-01-01 through 2024-01-07
             depth_support: not_applicable
-            observation_kinds: [numeric, timeseries]
-            qa: not_verified
-            availability: planned
-            data_status: not_fetched
-            comparability: unknown
-            notes: "Solar geometry model not selected; dark pixels are not illumination measurements."
-            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+            observation_kinds: [timeseries]
+            qa: Fill-value filtering, finite-value checks and explicit coarse-resolution quality flags; no local per-point uncertainty supplied
+            availability: accessible
+            data_status: existing_observed
+            comparability: context_only
+            notes: "Committed pilot: 5 Earth AOIs, 10 timeseries observations; not local irradiance and not ionizing radiation."
+            unknown_fields: []
           - source_id: earth-ionizing-radiation-not-selected
             provider: not_selected
             product: not_selected
