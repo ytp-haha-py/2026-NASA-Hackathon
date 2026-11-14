@@ -16,11 +16,13 @@ import {
   type SearchResultOut,
 } from "./api/client";
 import { useAoiAnalysis } from "./hooks/useAoiAnalysis";
-import { formatBBox } from "./lib/format";
+import { I18nProvider, SourceText, useI18n } from "./i18n/I18nProvider";
+import type { Locale } from "./i18n/translate";
 import type { SearchSubmission, SearchTargetPreset } from "./lib/search-types";
 import { AoiForm } from "./components/AoiForm";
 import { AoiWorkspace } from "./components/AoiWorkspace";
 import { DetailPanel } from "./components/DetailPanel";
+import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { MapPanel } from "./components/MapPanel";
 import { ResultsPanel } from "./components/ResultsPanel";
 import { SearchForm } from "./components/SearchForm";
@@ -37,9 +39,20 @@ type AnalysisPanel = "search" | "aoi";
 
 type AppProps = {
   aoiPollIntervalMs?: number;
+  /** Overrides saved/browser locale detection (used by tests). */
+  initialLocale?: Locale;
 };
 
-export function App({ aoiPollIntervalMs = 1000 }: AppProps) {
+export function App({ aoiPollIntervalMs = 1000, initialLocale }: AppProps) {
+  return (
+    <I18nProvider initialLocale={initialLocale}>
+      <AppContent aoiPollIntervalMs={aoiPollIntervalMs} />
+    </I18nProvider>
+  );
+}
+
+function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
+  const { t, tp, rich, fmt, label } = useI18n();
   const [capabilities, setCapabilities] = useState<CapabilitiesOut | null>(null);
   const [capabilitiesError, setCapabilitiesError] = useState<string | null>(null);
   const [capabilitiesLoading, setCapabilitiesLoading] = useState(true);
@@ -174,23 +187,22 @@ export function App({ aoiPollIntervalMs = 1000 }: AppProps) {
   const coverageOrigins = capabilities?.coverage.origins;
   const indexedOriginCount = coverageOrigins?.indexed ?? 0;
   const onDemandOriginCount = coverageOrigins?.on_demand ?? 0;
+  const searchErrorMeaning = label.errorCode(searchError?.code);
 
   return (
     <div className="app">
       <a className="skip-link" href="#main-content">
-        Skip to content
+        {t("app.skipLink")}
       </a>
 
       <header className="site-header">
         <div className="header-inner">
-          <p className="eyebrow">Terrain-shape similarity · indexed + on-demand Earth</p>
-          <h1>Planetary Analog Explorer</h1>
-          <p className="header-summary">
-            Compare a hypothetical terrain-shape target with a committed Earth index, or
-            analyze a bounded on-demand AOI. Land-cover context is shown separately and is
-            never part of the similarity score. This is not a global survey, not a base-site
-            recommendation, and not a physical-equivalence claim.
-          </p>
+          <div className="header-top">
+            <p className="eyebrow">{t("app.eyebrow")}</p>
+            <LanguageSwitcher />
+          </div>
+          <h1>{t("app.title")}</h1>
+          <p className="header-summary">{t("app.summary")}</p>
         </div>
       </header>
 
@@ -198,32 +210,30 @@ export function App({ aoiPollIntervalMs = 1000 }: AppProps) {
         <div className="search-column">
           {capabilitiesLoading && !capabilities && (
             <p className="status-panel" role="status">
-              Loading capabilities and indexed coverage…
+              {t("app.capabilitiesLoading")}
             </p>
           )}
 
           {capabilitiesError && (
             <div className="alert alert-error" role="alert">
               <p>
-                <strong>Capabilities could not be loaded.</strong> {capabilitiesError}
+                <strong>{t("app.capabilitiesErrorTitle")}</strong>{" "}
+                <SourceText>{capabilitiesError}</SourceText>
               </p>
-              <p>
-                The search form needs GET /api/v1/capabilities. Check that the API is
-                running and reachable through the Vite proxy.
-              </p>
+              <p>{t("app.capabilitiesErrorHelp")}</p>
               <button
                 type="button"
                 className="secondary-button"
                 onClick={() => setBootstrapKey((key) => key + 1)}
               >
-                Retry loading
+                {t("app.retryLoading")}
               </button>
             </div>
           )}
 
           {capabilities && (
             <>
-              <div className="panel-tabs" role="tablist" aria-label="Analysis mode">
+              <div className="panel-tabs" role="tablist" aria-label={t("app.tabsLabel")}>
                 <button
                   type="button"
                   role="tab"
@@ -233,7 +243,7 @@ export function App({ aoiPollIntervalMs = 1000 }: AppProps) {
                   className={activePanel === "search" ? "is-active" : ""}
                   onClick={() => setActivePanel("search")}
                 >
-                  Search target
+                  {t("app.tabSearch")}
                 </button>
                 <button
                   type="button"
@@ -244,7 +254,7 @@ export function App({ aoiPollIntervalMs = 1000 }: AppProps) {
                   className={activePanel === "aoi" ? "is-active" : ""}
                   onClick={() => setActivePanel("aoi")}
                 >
-                  Analyze AOI
+                  {t("app.tabAoi")}
                 </button>
               </div>
 
@@ -284,26 +294,39 @@ export function App({ aoiPollIntervalMs = 1000 }: AppProps) {
         <div className="explore-column">
           {capabilities && (
             <section className="coverage-strip" aria-labelledby="coverage-heading">
-              <p className="eyebrow">Searchable coverage</p>
+              <p className="eyebrow">{t("app.coverageEyebrow")}</p>
               <h2 id="coverage-heading">
-                {capabilities.indexed_candidate_count} searchable Earth region
-                {capabilities.indexed_candidate_count === 1 ? "" : "s"}
+                {tp("app.coverageHeading", capabilities.indexed_candidate_count)}
               </h2>
               <p className="coverage-origins">
-                Origins: <strong>{indexedOriginCount} indexed</strong> +{" "}
-                <strong>{onDemandOriginCount} on-demand AOI</strong>. On-demand AOIs are
-                user-created and are never global coverage.
+                {rich("app.coverageOrigins", {
+                  indexed: (
+                    <strong>
+                      {t("coverage.indexedCount", { count: fmt.number(indexedOriginCount, 0) })}
+                    </strong>
+                  ),
+                  onDemand: (
+                    <strong>
+                      {t("coverage.onDemandCount", {
+                        count: fmt.number(onDemandOriginCount, 0),
+                      })}
+                    </strong>
+                  ),
+                })}
               </p>
-              <p>{capabilities.coverage.description}</p>
+              <p>
+                <SourceText>{capabilities.coverage.description}</SourceText>
+              </p>
               <p className="coverage-extent">
                 {capabilities.coverage.geographic_bbox
-                  ? `Approximate coverage extent: ${formatBBox(capabilities.coverage.geographic_bbox)}`
-                  : "No geographic coverage extent is available."}
+                  ? t("app.coverageExtent", {
+                      bbox: fmt.bbox(capabilities.coverage.geographic_bbox),
+                    })
+                  : t("app.coverageExtentMissing")}
               </p>
               {capabilities.indexed_candidate_count === 0 && (
                 <p className="alert alert-warning" role="status">
-                  No searchable Earth candidates are available. A search may return HTTP 409
-                  <code> no_indexed_data</code>; this UI does not invent fallback data.
+                  {rich("app.noCandidates", { code: <code>no_indexed_data</code> })}
                 </p>
               )}
             </section>
@@ -313,7 +336,7 @@ export function App({ aoiPollIntervalMs = 1000 }: AppProps) {
             <>
               {searching && (
                 <div className="status-panel" role="status">
-                  Searching searchable Earth regions…
+                  {t("app.searching")}
                 </div>
               )}
 
@@ -321,26 +344,30 @@ export function App({ aoiPollIntervalMs = 1000 }: AppProps) {
                 <div className="alert alert-error" role="alert">
                   <h2>
                     {searchError.code === "no_indexed_data"
-                      ? "No indexed Earth data (HTTP 409)"
-                      : "Search failed"}
+                      ? t("app.noIndexedTitle")
+                      : t("app.searchFailed")}
                   </h2>
-                  <p>{searchError.message}</p>
+                  <p>
+                    <SourceText>{searchError.message}</SourceText>
+                  </p>
                   {searchError.code && (
                     <p>
-                      Error code: <code>{searchError.code}</code>
-                      {searchError.status !== null ? ` · HTTP ${searchError.status}` : ""}
+                      {rich("common.errorCode", { code: <code>{searchError.code}</code> })}
+                      {searchErrorMeaning
+                        ? t("common.codeMeaning", { meaning: searchErrorMeaning })
+                        : ""}
+                      {searchError.status !== null
+                        ? t("common.httpStatus", { status: searchError.status })
+                        : ""}
                     </p>
                   )}
                   {searchError.details.length > 0 && (
                     <details>
-                      <summary>Validation details</summary>
+                      <summary>{t("common.validationDetails")}</summary>
                       <pre>{JSON.stringify(searchError.details, null, 2)}</pre>
                     </details>
                   )}
-                  <p>
-                    Nothing is substituted when the API errors. Adjust the target or retry
-                    when the API is available.
-                  </p>
+                  <p>{t("app.searchErrorHelp")}</p>
                 </div>
               )}
 
@@ -367,38 +394,20 @@ export function App({ aoiPollIntervalMs = 1000 }: AppProps) {
                 !searching &&
                 searchResponse.results.length > 0 && (
                   <div className="detail-placeholder" role="status">
-                    <h2>Inspect a candidate</h2>
-                    <p>
-                      Select a result by its button in the ranked list (or a pin/rectangle
-                      on the map) to load GET /locations/&#123;id&#125; and its grounded
-                      context export.
-                    </p>
+                    <h2>{t("app.inspectTitle")}</h2>
+                    <p>{t("app.inspectBody")}</p>
                   </div>
                 )}
 
               {!searchResponse && !searching && !searchError && capabilities && (
                 <section className="idle-panel" aria-labelledby="idle-heading">
-                  <h2 id="idle-heading">How this MVP answers</h2>
-                  <p>
-                    The prefilled target is a hypothetical example, not a NASA measurement.
-                    A search returns the closest windows within the searchable coverage
-                    using a weighted normalized Euclidean distance on terrain shape.
-                  </p>
+                  <h2 id="idle-heading">{t("app.idleHeading")}</h2>
+                  <p>{t("app.idleBody")}</p>
                   <ul>
-                    <li>Lower distance means more similar. It is never a percentage.</li>
-                    <li>
-                      Observed and DEMO / SYNTHETIC records are labeled explicitly;
-                      synthetic fixtures are not evidence.
-                    </li>
-                    <li>
-                      On-demand AOIs are user-created windows, not global coverage. Their
-                      origin appears in result caveats.
-                    </li>
-                    <li>
-                      Gravity, atmosphere, radiation, regolith, mineralogy, temperature,
-                      and geological history are not compared. ESA WorldCover context is
-                      not mineralogy.
-                    </li>
+                    <li>{t("app.idleItemDistance")}</li>
+                    <li>{t("app.idleItemSynthetic")}</li>
+                    <li>{t("app.idleItemOnDemand")}</li>
+                    <li>{t("app.idleItemNotCompared")}</li>
                   </ul>
                 </section>
               )}
@@ -416,7 +425,7 @@ export function App({ aoiPollIntervalMs = 1000 }: AppProps) {
 
           {!capabilities && !capabilitiesLoading && !capabilitiesError && (
             <div className="status-panel" role="status">
-              No capabilities were returned. Search and AOI analysis are unavailable.
+              {t("app.noCapabilities")}
             </div>
           )}
         </div>
@@ -440,15 +449,14 @@ export function App({ aoiPollIntervalMs = 1000 }: AppProps) {
 
       <footer className="site-footer">
         <p>
-          Planetary Analog Explorer MVP · contract {capabilities?.contract_version ?? "—"}{" "}
-          · method {capabilities?.method_version ?? "—"} · data{" "}
-          {capabilities?.data_version ?? "—"} · snapshot{" "}
-          {capabilities?.data_snapshot_id ?? "—"}
+          {t("app.footerVersions", {
+            contract: capabilities?.contract_version ?? "—",
+            method: capabilities?.method_version ?? "—",
+            data: capabilities?.data_version ?? "—",
+            snapshot: capabilities?.data_snapshot_id ?? "—",
+          })}
         </p>
-        <p>
-          Distance is a weighted normalized Euclidean value on terrain shape only.
-          Basemap © OpenStreetMap contributors.
-        </p>
+        <p>{t("app.footerNote")}</p>
       </footer>
     </div>
   );

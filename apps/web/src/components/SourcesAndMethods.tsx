@@ -1,7 +1,8 @@
 import type { CapabilitiesOut, DatasetOut } from "../api/client";
+import { SourceText, useI18n } from "../i18n/I18nProvider";
 import { providerStatusEntries, readAoiLimits } from "../lib/aoi";
-import { formatBBox, formatNumber } from "../lib/format";
 import { DataKindBadge } from "./DataKindBadge";
+import { Timestamp } from "./Timestamp";
 
 type SourcesAndMethodsProps = {
   capabilities: CapabilitiesOut;
@@ -22,6 +23,7 @@ export function SourcesAndMethods({
   datasets,
   datasetsError,
 }: SourcesAndMethodsProps) {
+  const { t, tp, rich, fmt, label } = useI18n();
   const windowSize = analysisNumber(capabilities.analysis, "window_size_m");
   const resolution = analysisNumber(capabilities.analysis, "analysis_resolution_m");
   const coverage = capabilities.coverage;
@@ -32,100 +34,126 @@ export function SourcesAndMethods({
   return (
     <section className="sources-methods" id="sources-and-methods" aria-labelledby="sources-heading">
       <div className="section-heading">
-        <p className="eyebrow">Provenance</p>
-        <h2 id="sources-heading">Sources, coverage and methods</h2>
+        <p className="eyebrow">{t("sources.eyebrow")}</p>
+        <h2 id="sources-heading">{t("sources.heading")}</h2>
       </div>
 
       <div className="coverage-disclosure">
-        <h3>Indexing and coverage disclaimer</h3>
-        <p>{coverage.description}</p>
+        <h3>{t("sources.disclaimerHeading")}</h3>
+        <p>
+          <SourceText>{coverage.description}</SourceText>
+        </p>
         <ul>
           <li>
-            Searchable candidate regions:{" "}
-            <strong>{coverage.indexed_candidate_count}</strong> (coverage label{" "}
-            <code>{coverage.label}</code>).
+            {rich("sources.candidateRegions", {
+              count: <strong>{fmt.number(coverage.indexed_candidate_count, 0)}</strong>,
+              label: <code>{coverage.label}</code>,
+            })}
           </li>
           <li>
-            Origin split: <strong>{origins.indexed ?? 0} indexed</strong> +{" "}
-            <strong>{origins.on_demand ?? 0} on-demand AOI</strong>. On-demand AOIs are
-            user-created windows and are never global coverage.
+            {rich("sources.originSplit", {
+              indexed: (
+                <strong>
+                  {t("coverage.indexedCount", { count: fmt.number(origins.indexed ?? 0, 0) })}
+                </strong>
+              ),
+              onDemand: (
+                <strong>
+                  {t("coverage.onDemandCount", {
+                    count: fmt.number(origins.on_demand ?? 0, 0),
+                  })}
+                </strong>
+              ),
+            })}
           </li>
           <li>
-            Geographic extent:{" "}
-            {coverage.geographic_bbox
-              ? formatBBox(coverage.geographic_bbox)
-              : "not available — there may be no searchable windows."}
+            {t("sources.extent", {
+              extent: coverage.geographic_bbox
+                ? fmt.bbox(coverage.geographic_bbox)
+                : t("sources.extentMissing"),
+            })}
           </li>
           <li>
-            Data kinds present:{" "}
-            {coverage.data_kinds.length > 0
-              ? coverage.data_kinds.join(", ")
-              : "none reported"}
-            .
+            {t("sources.dataKinds", {
+              kinds:
+                coverage.data_kinds.length > 0
+                  ? coverage.data_kinds.join(", ")
+                  : t("common.noneReported"),
+            })}
           </li>
-          <li>
-            Results are the closest matches among the searchable coverage only. This is
-            not a global survey, not an exhaustive top-10, and not a base-site
-            recommendation. Absence from results does not mean a location is a poor analog.
-          </li>
+          <li>{t("sources.closestOnly")}</li>
         </ul>
       </div>
 
       <div className="methods-block">
-        <h3>Analysis method</h3>
+        <h3>{t("sources.methodHeading")}</h3>
         <dl className="facts-grid">
           <div>
-            <dt>Contract version</dt>
+            <dt>{t("sources.contractVersion")}</dt>
             <dd>{capabilities.contract_version}</dd>
           </div>
           <div>
-            <dt>Method version</dt>
+            <dt>{t("sources.methodVersion")}</dt>
             <dd>{capabilities.method_version}</dd>
           </div>
           <div>
-            <dt>Analysis window</dt>
-            <dd>{windowSize === null ? "not reported" : `${formatNumber(windowSize)} m`}</dd>
-          </div>
-          <div>
-            <dt>Analysis resolution</dt>
+            <dt>{t("sources.analysisWindow")}</dt>
             <dd>
-              {resolution === null ? "not reported" : `${formatNumber(resolution)} m`}
+              {windowSize === null
+                ? t("common.notReported")
+                : t("format.meters", { value: fmt.number(windowSize) })}
             </dd>
           </div>
           <div>
-            <dt>Data version</dt>
+            <dt>{t("sources.analysisResolution")}</dt>
+            <dd>
+              {resolution === null
+                ? t("common.notReported")
+                : t("format.meters", { value: fmt.number(resolution) })}
+            </dd>
+          </div>
+          <div>
+            <dt>{t("sources.dataVersion")}</dt>
             <dd>{capabilities.data_version}</dd>
           </div>
           <div>
-            <dt>Data snapshot</dt>
+            <dt>{t("sources.dataSnapshot")}</dt>
             <dd>
               <code>{capabilities.data_snapshot_id}</code>
             </dd>
           </div>
           <div>
-            <dt>On-demand AOI limits</dt>
+            <dt>{t("sources.aoiLimits")}</dt>
             <dd>
-              {formatNumber(aoiLimits.minSideM, 0)}–{formatNumber(aoiLimits.maxSideM, 0)} m
-              per side · ≤ {formatNumber(aoiLimits.maxAreaKm2, 1)} km² · latitude −80° to
-              84°
+              {t("sources.aoiLimitsValue", {
+                min: fmt.number(aoiLimits.minSideM, 0),
+                max: fmt.number(aoiLimits.maxSideM, 0),
+                area: fmt.number(aoiLimits.maxAreaKm2, 1),
+              })}
             </dd>
           </div>
           <div>
-            <dt>Distance</dt>
-            <dd>
-              Weighted normalized Euclidean; lower is more similar. Not a percentage.
-            </dd>
+            <dt>{t("sources.distance")}</dt>
+            <dd>{t("sources.distanceValue")}</dd>
           </div>
         </dl>
 
         {aoiProviders.length > 0 && (
           <div className="aoi-provider-readiness">
-            <h4>AOI provider readiness</h4>
+            <h4>{t("sources.aoiProviders")}</h4>
             <ul>
               {aoiProviders.map(([providerId, status]) => (
                 <li key={providerId}>
-                  <code>{providerId}</code>: <strong>{status.status ?? "unknown"}</strong>
-                  {status.role ? ` — ${status.role}` : ""}
+                  <code>{providerId}</code>:{" "}
+                  <strong data-status={status.status ?? "unknown"}>
+                    {label.status(status.status)}
+                  </strong>
+                  {status.role ? (
+                    <>
+                      {" — "}
+                      <SourceText>{status.role}</SourceText>
+                    </>
+                  ) : null}
                 </li>
               ))}
             </ul>
@@ -136,33 +164,44 @@ export function SourcesAndMethods({
           {capabilities.features.map((feature) => (
             <article key={feature.id} className="method-feature">
               <h4>
-                {feature.label} <span className="unit-tag">{feature.unit}</span>
+                {label.feature(feature.id, feature.label)}{" "}
+                <span className="unit-tag">{label.unitName(feature.unit)}</span>
               </h4>
-              <p>{feature.description}</p>
+              <p>
+                <SourceText>{feature.description}</SourceText>
+              </p>
               <dl>
                 <div>
-                  <dt>Valid domain</dt>
-                  <dd>{feature.valid_domain}</dd>
+                  <dt>{t("sources.validDomain")}</dt>
+                  <dd>
+                    <SourceText>{feature.valid_domain}</SourceText>
+                  </dd>
                 </div>
                 <div>
-                  <dt>Fixed scale</dt>
-                  <dd>{formatNumber(feature.scale)}</dd>
+                  <dt>{t("sources.fixedScale")}</dt>
+                  <dd>{fmt.number(feature.scale)}</dd>
                 </div>
                 <div>
-                  <dt>Scale rationale</dt>
-                  <dd>{feature.scale_rationale}</dd>
+                  <dt>{t("sources.scaleRationale")}</dt>
+                  <dd>
+                    <SourceText>{feature.scale_rationale}</SourceText>
+                  </dd>
                 </div>
                 <div>
-                  <dt>Extraction scale</dt>
-                  <dd>{formatNumber(feature.extraction_scale_m)} m</dd>
+                  <dt>{t("sources.extractionScale")}</dt>
+                  <dd>{t("format.meters", { value: fmt.number(feature.extraction_scale_m) })}</dd>
                 </div>
                 <div>
-                  <dt>Method</dt>
-                  <dd>{feature.method}</dd>
+                  <dt>{t("sources.method")}</dt>
+                  <dd>
+                    <SourceText>{feature.method}</SourceText>
+                  </dd>
                 </div>
                 <div>
-                  <dt>Missing policy</dt>
-                  <dd>{feature.missing_policy}</dd>
+                  <dt>{t("sources.missingPolicy")}</dt>
+                  <dd>
+                    <SourceText>{feature.missing_policy}</SourceText>
+                  </dd>
                 </div>
               </dl>
             </article>
@@ -170,31 +209,35 @@ export function SourcesAndMethods({
         </div>
 
         <div className="context-methods">
-          <h3>Context-only land cover (excluded from similarity)</h3>
-          <p>
-            ESA WorldCover 2021 v200 class fractions are Earth land-cover context. They are
-            not mineralogy or geology, are not comparable to lunar surface materials, and
-            are never included in the weighted normalized Euclidean distance.
-          </p>
+          <h3>{t("sources.contextHeading")}</h3>
+          <p>{t("sources.contextBody")}</p>
           <details>
-            <summary>
-              Show {capabilities.context_features.length} context-only feature definitions
-            </summary>
+            <summary>{tp("sources.contextShow", capabilities.context_features.length)}</summary>
             <ul className="context-feature-list">
               {capabilities.context_features.map((feature) => (
                 <li key={feature.feature_id}>
                   <h4>
-                    {feature.label} <span className="unit-tag">class {feature.class_code}</span>
+                    {label.feature(feature.feature_id, feature.label)}{" "}
+                    <span className="unit-tag">
+                      {t("sources.classTag", { code: feature.class_code })}
+                    </span>
                   </h4>
-                  <p>{feature.description}</p>
-                  <p className="field-hint">
-                    Role: <code>{feature.score_role}</code> · unit: {feature.unit} · method:{" "}
-                    {feature.method_version}
+                  <p>
+                    <SourceText>{feature.description}</SourceText>
                   </p>
-                  <p className="field-hint">{feature.quality_rules}</p>
+                  <p className="field-hint">
+                    {rich("sources.contextRole", {
+                      role: <code>{feature.score_role}</code>,
+                      unit: label.unitName(feature.unit),
+                      method: feature.method_version,
+                    })}
+                  </p>
+                  <p className="field-hint">
+                    <SourceText>{feature.quality_rules}</SourceText>
+                  </p>
                   <p>
                     <a href={feature.reference} target="_blank" rel="noreferrer">
-                      ESA WorldCover reference
+                      {t("sources.worldCoverReference")}
                     </a>
                   </p>
                 </li>
@@ -202,29 +245,24 @@ export function SourcesAndMethods({
             </ul>
           </details>
           {capabilities.context_features.length > 0 && (
-            <p className="field-hint">
-              Data attribution: © ESA WorldCover project 2021 / Contains modified
-              Copernicus Sentinel data (2021) processed by ESA WorldCover consortium.
-            </p>
+            <p className="field-hint">{t("sources.worldCoverAttribution")}</p>
           )}
         </div>
       </div>
 
       <div className="datasets-block">
-        <h3>Dataset provenance</h3>
-        <p className="muted">
-          Records below come directly from GET /datasets. They identify the source,
-          license, access time, and processing version; they are not decorative imagery.
-        </p>
+        <h3>{t("sources.datasetsHeading")}</h3>
+        <p className="muted">{t("sources.datasetsIntro")}</p>
 
         {datasetsError && (
           <div className="alert alert-error" role="alert">
-            <strong>Dataset provenance could not be loaded.</strong> {datasetsError}
+            <strong>{t("sources.datasetsFailed")}</strong>{" "}
+            <SourceText>{datasetsError}</SourceText>
           </div>
         )}
 
         {!datasetsError && datasets.length === 0 && (
-          <p role="status">No dataset provenance records were returned by the API.</p>
+          <p role="status">{t("sources.noDatasets")}</p>
         )}
 
         {datasets.length > 0 && (
@@ -239,25 +277,23 @@ export function SourcesAndMethods({
                 </div>
                 <dl>
                   <div>
-                    <dt>Provider</dt>
+                    <dt>{t("dataset.provider")}</dt>
                     <dd>{dataset.provider}</dd>
                   </div>
                   <div>
-                    <dt>Product</dt>
+                    <dt>{t("dataset.product")}</dt>
                     <dd>
                       <code>{dataset.product_id}</code>
                     </dd>
                   </div>
                   <div>
-                    <dt>Access timestamp</dt>
+                    <dt>{t("dataset.accessTimestamp")}</dt>
                     <dd>
-                      <time dateTime={dataset.access_timestamp}>
-                        {dataset.access_timestamp}
-                      </time>
+                      <Timestamp iso={dataset.access_timestamp} />
                     </dd>
                   </div>
                   <div>
-                    <dt>License</dt>
+                    <dt>{t("dataset.license")}</dt>
                     <dd>
                       <a href={dataset.license_url} target="_blank" rel="noreferrer">
                         {dataset.license}
@@ -265,32 +301,40 @@ export function SourcesAndMethods({
                     </dd>
                   </div>
                   <div>
-                    <dt>Processing version</dt>
+                    <dt>{t("dataset.processingVersion")}</dt>
                     <dd>{dataset.processing_version}</dd>
                   </div>
                   <div>
-                    <dt>Source kind</dt>
-                    <dd>{dataset.source_kind}</dd>
-                  </div>
-                  <div>
-                    <dt>Native resolution</dt>
+                    <dt>{t("dataset.sourceKind")}</dt>
                     <dd>
-                      {dataset.native_resolution_m === null
-                        ? "not reported"
-                        : `${formatNumber(dataset.native_resolution_m, 1)} m`}
+                      <code>{dataset.source_kind}</code>
                     </dd>
                   </div>
                   <div>
-                    <dt>Source CRS</dt>
-                    <dd>{dataset.source_crs ?? "not reported"}</dd>
+                    <dt>{t("dataset.nativeResolution")}</dt>
+                    <dd>
+                      {dataset.native_resolution_m === null
+                        ? t("common.notReported")
+                        : t("format.meters", {
+                            value: fmt.number(dataset.native_resolution_m, 1),
+                          })}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>{t("dataset.sourceCrs")}</dt>
+                    <dd>{dataset.source_crs ?? t("common.notReported")}</dd>
                   </div>
                 </dl>
                 <p>
                   <a href={dataset.url} target="_blank" rel="noreferrer">
-                    Dataset record
+                    {t("dataset.recordLink")}
                   </a>
                 </p>
-                {dataset.notes && <p className="dataset-notes">{dataset.notes}</p>}
+                {dataset.notes && (
+                  <p className="dataset-notes">
+                    <SourceText>{dataset.notes}</SourceText>
+                  </p>
+                )}
               </li>
             ))}
           </ul>

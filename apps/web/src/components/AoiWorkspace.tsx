@@ -18,11 +18,12 @@ import {
   readAoiLimits,
   type ProviderStatus,
 } from "../lib/aoi";
-import { formatNumber } from "../lib/format";
+import { SourceText, useI18n } from "../i18n/I18nProvider";
 import { DataKindBadge } from "./DataKindBadge";
 import { DetailPanel } from "./DetailPanel";
 import { LocationDetails } from "./LocationDetails";
 import { ResultsPanel } from "./ResultsPanel";
+import { Timestamp } from "./Timestamp";
 
 type AoiWorkspaceProps = {
   capabilities: CapabilitiesOut;
@@ -50,9 +51,10 @@ function ProviderStatusList({
 }: {
   providerStatus: Record<string, unknown> | Record<string, ProviderStatus> | null;
 }) {
+  const { t, rich, fmt, label } = useI18n();
   const entries = providerStatusEntries(providerStatus);
   if (entries.length === 0) {
-    return <p className="field-hint">Provider status is pending.</p>;
+    return <p className="field-hint">{t("aoi.providerPending")}</p>;
   }
   return (
     <ul className="provider-status-list">
@@ -60,34 +62,44 @@ function ProviderStatusList({
         <li key={providerId}>
           <div className="provider-heading">
             <code>{providerId}</code>
-            <span className={`status-chip ${statusClass(status.status)}`}>
-              {status.status ?? "unknown"}
+            <span
+              className={`status-chip ${statusClass(status.status)}`}
+              data-status={status.status ?? "unknown"}
+            >
+              {label.status(status.status)}
             </span>
           </div>
-          {status.role && <p>{status.role}</p>}
+          {status.role && (
+            <p>
+              <SourceText>{status.role}</SourceText>
+            </p>
+          )}
           {status.reason && (
             <p>
-              Reason: <code>{status.reason}</code>
+              {rich("aoi.reason", { reason: <code>{status.reason}</code> })}
+              {label.errorCode(status.reason)
+                ? t("common.codeMeaning", { meaning: label.errorCode(status.reason) ?? "" })
+                : ""}
             </p>
           )}
-          {status.message && <p>{status.message}</p>}
-          {status.tile && (
+          {status.message && (
             <p>
-              Tile: <code>{status.tile}</code>
+              <SourceText>{status.message}</SourceText>
             </p>
           )}
+          {status.tile && <p>{rich("aoi.tile", { tile: <code>{status.tile}</code> })}</p>}
           {typeof status.tiles === "number" && (
             <p>
-              Tiles read: {formatNumber(status.tiles, 0)}
+              {t("aoi.tilesRead", { tiles: fmt.number(status.tiles, 0) })}
               {typeof status.valid_pixels === "number"
-                ? ` · valid pixels: ${formatNumber(status.valid_pixels, 0)}`
+                ? t("aoi.validPixels", { pixels: fmt.number(status.valid_pixels, 0) })
                 : ""}
             </p>
           )}
           {status.source_url && (
             <p className="provider-source">
               <a href={status.source_url} target="_blank" rel="noreferrer">
-                Provider source
+                {t("aoi.providerSource")}
               </a>
             </p>
           )}
@@ -106,6 +118,7 @@ function AoiComparison({
   capabilities: CapabilitiesOut;
   target: NumericTarget;
 }) {
+  const { t, rich, label } = useI18n();
   const [response, setResponse] = useState<SearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{ message: string; code: string | null } | null>(
@@ -152,14 +165,9 @@ function AoiComparison({
   return (
     <section className="aoi-comparison" aria-labelledby="aoi-comparison-heading">
       <div className="section-heading compact">
-        <p className="eyebrow">Compare</p>
-        <h3 id="aoi-comparison-heading">Compare this AOI with Earth candidates</h3>
-        <p className="muted">
-          Uses the normal weighted normalized Euclidean comparator with this AOI&apos;s own
-          observed terrain values as the target. The call sends no target body and does not
-          introduce a second scoring method. This AOI is itself searchable, so it may appear
-          in its own ranking with distance 0.
-        </p>
+        <p className="eyebrow">{t("aoi.compareEyebrow")}</p>
+        <h3 id="aoi-comparison-heading">{t("aoi.compareHeading")}</h3>
+        <p className="muted">{t("aoi.compareIntro")}</p>
       </div>
 
       <button
@@ -168,22 +176,25 @@ function AoiComparison({
         onClick={runComparison}
         disabled={loading}
       >
-        {loading ? "Comparing AOI…" : "Compare this AOI against indexed Earth candidates"}
+        {loading ? t("aoi.comparing") : t("aoi.compareButton")}
       </button>
 
       {loading && (
         <p className="status-panel" role="status">
-          Comparing the AOI against searchable Earth regions…
+          {t("aoi.comparingStatus")}
         </p>
       )}
 
       {error && (
         <div className="alert alert-error" role="alert">
-          <strong>AOI comparison failed.</strong> {error.message}
+          <strong>{t("aoi.compareFailed")}</strong> <SourceText>{error.message}</SourceText>
           {error.code && (
             <>
               {" "}
-              (code <code>{error.code}</code>)
+              {rich("aoi.compareCode", { code: <code>{error.code}</code> })}
+              {label.errorCode(error.code)
+                ? t("common.codeMeaning", { meaning: label.errorCode(error.code) ?? "" })
+                : ""}
             </>
           )}
         </div>
@@ -211,12 +222,34 @@ function AoiComparison({
   );
 }
 
+function ErrorCodeLine({
+  code,
+  status,
+}: {
+  code: string | null;
+  status?: number | null;
+}) {
+  const { t, rich, label } = useI18n();
+  if (!code) {
+    return null;
+  }
+  const meaning = label.errorCode(code);
+  return (
+    <p>
+      {rich("common.errorCode", { code: <code>{code}</code> })}
+      {meaning ? t("common.codeMeaning", { meaning }) : ""}
+      {status !== undefined && status !== null ? t("common.httpStatus", { status }) : ""}
+    </p>
+  );
+}
+
 export function AoiWorkspace({
   capabilities,
   analysis,
   activeTarget,
   onUseAsTarget,
 }: AoiWorkspaceProps) {
+  const { t, fmt, label } = useI18n();
   const limits = readAoiLimits(capabilities.aoi_analysis);
   const { job, analyzeResponse, location, status } = analysis;
   const providerStatus =
@@ -239,6 +272,10 @@ export function AoiWorkspace({
         : {},
     [location],
   );
+  const featureErrorMessage =
+    analysis.featureError?.code === "missing_area_id"
+      ? t("aoi.missingAreaId")
+      : analysis.featureError?.message;
 
   function useAsTarget() {
     if (!location) {
@@ -253,46 +290,40 @@ export function AoiWorkspace({
   return (
     <section className="aoi-workspace" aria-labelledby="aoi-workspace-heading">
       <div className="section-heading">
-        <p className="eyebrow">On-demand workspace</p>
-        <h2 id="aoi-workspace-heading">New Earth AOI analysis</h2>
-        <p className="muted">
-          Bounded Copernicus DEM terrain metrics plus ESA WorldCover land-cover context.
-          On-demand AOIs are user-requested and are never presented as global coverage.
-        </p>
+        <p className="eyebrow">{t("aoi.eyebrow")}</p>
+        <h2 id="aoi-workspace-heading">{t("aoi.heading")}</h2>
+        <p className="muted">{t("aoi.intro")}</p>
       </div>
 
       {!analyzeResponse && !analysis.requestError && (
         <div className="idle-panel">
-          <h3>No AOI submitted yet</h3>
+          <h3>{t("aoi.idleHeading")}</h3>
           <p>
-            Use the <strong>Analyze AOI</strong> tab to submit a bounding box. Limits from
-            GET /capabilities: sides {formatNumber(limits.minSideM, 0)}–
-            {formatNumber(limits.maxSideM, 0)} m, area ≤{" "}
-            {formatNumber(limits.maxAreaKm2, 1)} km², latitude −80° to 84°, analysis
-            resolution {formatNumber(limits.analysisResolutionM, 0)} m.
+            {t("aoi.idleBody", {
+              tab: t("app.tabAoi"),
+              min: fmt.number(limits.minSideM, 0),
+              max: fmt.number(limits.maxSideM, 0),
+              area: fmt.number(limits.maxAreaKm2, 1),
+              resolution: fmt.number(limits.analysisResolutionM, 0),
+            })}
           </p>
-          <p className="field-hint">
-            A completed AOI can be used as a search target; it also becomes searchable for
-            later searches, with its on-demand origin shown in caveats.
-          </p>
+          <p className="field-hint">{t("aoi.idleHint")}</p>
         </div>
       )}
 
       {analysis.requestError && (
         <div className="alert alert-error" role="alert">
-          <h3>AOI request failed</h3>
-          <p>{analysis.requestError.message}</p>
-          {analysis.requestError.code && (
-            <p>
-              Error code: <code>{analysis.requestError.code}</code>
-              {analysis.requestError.status !== null
-                ? ` · HTTP ${analysis.requestError.status}`
-                : ""}
-            </p>
-          )}
+          <h3>{t("aoi.requestFailed")}</h3>
+          <p>
+            <SourceText>{analysis.requestError.message}</SourceText>
+          </p>
+          <ErrorCodeLine
+            code={analysis.requestError.code}
+            status={analysis.requestError.status}
+          />
           {analysis.requestError.details.length > 0 && (
             <details>
-              <summary>Validation details</summary>
+              <summary>{t("common.validationDetails")}</summary>
               <pre>{JSON.stringify(analysis.requestError.details, null, 2)}</pre>
             </details>
           )}
@@ -312,15 +343,16 @@ export function AoiWorkspace({
             <p>
               <strong>
                 {analysis.submitting
-                  ? "Submitting AOI analysis…"
+                  ? t("aoi.submittingStatus")
                   : status === "queued"
-                    ? "AOI analysis queued…"
-                    : "AOI analysis running…"}
+                    ? t("aoi.queuedStatus")
+                    : t("aoi.runningStatus")}
               </strong>
             </p>
             <p className="field-hint">
-              Job {job?.job_id ?? analyzeResponse?.job_id ?? "pending"} · polling every ~1
-              s. Provider reads may take several seconds.
+              {t("aoi.pollingHint", {
+                job: job?.job_id ?? analyzeResponse?.job_id ?? t("common.pending"),
+              })}
             </p>
           </div>
         </div>
@@ -328,30 +360,30 @@ export function AoiWorkspace({
 
       {analysis.pollError && (
         <div className="alert alert-error" role="alert">
-          <h3>AOI job polling failed</h3>
-          <p>{analysis.pollError.message}</p>
-          {analysis.pollError.code && (
-            <p>
-              Error code: <code>{analysis.pollError.code}</code>
-            </p>
-          )}
+          <h3>{t("aoi.pollFailed")}</h3>
+          <p>
+            <SourceText>{analysis.pollError.message}</SourceText>
+          </p>
+          <ErrorCodeLine code={analysis.pollError.code} />
           <button type="button" className="secondary-button" onClick={analysis.retry}>
-            Retry job polling
+            {t("aoi.retryPolling")}
           </button>
         </div>
       )}
 
       {analysis.featureError && (
         <div className="alert alert-error" role="alert">
-          <h3>AOI feature record failed to load</h3>
-          <p>{analysis.featureError.message}</p>
-          {analysis.featureError.code && (
-            <p>
-              Error code: <code>{analysis.featureError.code}</code>
-            </p>
-          )}
+          <h3>{t("aoi.featureFailed")}</h3>
+          <p>
+            {analysis.featureError.code === "missing_area_id" ? (
+              featureErrorMessage
+            ) : (
+              <SourceText>{featureErrorMessage}</SourceText>
+            )}
+          </p>
+          <ErrorCodeLine code={analysis.featureError.code} />
           <button type="button" className="secondary-button" onClick={analysis.retry}>
-            Retry feature record
+            {t("aoi.retryFeature")}
           </button>
         </div>
       )}
@@ -363,74 +395,70 @@ export function AoiWorkspace({
           data-testid="aoi-job-panel"
         >
           <div className="aoi-job-heading">
-            <h3 id="aoi-job-heading">Job status</h3>
-            <span className={`status-chip ${statusClass(job.status)}`}>
-              {job.status}
+            <h3 id="aoi-job-heading">{t("aoi.jobStatus")}</h3>
+            <span className={`status-chip ${statusClass(job.status)}`} data-status={job.status}>
+              {label.status(job.status)}
             </span>
             {analyzeResponse?.cached && (
-              <span className="status-chip status-cached">cached result</span>
+              <span className="status-chip status-cached">{t("aoi.cached")}</span>
             )}
           </div>
           <dl className="facts-grid compact-facts">
             <div>
-              <dt>Job ID</dt>
+              <dt>{t("aoi.jobId")}</dt>
               <dd>
                 <code>{job.job_id}</code>
               </dd>
             </div>
             <div>
-              <dt>Area ID</dt>
+              <dt>{t("aoi.areaId")}</dt>
               <dd>
-                <code>{job.area_id ?? "pending"}</code>
+                <code>{job.area_id ?? t("common.pending")}</code>
               </dd>
             </div>
             <div>
-              <dt>Created</dt>
-              <dd>{job.created_at ?? "pending"}</dd>
+              <dt>{t("aoi.created")}</dt>
+              <dd>
+                {job.created_at ? <Timestamp iso={job.created_at} /> : t("common.pending")}
+              </dd>
             </div>
             <div>
-              <dt>Finished</dt>
-              <dd>{job.finished_at ?? "pending"}</dd>
+              <dt>{t("aoi.finished")}</dt>
+              <dd>
+                {job.finished_at ? <Timestamp iso={job.finished_at} /> : t("common.pending")}
+              </dd>
             </div>
           </dl>
 
           {status === "failed" && (
             <div className="alert alert-error" role="alert">
-              <h4>AOI analysis failed</h4>
+              <h4>{t("aoi.failedTitle")}</h4>
               <p>
-                {jobErrorMessage ?? "The job failed without a detailed error message."}
+                {jobErrorMessage ? (
+                  <SourceText>{jobErrorMessage}</SourceText>
+                ) : (
+                  t("aoi.failedNoMessage")
+                )}
               </p>
-              {jobErrorCode && (
-                <p>
-                  Error code: <code>{jobErrorCode}</code>
-                </p>
-              )}
+              <ErrorCodeLine code={jobErrorCode} />
             </div>
           )}
 
           {status === "partial" && (
             <div className="alert alert-warning" role="alert">
-              <h4>Partial result</h4>
-              <p>
-                The terrain job finished, but at least one provider did not verify. Inspect
-                the per-provider status before using this record.
-              </p>
+              <h4>{t("aoi.partialTitle")}</h4>
+              <p>{t("aoi.partialBody")}</p>
             </div>
           )}
 
-          {status === "completed" && (
-            <p className="field-hint">
-              All reported providers verified. The result remains a user-requested
-              on-demand AOI, not global coverage.
-            </p>
-          )}
+          {status === "completed" && <p className="field-hint">{t("aoi.completedHint")}</p>}
 
-          <h4>Per-provider status</h4>
+          <h4>{t("aoi.perProvider")}</h4>
           <ProviderStatusList providerStatus={providerStatus} />
 
           {warnings.length > 0 && (
             <div className="warnings">
-              <h4>Warnings</h4>
+              <h4>{t("aoi.warnings")}</h4>
               <ul>
                 {warnings.map((warning) => (
                   <li key={warning}>
@@ -445,20 +473,20 @@ export function AoiWorkspace({
             <dl className="facts-grid compact-facts">
               {areaKm2 !== null && (
                 <div>
-                  <dt>Area</dt>
-                  <dd>{formatNumber(areaKm2, 3)} km²</dd>
+                  <dt>{t("aoi.area")}</dt>
+                  <dd>{t("format.km2", { value: fmt.number(areaKm2, 3) })}</dd>
                 </div>
               )}
               {featureCount !== null && (
                 <div>
-                  <dt>Similarity features</dt>
-                  <dd>{formatNumber(featureCount, 0)}</dd>
+                  <dt>{t("aoi.similarityFeatures")}</dt>
+                  <dd>{fmt.number(featureCount, 0)}</dd>
                 </div>
               )}
               {contextFeatureCount !== null && (
                 <div>
-                  <dt>Context features</dt>
-                  <dd>{formatNumber(contextFeatureCount, 0)}</dd>
+                  <dt>{t("aoi.contextFeatures")}</dt>
+                  <dd>{fmt.number(contextFeatureCount, 0)}</dd>
                 </div>
               )}
             </dl>
@@ -468,7 +496,7 @@ export function AoiWorkspace({
 
       {isTerminalSuccess && !location && !analysis.featureError && (
         <p className="status-panel" role="status">
-          Loading AOI feature record…
+          {t("aoi.loadingFeatures")}
         </p>
       )}
 
@@ -481,13 +509,9 @@ export function AoiWorkspace({
               onClick={useAsTarget}
               disabled={location.features.length === 0}
             >
-              Use AOI features as search target
+              {t("aoi.useAsTarget")}
             </button>
-            <p className="field-hint">
-              Maps the AOI&apos;s observed terrain values into the manual target form and
-              runs the same search API. The AOI itself remains searchable with its
-              on-demand caveat.
-            </p>
+            <p className="field-hint">{t("aoi.useAsTargetHint")}</p>
           </div>
 
           <section
@@ -496,11 +520,11 @@ export function AoiWorkspace({
             data-testid="aoi-record"
           >
             <div className="section-heading compact">
-              <p className="eyebrow">Completed on-demand record</p>
+              <p className="eyebrow">{t("aoi.recordEyebrow")}</p>
               <h3 id="aoi-record-heading">{location.display_name}</h3>
               <p className="selected-name">
                 <DataKindBadge kind={location.data_kind} />{" "}
-                <span className="badge badge-ondemand">On-demand AOI</span>
+                <span className="badge badge-ondemand">{t("aoi.onDemandBadge")}</span>
               </p>
             </div>
             <LocationDetails

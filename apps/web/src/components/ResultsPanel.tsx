@@ -5,13 +5,7 @@ import type {
   SearchResponse,
   SearchResultOut,
 } from "../api/client";
-import {
-  formatDistance,
-  formatExclusionReason,
-  formatNumber,
-  formatSignedNumber,
-  formatUnit,
-} from "../lib/format";
+import { SourceText, SourceTextNote, useI18n } from "../i18n/I18nProvider";
 import { DataKindBadge } from "./DataKindBadge";
 
 type ResultsPanelProps = {
@@ -33,6 +27,8 @@ function ResultCard({
   selected: boolean;
   onSelect: (locationId: string) => void;
 }) {
+  const { t, fmt, label } = useI18n();
+
   return (
     <li>
       <article
@@ -44,59 +40,59 @@ function ResultCard({
           type="button"
           className="result-select"
           aria-pressed={selected}
-          aria-label={`Select rank ${result.rank}: ${result.display_name}`}
+          aria-label={t("results.selectLabel", {
+            rank: result.rank,
+            name: result.display_name,
+          })}
           onClick={() => onSelect(result.location_id)}
         >
           <span className="result-rank">#{result.rank}</span>
           <span className="result-title">
             <strong>{result.display_name}</strong>
             <span className="result-location">
-              {formatNumber(result.lat, 4)}°, {formatNumber(result.lon, 4)}°
+              {fmt.number(result.lat, 4)}°, {fmt.number(result.lon, 4)}°
             </span>
           </span>
           <span className="result-distance">
-            <span className="distance-value">{formatDistance(result.distance)}</span>
-            <span className="distance-label">distance</span>
+            <span className="distance-value">{fmt.distance(result.distance)}</span>
+            <span className="distance-label">{t("results.distance")}</span>
           </span>
           <DataKindBadge kind={result.data_kind} />
           {result.caveats.some((caveat) => /on-demand/i.test(caveat)) && (
-            <span className="badge badge-ondemand">On-demand AOI</span>
+            <span className="badge badge-ondemand">{t("results.onDemandBadge")}</span>
           )}
         </button>
 
         <div className="result-body">
           <div className="table-scroll">
             <table className="metric-table">
-              <caption>
-                Target comparison for {result.display_name}. Lower distance is more
-                similar. Distance is not a percentage.
-              </caption>
+              <caption>{t("results.tableCaption", { name: result.display_name })}</caption>
               <thead>
                 <tr>
-                  <th scope="col">Metric</th>
-                  <th scope="col">Candidate</th>
-                  <th scope="col">Target</th>
-                  <th scope="col">Delta</th>
+                  <th scope="col">{t("results.colMetric")}</th>
+                  <th scope="col">{t("results.colCandidate")}</th>
+                  <th scope="col">{t("results.colTarget")}</th>
+                  <th scope="col">{t("results.colDelta")}</th>
                 </tr>
               </thead>
               <tbody>
                 {result.metrics.map((metric) => (
                   <tr key={metric.feature_id}>
                     <th scope="row">
-                      <span>{featureLabels.get(metric.feature_id) ?? metric.feature_id}</span>
+                      <span>
+                        {label.feature(metric.feature_id, featureLabels.get(metric.feature_id))}
+                      </span>
                       <span className="metric-meta">
-                        weight {formatNumber(metric.weight)} · scale{" "}
-                        {formatNumber(metric.scale)}
+                        {t("results.weightScale", {
+                          weight: fmt.number(metric.weight),
+                          scale: fmt.number(metric.scale),
+                        })}
                       </span>
                     </th>
+                    <td>{fmt.withUnit(metric.candidate, metric.unit)}</td>
+                    <td>{fmt.withUnit(metric.target, metric.unit)}</td>
                     <td>
-                      {formatNumber(metric.candidate)} {formatUnit(metric.unit)}
-                    </td>
-                    <td>
-                      {formatNumber(metric.target)} {formatUnit(metric.unit)}
-                    </td>
-                    <td>
-                      {formatSignedNumber(metric.delta)} {formatUnit(metric.unit)}
+                      {fmt.signed(metric.delta)} {fmt.unit(metric.unit)}
                     </td>
                   </tr>
                 ))}
@@ -106,10 +102,13 @@ function ResultCard({
 
           {result.caveats.length > 0 && (
             <div className="result-caveats">
-              <h4>Caveats for this record</h4>
+              <h4>{t("results.caveats")}</h4>
+              <SourceTextNote />
               <ul>
                 {result.caveats.map((caveat) => (
-                  <li key={caveat}>{caveat}</li>
+                  <li key={caveat}>
+                    <SourceText>{caveat}</SourceText>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -117,15 +116,24 @@ function ResultCard({
 
           {Object.keys(result.dimension_distances).length > 0 && (
             <p className="dimension-distances">
-              Dimension distances:{" "}
-              {Object.entries(result.dimension_distances)
-                .map(([dimensionId, value]) => `${dimensionId} ${formatNumber(value, 4)}`)
-                .join(" · ")}
+              {t("results.dimensionDistances", {
+                values: Object.entries(result.dimension_distances)
+                  .map(
+                    ([dimensionId, value]) =>
+                      `${label.dimension(dimensionId)} ${fmt.number(value, 4)}`,
+                  )
+                  .join(" · "),
+              })}
             </p>
           )}
 
           <p className="result-datasets">
-            Dataset IDs: {result.dataset_ids.length > 0 ? result.dataset_ids.join(", ") : "none reported"}
+            {t("results.datasetIds", {
+              ids:
+                result.dataset_ids.length > 0
+                  ? result.dataset_ids.join(", ")
+                  : t("common.noneReported"),
+            })}
           </p>
         </div>
       </article>
@@ -140,6 +148,7 @@ export function ResultsPanel({
   selectedId,
   onSelect,
 }: ResultsPanelProps) {
+  const { t, tp, rich, fmt, label } = useI18n();
   const featureLabels = useMemo(
     () => new Map(features.map((feature) => [feature.id, feature.label])),
     [features],
@@ -159,98 +168,106 @@ export function ResultsPanel({
   const indexedOriginCount = origins.indexed ?? 0;
   const onDemandOriginCount = origins.on_demand ?? 0;
   const hasOnDemandOrigin = onDemandOriginCount > 0;
-  const requestedFeatureLabels = response.requested_features.map(
-    (featureId) => featureLabels.get(featureId) ?? featureId,
+  const requestedFeatureLabels = response.requested_features.map((featureId) =>
+    label.feature(featureId, featureLabels.get(featureId)),
   );
   const appliedFilters = Object.entries(response.filters_applied).map(
     ([featureId, value]) => {
-      const label = contextLabels.get(featureId) ?? featureId;
+      const filterLabel = label.feature(featureId, contextLabels.get(featureId));
       if (typeof value !== "object" || value === null) {
-        return `${label}: ${String(value)}`;
+        return `${filterLabel}: ${String(value)}`;
       }
       const range = value as { min?: unknown; max?: unknown };
       const parts: string[] = [];
       if (typeof range.min === "number") {
-        parts.push(`min ${formatNumber(range.min, 3)}`);
+        parts.push(t("results.filterMin", { value: fmt.number(range.min, 3) }));
       }
       if (typeof range.max === "number") {
-        parts.push(`max ${formatNumber(range.max, 3)}`);
+        parts.push(t("results.filterMax", { value: fmt.number(range.max, 3) }));
       }
-      return `${label}: ${parts.length > 0 ? parts.join(", ") : "applied"}`;
+      return `${filterLabel}: ${parts.length > 0 ? parts.join(", ") : t("results.filterApplied")}`;
     },
   );
 
   return (
     <section className="results-panel" aria-labelledby="results-heading">
       <div className="section-heading">
-        <p className="eyebrow">Step 2</p>
-        <h2 id="results-heading">Ranked matches</h2>
+        <p className="eyebrow">{t("results.step")}</p>
+        <h2 id="results-heading">{t("results.heading")}</h2>
       </div>
 
       <div className="coverage-panel">
         <p className="coverage-headline" data-testid="coverage-headline">
-          Top {response.results.length} among {response.indexed_candidate_count}{" "}
-          {hasOnDemandOrigin ? "indexed and on-demand" : "indexed"} regions
+          {t("results.headline", {
+            shown: fmt.number(response.results.length, 0),
+            total: fmt.number(response.indexed_candidate_count, 0),
+            scope: hasOnDemandOrigin ? t("results.scopeMixed") : t("results.scopeIndexed"),
+          })}
         </p>
         <p className="coverage-origins">
-          Origin split at this response: <strong>{indexedOriginCount} indexed</strong> +{" "}
-          <strong>{onDemandOriginCount} on-demand AOI</strong>. On-demand AOIs are
-          user-created and are not global coverage.
+          {rich("results.originSplit", {
+            indexed: (
+              <strong>
+                {t("coverage.indexedCount", { count: fmt.number(indexedOriginCount, 0) })}
+              </strong>
+            ),
+            onDemand: (
+              <strong>
+                {t("coverage.onDemandCount", { count: fmt.number(onDemandOriginCount, 0) })}
+              </strong>
+            ),
+          })}
         </p>
         <p>
-          Eligible after metric availability checks:{" "}
-          <strong>{response.eligible_candidate_count}</strong>. Excluded:{" "}
-          <strong>{response.excluded_candidate_count}</strong>. Coverage label:{" "}
-          <code>{response.coverage_label}</code>.
+          {rich("results.eligibility", {
+            eligible: <strong>{fmt.number(response.eligible_candidate_count, 0)}</strong>,
+            excluded: <strong>{fmt.number(response.excluded_candidate_count, 0)}</strong>,
+            label: <code>{response.coverage_label}</code>,
+          })}
         </p>
-        <p className="coverage-description">{response.coverage.description}</p>
+        <p className="coverage-description">
+          <SourceText>{response.coverage.description}</SourceText>
+        </p>
         <p className="coverage-features">
-          Requested similarity features:{" "}
-          {requestedFeatureLabels.length > 0
-            ? requestedFeatureLabels.join(", ")
-            : "none reported"}
-          . Context filters:{" "}
-          {appliedFilters.length > 0 ? appliedFilters.join("; ") : "none"}.
+          {t("results.requestedFeatures", {
+            features:
+              requestedFeatureLabels.length > 0
+                ? requestedFeatureLabels.join(", ")
+                : t("common.noneReported"),
+            filters: appliedFilters.length > 0 ? appliedFilters.join("; ") : t("common.none"),
+          })}
         </p>
         <p className="coverage-warning">
-          <strong>This is not a global top 10.</strong> It is the closest set within the
-          searchable coverage only, not a complete ranking, not a survey, and not a
-          base-site recommendation.
+          <strong>{t("results.notGlobalTitle")}</strong> {t("results.notGlobalBody")}
         </p>
         <p className="coverage-versions">
-          Query {response.query_version} · method {response.method_version} · data{" "}
-          {response.data_version} · snapshot {response.data_snapshot_id}
+          {t("results.versions", {
+            query: response.query_version,
+            method: response.method_version,
+            data: response.data_version,
+            snapshot: response.data_snapshot_id,
+          })}
         </p>
-        <p className="mobile-scroll-hint">
-          On narrow screens, metric tables scroll horizontally to show every column.
-        </p>
+        <p className="mobile-scroll-hint">{t("results.scrollHint")}</p>
       </div>
 
       {syntheticCount > 0 && (
         <div className="alert alert-synthetic" role="alert">
           <strong>
-            {syntheticCount} of {response.results.length} returned{" "}
-            {syntheticCount === 1 ? "record is" : "records are"} DEMO / SYNTHETIC.
+            {tp("results.syntheticCount", syntheticCount, {
+              total: fmt.number(response.results.length, 0),
+            })}
           </strong>{" "}
-          Synthetic fixture values are not real terrain observations and must not be
-          cited as evidence.
+          {t("results.syntheticBody")}
         </div>
       )}
 
       {response.results.length === 0 ? (
         <div className="empty-state" role="status">
-          <h3>No eligible indexed candidates</h3>
-          <p>
-            The search reached the index, but no candidate met the target&apos;s metric
-            availability or context-filter requirements. This does not mean no real place
-            on Earth is similar; the searchable coverage is not a global survey.
-          </p>
+          <h3>{t("results.emptyTitle")}</h3>
+          <p>{t("results.emptyBody")}</p>
           {response.excluded_candidate_count > 0 && (
-            <p>
-              {response.excluded_candidate_count} candidate
-              {response.excluded_candidate_count === 1 ? " was" : "s were"} excluded.
-              See the reasons below.
-            </p>
+            <p>{tp("results.emptyExcluded", response.excluded_candidate_count)}</p>
           )}
         </div>
       ) : (
@@ -269,18 +286,15 @@ export function ResultsPanel({
 
       <div className="excluded-panel">
         {response.excluded_candidate_count === 0 ? (
-          <p>No indexed candidates were excluded for missing metrics.</p>
+          <p>{t("results.noneExcluded")}</p>
         ) : (
           <details>
-            <summary>
-              {response.excluded_candidate_count} excluded candidate
-              {response.excluded_candidate_count === 1 ? "" : "s"} — show reasons
-            </summary>
+            <summary>{tp("results.excludedSummary", response.excluded_candidate_count)}</summary>
             <ul>
               {response.excluded.map((exclusion) => (
                 <li key={`${exclusion.location_id}-${exclusion.reason}`}>
                   <code>{exclusion.location_id}</code>:{" "}
-                  {formatExclusionReason(exclusion.reason, exclusionLabels)}
+                  {fmt.exclusionReason(exclusion.reason, exclusionLabels)}
                 </li>
               ))}
             </ul>
@@ -290,10 +304,13 @@ export function ResultsPanel({
 
       {response.limitations.length > 0 && (
         <div className="limitations-note">
-          <h3>Search limitations returned by the API</h3>
+          <h3>{t("results.limitations")}</h3>
+          <SourceTextNote />
           <ul>
             {response.limitations.map((limitation) => (
-              <li key={limitation}>{limitation}</li>
+              <li key={limitation}>
+                <SourceText>{limitation}</SourceText>
+              </li>
             ))}
           </ul>
         </div>
