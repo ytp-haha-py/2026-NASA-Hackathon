@@ -4,16 +4,11 @@ import type {
   MetricOut,
   NumericTarget,
 } from "../api/client";
-import {
-  formatBBox,
-  formatCoordinate,
-  formatNumber,
-  formatPercent,
-  formatSignedNumber,
-  formatUnit,
-} from "../lib/format";
+import { SourceText, SourceTextNote, useI18n, type I18n } from "../i18n/I18nProvider";
+import type { MessageKey } from "../locales/en/messages";
 import { ContextExport } from "./ContextExport";
 import { DataKindBadge } from "./DataKindBadge";
+import { Timestamp } from "./Timestamp";
 
 type LocationDetailsProps = {
   location: LocationOut;
@@ -24,14 +19,24 @@ type LocationDetailsProps = {
   idPrefix: string;
 };
 
-const NOT_COMPARED = [
-  "Gravity",
-  "Atmosphere",
-  "Radiation",
-  "Regolith",
-  "Mineralogy",
-  "Temperature",
-  "Geological history",
+const NOT_COMPARED: MessageKey[] = [
+  "location.notGravity",
+  "location.notAtmosphere",
+  "location.notRadiation",
+  "location.notRegolith",
+  "location.notMineralogy",
+  "location.notTemperature",
+  "location.notGeologicalHistory",
+];
+
+const GENERAL_LIMITATIONS: MessageKey[] = [
+  "location.limitEquivalence",
+  "location.limitDistance",
+  "location.limitWindow",
+  "location.limitDem",
+  "location.limitCoverage",
+  "location.limitWorldCover",
+  "location.limitSynthetic",
 ];
 
 function DatasetFacts({
@@ -39,34 +44,35 @@ function DatasetFacts({
 }: {
   dataset: LocationOut["datasets"][number];
 }) {
+  const { t, fmt } = useI18n();
   return (
     <article className="dataset-facts">
       <h4>{dataset.title ?? dataset.product_id}</h4>
       <dl>
         <div>
-          <dt>Provider</dt>
+          <dt>{t("dataset.provider")}</dt>
           <dd>{dataset.provider}</dd>
         </div>
         <div>
-          <dt>Product ID</dt>
+          <dt>{t("dataset.productId")}</dt>
           <dd>
             <code>{dataset.product_id}</code>
           </dd>
         </div>
         <div>
-          <dt>Dataset ID</dt>
+          <dt>{t("dataset.datasetId")}</dt>
           <dd>
             <code>{dataset.dataset_id}</code>
           </dd>
         </div>
         <div>
-          <dt>Access timestamp</dt>
+          <dt>{t("dataset.accessTimestamp")}</dt>
           <dd>
-            <time dateTime={dataset.access_timestamp}>{dataset.access_timestamp}</time>
+            <Timestamp iso={dataset.access_timestamp} />
           </dd>
         </div>
         <div>
-          <dt>License</dt>
+          <dt>{t("dataset.license")}</dt>
           <dd>
             <a href={dataset.license_url} target="_blank" rel="noreferrer">
               {dataset.license}
@@ -74,48 +80,57 @@ function DatasetFacts({
           </dd>
         </div>
         <div>
-          <dt>Processing version</dt>
+          <dt>{t("dataset.processingVersion")}</dt>
           <dd>{dataset.processing_version}</dd>
         </div>
         <div>
-          <dt>Source kind</dt>
-          <dd>{dataset.source_kind}</dd>
-        </div>
-        <div>
-          <dt>Source CRS</dt>
-          <dd>{dataset.source_crs ?? "not reported"}</dd>
-        </div>
-        <div>
-          <dt>Native resolution</dt>
+          <dt>{t("dataset.sourceKind")}</dt>
           <dd>
-            {dataset.native_resolution_m === null
-              ? "not reported"
-              : `${formatNumber(dataset.native_resolution_m, 1)} m`}
+            <code>{dataset.source_kind}</code>
           </dd>
         </div>
         <div>
-          <dt>Checksum</dt>
-          <dd>{dataset.checksum ?? "not reported"}</dd>
+          <dt>{t("dataset.sourceCrs")}</dt>
+          <dd>{dataset.source_crs ?? t("common.notReported")}</dd>
+        </div>
+        <div>
+          <dt>{t("dataset.nativeResolution")}</dt>
+          <dd>
+            {dataset.native_resolution_m === null
+              ? t("common.notReported")
+              : t("format.meters", { value: fmt.number(dataset.native_resolution_m, 1) })}
+          </dd>
+        </div>
+        <div>
+          <dt>{t("dataset.checksum")}</dt>
+          <dd>{dataset.checksum ?? t("common.notReported")}</dd>
         </div>
       </dl>
       <p>
         <a href={dataset.url} target="_blank" rel="noreferrer">
-          Source product link
+          {t("dataset.sourceLink")}
         </a>
       </p>
-      {dataset.notes && <p className="dataset-notes">{dataset.notes}</p>}
+      {dataset.notes && (
+        <p className="dataset-notes">
+          <SourceText>{dataset.notes}</SourceText>
+        </p>
+      )}
     </article>
   );
 }
 
-function geometrySummary(geometry: LocationOut["geometry"]): string {
+function geometrySummary(geometry: LocationOut["geometry"], i18n: I18n): string {
   if (!geometry) {
-    return "BBox-only request (no polygon geometry)";
+    return i18n.t("location.geometryBboxOnly");
   }
   const type = typeof geometry.type === "string" ? geometry.type : "Geometry";
   const coordinates = geometry.coordinates;
   if (Array.isArray(coordinates) && Array.isArray(coordinates[0])) {
-    return `${type} (${coordinates[0].length} outer-ring positions)`;
+    return i18n.t("location.geometryRing", {
+      type,
+      count: i18n.fmt.number(coordinates[0].length, 0),
+    });
   }
   return type;
 }
@@ -128,6 +143,8 @@ export function LocationDetails({
   sourceLabel,
   idPrefix,
 }: LocationDetailsProps) {
+  const i18n = useI18n();
+  const { t, fmt, label } = i18n;
   const featureLabels = new Map(features.map((feature) => [feature.id, feature.label]));
   const contextObservations = [...location.context_observations].sort(
     (a, b) => a.class_code - b.class_code,
@@ -137,52 +154,54 @@ export function LocationDetails({
     <>
       <dl className="facts-grid">
         <div>
-          <dt>Coordinates</dt>
+          <dt>{t("location.coordinates")}</dt>
           <dd>
-            {formatCoordinate(location.lat)}, {formatCoordinate(location.lon)}
+            {fmt.coordinate(location.lat)}, {fmt.coordinate(location.lon)}
           </dd>
         </div>
         <div>
-          <dt>Data kind</dt>
+          <dt>{t("location.dataKind")}</dt>
           <dd>
             <DataKindBadge kind={location.data_kind} />
           </dd>
         </div>
         <div>
-          <dt>Origin</dt>
+          <dt>{t("location.origin")}</dt>
           <dd>
             {location.origin === "on_demand"
-              ? "On-demand AOI (user-requested; not fixed coverage)"
-              : "Indexed Earth window"}
+              ? t("location.originOnDemand")
+              : t("location.originIndexed")}
           </dd>
         </div>
         {location.area_km2 !== null && (
           <div>
-            <dt>AOI area</dt>
-            <dd>{formatNumber(location.area_km2, 3)} km²</dd>
+            <dt>{t("location.aoiArea")}</dt>
+            <dd>{t("format.km2", { value: fmt.number(location.area_km2, 3) })}</dd>
           </div>
         )}
         <div>
-          <dt>Analysis window</dt>
+          <dt>{t("location.analysisWindow")}</dt>
           <dd>
-            {formatNumber(location.window_size_m)} m at{" "}
-            {formatNumber(location.analysis_resolution_m)} m resolution
+            {t("location.windowValue", {
+              window: fmt.number(location.window_size_m),
+              resolution: fmt.number(location.analysis_resolution_m),
+            })}
           </dd>
         </div>
         <div>
-          <dt>Window bbox</dt>
-          <dd>{formatBBox(location.bbox)}</dd>
+          <dt>{t("location.windowBbox")}</dt>
+          <dd>{fmt.bbox(location.bbox)}</dd>
         </div>
         <div>
-          <dt>CRS</dt>
+          <dt>{t("location.crs")}</dt>
           <dd>{location.crs}</dd>
         </div>
         <div>
-          <dt>Valid fraction</dt>
-          <dd>{formatPercent(location.valid_fraction)}</dd>
+          <dt>{t("location.validFraction")}</dt>
+          <dd>{fmt.percent(location.valid_fraction)}</dd>
         </div>
         <div>
-          <dt>Quality flags</dt>
+          <dt>{t("location.qualityFlags")}</dt>
           <dd>
             {location.quality_flags.length > 0 ? (
               <ul className="flag-list">
@@ -193,81 +212,81 @@ export function LocationDetails({
                 ))}
               </ul>
             ) : (
-              "none reported"
+              t("common.noneReported")
             )}
           </dd>
         </div>
         <div>
-          <dt>Versions</dt>
+          <dt>{t("location.versions")}</dt>
           <dd>
-            contract {location.contract_version} · method {location.method_version} · data{" "}
-            {location.data_version}
+            {t("location.versionsValue", {
+              contract: location.contract_version,
+              method: location.method_version,
+              data: location.data_version,
+            })}
             <span className="metric-meta">
-              snapshot {location.data_snapshot_id}
+              {t("location.snapshot", { snapshot: location.data_snapshot_id })}
             </span>
           </dd>
         </div>
         {location.origin === "on_demand" && (
           <div>
-            <dt>Geometry</dt>
-            <dd>{geometrySummary(location.geometry)}</dd>
+            <dt>{t("location.geometry")}</dt>
+            <dd>{geometrySummary(location.geometry, i18n)}</dd>
           </div>
         )}
       </dl>
 
       {location.notes && (
         <p className="record-note">
-          <strong>API record note:</strong> {location.notes}
+          <strong>{t("location.recordNote")}</strong>{" "}
+          <SourceText>{location.notes}</SourceText>
         </p>
       )}
 
       {location.origin === "on_demand" && (
         <p className="record-note on-demand-note">
-          <strong>On-demand AOI:</strong> this window was requested by a user and is
-          searchable, but it is not part of a fixed global index or a complete survey.
+          <strong>{t("location.onDemandNoteTitle")}</strong> {t("location.onDemandNote")}
         </p>
       )}
 
       <section className="detail-section" aria-labelledby={`${idPrefix}-features-heading`}>
-        <h3 id={`${idPrefix}-features-heading`}>Observed terrain-shape features</h3>
-        <p className="muted">
-          Values as returned by {sourceLabel}. Units and valid fractions are record facts,
-          not UI conversions.
-        </p>
-        <p className="mobile-scroll-hint">
-          On narrow screens, record tables scroll horizontally.
-        </p>
+        <h3 id={`${idPrefix}-features-heading`}>{t("location.featuresHeading")}</h3>
+        <p className="muted">{t("location.featuresIntro", { source: sourceLabel })}</p>
+        <p className="mobile-scroll-hint">{t("location.scrollHint")}</p>
         {location.features.length === 0 ? (
-          <p>No feature observations were returned for this location.</p>
+          <p>{t("location.noFeatures")}</p>
         ) : (
           <div className="table-scroll">
             <table className="feature-table">
               <caption className="sr-only">
-                Terrain-shape feature observations for {location.display_name}
+                {t("location.featuresCaption", { name: location.display_name })}
               </caption>
               <thead>
                 <tr>
-                  <th scope="col">Feature</th>
-                  <th scope="col">Value</th>
-                  <th scope="col">Quality</th>
-                  <th scope="col">Valid fraction</th>
-                  <th scope="col">Extraction scale</th>
+                  <th scope="col">{t("location.colFeature")}</th>
+                  <th scope="col">{t("location.colValue")}</th>
+                  <th scope="col">{t("location.colQuality")}</th>
+                  <th scope="col">{t("location.colValidFraction")}</th>
+                  <th scope="col">{t("location.colExtractionScale")}</th>
                 </tr>
               </thead>
               <tbody>
                 {location.features.map((feature) => (
                   <tr key={feature.feature_id}>
                     <th scope="row">
-                      <span>{feature.label}</span>
+                      <span>{label.feature(feature.feature_id, feature.label)}</span>
                       <span className="metric-meta">{feature.feature_id}</span>
-                      <span className="feature-description">{feature.description}</span>
+                      <span className="feature-description">
+                        <SourceText>{feature.description}</SourceText>
+                      </span>
                     </th>
+                    <td>{fmt.withUnit(feature.value, feature.unit)}</td>
+                    <td>{label.quality(feature.quality)}</td>
+                    <td>{fmt.percent(feature.valid_fraction)}</td>
                     <td>
-                      {formatNumber(feature.value)} {formatUnit(feature.unit)}
+                      {t("format.meters", { value: fmt.number(feature.extraction_scale_m, 0) })}
                     </td>
-                    <td>{feature.quality}</td>
-                    <td>{formatPercent(feature.valid_fraction)}</td>
-                    <td>{formatNumber(feature.extraction_scale_m, 0)} m</td>
                   </tr>
                 ))}
               </tbody>
@@ -277,30 +296,23 @@ export function LocationDetails({
       </section>
 
       <section className="detail-section" aria-labelledby={`${idPrefix}-comparison-heading`}>
-        <h3 id={`${idPrefix}-comparison-heading`}>Requested target comparison</h3>
-        <p className="muted">
-          These comparisons come from the search response, not from a new calculation.
-          &ldquo;Close&rdquo; is a display aid for |delta| ≤ 0.5 × the fixed metric scale;
-          it is not a scientific significance threshold.
-        </p>
+        <h3 id={`${idPrefix}-comparison-heading`}>{t("location.comparisonHeading")}</h3>
+        <p className="muted">{t("location.comparisonIntro")}</p>
         {comparisonMetrics.length === 0 ? (
-          <p>
-            This record was not returned by a search request, so no target comparison is
-            available. Use the AOI as a search target to compare it with the index.
-          </p>
+          <p>{t("location.noComparison")}</p>
         ) : (
           <div className="table-scroll">
             <table className="comparison-table">
               <caption className="sr-only">
-                Requested target versus candidate for {location.display_name}
+                {t("location.comparisonCaption", { name: location.display_name })}
               </caption>
               <thead>
                 <tr>
-                  <th scope="col">Metric</th>
-                  <th scope="col">Candidate</th>
-                  <th scope="col">Target</th>
-                  <th scope="col">Delta</th>
-                  <th scope="col">Display</th>
+                  <th scope="col">{t("location.colMetric")}</th>
+                  <th scope="col">{t("location.colCandidate")}</th>
+                  <th scope="col">{t("location.colTarget")}</th>
+                  <th scope="col">{t("location.colDelta")}</th>
+                  <th scope="col">{t("location.colDisplay")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -309,27 +321,24 @@ export function LocationDetails({
                   return (
                     <tr key={metric.feature_id}>
                       <th scope="row">
-                        {featureLabels.get(metric.feature_id) ?? metric.feature_id}
+                        {label.feature(metric.feature_id, featureLabels.get(metric.feature_id))}
                         <span className="metric-meta">
-                          normalized delta{" "}
-                          {formatSignedNumber(metric.normalized_delta, 3)} · scale{" "}
-                          {formatNumber(metric.scale)}
+                          {t("location.normalizedDelta", {
+                            delta: fmt.signed(metric.normalized_delta, 3),
+                            scale: fmt.number(metric.scale),
+                          })}
                         </span>
                       </th>
+                      <td>{fmt.withUnit(metric.candidate, metric.unit)}</td>
+                      <td>{fmt.withUnit(metric.target, metric.unit)}</td>
                       <td>
-                        {formatNumber(metric.candidate)} {formatUnit(metric.unit)}
-                      </td>
-                      <td>
-                        {formatNumber(metric.target)} {formatUnit(metric.unit)}
-                      </td>
-                      <td>
-                        {formatSignedNumber(metric.delta)} {formatUnit(metric.unit)}
+                        {fmt.signed(metric.delta)} {fmt.unit(metric.unit)}
                       </td>
                       <td>
                         <span
                           className={`comparison-chip ${close ? "is-close" : "is-different"}`}
                         >
-                          {close ? "Close" : "Differs"}
+                          {close ? t("location.close") : t("location.differs")}
                         </span>
                       </td>
                     </tr>
@@ -345,58 +354,54 @@ export function LocationDetails({
         className="detail-section context-only-section"
         aria-labelledby={`${idPrefix}-context-heading`}
       >
-        <h3 id={`${idPrefix}-context-heading`}>
-          Earth land-cover context (ESA WorldCover 2021) — context only, NOT
-          mineralogy/geology, excluded from the similarity score
-        </h3>
-        <p className="context-warning">
-          These class fractions describe Earth land cover for this footprint. They are
-          context only: they are not mineralogy, not geology, and are never entered into
-          the weighted normalized Euclidean distance.
-        </p>
+        <h3 id={`${idPrefix}-context-heading`}>{t("location.contextHeading")}</h3>
+        <p className="context-warning">{t("location.contextWarning")}</p>
         {contextObservations.length === 0 ? (
-          <p>No land-cover context observations were returned for this location.</p>
+          <p>{t("location.noContext")}</p>
         ) : (
           <div className="table-scroll">
             <table className="context-table">
               <caption className="sr-only">
-                ESA WorldCover land-cover context observations for {location.display_name}
+                {t("location.contextCaption", { name: location.display_name })}
               </caption>
               <thead>
                 <tr>
-                  <th scope="col">Land-cover class</th>
-                  <th scope="col">Class code</th>
-                  <th scope="col">Fraction</th>
-                  <th scope="col">Provider</th>
-                  <th scope="col">Valid fraction</th>
-                  <th scope="col">Source resolution</th>
+                  <th scope="col">{t("location.colClass")}</th>
+                  <th scope="col">{t("location.colClassCode")}</th>
+                  <th scope="col">{t("location.colFraction")}</th>
+                  <th scope="col">{t("location.colProvider")}</th>
+                  <th scope="col">{t("location.colValidFraction")}</th>
+                  <th scope="col">{t("location.colSourceResolution")}</th>
                 </tr>
               </thead>
               <tbody>
                 {contextObservations.map((observation) => (
                   <tr key={observation.feature_id}>
-                    <th scope="row">{observation.label}</th>
+                    <th scope="row">
+                      {label.feature(observation.feature_id, observation.label)}
+                    </th>
                     <td>{observation.class_code}</td>
-                    <td>{formatPercent(observation.value)}</td>
+                    <td>{fmt.percent(observation.value)}</td>
                     <td>{observation.provider}</td>
-                    <td>{formatPercent(observation.valid_fraction)}</td>
-                    <td>{formatNumber(observation.source_resolution_m, 0)} m</td>
+                    <td>{fmt.percent(observation.valid_fraction)}</td>
+                    <td>
+                      {t("format.meters", {
+                        value: fmt.number(observation.source_resolution_m, 0),
+                      })}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         )}
-        <p className="context-warning">
-          Context observations are shown separately and are not counted as similarity
-          metrics or displayed in the comparison table above.
-        </p>
+        <p className="context-warning">{t("location.contextSeparate")}</p>
       </section>
 
       <section className="detail-section" aria-labelledby={`${idPrefix}-provenance-heading`}>
-        <h3 id={`${idPrefix}-provenance-heading`}>Source, license and access</h3>
+        <h3 id={`${idPrefix}-provenance-heading`}>{t("location.provenanceHeading")}</h3>
         {location.datasets.length === 0 ? (
-          <p>No dataset provenance records were returned for this location.</p>
+          <p>{t("location.noDatasets")}</p>
         ) : (
           <div className="dataset-list">
             {location.datasets.map((dataset) => (
@@ -410,17 +415,20 @@ export function LocationDetails({
         className="detail-section"
         aria-labelledby={`${idPrefix}-record-limits-heading`}
       >
-        <h3 id={`${idPrefix}-record-limits-heading`}>
-          Record limitations returned by the API
-        </h3>
+        <h3 id={`${idPrefix}-record-limits-heading`}>{t("location.recordLimitsHeading")}</h3>
         {location.known_limitations.length === 0 ? (
-          <p>No record-specific limitations were returned.</p>
+          <p>{t("location.noRecordLimits")}</p>
         ) : (
-          <ul>
-            {location.known_limitations.map((limitation) => (
-              <li key={limitation}>{limitation}</li>
-            ))}
-          </ul>
+          <>
+            <SourceTextNote />
+            <ul>
+              {location.known_limitations.map((limitation) => (
+                <li key={limitation}>
+                  <SourceText>{limitation}</SourceText>
+                </li>
+              ))}
+            </ul>
+          </>
         )}
       </section>
 
@@ -428,52 +436,20 @@ export function LocationDetails({
         className="detail-section"
         aria-labelledby={`${idPrefix}-general-limits-heading`}
       >
-        <h3 id={`${idPrefix}-general-limits-heading`}>
-          General limitations (not record-specific)
-        </h3>
+        <h3 id={`${idPrefix}-general-limits-heading`}>{t("location.generalLimitsHeading")}</h3>
         <ul>
-          <li>Terrain-shape similarity is not physical or environmental equivalence.</li>
-          <li>
-            Distance is a weighted normalized Euclidean value where lower is more similar.
-            It is not a similarity percentage and has no physical unit.
-          </li>
-          <li>
-            Metrics describe only a 1,980 m window at 90 m analysis resolution; smaller
-            landforms and processes are not resolved or compared.
-          </li>
-          <li>
-            Source DEMs are surface models. Vegetation or buildings can bias slope and
-            roughness in non-bare terrain.
-          </li>
-          <li>
-            Only the indexed subset plus user-requested on-demand AOIs are searched.
-            Absence from results is not evidence that no similar terrain exists. On-demand
-            AOIs are never global coverage.
-          </li>
-          <li>
-            ESA WorldCover fractions are Earth land-cover context from a 2021 epoch. They
-            are not mineralogy or geology and are not comparable to lunar surface
-            materials.
-          </li>
-          <li>
-            DEMO / SYNTHETIC records are fixtures, not observations, and must not be cited
-            as evidence.
-          </li>
+          {GENERAL_LIMITATIONS.map((key) => (
+            <li key={key}>{t(key)}</li>
+          ))}
         </ul>
       </section>
 
       <aside className="not-simulated" aria-labelledby={`${idPrefix}-not-simulated-heading`}>
-        <h3 id={`${idPrefix}-not-simulated-heading`}>
-          What is NOT simulated or compared
-        </h3>
-        <p>
-          This tool does not simulate or compare the following. It makes no habitability,
-          engineering, operational, or mission-suitability claim. Land-cover fractions do
-          not substitute for any of these dimensions.
-        </p>
+        <h3 id={`${idPrefix}-not-simulated-heading`}>{t("location.notSimulatedHeading")}</h3>
+        <p>{t("location.notSimulatedIntro")}</p>
         <ul>
-          {NOT_COMPARED.map((item) => (
-            <li key={item}>{item}</li>
+          {NOT_COMPARED.map((key) => (
+            <li key={key}>{t(key)}</li>
           ))}
         </ul>
       </aside>

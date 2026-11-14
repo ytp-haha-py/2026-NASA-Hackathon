@@ -7,11 +7,19 @@ import {
   type ContextOut,
   type NumericTarget,
 } from "../api/client";
+import { SourceText, useI18n } from "../i18n/I18nProvider";
+import type { MessageVars } from "../i18n/translate";
+import type { MessageKey } from "../locales/en/messages";
+import { Timestamp } from "./Timestamp";
 
 type ContextExportProps = {
   locationId: string;
   target: NumericTarget;
 };
+
+class ClipboardRejectedError extends Error {}
+
+type CopyStatus = { key: MessageKey; vars?: MessageVars; reasonKey?: MessageKey } | null;
 
 function fallbackCopy(text: string): void {
   const textarea = document.createElement("textarea");
@@ -24,17 +32,18 @@ function fallbackCopy(text: string): void {
   const copied = document.execCommand("copy");
   document.body.removeChild(textarea);
   if (!copied) {
-    throw new Error("Clipboard copy was rejected by the browser.");
+    throw new ClipboardRejectedError("Clipboard copy was rejected by the browser.");
   }
 }
 
 export function ContextExport({ locationId, target }: ContextExportProps) {
+  const { t, rich } = useI18n();
   const [context, setContext] = useState<ContextOut | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{ message: string; code: string | null } | null>(
     null,
   );
-  const [copyStatus, setCopyStatus] = useState("");
+  const [copyStatus, setCopyStatus] = useState<CopyStatus>(null);
   const [retryKey, setRetryKey] = useState(0);
 
   const hasTarget = Object.keys(target).length > 0;
@@ -47,7 +56,7 @@ export function ContextExport({ locationId, target }: ContextExportProps) {
     setLoading(true);
     setError(null);
     setContext(null);
-    setCopyStatus("");
+    setCopyStatus(null);
 
     getLocationContext(locationId, target, controller.signal)
       .then((payload) => {
@@ -75,7 +84,7 @@ export function ContextExport({ locationId, target }: ContextExportProps) {
       return;
     }
     if (typeof URL.createObjectURL !== "function") {
-      setCopyStatus("Download is not supported by this browser. Use Copy JSON instead.");
+      setCopyStatus({ key: "export.downloadUnsupported" });
       return;
     }
     const blob = new Blob([serialized], { type: "application/json" });
@@ -87,7 +96,7 @@ export function ContextExport({ locationId, target }: ContextExportProps) {
     anchor.click();
     document.body.removeChild(anchor);
     window.setTimeout(() => URL.revokeObjectURL(url), 0);
-    setCopyStatus("Download started.");
+    setCopyStatus({ key: "export.downloadStarted" });
   }
 
   async function handleCopy() {
@@ -100,44 +109,49 @@ export function ContextExport({ locationId, target }: ContextExportProps) {
       } else {
         fallbackCopy(serialized);
       }
-      setCopyStatus("Copied the context JSON to the clipboard.");
+      setCopyStatus({ key: "export.copied" });
     } catch (caught) {
-      setCopyStatus(
-        `Copy failed: ${caught instanceof Error ? caught.message : "unknown clipboard error"}`,
-      );
+      if (caught instanceof ClipboardRejectedError) {
+        setCopyStatus({ key: "export.copyFailed", reasonKey: "export.copyRejected" });
+      } else if (caught instanceof Error) {
+        setCopyStatus({ key: "export.copyFailed", vars: { reason: caught.message } });
+      } else {
+        setCopyStatus({ key: "export.copyFailed", reasonKey: "export.copyUnknown" });
+      }
     }
   }
 
   return (
     <section className="context-export" aria-labelledby="context-heading">
       <div className="section-heading compact">
-        <p className="eyebrow">Step 4</p>
-        <h3 id="context-heading">Grounded context export</h3>
+        <p className="eyebrow">{t("export.step")}</p>
+        <h3 id="context-heading">{t("export.heading")}</h3>
         <p>
-          A structured JSON export for later external AI use. It contains source facts and
-          computed comparisons only. <strong>This app is not a chatbot</strong> and does not
-          generate a narrative or recommendation. When present, Earth land-cover context
-          observations are included and marked <code>context_only</code>; they are not
-          similarity inputs.
+          {rich("export.intro", {
+            notChatbot: <strong>{t("export.notChatbot")}</strong>,
+            code: <code>context_only</code>,
+          })}
         </p>
       </div>
 
       {!hasTarget && (
-        <p className="field-hint">
-          A search target is required before a context export can be prepared.
-        </p>
+        <p className="field-hint">{t("export.needsTarget")}</p>
       )}
 
-      {loading && <p role="status">Preparing context export…</p>}
+      {loading && <p role="status">{t("export.loading")}</p>}
 
       {error && (
         <div className="alert alert-error" role="alert">
           <p>
-            <strong>Context export failed{error.code ? ` (${error.code})` : ""}.</strong>{" "}
-            {error.message}
+            <strong>
+              {error.code
+                ? t("export.failedWithCode", { code: error.code })
+                : t("export.failed")}
+            </strong>{" "}
+            <SourceText>{error.message}</SourceText>
           </p>
           <button type="button" className="secondary-button" onClick={() => setRetryKey((key) => key + 1)}>
-            Retry context export
+            {t("export.retry")}
           </button>
         </div>
       )}
@@ -146,35 +160,40 @@ export function ContextExport({ locationId, target }: ContextExportProps) {
         <>
           <dl className="export-meta">
             <div>
-              <dt>Export version</dt>
+              <dt>{t("export.version")}</dt>
               <dd>{context.export_version}</dd>
             </div>
             <div>
-              <dt>Generated at</dt>
+              <dt>{t("export.generatedAt")}</dt>
               <dd>
-                <time dateTime={context.generated_at}>{context.generated_at}</time>
+                <Timestamp iso={context.generated_at} />
               </dd>
             </div>
           </dl>
-          <p className="export-note">{context.note}</p>
+          <p className="export-note">
+            <SourceText>{context.note}</SourceText>
+          </p>
 
           <div className="button-row">
             <button type="button" className="primary-button" onClick={handleDownload}>
-              Download JSON
+              {t("export.download")}
             </button>
             <button type="button" className="secondary-button" onClick={handleCopy}>
-              Copy JSON
+              {t("export.copy")}
             </button>
           </div>
 
           {copyStatus && (
             <p className="copy-status" role="status" aria-live="polite">
-              {copyStatus}
+              {t(copyStatus.key, {
+                ...copyStatus.vars,
+                ...(copyStatus.reasonKey ? { reason: t(copyStatus.reasonKey) } : {}),
+              })}
             </p>
           )}
 
           <details className="json-preview">
-            <summary>Preview export JSON</summary>
+            <summary>{t("export.preview")}</summary>
             <pre>{serialized}</pre>
           </details>
         </>

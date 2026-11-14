@@ -121,6 +121,74 @@ These are product requirements, not decoration:
     error states are visible and announced with `role="status"` or `role="alert"`.
     The layout is usable at 375 px and desktop widths.
 
+## Internationalization (i18n)
+
+The UI supports **English (`en`)** and **Traditional Chinese (`zh-TW`)**. English is
+the canonical catalog and the runtime fallback.
+
+- **Switcher.** The `繁體中文 / English` buttons in the page header switch language
+  immediately, without a reload. Form inputs, validation errors, search results, the
+  selected result and AOI job state are kept. The choice is saved in `localStorage`
+  (`planetary-analog-explorer.locale`) and `<html lang>` is updated.
+- **Initial locale.** A saved choice wins. Otherwise the first supported browser
+  language is used: `zh`, `zh-TW`, `zh-HK`, `zh-MO` and `zh-Hant-*` map to `zh-TW`, and
+  `en-*` maps to `en`. Anything else, including Simplified Chinese (`zh-CN`, `zh-Hans`),
+  falls back to `en`.
+- **No dependency.** The i18n layer is small and in-house (`src/i18n/`), so it adds
+  no runtime packages. Message keys are type-checked: a typo in a key, or a zh-TW key
+  that does not exist in English, fails `npm run typecheck`.
+
+### Layout
+
+```
+src/locales/en/messages.ts     canonical keys + English text + identifier label maps
+src/locales/zh-TW/messages.ts  zh-TW text + zh-TW labels for stable API identifiers
+src/i18n/translate.ts          locale detection, storage, interpolation, fallback, plurals
+src/i18n/I18nProvider.tsx      provider, useI18n(), locale-aware formatters, <SourceText>
+src/components/LanguageSwitcher.tsx
+```
+
+### What is translated and what is not
+
+- **Translated:** every UI string (headings, forms, buttons, help text, validation,
+  loading/empty/error/partial states, caveats, accessibility labels, export controls).
+- **Mapped by stable identifier:** feature ids (`slope_mean_deg`, `landcover_*`),
+  bodies, job/provider `status`, `quality`, `dimension_id`, and API `error_code`s get
+  zh-TW display labels in `zhTWLabels`. Unknown identifiers are shown as sent.
+  Raw codes stay visible next to their localized meaning.
+- **Never translated:** numeric values, IDs, dataset/product names, providers, licenses,
+  URLs, CRS strings, hashes, quality flags, warnings codes, versions, request payloads,
+  and JSON export keys. English explanations sent by the API without a stable code
+  (descriptions, caveats, limitations, notes, error messages) are shown verbatim inside
+  `<SourceText>` (`lang="en"`), with a short "API original text" note in zh-TW. They are
+  never machine-translated or reinterpreted.
+- Scientific caveats (indexed-subset only, distance is not a percentage, WorldCover is
+  not mineralogy, LOLA interpolation, planetary frame) must exist in every locale.
+  `src/i18n/translate.test.ts` checks this.
+
+Numbers, percentages and lists use `Intl` for the active locale (`useI18n().fmt`).
+Distance keeps its fixed 4-decimal rendering. Timestamps are shown in UTC in the
+locale's format, and the raw ISO value stays in `<time dateTime>` and the tooltip.
+
+### Adding or changing a message
+
+1. Add the key and English text to `src/locales/en/messages.ts`. Use `{name}`
+   placeholders. Plurals use `key_one` / `key_other` and are rendered with
+   `tp("key", count)`.
+2. Add the zh-TW text with the **same placeholders** to
+   `src/locales/zh-TW/messages.ts`. Chinese only needs `key_other`.
+3. Render it with `const { t, tp, rich } = useI18n()`. Use `rich()` when a placeholder
+   must be a React node (`<strong>`, `<code>`). Do not concatenate translated
+   fragments.
+4. Store validation errors as `{ key, vars }`, not rendered strings, so they re-render
+   when the language changes.
+5. Run `npm run typecheck && npm run test -- --run`. The catalog tests fail if a zh-TW
+   key is missing or its placeholders differ from English. If a key is missing at
+   runtime, English is shown.
+
+For a new API identifier, add its zh-TW label to the matching map in `zhTWLabels`.
+Leave the English map empty so the API stays the source of the English label.
+
 ## Project layout
 
 ```
@@ -129,7 +197,9 @@ src/
   api/schema.d.ts        generated from ../../contracts/openapi.json
   components/            search, filters, AOI form/workspace, results, map, detail, sources
   hooks/useAoiAnalysis.ts AOI submit, job polling, cleanup, feature loading
-  lib/format.ts          conservative number/unit formatting
+  i18n/                  locale detection, translator, provider, formatters
+  locales/{en,zh-TW}/    version-controlled UI message catalogs
+  lib/format.ts          conservative locale-aware number/unit formatting
   lib/aoi.ts             AOI limits, bbox measurements, provider status helpers
   test/                  deterministic fetch mocks and fixtures
   styles.css             single plain CSS file

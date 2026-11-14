@@ -20,6 +20,10 @@
   --focus: #b85d17;
   --radius: 5px;
   --shadow: 0 1px 0 rgb(29 41 36 / 8%);
+  /* Latin faces first; Traditional Chinese glyphs fall back to system CJK fonts. */
+  --font-serif:
+    "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Songti TC", "Noto Serif TC",
+    PMingLiU, serif;
   font-family:
     ui-sans-serif,
     system-ui,
@@ -28,6 +32,9 @@
     Roboto,
     Helvetica,
     Arial,
+    "PingFang TC",
+    "Noto Sans TC",
+    "Microsoft JhengHei",
     sans-serif;
   line-height: 1.5;
   color: var(--ink);
@@ -58,7 +65,7 @@ h4 {
 
 h1,
 h2 {
-  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-family: var(--font-serif);
   font-weight: 700;
 }
 
@@ -171,6 +178,56 @@ button {
 
 .site-header .eyebrow {
   color: #d9b98d;
+}
+
+.header-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.header-top .eyebrow {
+  margin: 0;
+}
+
+.language-switcher {
+  display: inline-flex;
+  gap: 0.2rem;
+  padding: 0.2rem;
+  background: rgb(255 253 247 / 10%);
+  border: 1px solid rgb(255 253 247 / 30%);
+  border-radius: var(--radius);
+}
+
+.language-switcher button {
+  min-height: 36px;
+  padding: 0.3rem 0.75rem;
+  color: #e5e0d2;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.language-switcher button:hover {
+  color: #fffdf7;
+  background: rgb(255 253 247 / 12%);
+}
+
+.language-switcher button[aria-pressed="true"] {
+  color: var(--accent-dark);
+  background: #fffdf7;
+  border-color: #fffdf7;
+}
+
+.source-text-note {
+  margin: 0.25rem 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-style: italic;
 }
 
 .site-header h1 {
@@ -1040,7 +1097,7 @@ input[type="checkbox"] {
 }
 
 .context-methods > h3 {
-  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-family: var(--font-serif);
 }
 
 .context-methods summary {
@@ -1465,7 +1522,7 @@ input[type="checkbox"] {
 }
 
 .detail-section h3 {
-  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-family: var(--font-serif);
   font-size: 1.2rem;
 }
 
@@ -1538,7 +1595,7 @@ input[type="checkbox"] {
 }
 
 .not-simulated h3 {
-  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-family: var(--font-serif);
 }
 
 .not-simulated ul {

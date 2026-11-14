@@ -9,7 +9,7 @@ import {
   type NumericTarget,
   type SearchResultOut,
 } from "../api/client";
-import { formatNumber } from "../lib/format";
+import { SourceText, useI18n } from "../i18n/I18nProvider";
 import { DataKindBadge } from "./DataKindBadge";
 import { LocationDetails } from "./LocationDetails";
 
@@ -20,6 +20,7 @@ type DetailPanelProps = {
 };
 
 export function DetailPanel({ selected, activeTarget, features }: DetailPanelProps) {
+  const { t, fmt } = useI18n();
   const [location, setLocation] = useState<LocationOut | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{ message: string; code: string | null } | null>(
@@ -53,32 +54,38 @@ export function DetailPanel({ selected, activeTarget, features }: DetailPanelPro
   return (
     <section className="detail-panel" aria-labelledby="detail-heading">
       <div className="section-heading">
-        <p className="eyebrow">Step 3</p>
-        <h2 id="detail-heading">Selected Earth candidate</h2>
+        <p className="eyebrow">{t("detail.step")}</p>
+        <h2 id="detail-heading">{t("detail.heading")}</h2>
         <p className="selected-name">
           <strong>{selected.display_name}</strong>{" "}
           <DataKindBadge kind={selected.data_kind} />
         </p>
         <p className="muted">
-          Rank #{selected.rank} · distance {formatNumber(selected.distance, 4)} (lower is
-          more similar; not a percentage)
+          {t("detail.rankDistance", {
+            rank: selected.rank,
+            distance: fmt.number(selected.distance, 4),
+          })}
         </p>
       </div>
 
-      {loading && <p role="status">Loading location record…</p>}
+      {loading && <p role="status">{t("detail.loading")}</p>}
 
       {error && (
         <div className="alert alert-error" role="alert">
           <p>
-            <strong>Location record failed{error.code ? ` (${error.code})` : ""}.</strong>{" "}
-            {error.message}
+            <strong>
+              {error.code
+                ? t("detail.failedWithCode", { code: error.code })
+                : t("detail.failed")}
+            </strong>{" "}
+            <SourceText>{error.message}</SourceText>
           </p>
           <button
             type="button"
             className="secondary-button"
             onClick={() => setRetryKey((key) => key + 1)}
           >
-            Retry location record
+            {t("detail.retry")}
           </button>
         </div>
       )}
