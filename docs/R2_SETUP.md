@@ -74,5 +74,7 @@ Verify candidate/dataset/reference/context counts and `data_version` match the s
   configured), so it remains unverified.
 - Local object-store publish/fetch, checksum verification, and snapshot/index rebuild are covered by
   offline tests.
-- The operator `.env` used for this verification required swapping the two credential values to the
-  correct lengths described above; no credential values were printed or committed.
+- After the operator corrected the two credential values to the expected 32/64 lengths,
+  `make data-publish` and `make data-sync SNAPSHOT_ID=snap-d3ed2ba59558e7f8` both succeeded with no
+  process-local override. The downloaded artifact SHA-256 matched the pinned snapshot.
+- No credential values were printed or committed.
