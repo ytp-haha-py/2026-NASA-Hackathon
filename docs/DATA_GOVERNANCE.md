@@ -15,7 +15,7 @@ adopted; see [DVC status](#dvc-status-not-adopted).
 | Offline snapshot verification | Verified locally | `uv run python -m analog_pipelines.snapshot verify --snapshot samples/snapshot/analog-demo.snapshot.json` → `manifests=3 artifacts=1 datasets=3`, `data_version=dv-19f54b4539c8` |
 | Offline manifest schema gate | Implemented | `bash scripts/validate_data.sh` validates every `pipelines/*/manifests/*.json` against `contracts/pipeline-manifest.schema.json` |
 | Offline index dry-run | Verified locally | `pipelines/build_index.py --dry-run` → `candidates=5 datasets=3 references=1 features=20 context_observations=55` |
-| Offline CI workflow | Added, not yet observed on GitHub | `.github/workflows/data-validation.yml` (read-only, no secrets) |
+| Offline CI workflow | **Verified on GitHub** | [run 43569084383](https://github.com/ytp-haha-py/2026-NASA-Hackathon/actions/runs/43569084383) — `data-validation` success; `.github/workflows/data-validation.yml` (read-only, no secrets) |
 | Weekly/manual online smoke | Verified locally, never run in CI here | `bash scripts/online_smoke.sh`; `.github/workflows/data-smoke.yml` is opt-in and non-blocking |
 | Live R2 publication | **Not verified** | No credentials were used; `.github/workflows/data-publish.yml` is an unexecuted template |
 | DVC | **Not adopted** | No DVC dependency, remote, or `.dvc` files exist |

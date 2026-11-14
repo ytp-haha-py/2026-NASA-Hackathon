@@ -42,6 +42,25 @@ Checked with `gh` on 2026-11-14 (repo `ytp-haha-py/2026-NASA-Hackathon`):
 **Conclusion: `main` protection is NOT active.** A repository admin must apply it after making the
 repository eligible (public, or GitHub Pro/Team) or after granting admin rights.
 
+### Post-bootstrap verification (observed)
+
+- Bootstrap commits: `be4fc4f` (MVP) and `838cc32` (pinned snapshot + bootstrap record), pushed to
+  `origin/main`.
+- CI run [43569084287](https://github.com/ytp-haha-py/2026-NASA-Hackathon/actions/runs/43569084287)
+  — **success**; jobs `backend-tests`, `frontend-checks`, `integration-smoke` all completed
+  successfully.
+- Data validation run
+  [43569084383](https://github.com/ytp-haha-py/2026-NASA-Hackathon/actions/runs/43569084383)
+  — **success** (`data-validation`).
+- Container publication run
+  [43569139273](https://github.com/ytp-haha-py/2026-NASA-Hackathon/actions/runs/43569139273)
+  — **success** for `build-and-push (api)` and `build-and-push (web)` via `workflow_run` after CI.
+- Branch protection update attempt: HTTP 404 (no admin); rulesets API: HTTP 403
+  ("Upgrade to GitHub Pro or make this repository public"); `viewerCanAdminister=false`.
+- `deleteBranchOnMerge=false`; squash merge is enabled.
+- These observations are from the bootstrap run only. They do not prove that future PR checks are
+  required, because the branch ruleset still has to be applied by an admin.
+
 ## Required status checks
 
 The CI workflow generates these exact stable job/check names:
