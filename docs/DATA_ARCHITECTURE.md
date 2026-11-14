@@ -11,7 +11,7 @@ It is based on the code in `pipelines/src/analog_pipelines/storage.py`,
 | Local object store | Implemented and exercised by offline tests | `LocalObjectStore` roundtrip, traversal rejection, checksum sidecars |
 | Snapshot build / verify | Implemented and exercised | 3 pinned manifests, 1 JSON artifact, deterministic id |
 | SQLite rebuild from snapshot | Implemented and exercised | Checksums verified before seeding; identical counts on repeat |
-| S3-compatible (R2/S3) adapter | Code path implemented, **not verified against a live bucket** | `boto3` is optional and not installed in the default environment |
+| S3-compatible (R2/S3) adapter | **Verified locally against a live R2 bucket** (publish + fetch, 3 objects) | `published snapshot_id=snap-d3ed2ba59558e7f8 ... objects=3`; GitHub protected publish workflow not run |
 | DVC | Not adopted | Optional migration note below |
 | On-demand AOI API | Implemented (see `docs/API.md`) | `POST /areas/analyze`, `GET /jobs/{id}`, `GET /areas/{id}/features`; results persist in SQLite with provider status |
 
