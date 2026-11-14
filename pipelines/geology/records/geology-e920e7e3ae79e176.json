@@ -1,0 +1,2921 @@
+{
+  "schema_version": "geology-manifest-1.0.0",
+  "processing_version": "geology-1.0.0",
+  "generated_at": "2026-11-14T12:02:15.495827Z",
+  "data_kind": "source_derived",
+  "scope": "Five existing Earth AOIs, one existing lunar ROI, and explicitly marked Mars test AOIs, or an externally supplied bounded subset; never a global survey.",
+  "areas": [
+    {
+      "area_id": "earth-atacama-desert",
+      "display_name": "Atacama Desert, Chile",
+      "body": "Earth",
+      "crs": "EPSG:4326",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -68.40973566,
+              -23.5089791
+            ],
+            [
+              -68.39026303,
+              -23.5089791
+            ],
+            [
+              -68.39026303,
+              -23.49102032
+            ],
+            [
+              -68.40973566,
+              -23.49102032
+            ],
+            [
+              -68.40973566,
+              -23.5089791
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:6a99fdfbded493ec13a997e6f746b156c28d08645b0e60b13e9b678b6efee78e",
+      "origin": "existing",
+      "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+      "limitations": [
+        "Local existing terrain AOI; not representative of the whole named region."
+      ]
+    },
+    {
+      "area_id": "earth-death-valley",
+      "display_name": "Death Valley, California, USA",
+      "body": "Earth",
+      "crs": "EPSG:4326",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -117.11103192,
+              36.24106488
+            ],
+            [
+              -117.08897059,
+              36.24106488
+            ],
+            [
+              -117.08897059,
+              36.2589341
+            ],
+            [
+              -117.11103192,
+              36.2589341
+            ],
+            [
+              -117.11103192,
+              36.24106488
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:bbddc4a36d58205a2afaf915c2aaf6ca3db24c1586c6ef1755596584b761d166",
+      "origin": "existing",
+      "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+      "limitations": [
+        "Local existing terrain AOI; not representative of the whole named region."
+      ]
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "display_name": "Lanzarote volcanic terrain, Spain",
+      "body": "Earth",
+      "crs": "EPSG:4326",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -13.64028241,
+              29.03096285
+            ],
+            [
+              -13.61971584,
+              29.03096285
+            ],
+            [
+              -13.61971584,
+              29.04903644
+            ],
+            [
+              -13.64028241,
+              29.04903644
+            ],
+            [
+              -13.64028241,
+              29.03096285
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:b366c7787a5b531e726f59f093fe113f5b205c073e4facd672ec539c4f1a0818",
+      "origin": "existing",
+      "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+      "limitations": [
+        "Local existing terrain AOI; not representative of the whole named region."
+      ]
+    },
+    {
+      "area_id": "earth-devon-island",
+      "display_name": "Devon Island / Haughton, Nunavut, Canada",
+      "body": "Earth",
+      "crs": "EPSG:4326",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -89.88685478,
+              75.39070894
+            ],
+            [
+              -89.81318683,
+              75.39070894
+            ],
+            [
+              -89.81318683,
+              75.40928632
+            ],
+            [
+              -89.88685478,
+              75.40928632
+            ],
+            [
+              -89.88685478,
+              75.39070894
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:d0a5ea98ed528b0b28ddba988d556913e9d7780977648fc55940b5bb0d21578c",
+      "origin": "existing",
+      "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+      "limitations": [
+        "Local existing terrain AOI; not representative of the whole named region."
+      ]
+    },
+    {
+      "area_id": "earth-rio-tinto",
+      "display_name": "Rio Tinto, Spain",
+      "body": "Earth",
+      "crs": "EPSG:4326",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -6.56151071,
+              37.68085126
+            ],
+            [
+              -6.53848661,
+              37.68085126
+            ],
+            [
+              -6.53848661,
+              37.69914781
+            ],
+            [
+              -6.56151071,
+              37.69914781
+            ],
+            [
+              -6.56151071,
+              37.68085126
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:3c6867de4043b044bc33843393a5de7956071e6d2e51b158ed0eda69542279b6",
+      "origin": "existing",
+      "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+      "limitations": [
+        "Local existing terrain AOI; not representative of the whole named region."
+      ]
+    },
+    {
+      "area_id": "moon-shackleton-rim-site04-roi2",
+      "display_name": "Shackleton Rim (LOLA Site04 ROI 2)",
+      "body": "Moon",
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3747.5,
+              -7332.5
+            ],
+            [
+              -1767.5,
+              -7332.5
+            ],
+            [
+              -1767.5,
+              -5352.5
+            ],
+            [
+              -3747.5,
+              -5352.5
+            ],
+            [
+              -3747.5,
+              -7332.5
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:976e0daa1156da220e50254b9afd19bba8ca6694eb49e1b71f5aa3c38016d2cd",
+      "origin": "existing",
+      "geometry_source": "pipelines/planetary/manifests/lola_moon_reference.json#references/notes",
+      "limitations": [
+        "MOON_ME DE421 terrain ROI projected footprint; geology map uses Moon 2000/LOLA; frame alignment below map scale is not established."
+      ]
+    },
+    {
+      "area_id": "mars-test-jezero-western-delta",
+      "display_name": "Jezero western-delta (test AOI)",
+      "body": "Mars",
+      "crs": "+proj=longlat +R=3396190 +type=crs",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.35,
+              18.47
+            ],
+            [
+              77.38,
+              18.47
+            ],
+            [
+              77.38,
+              18.5
+            ],
+            [
+              77.35,
+              18.5
+            ],
+            [
+              77.35,
+              18.47
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:530930f599a5d486b3c4f5d522f46d80b7a8430aa36016d9d305fcf64eed3154",
+      "origin": "test_aoi",
+      "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+      "limitations": [
+        "Explicit test AOI, not an existing shared Mars reference or indexed production area."
+      ]
+    },
+    {
+      "area_id": "mars-test-jezero-floor",
+      "display_name": "Jezero floor (test AOI)",
+      "body": "Mars",
+      "crs": "+proj=longlat +R=3396190 +type=crs",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.4,
+              18.42
+            ],
+            [
+              77.44,
+              18.42
+            ],
+            [
+              77.44,
+              18.46
+            ],
+            [
+              77.4,
+              18.46
+            ],
+            [
+              77.4,
+              18.42
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779",
+      "origin": "test_aoi",
+      "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+      "limitations": [
+        "Explicit test AOI, not an existing shared Mars reference or indexed production area."
+      ]
+    }
+  ],
+  "datasets": [
+    {
+      "dataset_id": "glim-niveau-i-mirror",
+      "body": "Earth",
+      "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+      "product": "GLiM_Niveau_I",
+      "version": "1.1 (mirror description; upstream equivalence not_verified)",
+      "source_url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1",
+      "license": "not_verified",
+      "license_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+      "redistribution": "not_verified",
+      "citation": "Hartmann, J., Moosdorf, N. (2012), doi:10.1029/2012GC004370; Hartmann and Moosdorf (2015), doi:10.14682/2015LMWP",
+      "source_crs": "EPSG:3857",
+      "native_resolution_m": null,
+      "map_scale": 3750000,
+      "limitations": [
+        "Mirror licenseInfo is empty; local extracted values withheld from portable artifacts.",
+        "PANGAEA.788537 CC BY 3.0 applies to a separate 0.5-degree grid; do not transfer that license to this polygon mirror.",
+        "Approximate average source map scale 1:3,750,000; regional input scale varies and is not verified per polygon.",
+        "Basic volcanic rocks do not identify basalt or mineral species."
+      ]
+    },
+    {
+      "dataset_id": "usgs-moon-geology-v2",
+      "body": "Moon",
+      "provider": "USGS Astrogeology Science Center",
+      "product": "Unified Geologic Map of the Moon",
+      "version": "2.0, March 3, 2020",
+      "source_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+      "license": "CC0, but please cite authors",
+      "license_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+      "redistribution": "permitted",
+      "citation": "Fortezzo, C.M., Spudis, P.D., and Harrel, S.L. (2020), Unified Geologic Map of the Moon, USGS, scale 1:5,000,000.",
+      "source_crs": "PROJCS[\"Moon2000_EquidistantCylindrical_clon0\",GEOGCS[\"GCS_Moon_2000\",DATUM[\"D_Moon_2000\",SPHEROID[\"Moon_2000_IAU_IAG\",1737400,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+      "native_resolution_m": null,
+      "map_scale": 5000000,
+      "limitations": [
+        "Map-scale geological context, not detailed lithological or quantitative mineral composition.",
+        "Source vertex spacing ~3 km and smoothing tolerance ~16 km; AOI overlap does not improve map accuracy.",
+        "Moon 2000 sphere, planetocentric latitude, east-positive longitude, LOLA control; no WGS84."
+      ]
+    },
+    {
+      "dataset_id": "usgs-jezero-sim3464",
+      "body": "Mars",
+      "provider": "U.S. Geological Survey",
+      "product": "SIM 3464 Jezero and Nili Planum",
+      "version": "2020; distributed GeoUnits_v1",
+      "source_url": "https://pubs.usgs.gov/publication/sim3464",
+      "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+      "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+      "redistribution": "permitted",
+      "citation": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars, USGS SIM 3464, doi:10.3133/sim3464.",
+      "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+      "native_resolution_m": null,
+      "map_scale": 75000,
+      "limitations": [
+        "1:75,000 geological interpretation from imagery, not a mineral abundance raster.",
+        "Coverage restricted to 76.8..77.8 E, 17.7..18.7 N.",
+        "Mars 2000 sphere, planetocentric latitude and east-positive longitude; no WGS84."
+      ]
+    },
+    {
+      "dataset_id": "lunar-polar-minerals-zenodo-v4",
+      "body": "Moon",
+      "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+      "product": "M3/LOLA research-derived polar mineral maps",
+      "version": "Zenodo 20725024, v4, 2026-06-17",
+      "source_url": "https://zenodo.org/records/20725024",
+      "license": "cc-by-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+      "redistribution": "permitted",
+      "citation": "Du et al. (2026), Quantitative Mineral Maps of the Lunar South Polar Region Derived From the Moon Mineralogy Mapper (M3) Data, doi:10.1029/2024JE008842; dataset doi:10.5281/zenodo.20725024.",
+      "source_crs": null,
+      "native_resolution_m": 193.0,
+      "map_scale": null,
+      "limitations": [
+        "Research-derived estimates, not direct laboratory composition.",
+        "MAT lacks embedded CRS, affine transform, units, QA, valid range and uncertainty. No AOI extraction enabled.",
+        "Legacy 15549419 TIFFs are RGB visualizations and cannot be interpreted as mineral abundance.",
+        "Paper abstract covers 83..90 S; registration of the v4 matrix is not established."
+      ]
+    },
+    {
+      "dataset_id": "crism-mtrdr-context",
+      "body": "Mars",
+      "provider": "NASA PDS Geosciences Node / MRO CRISM",
+      "product": "MTRDR refined spectral summary parameters",
+      "version": "MTR3; selected product version recorded in provenance",
+      "source_url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+      "license": "Data sets archived in the PDS are in the public domain.",
+      "license_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+      "redistribution": "permitted",
+      "citation": "MRO CRISM MTRDR, NASA PDS; product IDs and source labels pinned in manifest artifacts.",
+      "source_crs": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+      "native_resolution_m": 36.0,
+      "map_scale": null,
+      "limitations": [
+        "Spectral parameters are context only; no validated mineral identification or abundance conversion.",
+        "Coverage is finite non-fill pixels, not validated mineral detections; atmospheric/instrument residuals may remain.",
+        "Bounded ODE metadata query, first five products; one smallest summary cube selected, not exhaustive survey.",
+        "MTRDR uses a latitude-dependent custom Mars sphere; retain original CRS and native pixel size."
+      ]
+    },
+    {
+      "dataset_id": "emit-l2bmin-002",
+      "body": "Earth",
+      "provider": "NASA JPL / LP DAAC",
+      "product": "EMITL2BMIN",
+      "version": "002",
+      "source_url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002",
+      "license": "NASA Earth science data and information policy",
+      "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+      "redistribution": "permitted",
+      "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V002, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.002",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    },
+    {
+      "dataset_id": "emit-l2bmin-001",
+      "body": "Earth",
+      "provider": "NASA JPL / LP DAAC",
+      "product": "EMITL2BMIN",
+      "version": "001",
+      "source_url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
+      "license": "NASA Earth science data and information policy",
+      "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+      "redistribution": "permitted",
+      "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V001, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.001",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    }
+  ],
+  "analyses": [
+    {
+      "area_id": "earth-atacama-desert",
+      "geometry_fingerprint": "sha256:6a99fdfbded493ec13a997e6f746b156c28d08645b0e60b13e9b678b6efee78e",
+      "body": "Earth",
+      "dataset_id": "glim-niveau-i-mirror",
+      "status": "unverified",
+      "reason": "Spatial overlay completed locally; mirror licenseInfo is empty. Extracted values withheld from portable output.",
+      "accessed_at": "2026-11-14T12:01:56.868399Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:3857",
+      "native_resolution_m": null,
+      "map_scale": 3750000,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1/query?f=json&where=1%3D1&geometry=-68.40973566%2C-23.5089791%2C-68.39026303%2C-23.49102032&geometryType=esriGeometryEnvelope&inSR=4326&outSR=3857&spatialRel=esriSpatialRelIntersects&outFields=%2A&returnGeometry=true&orderByFields=OBJECTID+ASC&resultRecordCount=2000&resultOffset=0",
+          "checksum": "sha256:d3ba1ae8a8ed96b669ca606854fb1779028aca1fbfc485d1a0bd6f97a1b9a005",
+          "size_bytes": 23162,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "redistribution_not_verified",
+        "third_party_mirror",
+        "local_overlay_completed"
+      ],
+      "limitations": [
+        "Mirror licenseInfo is empty; local extracted values withheld from portable artifacts.",
+        "PANGAEA.788537 CC BY 3.0 applies to a separate 0.5-degree grid; do not transfer that license to this polygon mirror.",
+        "Approximate average source map scale 1:3,750,000; regional input scale varies and is not verified per polygon.",
+        "Basic volcanic rocks do not identify basalt or mineral species."
+      ]
+    },
+    {
+      "area_id": "earth-death-valley",
+      "geometry_fingerprint": "sha256:bbddc4a36d58205a2afaf915c2aaf6ca3db24c1586c6ef1755596584b761d166",
+      "body": "Earth",
+      "dataset_id": "glim-niveau-i-mirror",
+      "status": "unverified",
+      "reason": "Spatial overlay completed locally; mirror licenseInfo is empty. Extracted values withheld from portable output.",
+      "accessed_at": "2026-11-14T12:01:56.917054Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:3857",
+      "native_resolution_m": null,
+      "map_scale": 3750000,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1/query?f=json&where=1%3D1&geometry=-117.11103192%2C36.24106488%2C-117.08897059%2C36.2589341&geometryType=esriGeometryEnvelope&inSR=4326&outSR=3857&spatialRel=esriSpatialRelIntersects&outFields=%2A&returnGeometry=true&orderByFields=OBJECTID+ASC&resultRecordCount=2000&resultOffset=0",
+          "checksum": "sha256:76594832776ce816ef1029b4b4bf85d3f7e6c04e0ad948d7a65ab0dfc5e325f6",
+          "size_bytes": 74539,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "redistribution_not_verified",
+        "third_party_mirror",
+        "local_overlay_completed"
+      ],
+      "limitations": [
+        "Mirror licenseInfo is empty; local extracted values withheld from portable artifacts.",
+        "PANGAEA.788537 CC BY 3.0 applies to a separate 0.5-degree grid; do not transfer that license to this polygon mirror.",
+        "Approximate average source map scale 1:3,750,000; regional input scale varies and is not verified per polygon.",
+        "Basic volcanic rocks do not identify basalt or mineral species."
+      ]
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "geometry_fingerprint": "sha256:b366c7787a5b531e726f59f093fe113f5b205c073e4facd672ec539c4f1a0818",
+      "body": "Earth",
+      "dataset_id": "glim-niveau-i-mirror",
+      "status": "unverified",
+      "reason": "Spatial overlay completed locally; mirror licenseInfo is empty. Extracted values withheld from portable output.",
+      "accessed_at": "2026-11-14T12:01:56.942930Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:3857",
+      "native_resolution_m": null,
+      "map_scale": 3750000,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1/query?f=json&where=1%3D1&geometry=-13.64028241%2C29.03096285%2C-13.61971584%2C29.04903644&geometryType=esriGeometryEnvelope&inSR=4326&outSR=3857&spatialRel=esriSpatialRelIntersects&outFields=%2A&returnGeometry=true&orderByFields=OBJECTID+ASC&resultRecordCount=2000&resultOffset=0",
+          "checksum": "sha256:2be38540c1f4ba1030db704351398a6e7e54b75e092e9f6cdf1fd57f232bab05",
+          "size_bytes": 11147,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "redistribution_not_verified",
+        "third_party_mirror",
+        "local_overlay_completed"
+      ],
+      "limitations": [
+        "Mirror licenseInfo is empty; local extracted values withheld from portable artifacts.",
+        "PANGAEA.788537 CC BY 3.0 applies to a separate 0.5-degree grid; do not transfer that license to this polygon mirror.",
+        "Approximate average source map scale 1:3,750,000; regional input scale varies and is not verified per polygon.",
+        "Basic volcanic rocks do not identify basalt or mineral species."
+      ]
+    },
+    {
+      "area_id": "earth-devon-island",
+      "geometry_fingerprint": "sha256:d0a5ea98ed528b0b28ddba988d556913e9d7780977648fc55940b5bb0d21578c",
+      "body": "Earth",
+      "dataset_id": "glim-niveau-i-mirror",
+      "status": "unverified",
+      "reason": "Spatial overlay completed locally; mirror licenseInfo is empty. Extracted values withheld from portable output.",
+      "accessed_at": "2026-11-14T12:01:56.961638Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:3857",
+      "native_resolution_m": null,
+      "map_scale": 3750000,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1/query?f=json&where=1%3D1&geometry=-89.88685478%2C75.39070894%2C-89.81318683%2C75.40928632&geometryType=esriGeometryEnvelope&inSR=4326&outSR=3857&spatialRel=esriSpatialRelIntersects&outFields=%2A&returnGeometry=true&orderByFields=OBJECTID+ASC&resultRecordCount=2000&resultOffset=0",
+          "checksum": "sha256:800f0300e6eeaed94816531553ddd6bcc89a585914fb92f79e09b2a6863f6a3d",
+          "size_bytes": 2879,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "redistribution_not_verified",
+        "third_party_mirror",
+        "local_overlay_completed"
+      ],
+      "limitations": [
+        "Mirror licenseInfo is empty; local extracted values withheld from portable artifacts.",
+        "PANGAEA.788537 CC BY 3.0 applies to a separate 0.5-degree grid; do not transfer that license to this polygon mirror.",
+        "Approximate average source map scale 1:3,750,000; regional input scale varies and is not verified per polygon.",
+        "Basic volcanic rocks do not identify basalt or mineral species."
+      ]
+    },
+    {
+      "area_id": "earth-rio-tinto",
+      "geometry_fingerprint": "sha256:3c6867de4043b044bc33843393a5de7956071e6d2e51b158ed0eda69542279b6",
+      "body": "Earth",
+      "dataset_id": "glim-niveau-i-mirror",
+      "status": "unverified",
+      "reason": "Spatial overlay completed locally; mirror licenseInfo is empty. Extracted values withheld from portable output.",
+      "accessed_at": "2026-11-14T12:01:56.987466Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:3857",
+      "native_resolution_m": null,
+      "map_scale": 3750000,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1/query?f=json&where=1%3D1&geometry=-6.56151071%2C37.68085126%2C-6.53848661%2C37.69914781&geometryType=esriGeometryEnvelope&inSR=4326&outSR=3857&spatialRel=esriSpatialRelIntersects&outFields=%2A&returnGeometry=true&orderByFields=OBJECTID+ASC&resultRecordCount=2000&resultOffset=0",
+          "checksum": "sha256:9262f4d61013447c35bcf38b36366257fdd48fc8192ab9a3da65f9542afc9d33",
+          "size_bytes": 11102,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "redistribution_not_verified",
+        "third_party_mirror",
+        "local_overlay_completed"
+      ],
+      "limitations": [
+        "Mirror licenseInfo is empty; local extracted values withheld from portable artifacts.",
+        "PANGAEA.788537 CC BY 3.0 applies to a separate 0.5-degree grid; do not transfer that license to this polygon mirror.",
+        "Approximate average source map scale 1:3,750,000; regional input scale varies and is not verified per polygon.",
+        "Basic volcanic rocks do not identify basalt or mineral species."
+      ]
+    },
+    {
+      "area_id": "moon-shackleton-rim-site04-roi2",
+      "geometry_fingerprint": "sha256:976e0daa1156da220e50254b9afd19bba8ca6694eb49e1b71f5aa3c38016d2cd",
+      "body": "Moon",
+      "dataset_id": "usgs-moon-geology-v2",
+      "status": "success",
+      "reason": null,
+      "accessed_at": "2026-11-14T12:02:08.372578Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "PROJCS[\"Moon2000_EquidistantCylindrical_clon0\",GEOGCS[\"GCS_Moon_2000\",DATUM[\"D_Moon_2000\",SPHEROID[\"Moon_2000_IAU_IAG\",1737400,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+      "native_resolution_m": null,
+      "map_scale": 5000000,
+      "analysis_crs": "+proj=laea +lat_0=-89.77192510538467 +lon_0=-156.50226013773622 +R=1737400.0 +units=m +type=crs",
+      "valid_fraction": 0.999998889958193,
+      "artifacts": [
+        {
+          "role": "full_gis_database",
+          "source_url": "https://asc-astropedia.s3.us-west-2.amazonaws.com/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2.zip",
+          "checksum": "sha256:f3ec29803c1ad3b8c41a7fff3e9339bd66f9fbb8f63e30f13c52561b8d5559a1",
+          "size_bytes": 224413040,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [
+        {
+          "evidence_id": "moon-map:5586",
+          "source_feature_id": "5586",
+          "unit_id": "Ec",
+          "unit_name": "Eratosthenian Crater",
+          "official_description": "Non-rayed, circular craters with sharp to partially subdued crater rim crests, partial circumferential ejecta present, and lower albedo compared to unit Cc.",
+          "original_attributes": {
+            "FIRST_Unit": "Ec",
+            "FIRST_Un_1": "Eratosthenian",
+            "FIRST_Un_2": "Crater Unit",
+            "Shape_Leng": 21871774.9016,
+            "Shape_Area": 162223893418.0,
+            "AREA_GEO": 826338357.211
+          },
+          "unified_rocks": [],
+          "overlap_fraction": 0.999998889958193,
+          "interpretation": "Morphology and material from a primary impact event."
+        }
+      ],
+      "mineralogy": [],
+      "geological_processes": [
+        {
+          "category": "impact",
+          "process": "impact",
+          "evidence_ids": [
+            "moon-map:5586"
+          ],
+          "supporting_statement": "Non-rayed, circular craters with sharp to partially subdued crater rim crests, partial circumferential ejecta present, and lower albedo compared to unit Cc. Interpretation: Morphology and material from a primary impact event.",
+          "basis": "mapped_geology",
+          "confidence": "mapped"
+        }
+      ],
+      "geological_context": [],
+      "quality_flags": [
+        "excluded_invalid_source_geometries:1",
+        "map_scale_5000000",
+        "frame_alignment_below_map_scale_unverified"
+      ],
+      "limitations": [
+        "Map-scale geological context, not detailed lithological or quantitative mineral composition.",
+        "Source vertex spacing ~3 km and smoothing tolerance ~16 km; AOI overlap does not improve map accuracy.",
+        "Moon 2000 sphere, planetocentric latitude, east-positive longitude, LOLA control; no WGS84."
+      ]
+    },
+    {
+      "area_id": "mars-test-jezero-western-delta",
+      "geometry_fingerprint": "sha256:530930f599a5d486b3c4f5d522f46d80b7a8430aa36016d9d305fcf64eed3154",
+      "body": "Mars",
+      "dataset_id": "usgs-jezero-sim3464",
+      "status": "success",
+      "reason": null,
+      "accessed_at": "2026-11-14T12:02:11.589775Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+      "native_resolution_m": null,
+      "map_scale": 75000,
+      "analysis_crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+      "valid_fraction": 1.0,
+      "artifacts": [
+        {
+          "role": "full_gis_database",
+          "source_url": "https://pubs.usgs.gov/sim/3464/sim3464_database.zip",
+          "checksum": "sha256:a88bd53a5573743cc4a20036c10e585106d08a433ad2f34af269e9cea1529f87",
+          "size_bytes": 349336873,
+          "provider_checksum": null
+        },
+        {
+          "role": "official_unit_metadata",
+          "source_url": "https://pubs.usgs.gov/sim/3464/sim3464_metadata.xml",
+          "checksum": "sha256:e4ede0b7465190319c81babfb9359d4e84710cb82deebe331219ef26130927fd",
+          "size_bytes": 20924,
+          "provider_checksum": null
+        },
+        {
+          "role": "official_unit_descriptions_map_sheet",
+          "source_url": "https://pubs.usgs.gov/sim/3464/sim3464.pdf",
+          "checksum": "sha256:51da76ebbaafc36e31fab13766832a8613bcda5e1b6b188532f8d25f8d74df2f",
+          "size_bytes": 36406378,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [
+        {
+          "evidence_id": "mars-map:1015",
+          "source_feature_id": "1015",
+          "unit_id": "Nue",
+          "unit_name": "Upper etched unit",
+          "official_description": "Upper etched unit—Indurated, rugged, moderately cratered to heavily cratered, light- to intermediate-toned unit located along and on the northern Jezero crater rim and wall, along the interior margin of Jezero crater, and throughout Nili Planum. Overlies units Nnp1 and cr in Nili Planum and conformably overlies unit Nle in Jezero crater. Contains three different surface textures with varying morphologic and erosional textures that grade into one another without clear or systematic stratigraphic contacts: a ridged surface in northern Jezero and northeastern Nili Planum, a heavily cratered surface in northern Nili Planum, and a light-toned rugged surface in southern Nili Planum (fig. 3). Type localities: lat 18.67° N., long 77.57° E.",
+          "original_attributes": {
+            "unit": "10",
+            "name": "Upper etched unit",
+            "symbol_noSub": "Nue",
+            "subscript": null,
+            "symbol": "Nue",
+            "ORIG_FID": 1019,
+            "SHAPE_Length": 11580.127547445076,
+            "SHAPE_Area": 3534555.5681484924,
+            "Color_ID": 74
+          },
+          "unified_rocks": [],
+          "overlap_fraction": 0.06262087772500854,
+          "interpretation": "Official geomorphological map unit; no inferred quantitative mineral abundance."
+        },
+        {
+          "evidence_id": "mars-map:1003",
+          "source_feature_id": "1003",
+          "unit_id": "Aeb",
+          "unit_name": "Eolian bedform unit",
+          "official_description": "Eolian bedform unit—Light-toned, linear, commonly parallel, low-relief ridges prevalent in local topographic lows, such as impact craters, including along the interior margin of Jezero crater and at the base of steep scarps throughout Nili Planum. Superposes other map units. Type locality: lat 18.41° N., long 77.36° E.",
+          "original_attributes": {
+            "unit": "7",
+            "name": "Eolian bedform unit",
+            "symbol_noSub": "Aeb",
+            "subscript": null,
+            "symbol": "Aeb",
+            "ORIG_FID": 1007,
+            "SHAPE_Length": 2246.512447147012,
+            "SHAPE_Area": 390446.43066169607,
+            "Color_ID": 51
+          },
+          "unified_rocks": [],
+          "overlap_fraction": 0.08715784519582853,
+          "interpretation": "Official geomorphological map unit; no inferred quantitative mineral abundance."
+        },
+        {
+          "evidence_id": "mars-map:1101",
+          "source_feature_id": "1101",
+          "unit_id": "NHjf2",
+          "unit_name": "Jezero fan 2 unit",
+          "official_description": "Jezero fan unit 2—Lightly cratered, intermediate-toned, stratified unit with margins defined by sharp scarps, located at the mouth of Neretva Vallis in the western Jezero crater floor. Occurs at higher elevation than unit NHjf1 (lat 18.58° N., long 77.48° E.). Contains rugged arcuate ridges and troughs that branch out from nodes and define several overlapping lobes (fig. 7). Meter-scale sequences of alternating light and dark strata, as well as some curvilinear strata (lat 18.48° N., long 77.39° E.; lat 18.47° N., long 77.37° E.). Forms isolated outcrops that are <50 m in height on the Jezero crater floor east of the main unit. Some outcrops exhibit parallel stratification on their slopes (lat 18.43° N., long 77.36° E.), while others do not exhibit obvious visible stratification at map scale (for example, lat 18.47° N., long 77.50° E.). Type localities: lat 18.49° N., long 77.36° E.",
+          "original_attributes": {
+            "unit": "0",
+            "name": "Jezero fan 2 unit",
+            "symbol_noSub": "NHjf",
+            "subscript": "2",
+            "symbol": "NHjf2",
+            "ORIG_FID": 1105,
+            "SHAPE_Length": 43369.09492756587,
+            "SHAPE_Area": 22757189.01846644,
+            "Color_ID": 603
+          },
+          "unified_rocks": [
+            "sedimentary_deposits",
+            "fluvial_deposits",
+            "lacustrine_deposits"
+          ],
+          "overlap_fraction": 0.7620289641123452,
+          "interpretation": "Official geomorphological map unit; no inferred quantitative mineral abundance."
+        },
+        {
+          "evidence_id": "mars-map:1008",
+          "source_feature_id": "1008",
+          "unit_id": "cr",
+          "unit_name": "Crater rim unit",
+          "official_description": "Crater rim unit—Rugged, light- to intermediate-toned, relatively high relief scarps surrounding circular or quasicircular depressions >500 m in diameter. Type locality: lat 18.04° N., long 77.51° E.",
+          "original_attributes": {
+            "unit": "11",
+            "name": "Crater rim unit",
+            "symbol_noSub": "cr",
+            "subscript": null,
+            "symbol": "cr",
+            "ORIG_FID": 1012,
+            "SHAPE_Length": 5754.629296810429,
+            "SHAPE_Area": 540119.9691292439,
+            "Color_ID": 355
+          },
+          "unified_rocks": [],
+          "overlap_fraction": 0.08819231297289115,
+          "interpretation": "Official geomorphological map unit; no inferred quantitative mineral abundance."
+        }
+      ],
+      "mineralogy": [],
+      "geological_processes": [
+        {
+          "category": "sedimentary",
+          "process": "sedimentary",
+          "evidence_ids": [
+            "mars-map:1101"
+          ],
+          "supporting_statement": "Official SIM3464 map-sheet interpretation identifies deltaic/lacustrine or alluvial/fluvial deposits for this fan unit. Jezero fan unit 2—Lightly cratered, intermediate-toned, stratified unit with margins defined by sharp scarps, located at the mouth of Neretva Vallis in the western Jezero crater floor. Occurs at higher elevation than unit NHjf1 (lat 18.58° N., long 77.48° E.). Contains rugged arcuate ridges and troughs that branch out from nodes and define several overlapping lobes (fig. 7). Meter-scale sequences of alternating light and dark strata, as well as some curvilinear strata (lat 18.48° N., long 77.39° E.; lat 18.47° N., long 77.37° E.). Forms isolated outcrops that are <50 m in height on the Jezero crater floor east of the main unit. Some outcrops exhibit parallel stratification on their slopes (lat 18.43° N., long 77.36° E.), while others do not exhibit obvious visible stratification at map scale (for example, lat 18.47° N., long 77.50° E.). Type localities: lat 18.49° N., long 77.36° E.",
+          "basis": "mapped_geology",
+          "confidence": "mapped"
+        },
+        {
+          "category": "impact",
+          "process": "impact",
+          "evidence_ids": [
+            "mars-map:1008"
+          ],
+          "supporting_statement": "Crater rim unit—Rugged, light- to intermediate-toned, relatively high relief scarps surrounding circular or quasicircular depressions >500 m in diameter. Type locality: lat 18.04° N., long 77.51° E.",
+          "basis": "mapped_geology",
+          "confidence": "mapped"
+        }
+      ],
+      "geological_context": [],
+      "quality_flags": [
+        "excluded_invalid_source_geometries:2",
+        "map_scale_75000"
+      ],
+      "limitations": [
+        "1:75,000 geological interpretation from imagery, not a mineral abundance raster.",
+        "Coverage restricted to 76.8..77.8 E, 17.7..18.7 N.",
+        "Mars 2000 sphere, planetocentric latitude and east-positive longitude; no WGS84."
+      ]
+    },
+    {
+      "area_id": "mars-test-jezero-floor",
+      "geometry_fingerprint": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779",
+      "body": "Mars",
+      "dataset_id": "usgs-jezero-sim3464",
+      "status": "success",
+      "reason": null,
+      "accessed_at": "2026-11-14T12:02:11.787117Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+      "native_resolution_m": null,
+      "map_scale": 75000,
+      "analysis_crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+      "valid_fraction": 0.9999999999992588,
+      "artifacts": [
+        {
+          "role": "full_gis_database",
+          "source_url": "https://pubs.usgs.gov/sim/3464/sim3464_database.zip",
+          "checksum": "sha256:a88bd53a5573743cc4a20036c10e585106d08a433ad2f34af269e9cea1529f87",
+          "size_bytes": 349336873,
+          "provider_checksum": null
+        },
+        {
+          "role": "official_unit_metadata",
+          "source_url": "https://pubs.usgs.gov/sim/3464/sim3464_metadata.xml",
+          "checksum": "sha256:e4ede0b7465190319c81babfb9359d4e84710cb82deebe331219ef26130927fd",
+          "size_bytes": 20924,
+          "provider_checksum": null
+        },
+        {
+          "role": "official_unit_descriptions_map_sheet",
+          "source_url": "https://pubs.usgs.gov/sim/3464/sim3464.pdf",
+          "checksum": "sha256:51da76ebbaafc36e31fab13766832a8613bcda5e1b6b188532f8d25f8d74df2f",
+          "size_bytes": 36406378,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [
+        {
+          "evidence_id": "mars-map:1146",
+          "source_feature_id": "1146",
+          "unit_id": "Njf",
+          "unit_name": "Jezero floor unit",
+          "official_description": "Jezero floor unit—Rugged, moderately to heavily cratered, light- to dark-toned, planar unit with margins defined by low-relief, sharp, lobate scarps. Forms central portion of Jezero crater floor and overlies and embays units Nue and Nle, respectively. Most impact craters on this surface are <200 m in diameter. May have dark, smooth surface texture, especially near contact with unit NHjf2. Type locality: lat 18.43° N., long 77.65° E.",
+          "original_attributes": {
+            "unit": "2",
+            "name": "Jezero floor unit",
+            "symbol_noSub": "Njf",
+            "subscript": null,
+            "symbol": "Njf",
+            "ORIG_FID": 1150,
+            "SHAPE_Length": 208786.22960935335,
+            "SHAPE_Area": 318761370.5357068,
+            "Color_ID": 13
+          },
+          "unified_rocks": [],
+          "overlap_fraction": 0.5442482311477604,
+          "interpretation": "Official geomorphological map unit; no inferred quantitative mineral abundance."
+        },
+        {
+          "evidence_id": "mars-map:1000",
+          "source_feature_id": "1000",
+          "unit_id": "Aeb",
+          "unit_name": "Eolian bedform unit",
+          "official_description": "Eolian bedform unit—Light-toned, linear, commonly parallel, low-relief ridges prevalent in local topographic lows, such as impact craters, including along the interior margin of Jezero crater and at the base of steep scarps throughout Nili Planum. Superposes other map units. Type locality: lat 18.41° N., long 77.36° E.",
+          "original_attributes": {
+            "unit": "7",
+            "name": "Eolian bedform unit",
+            "symbol_noSub": "Aeb",
+            "subscript": null,
+            "symbol": "Aeb",
+            "ORIG_FID": 1004,
+            "SHAPE_Length": 66052.31936580242,
+            "SHAPE_Area": 16916796.613280017,
+            "Color_ID": 51
+          },
+          "unified_rocks": [],
+          "overlap_fraction": 0.04149347913127842,
+          "interpretation": "Official geomorphological map unit; no inferred quantitative mineral abundance."
+        },
+        {
+          "evidence_id": "mars-map:983",
+          "source_feature_id": "983",
+          "unit_id": "Nle",
+          "unit_name": "Lower etched unit",
+          "official_description": "Lower etched unit—Rugged, lightly cratered, light- to intermediate-toned unit concentrically exposed on floor of Jezero adjacent to unit Njf. Topographically lower than adjacent unit Nue. Contains northeast-southwest-oriented ridges that extend several hundred meters in length. When present, impact craters are typically >200 m in diameter. Type locality: lat 18.28° N., long 77.49° E.",
+          "original_attributes": {
+            "unit": "3",
+            "name": "Lower etched unit",
+            "symbol_noSub": "Nle",
+            "subscript": null,
+            "symbol": "Nle",
+            "ORIG_FID": 987,
+            "SHAPE_Length": 15153.054932384912,
+            "SHAPE_Area": 4574553.727028843,
+            "Color_ID": 55
+          },
+          "unified_rocks": [],
+          "overlap_fraction": 0.29807064163286107,
+          "interpretation": "Official geomorphological map unit; no inferred quantitative mineral abundance."
+        },
+        {
+          "evidence_id": "mars-map:963",
+          "source_feature_id": "963",
+          "unit_id": "Nue",
+          "unit_name": "Upper etched unit",
+          "official_description": "Upper etched unit—Indurated, rugged, moderately cratered to heavily cratered, light- to intermediate-toned unit located along and on the northern Jezero crater rim and wall, along the interior margin of Jezero crater, and throughout Nili Planum. Overlies units Nnp1 and cr in Nili Planum and conformably overlies unit Nle in Jezero crater. Contains three different surface textures with varying morphologic and erosional textures that grade into one another without clear or systematic stratigraphic contacts: a ridged surface in northern Jezero and northeastern Nili Planum, a heavily cratered surface in northern Nili Planum, and a light-toned rugged surface in southern Nili Planum (fig. 3). Type localities: lat 18.67° N., long 77.57° E.",
+          "original_attributes": {
+            "unit": "10",
+            "name": "Upper etched unit",
+            "symbol_noSub": "Nue",
+            "subscript": null,
+            "symbol": "Nue",
+            "ORIG_FID": 967,
+            "SHAPE_Length": 8501.941753985893,
+            "SHAPE_Area": 1243055.1163313373,
+            "Color_ID": 74
+          },
+          "unified_rocks": [],
+          "overlap_fraction": 0.024949473044708306,
+          "interpretation": "Official geomorphological map unit; no inferred quantitative mineral abundance."
+        },
+        {
+          "evidence_id": "mars-map:953",
+          "source_feature_id": "953",
+          "unit_id": "NHjf2",
+          "unit_name": "Jezero fan 2 unit",
+          "official_description": "Jezero fan unit 2—Lightly cratered, intermediate-toned, stratified unit with margins defined by sharp scarps, located at the mouth of Neretva Vallis in the western Jezero crater floor. Occurs at higher elevation than unit NHjf1 (lat 18.58° N., long 77.48° E.). Contains rugged arcuate ridges and troughs that branch out from nodes and define several overlapping lobes (fig. 7). Meter-scale sequences of alternating light and dark strata, as well as some curvilinear strata (lat 18.48° N., long 77.39° E.; lat 18.47° N., long 77.37° E.). Forms isolated outcrops that are <50 m in height on the Jezero crater floor east of the main unit. Some outcrops exhibit parallel stratification on their slopes (lat 18.43° N., long 77.36° E.), while others do not exhibit obvious visible stratification at map scale (for example, lat 18.47° N., long 77.50° E.). Type localities: lat 18.49° N., long 77.36° E.",
+          "original_attributes": {
+            "unit": "0",
+            "name": "Jezero fan 2 unit",
+            "symbol_noSub": "NHjf",
+            "subscript": "2",
+            "symbol": "NHjf2",
+            "ORIG_FID": 957,
+            "SHAPE_Length": 1324.7658750812564,
+            "SHAPE_Area": 124657.78328925345,
+            "Color_ID": 603
+          },
+          "unified_rocks": [
+            "sedimentary_deposits",
+            "fluvial_deposits",
+            "lacustrine_deposits"
+          ],
+          "overlap_fraction": 0.02337497957789306,
+          "interpretation": "Official geomorphological map unit; no inferred quantitative mineral abundance."
+        },
+        {
+          "evidence_id": "mars-map:1101",
+          "source_feature_id": "1101",
+          "unit_id": "NHjf2",
+          "unit_name": "Jezero fan 2 unit",
+          "official_description": "Jezero fan unit 2—Lightly cratered, intermediate-toned, stratified unit with margins defined by sharp scarps, located at the mouth of Neretva Vallis in the western Jezero crater floor. Occurs at higher elevation than unit NHjf1 (lat 18.58° N., long 77.48° E.). Contains rugged arcuate ridges and troughs that branch out from nodes and define several overlapping lobes (fig. 7). Meter-scale sequences of alternating light and dark strata, as well as some curvilinear strata (lat 18.48° N., long 77.39° E.; lat 18.47° N., long 77.37° E.). Forms isolated outcrops that are <50 m in height on the Jezero crater floor east of the main unit. Some outcrops exhibit parallel stratification on their slopes (lat 18.43° N., long 77.36° E.), while others do not exhibit obvious visible stratification at map scale (for example, lat 18.47° N., long 77.50° E.). Type localities: lat 18.49° N., long 77.36° E.",
+          "original_attributes": {
+            "unit": "0",
+            "name": "Jezero fan 2 unit",
+            "symbol_noSub": "NHjf",
+            "subscript": "2",
+            "symbol": "NHjf2",
+            "ORIG_FID": 1105,
+            "SHAPE_Length": 43369.09492756587,
+            "SHAPE_Area": 22757189.01846644,
+            "Color_ID": 603
+          },
+          "unified_rocks": [
+            "sedimentary_deposits",
+            "fluvial_deposits",
+            "lacustrine_deposits"
+          ],
+          "overlap_fraction": 0.06786319546475744,
+          "interpretation": "Official geomorphological map unit; no inferred quantitative mineral abundance."
+        }
+      ],
+      "mineralogy": [],
+      "geological_processes": [
+        {
+          "category": "sedimentary",
+          "process": "sedimentary",
+          "evidence_ids": [
+            "mars-map:953"
+          ],
+          "supporting_statement": "Official SIM3464 map-sheet interpretation identifies deltaic/lacustrine or alluvial/fluvial deposits for this fan unit. Jezero fan unit 2—Lightly cratered, intermediate-toned, stratified unit with margins defined by sharp scarps, located at the mouth of Neretva Vallis in the western Jezero crater floor. Occurs at higher elevation than unit NHjf1 (lat 18.58° N., long 77.48° E.). Contains rugged arcuate ridges and troughs that branch out from nodes and define several overlapping lobes (fig. 7). Meter-scale sequences of alternating light and dark strata, as well as some curvilinear strata (lat 18.48° N., long 77.39° E.; lat 18.47° N., long 77.37° E.). Forms isolated outcrops that are <50 m in height on the Jezero crater floor east of the main unit. Some outcrops exhibit parallel stratification on their slopes (lat 18.43° N., long 77.36° E.), while others do not exhibit obvious visible stratification at map scale (for example, lat 18.47° N., long 77.50° E.). Type localities: lat 18.49° N., long 77.36° E.",
+          "basis": "mapped_geology",
+          "confidence": "mapped"
+        },
+        {
+          "category": "sedimentary",
+          "process": "sedimentary",
+          "evidence_ids": [
+            "mars-map:1101"
+          ],
+          "supporting_statement": "Official SIM3464 map-sheet interpretation identifies deltaic/lacustrine or alluvial/fluvial deposits for this fan unit. Jezero fan unit 2—Lightly cratered, intermediate-toned, stratified unit with margins defined by sharp scarps, located at the mouth of Neretva Vallis in the western Jezero crater floor. Occurs at higher elevation than unit NHjf1 (lat 18.58° N., long 77.48° E.). Contains rugged arcuate ridges and troughs that branch out from nodes and define several overlapping lobes (fig. 7). Meter-scale sequences of alternating light and dark strata, as well as some curvilinear strata (lat 18.48° N., long 77.39° E.; lat 18.47° N., long 77.37° E.). Forms isolated outcrops that are <50 m in height on the Jezero crater floor east of the main unit. Some outcrops exhibit parallel stratification on their slopes (lat 18.43° N., long 77.36° E.), while others do not exhibit obvious visible stratification at map scale (for example, lat 18.47° N., long 77.50° E.). Type localities: lat 18.49° N., long 77.36° E.",
+          "basis": "mapped_geology",
+          "confidence": "mapped"
+        }
+      ],
+      "geological_context": [],
+      "quality_flags": [
+        "excluded_invalid_source_geometries:2",
+        "map_scale_75000"
+      ],
+      "limitations": [
+        "1:75,000 geological interpretation from imagery, not a mineral abundance raster.",
+        "Coverage restricted to 76.8..77.8 E, 17.7..18.7 N.",
+        "Mars 2000 sphere, planetocentric latitude and east-positive longitude; no WGS84."
+      ]
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "geometry_fingerprint": "sha256:6a99fdfbded493ec13a997e6f746b156c28d08645b0e60b13e9b678b6efee78e",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-002",
+      "status": "auth_required",
+      "reason": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "accessed_at": "2026-11-14T12:02:11.795040Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30",
+          "checksum": "sha256:0f9282debcee55787ad7f95fdc7f2928055280189c0d24e488d5eed7bb845522",
+          "size_bytes": 18859,
+          "provider_checksum": null
+        },
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-68.40973566%2C-23.5089791%2C-68.39026303%2C-23.49102032&page_size=2&sort_key=-start_date",
+          "checksum": "sha256:bbf1650e008bbf7ac36bce8af367eaeec2618dc438a0e783065a97120cf38717",
+          "size_bytes": 10334,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:clay_minerals",
+          "mineral": "clay_minerals",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:hydrated_sulfates",
+          "mineral": "hydrated_sulfates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:carbonates",
+          "mineral": "carbonates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:iron_oxides",
+          "mineral": "iron_oxides",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "cmr_bbox_hits_are_not_valid_pixel_coverage",
+        "native_swath_not_orthorectified"
+      ],
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "geometry_fingerprint": "sha256:6a99fdfbded493ec13a997e6f746b156c28d08645b0e60b13e9b678b6efee78e",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-001",
+      "status": "auth_required",
+      "reason": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "accessed_at": "2026-11-14T12:02:11.805096Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30",
+          "checksum": "sha256:0f9282debcee55787ad7f95fdc7f2928055280189c0d24e488d5eed7bb845522",
+          "size_bytes": 18859,
+          "provider_checksum": null
+        },
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-68.40973566%2C-23.5089791%2C-68.39026303%2C-23.49102032&page_size=2&sort_key=-start_date",
+          "checksum": "sha256:de93fe39e5a40cc9cd03e8525d82f8b309979b6d5bb24d1e434f7bd045ed6046",
+          "size_bytes": 10978,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:clay_minerals",
+          "mineral": "clay_minerals",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:hydrated_sulfates",
+          "mineral": "hydrated_sulfates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:carbonates",
+          "mineral": "carbonates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:iron_oxides",
+          "mineral": "iron_oxides",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "cmr_bbox_hits_are_not_valid_pixel_coverage",
+        "native_swath_not_orthorectified"
+      ],
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    },
+    {
+      "area_id": "earth-death-valley",
+      "geometry_fingerprint": "sha256:bbddc4a36d58205a2afaf915c2aaf6ca3db24c1586c6ef1755596584b761d166",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-002",
+      "status": "auth_required",
+      "reason": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "accessed_at": "2026-11-14T12:02:11.810524Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30",
+          "checksum": "sha256:0f9282debcee55787ad7f95fdc7f2928055280189c0d24e488d5eed7bb845522",
+          "size_bytes": 18859,
+          "provider_checksum": null
+        },
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-117.11103192%2C36.24106488%2C-117.08897059%2C36.2589341&page_size=2&sort_key=-start_date",
+          "checksum": "sha256:75a78a8f2361b11de24634a25ab5506f641955d3c334f83483b7d3c902d1dcdf",
+          "size_bytes": 10328,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:clay_minerals",
+          "mineral": "clay_minerals",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:hydrated_sulfates",
+          "mineral": "hydrated_sulfates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:carbonates",
+          "mineral": "carbonates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:iron_oxides",
+          "mineral": "iron_oxides",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "cmr_bbox_hits_are_not_valid_pixel_coverage",
+        "native_swath_not_orthorectified"
+      ],
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    },
+    {
+      "area_id": "earth-death-valley",
+      "geometry_fingerprint": "sha256:bbddc4a36d58205a2afaf915c2aaf6ca3db24c1586c6ef1755596584b761d166",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-001",
+      "status": "auth_required",
+      "reason": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "accessed_at": "2026-11-14T12:02:11.816050Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30",
+          "checksum": "sha256:0f9282debcee55787ad7f95fdc7f2928055280189c0d24e488d5eed7bb845522",
+          "size_bytes": 18859,
+          "provider_checksum": null
+        },
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-117.11103192%2C36.24106488%2C-117.08897059%2C36.2589341&page_size=2&sort_key=-start_date",
+          "checksum": "sha256:707913ba9c8cbabde2ac1518c3d3d927caf02046c1be44e141a6c48f6e3b4251",
+          "size_bytes": 10978,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:clay_minerals",
+          "mineral": "clay_minerals",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:hydrated_sulfates",
+          "mineral": "hydrated_sulfates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:carbonates",
+          "mineral": "carbonates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:iron_oxides",
+          "mineral": "iron_oxides",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "cmr_bbox_hits_are_not_valid_pixel_coverage",
+        "native_swath_not_orthorectified"
+      ],
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "geometry_fingerprint": "sha256:b366c7787a5b531e726f59f093fe113f5b205c073e4facd672ec539c4f1a0818",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-002",
+      "status": "auth_required",
+      "reason": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "accessed_at": "2026-11-14T12:02:11.823325Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30",
+          "checksum": "sha256:0f9282debcee55787ad7f95fdc7f2928055280189c0d24e488d5eed7bb845522",
+          "size_bytes": 18859,
+          "provider_checksum": null
+        },
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-13.64028241%2C29.03096285%2C-13.61971584%2C29.04903644&page_size=2&sort_key=-start_date",
+          "checksum": "sha256:dc15f190a75177b781523504af2ab4e9d480db6e51e3657da3d80bd8ee333c2c",
+          "size_bytes": 10328,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:clay_minerals",
+          "mineral": "clay_minerals",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:hydrated_sulfates",
+          "mineral": "hydrated_sulfates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:carbonates",
+          "mineral": "carbonates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:iron_oxides",
+          "mineral": "iron_oxides",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "cmr_bbox_hits_are_not_valid_pixel_coverage",
+        "native_swath_not_orthorectified"
+      ],
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "geometry_fingerprint": "sha256:b366c7787a5b531e726f59f093fe113f5b205c073e4facd672ec539c4f1a0818",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-001",
+      "status": "auth_required",
+      "reason": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "accessed_at": "2026-11-14T12:02:11.827497Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30",
+          "checksum": "sha256:0f9282debcee55787ad7f95fdc7f2928055280189c0d24e488d5eed7bb845522",
+          "size_bytes": 18859,
+          "provider_checksum": null
+        },
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-13.64028241%2C29.03096285%2C-13.61971584%2C29.04903644&page_size=2&sort_key=-start_date",
+          "checksum": "sha256:f313f01c31d557201cc28c9beadade80081221d2c30c5116a612d560a65ea651",
+          "size_bytes": 12981,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:clay_minerals",
+          "mineral": "clay_minerals",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:hydrated_sulfates",
+          "mineral": "hydrated_sulfates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:carbonates",
+          "mineral": "carbonates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:iron_oxides",
+          "mineral": "iron_oxides",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "cmr_bbox_hits_are_not_valid_pixel_coverage",
+        "native_swath_not_orthorectified"
+      ],
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    },
+    {
+      "area_id": "earth-devon-island",
+      "geometry_fingerprint": "sha256:d0a5ea98ed528b0b28ddba988d556913e9d7780977648fc55940b5bb0d21578c",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-002",
+      "status": "no_coverage",
+      "reason": "CMR bbox query returned no granules",
+      "accessed_at": "2026-11-14T12:02:11.831162Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30",
+          "checksum": "sha256:0f9282debcee55787ad7f95fdc7f2928055280189c0d24e488d5eed7bb845522",
+          "size_bytes": 18859,
+          "provider_checksum": null
+        },
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-89.88685478%2C75.39070894%2C-89.81318683%2C75.40928632&page_size=2&sort_key=-start_date",
+          "checksum": "sha256:9f1ad65a70341e61143b6c28a3c055d195550f463efda0d8b81ec0f59f014e83",
+          "size_bytes": 31,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:clay_minerals",
+          "mineral": "clay_minerals",
+          "state": "no_coverage",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR bbox query returned no granules"
+          ]
+        },
+        {
+          "evidence_id": "unavailable:hydrated_sulfates",
+          "mineral": "hydrated_sulfates",
+          "state": "no_coverage",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR bbox query returned no granules"
+          ]
+        },
+        {
+          "evidence_id": "unavailable:carbonates",
+          "mineral": "carbonates",
+          "state": "no_coverage",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR bbox query returned no granules"
+          ]
+        },
+        {
+          "evidence_id": "unavailable:iron_oxides",
+          "mineral": "iron_oxides",
+          "state": "no_coverage",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR bbox query returned no granules"
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "cmr_bbox_hits_are_not_valid_pixel_coverage",
+        "native_swath_not_orthorectified"
+      ],
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    },
+    {
+      "area_id": "earth-devon-island",
+      "geometry_fingerprint": "sha256:d0a5ea98ed528b0b28ddba988d556913e9d7780977648fc55940b5bb0d21578c",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-001",
+      "status": "no_coverage",
+      "reason": "CMR bbox query returned no granules",
+      "accessed_at": "2026-11-14T12:02:11.835408Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30",
+          "checksum": "sha256:0f9282debcee55787ad7f95fdc7f2928055280189c0d24e488d5eed7bb845522",
+          "size_bytes": 18859,
+          "provider_checksum": null
+        },
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-89.88685478%2C75.39070894%2C-89.81318683%2C75.40928632&page_size=2&sort_key=-start_date",
+          "checksum": "sha256:34a1155d0df819dcb99f7116faa183aaac88fc099fe25b210f11946005833f1a",
+          "size_bytes": 31,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:clay_minerals",
+          "mineral": "clay_minerals",
+          "state": "no_coverage",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR bbox query returned no granules"
+          ]
+        },
+        {
+          "evidence_id": "unavailable:hydrated_sulfates",
+          "mineral": "hydrated_sulfates",
+          "state": "no_coverage",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR bbox query returned no granules"
+          ]
+        },
+        {
+          "evidence_id": "unavailable:carbonates",
+          "mineral": "carbonates",
+          "state": "no_coverage",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR bbox query returned no granules"
+          ]
+        },
+        {
+          "evidence_id": "unavailable:iron_oxides",
+          "mineral": "iron_oxides",
+          "state": "no_coverage",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR bbox query returned no granules"
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "cmr_bbox_hits_are_not_valid_pixel_coverage",
+        "native_swath_not_orthorectified"
+      ],
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    },
+    {
+      "area_id": "earth-rio-tinto",
+      "geometry_fingerprint": "sha256:3c6867de4043b044bc33843393a5de7956071e6d2e51b158ed0eda69542279b6",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-002",
+      "status": "auth_required",
+      "reason": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "accessed_at": "2026-11-14T12:02:11.840173Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30",
+          "checksum": "sha256:0f9282debcee55787ad7f95fdc7f2928055280189c0d24e488d5eed7bb845522",
+          "size_bytes": 18859,
+          "provider_checksum": null
+        },
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-6.56151071%2C37.68085126%2C-6.53848661%2C37.69914781&page_size=2&sort_key=-start_date",
+          "checksum": "sha256:7ceddcf46b32b6464f0bb5e1c729fe98d33e7906366760822009c434e83ac068",
+          "size_bytes": 10317,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:clay_minerals",
+          "mineral": "clay_minerals",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:hydrated_sulfates",
+          "mineral": "hydrated_sulfates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:carbonates",
+          "mineral": "carbonates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:iron_oxides",
+          "mineral": "iron_oxides",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "cmr_bbox_hits_are_not_valid_pixel_coverage",
+        "native_swath_not_orthorectified"
+      ],
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    },
+    {
+      "area_id": "earth-rio-tinto",
+      "geometry_fingerprint": "sha256:3c6867de4043b044bc33843393a5de7956071e6d2e51b158ed0eda69542279b6",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-001",
+      "status": "auth_required",
+      "reason": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "accessed_at": "2026-11-14T12:02:11.845636Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30",
+          "checksum": "sha256:0f9282debcee55787ad7f95fdc7f2928055280189c0d24e488d5eed7bb845522",
+          "size_bytes": 18859,
+          "provider_checksum": null
+        },
+        {
+          "role": "source_metadata",
+          "source_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-6.56151071%2C37.68085126%2C-6.53848661%2C37.69914781&page_size=2&sort_key=-start_date",
+          "checksum": "sha256:8ee576db6cf0f1bbebbe4e5fb5c894bf4d026b1871216f21314490a82bd18a2e",
+          "size_bytes": 10973,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:clay_minerals",
+          "mineral": "clay_minerals",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:hydrated_sulfates",
+          "mineral": "hydrated_sulfates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:carbonates",
+          "mineral": "carbonates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:iron_oxides",
+          "mineral": "iron_oxides",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required."
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "cmr_bbox_hits_are_not_valid_pixel_coverage",
+        "native_swath_not_orthorectified"
+      ],
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    },
+    {
+      "area_id": "moon-shackleton-rim-site04-roi2",
+      "geometry_fingerprint": "sha256:976e0daa1156da220e50254b9afd19bba8ca6694eb49e1b71f5aa3c38016d2cd",
+      "body": "Moon",
+      "dataset_id": "lunar-polar-minerals-zenodo-v4",
+      "status": "unverified",
+      "reason": "Research-derived MAT has no embedded CRS, pixel registration, unit, valid-range or QA/uncertainty metadata. Legacy TIFF is RGB; its colors cannot supply abundance or validate v4 matrix registration. No AOI mineral numbers or detection claims enabled.",
+      "accessed_at": "2026-11-14T12:02:14.250938Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": null,
+      "native_resolution_m": 193.0,
+      "map_scale": null,
+      "analysis_crs": null,
+      "valid_fraction": null,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://zenodo.org/api/records/20725024",
+          "checksum": "sha256:1322c903bd397bcb00a4f2b825bf824eb0b30bb4895e04ac5817e7b7fdd5b4c8",
+          "size_bytes": 4401,
+          "provider_checksum": null
+        },
+        {
+          "role": "source_metadata",
+          "source_url": "https://zenodo.org/api/records/15549419",
+          "checksum": "sha256:9e2a088afef8c366297137bbd7f1a4c4bd8033b81702d4e344bb4c2b1075d167",
+          "size_bytes": 5421,
+          "provider_checksum": null
+        },
+        {
+          "role": "research_derived_matrix",
+          "source_url": "https://zenodo.org/api/records/20725024/files/Abcube_Oli_Pla_Opx_Cpx_Smfe.mat/content",
+          "checksum": "sha256:c6351e65edb695b10883b1d45787e039cc5fcc6190b31f62a596f5f33388462b",
+          "size_bytes": 63028597,
+          "provider_checksum": "md5:bb7deaf681aada775de0b2a0f3b8083a"
+        },
+        {
+          "role": "legacy_visualization_only",
+          "source_url": "https://zenodo.org/api/records/15549419/files/Oli.tif/content",
+          "checksum": "sha256:9578ce78a136a520f51bc641bc994c23e421c65766e579e96e5aa36c8e2c618d",
+          "size_bytes": 14640014,
+          "provider_checksum": "md5:4573a80d3980f8b2a941cd7b6cf4b719"
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:olivine",
+          "mineral": "olivine",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Research-derived MAT has no embedded CRS, pixel registration, unit, valid-range or QA/uncertainty metadata. Legacy TIFF is RGB; its colors cannot supply abundance or validate v4 matrix registration. No AOI mineral numbers or detection claims enabled."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:plagioclase",
+          "mineral": "plagioclase",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Research-derived MAT has no embedded CRS, pixel registration, unit, valid-range or QA/uncertainty metadata. Legacy TIFF is RGB; its colors cannot supply abundance or validate v4 matrix registration. No AOI mineral numbers or detection claims enabled."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:low_calcium_pyroxene",
+          "mineral": "low_calcium_pyroxene",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Research-derived MAT has no embedded CRS, pixel registration, unit, valid-range or QA/uncertainty metadata. Legacy TIFF is RGB; its colors cannot supply abundance or validate v4 matrix registration. No AOI mineral numbers or detection claims enabled."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:high_calcium_pyroxene",
+          "mineral": "high_calcium_pyroxene",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Research-derived MAT has no embedded CRS, pixel registration, unit, valid-range or QA/uncertainty metadata. Legacy TIFF is RGB; its colors cannot supply abundance or validate v4 matrix registration. No AOI mineral numbers or detection claims enabled."
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [],
+      "quality_flags": [
+        "research_derived_product",
+        "rgb_abundance_rejected",
+        "spatial_registration_unverified",
+        "units_unverified",
+        "uncertainty_not_supplied"
+      ],
+      "limitations": [
+        "Research-derived estimates, not direct laboratory composition.",
+        "MAT lacks embedded CRS, affine transform, units, QA, valid range and uncertainty. No AOI extraction enabled.",
+        "Legacy 15549419 TIFFs are RGB visualizations and cannot be interpreted as mineral abundance.",
+        "Paper abstract covers 83..90 S; registration of the v4 matrix is not established."
+      ]
+    },
+    {
+      "area_id": "mars-test-jezero-western-delta",
+      "geometry_fingerprint": "sha256:530930f599a5d486b3c4f5d522f46d80b7a8430aa36016d9d305fcf64eed3154",
+      "body": "Mars",
+      "dataset_id": "crism-mtrdr-context",
+      "status": "context_only",
+      "reason": "Spectral parameters are not validated mineral identification or mass fraction.",
+      "accessed_at": "2026-11-14T12:02:14.810412Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+      "native_resolution_m": 36.0,
+      "map_scale": null,
+      "analysis_crs": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+      "valid_fraction": 1.0,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://oderest.rsl.wustl.edu/live2/?query=product&results=fp&output=JSON&limit=5&target=mars&ihid=MRO&iid=CRISM&pt=MTRDR&minlat=18.47&maxlat=18.5&westernlon=77.35&easternlon=77.38",
+          "checksum": "sha256:83aff0bbe8b350802a8827a6705fa078f496a3b2ca46ba58404fe67d9b5b918b",
+          "size_bytes": 84090,
+          "provider_checksum": null
+        },
+        {
+          "role": "mtrdr_summary_img",
+          "source_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_sr183j_mtr3.img",
+          "checksum": "sha256:92e09bdeace3e1656bab66605e234e7ce5c566ca04c42e9a11169aabb30e4068",
+          "size_bytes": 82009200,
+          "provider_checksum": null
+        },
+        {
+          "role": "mtrdr_summary_hdr",
+          "source_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_sr183j_mtr3.hdr",
+          "checksum": "sha256:089a0bd2443612399a0a8ebb98f6107154d6335f48b341ce30408874486ee2f4",
+          "size_bytes": 1802,
+          "provider_checksum": null
+        },
+        {
+          "role": "mtrdr_summary_lbl",
+          "source_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_sr183j_mtr3.lbl",
+          "checksum": "sha256:3c2aa85f16b0555a073b35faab421b4e5f6f6fef8e29c71e42378e09a64d69b1",
+          "size_bytes": 8394,
+          "provider_checksum": null
+        },
+        {
+          "role": "mtrdr_information_img",
+          "source_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_in183j_mtr3.img",
+          "checksum": "sha256:56cee6740e4209163793dab303aa74d76fec2250b168bae7d2016f30413fe3f9",
+          "size_bytes": 12301380,
+          "provider_checksum": null
+        },
+        {
+          "role": "mtrdr_information_hdr",
+          "source_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_in183j_mtr3.hdr",
+          "checksum": "sha256:fc43ecdf63a2c4430dac1521305f4afb84e39850518197006793bc8f2ae0618e",
+          "size_bytes": 1479,
+          "provider_checksum": null
+        },
+        {
+          "role": "mtrdr_information_lbl",
+          "source_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_in183j_mtr3.lbl",
+          "checksum": "sha256:e70f0fd8fa64b476017707371cab887b21c3b4201c357bc06f7a6e1ebb379e0e",
+          "size_bytes": 6349,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:olivine",
+          "mineral": "olivine",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Spectral parameter evidence retained in geological_context only; mineral detector not validated."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:pyroxene",
+          "mineral": "pyroxene",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Spectral parameter evidence retained in geological_context only; mineral detector not validated."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:clay_minerals",
+          "mineral": "clay_minerals",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Spectral parameter evidence retained in geological_context only; mineral detector not validated."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:hydrated_sulfates",
+          "mineral": "hydrated_sulfates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Spectral parameter evidence retained in geological_context only; mineral detector not validated."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:carbonates",
+          "mineral": "carbonates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Spectral parameter evidence retained in geological_context only; mineral detector not validated."
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:OLINDEX3",
+          "name": "OLINDEX3",
+          "value": 0.12565995752811432,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        },
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:LCPINDEX2",
+          "name": "LCPINDEX2",
+          "value": -0.036416228860616684,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        },
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:HCPINDEX2",
+          "name": "HCPINDEX2",
+          "value": -0.011555329896509647,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        },
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:D2300",
+          "name": "D2300",
+          "value": 0.012837685644626617,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        },
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:BD1900_2",
+          "name": "BD1900_2",
+          "value": 0.010236929170787334,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        },
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:SINDEX2",
+          "name": "SINDEX2",
+          "value": -0.010751777328550816,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        },
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:CINDEX2",
+          "name": "CINDEX2",
+          "value": 0.016876891255378723,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        }
+      ],
+      "quality_flags": [
+        "context_only",
+        "spectral_indices_are_not_abundances",
+        "mineral_detection_not_validated"
+      ],
+      "limitations": [
+        "Spectral parameters are context only; no validated mineral identification or abundance conversion.",
+        "Coverage is finite non-fill pixels, not validated mineral detections; atmospheric/instrument residuals may remain.",
+        "Bounded ODE metadata query, first five products; one smallest summary cube selected, not exhaustive survey.",
+        "MTRDR uses a latitude-dependent custom Mars sphere; retain original CRS and native pixel size."
+      ]
+    },
+    {
+      "area_id": "mars-test-jezero-floor",
+      "geometry_fingerprint": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779",
+      "body": "Mars",
+      "dataset_id": "crism-mtrdr-context",
+      "status": "context_only",
+      "reason": "Spectral parameters are not validated mineral identification or mass fraction.",
+      "accessed_at": "2026-11-14T12:02:15.495827Z",
+      "processing_method": "geology-1.0.0",
+      "source_crs": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+      "native_resolution_m": 36.0,
+      "map_scale": null,
+      "analysis_crs": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+      "valid_fraction": 1.0,
+      "artifacts": [
+        {
+          "role": "source_metadata",
+          "source_url": "https://oderest.rsl.wustl.edu/live2/?query=product&results=fp&output=JSON&limit=5&target=mars&ihid=MRO&iid=CRISM&pt=MTRDR&minlat=18.42&maxlat=18.46&westernlon=77.4&easternlon=77.44",
+          "checksum": "sha256:c6e4b56aaf6baa59ef9f4e3a637159b4292084ab23b061fe2903c1d9311b3aab",
+          "size_bytes": 167800,
+          "provider_checksum": null
+        },
+        {
+          "role": "mtrdr_summary_img",
+          "source_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_sr183j_mtr3.img",
+          "checksum": "sha256:92e09bdeace3e1656bab66605e234e7ce5c566ca04c42e9a11169aabb30e4068",
+          "size_bytes": 82009200,
+          "provider_checksum": null
+        },
+        {
+          "role": "mtrdr_summary_hdr",
+          "source_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_sr183j_mtr3.hdr",
+          "checksum": "sha256:089a0bd2443612399a0a8ebb98f6107154d6335f48b341ce30408874486ee2f4",
+          "size_bytes": 1802,
+          "provider_checksum": null
+        },
+        {
+          "role": "mtrdr_summary_lbl",
+          "source_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_sr183j_mtr3.lbl",
+          "checksum": "sha256:3c2aa85f16b0555a073b35faab421b4e5f6f6fef8e29c71e42378e09a64d69b1",
+          "size_bytes": 8394,
+          "provider_checksum": null
+        },
+        {
+          "role": "mtrdr_information_img",
+          "source_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_in183j_mtr3.img",
+          "checksum": "sha256:56cee6740e4209163793dab303aa74d76fec2250b168bae7d2016f30413fe3f9",
+          "size_bytes": 12301380,
+          "provider_checksum": null
+        },
+        {
+          "role": "mtrdr_information_hdr",
+          "source_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_in183j_mtr3.hdr",
+          "checksum": "sha256:fc43ecdf63a2c4430dac1521305f4afb84e39850518197006793bc8f2ae0618e",
+          "size_bytes": 1479,
+          "provider_checksum": null
+        },
+        {
+          "role": "mtrdr_information_lbl",
+          "source_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_in183j_mtr3.lbl",
+          "checksum": "sha256:e70f0fd8fa64b476017707371cab887b21c3b4201c357bc06f7a6e1ebb379e0e",
+          "size_bytes": 6349,
+          "provider_checksum": null
+        }
+      ],
+      "lithology": [],
+      "mineralogy": [
+        {
+          "evidence_id": "unavailable:olivine",
+          "mineral": "olivine",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Spectral parameter evidence retained in geological_context only; mineral detector not validated."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:pyroxene",
+          "mineral": "pyroxene",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Spectral parameter evidence retained in geological_context only; mineral detector not validated."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:clay_minerals",
+          "mineral": "clay_minerals",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Spectral parameter evidence retained in geological_context only; mineral detector not validated."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:hydrated_sulfates",
+          "mineral": "hydrated_sulfates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Spectral parameter evidence retained in geological_context only; mineral detector not validated."
+          ]
+        },
+        {
+          "evidence_id": "unavailable:carbonates",
+          "mineral": "carbonates",
+          "state": "unknown",
+          "value": null,
+          "unit": null,
+          "measurement": "unverified",
+          "semantics_id": null,
+          "method": "not_analyzed",
+          "valid_fraction": null,
+          "uncertainty": null,
+          "uncertainty_unit": null,
+          "quality": "unverified",
+          "limitations": [
+            "Spectral parameter evidence retained in geological_context only; mineral detector not validated."
+          ]
+        }
+      ],
+      "geological_processes": [],
+      "geological_context": [
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:OLINDEX3",
+          "name": "OLINDEX3",
+          "value": 0.12867358326911926,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        },
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:LCPINDEX2",
+          "name": "LCPINDEX2",
+          "value": -0.041438937187194824,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        },
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:HCPINDEX2",
+          "name": "HCPINDEX2",
+          "value": -0.010801248252391815,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        },
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:D2300",
+          "name": "D2300",
+          "value": 0.006032830104231834,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        },
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:BD1900_2",
+          "name": "BD1900_2",
+          "value": 0.00605710968375206,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        },
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:SINDEX2",
+          "name": "SINDEX2",
+          "value": -0.005270387511700392,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        },
+        {
+          "evidence_id": "crism:hrl000040ff_07_if183j_mtr3:CINDEX2",
+          "name": "CINDEX2",
+          "value": 0.012565605342388153,
+          "unit": "dimensionless_spectral_parameter",
+          "valid_fraction": 1.0,
+          "method": "native_pixel_center_AOI_median_nonfill_finite",
+          "meaning": "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.",
+          "limitations": [
+            "Coverage describes finite, non-fill source pixels, not validated mineral detections.",
+            "DP quality mask values are not interpreted as a mineral detection algorithm.",
+            "No uncertainty product or calibrated abundance model applied."
+          ]
+        }
+      ],
+      "quality_flags": [
+        "context_only",
+        "spectral_indices_are_not_abundances",
+        "mineral_detection_not_validated"
+      ],
+      "limitations": [
+        "Spectral parameters are context only; no validated mineral identification or abundance conversion.",
+        "Coverage is finite non-fill pixels, not validated mineral detections; atmospheric/instrument residuals may remain.",
+        "Bounded ODE metadata query, first five products; one smallest summary cube selected, not exhaustive survey.",
+        "MTRDR uses a latitude-dependent custom Mars sphere; retain original CRS and native pixel size."
+      ]
+    }
+  ],
+  "limitations": [
+    "Independent geology dimension; not integrated with production terrain registry, API, SQLite or frontend.",
+    "Every observation inherits area geometry/body and dataset source/version/scale/license via validated IDs.",
+    "Unknown, failed and unavailable observations are not zero-filled."
+  ]
+}

@@ -1,0 +1,316 @@
+{
+  "areas": [
+    {
+      "area_id": "earth-atacama-desert",
+      "display_name": "Atacama Desert, Chile",
+      "body": "Earth",
+      "crs": "EPSG:4326",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -68.40973566,
+              -23.5089791
+            ],
+            [
+              -68.39026303,
+              -23.5089791
+            ],
+            [
+              -68.39026303,
+              -23.49102032
+            ],
+            [
+              -68.40973566,
+              -23.49102032
+            ],
+            [
+              -68.40973566,
+              -23.5089791
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:6a99fdfbded493ec13a997e6f746b156c28d08645b0e60b13e9b678b6efee78e",
+      "origin": "existing",
+      "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+      "limitations": [
+        "Local existing terrain AOI; not representative of the whole named region."
+      ]
+    },
+    {
+      "area_id": "earth-death-valley",
+      "display_name": "Death Valley, California, USA",
+      "body": "Earth",
+      "crs": "EPSG:4326",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -117.11103192,
+              36.24106488
+            ],
+            [
+              -117.08897059,
+              36.24106488
+            ],
+            [
+              -117.08897059,
+              36.2589341
+            ],
+            [
+              -117.11103192,
+              36.2589341
+            ],
+            [
+              -117.11103192,
+              36.24106488
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:bbddc4a36d58205a2afaf915c2aaf6ca3db24c1586c6ef1755596584b761d166",
+      "origin": "existing",
+      "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+      "limitations": [
+        "Local existing terrain AOI; not representative of the whole named region."
+      ]
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "display_name": "Lanzarote volcanic terrain, Spain",
+      "body": "Earth",
+      "crs": "EPSG:4326",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -13.64028241,
+              29.03096285
+            ],
+            [
+              -13.61971584,
+              29.03096285
+            ],
+            [
+              -13.61971584,
+              29.04903644
+            ],
+            [
+              -13.64028241,
+              29.04903644
+            ],
+            [
+              -13.64028241,
+              29.03096285
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:b366c7787a5b531e726f59f093fe113f5b205c073e4facd672ec539c4f1a0818",
+      "origin": "existing",
+      "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+      "limitations": [
+        "Local existing terrain AOI; not representative of the whole named region."
+      ]
+    },
+    {
+      "area_id": "earth-devon-island",
+      "display_name": "Devon Island / Haughton, Nunavut, Canada",
+      "body": "Earth",
+      "crs": "EPSG:4326",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -89.88685478,
+              75.39070894
+            ],
+            [
+              -89.81318683,
+              75.39070894
+            ],
+            [
+              -89.81318683,
+              75.40928632
+            ],
+            [
+              -89.88685478,
+              75.40928632
+            ],
+            [
+              -89.88685478,
+              75.39070894
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:d0a5ea98ed528b0b28ddba988d556913e9d7780977648fc55940b5bb0d21578c",
+      "origin": "existing",
+      "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+      "limitations": [
+        "Local existing terrain AOI; not representative of the whole named region."
+      ]
+    },
+    {
+      "area_id": "earth-rio-tinto",
+      "display_name": "Rio Tinto, Spain",
+      "body": "Earth",
+      "crs": "EPSG:4326",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -6.56151071,
+              37.68085126
+            ],
+            [
+              -6.53848661,
+              37.68085126
+            ],
+            [
+              -6.53848661,
+              37.69914781
+            ],
+            [
+              -6.56151071,
+              37.69914781
+            ],
+            [
+              -6.56151071,
+              37.68085126
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:3c6867de4043b044bc33843393a5de7956071e6d2e51b158ed0eda69542279b6",
+      "origin": "existing",
+      "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+      "limitations": [
+        "Local existing terrain AOI; not representative of the whole named region."
+      ]
+    },
+    {
+      "area_id": "moon-shackleton-rim-site04-roi2",
+      "display_name": "Shackleton Rim (LOLA Site04 ROI 2)",
+      "body": "Moon",
+      "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -3747.5,
+              -7332.5
+            ],
+            [
+              -1767.5,
+              -7332.5
+            ],
+            [
+              -1767.5,
+              -5352.5
+            ],
+            [
+              -3747.5,
+              -5352.5
+            ],
+            [
+              -3747.5,
+              -7332.5
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:976e0daa1156da220e50254b9afd19bba8ca6694eb49e1b71f5aa3c38016d2cd",
+      "origin": "existing",
+      "geometry_source": "pipelines/planetary/manifests/lola_moon_reference.json#references/notes",
+      "limitations": [
+        "MOON_ME DE421 terrain ROI projected footprint; geology map uses Moon 2000/LOLA; frame alignment below map scale is not established."
+      ]
+    },
+    {
+      "area_id": "mars-test-jezero-western-delta",
+      "display_name": "Jezero western-delta (test AOI)",
+      "body": "Mars",
+      "crs": "+proj=longlat +R=3396190 +type=crs",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.35,
+              18.47
+            ],
+            [
+              77.38,
+              18.47
+            ],
+            [
+              77.38,
+              18.5
+            ],
+            [
+              77.35,
+              18.5
+            ],
+            [
+              77.35,
+              18.47
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:530930f599a5d486b3c4f5d522f46d80b7a8430aa36016d9d305fcf64eed3154",
+      "origin": "test_aoi",
+      "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+      "limitations": [
+        "Explicit test AOI, not an existing shared Mars reference or indexed production area."
+      ]
+    },
+    {
+      "area_id": "mars-test-jezero-floor",
+      "display_name": "Jezero floor (test AOI)",
+      "body": "Mars",
+      "crs": "+proj=longlat +R=3396190 +type=crs",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.4,
+              18.42
+            ],
+            [
+              77.44,
+              18.42
+            ],
+            [
+              77.44,
+              18.46
+            ],
+            [
+              77.4,
+              18.46
+            ],
+            [
+              77.4,
+              18.42
+            ]
+          ]
+        ]
+      },
+      "geometry_fingerprint": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779",
+      "origin": "test_aoi",
+      "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+      "limitations": [
+        "Explicit test AOI, not an existing shared Mars reference or indexed production area."
+      ]
+    }
+  ]
+}
