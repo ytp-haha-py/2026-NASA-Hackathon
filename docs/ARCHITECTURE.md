@@ -1,5 +1,14 @@
 # Architecture
 
+## Architecture diagrams
+
+![Current MVP architecture](diagrams/architecture.en.svg)
+
+- [English SVG](diagrams/architecture.en.svg) | [繁體中文 SVG](diagrams/architecture.zh-TW.svg)
+- [繁體中文系統架構與完整流程說明](ARCHITECTURE.zh-TW.md)
+
+The diagram describes **implemented MVP behavior**, not the aspirational architecture. In particular, AOI background jobs currently run in a bounded thread pool **inside the API process**; offline provider importers are separate scripts. SQLite is the rebuildable index, while S3-compatible/R2 snapshot transfer is optional and **DVC is not adopted**. The publishing workflow builds GHCR images, not an automatically deployed website. Mars data, scored non-terrain dimensions, separate worker services, and global discovery are future extensions.
+
 ## Product boundary
 
 Planetary Analog Explorer ranks **indexed Earth terrain windows** against a user-supplied target

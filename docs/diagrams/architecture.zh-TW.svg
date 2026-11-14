@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1220" viewBox="0 0 1600 1220" role="img" aria-label="Planetary Analog Explorer｜目前系統架構">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#334155"/></marker></defs>
+<style>text{font-family:"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",Arial,sans-serif;fill:#1f2937} .title{font-size:27px;font-weight:650}.sub{font-size:14px;fill:#526071}.sec{font-size:19px;font-weight:650}.name{font-size:18px;font-weight:640}.line{font-size:13.3px;fill:#334155}.small{font-size:12.5px;fill:#475569}.edge{stroke:#475569;stroke-width:1.7;fill:none;marker-end:url(#arrow)}.dash{stroke:#64748b;stroke-width:1.6;stroke-dasharray:7 6;fill:none;marker-end:url(#arrow)}.boundary{fill:#fafafa;stroke:#a9b3be;stroke-width:1.3}.node{fill:#fff;stroke:#475569;stroke-width:1.5}.optional{fill:#fff;stroke:#64748b;stroke-width:1.5;stroke-dasharray:6 5}</style>
+<rect width="1600" height="1220" fill="#fff"/><text class="title" x="48" y="54">Planetary Analog Explorer｜目前系統架構</text><text class="sub" x="48" y="81">依 main 分支實作整理（MVP）；虛線表示選用或尚未實作</text><path d="M48 98H1552" stroke="#a1aab7"/>
+<rect x="48" y="118" width="1504" height="375" class="boundary"/><text x="68" y="149" class="sec">01  執行時：使用者查詢與按需分析</text>
+<rect x="68" y="194" width="300" height="115" rx="3" class="node"/>
+<text x="85" y="225" class="name">前端網站</text>
+<text x="85" y="248" class="line">React / TypeScript / Leaflet</text>
+<text x="85" y="271" class="line">表單、地圖、候選地點、證據</text>
+<rect x="432" y="194" width="292" height="115" rx="3" class="node"/>
+<text x="449" y="225" class="name">API 服務</text>
+<text x="449" y="248" class="line">FastAPI /api/v1</text>
+<text x="449" y="271" class="line">查詢、驗證、Job 狀態</text>
+<rect x="804" y="175" width="292" height="115" rx="3" class="node"/>
+<text x="821" y="206" class="name">搜尋與比較</text>
+<text x="821" y="229" class="line">必要條件篩選／加權地形距離</text>
+<text x="821" y="252" class="line">目前僅四項地形分數</text>
+<rect x="804" y="341" width="292" height="120" rx="3" class="node"/>
+<text x="821" y="372" class="name">背景工作（API 程序內）</text>
+<text x="821" y="395" class="line">SQLite Job 紀錄 + ThreadPoolExecutor</text>
+<text x="821" y="418" class="line">非獨立部署的 Worker 服務</text>
+<rect x="1180" y="218" width="350" height="173" rx="3" class="node"/>
+<text x="1197" y="249" class="name">SQLite 搜尋索引</text>
+<text x="1197" y="272" class="line">候選 AOI、特徵、來源、任務狀態</text>
+<text x="1197" y="295" class="line">本機可重建；非原始資料庫</text>
+<path d="M368 250H432" class="edge"/>
+<text x="373" y="235" class="small">HTTP / JSON</text>
+<path d="M724 237H764V230H804" class="edge"/>
+<text x="739" y="209" class="small">查詢</text>
+<path d="M724 275H764V401H804" class="edge"/>
+<text x="739" y="390" class="small">建立工作</text>
+<path d="M1096 233H1134V261H1180" class="edge"/>
+<path d="M1096 401H1134V340H1180" class="edge"/>
+<text x="1137" y="209" class="small">讀寫</text>
+<rect x="48" y="512" width="1504" height="377" class="boundary"/><text x="68" y="543" class="sec">02  資料取得、驗證與可重建索引</text>
+<rect x="68" y="592" width="335" height="138" rx="3" class="node"/>
+<text x="85" y="623" class="name">公開資料來源</text>
+<text x="85" y="646" class="line">地球：Copernicus DEM、ESA WorldCover</text>
+<text x="85" y="669" class="line">月球：NASA LOLA 參考區域</text>
+<rect x="465" y="592" width="348" height="138" rx="3" class="node"/>
+<text x="482" y="623" class="name">資料處理模組</text>
+<text x="482" y="646" class="line">讀取區域 → 轉換與品質檢查</text>
+<text x="482" y="669" class="line">地形特徵、地表覆蓋比例</text>
+<rect x="872" y="560" width="332" height="116" rx="3" class="node"/>
+<text x="889" y="591" class="name">資料清單 Manifest</text>
+<text x="889" y="614" class="line">來源、解析度、校驗值、方法版本</text>
+<rect x="872" y="719" width="332" height="116" rx="3" class="node"/>
+<text x="889" y="750" class="name">固定資料快照</text>
+<text x="889" y="773" class="line">SHA-256 驗證 → 重建 SQLite 索引</text>
+<rect x="1280" y="719" width="250" height="116" rx="3" class="optional"/>
+<text x="1297" y="750" class="name">選用的 R2／S3</text>
+<text x="1297" y="773" class="line">手動發布／取得不可變快照</text>
+<text x="1297" y="796" class="line">DVC 尚未採用</text>
+<path d="M403 656H465" class="edge"/>
+<text x="411" y="638" class="small">讀取資料</text>
+<path d="M813 650H872" class="edge"/>
+<text x="822" y="629" class="small">匯入／驗證</text>
+<path d="M1038 676V719" class="edge"/>
+<path d="M1204 774H1280" class="dash"/>
+<text x="1212" y="756" class="small">可選擇上傳</text>
+<path d="M1204 610H1243V490H1354V391" class="edge"/>
+<path d="M967 560V522H955V461" class="dash"/>
+<rect x="48" y="910" width="1504" height="213" class="boundary"/><text x="68" y="941" class="sec">03  GitHub 協作與發佈</text>
+<rect x="68" y="983" width="278" height="62" rx="3" class="node"/>
+<text x="85" y="1014" class="name">Issue / 功能分支</text>
+<rect x="400" y="983" width="285" height="62" rx="3" class="node"/>
+<text x="417" y="1014" class="name">PR + 程式碼審查</text>
+<rect x="746" y="968" width="350" height="93" rx="3" class="node"/>
+<text x="763" y="999" class="name">GitHub Actions CI</text>
+<text x="763" y="1022" class="line">測試、檢查、資料驗證</text>
+<rect x="1160" y="968" width="370" height="93" rx="3" class="node"/>
+<text x="1177" y="999" class="name">合併 main → GHCR</text>
+<text x="1177" y="1022" class="line">發布容器映像，非網站部署</text>
+<path d="M346 1014H400" class="edge"/>
+<path d="M685 1014H746" class="edge"/>
+<path d="M1096 1014H1160" class="edge"/>
+<text x="68" y="1097" class="small">尚未實作：火星 MOLA、溫度及其他維度的比較、獨立 Worker、全球搜尋、DVC</text>
+<path d="M48 1152H1552" stroke="#cbd5e1"/><text x="48" y="1179" class="small">實線＝目前實作中的資料流   虛線＝選用整合／延伸    文件：docs/ARCHITECTURE.md、docs/ARCHITECTURE.zh-TW.md</text>
+</svg>
