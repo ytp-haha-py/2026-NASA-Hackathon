@@ -110,7 +110,7 @@ def test_real_manifest_seeds_and_returns_observed_results(tmp_path: Path):
             },
         )
         assert unknown_filter.status_code == 422
-        assert "unsupported context filter" in unknown_filter.json()["error"]["message"]
+        assert "unsupported filter id" in unknown_filter.json()["error"]["message"]
 
         datasets = client.get("/api/v1/datasets").json()
         assert {dataset["source_kind"] for dataset in datasets} == {"earth_dem", "landcover"}

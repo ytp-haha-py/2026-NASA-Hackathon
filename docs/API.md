@@ -102,10 +102,14 @@ UI-friendly summary.
 - `reference_id` and `target` are mutually exclusive. `body` must be `custom` for a user target;
   `Moon`/`Mars` requires a verified reference. Reference mode uses all four reference metrics with
   weight 1 unless `weights` overrides them (response still derives targets from the reference).
-- Optional `filters` are **hard constraints** applied before ranking, using Earth land-cover
-  context only, e.g. `{"landcover_bare_sparse_fraction":{"min":0.5},"landcover_built_up_fraction":{"max":0.1}}`.
-  Missing context fails the filter (`missing_context:<id>`); an out-of-range value is excluded as
-  `filter:<id>`. Filters never change the similarity formula.
+- Optional `filters` are inclusive **hard constraints** `{min?, max?}` applied before ranking.
+  Since `search-1.1.0` a filter id may be a registered similarity feature (terrain metric, bounds
+  within that feature's domain, e.g. `{"slope_mean_deg":{"min":5,"max":20}}`) or an Earth land-cover
+  context feature (bounds within 0..1, e.g. `{"landcover_bare_sparse_fraction":{"min":0.5}}`).
+  A missing value fails the filter (`missing_metric:<id>` or `missing_context:<id>`); a similarity
+  feature counts only with the registry's method version. An out-of-range value is excluded as
+  `filter:<id>`. Filters never change the similarity formula, scales, or weights, and land cover is
+  still never weighted.
 - The distance is **not** a similarity percentage and not a physical-equivalence claim.
 
 Response (abridged):
@@ -114,7 +118,7 @@ Response (abridged):
 {
   "contract_version": "1.0.0",
   "method_version": "terrain-metrics-1.0.0",
-  "query_version": "search-1.0.0",
+  "query_version": "search-1.1.0",
   "data_version": "dv-...",
   "data_snapshot_id": "dv-...",
   "coverage": {"label": "indexed_subset", "indexed_candidate_count": 4,

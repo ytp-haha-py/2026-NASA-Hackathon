@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 CONTRACT_VERSION = "1.0.0"
 METHOD_VERSION = "terrain-metrics-1.0.0"
 FLAT_METHOD_VERSION = "flat-terrain-fraction-1.0.0"
-QUERY_VERSION = "search-1.0.0"
+QUERY_VERSION = "search-1.1.0"
 AOI_PROCESSING_VERSION = "aoi-analysis-1.0.0"
 CONTEXT_METHOD_VERSION = "worldcover-2021-v200-1.0.0"
 ANALYSIS_WINDOW_M = 1980

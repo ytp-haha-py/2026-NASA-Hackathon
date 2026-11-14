@@ -100,8 +100,10 @@ class TargetSpec(BaseModel):
 
 
 class RangeFilterIn(BaseModel):
-    min: float | None = Field(default=None, ge=0, le=1)
-    max: float | None = Field(default=None, ge=0, le=1)
+    """Inclusive hard filter. Bounds are checked against the filtered feature's domain."""
+
+    min: float | None = Field(default=None, allow_inf_nan=False)
+    max: float | None = Field(default=None, allow_inf_nan=False)
 
     @model_validator(mode="after")
     def ordered(self) -> RangeFilterIn:
@@ -144,12 +146,23 @@ class SearchRequest(BaseModel):
     @field_validator("filters")
     @classmethod
     def known_filters(cls, filters: dict[str, RangeFilterIn]) -> dict[str, RangeFilterIn]:
-        unknown = sorted(set(filters) - set(CONTEXT_FEATURE_BY_ID))
+        unknown = sorted(set(filters) - set(FEATURE_BY_ID) - set(CONTEXT_FEATURE_BY_ID))
         if unknown:
             raise ValueError(
-                "unsupported context filter id(s): " + ", ".join(unknown) + ". Filters apply "
-                "only to Earth land-cover context features; they are not similarity dimensions."
+                "unsupported filter id(s): " + ", ".join(unknown) + ". Filters apply to "
+                "registered similarity features or Earth land-cover context features."
             )
+        for feature_id, constraint in filters.items():
+            if feature_id in FEATURE_BY_ID:
+                definition = FEATURE_BY_ID[feature_id]
+                low, high, unit = definition.min_value, definition.max_value, definition.unit
+            else:
+                low, high, unit = 0.0, 1.0, CONTEXT_FEATURE_BY_ID[feature_id].unit
+            for bound in (constraint.min, constraint.max):
+                if bound is not None and not low <= bound <= high:
+                    raise ValueError(
+                        f"filter bounds for {feature_id} must be within [{low}, {high}] {unit}"
+                    )
         return filters
 
     @model_validator(mode="after")

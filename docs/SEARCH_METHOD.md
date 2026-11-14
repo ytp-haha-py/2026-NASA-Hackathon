@@ -17,10 +17,12 @@ closest to the target vector?" It does **not** answer "which place on Earth is m
 All requested features must use method version `terrain-metrics-1.0.0`. Candidates lacking a
 requested metric or carrying an incompatible method version are excluded and reported.
 
-**Hard filters run before the distance.** Optional `filters` apply only to Earth land-cover context
-(`landcover_*_fraction`, 0..1), e.g. bare/sparse ≥ 0.5 or built-up ≤ 0.1. Missing context fails a
-requested filter; values are never imputed. Filters do not alter the similarity formula and are not
-similarity dimensions.
+**Hard filters run before the distance.** Optional inclusive `filters` (`{min?, max?}`) apply to
+Earth land-cover context (`landcover_*_fraction`, 0..1), e.g. bare/sparse ≥ 0.5 or built-up ≤ 0.1,
+and, since `search-1.1.0`, to registered similarity features within their registry domain, e.g.
+mean slope 5–20°. A candidate missing a filtered value (or carrying another method version) fails
+the filter; values are never imputed. Filters only remove candidates: they do not alter the
+similarity formula, the fixed scales, or the weights, and land-cover context is never weighted.
 
 ## Distance
 

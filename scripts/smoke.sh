@@ -219,7 +219,7 @@ assert "custom" in capabilities["supported_bodies"]
 
 search = load("search")
 assert search["contract_version"] == "1.0.0"
-assert search["query_version"] == "search-1.0.0"
+assert search["query_version"] == "search-1.1.0"
 assert search["coverage_label"] == "indexed_subset"
 assert search["indexed_candidate_count"] == 4
 assert search["eligible_candidate_count"] == 4, search["eligible_candidate_count"]
