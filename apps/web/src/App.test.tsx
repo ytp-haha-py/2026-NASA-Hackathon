@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { App } from "./App";
@@ -144,11 +144,8 @@ describe("search form", () => {
   it("disables Moon and Mars presets when no reference records exist", async () => {
     await renderReady();
 
-    const moon = screen.getByRole("option", { name: /Moon reference/ });
-    const mars = screen.getByRole("option", { name: /Mars reference/ });
-
-    expect((moon as HTMLOptionElement).disabled).toBe(true);
-    expect((mars as HTMLOptionElement).disabled).toBe(true);
+    expect(screen.getByRole("radio", { name: /^Moon/ })).toBeDisabled();
+    expect(screen.getByRole("radio", { name: /^Mars/ })).toBeDisabled();
     expect(
       screen.getByText(/Moon and Mars presets are unavailable/),
     ).toBeInTheDocument();
@@ -159,15 +156,14 @@ describe("search form", () => {
       references: () => jsonResponse([referenceFixture]),
     });
 
-    const moon = screen.getByRole("option", { name: /Moon reference/ });
-    const mars = screen.getByRole("option", { name: /Mars reference/ });
+    const user = userEvent.setup();
+    expect(screen.getByRole("radio", { name: /^Moon/ })).toBeEnabled();
+    expect(screen.getByRole("radio", { name: /^Mars/ })).toBeDisabled();
 
-    expect((moon as HTMLOptionElement).disabled).toBe(false);
-    expect((mars as HTMLOptionElement).disabled).toBe(true);
+    await user.click(screen.getByRole("radio", { name: /^Moon/ }));
+    expect(screen.getByRole("radio", { name: /^Moon/ })).toHaveAttribute("aria-checked", "true");
     expect(
-      screen.getByRole("option", {
-        name: /Moon · Shackleton Rim \(LOLA Site04 ROI 2\)/,
-      }),
+      screen.getByRole("option", { name: "Shackleton Rim (LOLA Site04 ROI 2)" }),
     ).toBeInTheDocument();
   });
 });
@@ -424,7 +420,6 @@ describe("selection, map state and context export", () => {
 
 describe("context filters and Moon reference mode", () => {
   it("sends optional land-cover filters and displays them", async () => {
-    const user = userEvent.setup();
     const filteredResponse = {
       ...searchResponseFixture,
       filters_applied: {
@@ -436,21 +431,14 @@ describe("context filters and Moon reference mode", () => {
       search: () => jsonResponse(filteredResponse),
     });
 
-    await user.click(
-      screen.getByRole("checkbox", {
-        name: /Bare \/ sparse vegetation fraction/,
-      }),
+    // Land-cover filters are range sliders; only narrowed bounds are sent.
+    fireEvent.change(
+      screen.getByRole("slider", { name: "Bare / sparse vegetation fraction lower bound" }),
+      { target: { value: "0.4" } },
     );
-    const minInput = screen.getByLabelText("Minimum fraction (0–1)");
-    await user.clear(minInput);
-    await user.type(minInput, "0.4");
-
-    await user.click(
-      screen.getByRole("checkbox", { name: /Built-up fraction/ }),
-    );
-    const maxInput = screen.getByLabelText("Maximum fraction (0–1)");
-    await user.clear(maxInput);
-    await user.type(maxInput, "0.1");
+    fireEvent.change(screen.getByRole("slider", { name: "Built-up fraction upper bound" }), {
+      target: { value: "0.1" },
+    });
 
     await runSearch();
 
@@ -475,7 +463,7 @@ describe("context filters and Moon reference mode", () => {
       search: () => jsonResponse(searchResponseFixture),
     });
 
-    await user.selectOptions(screen.getByLabelText("Body preset"), "Moon");
+    await user.click(screen.getByRole("radio", { name: /^Moon/ }));
 
     expect(await screen.findByText(/LOLA reference caveat/)).toBeInTheDocument();
     expect(
@@ -534,7 +522,10 @@ describe("flat terrain fraction", () => {
       search: () => jsonResponse(searchResponseFixture),
     });
     const group = await screen.findByRole("group", { name: "Flat terrain fraction" });
-    await user.click(within(group).getByRole("checkbox"));
+    // A metric is compared once its weight is above 0.
+    const weight = within(group).getByLabelText("Weight (≥ 0)");
+    await user.clear(weight);
+    await user.type(weight, "1");
     const value = within(group).getByRole("spinbutton", { name: /Target value/ });
     await user.type(value, "0.5");
     await runSearch();
@@ -557,9 +548,9 @@ describe("Mars reference mode", () => {
       }]),
       search: () => jsonResponse(searchResponseFixture),
     });
-    const mars = screen.getByRole("option", { name: /Mars reference/ });
-    expect((mars as HTMLOptionElement).disabled).toBe(false);
-    await user.selectOptions(screen.getByLabelText("Body preset"), "Mars");
+    const mars = screen.getByRole("radio", { name: /^Mars/ });
+    expect(mars).toBeEnabled();
+    await user.click(mars);
 
     // Reference mode starts with every weight at 0; opt one metric in before searching.
     const slopeWeight = within(screen.getByRole("group", { name: "Mean slope" })).getByLabelText(
@@ -775,5 +766,55 @@ describe("AOI analysis", () => {
     expect(await screen.findByTestId("coverage-headline")).toHaveTextContent(
       "Top 2 among 4 indexed regions",
     );
+  });
+});
+
+describe("dimension board", () => {
+  it("sends a narrowed terrain range as a hard filter and leaves full ranges out", async () => {
+    const fetchMock = await renderReady();
+    const slopeGroup = screen.getByRole("group", { name: "Mean slope" });
+    fireEvent.change(within(slopeGroup).getByRole("slider", { name: "Mean slope lower bound" }), {
+      target: { value: "5" },
+    });
+    fireEvent.change(within(slopeGroup).getByRole("slider", { name: "Mean slope upper bound" }), {
+      target: { value: "20" },
+    });
+
+    await runSearch();
+    await screen.findByTestId("coverage-headline");
+    expect(searchRequestFromCalls(fetchMock)?.filters).toEqual({
+      slope_mean_deg: { min: 5, max: 20 },
+    });
+  });
+
+  it("shows D1 with the API dimension and pads D2–D6 as placeholders without fake metrics", async () => {
+    await renderReady();
+    const board = screen.getByRole("region", { name: "Dimensions" });
+    expect(within(board).getByRole("region", { name: "Terrain shape" })).toBeInTheDocument();
+    const placeholders = within(board).getAllByRole("region", { name: "Data in preparation" });
+    expect(placeholders).toHaveLength(5);
+    for (const placeholder of placeholders) {
+      expect(within(placeholder).queryByRole("slider")).not.toBeInTheDocument();
+      expect(within(placeholder).queryByRole("spinbutton")).not.toBeInTheDocument();
+    }
+    // Land cover is a filter column, never a numbered similarity dimension or a weight.
+    const context = within(board).getByRole("region", { name: /Land-cover filter/ });
+    expect(within(context).queryByLabelText("Weight (≥ 0)")).not.toBeInTheDocument();
+  });
+
+  it("shows read-only reference values in Moon mode and editable targets in custom mode", async () => {
+    const user = userEvent.setup();
+    await renderReady({ references: () => jsonResponse([referenceFixture]) });
+
+    const customGroup = screen.getByRole("group", { name: "Mean slope" });
+    const slopeTarget = within(customGroup).getByLabelText("Target value (degree)");
+    await user.clear(slopeTarget);
+    await user.type(slopeTarget, "7.5");
+    expect(slopeTarget).toHaveValue(7.5);
+
+    await user.click(screen.getByRole("radio", { name: /^Moon/ }));
+    const moonGroup = screen.getByRole("group", { name: "Mean slope" });
+    expect(within(moonGroup).queryByLabelText("Target value (degree)")).not.toBeInTheDocument();
+    expect(within(moonGroup).getByTitle("Reference value (read-only)")).toBeInTheDocument();
   });
 });

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { ThemeToggle } from "./components/ThemeToggle";
 import {
   ApiError,
   errorCode,
@@ -199,64 +200,15 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
 
       <header className="site-header">
         <div className="header-inner">
-          <h1>
-            <span className="brand-mark" aria-hidden="true">
-              PAE
-            </span>{" "}
-            {t("app.title")}
-          </h1>
-          <div className="header-tools">
+          <div className="header-left">
+            <h1 className="brand">
+              <span className="brand-mark" aria-hidden="true">
+                PAE
+              </span>{" "}
+              <span className="brand-name">{t("app.title")}</span>
+            </h1>
             {capabilities && (
-              <p className="coverage-badge" aria-label={t("app.badgeLabel")}>
-                <span>
-                  {t("app.badgeEarth", { count: fmt.number(indexedOriginCount, 0) })}
-                </span>
-                <span>
-                  {t("app.badgeAoi", { count: fmt.number(onDemandOriginCount, 0) })}
-                </span>
-                <span>
-                  {t("app.badgeMoon", { count: fmt.number(moonReferenceCount, 0) })}
-                </span>
-                {marsReferenceCount === 0 ? (
-                  <span className="is-unavailable">{t("app.badgeMarsNone")}</span>
-                ) : (
-                  <span>MARS {fmt.number(marsReferenceCount, 0)}</span>
-                )}
-              </p>
-            )}
-            <LanguageSwitcher />
-          </div>
-        </div>
-      </header>
-
-      <main id="main-content" className="app-main">
-        <div className="search-column">
-          {capabilitiesLoading && !capabilities && (
-            <p className="status-panel" role="status">
-              {t("app.capabilitiesLoading")}
-            </p>
-          )}
-
-          {capabilitiesError && (
-            <div className="alert alert-error" role="alert">
-              <p>
-                <strong>{t("app.capabilitiesErrorTitle")}</strong>{" "}
-                <SourceText>{capabilitiesError}</SourceText>
-              </p>
-              <p>{t("app.capabilitiesErrorHelp")}</p>
-              <button
-                type="button"
-                className="secondary-button"
-                onClick={() => setBootstrapKey((key) => key + 1)}
-              >
-                {t("app.retryLoading")}
-              </button>
-            </div>
-          )}
-
-          {capabilities && (
-            <>
-              <div className="panel-tabs" role="tablist" aria-label={t("app.tabsLabel")}>
+              <div className="header-tabs" role="tablist" aria-label={t("app.tabsLabel")}>
                 <button
                   type="button"
                   role="tab"
@@ -280,83 +232,84 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                   {t("app.tabAoi")}
                 </button>
               </div>
-
-              <div
-                role="tabpanel"
-                id="panel-search"
-                aria-labelledby="tab-search"
-                hidden={activePanel !== "search"}
-              >
-                <SearchForm
-                  features={capabilities.features}
-                  contextFeatures={capabilities.context_features}
-                  references={references}
-                  referencesError={referencesError}
-                  onSearch={handleSearch}
-                  loading={searching}
-                  preset={searchPreset}
-                />
-              </div>
-
-              <div
-                role="tabpanel"
-                id="panel-aoi"
-                aria-labelledby="tab-aoi"
-                hidden={activePanel !== "aoi"}
-              >
-                <AoiForm
-                  capabilities={capabilities}
-                  onSubmit={aoi.submit}
-                  busy={aoi.busy}
-                />
-              </div>
-            </>
-          )}
+            )}
+          </div>
+          <div className="header-tools">
+            {capabilities && (
+              <p className="coverage-badge mono" aria-label={t("app.badgeLabel")}>
+                <span>
+                  {t("app.badgeEarth", { count: fmt.number(indexedOriginCount, 0) })}
+                </span>
+                <span>
+                  {t("app.badgeAoi", { count: fmt.number(onDemandOriginCount, 0) })}
+                </span>
+                <span className="is-moon">
+                  {t("app.badgeMoon", { count: fmt.number(moonReferenceCount, 0) })}
+                </span>
+                {marsReferenceCount === 0 ? (
+                  <span className="is-unavailable">{t("app.badgeMarsNone")}</span>
+                ) : (
+                  <span className="is-mars">
+                    {t("app.badgeMars", { count: fmt.number(marsReferenceCount, 0) })}
+                  </span>
+                )}
+              </p>
+            )}
+            <LanguageSwitcher />
+            <ThemeToggle />
+          </div>
         </div>
+      </header>
 
-        <div className="explore-column">
-          {capabilities && (
-            <section className="coverage-strip" aria-labelledby="coverage-heading">
-              <p className="eyebrow">{t("app.coverageEyebrow")}</p>
-              <h2 id="coverage-heading">
-                {tp("app.coverageHeading", capabilities.indexed_candidate_count)}
-              </h2>
-              <p className="coverage-origins">
-                {rich("app.coverageOrigins", {
-                  indexed: (
-                    <strong>
-                      {t("coverage.indexedCount", { count: fmt.number(indexedOriginCount, 0) })}
-                    </strong>
-                  ),
-                  onDemand: (
-                    <strong>
-                      {t("coverage.onDemandCount", {
-                        count: fmt.number(onDemandOriginCount, 0),
-                      })}
-                    </strong>
-                  ),
-                })}
-              </p>
-              <p>
-                <SourceText>{capabilities.coverage.description}</SourceText>
-              </p>
-              <p className="coverage-extent">
-                {capabilities.coverage.geographic_bbox
-                  ? t("app.coverageExtent", {
-                      bbox: fmt.bbox(capabilities.coverage.geographic_bbox),
-                    })
-                  : t("app.coverageExtentMissing")}
-              </p>
-              {capabilities.indexed_candidate_count === 0 && (
-                <p className="alert alert-warning" role="status">
-                  {rich("app.noCandidates", { code: <code>no_indexed_data</code> })}
-                </p>
-              )}
-            </section>
-          )}
+      <main id="main-content" className="app-main">
+        {capabilitiesLoading && !capabilities && (
+          <p className="status-panel" role="status">
+            {t("app.capabilitiesLoading")}
+          </p>
+        )}
 
-          {activePanel === "search" && (
-            <>
+        {capabilitiesError && (
+          <div className="alert alert-error" role="alert">
+            <p>
+              <strong>{t("app.capabilitiesErrorTitle")}</strong>{" "}
+              <SourceText>{capabilitiesError}</SourceText>
+            </p>
+            <p>{t("app.capabilitiesErrorHelp")}</p>
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={() => setBootstrapKey((key) => key + 1)}
+            >
+              {t("app.retryLoading")}
+            </button>
+          </div>
+        )}
+
+        {!capabilities && !capabilitiesLoading && !capabilitiesError && (
+          <div className="status-panel" role="status">
+            {t("app.noCapabilities")}
+          </div>
+        )}
+
+        {capabilities && (
+          <>
+            <div
+              role="tabpanel"
+              id="panel-search"
+              aria-labelledby="tab-search"
+              className="panel-stack"
+              hidden={activePanel !== "search"}
+            >
+              <SearchForm
+                features={capabilities.features}
+                contextFeatures={capabilities.context_features}
+                references={references}
+                referencesError={referencesError}
+                onSearch={handleSearch}
+                loading={searching}
+                preset={searchPreset}
+              />
+
               {searching && (
                 <div className="status-panel" role="status">
                   {t("app.searching")}
@@ -394,86 +347,124 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 </div>
               )}
 
-              {searchResponse && (
+              {activePanel === "search" && (
                 <MapPanel
-                  results={searchResponse.results}
+                  results={searchResponse?.results ?? []}
                   selectedId={selectedId}
                   onSelect={setSelectedId}
-                  response={searching ? undefined : searchResponse}
-                  features={capabilities?.features ?? []}
+                  response={searching ? undefined : (searchResponse ?? undefined)}
+                  features={capabilities.features}
                   target={activeTarget}
+                  showIdle={!searchResponse && !searching}
                 />
               )}
 
               {searchResponse && !searching && (
-                <ResultsPanel
-                  response={searchResponse}
-                  features={capabilities?.features ?? []}
-                  contextFeatures={capabilities?.context_features ?? []}
-                  selectedId={selectedId}
-                  onSelect={setSelectedId}
+                <div className="results-grid">
+                  <ResultsPanel
+                    response={searchResponse}
+                    features={capabilities.features}
+                    contextFeatures={capabilities.context_features}
+                    selectedId={selectedId}
+                    onSelect={setSelectedId}
+                  />
+                  {selectedResult ? (
+                    <DetailPanel
+                      selected={selectedResult}
+                      activeTarget={activeTarget}
+                      features={capabilities.features}
+                    />
+                  ) : (
+                    searchResponse.results.length > 0 && (
+                      <div className="detail-placeholder" role="status">
+                        <h2>{t("app.inspectTitle")}</h2>
+                        <p>{t("app.inspectBody")}</p>
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div
+              role="tabpanel"
+              id="panel-aoi"
+              aria-labelledby="tab-aoi"
+              className="panel-stack"
+              hidden={activePanel !== "aoi"}
+            >
+              <AoiForm capabilities={capabilities} onSubmit={aoi.submit} busy={aoi.busy} />
+              {activePanel === "aoi" && (
+                <AoiWorkspace
+                  capabilities={capabilities}
+                  analysis={aoi}
+                  activeTarget={activeTarget}
+                  onUseAsTarget={handleUseAoiAsTarget}
                 />
               )}
-
-              {!selectedResult &&
-                searchResponse &&
-                !searching &&
-                searchResponse.results.length > 0 && (
-                  <div className="detail-placeholder" role="status">
-                    <h2>{t("app.inspectTitle")}</h2>
-                    <p>{t("app.inspectBody")}</p>
-                  </div>
-                )}
-
-              {!searchResponse && !searching && !searchError && capabilities && (
-                <section className="idle-panel" aria-labelledby="idle-heading">
-                  <h2 id="idle-heading">{t("app.idleHeading")}</h2>
-                  <p>{t("app.idleBody")}</p>
-                  <ul>
-                    <li>{t("app.idleItemDistance")}</li>
-                    <li>{t("app.idleItemSynthetic")}</li>
-                    <li>{t("app.idleItemOnDemand")}</li>
-                    <li>{t("app.idleItemNotCompared")}</li>
-                  </ul>
-                </section>
-              )}
-            </>
-          )}
-
-          {activePanel === "aoi" && capabilities && (
-            <AoiWorkspace
-              capabilities={capabilities}
-              analysis={aoi}
-              activeTarget={activeTarget}
-              onUseAsTarget={handleUseAoiAsTarget}
-            />
-          )}
-
-          {!capabilities && !capabilitiesLoading && !capabilitiesError && (
-            <div className="status-panel" role="status">
-              {t("app.noCapabilities")}
             </div>
-          )}
-        </div>
 
-        {activePanel === "search" && selectedResult && capabilities && (
-          <DetailPanel
-            selected={selectedResult}
-            activeTarget={activeTarget}
-            features={capabilities.features}
-          />
-        )}
+            <details className="about-panel">
+              <summary>{t("app.aboutSummary")}</summary>
+              <section className="coverage-strip" aria-labelledby="coverage-heading">
+                <p className="eyebrow">{t("app.coverageEyebrow")}</p>
+                <h2 id="coverage-heading">
+                  {tp("app.coverageHeading", capabilities.indexed_candidate_count)}
+                </h2>
+                <p className="coverage-origins">
+                  {rich("app.coverageOrigins", {
+                    indexed: (
+                      <strong>
+                        {t("coverage.indexedCount", { count: fmt.number(indexedOriginCount, 0) })}
+                      </strong>
+                    ),
+                    onDemand: (
+                      <strong>
+                        {t("coverage.onDemandCount", {
+                          count: fmt.number(onDemandOriginCount, 0),
+                        })}
+                      </strong>
+                    ),
+                  })}
+                </p>
+                <p>
+                  <SourceText>{capabilities.coverage.description}</SourceText>
+                </p>
+                <p className="coverage-extent">
+                  {capabilities.coverage.geographic_bbox
+                    ? t("app.coverageExtent", {
+                        bbox: fmt.bbox(capabilities.coverage.geographic_bbox),
+                      })
+                    : t("app.coverageExtentMissing")}
+                </p>
+              </section>
+              <section className="idle-panel" aria-labelledby="idle-heading">
+                <h2 id="idle-heading">{t("app.idleHeading")}</h2>
+                <p>{t("app.idleBody")}</p>
+                <ul>
+                  <li>{t("app.idleItemDistance")}</li>
+                  <li>{t("app.idleItemSynthetic")}</li>
+                  <li>{t("app.idleItemOnDemand")}</li>
+                  <li>{t("app.idleItemNotCompared")}</li>
+                </ul>
+              </section>
+              <SourcesAndMethods
+                capabilities={capabilities}
+                datasets={datasets}
+                datasetsError={datasetsError}
+              />
+            </details>
 
-        {capabilities && (
-          <SourcesAndMethods
-            capabilities={capabilities}
-            datasets={datasets}
-            datasetsError={datasetsError}
-          />
+            {capabilities.indexed_candidate_count === 0 && (
+              <p className="alert alert-warning" role="status">
+                {rich("app.noCandidates", { code: <code>no_indexed_data</code> })}
+              </p>
+            )}
+          </>
         )}
       </main>
 
-      <footer className="site-footer">
+      <footer className="site-footer mono">
         <p>
           {t("app.footerVersions", {
             contract: capabilities?.contract_version ?? "—",
@@ -482,6 +473,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
             snapshot: capabilities?.data_snapshot_id ?? "—",
           })}
         </p>
+        <p>{t("app.footerNotCompared")}</p>
         <p>{t("app.footerNote")}</p>
       </footer>
     </div>
