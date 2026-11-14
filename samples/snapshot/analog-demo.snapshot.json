@@ -104,5 +104,5 @@
   "notes": "Pins committed JSON manifests by SHA-256. Raw rasters and caches are not included. Indexed windows are a local subset, not a global survey.",
   "snapshot_id": "snap-d3ed2ba59558e7f8",
   "snapshot_version": "1.0.0",
-  "source_commit": null
+  "source_commit": "be4fc4f96bd351b3ea51a9042a02ec393a092995"
 }

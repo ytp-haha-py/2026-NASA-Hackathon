@@ -13,6 +13,18 @@ policy is:
 
 No further direct pushes to `main`, no force pushes, no auto-merge, and no self-approval.
 
+## Bootstrap record
+
+- Tracking Issue: [#1](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/1).
+- Initial MVP commit: `be4fc4f96bd351b3ea51a9042a02ec393a092995`.
+- Branch: `main` (one-time direct bootstrap push explicitly authorized by a maintainer amendment;
+  `origin/main` was genuinely empty before this work).
+- PR for the bootstrap: none, by that amendment. Every later change requires
+  Issue -> branch -> PR -> review -> CI -> merge.
+- CI/Actions runs are observed after the push and reported in the handoff; this file is not evidence
+  that a run succeeded.
+- No secret, large raster, local database, or cache is included in the bootstrap commit.
+
 ## Verified GitHub state
 
 Checked with `gh` on 2026-11-14 (repo `ytp-haha-py/2026-NASA-Hackathon`):
