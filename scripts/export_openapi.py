@@ -15,7 +15,9 @@ OUT = ROOT / "contracts" / "openapi.json"
 
 
 def main() -> int:
-    with tempfile.TemporaryDirectory() as tmp:
+    # ignore_cleanup_errors: on Windows SQLite may still hold openapi.db when the directory is
+    # removed (WinError 32). The schema is already built by then, so cleanup is best-effort.
+    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
         settings = Settings(
             database_url=f"sqlite+pysqlite:///{Path(tmp) / 'openapi.db'}",
             seed_include_synthetic=True,
@@ -23,7 +25,9 @@ def main() -> int:
         )
         app = create_app(settings)
         schema = app.openapi()
-    OUT.write_text(json.dumps(schema, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    # newline="\n" keeps LF on every platform (write_text would emit CRLF on Windows).
+    with OUT.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps(schema, indent=2, sort_keys=True) + "\n")
     print(f"Wrote {OUT.relative_to(ROOT)} ({len(schema.get('paths', {}))} paths)")
     return 0
 
