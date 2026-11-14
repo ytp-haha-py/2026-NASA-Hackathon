@@ -14,6 +14,13 @@ analytical coverage.
 Built for the NASA Space Apps Challenge 2026 challenge
 [Permanent Moon Base Locations and Mars](https://www.spaceappschallenge.org/2026/challenges/permanent-moon-base-locations-and-mars/).
 
+## Architecture / 系統架構
+
+- [Current architecture diagram (SVG)](docs/diagrams/architecture.en.svg) and [English explanation](docs/ARCHITECTURE.md)
+- [目前系統架構圖（繁體中文 SVG）](docs/diagrams/architecture.zh-TW.svg) and [繁體中文完整架構與流程說明](docs/ARCHITECTURE.zh-TW.md)
+
+These diagrams document the current MVP, including the in-process AOI job runner, offline data pipelines, rebuildable SQLite index, optional R2 snapshot transfer, and GitHub Actions. Planned integrations are labelled separately.
+
 ## Implemented and verified now
 
 | Capability | Status | Evidence |
