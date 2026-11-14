@@ -1,5 +1,5 @@
 {
-  "base_commit": "34ddaeba86d05483c1d404399fe3b51757117a28",
+  "base_commit": "c8342858b6fad6de763f55abde3e2ae476df33df",
   "dimensions": {
     "D01": {
       "actual_observation_counts": {
@@ -74,7 +74,8 @@
       "comparison_status": "context_only",
       "evidence": [
         "committed pipelines/pilots/d05_earth_power release",
-        "typed import and API query test"
+        "typed import and API query test",
+        "merged in PR #59 (c834285)"
       ],
       "implementation_status": "pilot",
       "remaining_blockers": [
@@ -97,7 +98,7 @@
       "scientific_data_status": "none"
     }
   },
-  "generated_at": "2026-11-15T00:00:00+00:00",
+  "generated_at": "2026-11-15T05:10:00+00:00",
   "issues": [
     {
       "comparison_status": "not_comparable",
@@ -106,13 +107,12 @@
       ],
       "evidence": [
         "PR #58 adds API, reference-mode, incompatible-method and null coarse regressions",
-        "local verify and backend acceptance pass on the PR branch"
+        "local verify and backend acceptance pass on the PR branch",
+        "merged in PR #58 (3ea018f)"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "merged",
       "number": 53,
-      "remaining_blockers": [
-        "independent review and merge"
-      ],
+      "remaining_blockers": [],
       "scientific_data_status": "none",
       "title": "Reference mode weight-0 eligibility"
     },
@@ -270,7 +270,8 @@
       ],
       "evidence": [
         "existing additive typed SQLite tables and /api/v1/typed endpoints",
-        "committed D05 release imports as 5 areas, 5 assets and 10 observations"
+        "committed D05 release imports as 5 areas, 5 assets and 10 observations",
+        "merged integration work in PR #59 (c834285)"
       ],
       "implementation_status": "in_progress",
       "number": 47,
@@ -289,7 +290,8 @@
       ],
       "evidence": [
         "existing snapshot tooling",
-        "new checksummed acquisition release manifest for D05 pilot"
+        "new checksummed acquisition release manifest for D05 pilot",
+        "merged integration work in PR #59 (c834285)"
       ],
       "implementation_status": "in_progress",
       "number": 48,
@@ -310,7 +312,8 @@
       ],
       "evidence": [
         "full verify and backend acceptance pass",
-        "D05 pilot is imported and queryable"
+        "D05 pilot is imported and queryable",
+        "merged integration work in PR #59 (c834285)"
       ],
       "implementation_status": "in_progress",
       "number": 49,
@@ -507,7 +510,8 @@
       ],
       "evidence": [
         "fixture report and synthetic benchmark",
-        "new acquisition report/release manifests"
+        "new acquisition report/release manifests",
+        "merged integration work in PR #59 (c834285)"
       ],
       "implementation_status": "in_progress",
       "number": 39,
@@ -535,13 +539,24 @@
       "title": "Curvature and geomorphon validation"
     }
   ],
+  "merged_pull_requests": [
+    {
+      "merge_commit": "3ea018f647b139d43e44c07808c9bd4010fbfd73",
+      "number": 58,
+      "title": "zero-weight eligibility corrections"
+    },
+    {
+      "merge_commit": "c8342858b6fad6de763f55abde3e2ae476df33df",
+      "number": 59,
+      "title": "acquisition framework, truthful contracts and D05 Earth pilot"
+    }
+  ],
   "next_independent_tasks": [
-    "review and merge PR #58 after independent approval",
-    "open one PR for v1-v2 CRS preservation, truthful grid coverage, acquisition framework and D05 pilot",
-    "integrate the geology pilot into typed-v2 without changing its evidence-only semantics",
-    "implement D03 Earth metadata/provider path with explicit authentication blockers",
-    "implement SoilGrids/WebDAV D06 bounded point/window acquisition",
-    "implement SPICE-based Moon/Mars illumination only after frame validation"
+    "integrate the merged D02 geology pilot into typed-v2 as evidence-only records without changing its semantics",
+    "implement D03 Earth provider discovery with explicit Earthdata authentication blockers",
+    "implement bounded D06 Earth SoilGrids/WebDAV acquisition with depth and uncertainty support",
+    "implement Moon/Mars illumination only after SPICE frame and horizon validation",
+    "acquire a real coarse Geomorpho index only under an authorized bounded data plan"
   ],
   "repository": "ytp-haha-py/2026-NASA-Hackathon",
   "status_legend": {
