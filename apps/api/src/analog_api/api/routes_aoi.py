@@ -9,7 +9,7 @@ from analog_api.adapters.repository import SqlAlchemyRepository
 from analog_api.api.routes import get_session
 from analog_api.domain.aoi import job_status_payload, validate_aoi_request
 from analog_api.domain.errors import AppError
-from analog_api.domain.features import METHOD_VERSION
+from analog_api.domain.features import FEATURE_BY_ID, METHOD_VERSION
 from analog_api.domain.search import execute_search, location_payload
 from analog_api.schemas import (
     AoiAnalyzeRequest,
@@ -157,7 +157,8 @@ def compare_area(
         target = {
             feature_id: TargetSpec(value=observation.value, weight=1.0)
             for feature_id, observation in candidate.features.items()
-            if observation.method_version == METHOD_VERSION
+            if feature_id in FEATURE_BY_ID
+            and observation.method_version == FEATURE_BY_ID[feature_id].method_version
         }
         if not target:
             raise AppError(

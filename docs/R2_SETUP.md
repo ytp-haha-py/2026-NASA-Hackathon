@@ -78,3 +78,11 @@ Verify candidate/dataset/reference/context counts and `data_version` match the s
   `make data-publish` and `make data-sync SNAPSHOT_ID=snap-d3ed2ba59558e7f8` both succeeded with no
   process-local override. The downloaded artifact SHA-256 matched the pinned snapshot.
 - No credential values were printed or committed.
+
+## Terrain snapshot transfer update
+
+Current publish uploads the nine terrain/context manifests as well as snapshot,
+index summary and checksum inventory. Fetch verifies and restores manifests and
+their original relative layout; a clean destination can rebuild an index without
+copying manifests from Git. Existing prefixes with different bytes are rejected.
+No raw TIFF, SQLite database, cache or .env is uploaded.

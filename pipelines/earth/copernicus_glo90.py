@@ -712,7 +712,9 @@ def repo_root() -> Path:
 
 
 def default_cache_dir() -> Path:
-    return repo_root() / "data" / "cache" / "copernicus"
+    from analog_pipelines.paths import cache_dir
+
+    return cache_dir("copernicus")
 
 
 def default_manifest_path() -> Path:

@@ -528,6 +528,7 @@ export const zhTWLabels: DisplayLabels = {
     slope_p90_deg: "第 90 百分位坡度",
     terrain_relief_p95_p05_m: "地形起伏（p95-p05）",
     roughness_std_m: "去趨勢粗糙度（標準差）",
+    flat_terrain_fraction: "平坦地形比例（坡度 <5°）",
     landcover_tree_cover_fraction: "土地覆蓋：樹木覆蓋比例",
     landcover_shrubland_fraction: "土地覆蓋：灌木地比例",
     landcover_grassland_fraction: "土地覆蓋：草地比例",

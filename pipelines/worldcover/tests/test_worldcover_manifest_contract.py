@@ -59,7 +59,7 @@ def test_manifest_validates_against_api_model(model: Manifest):
     assert model.manifest_version == "1.0.0"
     assert model.contract_version == "1.0.0"
     assert model.data_kind == "observed"
-    assert len(model.candidates) == 5
+    assert len(model.candidates) >= 100
 
 
 def test_dataset_provenance_is_complete(model: Manifest):

@@ -298,7 +298,7 @@ def _is_not_found(exc: Exception) -> bool:
 def load_local_env(path: str | Path | None = None) -> None:
     """Load a local, gitignored .env for operator commands without overriding real env vars.
 
-    Only used by explicit storage/publish CLI paths; the API does not need this and tests run
+    Used by operator storage/pipeline paths; the API does not need this and tests run
     with an injected environment. Missing python-dotenv or .env is not an error.
     """
     global _DOTENV_LOADED

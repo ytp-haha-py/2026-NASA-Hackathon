@@ -1,3 +1,7 @@
+Current bounded terrain expansion: see [TERRAIN_EXPANSION.md](../../docs/TERRAIN_EXPANSION.md).
+The following original ingestion evidence predates the expansion; current counts and
+sources are in the committed manifests and dataset catalog.
+
 # Earth ingestion — Copernicus DEM GLO-90
 
 Real, observed terrain windows for the Planetary Analog Explorer, read on demand from the

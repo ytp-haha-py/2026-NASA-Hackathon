@@ -120,7 +120,7 @@ def _reference_target(reference: ReferenceEntity) -> tuple[dict[str, float], dic
     weights: dict[str, float] = {}
     for feature in FEATURES:
         observation = reference.features.get(feature.id)
-        if observation and observation.method_version == METHOD_VERSION:
+        if observation and observation.method_version == feature.method_version:
             target[feature.id] = observation.value
             weights[feature.id] = 1.0
     if not target:
@@ -250,7 +250,7 @@ def execute_search(repo: CandidateRepositoryFull, request: SearchRequest) -> dic
             observation = candidate.features.get(feature_id)
             if observation is None:
                 continue
-            if observation.method_version != METHOD_VERSION:
+            if observation.method_version != FEATURE_BY_ID[feature_id].method_version:
                 incompatible = True
                 break
             if not math.isfinite(observation.value):

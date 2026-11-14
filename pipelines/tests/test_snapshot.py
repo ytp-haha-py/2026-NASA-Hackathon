@@ -257,3 +257,29 @@ def test_publish_and_fetch_without_store_fail_clearly(
         == 2
     )
     assert "No object store is configured" in capsys.readouterr().err
+
+
+def test_remote_snapshot_restores_manifests_without_original_checkout(
+    snapshot_path, demo_root, tmp_path
+):
+    store = LocalObjectStore(tmp_path / "store")
+    published = publish_snapshot(store, snapshot_path, root=demo_root)
+    empty_checkout = tmp_path / "empty-checkout"
+    empty_checkout.mkdir()
+    destination = tmp_path / "restore"
+    fetched = fetch_snapshot(
+        store, published["snapshot_id"], destination=destination, root=empty_checkout
+    )
+    assert fetched["manifests_verified_locally"] == 0
+    assert fetched["manifests_downloaded"] == len(_load(snapshot_path)["manifests"])
+    report = verify_snapshot(Path(fetched["snapshot_path"]), root=destination)
+    assert report["snapshot_id"] == published["snapshot_id"]
+
+
+def test_publish_rejects_changed_immutable_object(snapshot_path, demo_root, tmp_path):
+    store = LocalObjectStore(tmp_path / "store")
+    first = publish_snapshot(store, snapshot_path, root=demo_root)
+    key = first["prefix"] + "/snapshot.json"
+    store.put_bytes(key, b'{"tampered":true}')
+    with pytest.raises(SnapshotVerificationError, match="immutable"):
+        publish_snapshot(store, snapshot_path, root=demo_root)

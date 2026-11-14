@@ -25,6 +25,9 @@ var/
 
 # Data caches / large binaries
 data/cache/
+data/raw/
+data/processed/
+data/tmp/
 data/object-store/
 data/snapshots/
 pipelines/**/cache/
