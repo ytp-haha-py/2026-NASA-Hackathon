@@ -521,7 +521,7 @@ describe("flat terrain fraction", () => {
     await user.type(value, "0.5");
     await runSearch();
     await screen.findByTestId("coverage-headline");
-    expect(searchRequestFromCalls(fetchMock).target?.flat_terrain_fraction).toEqual({ value: 0.5, weight: 1 });
+    expect(searchRequestFromCalls(fetchMock)?.target?.flat_terrain_fraction).toEqual({ value: 0.5, weight: 1 });
   });
 });
 
