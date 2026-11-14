@@ -376,7 +376,7 @@ function resultTwo(): SearchResultOut {
 export const searchResponseFixture: SearchResponse = {
   contract_version: "1.0.0",
   method_version: "terrain-metrics-1.0.0",
-  query_version: "search-1.0.0",
+  query_version: "search-1.1.0",
   data_version: "dv-test-1",
   data_snapshot_id: "dss-test-1",
   coverage: coverageFixture,

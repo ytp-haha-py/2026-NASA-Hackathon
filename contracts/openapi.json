@@ -1383,12 +1383,11 @@
         "type": "object"
       },
       "RangeFilterIn": {
+        "description": "Inclusive hard filter. Bounds are checked against the filtered feature's domain.",
         "properties": {
           "max": {
             "anyOf": [
               {
-                "maximum": 1.0,
-                "minimum": 0.0,
                 "type": "number"
               },
               {
@@ -1400,8 +1399,6 @@
           "min": {
             "anyOf": [
               {
-                "maximum": 1.0,
-                "minimum": 0.0,
                 "type": "number"
               },
               {
