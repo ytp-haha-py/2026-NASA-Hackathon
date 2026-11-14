@@ -22,6 +22,8 @@ class Settings(BaseSettings):
     auto_seed: bool = True
     aoi_inline: bool = False
     aoi_workers: int = 2
+    global_index_dir: str = "data/global-index"
+    global_snapshot_id: str | None = None
 
     @property
     def cors_origin_list(self) -> list[str]:

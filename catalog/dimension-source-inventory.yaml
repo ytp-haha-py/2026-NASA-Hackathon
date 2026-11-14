@@ -1,0 +1,514 @@
+inventory_version: "1.0.0"
+description: >-
+  Six-dimension source inventory for Earth, Moon and Mars. This is an audit of
+  candidate and verified sources, not a claim that any unverified source is
+  available, fetched, or scientifically comparable.
+status_legend:
+  availability:
+    verified: A validated manifest and processed observations exist in this repository.
+    accessible: Official access path/license checked, but no validated observation exists yet.
+    identified: Product or provider identified; exact version/access not fully verified.
+    planned: Interface/research plan only.
+    unknown: Not yet determined.
+    not_applicable: The dimension is not scientifically applicable to this body.
+  data_status:
+    existing_observed: Derived observations already exist in committed manifests.
+    not_fetched: No source bytes were fetched for this inventory.
+    unknown: Cannot determine without source verification.
+  comparability:
+    comparable: Validated same-support comparison exists.
+    context_only: Useful Earth context/filter only; not a cross-body score.
+    evidence_only: Evidence/reference display only; no numeric similarity.
+    not_comparable: No defensible common method/support exists.
+    unknown: Comparability not yet established.
+dimensions:
+  - code: D01
+    name: Terrain & Landforms
+    research_question: "地表具有什麼形狀？"
+    subgroups: []
+    research_classes: []
+    baseline: "113 Earth, 18 Moon, 5 Mars observed terrain windows; five 90 m metrics + flat fraction"
+    bodies:
+      Earth:
+        sources:
+          - source_id: copernicus-dem-glo90
+            provider: European Space Agency / Airbus Defence and Space (AWS Open Data mirror)
+            product: COP-DEM_GLO-90-DGED
+            url: https://registry.opendata.aws/copernicus-dem/
+            license: Copernicus DEM GLO-90 free basis, Copernicus Contributing Mission Data Access Licence
+            license_url: https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM
+            native_resolution: 3 arc-second (~90 m), EPSG:4326
+            spatial_support: Bounded 1.98 km windows; global land tiles are available but not exhaustively indexed
+            temporal_support: Copernicus DEM 2021 release; static
+            depth_support: Surface only
+            observation_kinds: [numeric]
+            qa: Native nodata/valid-fraction checks; DSM includes vegetation/buildings
+            availability: verified
+            data_status: existing_observed
+            comparability: comparable
+            notes: "Existing five terrain metrics and flat fraction; 113 indexed windows."
+            unknown_fields: []
+          - source_id: esa-worldcover-2021-v200
+            provider: ESA WorldCover / VITO
+            product: ESA WorldCover 2021 v200
+            url: https://esa-worldcover.org/en/data-access
+            license: CC BY 4.0
+            license_url: https://creativecommons.org/licenses/by/4.0/
+            native_resolution: 10 m, EPSG:4326
+            spatial_support: 3 x 3 degree COG tiles; sampled at indexed Earth windows
+            temporal_support: 2021 annual epoch
+            depth_support: Surface land cover only
+            observation_kinds: [distribution]
+            qa: Valid-pixel denominator; class fractions; 76.7% published overall accuracy
+            availability: verified
+            data_status: existing_observed
+            comparability: context_only
+            notes: "Earth land-cover context/filter only; not mineralogy and not a scored terrain feature."
+            unknown_fields: []
+      Moon:
+        sources:
+          - source_id: nasa-lola-south-pole
+            provider: NASA GSFC PGDA / LRO-LOLA
+            product: LOLA 5 m/pix south-pole surface DEM products (six sites)
+            url: https://pgda.gsfc.nasa.gov/products/78
+            license: NASA-led mission data (CC0-1.0 per NASA Science Data Portal); PGDA citation requested
+            license_url: https://science.data.nasa.gov/about/license
+            native_resolution: 5 m source; 90 m analysis
+            spatial_support: 18 ROI windows; ROI-centred windows may overlap
+            temporal_support: Static topography
+            depth_support: Surface only
+            observation_kinds: [numeric]
+            qa: ~90% of 5 m pixels interpolated; published RMS Z/slope error ranges; no per-window uncertainty
+            availability: verified
+            data_status: existing_observed
+            comparability: comparable
+            notes: "Same terrain method/support as Earth; planetary projected frame, never WGS84."
+            unknown_fields: []
+      Mars:
+        sources:
+          - source_id: usgs-jezero-ctx-dem
+            provider: USGS Astrogeology / NASA Mars 2020
+            product: Mars 2020 Science Investigation CTX DEM Mosaic (Jezero)
+            url: https://astrogeology.usgs.gov/search/map/mars_2020_jezero_crater_dem
+            license: Public domain (US Government work), verify product page
+            license_url: https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits
+            native_resolution: 20 m source; 90 m analysis
+            spatial_support: Five disjoint Jezero windows; not global Mars
+            temporal_support: Static topography
+            depth_support: Surface only
+            observation_kinds: [numeric]
+            qa: CRS radius discrepancy disclosed; vertical error not per-window verified
+            availability: verified
+            data_status: existing_observed
+            comparability: comparable
+            notes: "Only five Jezero CTX windows; no Mars global coverage."
+            unknown_fields: []
+  - code: D02
+    name: Geology & Mineralogy
+    research_question: "地表由什麼岩石與礦物構成？"
+    subgroups: [lithology, mineral_spectral_detection, geological_process]
+    research_classes:
+      - igneous_geology
+      - impact_geology
+      - sedimentary_geology
+      - aqueous_alteration
+    baseline: "No D02 observations in the current index; candidate sources only"
+    bodies:
+      Earth:
+        sources:
+          - source_id: glim-global-lithology
+            provider: University of Bonn / GLiM
+            product: Global Lithological Map (GLiM)
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: vector polygons; map scale varies
+            spatial_support: Global land; exact version/coverage unknown
+            temporal_support: not_verified
+            depth_support: Surface geology
+            observation_kinds: [category, distribution, process_evidence]
+            qa: not_verified
+            availability: identified
+            data_status: not_fetched
+            comparability: unknown
+            notes: "Candidate source only; no download or measured coverage."
+            unknown_fields: [url, license, license_url, version, temporal_support, qa]
+          - source_id: nasa-emit-mineral
+            provider: NASA JPL EMIT
+            product: EMIT mineral identification products
+            url: https://earth.jpl.nasa.gov/emit/data/data-products/
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: Surface mineral spectral evidence
+            observation_kinds: [detection, spectrum, evidence]
+            qa: not_verified
+            availability: identified
+            data_status: not_fetched
+            comparability: evidence_only
+            notes: "Candidate only; detection is not abundance and must retain spectral/QA semantics."
+            unknown_fields: [license, native_resolution, spatial_support, temporal_support, qa]
+      Moon:
+        sources:
+          - source_id: usgs-moon-unified-geologic-map
+            provider: USGS Astrogeology
+            product: Unified Geologic Map of the Moon
+            url: https://astrogeology.usgs.gov/search/map/moon_unified_geologic_map
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: Static map
+            depth_support: Surface geology
+            observation_kinds: [category, distribution, process_evidence]
+            qa: not_verified
+            availability: identified
+            data_status: not_fetched
+            comparability: unknown
+            notes: "Candidate only; preserve map scale/legend; never equate same codes across bodies."
+            unknown_fields: [license, native_resolution, spatial_support, qa]
+          - source_id: nasa-m3
+            provider: NASA / PDS
+            product: Moon Mineralogy Mapper (M3) spectral products
+            url: https://pds-imaging.jpl.nasa.gov/volumes/m3.html
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: Surface spectral evidence
+            observation_kinds: [detection, spectrum, evidence]
+            qa: not_verified
+            availability: identified
+            data_status: not_fetched
+            comparability: evidence_only
+            notes: "Candidate only; no mineral abundance is claimed."
+            unknown_fields: [license, native_resolution, spatial_support, temporal_support, qa]
+      Mars:
+        sources:
+          - source_id: usgs-jezero-geologic-map
+            provider: USGS Astrogeology
+            product: Geologic Map of Jezero Crater and the Nili Planum Region, Mars
+            url: https://astrogeology.usgs.gov/search/map/geologic_map_of_jezero_crater_and_nili_planum_mars
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: Jezero/Nili region only
+            temporal_support: Static map
+            depth_support: Surface geology
+            observation_kinds: [category, distribution, process_evidence]
+            qa: not_verified
+            availability: identified
+            data_status: not_fetched
+            comparability: unknown
+            notes: "Candidate only; do not infer aqueous alteration from iron oxides alone."
+            unknown_fields: [license, native_resolution, qa]
+          - source_id: nasa-crism
+            provider: NASA / PDS
+            product: MRO CRISM spectral products
+            url: https://pds-geosciences.wustl.edu/missions/mro/crism.htm
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: Surface spectral evidence
+            observation_kinds: [detection, spectrum, evidence]
+            qa: not_verified
+            availability: identified
+            data_status: not_fetched
+            comparability: evidence_only
+            notes: "Candidate only; detection/confidence are not abundance."
+            unknown_fields: [license, native_resolution, spatial_support, temporal_support, qa]
+  - code: D03
+    name: Thermal Environment
+    research_question: "地表具有什麼溫度及熱物理環境？"
+    subgroups: [surface_temperature, thermal_inertia]
+    research_classes: []
+    baseline: "No D03 observations; candidate sources only"
+    bodies:
+      Earth:
+        sources:
+          - source_id: nasa-mod11a2
+            provider: NASA LP DAAC
+            product: MOD11A2 Version 6.1 (8-day LST)
+            url: https://ladsweb.modaps.eosdis.nasa.gov/missions-and-measurements/products/MOD11A2/
+            license: not_verified
+            license_url: not_verified
+            native_resolution: ~1 km; 8-day composite
+            spatial_support: not_verified
+            temporal_support: 8-day daytime/nighttime and QA
+            depth_support: Surface skin temperature
+            observation_kinds: [numeric, timeseries]
+            qa: QA layers exist; exact product access not verified
+            availability: identified
+            data_status: not_fetched
+            comparability: unknown
+            notes: "Candidate only; cloud/shadow/local-solar-time semantics must be preserved."
+            unknown_fields: [license, spatial_support, qa]
+      Moon:
+        sources:
+          - source_id: lro-diviner
+            provider: NASA PDS / Diviner
+            product: Diviner lunar surface temperature products
+            url: https://pds-geosciences.wustl.edu/missions/lro/diviner.htm
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: Surface/subsurface thermal
+            observation_kinds: [numeric, timeseries]
+            qa: not_verified
+            availability: identified
+            data_status: not_fetched
+            comparability: unknown
+            notes: "Candidate only; attribution and time/illumination support must be verified."
+            unknown_fields: [license, native_resolution, spatial_support, temporal_support, qa]
+      Mars:
+        sources:
+          - source_id: mars-thermal-product-not-selected
+            provider: not_selected
+            product: not_selected
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: not_verified
+            observation_kinds: [numeric, timeseries]
+            qa: not_verified
+            availability: planned
+            data_status: not_fetched
+            comparability: unknown
+            notes: "No Mars thermal product ID is asserted until an authoritative source is verified."
+            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+  - code: D04
+    name: Water & Ice
+    research_question: "地表／地下有哪些水與冰及觀測證據？"
+    subgroups: [surface_water, subsurface_ice, hydration_evidence]
+    research_classes: []
+    baseline: "No D04 observations; candidate sources only"
+    bodies:
+      Earth:
+        sources:
+          - source_id: earth-water-source-not-selected
+            provider: not_selected
+            product: not_selected
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: not_verified
+            observation_kinds: [detection, numeric, distribution]
+            qa: not_verified
+            availability: planned
+            data_status: not_fetched
+            comparability: unknown
+            notes: "No Earth water product is claimed; WorldCover water is only land-cover context."
+            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+      Moon:
+        sources:
+          - source_id: lunar-water-ice-source-not-selected
+            provider: not_selected
+            product: not_selected
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: not_verified
+            observation_kinds: [detection, spectrum, evidence]
+            qa: not_verified
+            availability: planned
+            data_status: not_fetched
+            comparability: unknown
+            notes: "Hydrogen/water-equivalent evidence is not mineable ice; product not selected."
+            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+      Mars:
+        sources:
+          - source_id: mars-water-ice-source-not-selected
+            provider: not_selected
+            product: not_selected
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: not_verified
+            observation_kinds: [detection, spectrum, evidence]
+            qa: not_verified
+            availability: planned
+            data_status: not_fetched
+            comparability: unknown
+            notes: "No SHARAD/MARSIS product is asserted yet; no subsurface abundance claim."
+            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+  - code: D05
+    name: Solar Illumination & Radiation
+    research_question: "地表受到什麼光照與輻射條件？"
+    subgroups: [solar_illumination, ionizing_radiation]
+    research_classes: []
+    baseline: "No D05 observations; illumination and ionizing radiation are separate"
+    bodies:
+      Earth:
+        sources:
+          - source_id: earth-illumination-model-not-selected
+            provider: not_selected
+            product: not_selected
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: not_applicable
+            observation_kinds: [numeric, timeseries]
+            qa: not_verified
+            availability: planned
+            data_status: not_fetched
+            comparability: unknown
+            notes: "Solar geometry model not selected; dark pixels are not illumination measurements."
+            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+          - source_id: earth-ionizing-radiation-not-selected
+            provider: not_selected
+            product: not_selected
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: not_verified
+            observation_kinds: [numeric, timeseries]
+            qa: not_verified
+            availability: planned
+            data_status: not_fetched
+            comparability: unknown
+            notes: "No absorbed/equivalent dose product is claimed."
+            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+      Moon:
+        sources:
+          - source_id: lunar-illumination-source-not-selected
+            provider: not_selected
+            product: not_selected
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: not_applicable
+            observation_kinds: [numeric, timeseries]
+            qa: not_verified
+            availability: planned
+            data_status: not_fetched
+            comparability: unknown
+            notes: "Illumination product not selected; horizon/observer height and time support required."
+            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+          - source_id: lunar-ionizing-radiation-not-selected
+            provider: not_selected
+            product: not_selected
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: not_verified
+            observation_kinds: [numeric, timeseries]
+            qa: not_verified
+            availability: planned
+            data_status: not_fetched
+            comparability: unknown
+            notes: "Particle spectra/dose definitions must be verified; no Sv conversion."
+            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+      Mars:
+        sources:
+          - source_id: mars-illumination-radiation-not-selected
+            provider: not_selected
+            product: not_selected
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: not_verified
+            observation_kinds: [numeric, timeseries]
+            qa: not_verified
+            availability: planned
+            data_status: not_fetched
+            comparability: unknown
+            notes: "Illumination and radiation remain separate; no product IDs asserted."
+            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+  - code: D06
+    name: Regolith & Surface Properties
+    research_question: "地表材料如何表現？"
+    subgroups: [particle_size, thickness_density_porosity, strength, dust]
+    research_classes: []
+    baseline: "No D06 observations; sparse evidence sources only"
+    bodies:
+      Earth:
+        sources:
+          - source_id: earth-regolith-source-not-selected
+            provider: not_selected
+            product: not_selected
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: not_verified
+            observation_kinds: [distribution, numeric, evidence]
+            qa: not_verified
+            availability: planned
+            data_status: not_fetched
+            comparability: unknown
+            notes: "No soil/regolith product or global raster is claimed."
+            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+      Moon:
+        sources:
+          - source_id: lunar-regolith-source-not-selected
+            provider: not_selected
+            product: not_selected
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: not_verified
+            observation_kinds: [distribution, numeric, evidence]
+            qa: not_verified
+            availability: planned
+            data_status: not_fetched
+            comparability: unknown
+            notes: "Sparse sample/measurement evidence; never derive grain size from DEM roughness."
+            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+      Mars:
+        sources:
+          - source_id: mars-regolith-source-not-selected
+            provider: not_selected
+            product: not_selected
+            url: not_verified
+            license: not_verified
+            license_url: not_verified
+            native_resolution: not_verified
+            spatial_support: not_verified
+            temporal_support: not_verified
+            depth_support: not_verified
+            observation_kinds: [distribution, numeric, evidence]
+            qa: not_verified
+            availability: planned
+            data_status: not_fetched
+            comparability: unknown
+            notes: "No rover/sample measurement ingested; no fabricated global map."
+            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]

@@ -1,0 +1,66 @@
+catalog_version: "1.0.0"
+product:
+  name: Geomorpho90m
+  resolution: 7.5 arc-second (~250 m)
+  doi: 10.1594/PANGAEA.899135
+  open_topography_doi: 10.5069/G91R6NPX
+  documentation:
+    - https://portal.opentopography.org/dataspace/dataset?opentopoID=OTDS.012020.4326.1
+    - https://www.nature.com/articles/s41597-020-0479-6
+    - https://www.spatial-ecology.net/docs/build/html/GEODATA/geomorpho90m/geomorpho90m.html
+  license: CC BY 4.0
+  license_url: https://creativecommons.org/licenses/by/4.0/
+  native_crs: EPSG:4326
+  native_resolution_arcsec: 7.5
+  native_resolution_m_approx: 250
+  coverage: "Global land approximately 60°S to 85°N; Antarctica excluded"
+  temporal_support: static MERIT-DEM derivatives (v1.0, 2018)
+  data_type: Int16 or UInt16 with scale factor in GeoTIFF metadata
+  verified:
+    documentation: true
+    raster_bytes_fetched: false
+    exact_remote_object_checksum: false
+  licence_attribution: >-
+    Geomorpho90m, Amatulli et al.; derived from MERIT-DEM; distributed under CC BY 4.0.
+  source_note: >-
+    This catalog records documentation-level facts only. No Geomorpho90m raster was
+    downloaded. Exact object URLs, ETags, pixel scale/offset and block layout must be
+    verified from the chosen archive before any future ingestion.
+layers:
+  - layer_id: dtm_slope_merit
+    filename_candidate: dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif
+    variable: slope
+    expected_unit: degree
+    use: "Primary coarse slope source; confirm unit/scale before use"
+    status: identified_not_fetched
+  - layer_id: dtm_tri_merit
+    filename_candidate: dtm_tri_merit.dem_m_250m_s0..0cm_2018_v1.0.tif
+    variable: terrain_ruggedness_index
+    expected_unit: unknown
+    use: "Candidate only; native definition must be verified before aggregation"
+    status: identified_not_fetched
+  - layer_id: dtm_geom_merit
+    filename_candidate: dtm_geom_merit.dem_m_250m_s0..0cm_2018_v1.0.tif
+    variable: geomorphons
+    expected_unit: categorical
+    use: "Candidate only; 10-class semantics/buffer validation required before production"
+    status: identified_not_fetched
+pilot_regions:
+  - region_id: sahara-tanezrouft
+    bbox: {west: -2.0, south: 22.0, east: 2.0, north: 26.0}
+  - region_id: alps
+    bbox: {west: 8.0, south: 45.0, east: 12.0, north: 48.0}
+  - region_id: grand-canyon
+    bbox: {west: -113.0, south: 35.0, east: -111.0, north: 37.0}
+go_no_go:
+  go:
+    - Documentation-level inventory and deterministic offline reader/grid/feature code
+    - Bounded pilot after the maintainer authorizes a local staged file
+  no_go:
+    - Treating 250 m coarse slope/relief as the existing 90 m terrain metrics
+    - Claiming global coverage: product excludes Antarctica and is a MERIT-DEM derivative
+    - Assuming every Geomorpho archive supports free remote range reads
+estimated_budget:
+  slope_file_size_range: "100 MB to 6 GB per 250 m global layer (documented range)"
+  pilot_download: "not executed; defer until explicit authorization"
+  storage_warning: "Do not fetch without checking disk and license; no CI download."

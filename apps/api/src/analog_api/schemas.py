@@ -408,3 +408,100 @@ class DimensionsOut(BaseModel):
     method_version: str
     dimensions: list[DimensionOut]
     context_features: list[ContextFeatureOut]
+
+
+class CoarseTargetSpec(BaseModel):
+    value: float = Field(..., allow_inf_nan=False)
+    weight: float = Field(default=1.0, ge=0, allow_inf_nan=False)
+
+
+class GlobalCoverageOut(BaseModel):
+    status: Literal["ready", "no_index"]
+    snapshot_id: str | None
+    label: str
+    row_count: int
+    regions: list[str]
+    bbox: dict[str, float] | None
+    method_version: str | None
+    features: list[dict[str, Any]]
+    note: str
+
+
+class GlobalSearchRequest(BaseModel):
+    model_config = {"extra": "forbid"}
+    target: dict[str, CoarseTargetSpec]
+    weights: dict[str, float] = Field(default_factory=dict)
+    region_id: str | None = None
+    limit: int = Field(default=10, ge=1, le=10)
+
+    @field_validator("target")
+    @classmethod
+    def nonempty(cls, target: dict[str, CoarseTargetSpec]) -> dict[str, CoarseTargetSpec]:
+        if not target:
+            raise ValueError("at least one coarse target feature is required")
+        return target
+
+    @model_validator(mode="after")
+    def positive_weight(self) -> GlobalSearchRequest:
+        weights = {
+            feature_id: self.weights.get(feature_id, spec.weight)
+            for feature_id, spec in self.target.items()
+        }
+        if not any(weight > 0 for weight in weights.values()):
+            raise ValueError("at least one coarse target weight must be positive")
+        return self
+
+
+class GlobalSearchResultOut(BaseModel):
+    rank: int
+    candidate_id: str
+    grid_id: str
+    region_id: str
+    body: str
+    bbox: dict[str, float]
+    crs: str
+    area_km2: float
+    window_size_m: float
+    stride_m: float
+    source_resolution_m: float
+    slope_mean_deg: float | None
+    slope_p90_deg: float | None
+    flat_fraction: float | None
+    valid_fraction: float
+    method_version: str
+    distance: float
+    qa_flags: list[str]
+
+
+class GlobalSearchResponse(BaseModel):
+    snapshot_id: str
+    method_version: str
+    index_version: str
+    coverage_label: str
+    indexed_candidate_count: int
+    eligible_candidate_count: int
+    excluded_candidate_count: int
+    results: list[GlobalSearchResultOut]
+    note: str
+
+
+class RefinePlanRequest(BaseModel):
+    model_config = {"extra": "forbid"}
+    candidate_id: str
+    per_side: int = Field(default=2, ge=1, le=4)
+
+
+class RefineWindowOut(BaseModel):
+    fine_window_id: str
+    parent_candidate_id: str
+    bbox_wgs84: dict[str, float]
+    window_size_m: int
+    method_version: str
+
+
+class RefinePlanOut(BaseModel):
+    candidate_id: str
+    parent_method_version: str
+    fine_method_version: str
+    windows: list[RefineWindowOut]
+    note: str

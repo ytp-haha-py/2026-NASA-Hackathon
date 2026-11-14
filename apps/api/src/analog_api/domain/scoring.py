@@ -149,9 +149,12 @@ def rank_candidates(
         missing = [
             feature_id
             for feature_id in clean_target
-            if feature_id not in candidate.values
-            or candidate.values[feature_id] is None
-            or not math.isfinite(float(candidate.values[feature_id]))
+            if clean_weights[feature_id] > 0
+            and (
+                feature_id not in candidate.values
+                or candidate.values[feature_id] is None
+                or not math.isfinite(float(candidate.values[feature_id]))
+            )
         ]
         if missing:
             reasons = ",".join(f"missing_metric:{feature_id}" for feature_id in missing)
@@ -161,6 +164,13 @@ def rank_candidates(
         comparisons: list[MetricComparison] = []
         total_squared = 0.0
         for feature_id, target_value in clean_target.items():
+            if (
+                feature_id not in candidate.values
+                or candidate.values[feature_id] is None
+                or not math.isfinite(float(candidate.values[feature_id]))
+            ):
+                # Only zero-weight dimensions may be absent from a result's breakdown.
+                continue
             definition: FeatureDefinition = FEATURE_BY_ID[feature_id]
             candidate_value = float(candidate.values[feature_id])
             delta = candidate_value - target_value

@@ -14,6 +14,8 @@ Short operating guide for coding agents working in this repository.
 - Land-cover context is context-only: `CONTEXT_FEATURES` in the registry; never add it to `scoring.py`.
 - Snapshot/index rebuild: `pipelines/src/analog_pipelines/snapshot.py`, `pipelines/build_index.py`.
 - Data promotion, trusted publish, and rollback: `docs/DATA_GOVERNANCE.md`; offline gate `bash scripts/validate_data.sh`.
+- Six-dimension inventory/ontology/v2 contracts: `catalog/dimension-source-inventory.yaml`, `contracts/ontology-v1.json`, `contracts/v2/`, `apps/api/src/analog_api/adapters/typed_db.py`.
+- Coarse/global offline pipeline: `pipelines/src/analog_pipelines/{geomorpho,coarse_grid,coarse_features,batch_runner,coarse_index,coarse_reference}.py`; no downloads in tests.
 
 Never invent scientific data, never turn synthetic fixtures into "observed" records, and never
 present subset-based results as a global or exhaustive survey. If a data source is unavailable,
@@ -39,6 +41,7 @@ make data-demo             # offline demo index from the pinned snapshot
 make data-validate         # snapshot/manifest checksums
 make data-rebuild-index    # verify snapshot + rebuild ./var/analog.db
 make data-analyze-aoi WEST=-6.617 SOUTH=37.682 EAST=-6.600 NORTH=37.699
+bash scripts/backend_acceptance.sh  # offline six-dimension/global backend acceptance
 ```
 
 Focused checks: `uv run pytest apps/api/tests/test_scoring.py -q`,

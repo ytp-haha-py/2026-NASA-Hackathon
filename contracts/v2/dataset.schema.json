@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "body": {
+      "enum": [
+        "Earth",
+        "Moon",
+        "Mars"
+      ],
+      "title": "Body",
+      "type": "string"
+    },
+    "dataset_id": {
+      "title": "Dataset Id",
+      "type": "string"
+    },
+    "depth_support": {
+      "default": "unknown",
+      "title": "Depth Support",
+      "type": "string"
+    },
+    "license": {
+      "default": "unknown",
+      "title": "License",
+      "type": "string"
+    },
+    "license_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "License Url"
+    },
+    "native_crs": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Native Crs"
+    },
+    "native_resolution_m": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Native Resolution M"
+    },
+    "product_id": {
+      "title": "Product Id",
+      "type": "string"
+    },
+    "provider": {
+      "title": "Provider",
+      "type": "string"
+    },
+    "redistribution_allowed": {
+      "default": "unknown",
+      "enum": [
+        "yes",
+        "no",
+        "unknown"
+      ],
+      "title": "Redistribution Allowed",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "2.0.0",
+      "default": "2.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "temporal_support": {
+      "default": "unknown",
+      "title": "Temporal Support",
+      "type": "string"
+    },
+    "url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Url"
+    },
+    "verification_status": {
+      "default": "unknown",
+      "enum": [
+        "verified",
+        "accessible",
+        "identified",
+        "planned",
+        "unknown"
+      ],
+      "title": "Verification Status",
+      "type": "string"
+    },
+    "version": {
+      "default": "unknown",
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dataset_id",
+    "body",
+    "provider",
+    "product_id"
+  ],
+  "title": "DatasetV2",
+  "type": "object"
+}

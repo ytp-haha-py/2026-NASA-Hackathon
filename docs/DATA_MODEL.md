@@ -50,6 +50,13 @@ One row per candidate/feature. Unique `(candidate_id, feature_id)`. Columns: `va
 `method_version`, `extraction_scale_m`, `valid_fraction`, `quality`
 (`verified`, `synthetic`, `suspect`).
 
+### typed v2 tables
+
+`typed_areas`, `typed_source_assets`, `typed_observations`, `typed_processing_runs` are
+additive. `TypedObservation` keeps `dataset_ids` and `source_asset_ids` distinct; the
+v1 adapter creates explicit source-asset IDs and preserves the actual window/resolution/
+bbox while leaving unavailable temporal, depth and uncertainty fields as `unknown`.
+
 ### `context_observations`
 
 Earth land-cover context (ESA WorldCover), one row per candidate/feature, unique
@@ -99,6 +106,11 @@ uv run python -m analog_api.cli status
 
 Manifests are validated by Pydantic (`domain/manifest.py`) before persistence. The seed recomputes
 `data_version` and is idempotent when `--keep-existing` is used.
+
+`seed_manifests(reset=True)` now clears only the derived scientific index. It preserves
+on-demand AOIs, their feature/context observations, `analysis_jobs`, typed v2 tables, and
+datasets still referenced by those rows. It never calls `drop_all` on the runtime schema.
+Regression coverage: `pipelines/tests/test_sqlite_safety.py`.
 
 MVP schema creation is `Base.metadata.create_all`. Before evolving columns in a persistent
 deployment, add Alembic:
