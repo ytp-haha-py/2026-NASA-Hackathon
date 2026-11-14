@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { FeatureOut, NumericTarget, SearchResponse, SearchResultOut } from "../api/client";
 import { useI18n } from "../i18n/I18nProvider";
 import { RankingOverlay } from "./RankingOverlay";
 
-type Basemap = "map" | "terrain";
+type Basemap = "map" | "terrain" | "satellite";
+
+const BASEMAP_ORDER: Basemap[] = ["map", "terrain", "satellite"];
 
 type MapPanelProps = {
   results: SearchResultOut[];
@@ -26,16 +28,36 @@ const BASEMAPS: Record<Basemap, { url: string; maxZoom: number; attribution: str
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
+  // OpenTopoMap was dropped: it serves a "generic referrer" notice tile instead of terrain to
+  // localhost and other generic referrers at zoom >= ~10 (#55). Esri tiles need no key.
   terrain: {
-    url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
-    maxZoom: 17,
+    url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+    maxZoom: 18,
     attribution:
-      'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM | Map style &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)',
+      'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, USGS, NGA, EPA, USDA, NPS, and the GIS user community',
+  },
+  satellite: {
+    url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    maxZoom: 18,
+    attribution:
+      'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS user community',
   },
 };
 
 /** Room for the floating ranking panel on the left, so fitted pins are not hidden under it. */
 const OVERLAY_PADDING: L.PointExpression = [340, 24];
+
+/** A selected 1,980 m window fills a useful part of the map at this zoom without over-zooming. */
+const SELECTED_MAX_ZOOM = 13;
+
+function windowBounds(results: SearchResultOut[]): L.LatLngBounds {
+  const bounds = L.latLngBounds([]);
+  for (const result of results) {
+    bounds.extend([result.bbox.south, result.bbox.west]);
+    bounds.extend([result.bbox.north, result.bbox.east]);
+  }
+  return bounds;
+}
 
 const COLORS = {
   earth: "#1d4ed8",
@@ -136,7 +158,20 @@ export function MapPanel({
     tilesRef.current = tiles;
   }, [basemap]);
 
-  // Fit the view only when the result set changes, not on every selection.
+  const fitPadding = useCallback((): Pick<L.FitBoundsOptions, "paddingTopLeft" | "paddingBottomRight"> => {
+    const wide = (containerRef.current?.clientWidth ?? 0) > 720;
+    return { paddingTopLeft: wide ? OVERLAY_PADDING : [24, 24], paddingBottomRight: [24, 24] };
+  }, []);
+
+  const showAll = useCallback(() => {
+    const map = mapRef.current;
+    if (!map || results.length === 0) {
+      return;
+    }
+    map.fitBounds(windowBounds(results), { ...fitPadding(), maxZoom: 9 });
+  }, [results, fitPadding]);
+
+  // Fit the view when the result set changes.
   useEffect(() => {
     const map = mapRef.current;
     if (!map) {
@@ -146,18 +181,26 @@ export function MapPanel({
       map.setView([20, 0], 2);
       return;
     }
-    const bounds = L.latLngBounds([]);
-    for (const result of results) {
-      bounds.extend([result.bbox.south, result.bbox.west]);
-      bounds.extend([result.bbox.north, result.bbox.east]);
-    }
-    const wide = (containerRef.current?.clientWidth ?? 0) > 720;
-    map.fitBounds(bounds, {
-      paddingTopLeft: wide ? OVERLAY_PADDING : [24, 24],
-      paddingBottomRight: [24, 24],
-      maxZoom: 9,
-    });
+    showAll();
+    // Only a new result set re-fits; selection is handled below.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results]);
+
+  // Zoom to a window when the user selects it (results never auto-select, so the overview stays).
+  useEffect(() => {
+    const map = mapRef.current;
+    const selected = results.find((result) => result.location_id === selectedId);
+    if (!map || !selected) {
+      return;
+    }
+    map.flyToBounds(windowBounds([selected]), {
+      ...fitPadding(),
+      maxZoom: SELECTED_MAX_ZOOM,
+      duration: 0.6,
+    });
+    // Re-run on selection only; a new result set clears the selection in App.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedId]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -180,7 +223,7 @@ export function MapPanel({
           color,
           weight: selected ? 2.5 : 1,
           fillColor: color,
-          fillOpacity: selected ? 0.18 : 0.06,
+          fillOpacity: selected ? 0.08 : 0.06,
         },
       );
       rectangle.on("click", () => onSelectRef.current(result.location_id));
@@ -240,7 +283,7 @@ export function MapPanel({
         />
 
         <div className="map-toggle" role="group" aria-label={t("map.basemapLabel")}>
-          {(["map", "terrain"] as const).map((value) => (
+          {BASEMAP_ORDER.map((value) => (
             <button
               key={value}
               type="button"
@@ -248,10 +291,20 @@ export function MapPanel({
               className={basemap === value ? "is-active" : ""}
               onClick={() => setBasemap(value)}
             >
-              {value === "map" ? t("map.basemapMap") : t("map.basemapTerrain")}
+              {value === "map"
+                ? t("map.basemapMap")
+                : value === "terrain"
+                  ? t("map.basemapTerrain")
+                  : t("map.basemapSatellite")}
             </button>
           ))}
         </div>
+
+        {results.length > 0 && (
+          <button type="button" className="map-show-all" onClick={showAll}>
+            {t("map.showAll")}
+          </button>
+        )}
 
         {response && (
           <RankingOverlay

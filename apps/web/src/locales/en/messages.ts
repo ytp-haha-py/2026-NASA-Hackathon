@@ -246,7 +246,7 @@ export const en = {
     "{count} returned windows plotted. Click a pin or window rectangle to select it. Zoom in to see the 1,980 m window rectangles at this scale.",
   "map.tooltip": "#{rank} {name} · distance {distance}",
   "map.attribution":
-    "Basemap © OpenStreetMap contributors (ODbL); terrain style © OpenTopoMap (CC-BY-SA), SRTM elevation.",
+    "Basemap © OpenStreetMap contributors (ODbL); terrain and satellite tiles © Esri and partners. Imagery is for orientation only, not scientific evidence.",
 
   // Detail panel
   "detail.step": "Step 3",
@@ -551,6 +551,8 @@ export const en = {
   "map.basemapLabel": "Basemap",
   "map.basemapMap": "Map",
   "map.basemapTerrain": "Terrain",
+  "map.basemapSatellite": "Satellite",
+  "map.showAll": "Show all results",
   "overlay.idle": "Set at least one weight above 0, then search to rank Earth windows.",
   "search.dimensionCount": "{active}/{total} compared",
   "search.dimensionNone": "none selected",
