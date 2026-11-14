@@ -1,5 +1,8 @@
 # Planetary Analog Explorer
 
+[**English**](README.md) | [**繁體中文 README**](README.zh-TW.md)
+
+
 **Which Earth terrain windows are the closest numerical analogs to a target terrain shape?**
 Planetary Analog Explorer searches terrestrial analogs of Moon/Mars surface conditions using
 reproducible, provenance-tracked data. Users enter a terrain target vector or a verified lunar
@@ -13,6 +16,30 @@ analytical coverage.
 
 Built for the NASA Space Apps Challenge 2026 challenge
 [Permanent Moon Base Locations and Mars](https://www.spaceappschallenge.org/2026/challenges/permanent-moon-base-locations-and-mars/).
+
+## Architecture at a glance
+
+```text
+Browser (React + Leaflet)
+       |
+       v
+FastAPI /api/v1 ------> SQLite (rebuildable search index + AOI jobs)
+       |                              ^
+       +-- Search / ranking ---------+
+       |
+       +-- On-demand Earth AOI ------+-- in-process job pool
+                                         |-- Copernicus DEM
+                                         +-- ESA WorldCover
+
+Offline ingestion: NASA LOLA / Copernicus / WorldCover
+   -> QC + extracted features -> manifests -> pinned snapshot
+   -> verified SQLite rebuild; optional R2/S3 snapshot transfer
+```
+
+This is the implemented MVP, not a distributed-worker or global-search design.
+[詳細繁體中文 README（含搜尋與資料流程的 ASCII 架構圖）](README.zh-TW.md) ·
+[Traditional Chinese architecture](docs/ARCHITECTURE.zh-TW.md) ·
+[Architecture SVG](docs/diagrams/architecture.en.svg).
 
 ## Architecture / 系統架構
 
