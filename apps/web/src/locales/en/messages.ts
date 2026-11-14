@@ -536,6 +536,35 @@ export const en = {
   "aoi.comparingStatus": "Comparing the AOI against searchable Earth regions…",
   "aoi.compareFailed": "AOI comparison failed.",
   "aoi.compareCode": "(code {code})",
+  // Mission-control layout (header badge, dimension board, ranking overlay)
+  "app.badgeLabel": "Searchable data",
+  "app.badgeEarth": "EARTH {count}",
+  "app.badgeAoi": "AOI {count}",
+  "app.badgeMoon": "MOON {count}",
+  "app.badgeMarsNone": "MARS —",
+  "search.dimensionCount": "{active}/{total} compared",
+  "search.dimensionNone": "none selected",
+  "search.weightSlider": "{label} weight slider",
+  "search.metricMore": "About this metric",
+  "search.referenceWeightHint":
+    "Target values come from the reference record. Set a weight above 0 for each metric you want compared.",
+  "search.errNoWeight":
+    "Set at least one weight above 0. Metrics with weight 0 are not compared.",
+  "overlay.regionLabel": "Ranked candidates",
+  "overlay.heading": "Top {count}",
+  "overlay.total": "of {total} candidates · lower distance = closer",
+  "overlay.expand": "Show values",
+  "overlay.collapse": "Collapse",
+  "overlay.selectLabel": "Show rank {rank} on the map: {name}",
+  "overlay.empty": "No eligible candidates to rank.",
+  "overlay.target": "Target",
+  "overlay.colRank": "#",
+  "overlay.colName": "Place",
+  "overlay.colLat": "Latitude",
+  "overlay.colDistance": "Distance",
+  "overlay.groupToggle": "Show or hide {dimension} columns",
+  "overlay.tableCaption": "Target and ranked candidate values by dimension",
+  "overlay.notCompared": "weight 0 · not compared",
 } as const;
 
 export type MessageKey = keyof typeof en;
@@ -563,7 +592,10 @@ export const enLabels: DisplayLabels = {
   body: {},
   status: {},
   quality: {},
-  dimension: {},
+  dimension: {
+    terrain_shape: "Terrain shape",
+    land_cover_context: "Land-cover context",
+  },
   errorCode: {},
   unitName: {},
   unitSymbol: { degree: "deg", meter: "m" },

@@ -487,6 +487,19 @@ describe("context filters and Moon reference mode", () => {
       }),
     ).toBeInTheDocument();
 
+    // Reference mode starts with every weight at 0, so nothing is compared yet.
+    await runSearch();
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Set at least one weight above 0. Metrics with weight 0 are not compared.",
+    );
+    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/search"))).toBe(false);
+
+    const slopeGroup = screen.getByRole("group", { name: "Mean slope" });
+    const slopeWeight = within(slopeGroup).getByLabelText("Weight (≥ 0)");
+    expect(slopeWeight).toHaveValue(0);
+    await user.clear(slopeWeight);
+    await user.type(slopeWeight, "1");
+
     await runSearch();
 
     await screen.findByTestId("coverage-headline");
@@ -495,10 +508,15 @@ describe("context filters and Moon reference mode", () => {
       body: "Moon",
       reference_id: "moon-shackleton-rim-site04-roi2",
       target: {},
+      weights: {
+        slope_mean_deg: 1,
+        slope_p90_deg: 0,
+        terrain_relief_p95_p05_m: 0,
+        roughness_std_m: 0,
+      },
       filters: {},
       limit: 10,
     });
-    expect(body).not.toHaveProperty("weights");
   });
 });
 
@@ -542,12 +560,21 @@ describe("Mars reference mode", () => {
     const mars = screen.getByRole("option", { name: /Mars reference/ });
     expect((mars as HTMLOptionElement).disabled).toBe(false);
     await user.selectOptions(screen.getByLabelText("Body preset"), "Mars");
+
+    // Reference mode starts with every weight at 0; opt one metric in before searching.
+    const slopeWeight = within(screen.getByRole("group", { name: "Mean slope" })).getByLabelText(
+      "Weight (≥ 0)",
+    );
+    await user.clear(slopeWeight);
+    await user.type(slopeWeight, "1");
+
     await runSearch();
     await screen.findByTestId("coverage-headline");
     expect(searchRequestFromCalls(fetchMock)).toMatchObject({
       body: "Mars",
       reference_id: "mars-jezero-ctx-window-01",
       target: {},
+      weights: { slope_mean_deg: 1 },
     });
   });
 });

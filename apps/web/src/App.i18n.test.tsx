@@ -230,11 +230,18 @@ describe("Traditional Chinese workflows", () => {
     expect(screen.getByText(/約有 90% 為內插值/)).toBeInTheDocument();
     expect(screen.getByText(/不是地球 WGS84/)).toBeInTheDocument();
 
+    const slopeWeight = within(screen.getByRole("group", { name: "平均坡度" })).getByLabelText(
+      "權重（≥ 0）",
+    );
+    await user.clear(slopeWeight);
+    await user.type(slopeWeight, "1");
+
     await user.click(screen.getByRole("button", { name: "搜尋已索引的地球候選區域" }));
     await screen.findByTestId("coverage-headline");
     expect(searchRequestFromCalls(fetchMock)).toMatchObject({
       body: "Moon",
       reference_id: "moon-shackleton-rim-site04-roi2",
+      weights: { slope_mean_deg: 1 },
     });
   });
 

@@ -188,6 +188,8 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const indexedOriginCount = coverageOrigins?.indexed ?? 0;
   const onDemandOriginCount = coverageOrigins?.on_demand ?? 0;
   const searchErrorMeaning = label.errorCode(searchError?.code);
+  const moonReferenceCount = references.filter((reference) => reference.body === "Moon").length;
+  const marsReferenceCount = references.filter((reference) => reference.body === "Mars").length;
 
   return (
     <div className="app">
@@ -197,12 +199,33 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
 
       <header className="site-header">
         <div className="header-inner">
-          <div className="header-top">
-            <p className="eyebrow">{t("app.eyebrow")}</p>
+          <h1>
+            <span className="brand-mark" aria-hidden="true">
+              PAE
+            </span>{" "}
+            {t("app.title")}
+          </h1>
+          <div className="header-tools">
+            {capabilities && (
+              <p className="coverage-badge" aria-label={t("app.badgeLabel")}>
+                <span>
+                  {t("app.badgeEarth", { count: fmt.number(indexedOriginCount, 0) })}
+                </span>
+                <span>
+                  {t("app.badgeAoi", { count: fmt.number(onDemandOriginCount, 0) })}
+                </span>
+                <span>
+                  {t("app.badgeMoon", { count: fmt.number(moonReferenceCount, 0) })}
+                </span>
+                {marsReferenceCount === 0 ? (
+                  <span className="is-unavailable">{t("app.badgeMarsNone")}</span>
+                ) : (
+                  <span>MARS {fmt.number(marsReferenceCount, 0)}</span>
+                )}
+              </p>
+            )}
             <LanguageSwitcher />
           </div>
-          <h1>{t("app.title")}</h1>
-          <p className="header-summary">{t("app.summary")}</p>
         </div>
       </header>
 
@@ -371,19 +394,22 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 </div>
               )}
 
+              {searchResponse && (
+                <MapPanel
+                  results={searchResponse.results}
+                  selectedId={selectedId}
+                  onSelect={setSelectedId}
+                  response={searching ? undefined : searchResponse}
+                  features={capabilities?.features ?? []}
+                  target={activeTarget}
+                />
+              )}
+
               {searchResponse && !searching && (
                 <ResultsPanel
                   response={searchResponse}
                   features={capabilities?.features ?? []}
                   contextFeatures={capabilities?.context_features ?? []}
-                  selectedId={selectedId}
-                  onSelect={setSelectedId}
-                />
-              )}
-
-              {searchResponse && (
-                <MapPanel
-                  results={searchResponse.results}
                   selectedId={selectedId}
                   onSelect={setSelectedId}
                 />
