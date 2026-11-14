@@ -1,0 +1,467 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/planetary-analog/pipeline-manifest.schema.json",
+  "title": "Planetary Analog pipeline handoff manifest",
+  "type": "object",
+  "required": [
+    "manifest_version",
+    "contract_version",
+    "generated_by",
+    "data_kind",
+    "datasets",
+    "candidates"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "manifest_version": {
+      "const": "1.0.0"
+    },
+    "contract_version": {
+      "const": "1.0.0"
+    },
+    "generated_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated_at": {
+      "type": "string",
+      "description": "ISO-8601 timestamp"
+    },
+    "data_kind": {
+      "enum": [
+        "observed",
+        "synthetic"
+      ]
+    },
+    "datasets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dataset"
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/candidate"
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reference"
+      }
+    }
+  },
+  "$defs": {
+    "dataset": {
+      "type": "object",
+      "required": [
+        "dataset_id",
+        "provider",
+        "product_id",
+        "url",
+        "license",
+        "license_url",
+        "access_timestamp",
+        "processing_version",
+        "source_kind"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "dataset_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        },
+        "license_url": {
+          "type": "string"
+        },
+        "access_timestamp": {
+          "type": "string"
+        },
+        "source_crs": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "native_resolution_m": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "processing_version": {
+          "type": "string"
+        },
+        "checksum": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_kind": {
+          "enum": [
+            "earth_dem",
+            "lunar_dem",
+            "martian_dem",
+            "landcover",
+            "synthetic"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "bbox": {
+      "type": "object",
+      "required": [
+        "west",
+        "south",
+        "east",
+        "north"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "west": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "south": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "east": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "north": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "required": [
+        "value",
+        "unit",
+        "method_version",
+        "extraction_scale_m",
+        "valid_fraction",
+        "quality"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "method_version": {
+          "type": "string"
+        },
+        "extraction_scale_m": {
+          "type": "number"
+        },
+        "valid_fraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "quality": {
+          "enum": [
+            "verified",
+            "synthetic",
+            "suspect"
+          ]
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "required": [
+        "location_id",
+        "display_name",
+        "lat",
+        "lon",
+        "bbox",
+        "dataset_id",
+        "window_size_m",
+        "analysis_resolution_m",
+        "crs",
+        "valid_fraction",
+        "features"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "location_id": {
+          "type": "string",
+          "pattern": "^earth-[a-z0-9-]+$"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "lon": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "bbox": {
+          "$ref": "#/$defs/bbox"
+        },
+        "dataset_id": {
+          "type": "string"
+        },
+        "window_size_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "analysis_resolution_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "crs": {
+          "type": "string"
+        },
+        "valid_fraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "quality_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        },
+        "features": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/observation"
+          }
+        },
+        "area_km2": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "geometry": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "origin": {
+          "enum": [
+            "indexed",
+            "on_demand"
+          ],
+          "default": "indexed"
+        },
+        "context_observations": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/context_observation"
+          }
+        }
+      }
+    },
+    "reference": {
+      "type": "object",
+      "required": [
+        "reference_id",
+        "body",
+        "display_name",
+        "dataset_id",
+        "window_size_m",
+        "analysis_resolution_m",
+        "crs",
+        "valid_fraction",
+        "features"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "reference_id": {
+          "type": "string"
+        },
+        "body": {
+          "enum": [
+            "Moon",
+            "Mars"
+          ]
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "dataset_id": {
+          "type": "string"
+        },
+        "lat": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "lon": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "bbox": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/bbox"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "window_size_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "analysis_resolution_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "crs": {
+          "type": "string"
+        },
+        "valid_fraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "quality_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        },
+        "features": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/observation"
+          }
+        },
+        "area_km2": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "geometry": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "origin": {
+          "enum": [
+            "indexed",
+            "on_demand"
+          ],
+          "default": "indexed"
+        },
+        "context_observations": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/context_observation"
+          }
+        }
+      }
+    },
+    "context_observation": {
+      "type": "object",
+      "required": [
+        "value",
+        "unit",
+        "method_version",
+        "source_resolution_m",
+        "valid_fraction",
+        "quality",
+        "class_code",
+        "provider"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "unit": {
+          "const": "fraction"
+        },
+        "method_version": {
+          "type": "string"
+        },
+        "source_resolution_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "valid_fraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "quality": {
+          "enum": [
+            "verified",
+            "synthetic",
+            "suspect"
+          ]
+        },
+        "class_code": {
+          "type": "integer"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "dataset_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

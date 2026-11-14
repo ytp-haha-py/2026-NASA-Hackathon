@@ -1,0 +1,186 @@
+from __future__ import annotations
+
+import logging
+import uuid
+from concurrent.futures import ThreadPoolExecutor
+from datetime import UTC, datetime
+from typing import Any
+
+from sqlalchemy import select, update
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session, sessionmaker
+
+from analog_api.adapters.aoi_store import persist_aoi_result
+from analog_api.adapters.db import AnalysisJob
+from analog_api.domain.aoi import AoiProcessor, ValidatedAoi
+from analog_api.domain.entities import BBox
+from analog_api.domain.errors import AppError
+
+logger = logging.getLogger("analog_api.jobs")
+
+
+class JobStore:
+    def __init__(self, session: Session) -> None:
+        self.session = session
+
+    def create_or_get(
+        self,
+        *,
+        cache_key: str,
+        idempotency_key: str | None,
+        request_payload: dict[str, Any],
+    ) -> tuple[AnalysisJob, bool]:
+        if idempotency_key:
+            existing = self.session.scalar(
+                select(AnalysisJob).where(AnalysisJob.idempotency_key == idempotency_key)
+            )
+            if existing is not None:
+                return existing, False
+        existing = self.session.scalar(
+            select(AnalysisJob).where(AnalysisJob.cache_key == cache_key)
+        )
+        if existing is not None:
+            if existing.status == "failed":
+                existing.status = "queued"
+                existing.error_code = None
+                existing.error_message = None
+                existing.started_at = None
+                existing.finished_at = None
+                self.session.commit()
+                return existing, True
+            return existing, False
+
+        job = AnalysisJob(
+            job_id=uuid.uuid4().hex,
+            status="queued",
+            cache_key=cache_key,
+            idempotency_key=idempotency_key,
+            request_json=request_payload,
+            provider_status={},
+        )
+        self.session.add(job)
+        try:
+            self.session.commit()
+        except IntegrityError:
+            self.session.rollback()
+            existing = self.session.scalar(
+                select(AnalysisJob).where(AnalysisJob.cache_key == cache_key)
+            )
+            if existing is None:
+                raise
+            return existing, False
+        self.session.refresh(job)
+        return job, True
+
+
+class JobRunner:
+    """Minimal durable local queue: SQLite job rows + a bounded thread pool."""
+
+    def __init__(
+        self,
+        *,
+        session_factory: sessionmaker,
+        processor: AoiProcessor,
+        max_workers: int = 2,
+        inline: bool = False,
+    ) -> None:
+        self.session_factory = session_factory
+        self.processor = processor
+        self.inline = inline
+        self.executor = ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix="aoi-job")
+
+    def submit(self, job_id: str) -> None:
+        if self.inline:
+            self.run(job_id)
+        else:
+            self.executor.submit(self.run, job_id)
+
+    def run(self, job_id: str) -> None:
+        with self.session_factory() as session:
+            job = session.get(AnalysisJob, job_id)
+            if job is None:
+                return
+            if job.status not in {"queued", "running"}:
+                return
+            job.status = "running"
+            job.started_at = datetime.now(UTC)
+            session.commit()
+            request = job.request_json
+            try:
+                aoi = ValidatedAoi(
+                    body=request["body"],
+                    bbox=BBox(**request["bbox"]),
+                    geometry=request.get("geometry"),
+                    area_km2=request["area_km2"],
+                    requested_features=tuple(request["requested_features"]),
+                    reference_id=request.get("reference_id"),
+                    idempotency_key=job.idempotency_key,
+                    area_id=request["area_id"],
+                    cache_key=request["cache_key"],
+                    width_m=request["width_m"],
+                    height_m=request["height_m"],
+                )
+                result = self.processor.analyze(aoi)
+                data_version = persist_aoi_result(session, result)
+                job.area_id = result.area_id
+                job.provider_status = result.provider_status
+                failed_providers = [
+                    name
+                    for name, status in result.provider_status.items()
+                    if status.get("status") not in {"verified", "ok"}
+                ]
+                job.status = "partial" if failed_providers else "completed"
+                job.result_json = {
+                    "area_id": result.area_id,
+                    "location_id": result.area_id,
+                    "data_version": data_version,
+                    "feature_count": len(result.features),
+                    "context_feature_count": len(result.context_observations),
+                    "provider_status": result.provider_status,
+                    "warnings": list(result.warnings),
+                    "area_km2": result.area_km2,
+                }
+                job.error_code = None
+                job.error_message = None
+            except AppError as exc:
+                session.rollback()
+                job = session.get(AnalysisJob, job_id)
+                if job is not None:
+                    job.status = "failed"
+                    job.error_code = exc.code
+                    job.error_message = exc.message
+                    job.provider_status = {"analysis": {"status": "failed", "reason": exc.code}}
+            except Exception as exc:  # noqa: BLE001 - boundary must not crash the worker
+                logger.exception("AOI job failed", exc_info=exc)
+                session.rollback()
+                job = session.get(AnalysisJob, job_id)
+                if job is not None:
+                    job.status = "failed"
+                    job.error_code = "analysis_failed"
+                    job.error_message = (
+                        "The AOI analysis failed. Source errors are recorded in provider "
+                        "status; retry or inspect the server log."
+                    )
+                    job.provider_status = {
+                        "analysis": {"status": "failed", "reason": type(exc).__name__}
+                    }
+            finally:
+                if job is not None:
+                    job.finished_at = datetime.now(UTC)
+                    session.commit()
+
+    def recover(self) -> int:
+        with self.session_factory() as session:
+            session.execute(
+                update(AnalysisJob).where(AnalysisJob.status == "running").values(status="queued")
+            )
+            session.commit()
+            queued = list(
+                session.scalars(select(AnalysisJob).where(AnalysisJob.status == "queued")).all()
+            )
+            for job in queued:
+                self.submit(job.job_id)
+            return len(queued)
+
+    def shutdown(self) -> None:
+        self.executor.shutdown(wait=False, cancel_futures=True)

@@ -1,0 +1,2341 @@
+{
+  "components": {
+    "schemas": {
+      "AoiAnalyzeRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "bbox": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GeoBBoxIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "body": {
+            "const": "Earth",
+            "default": "Earth",
+            "title": "Body",
+            "type": "string"
+          },
+          "geometry": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Geometry"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "reference_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Id"
+          },
+          "requested_features": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Features"
+          }
+        },
+        "title": "AoiAnalyzeRequest",
+        "type": "object"
+      },
+      "AoiAnalyzeResponse": {
+        "properties": {
+          "area_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Id"
+          },
+          "cache_key": {
+            "title": "Cache Key",
+            "type": "string"
+          },
+          "cached": {
+            "title": "Cached",
+            "type": "boolean"
+          },
+          "job_id": {
+            "title": "Job Id",
+            "type": "string"
+          },
+          "links": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Links",
+            "type": "object"
+          },
+          "provider_status": {
+            "additionalProperties": true,
+            "title": "Provider Status",
+            "type": "object"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result"
+          },
+          "status": {
+            "enum": [
+              "queued",
+              "running",
+              "completed",
+              "partial",
+              "failed"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "job_id",
+          "status",
+          "area_id",
+          "cache_key",
+          "cached"
+        ],
+        "title": "AoiAnalyzeResponse",
+        "type": "object"
+      },
+      "BBoxOut": {
+        "properties": {
+          "east": {
+            "title": "East",
+            "type": "number"
+          },
+          "north": {
+            "title": "North",
+            "type": "number"
+          },
+          "south": {
+            "title": "South",
+            "type": "number"
+          },
+          "west": {
+            "title": "West",
+            "type": "number"
+          }
+        },
+        "required": [
+          "west",
+          "south",
+          "east",
+          "north"
+        ],
+        "title": "BBoxOut",
+        "type": "object"
+      },
+      "CapabilitiesOut": {
+        "properties": {
+          "analysis": {
+            "additionalProperties": true,
+            "title": "Analysis",
+            "type": "object"
+          },
+          "aoi_analysis": {
+            "additionalProperties": true,
+            "title": "Aoi Analysis",
+            "type": "object"
+          },
+          "available_reference_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Available Reference Ids",
+            "type": "array"
+          },
+          "context_features": {
+            "items": {
+              "$ref": "#/components/schemas/ContextFeatureOut"
+            },
+            "title": "Context Features",
+            "type": "array"
+          },
+          "contract_version": {
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "coverage": {
+            "$ref": "#/components/schemas/CoverageOut"
+          },
+          "data_snapshot_id": {
+            "title": "Data Snapshot Id",
+            "type": "string"
+          },
+          "data_version": {
+            "title": "Data Version",
+            "type": "string"
+          },
+          "features": {
+            "items": {
+              "$ref": "#/components/schemas/FeatureOut"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "indexed_candidate_count": {
+            "title": "Indexed Candidate Count",
+            "type": "integer"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "supported_bodies": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Supported Bodies",
+            "type": "array"
+          }
+        },
+        "required": [
+          "contract_version",
+          "method_version",
+          "data_snapshot_id",
+          "analysis",
+          "features",
+          "context_features",
+          "supported_bodies",
+          "indexed_candidate_count",
+          "coverage",
+          "available_reference_ids",
+          "aoi_analysis",
+          "data_version"
+        ],
+        "title": "CapabilitiesOut",
+        "type": "object"
+      },
+      "ContextComparisonOut": {
+        "properties": {
+          "delta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delta"
+          },
+          "feature_id": {
+            "title": "Feature Id",
+            "type": "string"
+          },
+          "normalized_delta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Normalized Delta"
+          },
+          "observed": {
+            "title": "Observed",
+            "type": "number"
+          },
+          "scale": {
+            "title": "Scale",
+            "type": "number"
+          },
+          "target": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          }
+        },
+        "required": [
+          "feature_id",
+          "unit",
+          "target",
+          "observed",
+          "delta",
+          "scale",
+          "normalized_delta"
+        ],
+        "title": "ContextComparisonOut",
+        "type": "object"
+      },
+      "ContextFeatureOut": {
+        "properties": {
+          "class_code": {
+            "title": "Class Code",
+            "type": "integer"
+          },
+          "compare_strategy": {
+            "title": "Compare Strategy",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "dimension_id": {
+            "title": "Dimension Id",
+            "type": "string"
+          },
+          "feature_id": {
+            "title": "Feature Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "provider_coverage_by_body": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Provider Coverage By Body",
+            "type": "object"
+          },
+          "quality_rules": {
+            "title": "Quality Rules",
+            "type": "string"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "score_role": {
+            "title": "Score Role",
+            "type": "string"
+          },
+          "spatial_support": {
+            "title": "Spatial Support",
+            "type": "string"
+          },
+          "temporal_support": {
+            "title": "Temporal Support",
+            "type": "string"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "value_kind": {
+            "title": "Value Kind",
+            "type": "string"
+          }
+        },
+        "required": [
+          "feature_id",
+          "label",
+          "class_code",
+          "dimension_id",
+          "description",
+          "value_kind",
+          "unit",
+          "method_version",
+          "spatial_support",
+          "temporal_support",
+          "provider_coverage_by_body",
+          "compare_strategy",
+          "score_role",
+          "quality_rules",
+          "reference"
+        ],
+        "title": "ContextFeatureOut",
+        "type": "object"
+      },
+      "ContextObservationOut": {
+        "properties": {
+          "class_code": {
+            "title": "Class Code",
+            "type": "integer"
+          },
+          "dataset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dataset Id"
+          },
+          "feature_id": {
+            "title": "Feature Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "quality": {
+            "title": "Quality",
+            "type": "string"
+          },
+          "score_role": {
+            "const": "context_only",
+            "default": "context_only",
+            "title": "Score Role",
+            "type": "string"
+          },
+          "source_resolution_m": {
+            "title": "Source Resolution M",
+            "type": "number"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "valid_fraction": {
+            "title": "Valid Fraction",
+            "type": "number"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "feature_id",
+          "label",
+          "value",
+          "unit",
+          "method_version",
+          "source_resolution_m",
+          "valid_fraction",
+          "quality",
+          "class_code",
+          "provider",
+          "dataset_id"
+        ],
+        "title": "ContextObservationOut",
+        "type": "object"
+      },
+      "ContextOut": {
+        "properties": {
+          "computed_comparisons": {
+            "items": {
+              "$ref": "#/components/schemas/ContextComparisonOut"
+            },
+            "title": "Computed Comparisons",
+            "type": "array"
+          },
+          "export_version": {
+            "title": "Export Version",
+            "type": "string"
+          },
+          "generated_at": {
+            "title": "Generated At",
+            "type": "string"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          },
+          "location": {
+            "$ref": "#/components/schemas/LocationOut"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "query": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Query"
+          },
+          "source_facts": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Source Facts",
+            "type": "array"
+          }
+        },
+        "required": [
+          "export_version",
+          "note",
+          "generated_at",
+          "location",
+          "query",
+          "source_facts",
+          "computed_comparisons",
+          "limitations"
+        ],
+        "title": "ContextOut",
+        "type": "object"
+      },
+      "CoverageOut": {
+        "properties": {
+          "data_kinds": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Data Kinds",
+            "type": "array"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "geographic_bbox": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BBoxOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "indexed_candidate_count": {
+            "title": "Indexed Candidate Count",
+            "type": "integer"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "origins": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Origins",
+            "type": "object"
+          }
+        },
+        "required": [
+          "label",
+          "indexed_candidate_count",
+          "geographic_bbox",
+          "description",
+          "data_kinds",
+          "origins"
+        ],
+        "title": "CoverageOut",
+        "type": "object"
+      },
+      "DatasetOut": {
+        "properties": {
+          "access_timestamp": {
+            "title": "Access Timestamp",
+            "type": "string"
+          },
+          "checksum": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checksum"
+          },
+          "dataset_id": {
+            "title": "Dataset Id",
+            "type": "string"
+          },
+          "license": {
+            "title": "License",
+            "type": "string"
+          },
+          "license_url": {
+            "title": "License Url",
+            "type": "string"
+          },
+          "native_resolution_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Native Resolution M"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "processing_version": {
+            "title": "Processing Version",
+            "type": "string"
+          },
+          "product_id": {
+            "title": "Product Id",
+            "type": "string"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "source_crs": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Crs"
+          },
+          "source_kind": {
+            "title": "Source Kind",
+            "type": "string"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "dataset_id",
+          "provider",
+          "product_id",
+          "title",
+          "url",
+          "license",
+          "license_url",
+          "access_timestamp",
+          "source_crs",
+          "native_resolution_m",
+          "processing_version",
+          "checksum",
+          "source_kind",
+          "notes"
+        ],
+        "title": "DatasetOut",
+        "type": "object"
+      },
+      "DimensionOut": {
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "dimension_id": {
+            "title": "Dimension Id",
+            "type": "string"
+          },
+          "features": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "score_role": {
+            "title": "Score Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "dimension_id",
+          "label",
+          "description",
+          "score_role",
+          "features"
+        ],
+        "title": "DimensionOut",
+        "type": "object"
+      },
+      "DimensionsOut": {
+        "properties": {
+          "context_features": {
+            "items": {
+              "$ref": "#/components/schemas/ContextFeatureOut"
+            },
+            "title": "Context Features",
+            "type": "array"
+          },
+          "contract_version": {
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "dimensions": {
+            "items": {
+              "$ref": "#/components/schemas/DimensionOut"
+            },
+            "title": "Dimensions",
+            "type": "array"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "contract_version",
+          "method_version",
+          "dimensions",
+          "context_features"
+        ],
+        "title": "DimensionsOut",
+        "type": "object"
+      },
+      "ErrorBody": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "details": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Details",
+            "type": "array"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorBody",
+        "type": "object"
+      },
+      "ErrorOut": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorBody"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "ErrorOut",
+        "type": "object"
+      },
+      "ExclusionOut": {
+        "properties": {
+          "location_id": {
+            "title": "Location Id",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "location_id",
+          "reason"
+        ],
+        "title": "ExclusionOut",
+        "type": "object"
+      },
+      "FeatureObservationOut": {
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "extraction_scale_m": {
+            "title": "Extraction Scale M",
+            "type": "number"
+          },
+          "feature_id": {
+            "title": "Feature Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "quality": {
+            "title": "Quality",
+            "type": "string"
+          },
+          "scale": {
+            "title": "Scale",
+            "type": "number"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "valid_fraction": {
+            "title": "Valid Fraction",
+            "type": "number"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "feature_id",
+          "label",
+          "value",
+          "unit",
+          "method_version",
+          "extraction_scale_m",
+          "valid_fraction",
+          "quality",
+          "scale",
+          "description"
+        ],
+        "title": "FeatureObservationOut",
+        "type": "object"
+      },
+      "FeatureOut": {
+        "properties": {
+          "comparability_gate": {
+            "title": "Comparability Gate",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "dimension_id": {
+            "title": "Dimension Id",
+            "type": "string"
+          },
+          "extraction_scale_m": {
+            "title": "Extraction Scale M",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "max_value": {
+            "title": "Max Value",
+            "type": "number"
+          },
+          "method": {
+            "title": "Method",
+            "type": "string"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "min_value": {
+            "title": "Min Value",
+            "type": "number"
+          },
+          "missing_policy": {
+            "title": "Missing Policy",
+            "type": "string"
+          },
+          "provider_coverage_by_body": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Provider Coverage By Body",
+            "type": "object"
+          },
+          "scale": {
+            "title": "Scale",
+            "type": "number"
+          },
+          "scale_rationale": {
+            "title": "Scale Rationale",
+            "type": "string"
+          },
+          "score_role": {
+            "title": "Score Role",
+            "type": "string"
+          },
+          "spatial_support": {
+            "title": "Spatial Support",
+            "type": "string"
+          },
+          "temporal_support": {
+            "title": "Temporal Support",
+            "type": "string"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "valid_domain": {
+            "title": "Valid Domain",
+            "type": "string"
+          },
+          "value_kind": {
+            "title": "Value Kind",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "unit",
+          "description",
+          "method",
+          "method_version",
+          "min_value",
+          "max_value",
+          "scale",
+          "scale_rationale",
+          "extraction_scale_m",
+          "valid_domain",
+          "missing_policy",
+          "dimension_id",
+          "value_kind",
+          "score_role",
+          "spatial_support",
+          "temporal_support",
+          "provider_coverage_by_body",
+          "comparability_gate"
+        ],
+        "title": "FeatureOut",
+        "type": "object"
+      },
+      "GeoBBoxIn": {
+        "additionalProperties": false,
+        "properties": {
+          "east": {
+            "title": "East",
+            "type": "number"
+          },
+          "north": {
+            "title": "North",
+            "type": "number"
+          },
+          "south": {
+            "title": "South",
+            "type": "number"
+          },
+          "west": {
+            "title": "West",
+            "type": "number"
+          }
+        },
+        "required": [
+          "west",
+          "south",
+          "east",
+          "north"
+        ],
+        "title": "GeoBBoxIn",
+        "type": "object"
+      },
+      "HealthOut": {
+        "properties": {
+          "data_snapshot_id": {
+            "title": "Data Snapshot Id",
+            "type": "string"
+          },
+          "data_version": {
+            "title": "Data Version",
+            "type": "string"
+          },
+          "status": {
+            "const": "ok",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "data_version",
+          "data_snapshot_id"
+        ],
+        "title": "HealthOut",
+        "type": "object"
+      },
+      "JobOut": {
+        "properties": {
+          "area_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Id"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finished At"
+          },
+          "job_id": {
+            "title": "Job Id",
+            "type": "string"
+          },
+          "provider_status": {
+            "additionalProperties": true,
+            "title": "Provider Status",
+            "type": "object"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "status": {
+            "enum": [
+              "queued",
+              "running",
+              "completed",
+              "partial",
+              "failed"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "job_id",
+          "status",
+          "area_id",
+          "provider_status",
+          "error",
+          "result",
+          "created_at",
+          "started_at",
+          "finished_at"
+        ],
+        "title": "JobOut",
+        "type": "object"
+      },
+      "LocationOut": {
+        "properties": {
+          "analysis_resolution_m": {
+            "title": "Analysis Resolution M",
+            "type": "number"
+          },
+          "area_km2": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Km2"
+          },
+          "bbox": {
+            "$ref": "#/components/schemas/BBoxOut"
+          },
+          "body": {
+            "const": "Earth",
+            "title": "Body",
+            "type": "string"
+          },
+          "context_observations": {
+            "items": {
+              "$ref": "#/components/schemas/ContextObservationOut"
+            },
+            "title": "Context Observations",
+            "type": "array"
+          },
+          "contract_version": {
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "crs": {
+            "title": "Crs",
+            "type": "string"
+          },
+          "data_kind": {
+            "title": "Data Kind",
+            "type": "string"
+          },
+          "data_snapshot_id": {
+            "title": "Data Snapshot Id",
+            "type": "string"
+          },
+          "data_version": {
+            "title": "Data Version",
+            "type": "string"
+          },
+          "datasets": {
+            "items": {
+              "$ref": "#/components/schemas/DatasetOut"
+            },
+            "title": "Datasets",
+            "type": "array"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "features": {
+            "items": {
+              "$ref": "#/components/schemas/FeatureObservationOut"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "geometry": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Geometry"
+          },
+          "known_limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Known Limitations",
+            "type": "array"
+          },
+          "lat": {
+            "title": "Lat",
+            "type": "number"
+          },
+          "location_id": {
+            "title": "Location Id",
+            "type": "string"
+          },
+          "lon": {
+            "title": "Lon",
+            "type": "number"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "origin": {
+            "title": "Origin",
+            "type": "string"
+          },
+          "quality_flags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Quality Flags",
+            "type": "array"
+          },
+          "valid_fraction": {
+            "title": "Valid Fraction",
+            "type": "number"
+          },
+          "window_size_m": {
+            "title": "Window Size M",
+            "type": "number"
+          }
+        },
+        "required": [
+          "location_id",
+          "display_name",
+          "body",
+          "lat",
+          "lon",
+          "bbox",
+          "window_size_m",
+          "analysis_resolution_m",
+          "crs",
+          "valid_fraction",
+          "data_kind",
+          "quality_flags",
+          "notes",
+          "area_km2",
+          "geometry",
+          "origin",
+          "features",
+          "context_observations",
+          "datasets",
+          "known_limitations",
+          "contract_version",
+          "method_version",
+          "data_version",
+          "data_snapshot_id"
+        ],
+        "title": "LocationOut",
+        "type": "object"
+      },
+      "MetricOut": {
+        "properties": {
+          "candidate": {
+            "title": "Candidate",
+            "type": "number"
+          },
+          "contribution": {
+            "title": "Contribution",
+            "type": "number"
+          },
+          "delta": {
+            "title": "Delta",
+            "type": "number"
+          },
+          "feature_id": {
+            "title": "Feature Id",
+            "type": "string"
+          },
+          "normalized_delta": {
+            "title": "Normalized Delta",
+            "type": "number"
+          },
+          "scale": {
+            "title": "Scale",
+            "type": "number"
+          },
+          "target": {
+            "title": "Target",
+            "type": "number"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "weight": {
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "feature_id",
+          "unit",
+          "target",
+          "candidate",
+          "delta",
+          "scale",
+          "weight",
+          "normalized_delta",
+          "contribution"
+        ],
+        "title": "MetricOut",
+        "type": "object"
+      },
+      "RangeFilterIn": {
+        "properties": {
+          "max": {
+            "anyOf": [
+              {
+                "maximum": 1.0,
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max"
+          },
+          "min": {
+            "anyOf": [
+              {
+                "maximum": 1.0,
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min"
+          }
+        },
+        "title": "RangeFilterIn",
+        "type": "object"
+      },
+      "ReferenceOut": {
+        "properties": {
+          "analysis_resolution_m": {
+            "title": "Analysis Resolution M",
+            "type": "number"
+          },
+          "bbox": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BBoxOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "body": {
+            "enum": [
+              "Moon",
+              "Mars"
+            ],
+            "title": "Body",
+            "type": "string"
+          },
+          "crs": {
+            "title": "Crs",
+            "type": "string"
+          },
+          "dataset_id": {
+            "title": "Dataset Id",
+            "type": "string"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "features": {
+            "items": {
+              "$ref": "#/components/schemas/FeatureObservationOut"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "lon": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lon"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "quality_flags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Quality Flags",
+            "type": "array"
+          },
+          "reference_id": {
+            "title": "Reference Id",
+            "type": "string"
+          },
+          "valid_fraction": {
+            "title": "Valid Fraction",
+            "type": "number"
+          },
+          "window_size_m": {
+            "title": "Window Size M",
+            "type": "number"
+          }
+        },
+        "required": [
+          "reference_id",
+          "body",
+          "display_name",
+          "dataset_id",
+          "lat",
+          "lon",
+          "bbox",
+          "window_size_m",
+          "analysis_resolution_m",
+          "crs",
+          "valid_fraction",
+          "quality_flags",
+          "notes",
+          "features"
+        ],
+        "title": "ReferenceOut",
+        "type": "object"
+      },
+      "SearchRequest": {
+        "properties": {
+          "body": {
+            "default": "custom",
+            "enum": [
+              "custom",
+              "Moon",
+              "Mars"
+            ],
+            "title": "Body",
+            "type": "string"
+          },
+          "filters": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RangeFilterIn"
+            },
+            "title": "Filters",
+            "type": "object"
+          },
+          "limit": {
+            "default": 10,
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "reference_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Id"
+          },
+          "target": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/TargetSpec"
+            },
+            "title": "Target",
+            "type": "object"
+          },
+          "weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Weights",
+            "type": "object"
+          }
+        },
+        "title": "SearchRequest",
+        "type": "object"
+      },
+      "SearchResponse": {
+        "properties": {
+          "contract_version": {
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "coverage": {
+            "$ref": "#/components/schemas/CoverageOut"
+          },
+          "coverage_label": {
+            "title": "Coverage Label",
+            "type": "string"
+          },
+          "data_snapshot_id": {
+            "title": "Data Snapshot Id",
+            "type": "string"
+          },
+          "data_version": {
+            "title": "Data Version",
+            "type": "string"
+          },
+          "eligible_candidate_count": {
+            "title": "Eligible Candidate Count",
+            "type": "integer"
+          },
+          "excluded": {
+            "items": {
+              "$ref": "#/components/schemas/ExclusionOut"
+            },
+            "title": "Excluded",
+            "type": "array"
+          },
+          "excluded_candidate_count": {
+            "title": "Excluded Candidate Count",
+            "type": "integer"
+          },
+          "filters_applied": {
+            "additionalProperties": true,
+            "title": "Filters Applied",
+            "type": "object"
+          },
+          "indexed_candidate_count": {
+            "title": "Indexed Candidate Count",
+            "type": "integer"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "query_version": {
+            "title": "Query Version",
+            "type": "string"
+          },
+          "requested_features": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Requested Features",
+            "type": "array"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/SearchResultOut"
+            },
+            "title": "Results",
+            "type": "array"
+          }
+        },
+        "required": [
+          "contract_version",
+          "method_version",
+          "query_version",
+          "data_version",
+          "data_snapshot_id",
+          "coverage",
+          "coverage_label",
+          "requested_features",
+          "filters_applied",
+          "indexed_candidate_count",
+          "eligible_candidate_count",
+          "excluded_candidate_count",
+          "excluded",
+          "results",
+          "limitations"
+        ],
+        "title": "SearchResponse",
+        "type": "object"
+      },
+      "SearchResultOut": {
+        "properties": {
+          "bbox": {
+            "$ref": "#/components/schemas/BBoxOut"
+          },
+          "caveats": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Caveats",
+            "type": "array"
+          },
+          "data_kind": {
+            "title": "Data Kind",
+            "type": "string"
+          },
+          "dataset_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Dataset Ids",
+            "type": "array"
+          },
+          "dimension_distances": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Dimension Distances",
+            "type": "object"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "distance": {
+            "title": "Distance",
+            "type": "number"
+          },
+          "lat": {
+            "title": "Lat",
+            "type": "number"
+          },
+          "location_id": {
+            "title": "Location Id",
+            "type": "string"
+          },
+          "lon": {
+            "title": "Lon",
+            "type": "number"
+          },
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/MetricOut"
+            },
+            "title": "Metrics",
+            "type": "array"
+          },
+          "quality_flags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Quality Flags",
+            "type": "array"
+          },
+          "rank": {
+            "title": "Rank",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "rank",
+          "location_id",
+          "display_name",
+          "lat",
+          "lon",
+          "bbox",
+          "distance",
+          "dimension_distances",
+          "metrics",
+          "dataset_ids",
+          "data_kind",
+          "quality_flags",
+          "caveats"
+        ],
+        "title": "SearchResultOut",
+        "type": "object"
+      },
+      "TargetSpec": {
+        "properties": {
+          "value": {
+            "title": "Value",
+            "type": "number"
+          },
+          "weight": {
+            "default": 1.0,
+            "minimum": 0.0,
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "title": "TargetSpec",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Search indexed Earth terrain windows for similarity to a user-supplied target vector, and analyze bounded new Earth AOIs on demand. Results are subset-based, terrain-shape-only comparisons with land-cover context.",
+    "title": "Planetary Analog Explorer API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/areas/analyze": {
+      "post": {
+        "operationId": "analyze_area_api_v1_areas_analyze_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AoiAnalyzeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AoiAnalyzeResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "summary": "Analyze Area"
+      }
+    },
+    "/api/v1/areas/{area_id}/compare": {
+      "post": {
+        "description": "Compare an area against the indexed candidates using the normal comparator.\n\nWith no body (or an empty target/reference), the area's own terrain observations become the\ntarget. This never introduces a second scoring algorithm.",
+        "operationId": "compare_area_api_v1_areas__area_id__compare_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "area_id",
+            "required": true,
+            "schema": {
+              "title": "Area Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/SearchRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "summary": "Compare Area"
+      }
+    },
+    "/api/v1/areas/{area_id}/features": {
+      "get": {
+        "operationId": "area_features_api_v1_areas__area_id__features_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "area_id",
+            "required": true,
+            "schema": {
+              "title": "Area Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "summary": "Area Features"
+      }
+    },
+    "/api/v1/capabilities": {
+      "get": {
+        "operationId": "capabilities_api_v1_capabilities_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapabilitiesOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Capabilities"
+      }
+    },
+    "/api/v1/datasets": {
+      "get": {
+        "operationId": "datasets_api_v1_datasets_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DatasetOut"
+                  },
+                  "title": "Response Datasets Api V1 Datasets Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Datasets"
+      }
+    },
+    "/api/v1/dimensions": {
+      "get": {
+        "operationId": "dimensions_api_v1_dimensions_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DimensionsOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Dimensions"
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health"
+      }
+    },
+    "/api/v1/jobs/{job_id}": {
+      "get": {
+        "operationId": "get_job_api_v1_jobs__job_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "summary": "Get Job"
+      }
+    },
+    "/api/v1/locations/{location_id}": {
+      "get": {
+        "operationId": "location_api_v1_locations__location_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "location_id",
+            "required": true,
+            "schema": {
+              "title": "Location Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Location"
+      }
+    },
+    "/api/v1/locations/{location_id}/context": {
+      "get": {
+        "operationId": "location_context_api_v1_locations__location_id__context_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "location_id",
+            "required": true,
+            "schema": {
+              "title": "Location Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "target",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Target"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContextOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Location Context"
+      }
+    },
+    "/api/v1/references": {
+      "get": {
+        "operationId": "references_api_v1_references_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ReferenceOut"
+                  },
+                  "title": "Response References Api V1 References Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "References"
+      }
+    },
+    "/api/v1/search": {
+      "post": {
+        "operationId": "search_api_v1_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Search"
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+coverage.xml
+htmlcov/
+
+# Node
+node_modules/
+dist/
+apps/web/dist/
+.vite/
+
+# Runtime state
+*.db
+*.db-journal
+*.sqlite3
+apps/api/var/
+var/
+.env
+.env.local
+
+# Data caches / large binaries
+data/cache/
+data/object-store/
+data/snapshots/
+pipelines/**/cache/
+*.tif
+*.tiff
+*.vrt
+!samples/**/*.tif
+!samples/**/*.tiff
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Frontend test artifacts
+apps/web/coverage/
+apps/web/test-results/
+apps/web/playwright-report/
+
+# Local data artifacts
+samples/**/cache/

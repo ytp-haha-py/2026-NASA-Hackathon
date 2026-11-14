@@ -1,0 +1,140 @@
+# Planetary Analog Explorer — Web
+
+Vite + React + TypeScript single-page frontend for the Planetary Analog Explorer MVP.
+It searches a **small indexed subset of Earth terrain windows** for local terrain-shape
+similarity to a user-supplied target, and can analyze a bounded on-demand Earth AOI through
+the API. It is not a global survey and not a base-site recommendation.
+
+## Requirements
+
+- Node.js 22+ (This aligns with the repository quality gate; developed with Node 26.)
+- npm (this app uses npm and commits `package-lock.json`)
+- The API running at `http://127.0.0.1:8000` for local development
+
+## Development
+
+```bash
+cd apps/web
+npm ci
+npm run dev
+```
+
+Open the URL Vite prints (normally `http://localhost:5173`).
+
+The Vite dev server proxies `/api` to `http://127.0.0.1:8000`, so the browser
+always calls same-origin `/api/v1/...` paths. The same proxy is configured for
+`npm run preview`. Production is plain static output in `apps/web/dist`; the
+deployment layer is expected to serve those files and proxy `/api` to the API
+(for example with nginx).
+
+Start the API from the repository root if it is not already running:
+
+```bash
+ANALOG_SEED_INCLUDE_SYNTHETIC=true \
+ANALOG_DATABASE_URL=sqlite+pysqlite:////tmp/analog-webdev.db \
+uv run uvicorn analog_api.main:create_app --factory --port 8000
+```
+
+## API types
+
+The OpenAPI snapshot is the source of truth at `../../contracts/openapi.json`.
+Generated types live in `src/api/schema.d.ts` and are committed.
+
+```bash
+npm run generate:api   # regenerate from ../../contracts/openapi.json
+npm run check:api      # regenerate to a temp file and fail if committed types differ
+```
+
+Do not hand-copy response interfaces when a generated schema type exists. If the
+contract changes, regenerate and review the diff.
+
+## Checks
+
+```bash
+npm run typecheck
+npm run lint
+npm run test -- --run
+npm run build
+```
+
+Tests use Vitest, Testing Library, and jsdom. Every network call is mocked with
+`fetch`; tests are deterministic and offline. Leaflet is stubbed in tests.
+
+## Honest UX rules
+
+These are product requirements, not decoration:
+
+1. **Terminology.** Distance is a weighted normalized Euclidean distance where
+   lower is more similar. Never render it as a similarity percentage, and never
+   describe it as physical equivalence.
+2. **Coverage.** Results are subset-based. The coverage header states how many
+   results were returned among how many searchable indexed regions, splits
+   indexed vs user-created on-demand AOIs, and explicitly says the list is **not
+   a global top 10**, not a survey, and not a base-site recommendation. Show
+   eligible and excluded counts. Never present an on-demand AOI as global coverage.
+3. **Exclusions.** Display the API-provided excluded candidate count and reasons
+   (missing metrics, missing context, or land-cover filters). Do not hide
+   exclusions.
+4. **Real vs synthetic.** Every result and location carries `data_kind`. A
+   `synthetic` record gets a loud `DEMO / SYNTHETIC` badge and a warning that its
+   fixture values are not observations or evidence. Never relabel synthetic data
+   as observed.
+5. **No invented data.** Reference presets (Moon/Mars) are enabled only when
+   `GET /api/v1/references` returns records. If references are empty or fail to
+   load, those presets stay disabled with an explanation. Never invent a target
+   for a body. The real LOLA Moon reference is shown with its caveat: a 5 m
+   source with about 90% interpolated pixels, resampled to the 90 m analysis
+   grid. Moon coordinates use a planetary frame, not Earth WGS84.
+6. **Earth land-cover context is context only.** ESA WorldCover fractions are
+   displayed in a separate section labelled **context only, NOT
+   mineralogy/geology, excluded from the similarity score**. They are never
+   mixed into terrain comparison tables or the distance. The `context_only` role
+   and CC BY 4.0 attribution come from the API.
+7. **On-demand AOIs.** The AOI form validates limits from
+   `GET /capabilities` (`aoi_analysis`), polls durable jobs, shows
+   queued/running/completed/partial/failed states, per-provider statuses,
+   warnings, and server 422 codes. Completed AOIs can be compared with
+   `POST /api/v1/areas/{id}/compare` (no body), used as the next search target,
+   and later appear in search results with an on-demand caveat.
+8. **Optional context filters.** The search form can add hard min/max filters on
+   bare/sparse and built-up WorldCover fractions. They filter candidates but
+   never enter the distance; applied filters are displayed from
+   `filters_applied`.
+9. **Context export is not a chatbot.** `GET /api/v1/locations/{id}/context` is a
+   grounded structured JSON export for later external AI use. It includes
+   land-cover context observations when present. The UI exposes Download/Copy
+   JSON, not a chat loop, and generates no narrative.
+10. **Only compared dimensions are presented as evidence.** The tool compares
+    local terrain shape only. Gravity, atmosphere, radiation, regolith,
+    mineralogy, temperature, and geological history are called out as **not
+    simulated or compared**.
+11. **Provenance.** Dataset provider, product, license link, access timestamp,
+    processing version, data version, and data snapshot ID come from the API.
+    Copernicus DEM and ESA WorldCover are both shown when returned. They are not
+    decorative imagery.
+12. **Map honesty.** Only returned results are plotted. The note says so. The
+    OpenStreetMap basemap is for orientation only and is not scientific evidence.
+    If tiles fail or the browser is offline, a readable status message appears;
+    the ranked list and record details remain usable.
+13. **Accessibility and failure states.** Loading, empty/no-data (including HTTP
+    409), no-eligible-candidate, validation, AOI job failure/partial, and API
+    error states are visible and announced with `role="status"` or `role="alert"`.
+    The layout is usable at 375 px and desktop widths.
+
+## Project layout
+
+```
+src/
+  api/client.ts          typed fetch wrapper and generated-schema aliases
+  api/schema.d.ts        generated from ../../contracts/openapi.json
+  components/            search, filters, AOI form/workspace, results, map, detail, sources
+  hooks/useAoiAnalysis.ts AOI submit, job polling, cleanup, feature loading
+  lib/format.ts          conservative number/unit formatting
+  lib/aoi.ts             AOI limits, bbox measurements, provider status helpers
+  test/                  deterministic fetch mocks and fixtures
+  styles.css             single plain CSS file
+```
+
+No API tokens, paid services, or external fonts are required. The only runtime
+network dependency beyond the API is OpenStreetMap map tiles; failure is handled
+without breaking the tool.

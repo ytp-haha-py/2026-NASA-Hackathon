@@ -1,0 +1,132 @@
+registry_version: "1.0.0"
+description: >-
+  Versioned registry of known and indexed Areas of Interest (AOIs). Values are copied
+  from validated pipeline manifests only. An area is listed as indexed only when its
+  measurements exist in a committed manifest. Sparse 1.98 km analysis windows are local
+  samples, not regional characterizations.
+areas:
+  - area_id: earth-atacama-desert
+    display_name: Atacama Desert, Chile
+    body: Earth
+    bbox:
+      west: -68.40973566
+      south: -23.5089791
+      east: -68.39026303
+      north: -23.49102032
+    center:
+      lat: -23.5
+      lon: -68.4
+    source_dataset_ids:
+      - copernicus-dem-glo90
+    context_dataset_ids:
+      - esa-worldcover-2021-v200
+    origin: indexed
+    status: indexed
+    notes: >-
+      Copernicus DEM GLO-90 window from tile Copernicus_DSM_COG_30_S24_00_W069_00_DEM.
+      1.98 km analysis window at 90 m; the flat salt-flat sample is not a claim about the
+      whole desert. WorldCover land-cover fractions cover the same bbox as Earth context
+      only, not mineralogy or geology.
+
+  - area_id: earth-death-valley
+    display_name: Death Valley, California, USA
+    body: Earth
+    bbox:
+      west: -117.11103192
+      south: 36.24106488
+      east: -117.08897059
+      north: 36.2589341
+    center:
+      lat: 36.25
+      lon: -117.1
+    source_dataset_ids:
+      - copernicus-dem-glo90
+    context_dataset_ids:
+      - esa-worldcover-2021-v200
+    origin: indexed
+    status: indexed
+    notes: >-
+      Copernicus DEM GLO-90 window from tile Copernicus_DSM_COG_30_N36_00_W118_00_DEM.
+      1.98 km analysis window at 90 m; a local sample only.
+
+  - area_id: earth-lanzarote
+    display_name: Lanzarote volcanic terrain, Spain
+    body: Earth
+    bbox:
+      west: -13.64028241
+      south: 29.03096285
+      east: -13.61971584
+      north: 29.04903644
+    center:
+      lat: 29.04
+      lon: -13.63
+    source_dataset_ids:
+      - copernicus-dem-glo90
+    context_dataset_ids:
+      - esa-worldcover-2021-v200
+    origin: indexed
+    status: indexed
+    notes: >-
+      Copernicus DEM GLO-90 window from tile Copernicus_DSM_COG_30_N29_00_W014_00_DEM.
+      1.98 km analysis window at 90 m; a local sample only.
+
+  - area_id: earth-devon-island
+    display_name: Devon Island / Haughton, Nunavut, Canada
+    body: Earth
+    bbox:
+      west: -89.88685478
+      south: 75.39070894
+      east: -89.81318683
+      north: 75.40928632
+    center:
+      lat: 75.4
+      lon: -89.85
+    source_dataset_ids:
+      - copernicus-dem-glo90
+    context_dataset_ids:
+      - esa-worldcover-2021-v200
+    origin: indexed
+    status: indexed
+    notes: >-
+      Copernicus DEM GLO-90 window from tile Copernicus_DSM_COG_30_N75_00_W090_00_DEM.
+      1.98 km analysis window at 90 m; a local sample only.
+
+  - area_id: earth-rio-tinto
+    display_name: Rio Tinto, Spain
+    body: Earth
+    bbox:
+      west: -6.56151071
+      south: 37.68085126
+      east: -6.53848661
+      north: 37.69914781
+    center:
+      lat: 37.69
+      lon: -6.55
+    source_dataset_ids:
+      - copernicus-dem-glo90
+    context_dataset_ids:
+      - esa-worldcover-2021-v200
+    origin: indexed
+    status: indexed
+    notes: >-
+      Copernicus DEM GLO-90 window from tile Copernicus_DSM_COG_30_N37_00_W007_00_DEM.
+      1.98 km analysis window at 90 m; a local sample only.
+
+  - area_id: moon-shackleton-rim-site04-roi2
+    display_name: Shackleton Rim (LOLA Site04 ROI 2)
+    body: Moon
+    bbox: null
+    center:
+      lat: -89.77192511
+      lon: -156.50226014
+    source_dataset_ids:
+      - nasa-lola-site04-5mpp-surf
+    origin: indexed
+    status: indexed
+    notes: >-
+      Real NASA PGDA LRO-LOLA Site04 reference, not a fabricated placeholder. The source
+      is a south-polar stereographic product, so the manifest stores no WGS84 bbox; the
+      authoritative centre is source map coordinates X=-2757.5 m, Y=-6342.5 m, inverse
+      projected to the displayed lon/lat (longitude is ill-conditioned near the pole).
+      1.98 km analysis window resampled to 90 m from 5 m pixels. About 90% of the 5 m
+      source pixels are interpolated, so 5 m texture is not an independent measurement.

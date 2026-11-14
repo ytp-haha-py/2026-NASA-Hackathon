@@ -1,0 +1,108 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1717,
+      "kind": "index_summary",
+      "path": "samples/snapshot/analog-demo.index-summary.json",
+      "sha256": "558e54869f4a1f0e90af9171e6c0d122914c5126ac694dd284bdccbf8d2a1d8d"
+    }
+  ],
+  "created_at": "2026-11-14T06:33:40Z",
+  "data_version": "dv-19f54b4539c8",
+  "datasets": [
+    {
+      "candidate_count": 5,
+      "dataset_id": "copernicus-dem-glo90",
+      "license": "Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry), under the Copernicus Contributing Mission Data Access Licence terms",
+      "license_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "manifest_paths": [
+        "pipelines/earth/manifests/copernicus_glo90_earth.json"
+      ],
+      "native_resolution_m": 90.0,
+      "observation_qualities": [
+        "verified"
+      ],
+      "product_id": "COP-DEM_GLO-90-DGED",
+      "provider": "European Space Agency (ESA) / Airbus Defence and Space; AWS Open Data mirror",
+      "reference_count": 0,
+      "source_crs": "EPSG:4326",
+      "source_kind": "earth_dem",
+      "status": "verified",
+      "title": "Copernicus DEM GLO-90 Digital Surface Model (DSM), 3 arc-second COG",
+      "url": "https://registry.opendata.aws/copernicus-dem/",
+      "verified": true
+    },
+    {
+      "candidate_count": 5,
+      "dataset_id": "esa-worldcover-2021-v200",
+      "license": "CC BY 4.0 (Creative Commons Attribution 4.0 International)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "manifest_paths": [
+        "pipelines/worldcover/manifests/worldcover_earth_context.json"
+      ],
+      "native_resolution_m": 10.0,
+      "observation_qualities": [
+        "verified"
+      ],
+      "product_id": "ESA WorldCover 2021 v200",
+      "provider": "European Space Agency (ESA) WorldCover",
+      "reference_count": 0,
+      "source_crs": "EPSG:4326",
+      "source_kind": "landcover",
+      "status": "verified",
+      "title": "ESA WorldCover 10 m 2021 v200 land cover",
+      "url": "https://esa-worldcover.org/en/data-access",
+      "verified": true
+    },
+    {
+      "candidate_count": 0,
+      "dataset_id": "nasa-lola-site04-5mpp-surf",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "manifest_paths": [
+        "pipelines/planetary/manifests/lola_moon_reference.json"
+      ],
+      "native_resolution_m": 5.0,
+      "observation_qualities": [
+        "verified"
+      ],
+      "product_id": "Site04_final_adj_5mpp_surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "reference_count": 1,
+      "source_crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+      "source_kind": "lunar_dem",
+      "status": "verified",
+      "title": "LRO-LOLA 5 m/pix surface-interpolated DEM, Shackleton rim (Site04)",
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_final_adj_5mpp_surf.tif",
+      "verified": true
+    }
+  ],
+  "generated_by": "pipelines/src/analog_pipelines/snapshot.py",
+  "manifests": [
+    {
+      "bytes": 11353,
+      "data_kind": "observed",
+      "path": "pipelines/earth/manifests/copernicus_glo90_earth.json",
+      "seedable": true,
+      "sha256": "66e0f7002da23ec3644c03c1cc42ab78a10e405b4fcccd332e10a8526308dcad"
+    },
+    {
+      "bytes": 6719,
+      "data_kind": "observed",
+      "path": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "seedable": true,
+      "sha256": "46f1cc05df1d294a491ca5e91e9ea713a1b74ea3b05bc345e8817f14b50b88d4"
+    },
+    {
+      "bytes": 34873,
+      "data_kind": "observed",
+      "path": "pipelines/worldcover/manifests/worldcover_earth_context.json",
+      "seedable": true,
+      "sha256": "24b658f8709e0ba438dd21b888af93e18eeb478fb7e0a64e925033e57a7b46d3"
+    }
+  ],
+  "notes": "Pins committed JSON manifests by SHA-256. Raw rasters and caches are not included. Indexed windows are a local subset, not a global survey.",
+  "snapshot_id": "snap-d3ed2ba59558e7f8",
+  "snapshot_version": "1.0.0",
+  "source_commit": null
+}

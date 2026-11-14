@@ -1,0 +1,68 @@
+{
+  "artifact_version": "1.0.0",
+  "candidates": [
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "Atacama Desert, Chile",
+      "location_id": "earth-atacama-desert"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "Death Valley, California, USA",
+      "location_id": "earth-death-valley"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "Devon Island / Haughton, Nunavut, Canada",
+      "location_id": "earth-devon-island"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "Lanzarote volcanic terrain, Spain",
+      "location_id": "earth-lanzarote"
+    },
+    {
+      "data_kind": "observed",
+      "dataset_id": "copernicus-dem-glo90",
+      "display_name": "Rio Tinto, Spain",
+      "location_id": "earth-rio-tinto"
+    }
+  ],
+  "counts": {
+    "candidates": 5,
+    "datasets": 3,
+    "manifests": 3,
+    "references": 1,
+    "seedable_manifests": 3
+  },
+  "data_version": "dv-19f54b4539c8",
+  "datasets": [
+    {
+      "dataset_id": "copernicus-dem-glo90",
+      "status": "verified",
+      "verified": true
+    },
+    {
+      "dataset_id": "esa-worldcover-2021-v200",
+      "status": "verified",
+      "verified": true
+    },
+    {
+      "dataset_id": "nasa-lola-site04-5mpp-surf",
+      "status": "verified",
+      "verified": true
+    }
+  ],
+  "generated_by": "pipelines/src/analog_pipelines/snapshot.py",
+  "references": [
+    {
+      "body": "Moon",
+      "dataset_id": "nasa-lola-site04-5mpp-surf",
+      "reference_id": "moon-shackleton-rim-site04-roi2"
+    }
+  ]
+}

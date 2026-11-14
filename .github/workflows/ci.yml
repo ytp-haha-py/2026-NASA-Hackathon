@@ -1,0 +1,129 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: ["**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend-tests:
+    name: backend-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up uv and Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install Python dependencies
+        run: uv sync --frozen
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Format check
+        run: uv run ruff format --check .
+
+      - name: Test
+        run: |
+          for required in apps/api/tests pipelines/tests; do
+            if [ ! -d "$required" ]; then
+              echo "::error::Required test directory missing: $required"
+              exit 1
+            fi
+          done
+          test_dirs=()
+          for directory in apps/api/tests pipelines/tests pipelines/earth/tests pipelines/worldcover/tests pipelines/planetary/tests; do
+            if [ -d "$directory" ]; then
+              test_dirs+=("$directory")
+            fi
+          done
+          printf 'Running pytest for: %s\n' "${test_dirs[*]}"
+          uv run pytest "${test_dirs[@]}" -q
+
+  frontend-checks:
+    name: frontend-checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify frontend package is present
+        working-directory: .
+        run: |
+          if [ ! -f apps/web/package.json ]; then
+            echo "::error::apps/web/package.json not found. This job is required by the delivered frontend and will pass once apps/web lands."
+            exit 1
+          fi
+          if [ ! -f apps/web/package-lock.json ]; then
+            echo "::error::apps/web/package-lock.json not found. npm ci requires a committed lockfile."
+            exit 1
+          fi
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: apps/web
+        run: npm ci --no-audit --no-fund
+
+      - name: Typecheck
+        working-directory: apps/web
+        run: npm run typecheck
+
+      - name: Lint
+        working-directory: apps/web
+        run: npm run lint
+
+      - name: Test
+        working-directory: apps/web
+        run: npm run test -- --run
+
+      - name: Build
+        working-directory: apps/web
+        run: npm run build
+
+      - name: Check generated API types
+        working-directory: apps/web
+        run: npm run check:api
+
+  integration-smoke:
+    name: integration-smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up uv and Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install Python dependencies
+        run: uv sync --frozen
+
+      - name: Headless API smoke (isolated SQLite, synthetic fixture only)
+        run: bash scripts/smoke.sh

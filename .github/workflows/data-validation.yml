@@ -1,0 +1,52 @@
+name: Data validation
+
+# Offline data gate for manifests, the pinned snapshot, and the index dry-run.
+# Read-only, no secrets, no network data downloads. Candidate required check:
+# register the `data-validation` job after it has been observed at least once
+# (see docs/DATA_GOVERNANCE.md).
+
+on:
+  pull_request:
+    paths:
+      - "pipelines/**"
+      - "contracts/pipeline-manifest.schema.json"
+      - "catalog/**"
+      - "configs/**"
+      - "samples/snapshot/**"
+  push:
+    paths:
+      - "pipelines/**"
+      - "contracts/pipeline-manifest.schema.json"
+      - "catalog/**"
+      - "configs/**"
+      - "samples/snapshot/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: data-validation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  data-validation:
+    name: data-validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up uv and Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install Python dependencies
+        run: uv sync --frozen
+
+      - name: Validate committed data (offline)
+        run: bash scripts/validate_data.sh

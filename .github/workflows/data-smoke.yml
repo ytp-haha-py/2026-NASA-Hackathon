@@ -1,0 +1,45 @@
+name: Data smoke (opt-in, network)
+
+# OPT-IN and NON-BLOCKING for pull requests. This workflow is manual
+# (`workflow_dispatch`) or weekly (`schedule`) only; it never runs on PRs and
+# must not be configured as a required check. It reaches real Copernicus DEM and
+# ESA WorldCover endpoints through scripts/online_smoke.sh, so it is excluded
+# from PR gates on purpose.
+#
+# No secrets are used. A scheduled failure indicates a real provider/network
+# change, not a data-policy regression.
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Weekly, Monday 04:17 UTC.
+    - cron: "17 4 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: data-smoke-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  data-smoke:
+    name: data-smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up uv and Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install Python dependencies
+        run: uv sync --frozen
+
+      - name: Real provider AOI smoke (network; not a PR gate)
+        run: bash scripts/online_smoke.sh

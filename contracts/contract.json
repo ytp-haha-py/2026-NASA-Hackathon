@@ -1,0 +1,868 @@
+{
+  "contract_version": "1.0.0",
+  "method_version": "terrain-metrics-1.0.0",
+  "analysis": {
+    "window_size_m": 1980,
+    "window_description": "Fixed 1.98 km x 1.98 km window (22 x 22 cells at 90 m) centred on the candidate/ROI coordinate, in a local metric CRS.",
+    "analysis_resolution_m": 90,
+    "resampling": "bilinear",
+    "min_valid_fraction": 0.8,
+    "crs_policy": "All metrics are computed in a projected CRS whose horizontal units are metres. Slopes are never computed from longitude/latitude degrees.",
+    "metric_family": "local terrain shape only"
+  },
+  "features": [
+    {
+      "id": "slope_mean_deg",
+      "label": "Mean slope",
+      "unit": "degree",
+      "description": "Mean terrain gradient angle over the analysis window.",
+      "method": "DEM resampled (bilinear) to 90 m in a metric CRS; per-cell gradient magnitude from a 3x3 Horn operator; arithmetic mean of valid cells.",
+      "method_version": "terrain-metrics-1.0.0",
+      "min_value": 0.0,
+      "max_value": 90.0,
+      "scale": 10.0,
+      "scale_rationale": "Fixed a-priori contrast scale: 10 degrees separates smooth plains from rugged hillslopes at 90 m sampling.",
+      "extraction_scale_m": 90,
+      "valid_domain": "0 <= value <= 90 degrees",
+      "missing_policy": "Candidates missing this metric are excluded from a search that requests it.",
+      "dimension_id": "terrain_shape",
+      "value_kind": "numeric",
+      "score_role": "similarity",
+      "spatial_support": "fixed 1.98 km x 1.98 km window; 22 x 22 cells at 90 m",
+      "temporal_support": "static epoch of the source DEM release",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "verified_only_for_processed_reference_rois",
+        "Mars": "unavailable"
+      },
+      "comparability_gate": "Same method_version, projected metric CRS, 90 m analysis grid and valid-data rule. Terrain-shape comparability does not imply environmental equivalence."
+    },
+    {
+      "id": "slope_p90_deg",
+      "label": "90th percentile slope",
+      "unit": "degree",
+      "description": "90th percentile of per-cell terrain gradient angle in the analysis window.",
+      "method": "Same gradient grid as slope_mean_deg; linear-interpolated 90th percentile over valid cells.",
+      "method_version": "terrain-metrics-1.0.0",
+      "min_value": 0.0,
+      "max_value": 90.0,
+      "scale": 15.0,
+      "scale_rationale": "Fixed a-priori contrast scale of 15 degrees for steep-tail terrain.",
+      "extraction_scale_m": 90,
+      "valid_domain": "0 <= value <= 90 degrees",
+      "missing_policy": "Candidates missing this metric are excluded from a search that requests it.",
+      "dimension_id": "terrain_shape",
+      "value_kind": "numeric",
+      "score_role": "similarity",
+      "spatial_support": "fixed 1.98 km x 1.98 km window; 22 x 22 cells at 90 m",
+      "temporal_support": "static epoch of the source DEM release",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "verified_only_for_processed_reference_rois",
+        "Mars": "unavailable"
+      },
+      "comparability_gate": "Same method_version, projected metric CRS, 90 m analysis grid and valid-data rule. Terrain-shape comparability does not imply environmental equivalence."
+    },
+    {
+      "id": "terrain_relief_p95_p05_m",
+      "label": "Terrain relief (p95-p05)",
+      "unit": "meter",
+      "description": "Difference between the 95th and 5th percentile elevation inside the analysis window.",
+      "method": "DEM resampled (bilinear) to 90 m; linear-interpolated percentiles over valid cells; p95 minus p05.",
+      "method_version": "terrain-metrics-1.0.0",
+      "min_value": 0.0,
+      "max_value": 20000.0,
+      "scale": 200.0,
+      "scale_rationale": "Fixed a-priori contrast scale: 200 m of relief separates subdued from strongly dissected terrain.",
+      "extraction_scale_m": 90,
+      "valid_domain": "0 <= value <= 20000 meters",
+      "missing_policy": "Candidates missing this metric are excluded from a search that requests it.",
+      "dimension_id": "terrain_shape",
+      "value_kind": "numeric",
+      "score_role": "similarity",
+      "spatial_support": "fixed 1.98 km x 1.98 km window; 22 x 22 cells at 90 m",
+      "temporal_support": "static epoch of the source DEM release",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "verified_only_for_processed_reference_rois",
+        "Mars": "unavailable"
+      },
+      "comparability_gate": "Same method_version, projected metric CRS, 90 m analysis grid and valid-data rule. Terrain-shape comparability does not imply environmental equivalence."
+    },
+    {
+      "id": "roughness_std_m",
+      "label": "Detrended roughness (std dev)",
+      "unit": "meter",
+      "description": "Standard deviation of elevation residuals after removing a least-squares plane fitted across the analysis window.",
+      "method": "DEM resampled (bilinear) to 90 m in a metric CRS; least-squares plane z = a*x + b*y + c fitted on valid cells; population standard deviation of residuals.",
+      "method_version": "terrain-metrics-1.0.0",
+      "min_value": 0.0,
+      "max_value": 5000.0,
+      "scale": 20.0,
+      "scale_rationale": "Fixed a-priori contrast scale of 20 m of detrended residual height.",
+      "extraction_scale_m": 90,
+      "valid_domain": "0 <= value <= 5000 meters",
+      "missing_policy": "Candidates missing this metric are excluded from a search that requests it.",
+      "dimension_id": "terrain_shape",
+      "value_kind": "numeric",
+      "score_role": "similarity",
+      "spatial_support": "fixed 1.98 km x 1.98 km window; 22 x 22 cells at 90 m",
+      "temporal_support": "static epoch of the source DEM release",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "verified_only_for_processed_reference_rois",
+        "Mars": "unavailable"
+      },
+      "comparability_gate": "Same method_version, projected metric CRS, 90 m analysis grid and valid-data rule. Terrain-shape comparability does not imply environmental equivalence."
+    }
+  ],
+  "supported_bodies": [
+    "custom",
+    "Moon",
+    "Mars"
+  ],
+  "distance": {
+    "name": "weighted normalized Euclidean distance",
+    "formula": "distance = sqrt( sum_i[ w_i * ((candidate_i - target_i) / scale_i)^2 ] / sum_i w_i )",
+    "scale_source": "feature_registry.scale (fixed, not derived from the result subset)",
+    "range": ">= 0; lower is more similar. Not a percentage and not a physical equivalence claim.",
+    "tiebreak": "ascending distance, then location_id",
+    "limit": "1..10, results = min(limit, eligible candidates)"
+  },
+  "coverage": {
+    "label": "indexed_subset",
+    "disclaimer": "Results are the best matches among the indexed Earth windows only. This is not a global survey and not a base-site recommendation."
+  },
+  "examples": {
+    "capabilities": {
+      "contract_version": "1.0.0",
+      "method_version": "terrain-metrics-1.0.0",
+      "features": [
+        "<feature objects from features[]>"
+      ],
+      "supported_bodies": [
+        "custom"
+      ],
+      "indexed_candidate_count": 3,
+      "coverage": {
+        "label": "indexed_subset",
+        "indexed_candidate_count": 3,
+        "geographic_bbox": {
+          "west": -116.9,
+          "south": -23.6,
+          "east": -13.5,
+          "north": 37.7
+        },
+        "description": "Search is limited to the committed, pre-computed windows listed in docs/DATA_SOURCES.md.",
+        "origins": {
+          "indexed": 3,
+          "on_demand": 0
+        }
+      },
+      "available_reference_ids": [],
+      "data_version": "dv-example",
+      "data_snapshot_id": "dv-example",
+      "context_features": [
+        {
+          "feature_id": "landcover_tree_cover_fraction",
+          "label": "Land cover: Tree cover fraction",
+          "class_code": 10,
+          "dimension_id": "land_cover_context",
+          "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 10 (Tree cover). Earth land-cover context only.",
+          "value_kind": "distribution",
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+          "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+          "provider_coverage_by_body": {
+            "Earth": "verified_where_indexed",
+            "Moon": "not_applicable",
+            "Mars": "not_applicable"
+          },
+          "compare_strategy": "context_only_filter",
+          "score_role": "context_only",
+          "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+          "reference": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "feature_id": "landcover_shrubland_fraction",
+          "label": "Land cover: Shrubland fraction",
+          "class_code": 20,
+          "dimension_id": "land_cover_context",
+          "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 20 (Shrubland). Earth land-cover context only.",
+          "value_kind": "distribution",
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+          "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+          "provider_coverage_by_body": {
+            "Earth": "verified_where_indexed",
+            "Moon": "not_applicable",
+            "Mars": "not_applicable"
+          },
+          "compare_strategy": "context_only_filter",
+          "score_role": "context_only",
+          "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+          "reference": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "feature_id": "landcover_grassland_fraction",
+          "label": "Land cover: Grassland fraction",
+          "class_code": 30,
+          "dimension_id": "land_cover_context",
+          "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 30 (Grassland). Earth land-cover context only.",
+          "value_kind": "distribution",
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+          "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+          "provider_coverage_by_body": {
+            "Earth": "verified_where_indexed",
+            "Moon": "not_applicable",
+            "Mars": "not_applicable"
+          },
+          "compare_strategy": "context_only_filter",
+          "score_role": "context_only",
+          "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+          "reference": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "feature_id": "landcover_cropland_fraction",
+          "label": "Land cover: Cropland fraction",
+          "class_code": 40,
+          "dimension_id": "land_cover_context",
+          "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 40 (Cropland). Earth land-cover context only.",
+          "value_kind": "distribution",
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+          "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+          "provider_coverage_by_body": {
+            "Earth": "verified_where_indexed",
+            "Moon": "not_applicable",
+            "Mars": "not_applicable"
+          },
+          "compare_strategy": "context_only_filter",
+          "score_role": "context_only",
+          "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+          "reference": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "feature_id": "landcover_built_up_fraction",
+          "label": "Land cover: Built-up fraction",
+          "class_code": 50,
+          "dimension_id": "land_cover_context",
+          "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 50 (Built-up). Earth land-cover context only.",
+          "value_kind": "distribution",
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+          "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+          "provider_coverage_by_body": {
+            "Earth": "verified_where_indexed",
+            "Moon": "not_applicable",
+            "Mars": "not_applicable"
+          },
+          "compare_strategy": "context_only_filter",
+          "score_role": "context_only",
+          "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+          "reference": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "feature_id": "landcover_bare_sparse_fraction",
+          "label": "Land cover: Bare / sparse vegetation fraction",
+          "class_code": 60,
+          "dimension_id": "land_cover_context",
+          "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 60 (Bare / sparse vegetation). Earth land-cover context only.",
+          "value_kind": "distribution",
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+          "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+          "provider_coverage_by_body": {
+            "Earth": "verified_where_indexed",
+            "Moon": "not_applicable",
+            "Mars": "not_applicable"
+          },
+          "compare_strategy": "context_only_filter",
+          "score_role": "context_only",
+          "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+          "reference": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "feature_id": "landcover_snow_ice_fraction",
+          "label": "Land cover: Snow and ice fraction",
+          "class_code": 70,
+          "dimension_id": "land_cover_context",
+          "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 70 (Snow and ice). Earth land-cover context only.",
+          "value_kind": "distribution",
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+          "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+          "provider_coverage_by_body": {
+            "Earth": "verified_where_indexed",
+            "Moon": "not_applicable",
+            "Mars": "not_applicable"
+          },
+          "compare_strategy": "context_only_filter",
+          "score_role": "context_only",
+          "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+          "reference": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "feature_id": "landcover_water_fraction",
+          "label": "Land cover: Permanent water bodies fraction",
+          "class_code": 80,
+          "dimension_id": "land_cover_context",
+          "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 80 (Permanent water bodies). Earth land-cover context only.",
+          "value_kind": "distribution",
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+          "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+          "provider_coverage_by_body": {
+            "Earth": "verified_where_indexed",
+            "Moon": "not_applicable",
+            "Mars": "not_applicable"
+          },
+          "compare_strategy": "context_only_filter",
+          "score_role": "context_only",
+          "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+          "reference": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "feature_id": "landcover_herbaceous_wetland_fraction",
+          "label": "Land cover: Herbaceous wetland fraction",
+          "class_code": 90,
+          "dimension_id": "land_cover_context",
+          "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 90 (Herbaceous wetland). Earth land-cover context only.",
+          "value_kind": "distribution",
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+          "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+          "provider_coverage_by_body": {
+            "Earth": "verified_where_indexed",
+            "Moon": "not_applicable",
+            "Mars": "not_applicable"
+          },
+          "compare_strategy": "context_only_filter",
+          "score_role": "context_only",
+          "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+          "reference": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "feature_id": "landcover_mangrove_fraction",
+          "label": "Land cover: Mangroves fraction",
+          "class_code": 95,
+          "dimension_id": "land_cover_context",
+          "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 95 (Mangroves). Earth land-cover context only.",
+          "value_kind": "distribution",
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+          "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+          "provider_coverage_by_body": {
+            "Earth": "verified_where_indexed",
+            "Moon": "not_applicable",
+            "Mars": "not_applicable"
+          },
+          "compare_strategy": "context_only_filter",
+          "score_role": "context_only",
+          "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+          "reference": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "feature_id": "landcover_moss_lichen_fraction",
+          "label": "Land cover: Moss and lichen fraction",
+          "class_code": 100,
+          "dimension_id": "land_cover_context",
+          "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 100 (Moss and lichen). Earth land-cover context only.",
+          "value_kind": "distribution",
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+          "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+          "provider_coverage_by_body": {
+            "Earth": "verified_where_indexed",
+            "Moon": "not_applicable",
+            "Mars": "not_applicable"
+          },
+          "compare_strategy": "context_only_filter",
+          "score_role": "context_only",
+          "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+          "reference": "https://esa-worldcover.org/en/data-access"
+        }
+      ],
+      "aoi_analysis": {
+        "max_side_m": 2000.0,
+        "min_side_m": 600.0,
+        "max_area_km2": 4.0,
+        "max_polygon_vertices": 100,
+        "analysis_resolution_m": 90,
+        "requested_features": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m"
+        ],
+        "supported_body": "Earth",
+        "note": "On-demand AOIs are bounded to a 2 km-class footprint so terrain support remains comparable to the indexed windows. Polygon holes are not supported in the MVP; the outer ring is validated and used."
+      }
+    },
+    "search_request": {
+      "body": "custom",
+      "reference_id": null,
+      "target": {
+        "slope_mean_deg": {
+          "value": 12,
+          "weight": 1
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 80,
+          "weight": 0.5
+        }
+      },
+      "limit": 10
+    },
+    "search_response": {
+      "contract_version": "1.0.0",
+      "method_version": "terrain-metrics-1.0.0",
+      "query_version": "search-1.0.0",
+      "data_version": "dv-example",
+      "coverage_label": "indexed_subset",
+      "indexed_candidate_count": 3,
+      "eligible_candidate_count": 2,
+      "excluded_candidate_count": 1,
+      "excluded": [
+        {
+          "location_id": "earth-...",
+          "reason": "missing_metric:slope_p90_deg"
+        }
+      ],
+      "results": [
+        {
+          "rank": 1,
+          "location_id": "earth-example",
+          "display_name": "Example window",
+          "lat": 0.0,
+          "lon": 0.0,
+          "bbox": {
+            "west": -0.01,
+            "south": -0.01,
+            "east": 0.01,
+            "north": 0.01
+          },
+          "distance": 0.41,
+          "metrics": [
+            {
+              "feature_id": "slope_mean_deg",
+              "unit": "degree",
+              "target": 12.0,
+              "candidate": 14.2,
+              "delta": 2.2,
+              "scale": 10.0,
+              "weight": 1.0,
+              "normalized_delta": 0.22,
+              "contribution": 0.031
+            }
+          ],
+          "dataset_ids": [
+            "copernicus-dem-glo90"
+          ],
+          "data_kind": "observed",
+          "caveats": [
+            "Terrain shape only; gravity, atmosphere and radiation are not compared."
+          ],
+          "dimension_distances": {
+            "terrain_shape": 0.41
+          }
+        }
+      ],
+      "limitations": [
+        "Terrain-shape similarity is not physical equivalence."
+      ],
+      "data_snapshot_id": "dv-example",
+      "coverage": {
+        "label": "indexed_subset",
+        "indexed_candidate_count": 3,
+        "geographic_bbox": {
+          "west": -116.9,
+          "south": -23.6,
+          "east": -13.5,
+          "north": 37.7
+        },
+        "description": "Search is limited to the committed, pre-computed windows listed in docs/DATA_SOURCES.md.",
+        "origins": {
+          "indexed": 3,
+          "on_demand": 0
+        }
+      },
+      "requested_features": [
+        "slope_mean_deg",
+        "terrain_relief_p95_p05_m"
+      ],
+      "filters_applied": {}
+    },
+    "location": {
+      "location_id": "earth-example",
+      "display_name": "Example window",
+      "body": "Earth",
+      "lat": 0.0,
+      "lon": 0.0,
+      "bbox": {
+        "west": -0.01,
+        "south": -0.01,
+        "east": 0.01,
+        "north": 0.01
+      },
+      "window_size_m": 2000,
+      "analysis_resolution_m": 90,
+      "valid_fraction": 0.99,
+      "data_kind": "observed",
+      "features": [
+        "<feature observation objects with value, unit, method_version, extraction_scale_m, valid_fraction, quality>"
+      ],
+      "datasets": [
+        "<dataset provenance objects>"
+      ],
+      "known_limitations": [
+        "<general and source-specific limitations>"
+      ]
+    },
+    "context": {
+      "export_version": "1.0.0",
+      "note": "Grounded structured export for external AI assistance. Contains observed metadata and computed comparisons; no generated narrative.",
+      "location": {
+        "<location object>": true
+      },
+      "source_facts": [
+        "<dataset-derived facts with source IDs>"
+      ],
+      "computed_comparisons": [
+        "<metric comparisons against supplied target, or scale-relative values only>"
+      ],
+      "limitations": [
+        "<explicit scope and physical limitations>"
+      ],
+      "context_only_note": "context_observations are Earth land-cover context, never in the similarity distance."
+    },
+    "aoi_analyze_request": {
+      "body": "Earth",
+      "bbox": {
+        "west": -6.63,
+        "south": 37.71,
+        "east": -6.613,
+        "north": 37.727
+      },
+      "requested_features": [
+        "slope_mean_deg",
+        "slope_p90_deg",
+        "terrain_relief_p95_p05_m",
+        "roughness_std_m"
+      ],
+      "reference_id": null,
+      "idempotency_key": null
+    },
+    "aoi_analyze_response": {
+      "job_id": "<job-id>",
+      "status": "queued",
+      "area_id": "earth-aoi-<hash>",
+      "cache_key": "<sha256>",
+      "cached": false,
+      "provider_status": {},
+      "result": null,
+      "links": {
+        "job": "/api/v1/jobs/<job-id>",
+        "area_features": "/api/v1/areas/earth-aoi-<hash>/features"
+      }
+    },
+    "job": {
+      "job_id": "<job-id>",
+      "status": "completed",
+      "area_id": "earth-aoi-<hash>",
+      "provider_status": {
+        "copernicus-dem-glo90": {
+          "status": "verified"
+        },
+        "esa-worldcover-2021-v200": {
+          "status": "verified"
+        }
+      },
+      "error": null,
+      "result": {
+        "feature_count": 4,
+        "context_feature_count": 11,
+        "data_version": "dv-..."
+      },
+      "created_at": "...",
+      "started_at": "...",
+      "finished_at": "..."
+    }
+  },
+  "errors": {
+    "shape": {
+      "error": {
+        "code": "validation_error",
+        "message": "human readable",
+        "details": []
+      }
+    },
+    "codes": {
+      "validation_error": 422,
+      "unknown_feature": 422,
+      "not_found": 404,
+      "no_indexed_data": 409,
+      "incompatible_method_version": 409
+    }
+  },
+  "context_features": [
+    {
+      "feature_id": "landcover_tree_cover_fraction",
+      "label": "Land cover: Tree cover fraction",
+      "class_code": 10,
+      "dimension_id": "land_cover_context",
+      "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 10 (Tree cover). Earth land-cover context only.",
+      "value_kind": "distribution",
+      "unit": "fraction",
+      "method_version": "worldcover-2021-v200-1.0.0",
+      "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+      "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "not_applicable",
+        "Mars": "not_applicable"
+      },
+      "compare_strategy": "context_only_filter",
+      "score_role": "context_only",
+      "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+      "reference": "https://esa-worldcover.org/en/data-access"
+    },
+    {
+      "feature_id": "landcover_shrubland_fraction",
+      "label": "Land cover: Shrubland fraction",
+      "class_code": 20,
+      "dimension_id": "land_cover_context",
+      "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 20 (Shrubland). Earth land-cover context only.",
+      "value_kind": "distribution",
+      "unit": "fraction",
+      "method_version": "worldcover-2021-v200-1.0.0",
+      "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+      "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "not_applicable",
+        "Mars": "not_applicable"
+      },
+      "compare_strategy": "context_only_filter",
+      "score_role": "context_only",
+      "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+      "reference": "https://esa-worldcover.org/en/data-access"
+    },
+    {
+      "feature_id": "landcover_grassland_fraction",
+      "label": "Land cover: Grassland fraction",
+      "class_code": 30,
+      "dimension_id": "land_cover_context",
+      "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 30 (Grassland). Earth land-cover context only.",
+      "value_kind": "distribution",
+      "unit": "fraction",
+      "method_version": "worldcover-2021-v200-1.0.0",
+      "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+      "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "not_applicable",
+        "Mars": "not_applicable"
+      },
+      "compare_strategy": "context_only_filter",
+      "score_role": "context_only",
+      "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+      "reference": "https://esa-worldcover.org/en/data-access"
+    },
+    {
+      "feature_id": "landcover_cropland_fraction",
+      "label": "Land cover: Cropland fraction",
+      "class_code": 40,
+      "dimension_id": "land_cover_context",
+      "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 40 (Cropland). Earth land-cover context only.",
+      "value_kind": "distribution",
+      "unit": "fraction",
+      "method_version": "worldcover-2021-v200-1.0.0",
+      "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+      "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "not_applicable",
+        "Mars": "not_applicable"
+      },
+      "compare_strategy": "context_only_filter",
+      "score_role": "context_only",
+      "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+      "reference": "https://esa-worldcover.org/en/data-access"
+    },
+    {
+      "feature_id": "landcover_built_up_fraction",
+      "label": "Land cover: Built-up fraction",
+      "class_code": 50,
+      "dimension_id": "land_cover_context",
+      "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 50 (Built-up). Earth land-cover context only.",
+      "value_kind": "distribution",
+      "unit": "fraction",
+      "method_version": "worldcover-2021-v200-1.0.0",
+      "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+      "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "not_applicable",
+        "Mars": "not_applicable"
+      },
+      "compare_strategy": "context_only_filter",
+      "score_role": "context_only",
+      "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+      "reference": "https://esa-worldcover.org/en/data-access"
+    },
+    {
+      "feature_id": "landcover_bare_sparse_fraction",
+      "label": "Land cover: Bare / sparse vegetation fraction",
+      "class_code": 60,
+      "dimension_id": "land_cover_context",
+      "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 60 (Bare / sparse vegetation). Earth land-cover context only.",
+      "value_kind": "distribution",
+      "unit": "fraction",
+      "method_version": "worldcover-2021-v200-1.0.0",
+      "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+      "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "not_applicable",
+        "Mars": "not_applicable"
+      },
+      "compare_strategy": "context_only_filter",
+      "score_role": "context_only",
+      "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+      "reference": "https://esa-worldcover.org/en/data-access"
+    },
+    {
+      "feature_id": "landcover_snow_ice_fraction",
+      "label": "Land cover: Snow and ice fraction",
+      "class_code": 70,
+      "dimension_id": "land_cover_context",
+      "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 70 (Snow and ice). Earth land-cover context only.",
+      "value_kind": "distribution",
+      "unit": "fraction",
+      "method_version": "worldcover-2021-v200-1.0.0",
+      "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+      "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "not_applicable",
+        "Mars": "not_applicable"
+      },
+      "compare_strategy": "context_only_filter",
+      "score_role": "context_only",
+      "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+      "reference": "https://esa-worldcover.org/en/data-access"
+    },
+    {
+      "feature_id": "landcover_water_fraction",
+      "label": "Land cover: Permanent water bodies fraction",
+      "class_code": 80,
+      "dimension_id": "land_cover_context",
+      "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 80 (Permanent water bodies). Earth land-cover context only.",
+      "value_kind": "distribution",
+      "unit": "fraction",
+      "method_version": "worldcover-2021-v200-1.0.0",
+      "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+      "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "not_applicable",
+        "Mars": "not_applicable"
+      },
+      "compare_strategy": "context_only_filter",
+      "score_role": "context_only",
+      "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+      "reference": "https://esa-worldcover.org/en/data-access"
+    },
+    {
+      "feature_id": "landcover_herbaceous_wetland_fraction",
+      "label": "Land cover: Herbaceous wetland fraction",
+      "class_code": 90,
+      "dimension_id": "land_cover_context",
+      "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 90 (Herbaceous wetland). Earth land-cover context only.",
+      "value_kind": "distribution",
+      "unit": "fraction",
+      "method_version": "worldcover-2021-v200-1.0.0",
+      "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+      "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "not_applicable",
+        "Mars": "not_applicable"
+      },
+      "compare_strategy": "context_only_filter",
+      "score_role": "context_only",
+      "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+      "reference": "https://esa-worldcover.org/en/data-access"
+    },
+    {
+      "feature_id": "landcover_mangrove_fraction",
+      "label": "Land cover: Mangroves fraction",
+      "class_code": 95,
+      "dimension_id": "land_cover_context",
+      "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 95 (Mangroves). Earth land-cover context only.",
+      "value_kind": "distribution",
+      "unit": "fraction",
+      "method_version": "worldcover-2021-v200-1.0.0",
+      "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+      "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "not_applicable",
+        "Mars": "not_applicable"
+      },
+      "compare_strategy": "context_only_filter",
+      "score_role": "context_only",
+      "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+      "reference": "https://esa-worldcover.org/en/data-access"
+    },
+    {
+      "feature_id": "landcover_moss_lichen_fraction",
+      "label": "Land cover: Moss and lichen fraction",
+      "class_code": 100,
+      "dimension_id": "land_cover_context",
+      "description": "Fraction of valid ESA WorldCover pixels in the AOI mapped to class 100 (Moss and lichen). Earth land-cover context only.",
+      "value_kind": "distribution",
+      "unit": "fraction",
+      "method_version": "worldcover-2021-v200-1.0.0",
+      "spatial_support": "AOI footprint at native 10 m WorldCover pixels; fractions over valid pixels",
+      "temporal_support": "ESA WorldCover 2021 v200 static annual epoch",
+      "provider_coverage_by_body": {
+        "Earth": "verified_where_indexed",
+        "Moon": "not_applicable",
+        "Mars": "not_applicable"
+      },
+      "compare_strategy": "context_only_filter",
+      "score_role": "context_only",
+      "quality_rules": "valid_fraction >= 0.8; class fractions sum to 1 within tolerance; unknown stays unknown",
+      "reference": "https://esa-worldcover.org/en/data-access"
+    }
+  ],
+  "aoi_analysis": {
+    "max_side_m": 2000.0,
+    "min_side_m": 600.0,
+    "max_area_km2": 4.0,
+    "max_polygon_vertices": 100,
+    "analysis_resolution_m": 90,
+    "requested_features": [
+      "slope_mean_deg",
+      "slope_p90_deg",
+      "terrain_relief_p95_p05_m",
+      "roughness_std_m"
+    ],
+    "supported_body": "Earth",
+    "note": "On-demand AOIs are bounded to a 2 km-class footprint so terrain support remains comparable to the indexed windows. Polygon holes are not supported in the MVP; the outer ring is validated and used."
+  }
+}

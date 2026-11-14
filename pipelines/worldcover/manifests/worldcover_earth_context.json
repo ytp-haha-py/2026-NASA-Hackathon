@@ -1,0 +1,868 @@
+{
+  "manifest_version": "1.0.0",
+  "contract_version": "1.0.0",
+  "generated_by": "pipelines/worldcover/ingest_worldcover.py",
+  "generated_at": "2026-11-14T06:24:21Z",
+  "data_kind": "observed",
+  "datasets": [
+    {
+      "dataset_id": "esa-worldcover-2021-v200",
+      "provider": "European Space Agency (ESA) WorldCover",
+      "product_id": "ESA WorldCover 2021 v200",
+      "title": "ESA WorldCover 10 m 2021 v200 land cover",
+      "url": "https://esa-worldcover.org/en/data-access",
+      "license": "CC BY 4.0 (Creative Commons Attribution 4.0 International)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "access_timestamp": "2026-11-14T06:20:08Z",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 10.0,
+      "processing_version": "worldcover-2021-v200-1.0.0",
+      "checksum": "sha256:dd301f519ba16941601dfb76831b78e035c7d7f8181d2cd484a26a5da2eb4c47",
+      "source_kind": "landcover",
+      "notes": "ESA WorldCover 2021 v200 static annual land-cover map at 10 m (1/12000 degree) in EPSG:4326. Class code 0 is nodata and is excluded from fraction denominators. Class codes: 10 Tree cover; 20 Shrubland; 30 Grassland; 40 Cropland; 50 Built-up; 60 Bare / sparse vegetation; 70 Snow and ice; 80 Permanent water bodies; 90 Herbaceous wetland; 95 Mangroves; 100 Moss and lichen. The AOI windows were read as bounded unsigned HTTPS range requests from the public AWS Open Data bucket s3://esa-worldcover (eu-central-1), prefix v200/2021/map/, with 3-degree tiles named ESA_WorldCover_10m_2021_v200_<N|S>dd<W|E>ddd_Map.tif. Fractions use valid (non-nodata) pixels as the denominator and sum to 1 within 0.0001; valid_fraction is the share of AOI pixels with data and must be >= 0.8 for quality 'verified'. Body: Earth. This is Earth land-cover context only: it is not lunar mineralogy, not geology, not a terrain measurement, and not a similarity feature. Limitations: 10 m static 2021 epoch, annual composite without a per-pixel date, cloud/seasonal and mixed-pixel artifacts, and helper-class semantics (for example 'bare / sparse vegetation' groups several surfaces). The published independent validation reports 76.7% overall accuracy for 2021 v200. Small 2 km AOIs can be dominated by one class and are not a regional or global survey. Citation: Zanaga, D., Van De Kerchove, R., Daems, D., De Keersmaecker, W., Brockmann, C., Kirches, G., Wevers, J., Cartus, O., Santoro, M., Fritz, S., Lesiv, M., Herold, M., Tsendbazar, N.E., Xu, P., Ramoino, F., Arino, O., 2022. ESA WorldCover 10 m 2021 v200. https://doi.org/10.5281/zenodo.7254221."
+    }
+  ],
+  "candidates": [
+    {
+      "location_id": "earth-atacama-desert",
+      "display_name": "Atacama Desert, Chile",
+      "lat": -23.5,
+      "lon": -68.4,
+      "bbox": {
+        "west": -68.40973566,
+        "south": -23.5089791,
+        "east": -68.39026303,
+        "north": -23.49102032
+      },
+      "dataset_id": "esa-worldcover-2021-v200",
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "EPSG:32719",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "copernicus_dsm_may_include_vegetation_buildings",
+        "glo90_native_3_arcsec_bilinear_to_90m"
+      ],
+      "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S24_00_W069_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d047697eeb5b4e6e246f57ac6396d0100fa43aa57b2b8cfbc15dc89fe1fc7cf8; warnings=source_nodata_undefined; context: ESA WorldCover 2021 v200 class fractions over the same AOI bbox at native 10 m; tile(s) S24W069; window_checksum=sha256:cd02d32468e7bacd727286d255effdd852b6b5ade4c61d0297b4ac1f90134c1b; valid_fraction=1.000000; terrain features above are copied verbatim from pipelines/earth/manifests/copernicus_glo90_earth.json for loader compatibility and were not recomputed or altered by this pipeline; WorldCover values are Earth land-cover context only, not mineralogy or geology.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 0.012132,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 0.021067,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 0.113076,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 0.034069,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      },
+      "context_observations": {
+        "landcover_tree_cover_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 10,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_shrubland_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 20,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_grassland_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 30,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_cropland_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 40,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_built_up_fraction": {
+          "value": 0.005085,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 50,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_bare_sparse_fraction": {
+          "value": 0.994915,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 60,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_snow_ice_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 70,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_water_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 80,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_herbaceous_wetland_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 90,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_mangrove_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 95,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_moss_lichen_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 100,
+          "provider": "European Space Agency (ESA) WorldCover"
+        }
+      }
+    },
+    {
+      "location_id": "earth-death-valley",
+      "display_name": "Death Valley, California, USA",
+      "lat": 36.25,
+      "lon": -117.1,
+      "bbox": {
+        "west": -117.11103192,
+        "south": 36.24106488,
+        "east": -117.08897059,
+        "north": 36.2589341
+      },
+      "dataset_id": "esa-worldcover-2021-v200",
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "EPSG:32611",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "copernicus_dsm_may_include_vegetation_buildings",
+        "glo90_native_3_arcsec_bilinear_to_90m"
+      ],
+      "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W118_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:2614abbcebe1f07a1b72856f3911e9a9a1998a4a60b1359144ce70d0518f0202; warnings=source_nodata_undefined; context: ESA WorldCover 2021 v200 class fractions over the same AOI bbox at native 10 m; tile(s) N36W120; window_checksum=sha256:ccdb9e91b6d1c1380e03c366a2a20b246eeff5feabb938a5975d57e2dfb26dc7; valid_fraction=1.000000; terrain features above are copied verbatim from pipelines/earth/manifests/copernicus_glo90_earth.json for loader compatibility and were not recomputed or altered by this pipeline; WorldCover values are Earth land-cover context only, not mineralogy or geology.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 17.80321,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 30.088898,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 378.412096,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 93.251142,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      },
+      "context_observations": {
+        "landcover_tree_cover_fraction": {
+          "value": 0.286109,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 10,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_shrubland_fraction": {
+          "value": 0.44743,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 20,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_grassland_fraction": {
+          "value": 0.239397,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 30,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_cropland_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 40,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_built_up_fraction": {
+          "value": 0.000336,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 50,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_bare_sparse_fraction": {
+          "value": 0.026728,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 60,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_snow_ice_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 70,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_water_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 80,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_herbaceous_wetland_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 90,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_mangrove_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 95,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_moss_lichen_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 100,
+          "provider": "European Space Agency (ESA) WorldCover"
+        }
+      }
+    },
+    {
+      "location_id": "earth-lanzarote",
+      "display_name": "Lanzarote volcanic terrain, Spain",
+      "lat": 29.04,
+      "lon": -13.63,
+      "bbox": {
+        "west": -13.64028241,
+        "south": 29.03096285,
+        "east": -13.61971584,
+        "north": 29.04903644
+      },
+      "dataset_id": "esa-worldcover-2021-v200",
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "EPSG:32628",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "copernicus_dsm_may_include_vegetation_buildings",
+        "glo90_native_3_arcsec_bilinear_to_90m"
+      ],
+      "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N29_00_W014_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:cf2b0dd9ecfd9ce946b6e8a0587fb4286e75611c69f779db34a843449f59c56a; warnings=source_nodata_undefined; context: ESA WorldCover 2021 v200 class fractions over the same AOI bbox at native 10 m; tile(s) N27W015; window_checksum=sha256:cf2a3498b46fa685be92629138fbd02d387c0082e8fc0f723318b3bea0c527ba; valid_fraction=1.000000; terrain features above are copied verbatim from pipelines/earth/manifests/copernicus_glo90_earth.json for loader compatibility and were not recomputed or altered by this pipeline; WorldCover values are Earth land-cover context only, not mineralogy or geology.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 9.207354,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 21.9022,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 192.317387,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 40.851137,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      },
+      "context_observations": {
+        "landcover_tree_cover_fraction": {
+          "value": 0.003388,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 10,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_shrubland_fraction": {
+          "value": 0.001204,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 20,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_grassland_fraction": {
+          "value": 0.632885,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 30,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_cropland_fraction": {
+          "value": 0.004216,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 40,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_built_up_fraction": {
+          "value": 0.086871,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 50,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_bare_sparse_fraction": {
+          "value": 0.260859,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 60,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_snow_ice_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 70,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_water_fraction": {
+          "value": 0.010577,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 80,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_herbaceous_wetland_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 90,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_mangrove_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 95,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_moss_lichen_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 100,
+          "provider": "European Space Agency (ESA) WorldCover"
+        }
+      }
+    },
+    {
+      "location_id": "earth-devon-island",
+      "display_name": "Devon Island / Haughton, Nunavut, Canada",
+      "lat": 75.4,
+      "lon": -89.85,
+      "bbox": {
+        "west": -89.88685478,
+        "south": 75.39070894,
+        "east": -89.81318683,
+        "north": 75.40928632
+      },
+      "dataset_id": "esa-worldcover-2021-v200",
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "EPSG:32616",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "copernicus_dsm_may_include_vegetation_buildings",
+        "glo90_native_3_arcsec_bilinear_to_90m"
+      ],
+      "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N75_00_W090_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:7c6093848cb5dabea7b51ba1769b818217dab356aabeb79b9659ce6921d6f5b9; warnings=source_nodata_undefined; context: ESA WorldCover 2021 v200 class fractions over the same AOI bbox at native 10 m; tile(s) N75W090; window_checksum=sha256:32a4d5e98a6825a3b5bd5ac1a7fa87baee0bd1aefd0e6147627b48f674a4953c; valid_fraction=1.000000; terrain features above are copied verbatim from pipelines/earth/manifests/copernicus_glo90_earth.json for loader compatibility and were not recomputed or altered by this pipeline; WorldCover values are Earth land-cover context only, not mineralogy or geology.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 4.692384,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 8.258798,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 109.605672,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 18.821312,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      },
+      "context_observations": {
+        "landcover_tree_cover_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 10,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_shrubland_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 20,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_grassland_fraction": {
+          "value": 0.000189,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 30,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_cropland_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 40,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_built_up_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 50,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_bare_sparse_fraction": {
+          "value": 0.509564,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 60,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_snow_ice_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 70,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_water_fraction": {
+          "value": 1.5e-05,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 80,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_herbaceous_wetland_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 90,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_mangrove_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 95,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_moss_lichen_fraction": {
+          "value": 0.490232,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 100,
+          "provider": "European Space Agency (ESA) WorldCover"
+        }
+      }
+    },
+    {
+      "location_id": "earth-rio-tinto",
+      "display_name": "Rio Tinto, Spain",
+      "lat": 37.69,
+      "lon": -6.55,
+      "bbox": {
+        "west": -6.56151071,
+        "south": 37.68085126,
+        "east": -6.53848661,
+        "north": 37.69914781
+      },
+      "dataset_id": "esa-worldcover-2021-v200",
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "EPSG:32629",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "copernicus_dsm_may_include_vegetation_buildings",
+        "glo90_native_3_arcsec_bilinear_to_90m"
+      ],
+      "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N37_00_W007_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:4a681d61c3a5ea2cb8f2b386e55887c1230879ed4d199c32274c53000529e3b2; warnings=source_nodata_undefined; context: ESA WorldCover 2021 v200 class fractions over the same AOI bbox at native 10 m; tile(s) N36W009; window_checksum=sha256:63860505f28436bacf71ff2b35b0af6165032cd70e0c7d70abdb700a1845509d; valid_fraction=1.000000; terrain features above are copied verbatim from pipelines/earth/manifests/copernicus_glo90_earth.json for loader compatibility and were not recomputed or altered by this pipeline; WorldCover values are Earth land-cover context only, not mineralogy or geology.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 6.713842,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 12.825895,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 88.074492,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 22.197816,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      },
+      "context_observations": {
+        "landcover_tree_cover_fraction": {
+          "value": 0.192556,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 10,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_shrubland_fraction": {
+          "value": 0.098617,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 20,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_grassland_fraction": {
+          "value": 0.303063,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 30,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_cropland_fraction": {
+          "value": 0.003986,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 40,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_built_up_fraction": {
+          "value": 0.221624,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 50,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_bare_sparse_fraction": {
+          "value": 0.176845,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 60,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_snow_ice_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 70,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_water_fraction": {
+          "value": 0.00331,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 80,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_herbaceous_wetland_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 90,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_mangrove_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 95,
+          "provider": "European Space Agency (ESA) WorldCover"
+        },
+        "landcover_moss_lichen_fraction": {
+          "value": 0.0,
+          "unit": "fraction",
+          "method_version": "worldcover-2021-v200-1.0.0",
+          "source_resolution_m": 10.0,
+          "valid_fraction": 1.0,
+          "quality": "verified",
+          "class_code": 100,
+          "provider": "European Space Agency (ESA) WorldCover"
+        }
+      }
+    }
+  ],
+  "references": []
+}

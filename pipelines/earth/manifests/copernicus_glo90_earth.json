@@ -1,0 +1,308 @@
+{
+  "manifest_version": "1.0.0",
+  "contract_version": "1.0.0",
+  "generated_by": "pipelines/earth/ingest_copernicus.py",
+  "generated_at": "2026-11-14T06:11:16Z",
+  "data_kind": "observed",
+  "datasets": [
+    {
+      "dataset_id": "copernicus-dem-glo90",
+      "provider": "European Space Agency (ESA) / Airbus Defence and Space; AWS Open Data mirror",
+      "product_id": "COP-DEM_GLO-90-DGED",
+      "title": "Copernicus DEM GLO-90 Digital Surface Model (DSM), 3 arc-second COG",
+      "url": "https://registry.opendata.aws/copernicus-dem/",
+      "license": "Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry), under the Copernicus Contributing Mission Data Access Licence terms",
+      "license_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "access_timestamp": "2026-11-14T06:11:16Z",
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 90.0,
+      "processing_version": "terrain-metrics-1.0.0",
+      "checksum": null,
+      "source_kind": "earth_dem",
+      "notes": "GLO-90 DSM (COP-DEM_GLO-90-DGED source) from the 2021 Copernicus DEM release, mirrored as public COGs in s3://copernicus-dem-90m (eu-central-1). 3 arc-second native grid, EPSG:4326, EGM2008 heights in metres. DSM includes buildings, infrastructure and vegetation; ocean areas have no tiles. Each COG uses 2048x2048 internal blocks, so a window range-read may transfer the containing block. Attribution: produced using Copernicus WorldDEM-90 \u00a9 DLR e.V. 2010-2014 and \u00a9 Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved."
+    }
+  ],
+  "candidates": [
+    {
+      "location_id": "earth-atacama-desert",
+      "display_name": "Atacama Desert, Chile",
+      "lat": -23.5,
+      "lon": -68.4,
+      "bbox": {
+        "west": -68.40973566,
+        "south": -23.5089791,
+        "east": -68.39026303,
+        "north": -23.49102032
+      },
+      "dataset_id": "copernicus-dem-glo90",
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "EPSG:32719",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "copernicus_dsm_may_include_vegetation_buildings",
+        "glo90_native_3_arcsec_bilinear_to_90m"
+      ],
+      "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S24_00_W069_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d047697eeb5b4e6e246f57ac6396d0100fa43aa57b2b8cfbc15dc89fe1fc7cf8; warnings=source_nodata_undefined",
+      "features": {
+        "slope_mean_deg": {
+          "value": 0.012132,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 0.021067,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 0.113076,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 0.034069,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "location_id": "earth-death-valley",
+      "display_name": "Death Valley, California, USA",
+      "lat": 36.25,
+      "lon": -117.1,
+      "bbox": {
+        "west": -117.11103192,
+        "south": 36.24106488,
+        "east": -117.08897059,
+        "north": 36.2589341
+      },
+      "dataset_id": "copernicus-dem-glo90",
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "EPSG:32611",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "copernicus_dsm_may_include_vegetation_buildings",
+        "glo90_native_3_arcsec_bilinear_to_90m"
+      ],
+      "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W118_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:2614abbcebe1f07a1b72856f3911e9a9a1998a4a60b1359144ce70d0518f0202; warnings=source_nodata_undefined",
+      "features": {
+        "slope_mean_deg": {
+          "value": 17.80321,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 30.088898,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 378.412096,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 93.251142,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "location_id": "earth-lanzarote",
+      "display_name": "Lanzarote volcanic terrain, Spain",
+      "lat": 29.04,
+      "lon": -13.63,
+      "bbox": {
+        "west": -13.64028241,
+        "south": 29.03096285,
+        "east": -13.61971584,
+        "north": 29.04903644
+      },
+      "dataset_id": "copernicus-dem-glo90",
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "EPSG:32628",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "copernicus_dsm_may_include_vegetation_buildings",
+        "glo90_native_3_arcsec_bilinear_to_90m"
+      ],
+      "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N29_00_W014_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:cf2b0dd9ecfd9ce946b6e8a0587fb4286e75611c69f779db34a843449f59c56a; warnings=source_nodata_undefined",
+      "features": {
+        "slope_mean_deg": {
+          "value": 9.207354,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 21.9022,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 192.317387,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 40.851137,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "location_id": "earth-devon-island",
+      "display_name": "Devon Island / Haughton, Nunavut, Canada",
+      "lat": 75.4,
+      "lon": -89.85,
+      "bbox": {
+        "west": -89.88685478,
+        "south": 75.39070894,
+        "east": -89.81318683,
+        "north": 75.40928632
+      },
+      "dataset_id": "copernicus-dem-glo90",
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "EPSG:32616",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "copernicus_dsm_may_include_vegetation_buildings",
+        "glo90_native_3_arcsec_bilinear_to_90m"
+      ],
+      "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N75_00_W090_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:7c6093848cb5dabea7b51ba1769b818217dab356aabeb79b9659ce6921d6f5b9; warnings=source_nodata_undefined",
+      "features": {
+        "slope_mean_deg": {
+          "value": 4.692384,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 8.258798,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 109.605672,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 18.821312,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "location_id": "earth-rio-tinto",
+      "display_name": "Rio Tinto, Spain",
+      "lat": 37.69,
+      "lon": -6.55,
+      "bbox": {
+        "west": -6.56151071,
+        "south": 37.68085126,
+        "east": -6.53848661,
+        "north": 37.69914781
+      },
+      "dataset_id": "copernicus-dem-glo90",
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "EPSG:32629",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "copernicus_dsm_may_include_vegetation_buildings",
+        "glo90_native_3_arcsec_bilinear_to_90m"
+      ],
+      "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N37_00_W007_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:4a681d61c3a5ea2cb8f2b386e55887c1230879ed4d199c32274c53000529e3b2; warnings=source_nodata_undefined",
+      "features": {
+        "slope_mean_deg": {
+          "value": 6.713842,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 12.825895,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 88.074492,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 22.197816,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    }
+  ],
+  "references": []
+}

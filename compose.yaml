@@ -1,0 +1,41 @@
+name: planetary-analog
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      ANALOG_DATABASE_URL: sqlite+pysqlite:////data/analog.db
+      ANALOG_CORS_ORIGINS: http://localhost:8080
+      ANALOG_SEED_INCLUDE_SYNTHETIC: "false"
+      ANALOG_MANIFEST_DIR_CONTEXT: /app/pipelines/worldcover/manifests
+      ANALOG_AOI_RUNTIME_DIR: /data/aoi-catalog
+    volumes:
+      - analog-data:/data
+    ports:
+      - "${API_PORT:-8000}:8000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health', timeout=3)",
+        ]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  web:
+    build:
+      context: ./apps/web
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  analog-data:

@@ -1,0 +1,14 @@
+.git
+.gitignore
+.venv
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.ruff_cache
+apps/web/node_modules
+apps/web/dist
+var
+data/cache
+samples/**/*.tif
+samples/**/*.tiff
+.env

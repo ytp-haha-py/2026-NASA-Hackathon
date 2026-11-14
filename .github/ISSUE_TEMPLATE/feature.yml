@@ -1,0 +1,67 @@
+name: Feature request
+description: Propose a scoped feature or improvement for the Planetary Analog Explorer.
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Keep proposals tied to the MVP scope: evidence-based terrain analog search over an
+        explicitly indexed subset. Do not propose unverified scientific claims, paid services,
+        credentials, or global raster downloads.
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What is in scope, what is explicitly out of scope, and which area does this touch?
+      placeholder: "In scope: ...\nOut of scope: ...\nAffected area: apps/api, pipelines, apps/web, contracts, docs"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      description: Concrete, checkable outcomes that let a reviewer accept the work.
+      placeholder: |
+        - [ ] The API returns ...
+        - [ ] The UI labels synthetic data ...
+        - [ ] `bash scripts/verify.sh` passes
+    validations:
+      required: true
+  - type: textarea
+    id: evidence-data-sources
+    attributes:
+      label: Evidence and data sources
+      description: Cite datasets, manifests, contracts, or source files. Mark synthetic fixtures and unverified sources explicitly.
+      placeholder: "Dataset/provider/product, license, URL, manifest path, or TEST-ONLY synthetic fixture."
+    validations:
+      required: true
+  - type: textarea
+    id: test-plan
+    attributes:
+      label: Test plan
+      description: Which automated layers and manual checks prove the change?
+      placeholder: |
+        - Unit/API tests:
+        - Frontend typecheck/build:
+        - `bash scripts/smoke.sh`:
+        - Manual acceptance:
+    validations:
+      required: true
+  - type: input
+    id: owner
+    attributes:
+      label: Assigned owner
+      description: GitHub handle of the accountable owner. Do not guess; use the verified handle.
+      placeholder: "@username"
+    validations:
+      required: true
+  - type: checkboxes
+    id: scientific-honesty
+    attributes:
+      label: Scientific honesty
+      options:
+        - label: This proposal does not present synthetic data as observations or subset results as a global survey.
+          required: true
+        - label: Provenance, units, scales, and limitations will remain visible to users.
+          required: true

@@ -1,0 +1,87 @@
+name: Data publish (trusted, manual)
+
+# TEMPLATE ONLY. This workflow has never been executed against live object
+# storage. Do not claim a successful R2 publication until a maintainer records
+# the observed output (see docs/DATA_GOVERNANCE.md and docs/R2_SETUP.md).
+#
+# DVC is NOT adopted: the committed, checksummed snapshot manifest
+# (samples/snapshot/analog-demo.snapshot.json) is the pinned interface and
+# snapshots/<snapshot-id>/... objects are append-only.
+#
+# Safety model:
+# - workflow_dispatch only, and the job additionally requires refs/heads/main, so
+#   untrusted PR code can never run with write credentials.
+# - The `data-publish` environment must be created in repository settings with
+#   required reviewers (and restricted branches) before first use.
+# - Least privilege: read code, read packages, no repo write token.
+
+on:
+  workflow_dispatch:
+    inputs:
+      snapshot:
+        description: "Committed snapshot JSON to verify and publish"
+        required: true
+        default: "samples/snapshot/analog-demo.snapshot.json"
+        type: string
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  data-publish:
+    name: data-publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: data-publish
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up uv and Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install dependencies with object storage extras
+        run: uv sync --frozen --extra storage
+
+      - name: Verify snapshot before publishing
+        env:
+          SNAPSHOT: ${{ inputs.snapshot }}
+        run: uv run python -m analog_pipelines.snapshot verify --snapshot "$SNAPSHOT"
+
+      - name: Check required secrets
+        env:
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_REGION: ${{ secrets.R2_REGION }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          missing=0
+          for name in R2_ENDPOINT R2_BUCKET R2_REGION R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY; do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::Missing required repository secret: $name"
+              missing=1
+            fi
+          done
+          if [ "$missing" -ne 0 ]; then
+            echo "::error::Configure the data-publish environment secrets before running this workflow."
+            exit 1
+          fi
+          echo "All required publish secrets are present (values are never printed)."
+
+      - name: Publish pinned snapshot (append-only prefix)
+        env:
+          ANALOG_OBJECT_STORE_BACKEND: s3
+          ANALOG_OBJECT_STORE_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          ANALOG_OBJECT_STORE_BUCKET: ${{ secrets.R2_BUCKET }}
+          ANALOG_OBJECT_STORE_REGION: ${{ secrets.R2_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          SNAPSHOT: ${{ inputs.snapshot }}
+        run: uv run --extra storage python -m analog_pipelines.snapshot publish --snapshot "$SNAPSHOT"

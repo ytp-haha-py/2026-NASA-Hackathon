@@ -1,0 +1,74 @@
+name: Bug report
+description: Report a reproducible defect in the Planetary Analog Explorer.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not paste secrets, credentials, or private data. Keep scientific claims out of the
+        reproduction: report what you observed and cite the source of any data involved.
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Which component is affected, and what is the impact?
+      placeholder: "Affected area: apps/api, pipelines, apps/web, contracts, scripts, CI\nImpact: ..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Exact commands, inputs, and sequence that trigger the bug. Note whether data is synthetic.
+      placeholder: |
+        1. Run `...`
+        2. POST `...`
+        3. Observe `...`
+    validations:
+      required: true
+  - type: textarea
+    id: evidence-data-sources
+    attributes:
+      label: Evidence and data sources
+      description: Paste command output, response bodies, logs, screenshots, and the dataset/manifest involved.
+      placeholder: "Observed output, HTTP status, data_version, fixture or manifest path, screenshot link."
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      description: What must be true for this bug to be considered fixed?
+      placeholder: |
+        - [ ] Reproduction now returns ...
+        - [ ] Regression test added at ...
+        - [ ] `bash scripts/verify.sh` passes
+    validations:
+      required: true
+  - type: textarea
+    id: test-plan
+    attributes:
+      label: Test plan
+      description: How will the fix be verified, including the regression test?
+      placeholder: |
+        - Regression test:
+        - Focused rerun:
+        - `bash scripts/smoke.sh`:
+    validations:
+      required: true
+  - type: input
+    id: owner
+    attributes:
+      label: Assigned owner
+      description: GitHub handle of the accountable owner. Do not guess; use the verified handle.
+      placeholder: "@username"
+    validations:
+      required: true
+  - type: checkboxes
+    id: scientific-honesty
+    attributes:
+      label: Scientific honesty
+      options:
+        - label: The report does not claim scientific validity from synthetic or subset data.
+          required: true
