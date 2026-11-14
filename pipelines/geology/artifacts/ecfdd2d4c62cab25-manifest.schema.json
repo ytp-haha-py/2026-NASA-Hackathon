@@ -1,0 +1,820 @@
+{
+  "$defs": {
+    "Analysis": {
+      "additionalProperties": false,
+      "properties": {
+        "area_id": {
+          "title": "Area Id",
+          "type": "string"
+        },
+        "geometry_fingerprint": {
+          "title": "Geometry Fingerprint",
+          "type": "string"
+        },
+        "body": {
+          "enum": [
+            "Earth",
+            "Moon",
+            "Mars"
+          ],
+          "title": "Body",
+          "type": "string"
+        },
+        "dataset_id": {
+          "title": "Dataset Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "success",
+            "partial",
+            "no_coverage",
+            "failed",
+            "auth_required",
+            "unverified",
+            "context_only"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        },
+        "accessed_at": {
+          "format": "date-time",
+          "title": "Accessed At",
+          "type": "string"
+        },
+        "processing_method": {
+          "title": "Processing Method",
+          "type": "string"
+        },
+        "source_crs": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Crs"
+        },
+        "native_resolution_m": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Native Resolution M"
+        },
+        "map_scale": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Map Scale"
+        },
+        "analysis_crs": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Analysis Crs"
+        },
+        "valid_fraction": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Fraction"
+        },
+        "artifacts": {
+          "items": {
+            "$ref": "#/$defs/Artifact"
+          },
+          "title": "Artifacts",
+          "type": "array"
+        },
+        "lithology": {
+          "items": {
+            "$ref": "#/$defs/Lithology"
+          },
+          "title": "Lithology",
+          "type": "array"
+        },
+        "mineralogy": {
+          "items": {
+            "$ref": "#/$defs/Mineral"
+          },
+          "title": "Mineralogy",
+          "type": "array"
+        },
+        "geological_processes": {
+          "items": {
+            "$ref": "#/$defs/Process"
+          },
+          "title": "Geological Processes",
+          "type": "array"
+        },
+        "geological_context": {
+          "items": {
+            "$ref": "#/$defs/Context"
+          },
+          "title": "Geological Context",
+          "type": "array"
+        },
+        "quality_flags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "area_id",
+        "geometry_fingerprint",
+        "body",
+        "dataset_id",
+        "status",
+        "accessed_at",
+        "processing_method",
+        "analysis_crs",
+        "artifacts",
+        "quality_flags",
+        "limitations"
+      ],
+      "title": "Analysis",
+      "type": "object"
+    },
+    "Area": {
+      "additionalProperties": false,
+      "properties": {
+        "area_id": {
+          "minLength": 1,
+          "title": "Area Id",
+          "type": "string"
+        },
+        "display_name": {
+          "title": "Display Name",
+          "type": "string"
+        },
+        "body": {
+          "enum": [
+            "Earth",
+            "Moon",
+            "Mars"
+          ],
+          "title": "Body",
+          "type": "string"
+        },
+        "crs": {
+          "title": "Crs",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": true,
+          "title": "Geometry",
+          "type": "object"
+        },
+        "geometry_fingerprint": {
+          "default": "",
+          "title": "Geometry Fingerprint",
+          "type": "string"
+        },
+        "origin": {
+          "enum": [
+            "existing",
+            "external",
+            "test_aoi"
+          ],
+          "title": "Origin",
+          "type": "string"
+        },
+        "geometry_source": {
+          "title": "Geometry Source",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "area_id",
+        "display_name",
+        "body",
+        "crs",
+        "geometry",
+        "origin",
+        "geometry_source"
+      ],
+      "title": "Area",
+      "type": "object"
+    },
+    "Artifact": {
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "title": "Role",
+          "type": "string"
+        },
+        "source_url": {
+          "title": "Source Url",
+          "type": "string"
+        },
+        "checksum": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "size_bytes": {
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        },
+        "provider_checksum": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Provider Checksum"
+        }
+      },
+      "required": [
+        "role",
+        "source_url",
+        "checksum",
+        "size_bytes"
+      ],
+      "title": "Artifact",
+      "type": "object"
+    },
+    "Context": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "valid_fraction": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Fraction"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "meaning": {
+          "title": "Meaning",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "name",
+        "method",
+        "meaning",
+        "limitations"
+      ],
+      "title": "Context",
+      "type": "object"
+    },
+    "Dataset": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset_id": {
+          "title": "Dataset Id",
+          "type": "string"
+        },
+        "body": {
+          "enum": [
+            "Earth",
+            "Moon",
+            "Mars"
+          ],
+          "title": "Body",
+          "type": "string"
+        },
+        "provider": {
+          "title": "Provider",
+          "type": "string"
+        },
+        "product": {
+          "title": "Product",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "source_url": {
+          "title": "Source Url",
+          "type": "string"
+        },
+        "license": {
+          "title": "License",
+          "type": "string"
+        },
+        "license_url": {
+          "title": "License Url",
+          "type": "string"
+        },
+        "redistribution": {
+          "enum": [
+            "permitted",
+            "not_verified"
+          ],
+          "title": "Redistribution",
+          "type": "string"
+        },
+        "citation": {
+          "title": "Citation",
+          "type": "string"
+        },
+        "source_crs": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Crs"
+        },
+        "native_resolution_m": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Native Resolution M"
+        },
+        "map_scale": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Map Scale"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "dataset_id",
+        "body",
+        "provider",
+        "product",
+        "version",
+        "source_url",
+        "license",
+        "license_url",
+        "redistribution",
+        "citation",
+        "source_crs",
+        "limitations"
+      ],
+      "title": "Dataset",
+      "type": "object"
+    },
+    "Lithology": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "source_feature_id": {
+          "title": "Source Feature Id",
+          "type": "string"
+        },
+        "unit_id": {
+          "title": "Unit Id",
+          "type": "string"
+        },
+        "unit_name": {
+          "title": "Unit Name",
+          "type": "string"
+        },
+        "official_description": {
+          "title": "Official Description",
+          "type": "string"
+        },
+        "original_attributes": {
+          "additionalProperties": true,
+          "title": "Original Attributes",
+          "type": "object"
+        },
+        "unified_rocks": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unified Rocks",
+          "type": "array"
+        },
+        "overlap_fraction": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Overlap Fraction",
+          "type": "number"
+        },
+        "interpretation": {
+          "title": "Interpretation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "source_feature_id",
+        "unit_id",
+        "unit_name",
+        "official_description",
+        "original_attributes",
+        "unified_rocks",
+        "overlap_fraction",
+        "interpretation"
+      ],
+      "title": "Lithology",
+      "type": "object"
+    },
+    "Mineral": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "mineral": {
+          "title": "Mineral",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "detected",
+            "not_detected_under_valid_observation",
+            "no_coverage",
+            "unknown",
+            "not_applicable"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "measurement": {
+          "enum": [
+            "identification",
+            "band_depth",
+            "spectral_parameter",
+            "model_abundance",
+            "unverified"
+          ],
+          "title": "Measurement",
+          "type": "string"
+        },
+        "semantics_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Semantics Id"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "valid_fraction": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid Fraction"
+        },
+        "uncertainty": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Uncertainty"
+        },
+        "uncertainty_unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Uncertainty Unit"
+        },
+        "quality": {
+          "enum": [
+            "verified",
+            "context_only",
+            "unverified"
+          ],
+          "title": "Quality",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "mineral",
+        "state",
+        "measurement",
+        "method",
+        "quality",
+        "limitations"
+      ],
+      "title": "Mineral",
+      "type": "object"
+    },
+    "Process": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "enum": [
+            "igneous",
+            "impact",
+            "sedimentary",
+            "aqueous_alteration"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "process": {
+          "title": "Process",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "supporting_statement": {
+          "title": "Supporting Statement",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "mapped_geology",
+            "documented_interpretation"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "confidence": {
+          "enum": [
+            "mapped",
+            "interpreted"
+          ],
+          "title": "Confidence",
+          "type": "string"
+        }
+      },
+      "required": [
+        "category",
+        "process",
+        "evidence_ids",
+        "supporting_statement",
+        "basis",
+        "confidence"
+      ],
+      "title": "Process",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "geology-manifest-1.0.0",
+      "default": "geology-manifest-1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "processing_version": {
+      "const": "geology-1.0.0",
+      "default": "geology-1.0.0",
+      "title": "Processing Version",
+      "type": "string"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "data_kind": {
+      "enum": [
+        "source_derived",
+        "synthetic_test_only"
+      ],
+      "title": "Data Kind",
+      "type": "string"
+    },
+    "scope": {
+      "title": "Scope",
+      "type": "string"
+    },
+    "areas": {
+      "items": {
+        "$ref": "#/$defs/Area"
+      },
+      "title": "Areas",
+      "type": "array"
+    },
+    "datasets": {
+      "items": {
+        "$ref": "#/$defs/Dataset"
+      },
+      "title": "Datasets",
+      "type": "array"
+    },
+    "analyses": {
+      "items": {
+        "$ref": "#/$defs/Analysis"
+      },
+      "title": "Analyses",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "generated_at",
+    "data_kind",
+    "scope",
+    "areas",
+    "datasets",
+    "analyses",
+    "limitations"
+  ],
+  "title": "Manifest",
+  "type": "object"
+}

@@ -1,0 +1,4 @@
+# Optional, isolated GIS environment; the shared project/lockfile is unchanged.
+shapely==2.2.0
+fiona==1.10.1
+h5py==3.16.0

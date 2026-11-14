@@ -1,0 +1,95 @@
+# Observed validation — 2026-11-14
+
+Branch: `feat/16-geology-mineralogy`；未 commit、push、merge、上傳 R2 或刪除資料。
+
+## 最終品質 gate
+
+實際執行（cache 路徑僅為本次執行環境設定，不在 pipeline 中硬編碼）：
+
+```bash
+UV_CACHE_DIR=/tmp/geology-uv-cache npm_config_cache=/tmp/geology-npm-cache bash scripts/verify.sh
+```
+
+在 sandbox 外執行的最終命令 exit **0**，實際結尾：
+
+```text
+[verify] RESULT: PASS - 14 steps in 70s (full gate)
+```
+
+Ruff lint／format、API／pipeline pytest、OpenAPI drift、原有 offline data gate、npm ci、
+typecheck、ESLint、前端測試、build 與生成 API types 全部通過。前端實際為 3 個 test files、
+63 tests passed。原有 Snapshot 仍是 `snap-d3ed2ba59558e7f8`、5 candidates、3 datasets、
+1 reference、20 features、55 context observations，沒有改寫。
+
+觀察到的既有 warnings：Starlette TestClient httpx deprecation、測試用無 CRS raster warning、
+前端 bundle >500 kB；沒有為此修改共用依賴或前端。GitHub CI 尚未執行／觀察。
+
+最初 sandbox 內 gate 在既有 `test_inline_aoi_analysis_persists_context_and_cache` 卡住，
+中斷 exit 130。相同單項在 sandbox 外 exit 0、1 passed。第一次外部 full gate 發現獨立
+Manifest 放在 `manifests/` 會觸發共用 Terrain data gate；改用 `records/` 並加入迴歸測試後，
+才得到上述完整 PASS，未修改／忽略共用 gate 或 Contract。
+
+## Geology 額外檢查
+
+```bash
+UV_CACHE_DIR=/tmp/geology-uv-cache uv run --offline --frozen \
+  --with-requirements pipelines/geology/requirements-ingest.txt \
+  pytest pipelines/tests/test_geology.py pipelines/tests/test_geology_spatial.py -o addopts='' -q
+```
+
+exit **0**，實際輸出：`51 passed in 2.36s`。其中 46 項 core 可在專案既有環境執行；
+5 項向量測試使用獨立 GIS 環境。共用環境缺少選配 GIS 套件時，該向量測試 module 會
+明確 skip；最終上述隔離環境已實際跑完五項。
+
+涵蓋：五種 mineral states、null／NaN／inf、band depth 非 wt%、uncertainty、quality masks、
+不相容的觀測語義、礦物不可單獨推成地質作用、廣義火山岩不推成 basalt、planetary CRS、
+fingerprint／重複 ID／改區域、rings／180° seam、holes、來源 polygon 重疊的 union coverage、
+無效來源幾何、無覆蓋、離線可攜性、path traversal、hash tampering、Snapshot schema，以及
+避免獨立 Geology records 被誤認為 Terrain manifests。
+
+## 真實來源與重現
+
+實際執行過 `audit`，接著 `analyze`，以外部資料目錄保存完整 Moon／Jezero GIS、月球
+MAT／RGB 與一幅 CRISM summary／DP information。`analyze --offline --refresh` 重新計算
+套疊與來源格式檢查；每個 provider 的狀態獨立保留。詳細結果見 README、coverage audit、
+manifest 與 pinned source inspections，沒有以 synthetic fixture 填補觀測。
+
+在改存 `records/` 前另做過完整 cached replay assertion，Snapshot ID 保持
+`geo-snap-2c198bda0cedf8d4`，印出 `DETERMINISTIC_REPLAY_PASS`。該試跑產物保留於外部
+`prototype-layout-backup/`。目前正式獨立路徑的 Snapshot 為
+`geo-snap-d1235d5f9defe6cd`；其內容 hash、schema、搬移後驗證及 tampering detection
+均由最終 tests 與 CLI 驗證。
+
+```bash
+uv run --frozen python -m analog_pipelines.geology verify
+```
+
+exit **0**：
+
+```text
+PASS geo-snap-d1235d5f9defe6cd 8 pinned files; manifest validated; no source downloads
+```
+
+CLI `match --categories igneous impact sedimentary aqueous_alteration --rocks basalt`
+亦 exit 0；五個 Earth 候選均回傳 unknown／provider status，沒有虛構 Earth geology matches。
+
+## 容量與隔離
+
+目前 Snapshot 固定內容合計 **195,541 bytes**（約 191 KiB），最大單檔 **135,233 bytes**。
+地質資料、Schema、Audit 與文件合計約 0.27 MB（不含本 validation 文件及後續文件文字變動）。
+外部原始資料／解壓／快取約 **1.6 GiB**。主要已下載原檔：
+
+| 檔案 | bytes |
+|---|---:|
+| Moon GIS v2 ZIP | 224,413,040 |
+| SIM3464 GIS ZIP | 349,336,873 |
+| SIM3464 map PDF | 36,406,378 |
+| Lunar v4 MAT | 63,028,597 |
+| Lunar v3 Oli RGB TIFF | 14,640,014 |
+| 選取的 CRISM refined summary IMG | 82,009,200 |
+| 對應 DP information IMG | 12,301,380 |
+
+`git diff --exit-code` 及針對 API／web／contracts／configs／catalog／shared Snapshot／
+pyproject／uv.lock／scripts 的 `git diff --exit-code` 均 exit **0**。
+所有變更都是本次新增的 geology package、`pipelines/geology/` 與兩個 geology test files。
+不含 raw raster、SQLite、cache、.env、token 或憑證。

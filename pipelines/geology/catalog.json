@@ -1,0 +1,152 @@
+{
+  "catalog_version": "geology-catalog-1.0.0",
+  "datasets": [
+    {
+      "source_crs": "EPSG:3857",
+      "native_resolution_m": null,
+      "map_scale": 3750000,
+      "dataset_id": "glim-niveau-i-mirror",
+      "body": "Earth",
+      "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+      "product": "GLiM_Niveau_I",
+      "version": "1.1 (mirror description; upstream equivalence not_verified)",
+      "source_url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1",
+      "license": "not_verified",
+      "license_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+      "redistribution": "not_verified",
+      "citation": "Hartmann, J., Moosdorf, N. (2012), doi:10.1029/2012GC004370; Hartmann and Moosdorf (2015), doi:10.14682/2015LMWP",
+      "limitations": [
+        "Mirror licenseInfo is empty; local extracted values withheld from portable artifacts.",
+        "PANGAEA.788537 CC BY 3.0 applies to a separate 0.5-degree grid; do not transfer that license to this polygon mirror.",
+        "Approximate average source map scale 1:3,750,000; regional input scale varies and is not verified per polygon.",
+        "Basic volcanic rocks do not identify basalt or mineral species."
+      ]
+    },
+    {
+      "source_crs": null,
+      "native_resolution_m": null,
+      "map_scale": 5000000,
+      "dataset_id": "usgs-moon-geology-v2",
+      "body": "Moon",
+      "provider": "USGS Astrogeology Science Center",
+      "product": "Unified Geologic Map of the Moon",
+      "version": "2.0, March 3, 2020",
+      "source_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+      "license": "CC0, but please cite authors",
+      "license_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+      "redistribution": "permitted",
+      "citation": "Fortezzo, C.M., Spudis, P.D., and Harrel, S.L. (2020), Unified Geologic Map of the Moon, USGS, scale 1:5,000,000.",
+      "limitations": [
+        "Map-scale geological context, not detailed lithological or quantitative mineral composition.",
+        "Source vertex spacing ~3 km and smoothing tolerance ~16 km; AOI overlap does not improve map accuracy.",
+        "Moon 2000 sphere, planetocentric latitude, east-positive longitude, LOLA control; no WGS84."
+      ]
+    },
+    {
+      "source_crs": null,
+      "native_resolution_m": null,
+      "map_scale": 75000,
+      "dataset_id": "usgs-jezero-sim3464",
+      "body": "Mars",
+      "provider": "U.S. Geological Survey",
+      "product": "SIM 3464 Jezero and Nili Planum",
+      "version": "2020; distributed GeoUnits_v1",
+      "source_url": "https://pubs.usgs.gov/publication/sim3464",
+      "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+      "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+      "redistribution": "permitted",
+      "citation": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars, USGS SIM 3464, doi:10.3133/sim3464.",
+      "limitations": [
+        "1:75,000 geological interpretation from imagery, not a mineral abundance raster.",
+        "Coverage restricted to 76.8..77.8 E, 17.7..18.7 N.",
+        "Mars 2000 sphere, planetocentric latitude and east-positive longitude; no WGS84."
+      ]
+    },
+    {
+      "source_crs": null,
+      "native_resolution_m": 193.0,
+      "map_scale": null,
+      "dataset_id": "lunar-polar-minerals-zenodo-v4",
+      "body": "Moon",
+      "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+      "product": "M3/LOLA research-derived polar mineral maps",
+      "version": "Zenodo 20725024, v4, 2026-06-17",
+      "source_url": "https://zenodo.org/records/20725024",
+      "license": "cc-by-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+      "redistribution": "permitted",
+      "citation": "Du et al. (2026), Quantitative Mineral Maps of the Lunar South Polar Region Derived From the Moon Mineralogy Mapper (M3) Data, doi:10.1029/2024JE008842; dataset doi:10.5281/zenodo.20725024.",
+      "limitations": [
+        "Research-derived estimates, not direct laboratory composition.",
+        "MAT lacks embedded CRS, affine transform, units, QA, valid range and uncertainty. No AOI extraction enabled.",
+        "Legacy 15549419 TIFFs are RGB visualizations and cannot be interpreted as mineral abundance.",
+        "Paper abstract covers 83..90 S; registration of the v4 matrix is not established."
+      ]
+    },
+    {
+      "source_crs": null,
+      "native_resolution_m": 36.0,
+      "map_scale": null,
+      "dataset_id": "crism-mtrdr-context",
+      "body": "Mars",
+      "provider": "NASA PDS Geosciences Node / MRO CRISM",
+      "product": "MTRDR refined spectral summary parameters",
+      "version": "MTR3; selected product version recorded in provenance",
+      "source_url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+      "license": "Data sets archived in the PDS are in the public domain.",
+      "license_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+      "redistribution": "permitted",
+      "citation": "MRO CRISM MTRDR, NASA PDS; product IDs and source labels pinned in manifest artifacts.",
+      "limitations": [
+        "Spectral parameters are context only; no validated mineral identification or abundance conversion.",
+        "Coverage is finite non-fill pixels, not validated mineral detections; atmospheric/instrument residuals may remain.",
+        "Bounded ODE metadata query, first five products; one smallest summary cube selected, not exhaustive survey.",
+        "MTRDR uses a latitude-dependent custom Mars sphere; retain original CRS and native pixel size."
+      ]
+    },
+    {
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "dataset_id": "emit-l2bmin-002",
+      "body": "Earth",
+      "provider": "NASA JPL / LP DAAC",
+      "product": "EMITL2BMIN",
+      "version": "002",
+      "source_url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002",
+      "license": "NASA Earth science data and information policy",
+      "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+      "redistribution": "permitted",
+      "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V002, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.002",
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    },
+    {
+      "source_crs": "EPSG:4326",
+      "native_resolution_m": 60.0,
+      "map_scale": null,
+      "dataset_id": "emit-l2bmin-001",
+      "body": "Earth",
+      "provider": "NASA JPL / LP DAAC",
+      "product": "EMITL2BMIN",
+      "version": "001",
+      "source_url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
+      "license": "NASA Earth science data and information policy",
+      "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+      "redistribution": "permitted",
+      "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V001, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.001",
+      "limitations": [
+        "V002 is current formal release as verified by CMR on 2026-11-14; historical reprocessing is ongoing.",
+        "V001 is audited separately for historical coverage; never silently substituted for V002.",
+        "Native swath, not orthorectified; require geolocation, quality mask and uncertainty before observation use.",
+        "Band depths and mineral IDs are not mineral weight percentages.",
+        "CMR bbox hit is potential footprint coverage, never validated observation coverage."
+      ]
+    }
+  ]
+}

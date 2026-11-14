@@ -1,0 +1,187 @@
+# Dimension 02 — Geology & Mineralogy
+
+獨立、可離線讀取的研究模組。程式在 `pipelines/src/analog_pipelines/geology/`，不匯入
+Terrain scorer 或共用 Feature Registry。此工作位於 `feat/16-geology-mineralogy`，沒有修改
+共用 Catalog、Contract、Area Config、SQLite、API、前端、dependency lockfile 或 Terrain Snapshot。
+
+## 本次真實資料結果
+
+2026-11-14 的 bounded audit／分析結果如下。數量只代表列出的局部 AOI。
+
+| 天體 | AOI | 地質圖處理成功 | 可分享的地質圖成果 | 有可靠礦物觀測的 AOI |
+|---|---:|---:|---:|---:|
+| Earth | 5 個既有 AOI | 5（GLiM 本機套疊） | 0（鏡像授權未確認，分析值留在外部快取） | 0 / 5 |
+| Moon | 1 個既有 Shackleton ROI | 1 | 1 | 0 / 1 |
+| Mars | 2 個明確標記的 Jezero **測試 AOI** | 2 | 2 | 0 / 2 |
+
+最後一欄是「可驗證觀測的可用率」，不表示礦物含量為零或礦物不存在。各筆
+`mineralogy.valid_fraction` 在沒有有效觀測時保留 `null`。Mars 尚未成為共用系統的正式 reference。
+
+Moon ROI 的官方地圖單元為 `Ec`（Eratosthenian Crater），幾何套疊覆蓋約 100%；原圖比例尺
+1:5,000,000，不能從小數位推斷定位或組成精度。原圖約 3 km 的頂點間距、約 16 km 的平滑容差
+遠大於本次 1.98 km ROI，且 MOON_ME DE421 與 Moon 2000/LOLA 在精細尺度的對準未驗證。
+完整 source index 有 12,247 個多邊形，其中 1 個無效幾何被排除並記錄。
+
+Mars 使用官方 1:75,000 GIS，1304 個多邊形中 2 個無效幾何被排除。兩個測試 AOI 分別為
+77.35–77.38 E／18.47–18.50 N、77.40–77.44 E／18.42–18.46 N；原始單元 symbol、名稱、
+官方 map-sheet 描述及面積重疊比例均保留，包含 `Nue`、`Aeb`、`NHjf2`、`cr`、`Njf`、`Nle`。
+所有天體保留其原生比例尺／像元，沒有重採樣至 90 m。
+
+| 研究分類 | 實際支援 |
+|---|---|
+| Igneous | GLiM 本機資料有 broad igneous evidence；分享版尚未啟用。`vb` 僅映射為 basic volcanic rocks，絕不推成 basalt。 |
+| Impact | Moon `Ec`、Mars delta 測試範圍中的 `cr` 有地圖證據；沒有宣稱已辨識 impact breccia、melt 或 shock minerals。 |
+| Sedimentary | Mars `NHjf2` 官方 deltaic/lacustrine 解釋支持 sedimentary／fluvial／lacustrine deposits；保留原始地質描述。 |
+| Aqueous Alteration | 尚未啟用；礦物存在或 iron oxide index 本身不證明水蝕變成因。 |
+
+這四類非互斥。匹配結果只顯示證據支持的請求數、實際特徵、證據、重疊／有效比例及限制，
+不給 Terrain Euclidean distance 或「物理相似百分比」。沒有證據的請求是 unknown。
+
+## 各來源查核與限制
+
+- **GLiM**：指定 ArcGIS layer `1` 可用，鏡像描述為 v1.1；原生 EPSG:3857，平均來源比例尺約
+  1:3,750,000，各區域來源尺度不一。五個既有 Earth AOI 都完成 bounded polygon query 與面積
+  套疊。鏡像 item 的 `licenseInfo` 為空，且上游等同性未驗證，因此分享 manifest 為
+  `unverified`；`glim-local-<area-id>.json` 與 GeoJSON 僅留在外部資料路徑。
+  [PANGAEA.788537](https://doi.pangaea.de/10.1594/PANGAEA.788537) 的 CC BY 3.0 是另一份
+  **0.5° gridded** 產品，不將該授權或解析度套到此 polygon mirror。
+- **EMIT**：由 [CMR collections](https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30)
+  驗證正式 V002（`C4079846859-LPCLOUD`），並獨立查核 V001（`C2408034484-LPCLOUD`）歷史覆蓋。
+  Atacama、Death Valley、Lanzarote、Rio Tinto 的 V002 bbox 候選數分別為 16、20、4、10；
+  V001 為 26、29、5、28；Devon Island 兩版均為 0。只下載 metadata sample，未下載有效
+  granules。依使用者選擇，保留 `auth_required`，不要求帳密、不讀取或記錄憑證。
+  尚未交付經真實 granule 驗證的 NetCDF ingestion；`summarize_identification` 僅是已測試的
+  原生像元／品質／uncertainty 聚合核心，不能當成完整 EMIT adapter。
+- **Moon geology**：完整下載 USGS GIS v2。此 GDAL build 無法開啟套件中的 compressed
+  FileGDB，改用**同一完整套件附帶的 GeoUnits shapefile**及官方 DOMU CSV，建立 STRtree。
+  [官方 metadata](https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/)
+  標示 CC0、edition 2.0，保留作者引用。
+- **Lunar polar minerals**：Zenodo [15549419](https://zenodo.org/records/15549419) 的 TIFF 是
+  uint8 RGB；[20725024](https://zenodo.org/records/20725024) v4 是 MATLAB v7.3/HDF5，
+  `AbcubeNew` 在 HDF5 中為 `(5,2201,2201)`，對應 MATLAB `(2201,2201,5)`，記錄的順序是
+  Oli、Plag、Opx、Cpx、SmFe。API 確認 CC BY 4.0，且 v4 明確引用
+  [Du et al., doi:10.1029/2024JE008842](https://doi.org/10.1029/2024JE008842)。論文 abstract
+  為南極 83–90 S／約 193 m 的研究衍生產品；全文在本次環境回傳 HTTP 403。
+  MAT 沒有內嵌 CRS、affine、單位、有效域、QA 或 uncertainty；數值也含負值、>100、非有限值。
+  因此不假定單位、不借用不同版本 RGB 的座標來抽取、不把色彩當含量，也不硬剪裁成 0–100。
+  原檔 MD5 均已核對，格式／範圍檢查存於 pinned `source-inspections` artifact。
+- **Mars geology**：完整下載 [USGS SIM3464](https://pubs.usgs.gov/publication/sim3464) GIS，
+  使用 `Nili.gdb/GeoUnits_v1`。XML 中的單元 description 為空，故用官方 map PDF 補足正式描述，
+  不自行填寫岩性。USGS-authored GIS 為 public domain；map pamphlet 的第三方素材例外仍保留。
+- **CRISM**：bounded ODE 查到 4 幅候選 MTRDR；選取其中較小的
+  `hrl000040ff_07_if183j_mtr3` 對應 refined summary 與 DP information，而非完整光譜 cube。
+  60-band float32 summary 為 36 m，原生 nodata=65535，保留 custom Mars sphere CRS。
+  兩個測試 AOI 的七個 summary parameters 都有 100% **finite/non-fill 像元覆蓋**；這不是
+  通過礦物辨識 QA 的覆蓋率。OLINDEX3、LCPINDEX2、HCPINDEX2、D2300、BD1900_2、SINDEX2、
+  CINDEX2 的 AOI median 僅列於 `geological_context`，不解讀 DP mask 未文件化的 threshold，
+  不啟用礦物偵測、不換算 wt%。
+  [PDS Geosciences 的資料使用說明](https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf)
+  說明 PDS archived datasets 為 public domain。
+- **M³ 備選**：沒有下載全球原始反射光譜。研究衍生數值缺少 registration／units 的問題尚未
+  解決；回退至全球原始光譜不會自動產生可靠 mineral abundance，故本次不啟用。
+
+精確來源 URL、版本、存取時間、CRS、map scale／native resolution、checksum、處理方法、
+quality flags 與 limitations 由 manifest 的 area、dataset、analysis 三層以驗證過的 ID 連結。
+
+## Clone 後直接離線讀取
+
+只需要原專案依賴，不必安裝 GIS 額外套件、不必重新下載原始資料，也不必登入 Earthdata。
+
+```bash
+uv sync --frozen
+uv run --frozen python -m analog_pipelines.geology verify
+uv run --frozen python -m analog_pipelines.geology report
+uv run --frozen python -m analog_pipelines.geology match --categories igneous impact sedimentary aqueous_alteration --rocks basalt
+uv run --frozen pytest pipelines/tests/test_geology.py -o addopts='' -q
+```
+
+分享版的五個 Earth 候選目前全部缺少可分享的地質證據，`match` 會誠實列出 unknown 與 provider
+status，沒有可宣稱的 Earth analog 排名。`compare_minerals` 只有在 mineral、measurement、unit、
+method、semantics_id 都相容且兩邊有有效觀測時才比較；本次實際資料尚沒有這樣的成對觀測。
+
+## 重新執行 Pipeline
+
+設定 repository **外部**的資料路徑；程式會拒絕把原始來源放在 repository 裡。
+可設定任意磁碟路徑，不受特定分區限制。
+
+```bash
+export GEOLOGY_DATA_ROOT=/absolute/path/outside/repository/geology
+
+# 同步現有場域；附加明確標記的 Mars 測試 AOI，完全不修改 configs/areas.yaml
+uv run --frozen python -m analog_pipelines.geology export-areas --with-test-aois --output pipelines/geology/areas.json
+
+# 有限 metadata audit，接著執行地質圖 -> mineral/context -> snapshot
+uv run --frozen --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology audit
+uv run --frozen --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze
+
+# 快取齊全時不連網；保留成功與不可用紀錄，避免反覆下載
+uv run --frozen --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline
+
+# 只重試不可用的分析；既有 URL metadata cache 不會自動 refresh
+uv run --frozen --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --retry-unavailable
+```
+
+GIS ingestion 另需系統 `curl`、`pdftotext`。額外 Python 套件精確列於獨立
+`requirements-ingest.txt`，由 `uv --with-requirements` 使用隔離環境，未修改共用 pyproject／lockfile。
+下載使用 timeout、兩次 retry、`.part` 續傳；來源錯誤獨立記錄，其他 provider 繼續。
+`--offline` 不會要求下載；`--refresh` 重新計算 provider 分析但仍重用既有原檔。
+遠端 metadata 或 source 更新應使用**新的外部 cache 目錄**做新 audit，保留舊版本供重現。
+沒有刪除 cache 的指令，沒有 R2 publish／production pointer 寫入功能。
+
+### 新 AOI 與第一維度後續場域
+
+```bash
+uv run --frozen --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze \
+  --areas /absolute/path/new-areas.json \
+  --output-dir /absolute/path/geology-run-output
+uv run --frozen python -m analog_pipelines.geology verify --root /absolute/path/geology-run-output
+```
+
+外部 JSON 格式為 `{"areas": [...]}`，每個 Area 符合 `schemas/area.schema.json`：
+`area_id, display_name, body, crs, geometry, origin, geometry_source`；geometry 是 Polygon 或
+MultiPolygon。`geometry_fingerprint` 可省略，由程式計算。使用 x/y 軸序，地理座標為
+east-positive −180..180 longitude、planetocentric Moon/Mars latitude；跨 180° 的多邊形需先拆分。
+Earth 可用 EPSG:4326；Moon/Mars 必須提供正確天體的 CRS／radius。Mars ODE adapter 目前只
+接受 0..180 E 的已拆分 AOI，符合 SIM3464 地區。
+
+程式驗證天體與 ellipsoid、關閉的有限座標 rings、geometry fingerprint、重複 ID、原有 ID
+是否換了區域；GIS 步驟另驗證拓樸。fingerprint 忽略 ring 起點與方向，不做座標四捨五入。
+不同 CRS 表示法／不同投影的等價 footprint 不保證有同一 fingerprint，整合時應先選定 canonical
+geometry／CRS。非地球 CRS 不能以 Earth WGS84 暫代。
+
+## 資料可攜性與檔案
+
+- `catalog.json`, `taxonomy.json`, `areas.json`, `schemas/`：獨立來源與 AOI／資料規格。
+- `coverage-audit.json`：provider、授權、metadata 覆蓋、下載量預估、AOI identities。
+- `records/`：content-addressed Geology manifests；使用此路徑避免被共用 Terrain
+  `*/manifests/*.json` data gate 誤認為 Terrain contract，獨立 schema 由 geology tests 驗證。
+  沒有 raw raster、cache 或 SQLite。
+- `artifacts/`：Snapshot 固定的 Catalog、Area、Schema、Taxonomy、Audit、Summary、來源檢查。
+- `snapshots/geology.snapshot.json`：此維度目前的本機入口；同目錄 `geo-snap-*.json` 為不可變
+  版本紀錄。改用獨立 `records/` 格式之前的試跑產物保存於外部 cache 的
+  `prototype-layout-backup/`，沒有刪除或發布到 Git／R2。
+- `INTEGRATION_PLAN.md`：跨維度整合所需修改；`VALIDATION.md`：實際命令與測試證據。
+
+目前原始資料／解壓與本機結果約 1.6 GiB，全部位於執行時指定的 repository 外部目錄；
+來源檔大小由 manifest artifact receipts 記錄。分享資料為 JSON，無需重建資料庫。
+Snapshot ID 根據排序後的檔案 hash、size、relative path 產生，搬移路徑後仍可驗證；
+重用相同來源與 checkpoint 的分析不會因生成時間改變 ID。
+
+若稍後決定用 R2，只規劃 `geology/snapshots/geo-snap-<content-hash>/`。
+不使用 `snapshots/snap-0cef4d75b147866a/`，不改任何 production pointer。本次未上傳。
+
+## GitHub 提交範圍與指令
+
+只提交以下新增目錄／檔案；不提交外部 raw/cache、`.env`、憑證或可重建的資料庫。
+本次依指示沒有自行 commit、push、merge。
+
+```bash
+git branch --show-current  # 應為 feat/16-geology-mineralogy
+git add pipelines/src/analog_pipelines/geology pipelines/geology pipelines/tests/test_geology.py pipelines/tests/test_geology_spatial.py
+git diff --cached --stat
+git commit -m "feat(geology): add independent evidence-based geology dimension"
+git push -u origin feat/16-geology-mineralogy
+```
+
+推送後建立 PR，交由其他 reviewer，通過 required CI 再由 maintainer 決定 merge；
+不要自行 merge 或 self-approve。

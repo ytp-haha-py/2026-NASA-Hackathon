@@ -1,0 +1,51 @@
+{
+  "snapshot_version": "geology-snapshot-1.0.0",
+  "files": [
+    {
+      "path": "artifacts/005036ae48a11fd3-coverage-audit.json",
+      "checksum": "sha256:a094cc7f44a6489defa3b7772db0474e03fee709691e3664f864751eb5e25ef5",
+      "size_bytes": 10288
+    },
+    {
+      "path": "artifacts/1025b27aa47309e4-catalog.json",
+      "checksum": "sha256:1461d6752ea3b6514d367892531caca25708294c41aa85448a95d1ba3203a595",
+      "size_bytes": 9979
+    },
+    {
+      "path": "artifacts/2010e28484773f1a-summary.json",
+      "checksum": "sha256:93022481489f9daca9fb47489a1f9f879b02323bd8795a5a12698af94c5642ff",
+      "size_bytes": 1691
+    },
+    {
+      "path": "artifacts/3473e639aa81b7a8-taxonomy.json",
+      "checksum": "sha256:0a75558c0fed2bb88319aba93a3c0bd462b16f1362cc844eaec250c3938af0e9",
+      "size_bytes": 824
+    },
+    {
+      "path": "artifacts/6f4eb88724ac3737-source-inspections.json",
+      "checksum": "sha256:234a3ce36137cf9131dcecac6c1a665ec1372e9aecab71357dadc4f12ec99999",
+      "size_bytes": 10483
+    },
+    {
+      "path": "artifacts/b1bc2d504756ceb1-areas.json",
+      "checksum": "sha256:941f178ce4c3dfea2fcd22ac92bd3c5212aee67191e41dc650c8ec4c4edcf732",
+      "size_bytes": 9078
+    },
+    {
+      "path": "artifacts/ecfdd2d4c62cab25-manifest.schema.json",
+      "checksum": "sha256:30ad6b57c2df4abef65354795d31052fe46d9c7a7677b77b355226e975a3a597",
+      "size_bytes": 17965
+    },
+    {
+      "path": "records/geology-e920e7e3ae79e176.json",
+      "checksum": "sha256:af658c17b22a2f35fc9359fa707d249c6fae20c18d524024d8237d2daaedb3d8",
+      "size_bytes": 135233
+    }
+  ],
+  "snapshot_id": "geo-snap-d1235d5f9defe6cd",
+  "object_prefix": "geology/snapshots/geo-snap-d1235d5f9defe6cd/",
+  "created_at": "2026-11-14T13:29:49.458138+00:00",
+  "limitations": [
+    "Independent geology subset; no production pointer or terrain snapshot writes."
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "taxonomy_version": "geology-1.0.0",
+  "nonexclusive": true,
+  "candidates": {
+    "igneous": [
+      "basalt",
+      "anorthosite",
+      "olivine_rich_igneous_rock",
+      "olivine",
+      "pyroxene",
+      "plagioclase",
+      "ilmenite"
+    ],
+    "impact": [
+      "impact_breccia",
+      "impact_melt_rock",
+      "shock_metamorphosed_minerals",
+      "impact_ejecta"
+    ],
+    "sedimentary": [
+      "sandstone",
+      "mudstone",
+      "conglomerate",
+      "sedimentary_deposits",
+      "fluvial_deposits",
+      "lacustrine_deposits"
+    ],
+    "aqueous_alteration": [
+      "clay_minerals",
+      "hydrated_sulfates",
+      "carbonates",
+      "iron_oxides_with_supporting_geological_evidence"
+    ]
+  },
+  "activation": "Mapped/documented geology required; mineral presence alone does not imply genesis."
+}

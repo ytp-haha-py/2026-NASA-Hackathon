@@ -1,0 +1,55 @@
+{
+  "scope": "Five existing Earth AOIs, one existing lunar ROI, and explicitly marked Mars test AOIs, or an externally supplied bounded subset; never a global survey.",
+  "by_body": {
+    "Earth": {
+      "requested_aoi_count": 5,
+      "existing_aoi_count": 5,
+      "test_aoi_count": 0,
+      "portable_geological_map_success_aoi_count": 0,
+      "verified_mineral_observation_aoi_count": 0,
+      "verified_mineral_aoi_fraction": 0.0,
+      "provider_status_counts": {
+        "unverified": 5,
+        "auth_required": 8,
+        "no_coverage": 2
+      }
+    },
+    "Moon": {
+      "requested_aoi_count": 1,
+      "existing_aoi_count": 1,
+      "test_aoi_count": 0,
+      "portable_geological_map_success_aoi_count": 1,
+      "verified_mineral_observation_aoi_count": 0,
+      "verified_mineral_aoi_fraction": 0.0,
+      "provider_status_counts": {
+        "success": 1,
+        "unverified": 1
+      }
+    },
+    "Mars": {
+      "requested_aoi_count": 2,
+      "existing_aoi_count": 0,
+      "test_aoi_count": 2,
+      "portable_geological_map_success_aoi_count": 2,
+      "verified_mineral_observation_aoi_count": 0,
+      "verified_mineral_aoi_fraction": 0.0,
+      "provider_status_counts": {
+        "success": 2,
+        "context_only": 2
+      }
+    }
+  },
+  "supported_categories": [
+    "impact",
+    "sedimentary"
+  ],
+  "activated_candidate_features": [
+    "fluvial_deposits",
+    "lacustrine_deposits",
+    "sedimentary_deposits"
+  ],
+  "limitations": [
+    "Mineral AOI fraction counts validated observations, not provider footprint intersections.",
+    "GLiM local-only results are withheld pending rights verification and are excluded from portable success counts."
+  ]
+}
