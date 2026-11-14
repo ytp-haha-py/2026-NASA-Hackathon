@@ -1,0 +1,230 @@
+{
+  "audited_at": "2026-11-14T12:01:56.650904+00:00",
+  "aoi_counts": {
+    "Earth": 5,
+    "Moon": 1,
+    "Mars": 2
+  },
+  "test_aoi_counts": {
+    "Mars": 2
+  },
+  "aoi_identities": {
+    "earth-atacama-desert": "sha256:6a99fdfbded493ec13a997e6f746b156c28d08645b0e60b13e9b678b6efee78e",
+    "earth-death-valley": "sha256:bbddc4a36d58205a2afaf915c2aaf6ca3db24c1586c6ef1755596584b761d166",
+    "earth-lanzarote": "sha256:b366c7787a5b531e726f59f093fe113f5b205c073e4facd672ec539c4f1a0818",
+    "earth-devon-island": "sha256:d0a5ea98ed528b0b28ddba988d556913e9d7780977648fc55940b5bb0d21578c",
+    "earth-rio-tinto": "sha256:3c6867de4043b044bc33843393a5de7956071e6d2e51b158ed0eda69542279b6",
+    "moon-shackleton-rim-site04-roi2": "sha256:976e0daa1156da220e50254b9afd19bba8ca6694eb49e1b71f5aa3c38016d2cd",
+    "mars-test-jezero-western-delta": "sha256:530930f599a5d486b3c4f5d522f46d80b7a8430aa36016d9d305fcf64eed3154",
+    "mars-test-jezero-floor": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779"
+  },
+  "sequence": [
+    "coverage_audit",
+    "geological_maps",
+    "mineralogy",
+    "portable_snapshot"
+  ],
+  "sources": [
+    {
+      "dataset_id": "glim-niveau-i-mirror",
+      "body": "Earth",
+      "version": "1.1 (mirror description; upstream equivalence not_verified)",
+      "source_url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1",
+      "license": "not_verified",
+      "redistribution": "not_verified",
+      "map_scale": 3750000,
+      "native_resolution_m": null,
+      "planned_download": "Bounded AOI polygon queries only; no full global download"
+    },
+    {
+      "dataset_id": "usgs-moon-geology-v2",
+      "body": "Moon",
+      "version": "2.0, March 3, 2020",
+      "source_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+      "license": "CC0, but please cite authors",
+      "redistribution": "permitted",
+      "map_scale": 5000000,
+      "native_resolution_m": null,
+      "planned_download": "224,413,040 bytes full GIS, excluding optional terrain/hillshade products"
+    },
+    {
+      "dataset_id": "usgs-jezero-sim3464",
+      "body": "Mars",
+      "version": "2020; distributed GeoUnits_v1",
+      "source_url": "https://pubs.usgs.gov/publication/sim3464",
+      "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+      "redistribution": "permitted",
+      "map_scale": 75000,
+      "native_resolution_m": null,
+      "planned_download": "Full official GIS package + map sheet; exact bytes in download receipts"
+    },
+    {
+      "dataset_id": "lunar-polar-minerals-zenodo-v4",
+      "body": "Moon",
+      "version": "Zenodo 20725024, v4, 2026-06-17",
+      "source_url": "https://zenodo.org/records/20725024",
+      "license": "cc-by-4.0",
+      "redistribution": "permitted",
+      "map_scale": null,
+      "native_resolution_m": 193.0,
+      "planned_download": "63,028,597 bytes MAT + 14,640,014 bytes legacy RGB for format validation"
+    },
+    {
+      "dataset_id": "crism-mtrdr-context",
+      "body": "Mars",
+      "version": "MTR3; selected product version recorded in provenance",
+      "source_url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+      "license": "Data sets archived in the PDS are in the public domain.",
+      "redistribution": "permitted",
+      "map_scale": null,
+      "native_resolution_m": 36.0,
+      "planned_download": "At most one selected summary + DP information cube per AOI; no full spectral cube"
+    },
+    {
+      "dataset_id": "emit-l2bmin-002",
+      "body": "Earth",
+      "version": "002",
+      "source_url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002",
+      "license": "NASA Earth science data and information policy",
+      "redistribution": "permitted",
+      "map_scale": null,
+      "native_resolution_m": 60.0,
+      "planned_download": "CMR metadata only until Earthdata authentication is available"
+    },
+    {
+      "dataset_id": "emit-l2bmin-001",
+      "body": "Earth",
+      "version": "001",
+      "source_url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
+      "license": "NASA Earth science data and information policy",
+      "redistribution": "permitted",
+      "map_scale": null,
+      "native_resolution_m": 60.0,
+      "planned_download": "CMR metadata only until Earthdata authentication is available"
+    }
+  ],
+  "emit_coverage": [
+    {
+      "area_id": "earth-atacama-desert",
+      "version": "002",
+      "collection_id": "C4079846859-LPCLOUD",
+      "bbox_candidate_count": 16,
+      "metadata_sample_count": 2,
+      "pixel_valid_fraction": null,
+      "status": "auth_required",
+      "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-68.40973566%2C-23.5089791%2C-68.39026303%2C-23.49102032&page_size=2&sort_key=-start_date",
+      "estimated_size_mb_per_granule": 97.4
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "version": "001",
+      "collection_id": "C2408034484-LPCLOUD",
+      "bbox_candidate_count": 26,
+      "metadata_sample_count": 2,
+      "pixel_valid_fraction": null,
+      "status": "auth_required",
+      "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-68.40973566%2C-23.5089791%2C-68.39026303%2C-23.49102032&page_size=2&sort_key=-start_date",
+      "estimated_size_mb_per_granule": 95.5
+    },
+    {
+      "area_id": "earth-death-valley",
+      "version": "002",
+      "collection_id": "C4079846859-LPCLOUD",
+      "bbox_candidate_count": 20,
+      "metadata_sample_count": 2,
+      "pixel_valid_fraction": null,
+      "status": "auth_required",
+      "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-117.11103192%2C36.24106488%2C-117.08897059%2C36.2589341&page_size=2&sort_key=-start_date",
+      "estimated_size_mb_per_granule": 97.4
+    },
+    {
+      "area_id": "earth-death-valley",
+      "version": "001",
+      "collection_id": "C2408034484-LPCLOUD",
+      "bbox_candidate_count": 29,
+      "metadata_sample_count": 2,
+      "pixel_valid_fraction": null,
+      "status": "auth_required",
+      "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-117.11103192%2C36.24106488%2C-117.08897059%2C36.2589341&page_size=2&sort_key=-start_date",
+      "estimated_size_mb_per_granule": 95.5
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "version": "002",
+      "collection_id": "C4079846859-LPCLOUD",
+      "bbox_candidate_count": 4,
+      "metadata_sample_count": 2,
+      "pixel_valid_fraction": null,
+      "status": "auth_required",
+      "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-13.64028241%2C29.03096285%2C-13.61971584%2C29.04903644&page_size=2&sort_key=-start_date",
+      "estimated_size_mb_per_granule": 97.4
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "version": "001",
+      "collection_id": "C2408034484-LPCLOUD",
+      "bbox_candidate_count": 5,
+      "metadata_sample_count": 2,
+      "pixel_valid_fraction": null,
+      "status": "auth_required",
+      "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-13.64028241%2C29.03096285%2C-13.61971584%2C29.04903644&page_size=2&sort_key=-start_date",
+      "estimated_size_mb_per_granule": 95.5
+    },
+    {
+      "area_id": "earth-devon-island",
+      "version": "002",
+      "collection_id": "C4079846859-LPCLOUD",
+      "bbox_candidate_count": 0,
+      "metadata_sample_count": 0,
+      "pixel_valid_fraction": null,
+      "status": "no_coverage",
+      "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-89.88685478%2C75.39070894%2C-89.81318683%2C75.40928632&page_size=2&sort_key=-start_date",
+      "estimated_size_mb_per_granule": 97.4
+    },
+    {
+      "area_id": "earth-devon-island",
+      "version": "001",
+      "collection_id": "C2408034484-LPCLOUD",
+      "bbox_candidate_count": 0,
+      "metadata_sample_count": 0,
+      "pixel_valid_fraction": null,
+      "status": "no_coverage",
+      "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-89.88685478%2C75.39070894%2C-89.81318683%2C75.40928632&page_size=2&sort_key=-start_date",
+      "estimated_size_mb_per_granule": 95.5
+    },
+    {
+      "area_id": "earth-rio-tinto",
+      "version": "002",
+      "collection_id": "C4079846859-LPCLOUD",
+      "bbox_candidate_count": 10,
+      "metadata_sample_count": 2,
+      "pixel_valid_fraction": null,
+      "status": "auth_required",
+      "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-6.56151071%2C37.68085126%2C-6.53848661%2C37.69914781&page_size=2&sort_key=-start_date",
+      "estimated_size_mb_per_granule": 97.4
+    },
+    {
+      "area_id": "earth-rio-tinto",
+      "version": "001",
+      "collection_id": "C2408034484-LPCLOUD",
+      "bbox_candidate_count": 28,
+      "metadata_sample_count": 2,
+      "pixel_valid_fraction": null,
+      "status": "auth_required",
+      "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-6.56151071%2C37.68085126%2C-6.53848661%2C37.69914781&page_size=2&sort_key=-start_date",
+      "estimated_size_mb_per_granule": 95.5
+    }
+  ],
+  "limitations": [
+    "Metadata footprints do not establish valid observation coverage.",
+    "Subset audit only; no global/exhaustive claim."
+  ],
+  "glim_metadata": {
+    "role": "source_metadata",
+    "source_url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1?f=pjson",
+    "checksum": "sha256:4bf40ecddabec9291162349bf65eeaf6a65f7bfa9fdb2b009d18bc06e12f56df",
+    "size_bytes": 30011,
+    "provider_checksum": null
+  },
+  "emit_collection_query": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30"
+}

@@ -1,0 +1,68 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "area_id": {
+      "minLength": 1,
+      "title": "Area Id",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "body": {
+      "enum": [
+        "Earth",
+        "Moon",
+        "Mars"
+      ],
+      "title": "Body",
+      "type": "string"
+    },
+    "crs": {
+      "title": "Crs",
+      "type": "string"
+    },
+    "geometry": {
+      "additionalProperties": true,
+      "title": "Geometry",
+      "type": "object"
+    },
+    "geometry_fingerprint": {
+      "default": "",
+      "title": "Geometry Fingerprint",
+      "type": "string"
+    },
+    "origin": {
+      "enum": [
+        "existing",
+        "external",
+        "test_aoi"
+      ],
+      "title": "Origin",
+      "type": "string"
+    },
+    "geometry_source": {
+      "title": "Geometry Source",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "area_id",
+    "display_name",
+    "body",
+    "crs",
+    "geometry",
+    "origin",
+    "geometry_source"
+  ],
+  "title": "Area",
+  "type": "object"
+}

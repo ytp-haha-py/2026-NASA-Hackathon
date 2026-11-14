@@ -1,0 +1,219 @@
+{
+  "earth-atacama-desert:emit-l2bmin-002": {
+    "area_id": "earth-atacama-desert",
+    "version": "002",
+    "collection_id": "C4079846859-LPCLOUD",
+    "bbox_candidate_count": 16,
+    "metadata_sample_count": 2,
+    "pixel_valid_fraction": null,
+    "status": "auth_required",
+    "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-68.40973566%2C-23.5089791%2C-68.39026303%2C-23.49102032&page_size=2&sort_key=-start_date",
+    "estimated_size_mb_per_granule": 97.4,
+    "geometry_fingerprint": "sha256:6a99fdfbded493ec13a997e6f746b156c28d08645b0e60b13e9b678b6efee78e"
+  },
+  "earth-atacama-desert:emit-l2bmin-001": {
+    "area_id": "earth-atacama-desert",
+    "version": "001",
+    "collection_id": "C2408034484-LPCLOUD",
+    "bbox_candidate_count": 26,
+    "metadata_sample_count": 2,
+    "pixel_valid_fraction": null,
+    "status": "auth_required",
+    "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-68.40973566%2C-23.5089791%2C-68.39026303%2C-23.49102032&page_size=2&sort_key=-start_date",
+    "estimated_size_mb_per_granule": 95.5,
+    "geometry_fingerprint": "sha256:6a99fdfbded493ec13a997e6f746b156c28d08645b0e60b13e9b678b6efee78e"
+  },
+  "earth-death-valley:emit-l2bmin-002": {
+    "area_id": "earth-death-valley",
+    "version": "002",
+    "collection_id": "C4079846859-LPCLOUD",
+    "bbox_candidate_count": 20,
+    "metadata_sample_count": 2,
+    "pixel_valid_fraction": null,
+    "status": "auth_required",
+    "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-117.11103192%2C36.24106488%2C-117.08897059%2C36.2589341&page_size=2&sort_key=-start_date",
+    "estimated_size_mb_per_granule": 97.4,
+    "geometry_fingerprint": "sha256:bbddc4a36d58205a2afaf915c2aaf6ca3db24c1586c6ef1755596584b761d166"
+  },
+  "earth-death-valley:emit-l2bmin-001": {
+    "area_id": "earth-death-valley",
+    "version": "001",
+    "collection_id": "C2408034484-LPCLOUD",
+    "bbox_candidate_count": 29,
+    "metadata_sample_count": 2,
+    "pixel_valid_fraction": null,
+    "status": "auth_required",
+    "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-117.11103192%2C36.24106488%2C-117.08897059%2C36.2589341&page_size=2&sort_key=-start_date",
+    "estimated_size_mb_per_granule": 95.5,
+    "geometry_fingerprint": "sha256:bbddc4a36d58205a2afaf915c2aaf6ca3db24c1586c6ef1755596584b761d166"
+  },
+  "earth-lanzarote:emit-l2bmin-002": {
+    "area_id": "earth-lanzarote",
+    "version": "002",
+    "collection_id": "C4079846859-LPCLOUD",
+    "bbox_candidate_count": 4,
+    "metadata_sample_count": 2,
+    "pixel_valid_fraction": null,
+    "status": "auth_required",
+    "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-13.64028241%2C29.03096285%2C-13.61971584%2C29.04903644&page_size=2&sort_key=-start_date",
+    "estimated_size_mb_per_granule": 97.4,
+    "geometry_fingerprint": "sha256:b366c7787a5b531e726f59f093fe113f5b205c073e4facd672ec539c4f1a0818"
+  },
+  "earth-lanzarote:emit-l2bmin-001": {
+    "area_id": "earth-lanzarote",
+    "version": "001",
+    "collection_id": "C2408034484-LPCLOUD",
+    "bbox_candidate_count": 5,
+    "metadata_sample_count": 2,
+    "pixel_valid_fraction": null,
+    "status": "auth_required",
+    "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-13.64028241%2C29.03096285%2C-13.61971584%2C29.04903644&page_size=2&sort_key=-start_date",
+    "estimated_size_mb_per_granule": 95.5,
+    "geometry_fingerprint": "sha256:b366c7787a5b531e726f59f093fe113f5b205c073e4facd672ec539c4f1a0818"
+  },
+  "earth-devon-island:emit-l2bmin-002": {
+    "area_id": "earth-devon-island",
+    "version": "002",
+    "collection_id": "C4079846859-LPCLOUD",
+    "bbox_candidate_count": 0,
+    "metadata_sample_count": 0,
+    "pixel_valid_fraction": null,
+    "status": "no_coverage",
+    "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-89.88685478%2C75.39070894%2C-89.81318683%2C75.40928632&page_size=2&sort_key=-start_date",
+    "estimated_size_mb_per_granule": 97.4,
+    "geometry_fingerprint": "sha256:d0a5ea98ed528b0b28ddba988d556913e9d7780977648fc55940b5bb0d21578c"
+  },
+  "earth-devon-island:emit-l2bmin-001": {
+    "area_id": "earth-devon-island",
+    "version": "001",
+    "collection_id": "C2408034484-LPCLOUD",
+    "bbox_candidate_count": 0,
+    "metadata_sample_count": 0,
+    "pixel_valid_fraction": null,
+    "status": "no_coverage",
+    "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-89.88685478%2C75.39070894%2C-89.81318683%2C75.40928632&page_size=2&sort_key=-start_date",
+    "estimated_size_mb_per_granule": 95.5,
+    "geometry_fingerprint": "sha256:d0a5ea98ed528b0b28ddba988d556913e9d7780977648fc55940b5bb0d21578c"
+  },
+  "earth-rio-tinto:emit-l2bmin-002": {
+    "area_id": "earth-rio-tinto",
+    "version": "002",
+    "collection_id": "C4079846859-LPCLOUD",
+    "bbox_candidate_count": 10,
+    "metadata_sample_count": 2,
+    "pixel_valid_fraction": null,
+    "status": "auth_required",
+    "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C4079846859-LPCLOUD&bounding_box=-6.56151071%2C37.68085126%2C-6.53848661%2C37.69914781&page_size=2&sort_key=-start_date",
+    "estimated_size_mb_per_granule": 97.4,
+    "geometry_fingerprint": "sha256:3c6867de4043b044bc33843393a5de7956071e6d2e51b158ed0eda69542279b6"
+  },
+  "earth-rio-tinto:emit-l2bmin-001": {
+    "area_id": "earth-rio-tinto",
+    "version": "001",
+    "collection_id": "C2408034484-LPCLOUD",
+    "bbox_candidate_count": 28,
+    "metadata_sample_count": 2,
+    "pixel_valid_fraction": null,
+    "status": "auth_required",
+    "query_url": "https://cmr.earthdata.nasa.gov/search/granules.umm_json?collection_concept_id=C2408034484-LPCLOUD&bounding_box=-6.56151071%2C37.68085126%2C-6.53848661%2C37.69914781&page_size=2&sort_key=-start_date",
+    "estimated_size_mb_per_granule": 95.5,
+    "geometry_fingerprint": "sha256:3c6867de4043b044bc33843393a5de7956071e6d2e51b158ed0eda69542279b6"
+  },
+  "moon-shackleton-rim-site04-roi2:lunar-polar-minerals-zenodo-v4": {
+    "variable": "AbcubeNew",
+    "hdf5_shape": [
+      5,
+      2201,
+      2201
+    ],
+    "matlab_shape": [
+      2201,
+      2201,
+      5
+    ],
+    "dtype": "float64",
+    "band_order_from_record": [
+      "Oli",
+      "Plag",
+      "Opx",
+      "Cpx",
+      "SmFe"
+    ],
+    "finite_min": -189.61660517913847,
+    "finite_max": 203.5876064609964,
+    "nonfinite_count": 5274415,
+    "values_outside_0_100": 872211,
+    "embedded_crs": null,
+    "embedded_transform": null,
+    "unit": "not_verified",
+    "valid_range": "not_verified",
+    "legacy_tiff": {
+      "dtype": "uint8",
+      "bands": 3,
+      "color_interpretation": [
+        "red",
+        "green",
+        "blue"
+      ],
+      "crs": "PROJCS[\"unnamed\",GEOGCS[\"D_unknown\",DATUM[\"unnamed\",SPHEROID[\"unnamed\",1737400,0]],PRIMEM[\"Reference meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Polar_Stereographic\"],PARAMETER[\"latitude_of_origin\",-90],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1],AXIS[\"Easting\",NORTH],AXIS[\"Northing\",NORTH]]",
+      "transform": [
+        193.32114121,
+        0.0,
+        -212700.0,
+        0.0,
+        -193.32114121,
+        212700.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "geometry_fingerprint": "sha256:976e0daa1156da220e50254b9afd19bba8ca6694eb49e1b71f5aa3c38016d2cd"
+  },
+  "mars-test-jezero-western-delta:crism-mtrdr-context": {
+    "candidate_count_in_first_5_products": 2,
+    "selected_product": "hrl000040ff_07_if183j_mtr3",
+    "native_resolution_m": [
+      36.0,
+      36.0
+    ],
+    "source_crs": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+    "nodata": 65535.0,
+    "raster_bounds": [
+      4422632.2,
+      1082899.5,
+      4439012.2,
+      1109935.5
+    ],
+    "aoi_native_pixel_count": 2303,
+    "information_mask_unique_values": [
+      0.0
+    ],
+    "min_finite_summary_fraction": 1.0,
+    "coverage_semantics": "AOI pixel-center, nonfill finite summary + DP mask pixels; no validated mineral coverage",
+    "geometry_fingerprint": "sha256:530930f599a5d486b3c4f5d522f46d80b7a8430aa36016d9d305fcf64eed3154"
+  },
+  "mars-test-jezero-floor:crism-mtrdr-context": {
+    "candidate_count_in_first_5_products": 4,
+    "selected_product": "hrl000040ff_07_if183j_mtr3",
+    "native_resolution_m": [
+      36.0,
+      36.0
+    ],
+    "source_crs": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+    "nodata": 65535.0,
+    "raster_bounds": [
+      4422632.2,
+      1082899.5,
+      4439012.2,
+      1109935.5
+    ],
+    "aoi_native_pixel_count": 4160,
+    "information_mask_unique_values": [
+      0.0
+    ],
+    "min_finite_summary_fraction": 1.0,
+    "coverage_semantics": "AOI pixel-center, nonfill finite summary + DP mask pixels; no validated mineral coverage",
+    "geometry_fingerprint": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779"
+  }
+}
