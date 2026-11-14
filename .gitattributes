@@ -1,0 +1,17 @@
+# Check out every text file with LF on all platforms.
+#
+# Manifests and snapshots are pinned by SHA-256 of their exact bytes
+# (samples/snapshot/analog-demo.snapshot.json). Git for Windows defaults to
+# core.autocrlf=true, which would rewrite them to CRLF on checkout and break
+# `bash scripts/validate_data.sh`. Shell scripts also need LF to run under bash.
+* text=auto eol=lf
+
+# Raster and image formats are never line-ending normalized.
+*.tif  binary
+*.tiff binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.db   binary
