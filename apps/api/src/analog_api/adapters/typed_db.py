@@ -69,6 +69,7 @@ class TypedObservationRow(Base):
     temporal_support: Mapped[dict] = mapped_column(JSON)
     depth_support: Mapped[dict] = mapped_column(JSON)
     method_version: Mapped[str] = mapped_column(String(128))
+    dataset_ids: Mapped[list] = mapped_column(JSON)
     source_asset_ids: Mapped[list] = mapped_column(JSON)
     quality_flags: Mapped[list] = mapped_column(JSON)
     score_role: Mapped[str] = mapped_column(String(32))
@@ -146,6 +147,7 @@ class TypedObservationStore:
                 temporal_support=payload["temporal_support"],
                 depth_support=payload["depth_support"],
                 method_version=observation.method_version,
+                dataset_ids=list(observation.dataset_ids),
                 source_asset_ids=list(observation.source_asset_ids),
                 quality_flags=list(observation.quality_flags),
                 score_role=observation.score_role,
@@ -194,6 +196,7 @@ class TypedObservationStore:
                 "value": row.value,
                 "unit": row.unit,
                 "method_version": row.method_version,
+                "dataset_ids": row.dataset_ids,
                 "source_asset_ids": row.source_asset_ids,
                 "quality_flags": row.quality_flags,
                 "score_role": row.score_role,

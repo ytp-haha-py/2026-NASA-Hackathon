@@ -1323,8 +1323,20 @@
             ],
             "title": "Slope P90 Deg"
           },
+          "source_resolution_m": {
+            "title": "Source Resolution M",
+            "type": "number"
+          },
+          "stride_m": {
+            "title": "Stride M",
+            "type": "number"
+          },
           "valid_fraction": {
             "title": "Valid Fraction",
+            "type": "number"
+          },
+          "window_size_m": {
+            "title": "Window Size M",
             "type": "number"
           }
         },
@@ -1337,6 +1349,9 @@
           "bbox",
           "crs",
           "area_km2",
+          "window_size_m",
+          "stride_m",
+          "source_resolution_m",
           "slope_mean_deg",
           "slope_p90_deg",
           "flat_fraction",

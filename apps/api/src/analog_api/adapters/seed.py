@@ -19,6 +19,7 @@ from analog_api.adapters.db import (
     ReferenceFeatureObservation,
     utcnow,
 )
+from analog_api.adapters.typed_db import TypedSourceAsset
 from analog_api.config import Settings, resolve_repo_path
 from analog_api.data.synthetic import synthetic_manifest
 from analog_api.domain.manifest import Manifest
@@ -91,22 +92,64 @@ def _refresh_observations(row, observations, model) -> None:
             row.features.append(model(feature_id=feature_id, **values))
 
 
+def _reset_scientific_index(session: Session) -> None:
+    """Clear only derived scientific rows, preserving runtime/user state.
+
+    User-created on-demand AOIs and their feature/context observations, analysis
+    jobs, and typed v2 observations are part of the runtime catalogue and must
+    survive a baseline snapshot rebuild. Datasets still referenced by preserved
+    rows are kept; unreferenced datasets are removed.
+    """
+    on_demand_ids = list(
+        session.scalars(select(Candidate.location_id).where(Candidate.origin == "on_demand")).all()
+    )
+    if on_demand_ids:
+        session.execute(
+            delete(FeatureObservation).where(FeatureObservation.candidate_id.notin_(on_demand_ids))
+        )
+        session.execute(
+            delete(ContextObservation).where(ContextObservation.candidate_id.notin_(on_demand_ids))
+        )
+    else:
+        session.execute(delete(FeatureObservation))
+        session.execute(delete(ContextObservation))
+
+    session.execute(delete(ReferenceFeatureObservation))
+    session.execute(delete(PlanetaryReference))
+    session.execute(delete(Candidate).where(Candidate.origin != "on_demand"))
+
+    keep_dataset_ids = set(session.scalars(select(Candidate.dataset_id)).all())
+    keep_dataset_ids.update(
+        dataset_id
+        for dataset_id in session.scalars(
+            select(ContextObservation.dataset_id).where(ContextObservation.dataset_id.is_not(None))
+        ).all()
+        if dataset_id
+    )
+    keep_dataset_ids.update(
+        dataset_id
+        for dataset_id in session.scalars(select(TypedSourceAsset.dataset_id)).all()
+        if dataset_id
+    )
+    if keep_dataset_ids:
+        session.execute(delete(Dataset).where(Dataset.dataset_id.notin_(keep_dataset_ids)))
+    else:
+        session.execute(delete(Dataset))
+    session.commit()
+
+
 def seed_manifests(engine: Engine, manifests: list[Manifest], *, reset: bool = False) -> str:
-    """Persist manifests idempotently. `reset=True` replaces the whole index."""
-    if reset:
-        Base.metadata.drop_all(engine)
+    """Persist manifests idempotently. `reset=True` clears the scientific index only.
+
+    Runtime AOIs, jobs and typed observations are preserved; see
+    `_reset_scientific_index` and `docs/DATA_MODEL.md`.
+    """
     Base.metadata.create_all(engine)
 
     data_version = compute_data_version(manifests)
     with Session(engine) as session:
         if reset:
-            session.execute(delete(ReferenceFeatureObservation))
-            session.execute(delete(FeatureObservation))
-            session.execute(delete(PlanetaryReference))
-            session.execute(delete(Candidate))
-            session.execute(delete(Dataset))
-            session.execute(delete(Meta))
-            session.commit()
+            _reset_scientific_index(session)
 
         existing_datasets = set(session.scalars(select(Dataset.dataset_id)).all())
         existing_candidates = set(session.scalars(select(Candidate.location_id)).all())

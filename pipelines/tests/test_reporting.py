@@ -28,7 +28,6 @@ def test_fixture_report_is_explicitly_not_global(tmp_path: Path):
         dataset_id="fixture",
         source_asset_id="fixture",
         qa_flags=["synthetic_fixture"],
-        snapshot_id="fixture",
     )
     build_index([row], root=tmp_path / "index", snapshot_id="fixture")
     report = build_coverage_report(tmp_path / "index")

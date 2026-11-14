@@ -31,6 +31,9 @@
     "quality_flags": [
       "synthetic_fixture"
     ],
-    "score_role": "evidence_only"
+    "score_role": "evidence_only",
+    "dataset_ids": [
+      "fixture-dataset"
+    ]
   }
 ]

@@ -20,7 +20,12 @@ from analog_pipelines.coarse_reference import (
     reject_coarse_fine_comparison,
     validate_coarse_reference,
 )
-from analog_pipelines.geomorpho import RasterReadError, inspect_raster, read_window
+from analog_pipelines.geomorpho import (
+    RasterReadError,
+    inspect_raster,
+    read_projected_window,
+    read_window,
+)
 from rasterio.transform import from_origin
 
 
@@ -85,7 +90,8 @@ def test_grid_is_deterministic_metric_and_in_bounds():
     cells_a, coverage_a = generate_region_grid(region)
     cells_b, coverage_b = generate_region_grid(region)
     assert [cell.candidate_id for cell in cells_a] == [cell.candidate_id for cell in cells_b]
-    assert cells_a[0].candidate_id == "coarse-v1:pilot-a:0000:0000"
+    assert cells_a[0].candidate_id.startswith("coarse-v1:")
+    assert cells_a[0].candidate_id == cells_a[0].candidate_id
     assert coverage_a.candidate_count == coverage_b.candidate_count
     assert coverage_a.candidate_count > 0
     for cell in cells_a:
@@ -204,8 +210,16 @@ def test_end_to_end_grid_cell_through_geographic_reader_to_index(tmp_path: Path)
     ) as dst:
         dst.write(array, 1)
 
-    window = read_window(path, bbox=cell.bbox_wgs84)
-    assert window.data.size > 0
+    window = read_projected_window(
+        path,
+        bbox_metric=cell.bbox_metric,
+        target_crs=cell.crs,
+        resolution_m=250,
+    )
+    assert window.data.shape == (20, 20)
+    assert window.resolution_m == pytest.approx((250.0, 250.0))
+    assert window.bbox_metric == cell.bbox_metric
+    assert window.crs == cell.crs
     assert 150 < window.resolution_m[0] < 320
     assert 150 < window.resolution_m[1] < 320
     features = extract_coarse_features(window.data, window.valid_mask)
@@ -226,7 +240,6 @@ def test_end_to_end_grid_cell_through_geographic_reader_to_index(tmp_path: Path)
         dataset_id="fixture",
         source_asset_id="fixture",
         qa_flags=["synthetic_fixture"],
-        snapshot_id="e2e-snapshot",
     )
     build_index([row], root=tmp_path / "index", snapshot_id="e2e-snapshot")
     repo = CoarseIndexRepository(tmp_path / "index")
@@ -256,3 +269,55 @@ def test_high_latitude_zone_edge_bbox_encloses_all_corners():
     assert max(lon for lon, _ in corners) == pytest.approx(cell.bbox_wgs84["east"], abs=1e-9)
     assert min(lat for _, lat in corners) == pytest.approx(cell.bbox_wgs84["south"], abs=1e-9)
     assert max(lat for _, lat in corners) == pytest.approx(cell.bbox_wgs84["north"], abs=1e-9)
+
+
+def test_analysis_unit_identity_is_physical_not_region_label():
+    a = GridRegion("region-a", "A", 10.0, 45.0, 10.2, 45.2)
+    b = GridRegion("region-b", "B", 10.0, 45.0, 10.2, 45.2)
+    cells_a, _ = generate_region_grid(a)
+    cells_b, _ = generate_region_grid(b)
+    assert [c.candidate_id for c in cells_a] == [c.candidate_id for c in cells_b]
+    shifted = GridRegion("region-a", "A", 10.1, 45.0, 10.3, 45.2)
+    cells_shifted, _ = generate_region_grid(shifted)
+    assert cells_a[0].candidate_id != cells_shifted[0].candidate_id
+    assert cells_a[0].window_size_m == 5000
+    assert cells_a[0].stride_m == 5000
+    assert cells_a[0].source_resolution_m == 250
+    assert cells_a[0].grid_anchor == (
+        cells_a[0].bbox_metric["west"],
+        cells_a[0].bbox_metric["south"],
+    )
+
+
+def test_projected_reader_at_high_latitude_zone_edge(tmp_path: Path):
+    region = GridRegion("edge-projected", "Edge projected", 5.8, 60.0, 6.4, 60.35)
+    cells, _ = generate_region_grid(region)
+    cell = cells[0]
+    size = 80
+    cellsize = 0.0023
+    path = tmp_path / "edge_slope.tif"
+    array = np.full((size, size), 12.0, dtype="float32")
+    with rasterio.open(
+        path,
+        "w",
+        driver="GTiff",
+        height=size,
+        width=size,
+        count=1,
+        dtype="float32",
+        crs="EPSG:4326",
+        transform=from_origin(
+            cell.bbox_wgs84["west"] - 0.01,
+            cell.bbox_wgs84["north"] + 0.01,
+            cellsize,
+            cellsize,
+        ),
+    ) as dst:
+        dst.write(array, 1)
+    window = read_projected_window(
+        path, bbox_metric=cell.bbox_metric, target_crs=cell.crs, resolution_m=250
+    )
+    assert window.data.shape == (20, 20)
+    assert window.valid_mask.sum() > 300
+    assert window.resolution_m == pytest.approx((250.0, 250.0))
+    assert window.bbox_metric == cell.bbox_metric

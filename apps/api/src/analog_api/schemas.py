@@ -461,6 +461,9 @@ class GlobalSearchResultOut(BaseModel):
     bbox: dict[str, float]
     crs: str
     area_km2: float
+    window_size_m: float
+    stride_m: float
+    source_resolution_m: float
     slope_mean_deg: float | None
     slope_p90_deg: float | None
     flat_fraction: float | None

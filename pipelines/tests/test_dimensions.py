@@ -32,6 +32,7 @@ def base_payload() -> dict:
         ),
         "temporal_support": TemporalSupport(kind="static"),
         "method_version": "illumination-radiation-0.1.0",
+        "dataset_ids": ["fixture-dataset"],
         "source_asset_ids": ["fixture"],
         "score_role": "evidence_only",
     }

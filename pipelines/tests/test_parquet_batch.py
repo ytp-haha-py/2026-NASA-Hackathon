@@ -41,7 +41,6 @@ def row(
         dataset_id="fixture",
         source_asset_id="fixture-asset",
         qa_flags=["synthetic_fixture"],
-        snapshot_id="",
     )
 
 
@@ -241,3 +240,40 @@ def test_zero_weight_coarse_feature_does_not_exclude_missing_value(tmp_path: Pat
     )
     assert result["results"][0]["candidate_id"] == "coarse-v1:a"
     assert result["results"][0]["distance"] == pytest.approx(0.0)
+
+
+def test_snapshots_share_immutable_partitions_and_remain_queryable(tmp_path: Path):
+    root = tmp_path / "index"
+    rows = [row("coarse-v1:a", 10.0, 20.0, 0.5), row("coarse-v1:b", 12.0, 22.0, 0.6)]
+    first = build_index(rows, root=root, snapshot_id="snap-a", max_rows_per_partition=1)
+    second = build_index(rows, root=root, snapshot_id="snap-b", max_rows_per_partition=1)
+    assert [p["path"] for p in first["partitions"]] == [p["path"] for p in second["partitions"]]
+    assert len(list((root / "partitions").rglob("*.parquet"))) == 2
+
+    repo_a = CoarseIndexRepository(root, snapshot_id="snap-a")
+    repo_b = CoarseIndexRepository(root, snapshot_id="snap-b")
+    assert (
+        repo_a.search(
+            target={"coarse_slope_mean_deg": 10.0}, weights={"coarse_slope_mean_deg": 1.0}
+        )["results"][0]["candidate_id"]
+        == "coarse-v1:a"
+    )
+    assert (
+        repo_b.search(
+            target={"coarse_slope_mean_deg": 10.0}, weights={"coarse_slope_mean_deg": 1.0}
+        )["results"][0]["candidate_id"]
+        == "coarse-v1:a"
+    )
+
+    # A changed row creates a new content-addressed partition; snap-a still resolves
+    # to its original manifest/partition.
+    third = build_index(
+        [row("coarse-v1:a", 11.0, 20.0, 0.5), rows[1]],
+        root=root,
+        snapshot_id="snap-c",
+        max_rows_per_partition=1,
+    )
+    assert third["partitions"][0]["path"] != first["partitions"][0]["path"]
+    assert repo_a.get("coarse-v1:a")["slope_mean_deg"] == 10.0
+    repo_c = CoarseIndexRepository(root, snapshot_id="snap-c")
+    assert repo_c.get("coarse-v1:a")["slope_mean_deg"] == 11.0

@@ -338,6 +338,14 @@
       "title": "Body",
       "type": "string"
     },
+    "dataset_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Dataset Ids",
+      "type": "array"
+    },
     "depth_support": {
       "$ref": "#/$defs/DepthSupport"
     },
@@ -496,6 +504,7 @@
     "state",
     "spatial_support",
     "method_version",
+    "dataset_ids",
     "source_asset_ids"
   ],
   "title": "TypedObservation",

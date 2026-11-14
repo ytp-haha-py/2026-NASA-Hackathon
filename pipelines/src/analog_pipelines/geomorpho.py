@@ -51,6 +51,7 @@ class RasterWindow:
     crs: str
     bbox_wgs84: dict[str, float]
     resolution_m: tuple[float, float]
+    bbox_metric: dict[str, float] | None
     metadata: RasterMetadata
 
 
@@ -177,12 +178,165 @@ def read_window(
                 crs=str(src.crs),
                 bbox_wgs84={key: float(bbox[key]) for key in ("west", "south", "east", "north")},
                 resolution_m=(abs(x_size), abs(y_size)),
+                bbox_metric=None,
                 metadata=metadata,
             )
     except RasterReadError:
         raise
     except (rasterio.errors.RasterioError, OSError, ValueError) as exc:
         raise RasterReadError(f"Could not read raster window: {exc}") from exc
+
+
+def read_projected_window(
+    path: str | Path,
+    *,
+    bbox_metric: dict[str, float],
+    target_crs: str,
+    resolution_m: float = 250.0,
+    max_pixels: int = 1_000_000,
+) -> RasterWindow:
+    """Read the actual projected analysis footprint by reprojecting a local source.
+
+    The geographic bbox is only an I/O envelope; it is never the analysis footprint.
+    Destination cells are exactly in the requested projected metric CRS and resolution.
+    """
+    from pyproj import CRS as ProjCRS
+    from pyproj import Transformer
+    from rasterio.enums import Resampling
+    from rasterio.transform import from_origin
+    from rasterio.warp import reproject
+
+    resolved = _local_path(path)
+    if resolution_m <= 0 or not math.isfinite(resolution_m):
+        raise RasterReadError("resolution_m must be positive and finite")
+    try:
+        dst_crs = ProjCRS.from_user_input(target_crs)
+    except Exception as exc:  # noqa: BLE001
+        raise RasterReadError(f"target CRS cannot be parsed: {target_crs}") from exc
+    if not dst_crs.is_projected:
+        raise RasterReadError("projected analysis footprint requires a projected target CRS")
+    unit = dst_crs.axis_info[0].unit_name.lower() if dst_crs.axis_info else ""
+    if unit not in {"metre", "meter", "m"}:
+        raise RasterReadError(f"target CRS must use metres, got {unit!r}")
+    minx, miny = float(bbox_metric["west"]), float(bbox_metric["south"])
+    maxx, maxy = float(bbox_metric["east"]), float(bbox_metric["north"])
+    if maxx <= minx or maxy <= miny:
+        raise RasterReadError("invalid projected bbox")
+    nx = max(1, round((maxx - minx) / resolution_m))
+    ny = max(1, round((maxy - miny) / resolution_m))
+    if nx * ny > max_pixels:
+        raise RasterReadError(f"window has {nx * ny} pixels; max_pixels={max_pixels}")
+    dst_transform = from_origin(minx, maxy, (maxx - minx) / nx, (maxy - miny) / ny)
+
+    try:
+        with rasterio.open(resolved) as src:
+            if src.crs is None:
+                raise RasterReadError("Raster has no CRS")
+            if not src.crs.is_geographic:
+                raise RasterReadError(
+                    "Projected-footprint reader expects a geographic source raster; got "
+                    f"{src.crs}. Use a provider-specific reprojection adapter."
+                )
+            src_crs = src.crs
+            to_geo = Transformer.from_crs(dst_crs, src_crs, always_xy=True)
+            corners = [
+                to_geo.transform(minx, miny),
+                to_geo.transform(maxx, miny),
+                to_geo.transform(minx, maxy),
+                to_geo.transform(maxx, maxy),
+            ]
+            pad = 2 * max(abs(src.transform.a), abs(src.transform.e))
+            lons = [point[0] for point in corners]
+            lats = [point[1] for point in corners]
+            src_window = (
+                from_bounds(
+                    min(lons) - pad,
+                    min(lats) - pad,
+                    max(lons) + pad,
+                    max(lats) + pad,
+                    src.transform,
+                )
+                .round_offsets()
+                .round_lengths()
+            )
+            if src_window.width <= 0 or src_window.height <= 0:
+                raise RasterReadError("projected footprint does not intersect the raster")
+            if (
+                src_window.col_off >= src.width
+                or src_window.row_off >= src.height
+                or src_window.col_off + src_window.width <= 0
+                or src_window.row_off + src_window.height <= 0
+            ):
+                raise RasterReadError("projected footprint lies outside the raster bounds")
+            fill = src.nodata if src.nodata is not None else np.nan
+            data = src.read(
+                1,
+                window=src_window,
+                boundless=True,
+                masked=True,
+                out_dtype="float64",
+                fill_value=fill,
+            )
+            source = np.asarray(data.filled(np.nan), dtype="float64")
+            valid = np.isfinite(source)
+            if src.nodata is not None:
+                valid &= source != float(src.nodata)
+            scales = src.scales or []
+            offsets = src.offsets or []
+            scale = float(scales[0]) if scales and scales[0] else None
+            offset = float(offsets[0]) if offsets and offsets[0] is not None else None
+            if scale is not None:
+                if not math.isfinite(scale) or scale == 0:
+                    raise RasterReadError("invalid raster scale")
+                source = source * scale
+            if offset is not None:
+                source = source + offset
+            source = np.where(valid, source, np.nan)
+            destination = np.full((ny, nx), np.nan, dtype="float64")
+            reproject(
+                source=source,
+                destination=destination,
+                src_transform=src.window_transform(src_window),
+                src_crs=src_crs,
+                src_nodata=np.nan,
+                dst_transform=dst_transform,
+                dst_crs=dst_crs,
+                dst_nodata=np.nan,
+                resampling=Resampling.bilinear,
+            )
+            valid_dst = np.isfinite(destination)
+            inverse = Transformer.from_crs(dst_crs, "EPSG:4326", always_xy=True)
+            geo_corners = [
+                inverse.transform(minx, miny),
+                inverse.transform(maxx, miny),
+                inverse.transform(minx, maxy),
+                inverse.transform(maxx, maxy),
+            ]
+            metadata = inspect_raster(resolved)
+            return RasterWindow(
+                data=destination,
+                valid_mask=valid_dst,
+                transform=dst_transform,
+                crs=dst_crs.to_string(),
+                bbox_wgs84={
+                    "west": min(point[0] for point in geo_corners),
+                    "south": min(point[1] for point in geo_corners),
+                    "east": max(point[0] for point in geo_corners),
+                    "north": max(point[1] for point in geo_corners),
+                },
+                resolution_m=((maxx - minx) / nx, (maxy - miny) / ny),
+                bbox_metric={
+                    "west": minx,
+                    "south": miny,
+                    "east": maxx,
+                    "north": maxy,
+                },
+                metadata=metadata,
+            )
+    except RasterReadError:
+        raise
+    except (rasterio.errors.RasterioError, OSError, ValueError) as exc:
+        raise RasterReadError(f"Could not read projected raster window: {exc}") from exc
 
 
 def main(argv: list[str] | None = None) -> int:

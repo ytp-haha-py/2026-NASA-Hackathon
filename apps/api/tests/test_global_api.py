@@ -30,7 +30,6 @@ def _row(candidate_id: str, mean: float, p90: float, flat: float) -> CoarseRow:
         dataset_id="fixture",
         source_asset_id="fixture-asset",
         qa_flags=["synthetic_fixture"],
-        snapshot_id="fixture-snapshot",
     )
 
 
@@ -123,3 +122,28 @@ def test_global_search_validation_is_clear(tmp_path: Path):
             json={"target": {"coarse_slope_mean_deg": {"value": 10, "weight": 0}}},
         )
         assert no_weight.status_code == 422
+
+
+def test_api_can_select_an_explicit_immutable_snapshot(tmp_path: Path):
+    index_dir = tmp_path / "global-index"
+    build_index(
+        [_row("coarse-v1:a", 10.0, 20.0, 0.5)],
+        root=index_dir,
+        snapshot_id="snap-a",
+    )
+    build_index(
+        [_row("coarse-v1:a", 18.0, 28.0, 0.2)],
+        root=index_dir,
+        snapshot_id="snap-b",
+    )
+    settings = _settings(tmp_path, index=False).model_copy(
+        update={
+            "global_index_dir": str(index_dir),
+            "global_snapshot_id": "snap-a",
+        }
+    )
+    with TestClient(create_app(settings)) as client:
+        coverage = client.get("/api/v1/global/coverage").json()
+        assert coverage["snapshot_id"] == "snap-a"
+        candidate = client.get("/api/v1/global/candidates/coarse-v1:a").json()
+        assert candidate["slope_mean_deg"] == 10.0

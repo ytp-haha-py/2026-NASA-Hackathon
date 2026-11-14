@@ -128,12 +128,32 @@ class AreaV2(BaseModel):
 
     @model_validator(mode="after")
     def planetary_frame(self) -> AreaV2:
-        if self.body == "Moon" and self.coordinate_frame == "earth_wgs84":
-            raise ValueError("Moon area cannot use Earth WGS84 as its analysis frame")
-        if self.body == "Mars" and self.coordinate_frame == "earth_wgs84":
-            raise ValueError("Mars area cannot use Earth WGS84 as its analysis frame")
-        if not self.crs.strip():
-            raise ValueError("area requires a CRS")
+        if not self.crs.strip() or self.crs == "unknown":
+            raise ValueError("area requires a real CRS")
+        from pyproj import CRS as ProjCRS
+
+        try:
+            crs = ProjCRS.from_user_input(self.crs)
+        except Exception as exc:  # noqa: BLE001 - provider-specific CRS
+            raise ValueError(f"area CRS cannot be parsed: {self.crs}") from exc
+        allowed = {
+            "Earth": {"earth_wgs84", "earth_projected"},
+            "Moon": {"lunar_projected"},
+            "Mars": {"mars_projected"},
+        }[self.body]
+        frame = self.coordinate_frame
+        if frame == "unknown":
+            raise ValueError("area coordinate_frame must be explicit")
+        if frame not in allowed:
+            raise ValueError(f"{self.body} area cannot use coordinate frame {frame}")
+        if frame == "earth_wgs84" and not crs.is_geographic:
+            raise ValueError("earth_wgs84 area requires a geographic CRS")
+        if frame != "earth_wgs84" and not crs.is_projected:
+            raise ValueError(f"{frame} area requires a projected CRS")
+        if self.body in {"Moon", "Mars"} and str(self.crs).upper().startswith("EPSG:"):
+            raise ValueError(
+                f"{self.body} area must use a planetary projected frame, not an Earth EPSG code"
+            )
         return self
 
 
@@ -207,6 +227,7 @@ class TypedObservation(BaseModel):
     temporal_support: TemporalSupport = Field(default_factory=TemporalSupport)
     depth_support: DepthSupport = Field(default_factory=DepthSupport)
     method_version: str
+    dataset_ids: list[str] = Field(min_length=1)
     source_asset_ids: list[str] = Field(min_length=1)
     quality_flags: list[str] = Field(default_factory=list)
     score_role: ScoreRole = "evidence_only"
@@ -407,17 +428,24 @@ class V2Migration(BaseModel):
     ontology_version: str = "1.0.0"
     areas: list[AreaV2]
     observations: list[TypedObservation]
+    assets: list[SourceAssetV2] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
 
 
 def _area_from_candidate(candidate: dict[str, Any], body: Body = "Earth") -> AreaV2:
-    frame = {
-        "Earth": "earth_wgs84",
-        "Moon": "lunar_projected",
-        "Mars": "mars_projected",
-    }[body]
-    bbox = candidate.get("bbox")
     crs = candidate.get("crs") or "unknown"
+    if body == "Earth":
+        from pyproj import CRS as ProjCRS
+
+        try:
+            frame = (
+                "earth_wgs84" if ProjCRS.from_user_input(crs).is_geographic else "earth_projected"
+            )
+        except Exception:  # noqa: BLE001 - caller validation will report the CRS
+            frame = "earth_wgs84"
+    else:
+        frame = {"Moon": "lunar_projected", "Mars": "mars_projected"}[body]
+    bbox = candidate.get("bbox")
     return AreaV2(
         area_id=candidate["location_id"] if body == "Earth" else candidate["reference_id"],
         body=body,
@@ -437,8 +465,13 @@ def _observation_from_v1(
     feature_id: str,
     observation: dict[str, Any],
     legacy_dimension: str,
-    source_dataset_id: str,
+    dataset_id: str,
+    source_asset_id: str,
     analysis_crs: str,
+    bbox: dict[str, float] | None,
+    area_km2: float | None,
+    window_size_m: float | None,
+    analysis_resolution_m: float | None,
 ) -> TypedObservation:
     dimension = None if legacy_dimension == "land_cover_context" else "D01"
     role: ScoreRole = "context_only" if dimension is None else "similarity"
@@ -452,63 +485,59 @@ def _observation_from_v1(
         state="detected",
         value=float(observation["value"]),
         unit=observation["unit"],
+        uncertainty=Uncertainty(kind="unknown", notes="v1 manifest carries no uncertainty field"),
         spatial_support=SpatialSupport(
             kind="window",
             crs=analysis_crs,
-            window_size_m=1980.0,
-            resolution_m=90.0,
-            notes="Migrated v1 analysis support; CRS copied from the v1 record.",
+            window_size_m=window_size_m,
+            resolution_m=analysis_resolution_m,
+            bbox=bbox,
+            area_km2=area_km2,
+            notes="Migrated v1 analysis support; values copied from the v1 record.",
         ),
-        temporal_support=TemporalSupport(kind="static"),
+        temporal_support=TemporalSupport(kind="unknown"),
+        depth_support=DepthSupport(kind="unknown"),
         method_version=observation["method_version"],
-        source_asset_ids=[source_dataset_id],
+        dataset_ids=[dataset_id],
+        source_asset_ids=[source_asset_id],
         quality_flags=[observation.get("quality", "unknown")],
         score_role=role,
-        notes="Migrated from a v1 manifest without changing IDs or method versions.",
+        notes="Migrated from a v1 manifest; no source metadata was invented.",
     )
 
 
 def migrate_v1_manifest(manifest: dict[str, Any]) -> V2Migration:
-    """Convert a v1 manifest into additive typed areas/observations.
+    """Convert a v1 manifest into additive typed areas/observations/assets.
 
     The v1 manifest is never mutated. Context observations remain Earth-only context;
     they never become a scored dimension. Reference areas use planetary frames.
+    Dataset IDs and SourceAsset IDs are deliberately distinct.
     """
     areas: list[AreaV2] = []
     observations: list[TypedObservation] = []
+    assets: list[SourceAssetV2] = []
     warnings: list[str] = []
-    for candidate in manifest.get("candidates", []):
-        area = _area_from_candidate(candidate, "Earth")
+    seen_assets: set[str] = set()
+
+    def add_record(record: dict[str, Any], body: Body) -> None:
+        area = _area_from_candidate(record, body)
         areas.append(area)
-        for feature_id, observation in candidate.get("features", {}).items():
-            observations.append(
-                _observation_from_v1(
-                    record_id=area.area_id,
-                    body="Earth",
-                    feature_id=feature_id,
-                    observation=observation,
-                    legacy_dimension="terrain_shape",
-                    source_dataset_id=candidate["dataset_id"],
-                    analysis_crs=candidate.get("crs") or "unknown",
+        dataset_id = record["dataset_id"]
+        asset_id = f"v1-asset:{dataset_id}:{area.area_id}"
+        if asset_id not in seen_assets:
+            assets.append(
+                SourceAssetV2(
+                    asset_id=asset_id,
+                    dataset_id=dataset_id,
+                    uri=f"v1-manifest://{dataset_id}/{area.area_id}",
+                    checksum_algorithm="unknown",
+                    checksum_scope="unknown",
+                    native_crs=record.get("crs") or None,
+                    redistribution_allowed="unknown",
                 )
             )
-        for feature_id, observation in candidate.get("context_observations", {}).items():
-            observations.append(
-                _observation_from_v1(
-                    record_id=area.area_id,
-                    body="Earth",
-                    feature_id=feature_id,
-                    observation=observation,
-                    legacy_dimension="land_cover_context",
-                    source_dataset_id=observation.get("dataset_id") or candidate["dataset_id"],
-                    analysis_crs=candidate.get("crs") or "unknown",
-                )
-            )
-    for reference in manifest.get("references", []):
-        body = reference["body"]
-        area = _area_from_candidate(reference, body)
-        areas.append(area)
-        for feature_id, observation in reference.get("features", {}).items():
+            seen_assets.add(asset_id)
+        for feature_id, observation in record.get("features", {}).items():
             observations.append(
                 _observation_from_v1(
                     record_id=area.area_id,
@@ -516,8 +545,50 @@ def migrate_v1_manifest(manifest: dict[str, Any]) -> V2Migration:
                     feature_id=feature_id,
                     observation=observation,
                     legacy_dimension="terrain_shape",
-                    source_dataset_id=reference["dataset_id"],
-                    analysis_crs=reference.get("crs") or "unknown",
+                    dataset_id=dataset_id,
+                    source_asset_id=asset_id,
+                    analysis_crs=record.get("crs") or "unknown",
+                    bbox=record.get("bbox"),
+                    area_km2=record.get("area_km2"),
+                    window_size_m=record.get("window_size_m"),
+                    analysis_resolution_m=record.get("analysis_resolution_m"),
                 )
             )
-    return V2Migration(areas=areas, observations=observations, warnings=warnings)
+        for feature_id, observation in record.get("context_observations", {}).items():
+            context_dataset = observation.get("dataset_id") or dataset_id
+            context_asset = f"v1-asset:{context_dataset}:{area.area_id}"
+            if context_asset not in seen_assets:
+                assets.append(
+                    SourceAssetV2(
+                        asset_id=context_asset,
+                        dataset_id=context_dataset,
+                        uri=f"v1-manifest://{context_dataset}/{area.area_id}",
+                        checksum_algorithm="unknown",
+                        checksum_scope="unknown",
+                        native_crs=record.get("crs") or None,
+                        redistribution_allowed="unknown",
+                    )
+                )
+                seen_assets.add(context_asset)
+            observations.append(
+                _observation_from_v1(
+                    record_id=area.area_id,
+                    body="Earth",
+                    feature_id=feature_id,
+                    observation=observation,
+                    legacy_dimension="land_cover_context",
+                    dataset_id=context_dataset,
+                    source_asset_id=context_asset,
+                    analysis_crs=record.get("crs") or "unknown",
+                    bbox=record.get("bbox"),
+                    area_km2=record.get("area_km2"),
+                    window_size_m=record.get("window_size_m"),
+                    analysis_resolution_m=record.get("analysis_resolution_m"),
+                )
+            )
+
+    for candidate in manifest.get("candidates", []):
+        add_record(candidate, "Earth")
+    for reference in manifest.get("references", []):
+        add_record(reference, reference["body"])
+    return V2Migration(areas=areas, observations=observations, assets=assets, warnings=warnings)

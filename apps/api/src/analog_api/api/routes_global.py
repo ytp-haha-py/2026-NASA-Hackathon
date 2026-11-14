@@ -37,8 +37,9 @@ def _index_root(request: Request) -> Path:
 
 def _repo(request: Request) -> CoarseIndexRepository:
     root = _index_root(request)
+    snapshot_id = request.app.state.settings.global_snapshot_id
     try:
-        resolved = resolve_index_root(root)
+        resolved = resolve_index_root(root, snapshot_id=snapshot_id)
     except IndexError_ as exc:
         raise AppError(
             "no_indexed_data",
@@ -68,7 +69,7 @@ def _repo(request: Request) -> CoarseIndexRepository:
 def global_coverage(request: Request) -> dict[str, object]:
     root = _index_root(request)
     try:
-        resolve_index_root(root)
+        resolve_index_root(root, snapshot_id=request.app.state.settings.global_snapshot_id)
         has_index = True
     except IndexError_:
         has_index = False

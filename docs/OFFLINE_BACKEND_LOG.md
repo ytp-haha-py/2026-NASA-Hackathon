@@ -33,6 +33,24 @@ no Issue/PR was created with the wrong identity. Local implementation is on bran
 | #48 release | `docs/DATA_RELEASE_CHECKLIST.md` | Checklist + existing snapshot/index tooling; multi-dim EDA deferred |
 | #49 acceptance | `docs/PRODUCT_BACKEND_ACCEPTANCE.md` | Offline scenarios and blockers documented |
 
+## PR #54 review corrections
+
+- Geographic: native angular resolution separated from geodesic metric resolution;
+  projected footprint reader reprojects source to the exact UTM 5 km grid; WGS84 envelope
+  from all four corners; high-latitude/zone-edge tests.
+- Stable analysis units: IDs derive from physical projected footprint + window/stride/
+  source resolution/grid version, not region row/column labels.
+- Immutable snapshots: content-addressed shared partitions, manifest-only membership,
+  old snapshots remain queryable; row-level snapshot_id removed.
+- Typed contracts: strict Earth/Moon/Mars frames; actual window/resolution/bbox support;
+  unknown temporal/depth/uncertainty preserved; dataset IDs separated from asset IDs;
+  v1 adapter emits source assets.
+- SQLite reset: only derived scientific rows cleared; runtime AOIs, jobs and typed
+  observations survive; regression test added.
+- Checkpoint resume verifies run identity, task fingerprint, output existence and checksum.
+- Zero-weight features ignored for exclusion/distance.
+- End-to-end geographic-reader → projected footprint → coarse index test.
+
 ## Verification
 
 Local focused tests:

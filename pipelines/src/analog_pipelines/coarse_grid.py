@@ -3,10 +3,14 @@
 The grid is generated in a projected metre frame (UTM by default), never by
 assuming longitude/latitude degrees are constant metres. Only grid metadata is
 produced; no raster is read here.
+
+Analysis-unit IDs are content-derived from the physical metric footprint plus the
+window/stride/resolution/anchor policy, not from mutable region row/column labels.
 """
 
 from __future__ import annotations
 
+import hashlib
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 
@@ -14,6 +18,8 @@ from pyproj import CRS, Transformer
 
 GRID_VERSION = "coarse-grid-1.0.0"
 WINDOW_SIZE_M = 5000
+STRIDE_M = 5000
+SOURCE_RESOLUTION_M = 250.0
 GEOMORPHO_MIN_LAT = -60.0
 GEOMORPHO_MAX_LAT = 85.0
 
@@ -45,8 +51,15 @@ class CandidateCell:
     col: int
     crs: str
     window_size_m: int
+    stride_m: int
+    source_resolution_m: float
+    grid_anchor: tuple[float, float]
     bbox_wgs84: dict[str, float]
     bbox_metric: dict[str, float]
+
+    @property
+    def analysis_unit_id(self) -> str:
+        return self.candidate_id
 
 
 @dataclass(slots=True)
@@ -64,6 +77,8 @@ class GridCoverage:
 class GridPlan:
     grid_version: str
     window_size_m: int
+    stride_m: int
+    source_resolution_m: float
     regions: list[GridRegion]
     cells: list[CandidateCell] = field(default_factory=list)
     coverage: list[GridCoverage] = field(default_factory=list)
@@ -91,11 +106,20 @@ def _validate_region(region: GridRegion) -> None:
 
 
 def generate_region_grid(
-    region: GridRegion, *, window_size_m: int = WINDOW_SIZE_M
+    region: GridRegion,
+    *,
+    window_size_m: int = WINDOW_SIZE_M,
+    stride_m: int | None = None,
 ) -> tuple[list[CandidateCell], GridCoverage]:
     _validate_region(region)
     if window_size_m <= 0:
         raise GridError("window_size_m must be positive")
+    stride = window_size_m if stride_m is None else stride_m
+    if stride <= 0:
+        raise GridError("stride_m must be positive")
+    if stride < window_size_m:
+        raise GridError("overlapping windows are not supported; use stride_m >= window_size_m")
+
     center_lon = (region.west + region.east) / 2
     center_lat = (region.south + region.north) / 2
     target_crs = CRS.from_user_input(region.crs) if region.crs else _utm_crs(center_lon, center_lat)
@@ -115,16 +139,16 @@ def generate_region_grid(
     miny, maxy = min(ys), max(ys)
     width = maxx - minx
     height = maxy - miny
-    cols = int(width // window_size_m)
-    rows = int(height // window_size_m)
-    if cols < 1 or rows < 1:
+    if width < window_size_m or height < window_size_m:
         raise GridError("region is smaller than one grid window")
+    cols = int((width - window_size_m) // stride) + 1
+    rows = int((height - window_size_m) // stride) + 1
 
     cells: list[CandidateCell] = []
     for row in range(rows):
         for col in range(cols):
-            west_m = minx + col * window_size_m
-            south_m = miny + row * window_size_m
+            west_m = minx + col * stride
+            south_m = miny + row * stride
             east_m = west_m + window_size_m
             north_m = south_m + window_size_m
             corners = [
@@ -135,15 +159,23 @@ def generate_region_grid(
             ]
             lons = [point[0] for point in corners]
             lats = [point[1] for point in corners]
+            identity = (
+                f"{GRID_VERSION}|{target_crs.to_string()}|{west_m:.6f}|{south_m:.6f}|"
+                f"{window_size_m}|{stride}|{SOURCE_RESOLUTION_M}"
+            )
+            unit_hash = hashlib.sha256(identity.encode()).hexdigest()[:16]
             cells.append(
                 CandidateCell(
-                    candidate_id=f"coarse-v1:{region.region_id}:{row:04d}:{col:04d}",
+                    candidate_id=f"coarse-v1:{unit_hash}",
                     grid_version=GRID_VERSION,
                     region_id=region.region_id,
                     row=row,
                     col=col,
                     crs=target_crs.to_string(),
                     window_size_m=window_size_m,
+                    stride_m=stride,
+                    source_resolution_m=SOURCE_RESOLUTION_M,
+                    grid_anchor=(minx, miny),
                     bbox_wgs84={
                         "west": min(lons),
                         "south": min(lats),
@@ -166,14 +198,19 @@ def generate_region_grid(
         candidate_count=len(cells),
         covered_area_km2=covered,
         uncovered_margin_m={
-            "east": width - cols * window_size_m,
-            "north": height - rows * window_size_m,
+            "east": width - ((cols - 1) * stride + window_size_m),
+            "north": height - ((rows - 1) * stride + window_size_m),
         },
     )
     return cells, coverage
 
 
-def generate_grid(regions: Iterable[GridRegion], *, window_size_m: int = WINDOW_SIZE_M) -> GridPlan:
+def generate_grid(
+    regions: Iterable[GridRegion],
+    *,
+    window_size_m: int = WINDOW_SIZE_M,
+    stride_m: int | None = None,
+) -> GridPlan:
     regions = list(regions)
     if not regions:
         raise GridError("at least one region is required")
@@ -183,12 +220,14 @@ def generate_grid(regions: Iterable[GridRegion], *, window_size_m: int = WINDOW_
     all_cells: list[CandidateCell] = []
     coverage: list[GridCoverage] = []
     for region in regions:
-        cells, report = generate_region_grid(region, window_size_m=window_size_m)
+        cells, report = generate_region_grid(region, window_size_m=window_size_m, stride_m=stride_m)
         all_cells.extend(cells)
         coverage.append(report)
     return GridPlan(
         grid_version=GRID_VERSION,
         window_size_m=window_size_m,
+        stride_m=window_size_m if stride_m is None else stride_m,
+        source_resolution_m=SOURCE_RESOLUTION_M,
         regions=regions,
         cells=all_cells,
         coverage=coverage,
@@ -205,7 +244,7 @@ def bbox_overlap(a: dict[str, float], b: dict[str, float]) -> bool:
 
 
 def assert_no_overlap(cells: Iterable[CandidateCell]) -> None:
-    seen: dict[tuple[int, int], CandidateCell] = {}
+    seen: dict[tuple[float, float], CandidateCell] = {}
     for cell in cells:
         key = (round(cell.bbox_metric["west"], 6), round(cell.bbox_metric["south"], 6))
         if key in seen:

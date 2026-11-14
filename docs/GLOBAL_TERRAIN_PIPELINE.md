@@ -65,18 +65,28 @@ No command in this phase downloads a source or stages a remote file.
 
 - Twenty columns: candidate/grid/region/body/bbox/CRS/area, three coarse values,
   valid fraction, method/grid versions, dataset/asset ids, QA flags, snapshot id.
-- Immutable snapshot path: `snapshots/<snapshot_id>/regions/<region_id>/part-NNNNN.parquet`.
-  A second build with the same snapshot id is rejected unless an explicit overwrite is
-  requested; publish a new snapshot id instead.
+- Immutable content-addressed partitions: `partitions/<region_id>/<sha256>.parquet`.
+  Snapshot manifests at `snapshots/<snapshot_id>/manifest.json` reference partitions.
+  Unchanged partitions are shared by multiple snapshots; a changed partition gets a new
+  content hash. Publishing the same snapshot id twice is rejected unless an explicit
+  overwrite is requested. Old snapshots remain queryable because their manifests still
+  reference the old immutable partitions.
+- Snapshot membership is manifest-only: row-level `snapshot_id` is not stored in
+  Parquet partitions.
 - Manifest: `snapshots/<snapshot_id>/manifest.json`, SHA-256 per partition, row count,
   coverage, methods. The writer flushes partitions at a bounded row count instead of
   materializing the full input.
 - Duplicate candidate IDs are checked both within a partition and across partitions
   before the manifest is published. Candidate IDs, bbox/area, valid fraction and
   coarse feature domains are validated first.
-- The API caches a verified repository keyed by the manifest path + mtime/size and
-  invalidates when a new/updated manifest appears. It does not re-hash every Parquet
-  file on every query; explicit verification occurs on publication/load/refresh.
+- The API caches a verified repository keyed by the resolved manifest path + mtime/size
+  and invalidates when a new/updated manifest appears. It does not re-hash every
+  Parquet file on every query; explicit verification occurs on publication/load/refresh.
+  `ANALOG_GLOBAL_SNAPSHOT_ID` selects one snapshot when a root contains several.
+- Analysis-unit IDs are content-derived from the projected footprint plus
+  window/stride/source-resolution/grid versions. Region row/column labels are metadata,
+  not identity. Resolution, window size, stride and the projected anchor are persisted
+  separately in each row.
 - Read-only query path uses an in-memory DuckDB connection over pinned Parquet;
   no shared mutable DuckDB file.
 - `snapshot_id` filters results; a different snapshot cannot leak into a query.

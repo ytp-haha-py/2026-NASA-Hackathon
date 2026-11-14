@@ -795,8 +795,14 @@ export interface components {
             slope_mean_deg: number | null;
             /** Slope P90 Deg */
             slope_p90_deg: number | null;
+            /** Source Resolution M */
+            source_resolution_m: number;
+            /** Stride M */
+            stride_m: number;
             /** Valid Fraction */
             valid_fraction: number;
+            /** Window Size M */
+            window_size_m: number;
         };
         /** HTTPValidationError */
         HTTPValidationError: {

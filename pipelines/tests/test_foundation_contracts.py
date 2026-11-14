@@ -85,6 +85,7 @@ def _numeric_observation(**overrides) -> TypedObservation:
         ),
         "temporal_support": TemporalSupport(kind="static"),
         "method_version": "terrain-metrics-1.0.0",
+        "dataset_ids": ["dataset-1"],
         "source_asset_ids": ["asset-1"],
         "score_role": "similarity",
     }
@@ -197,6 +198,51 @@ def test_timeseries_spectrum_and_process_shapes_are_checked():
                 "score_role": "evidence_only",
             }
         )
+
+
+def test_area_frames_are_body_specific():
+    with pytest.raises(ValidationError):
+        AreaV2(
+            area_id="bad-moon",
+            body="Moon",
+            crs="EPSG:4326",
+            coordinate_frame="earth_wgs84",
+        )
+    with pytest.raises(ValidationError):
+        AreaV2(
+            area_id="bad-moon-epsg",
+            body="Moon",
+            crs="EPSG:32633",
+            coordinate_frame="lunar_projected",
+        )
+    with pytest.raises(ValidationError):
+        AreaV2(
+            area_id="bad-earth",
+            body="Earth",
+            crs="EPSG:4326",
+            coordinate_frame="lunar_projected",
+        )
+
+
+def test_v1_migration_preserves_support_and_separates_dataset_assets():
+    raw = json.loads(
+        (ROOT / "pipelines/earth/manifests/copernicus_glo90_earth.json").read_text(encoding="utf-8")
+    )
+    migrated = migrate_v1_manifest(raw)
+    observation = migrated.observations[0]
+    candidate = raw["candidates"][0]
+    assert observation.spatial_support.window_size_m == candidate["window_size_m"]
+    assert observation.spatial_support.resolution_m == candidate["analysis_resolution_m"]
+    assert observation.spatial_support.bbox == candidate["bbox"]
+    assert observation.spatial_support.crs == candidate["crs"]
+    assert observation.temporal_support.kind == "unknown"
+    assert observation.depth_support.kind == "unknown"
+    assert observation.uncertainty is not None
+    assert observation.uncertainty.kind == "unknown"
+    assert observation.dataset_ids == [candidate["dataset_id"]]
+    assert observation.source_asset_ids[0] != candidate["dataset_id"]
+    assert any(asset.asset_id == observation.source_asset_ids[0] for asset in migrated.assets)
+    assert migrated.assets[0].dataset_id == candidate["dataset_id"]
 
 
 def test_v1_manifest_still_valid_and_migration_preserves_ids():

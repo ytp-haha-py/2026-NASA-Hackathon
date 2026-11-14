@@ -12,7 +12,7 @@ import json
 import os
 import tempfile
 from collections.abc import Iterable, Sequence
-from dataclasses import asdict, dataclass, field, replace
+from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -46,6 +46,9 @@ _COLUMNS = [
     ("north", "DOUBLE"),
     ("crs", "VARCHAR"),
     ("area_km2", "DOUBLE"),
+    ("window_size_m", "DOUBLE"),
+    ("stride_m", "DOUBLE"),
+    ("source_resolution_m", "DOUBLE"),
     ("slope_mean_deg", "DOUBLE"),
     ("slope_p90_deg", "DOUBLE"),
     ("flat_fraction", "DOUBLE"),
@@ -55,7 +58,6 @@ _COLUMNS = [
     ("dataset_id", "VARCHAR"),
     ("source_asset_id", "VARCHAR"),
     ("qa_flags", "VARCHAR"),
-    ("snapshot_id", "VARCHAR"),
 ]
 
 
@@ -84,7 +86,9 @@ class CoarseRow:
     dataset_id: str
     source_asset_id: str
     qa_flags: list[str] = field(default_factory=list)
-    snapshot_id: str = ""
+    window_size_m: float = 5000.0
+    stride_m: float = 5000.0
+    source_resolution_m: float = 250.0
 
     def to_tuple(self) -> tuple[Any, ...]:
         data = asdict(self)
@@ -114,7 +118,7 @@ def _atomic_json(path: Path, payload: dict[str, Any]) -> None:
             os.unlink(tmp)
 
 
-def _validate_row(row: CoarseRow, *, snapshot_id: str) -> None:
+def _validate_row(row: CoarseRow) -> None:
     if not row.candidate_id or "/" in row.candidate_id or "\\" in row.candidate_id:
         raise IndexError_(f"invalid candidate_id {row.candidate_id!r}")
     if not row.region_id or "/" in row.region_id or "\\" in row.region_id:
@@ -125,14 +129,17 @@ def _validate_row(row: CoarseRow, *, snapshot_id: str) -> None:
         raise IndexError_(f"unexpected coarse method_version {row.method_version!r}")
     if row.grid_version != GRID_VERSION:
         raise IndexError_(f"unexpected grid_version {row.grid_version!r}")
-    if row.snapshot_id != snapshot_id:
-        raise IndexError_("row snapshot_id does not match the writer snapshot")
     if row.east <= row.west or row.north <= row.south:
         raise IndexError_(f"invalid bbox for {row.candidate_id}")
     if not (0 <= row.valid_fraction <= 1):
         raise IndexError_(f"valid_fraction outside [0,1] for {row.candidate_id}")
     if row.area_km2 <= 0:
         raise IndexError_(f"area_km2 must be positive for {row.candidate_id}")
+    for field_name in ("window_size_m", "stride_m", "source_resolution_m"):
+        if getattr(row, field_name) <= 0:
+            raise IndexError_(f"{field_name} must be positive for {row.candidate_id}")
+    if row.stride_m < row.window_size_m:
+        raise IndexError_("overlapping coarse windows are not supported")
     for feature_id, value in (
         ("coarse_slope_mean_deg", row.slope_mean_deg),
         ("coarse_slope_p90_deg", row.slope_p90_deg),
@@ -209,6 +216,7 @@ class CoarseIndexWriter:
         self.source_datasets = source_datasets or []
         self.max_rows_per_partition = max_rows_per_partition
         self.snapshot_root = self.root / SNAPSHOTS_DIR / snapshot_id
+        self.partition_root = self.root / "partitions"
         if (self.snapshot_root / "manifest.json").is_file() and not overwrite:
             raise IndexError_(
                 f"snapshot {snapshot_id!r} already exists at {self.snapshot_root}; "
@@ -224,9 +232,7 @@ class CoarseIndexWriter:
         self._north = float("-inf")
 
     def add_row(self, row: CoarseRow) -> None:
-        if not row.snapshot_id:
-            row = replace(row, snapshot_id=self.snapshot_id)
-        _validate_row(row, snapshot_id=self.snapshot_id)
+        _validate_row(row)
         buffer = self._buffers.setdefault(row.region_id, [])
         buffer.append(row)
         self.row_count += 1
@@ -245,20 +251,37 @@ class CoarseIndexWriter:
         rows = self._buffers.get(region_id) or []
         if not rows:
             return
-        index = self._part_counts.get(region_id, 0)
-        relative = Path("regions") / region_id / f"part-{index:05d}.parquet"
-        path = self.snapshot_root / relative
-        _write_partition(path, rows)
+        import tempfile
+
+        self.partition_root.mkdir(parents=True, exist_ok=True)
+        fd, tmp_name = tempfile.mkstemp(
+            prefix=f"{region_id}-", suffix=".parquet.tmp", dir=self.partition_root
+        )
+        os.close(fd)
+        temp_path = Path(tmp_name)
+        try:
+            _write_partition(temp_path, rows)
+            digest = _sha256(temp_path)
+            final = self.partition_root / region_id / f"{digest}.parquet"
+            final.parent.mkdir(parents=True, exist_ok=True)
+            if final.is_file():
+                if _sha256(final) != digest:
+                    raise IndexError_(f"content-addressed partition collision: {final}")
+                temp_path.unlink()
+            else:
+                os.replace(temp_path, final)
+        finally:
+            if temp_path.exists():
+                temp_path.unlink()
         self.partitions.append(
             {
                 "region_id": region_id,
-                "path": relative.as_posix(),
-                "sha256": _sha256(path),
-                "bytes": path.stat().st_size,
+                "path": Path("partitions").joinpath(region_id, f"{digest}.parquet").as_posix(),
+                "sha256": digest,
+                "bytes": final.stat().st_size,
                 "rows": len(rows),
             }
         )
-        self._part_counts[region_id] = index + 1
         self._buffers[region_id] = []
 
     def finalize(self) -> dict[str, Any]:
@@ -266,7 +289,7 @@ class CoarseIndexWriter:
             self._flush(region_id)
         if not self.partitions:
             raise IndexError_("cannot publish an empty coarse index")
-        paths = [self.snapshot_root / partition["path"] for partition in self.partitions]
+        paths = [self.root / partition["path"] for partition in self.partitions]
         duplicate = _duplicate_across_files(paths)
         if duplicate:
             raise IndexError_(f"duplicate candidate_id across partitions: {duplicate}")
@@ -335,15 +358,23 @@ def resolve_index_root(root: str | Path, *, snapshot_id: str | None = None) -> P
     raise IndexError_(f"multiple coarse snapshots found under {snapshots}; specify snapshot_id")
 
 
+def _index_base(snapshot_root: Path, root: Path) -> Path:
+    # New layout: <base>/snapshots/<id>/manifest.json, shared <base>/partitions/...
+    if snapshot_root.parent.name == SNAPSHOTS_DIR:
+        return snapshot_root.parent.parent
+    return root
+
+
 def verify_index(root: str | Path, *, snapshot_id: str | None = None) -> dict[str, Any]:
     resolved = resolve_index_root(root, snapshot_id=snapshot_id)
+    base = _index_base(resolved, Path(root))
     manifest_path = resolved / "manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if manifest.get("index_version") != INDEX_VERSION:
         raise IndexError_("unsupported coarse index version")
     rows = 0
     for partition in manifest.get("partitions", []):
-        path = resolved / partition["path"]
+        path = base / partition["path"]
         if not path.is_file():
             raise IndexError_(f"missing partition {path}")
         if _sha256(path) != partition["sha256"]:
@@ -374,6 +405,7 @@ class CoarseIndexRepository:
         verify: bool = True,
     ) -> None:
         self.root = resolve_index_root(root, snapshot_id=snapshot_id)
+        self.base = _index_base(self.root, Path(root))
         if verify:
             self.manifest = verify_index(self.root)
         else:
@@ -381,7 +413,7 @@ class CoarseIndexRepository:
         self.snapshot_id = snapshot_id or self.manifest["snapshot_id"]
         if self.snapshot_id != self.manifest["snapshot_id"]:
             raise IndexError_("requested snapshot does not match the pinned index manifest")
-        self.parquet_paths = [str(self.root / p["path"]) for p in self.manifest["partitions"]]
+        self.parquet_paths = [str(self.base / p["path"]) for p in self.manifest["partitions"]]
 
     def _conn(self) -> duckdb.DuckDBPyConnection:
         con = duckdb.connect()
@@ -405,8 +437,8 @@ class CoarseIndexRepository:
         con = self._conn()
         try:
             row = con.execute(
-                "SELECT * FROM coarse WHERE candidate_id = ? AND snapshot_id = ?",
-                [candidate_id, self.snapshot_id],
+                "SELECT * FROM coarse WHERE candidate_id = ?",
+                [candidate_id],
             ).fetchone()
             columns = [item[0] for item in con.description]
         finally:
@@ -454,8 +486,8 @@ class CoarseIndexRepository:
         total_weight = sum(positive.values())
         terms: list[str] = []
         params: list[Any] = []
-        where = ["method_version = ?", "snapshot_id = ?"]
-        where_params: list[Any] = [COARSE_METHOD_VERSION, self.snapshot_id]
+        where = ["method_version = ?"]
+        where_params: list[Any] = [COARSE_METHOD_VERSION]
         for feature_id, weight in positive.items():
             if feature_id not in _FEATURE_COLUMNS:
                 raise CoarseExtractionError("unsupported_feature", feature_id)
@@ -470,8 +502,9 @@ class CoarseIndexRepository:
         distance_sql = " + ".join(terms)
         sql = (
             f"SELECT candidate_id, grid_id, region_id, body, west, south, east, north, crs, "
-            f"area_km2, slope_mean_deg, slope_p90_deg, flat_fraction, valid_fraction, "
-            f"method_version, grid_version, dataset_id, source_asset_id, qa_flags, snapshot_id, "
+            f"area_km2, window_size_m, stride_m, source_resolution_m, "
+            f"slope_mean_deg, slope_p90_deg, flat_fraction, valid_fraction, "
+            f"method_version, grid_version, dataset_id, source_asset_id, qa_flags, "
             f"sqrt(({distance_sql}) / {total_weight}) AS distance "
             f"FROM coarse WHERE {' AND '.join(where)} "
             f"ORDER BY distance ASC, candidate_id ASC LIMIT ?"
@@ -484,8 +517,8 @@ class CoarseIndexRepository:
                 f"SELECT count(*) FROM coarse WHERE {' AND '.join(where)}", where_params
             ).fetchone()[0]
             indexed = con.execute(
-                "SELECT count(*) FROM coarse WHERE method_version = ? AND snapshot_id = ?",
-                [COARSE_METHOD_VERSION, self.snapshot_id],
+                "SELECT count(*) FROM coarse WHERE method_version = ?",
+                [COARSE_METHOD_VERSION],
             ).fetchone()[0]
         finally:
             con.close()

@@ -45,7 +45,6 @@ def synthetic_rows(count: int) -> list[CoarseRow]:
                 dataset_id="synthetic-benchmark",
                 source_asset_id="synthetic-benchmark-asset",
                 qa_flags=["synthetic_benchmark_not_observation"],
-                snapshot_id="synthetic-benchmark",
             )
         )
     return rows
