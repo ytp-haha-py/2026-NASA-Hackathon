@@ -7,7 +7,12 @@ from analog_pipelines.coarse_features import (
     COARSE_FEATURES,
     CoarseExtractionError,
 )
-from analog_pipelines.coarse_index import INDEX_VERSION, CoarseIndexRepository, IndexError_
+from analog_pipelines.coarse_index import (
+    INDEX_VERSION,
+    CoarseIndexRepository,
+    IndexError_,
+    resolve_index_root,
+)
 from analog_pipelines.coarse_reference import plan_refine_windows
 from fastapi import APIRouter, Request
 
@@ -32,24 +37,42 @@ def _index_root(request: Request) -> Path:
 
 def _repo(request: Request) -> CoarseIndexRepository:
     root = _index_root(request)
-    if not (root / "manifest.json").is_file():
+    try:
+        resolved = resolve_index_root(root)
+    except IndexError_ as exc:
         raise AppError(
             "no_indexed_data",
             "No verified coarse Parquet index is configured. Global discovery is not indexed "
             "in this deployment; use the existing indexed-subset search or build an authorized "
             "offline fixture index.",
             status_code=409,
-        )
+        ) from exc
+    manifest = resolved / "manifest.json"
+    signature = (manifest.stat().st_mtime_ns, manifest.stat().st_size)
+    cache = getattr(request.app.state, "global_index_cache", None)
+    if cache is None:
+        cache = {}
+        request.app.state.global_index_cache = cache
+    cached = cache.get(str(resolved))
+    if cached is not None and cached[0] == signature:
+        return cached[1]
     try:
-        return CoarseIndexRepository(root)
+        repository = CoarseIndexRepository(resolved, verify=True)
     except IndexError_ as exc:
         raise AppError("index_invalid", str(exc), status_code=409) from exc
+    cache[str(resolved)] = (signature, repository)
+    return repository
 
 
 @router.get("/coverage", response_model=GlobalCoverageOut)
 def global_coverage(request: Request) -> dict[str, object]:
     root = _index_root(request)
-    if not (root / "manifest.json").is_file():
+    try:
+        resolve_index_root(root)
+        has_index = True
+    except IndexError_:
+        has_index = False
+    if not has_index:
         return {
             "status": "no_index",
             "snapshot_id": None,

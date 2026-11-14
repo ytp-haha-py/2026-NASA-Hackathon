@@ -15,6 +15,7 @@ from typing import Any
 
 import numpy as np
 import rasterio
+from pyproj import CRS as ProjCRS
 from rasterio.windows import from_bounds
 
 REMOTE_PREFIXES = ("http://", "https://", "s3://", "gs://", "ftp://")
@@ -34,6 +35,7 @@ class RasterMetadata:
     dtype: str
     nodata: float | None
     resolution: tuple[float, float]
+    native_resolution_unit: str
     bounds: tuple[float, float, float, float]
     scale: float | None
     offset: float | None
@@ -80,6 +82,11 @@ def inspect_raster(path: str | Path) -> RasterMetadata:
                 dtype=src.dtypes[0] if src.dtypes else "unknown",
                 nodata=float(src.nodata) if src.nodata is not None else None,
                 resolution=(abs(float(src.res[0])), abs(float(src.res[1]))),
+                native_resolution_unit=(
+                    str(ProjCRS.from_user_input(src.crs).axis_info[0].unit_name)
+                    if src.crs
+                    else "unknown"
+                ),
                 bounds=tuple(float(x) for x in src.bounds),
                 scale=float(scales[0]) if scales and scales[0] not in (None, 0) else None,
                 offset=float(offsets[0]) if offsets and offsets[0] is not None else None,
@@ -156,13 +163,20 @@ def read_window(
                 array = array + offset
             array = np.where(valid, array, np.nan)
             transform = src.window_transform(window)
+            from pyproj import Geod
+
+            lon_c = (bbox["west"] + bbox["east"]) / 2
+            lat_c = (bbox["south"] + bbox["north"]) / 2
+            geod = Geod(ellps="WGS84")
+            _, _, x_size = geod.inv(lon_c, lat_c, lon_c + abs(float(src.res[0])), lat_c)
+            _, _, y_size = geod.inv(lon_c, lat_c, lon_c, lat_c + abs(float(src.res[1])))
             return RasterWindow(
                 data=array,
                 valid_mask=valid,
                 transform=transform,
                 crs=str(src.crs),
                 bbox_wgs84={key: float(bbox[key]) for key in ("west", "south", "east", "north")},
-                resolution_m=(abs(float(src.res[0])), abs(float(src.res[1]))),
+                resolution_m=(abs(x_size), abs(y_size)),
                 metadata=metadata,
             )
     except RasterReadError:

@@ -65,12 +65,24 @@ No command in this phase downloads a source or stages a remote file.
 
 - Twenty columns: candidate/grid/region/body/bbox/CRS/area, three coarse values,
   valid fraction, method/grid versions, dataset/asset ids, QA flags, snapshot id.
-- Partition path: `regions/<region_id>/part-00000.parquet`.
-- Manifest: `manifest.json`, SHA-256 per partition, row count, coverage, methods.
+- Immutable snapshot path: `snapshots/<snapshot_id>/regions/<region_id>/part-NNNNN.parquet`.
+  A second build with the same snapshot id is rejected unless an explicit overwrite is
+  requested; publish a new snapshot id instead.
+- Manifest: `snapshots/<snapshot_id>/manifest.json`, SHA-256 per partition, row count,
+  coverage, methods. The writer flushes partitions at a bounded row count instead of
+  materializing the full input.
+- Duplicate candidate IDs are checked both within a partition and across partitions
+  before the manifest is published. Candidate IDs, bbox/area, valid fraction and
+  coarse feature domains are validated first.
+- The API caches a verified repository keyed by the manifest path + mtime/size and
+  invalidates when a new/updated manifest appears. It does not re-hash every Parquet
+  file on every query; explicit verification occurs on publication/load/refresh.
 - Read-only query path uses an in-memory DuckDB connection over pinned Parquet;
   no shared mutable DuckDB file.
 - `snapshot_id` filters results; a different snapshot cannot leak into a query.
-- Missing feature values are excluded and counted; valid zero remains a value.
+- Missing feature values for **positive-weight** features are excluded and counted;
+  zero-weight features do not require a value or contribute a distance term. Valid
+  zero remains a value.
 - Deterministic order: `(distance, candidate_id)`.
 
 ## API behaviour

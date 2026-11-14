@@ -57,6 +57,11 @@ def test_global_coverage_and_search_with_fixture_index(tmp_path: Path):
     with TestClient(app) as client:
         coverage = client.get("/api/v1/global/coverage")
         assert coverage.status_code == 200
+        first_cache = dict(app.state.global_index_cache)
+        client.get("/api/v1/global/coverage")
+        second_cache = dict(app.state.global_index_cache)
+        assert first_cache.keys() == second_cache.keys()
+        assert first_cache == second_cache
         assert coverage.json()["status"] == "ready"
         assert coverage.json()["row_count"] == 2
         assert coverage.json()["label"] == "local_coarse_index_not_global_exhaustive"

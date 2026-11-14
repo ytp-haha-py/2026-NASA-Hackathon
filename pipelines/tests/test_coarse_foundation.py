@@ -58,6 +58,9 @@ def test_reader_metadata_scale_offset_and_nodata(tmp_path: Path):
     assert metadata.nodata == -9999.0
     window = read_window(path, bbox={"west": 10.0, "south": 44.998, "east": 10.002, "north": 45.0})
     assert window.data.shape[0] > 0
+    assert metadata.native_resolution_unit == "degree"
+    assert 50 < window.resolution_m[0] < 120
+    assert 90 < window.resolution_m[1] < 130
     assert window.valid_mask[0, 0] is np.bool_(True) or bool(window.valid_mask[0, 0]) is True
     # scaled physical zero remains valid
     assert window.data[0, 0] == pytest.approx(1.0)
@@ -170,3 +173,86 @@ def test_coarse_reference_validation_and_refine_plan():
         window.bbox_wgs84["west"] >= 10.0 and window.bbox_wgs84["east"] <= 10.064
         for window in windows
     )
+
+
+def test_end_to_end_grid_cell_through_geographic_reader_to_index(tmp_path: Path):
+    """One real GridRegion cell -> local geographic raster -> coarse index query."""
+    from analog_pipelines.coarse_grid import generate_region_grid
+    from analog_pipelines.coarse_index import CoarseIndexRepository, CoarseRow, build_index
+
+    region = GridRegion("e2e", "E2E", 10.0, 45.0, 10.1, 45.1)
+    cells, _ = generate_region_grid(region)
+    cell = cells[0]
+    cellsize = 0.0023
+    size = 80
+    array = np.full((size, size), 10.0, dtype="float32")
+    array[0, 0] = -9999.0
+    path = tmp_path / "geographic_slope.tif"
+    with rasterio.open(
+        path,
+        "w",
+        driver="GTiff",
+        height=size,
+        width=size,
+        count=1,
+        dtype="float32",
+        crs="EPSG:4326",
+        transform=from_origin(
+            cell.bbox_wgs84["west"] - 0.01, cell.bbox_wgs84["north"] + 0.01, cellsize, cellsize
+        ),
+        nodata=-9999.0,
+    ) as dst:
+        dst.write(array, 1)
+
+    window = read_window(path, bbox=cell.bbox_wgs84)
+    assert window.data.size > 0
+    assert 150 < window.resolution_m[0] < 320
+    assert 150 < window.resolution_m[1] < 320
+    features = extract_coarse_features(window.data, window.valid_mask)
+    row = CoarseRow(
+        candidate_id=cell.candidate_id,
+        grid_id=cell.grid_version,
+        region_id=cell.region_id,
+        body="Earth",
+        **cell.bbox_wgs84,
+        crs=cell.crs,
+        area_km2=25.0,
+        slope_mean_deg=features["coarse_slope_mean_deg"],
+        slope_p90_deg=features["coarse_slope_p90_deg"],
+        flat_fraction=features["coarse_flat_fraction_lt5deg"],
+        valid_fraction=float(window.valid_mask.mean()),
+        method_version=COARSE_METHOD_VERSION,
+        grid_version=cell.grid_version,
+        dataset_id="fixture",
+        source_asset_id="fixture",
+        qa_flags=["synthetic_fixture"],
+        snapshot_id="e2e-snapshot",
+    )
+    build_index([row], root=tmp_path / "index", snapshot_id="e2e-snapshot")
+    repo = CoarseIndexRepository(tmp_path / "index")
+    result = repo.search(
+        target={"coarse_slope_mean_deg": 10.0},
+        weights={"coarse_slope_mean_deg": 1.0},
+        limit=1,
+    )
+    assert result["results"][0]["candidate_id"] == cell.candidate_id
+    assert result["results"][0]["distance"] == pytest.approx(0.0)
+
+
+def test_high_latitude_zone_edge_bbox_encloses_all_corners():
+    from pyproj import Transformer
+
+    region = GridRegion("edge", "Edge", 5.8, 60.0, 6.4, 60.35)
+    cells, _ = generate_region_grid(region)
+    cell = cells[0]
+    inverse = Transformer.from_crs(cell.crs, "EPSG:4326", always_xy=True)
+    corners = [
+        inverse.transform(cell.bbox_metric["west"], cell.bbox_metric["south"]),
+        inverse.transform(cell.bbox_metric["east"], cell.bbox_metric["south"]),
+        inverse.transform(cell.bbox_metric["west"], cell.bbox_metric["north"]),
+        inverse.transform(cell.bbox_metric["east"], cell.bbox_metric["north"]),
+    ]
+    assert min(lon for lon, _ in corners) == pytest.approx(cell.bbox_wgs84["west"], abs=1e-9)
+    assert max(lon for lon, _ in corners) == pytest.approx(cell.bbox_wgs84["east"], abs=1e-9)
+    assert min(lat for _, lat in corners) == pytest.approx(cell.bbox_wgs84["south"], abs=1e-9)
+    assert max(lat for _, lat in corners) == pytest.approx(cell.bbox_wgs84["north"], abs=1e-9)

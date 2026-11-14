@@ -41,8 +41,17 @@ def row(
         dataset_id="fixture",
         source_asset_id="fixture-asset",
         qa_flags=["synthetic_fixture"],
-        snapshot_id="fixture-snapshot",
+        snapshot_id="",
     )
+
+
+def _write_output(tmp_path: Path, task: PartitionTask) -> WorkerResult:
+    import hashlib
+
+    path = tmp_path / f"{task.task_id}.bin"
+    path.write_bytes(f"payload:{task.task_id}:{task.window_count}".encode())
+    checksum = hashlib.sha256(path.read_bytes()).hexdigest()
+    return WorkerResult(output_checksum=checksum, rows=task.window_count, output_path=str(path))
 
 
 def test_batch_resume_does_not_recompute_success(tmp_path: Path):
@@ -52,11 +61,11 @@ def test_batch_resume_does_not_recompute_success(tmp_path: Path):
         calls[task.task_id] = calls.get(task.task_id, 0) + 1
         if task.task_id == "b":
             raise RuntimeError("simulated interruption")
-        return WorkerResult(output_checksum=f"sha256:{task.task_id}", rows=task.window_count)
+        return _write_output(tmp_path, task)
 
     def good_worker(task: PartitionTask) -> WorkerResult:
         calls[task.task_id] = calls.get(task.task_id, 0) + 1
-        return WorkerResult(output_checksum=f"sha256:{task.task_id}", rows=task.window_count)
+        return _write_output(tmp_path, task)
 
     tasks = [PartitionTask("a", "r1", 2), PartitionTask("b", "r1", 3), PartitionTask("c", "r2", 1)]
     checkpoint = tmp_path / "checkpoint.json"
@@ -80,7 +89,7 @@ def test_batch_resume_does_not_recompute_success(tmp_path: Path):
 def test_batch_restart_and_bounds(tmp_path: Path):
     checkpoint = tmp_path / "checkpoint.json"
     tasks = [PartitionTask(f"t{i}", "r", 1) for i in range(3)]
-    worker = lambda task: WorkerResult("sha256:x", 1)  # noqa: E731
+    worker = lambda task: _write_output(tmp_path, task)  # noqa: E731
     runner = BatchRunner(run_id="r", checkpoint_path=checkpoint, worker=worker, max_workers=2)
     runner.run(tasks)
     restarted = BatchRunner(run_id="r", checkpoint_path=checkpoint, worker=worker, max_workers=2)
@@ -117,8 +126,10 @@ def test_parquet_index_roundtrip_and_duckdb_ranking(tmp_path: Path):
 
 
 def test_parquet_manifest_tamper_is_rejected(tmp_path: Path):
-    build_index([row("coarse-v1:a", 10, 20, 0.5)], root=tmp_path / "index", snapshot_id="s")
-    parquet = next((tmp_path / "index" / "regions").rglob("*.parquet"))
+    build_index(
+        [row("coarse-v1:a", 10, 20, 0.5)], root=tmp_path / "index", snapshot_id="fixture-snapshot"
+    )
+    parquet = next((tmp_path / "index").rglob("*.parquet"))
     parquet.write_bytes(parquet.read_bytes() + b"tamper")
     with pytest.raises(Exception, match="checksum"):
         verify_index(tmp_path / "index")
@@ -129,5 +140,104 @@ def test_duplicate_candidate_ids_are_rejected(tmp_path: Path):
         build_index(
             [row("coarse-v1:a", 10, 20, 0.5), row("coarse-v1:a", 11, 21, 0.4)],
             root=tmp_path / "index",
-            snapshot_id="s",
+            snapshot_id="fixture-snapshot",
         )
+
+
+def test_corrupted_or_missing_output_forces_recompute(tmp_path: Path):
+    import hashlib
+
+    checkpoint = tmp_path / "checkpoint.json"
+    task = PartitionTask("a", "r", 1)
+    calls = {"n": 0}
+
+    def worker(item: PartitionTask) -> WorkerResult:
+        calls["n"] += 1
+        return _write_output(tmp_path, item)
+
+    runner = BatchRunner(run_id="r", checkpoint_path=checkpoint, worker=worker, max_workers=1)
+    runner.run([task])
+    output = tmp_path / "a.bin"
+    output.write_bytes(b"corrupted")
+    resumed = BatchRunner(run_id="r", checkpoint_path=checkpoint, worker=worker, max_workers=1)
+    result = resumed.run([task])
+    assert result["succeeded"] == 1
+    assert calls["n"] == 2
+    checksum = hashlib.sha256(output.read_bytes()).hexdigest()
+    record = resumed.store.state.tasks["a"]
+    assert record["output_checksum"] == checksum
+
+
+def test_checkpoint_run_identity_and_task_fingerprint_are_checked(tmp_path: Path):
+    checkpoint = tmp_path / "checkpoint.json"
+    task = PartitionTask("a", "r", 1)
+    runner = BatchRunner(
+        run_id="run-a",
+        checkpoint_path=checkpoint,
+        worker=lambda item: _write_output(tmp_path, item),
+        max_workers=1,
+    )
+    runner.run([task])
+    with pytest.raises(BatchError, match="belongs to run"):
+        BatchRunner(
+            run_id="run-b",
+            checkpoint_path=checkpoint,
+            worker=lambda item: _write_output(tmp_path, item),
+            max_workers=1,
+        )
+    changed = PartitionTask("a", "r", 2)
+    calls = {"n": 0}
+
+    def changed_worker(item: PartitionTask) -> WorkerResult:
+        calls["n"] += 1
+        return _write_output(tmp_path, item)
+
+    resumed = BatchRunner(
+        run_id="run-a", checkpoint_path=checkpoint, worker=changed_worker, max_workers=1
+    )
+    resumed.run([changed], retry_failed=False)
+    assert calls["n"] == 1
+
+
+def test_writer_is_partition_bounded_and_snapshots_are_immutable(tmp_path: Path):
+    from analog_pipelines.coarse_index import CoarseIndexWriter
+
+    root = tmp_path / "index"
+    writer = CoarseIndexWriter(root=root, snapshot_id="snap-a", max_rows_per_partition=1)
+    writer.add_row(row("coarse-v1:a", 10, 20, 0.5))
+    writer.add_row(row("coarse-v1:b", 11, 21, 0.4))
+    manifest = writer.finalize()
+    assert len(manifest["partitions"]) == 2
+    old_manifest = (root / "snapshots/snap-a/manifest.json").read_bytes()
+    with pytest.raises(Exception, match="already exists"):
+        build_index([row("coarse-v1:c", 12, 22, 0.3)], root=root, snapshot_id="snap-a")
+    build_index([row("coarse-v1:d", 13, 23, 0.2)], root=root, snapshot_id="snap-b")
+    assert (root / "snapshots/snap-a/manifest.json").read_bytes() == old_manifest
+
+
+def test_duplicate_ids_across_partitions_are_rejected(tmp_path: Path):
+    from analog_pipelines.coarse_index import CoarseIndexWriter
+
+    writer = CoarseIndexWriter(
+        root=tmp_path / "index", snapshot_id="snap", max_rows_per_partition=1
+    )
+    writer.add_row(row("coarse-v1:a", 10, 20, 0.5))
+    writer.add_row(row("coarse-v1:a", 11, 21, 0.4))
+    with pytest.raises(Exception, match="duplicate"):
+        writer.finalize()
+
+
+def test_invalid_domains_are_rejected_before_publication(tmp_path: Path):
+    with pytest.raises(Exception, match="outside domain"):
+        build_index([row("coarse-v1:a", 100, 20, 0.5)], root=tmp_path / "index", snapshot_id="s")
+
+
+def test_zero_weight_coarse_feature_does_not_exclude_missing_value(tmp_path: Path):
+    build_index([row("coarse-v1:a", 10, 20, None)], root=tmp_path / "index", snapshot_id="snap")
+    repo = CoarseIndexRepository(tmp_path / "index")
+    result = repo.search(
+        target={"coarse_slope_mean_deg": 10.0, "coarse_flat_fraction_lt5deg": 0.5},
+        weights={"coarse_slope_mean_deg": 1.0, "coarse_flat_fraction_lt5deg": 0.0},
+    )
+    assert result["results"][0]["candidate_id"] == "coarse-v1:a"
+    assert result["results"][0]["distance"] == pytest.approx(0.0)

@@ -7,6 +7,7 @@ auditable and can be retried explicitly.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import tempfile
@@ -29,11 +30,17 @@ class PartitionTask:
     region_id: str
     window_count: int = 0
 
+    @property
+    def fingerprint(self) -> str:
+        raw = f"{self.task_id}|{self.region_id}|{self.window_count}".encode()
+        return hashlib.sha256(raw).hexdigest()
+
 
 @dataclass(frozen=True, slots=True)
 class WorkerResult:
     output_checksum: str
     rows: int
+    output_path: str | None = None
     warnings: tuple[str, ...] = ()
 
 
@@ -93,15 +100,38 @@ class CheckpointStore:
                 os.unlink(tmp)
 
 
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _output_is_reusable(record: dict[str, object], task: PartitionTask) -> bool:
+    if record.get("fingerprint") != task.fingerprint:
+        return False
+    path_value = record.get("output_path")
+    checksum = record.get("output_checksum")
+    if not path_value or not checksum:
+        return False
+    path = Path(str(path_value))
+    if not path.is_file():
+        return False
+    return _sha256_file(path) == str(checksum)
+
+
 def _new_state(run_id: str, tasks: Iterable[PartitionTask]) -> BatchState:
     state = BatchState(run_id=run_id)
     for task in tasks:
         state.tasks[task.task_id] = {
             "status": "pending",
             "attempts": 0,
+            "fingerprint": task.fingerprint,
             "region_id": task.region_id,
             "window_count": task.window_count,
             "output_checksum": None,
+            "output_path": None,
             "rows": 0,
             "error": None,
             "updated_at": None,
@@ -133,6 +163,10 @@ class BatchRunner:
         self.max_retries = max_retries
         self.max_tasks = max_tasks
         self.store = self._open_or_create()
+        if self.store.state.run_id != self.run_id:
+            raise BatchError(
+                f"checkpoint belongs to run {self.store.state.run_id!r}, not {self.run_id!r}"
+            )
 
     def _open_or_create(self) -> CheckpointStore:
         if self.checkpoint_path.is_file():
@@ -169,11 +203,15 @@ class BatchRunner:
         for task in tasks:
             record = self.store.state.tasks[task.task_id]
             status = record["status"]
-            if status == "succeeded":
+            if status == "succeeded" and _output_is_reusable(record, task):
                 continue
+            if status == "succeeded":
+                record["status"] = "pending"
+                record["error"] = "checkpoint output missing, corrupted, or task parameters changed"
             if status == "failed" and not retry_failed:
                 continue
             record["status"] = "running"
+            record["fingerprint"] = task.fingerprint
             pending.append(task)
         self.store.save()
 
@@ -196,8 +234,25 @@ class BatchRunner:
                     counts["failed"] += 1
                 else:
                     record = self.store.state.tasks[task.task_id]
+                    output_path = Path(result.output_path) if result.output_path else None
+                    if output_path is None or not output_path.is_file():
+                        record["status"] = "failed"
+                        record["error"] = "worker produced no verifiable output path"
+                        record["updated_at"] = datetime.now(UTC).isoformat()
+                        counts["failed"] += 1
+                        self.store.save()
+                        continue
+                    actual_checksum = _sha256_file(output_path)
+                    if actual_checksum != result.output_checksum:
+                        record["status"] = "failed"
+                        record["error"] = "worker output checksum does not match its artifact"
+                        record["updated_at"] = datetime.now(UTC).isoformat()
+                        counts["failed"] += 1
+                        self.store.save()
+                        continue
                     record["status"] = "succeeded"
                     record["output_checksum"] = result.output_checksum
+                    record["output_path"] = result.output_path
                     record["rows"] = result.rows
                     record["error"] = None
                     record["updated_at"] = datetime.now(UTC).isoformat()

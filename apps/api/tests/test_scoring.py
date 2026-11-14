@@ -86,6 +86,17 @@ def test_limit_truncates_but_eligible_count_is_full():
     assert outcome.eligible_count == 5
 
 
+def test_zero_weight_metric_does_not_exclude_missing_candidate():
+    outcome = rank_candidates(
+        target={"slope_mean_deg": 10.0, "slope_p90_deg": 20.0},
+        weights={"slope_mean_deg": 1.0, "slope_p90_deg": 0.0},
+        candidates=[candidate("earth-a", slope_mean_deg=10.0)],
+    )
+    assert outcome.excluded == []
+    assert outcome.matches[0].distance == pytest.approx(0.0)
+    assert [metric.feature_id for metric in outcome.matches[0].metrics] == ["slope_mean_deg"]
+
+
 def test_missing_metric_excludes_with_reason():
     outcome = rank_candidates(
         target={"slope_mean_deg": 10.0, "slope_p90_deg": 20.0},

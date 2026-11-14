@@ -127,8 +127,14 @@ def generate_region_grid(
             south_m = miny + row * window_size_m
             east_m = west_m + window_size_m
             north_m = south_m + window_size_m
-            lon_w, lat_s = inverse.transform(west_m, south_m)
-            lon_e, lat_n = inverse.transform(east_m, north_m)
+            corners = [
+                inverse.transform(west_m, south_m),
+                inverse.transform(east_m, south_m),
+                inverse.transform(west_m, north_m),
+                inverse.transform(east_m, north_m),
+            ]
+            lons = [point[0] for point in corners]
+            lats = [point[1] for point in corners]
             cells.append(
                 CandidateCell(
                     candidate_id=f"coarse-v1:{region.region_id}:{row:04d}:{col:04d}",
@@ -139,10 +145,10 @@ def generate_region_grid(
                     crs=target_crs.to_string(),
                     window_size_m=window_size_m,
                     bbox_wgs84={
-                        "west": lon_w,
-                        "south": lat_s,
-                        "east": lon_e,
-                        "north": lat_n,
+                        "west": min(lons),
+                        "south": min(lats),
+                        "east": max(lons),
+                        "north": max(lats),
                     },
                     bbox_metric={
                         "west": west_m,
