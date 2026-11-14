@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from analog_api.adapters.release_import import import_release
 from analog_api.adapters.typed_db import TypedObservationStore
 from analog_api.config import Settings
 from analog_api.main import create_app
@@ -72,3 +73,31 @@ def test_typed_observations_are_additive_and_queryable(tmp_path: Path):
         assert client.get("/api/v1/health").status_code == 200
         capabilities = client.get("/api/v1/capabilities").json()
         assert capabilities["indexed_candidate_count"] == 0
+
+
+def test_committed_d05_power_release_imports_and_queries(tmp_path: Path):
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'd05.db'}",
+        manifest_dir=str(tmp_path / "none"),
+        manifest_dir_planetary=str(tmp_path / "none"),
+        manifest_dir_context=str(tmp_path / "none"),
+        seed_include_synthetic=False,
+    )
+    app = create_app(settings)
+    with TestClient(app) as client:
+        with app.state.session_factory() as session:
+            result = import_release(session, ROOT / "pipelines/pilots/d05_earth_power")
+            session.commit()
+        assert result["observations"] == 10
+        response = client.get(
+            "/api/v1/typed/observations", params={"dimension": "D05", "body": "Earth"}
+        )
+        assert response.status_code == 200, response.text
+        rows = response.json()
+        assert len(rows) == 10
+        assert {row["state"] for row in rows} == {"detected"}
+        assert {row["score_role"] for row in rows} == {"context_only"}
+        assert {row["spatial_support"]["source_resolution_m"] for row in rows} == {50000.0}
+        area = client.get("/api/v1/typed/areas/earth-atacama-desert")
+        assert area.status_code == 200, area.text
+        assert len(area.json()["observations"]) == 2

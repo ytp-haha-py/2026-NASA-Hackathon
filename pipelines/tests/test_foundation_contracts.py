@@ -224,17 +224,33 @@ def test_area_frames_are_body_specific():
         )
 
 
-def test_v1_migration_preserves_support_and_separates_dataset_assets():
+def test_v1_migration_preserves_geographic_area_and_projects_support():
     raw = json.loads(
         (ROOT / "pipelines/earth/manifests/copernicus_glo90_earth.json").read_text(encoding="utf-8")
     )
     migrated = migrate_v1_manifest(raw)
     observation = migrated.observations[0]
     candidate = raw["candidates"][0]
-    assert observation.spatial_support.window_size_m == candidate["window_size_m"]
-    assert observation.spatial_support.resolution_m == candidate["analysis_resolution_m"]
-    assert observation.spatial_support.bbox == candidate["bbox"]
-    assert observation.spatial_support.crs == candidate["crs"]
+    area = next(area for area in migrated.areas if area.area_id == candidate["location_id"])
+
+    # The v1 bbox stays geographic on the Area; the analysis CRS is separate.
+    assert area.crs == "EPSG:4326"
+    assert area.geometry_crs == "EPSG:4326"
+    assert area.coordinate_frame == "earth_wgs84"
+    assert area.analysis_crs == candidate["crs"]
+    assert area.bbox == candidate["bbox"]
+    assert area.legacy_provenance["legacy_record_crs"] == candidate["crs"]
+
+    # The observation support is actually projected, not relabelled in place.
+    support = observation.spatial_support
+    assert support.window_size_m == candidate["window_size_m"]
+    assert support.resolution_m == candidate["analysis_resolution_m"]
+    assert support.crs == candidate["crs"]
+    assert support.bbox_crs == candidate["crs"]
+    assert support.bbox is not None
+    assert support.bbox != candidate["bbox"]
+    assert support.bbox["east"] > support.bbox["west"]
+    assert support.valid_fraction == candidate["features"]["slope_mean_deg"]["valid_fraction"]
     assert observation.temporal_support.kind == "unknown"
     assert observation.depth_support.kind == "unknown"
     assert observation.uncertainty is not None
@@ -243,6 +259,91 @@ def test_v1_migration_preserves_support_and_separates_dataset_assets():
     assert observation.source_asset_ids[0] != candidate["dataset_id"]
     assert any(asset.asset_id == observation.source_asset_ids[0] for asset in migrated.assets)
     assert migrated.assets[0].dataset_id == candidate["dataset_id"]
+    assert any("transformed envelope" in warning for warning in migrated.warnings)
+
+
+def test_v1_migration_preserves_small_window_context_support_and_legacy_envelope():
+    raw = {
+        "datasets": [
+            {
+                "dataset_id": "dem-30",
+                "source_crs": "EPSG:4326",
+                "native_resolution_m": 30.0,
+            },
+            {
+                "dataset_id": "landcover-10",
+                "source_crs": "EPSG:4326",
+                "native_resolution_m": 10.0,
+            },
+        ],
+        "candidates": [
+            {
+                "location_id": "earth-small-window",
+                "bbox": {
+                    "west": 10.4,
+                    "south": 46.4,
+                    "east": 10.406,
+                    "north": 46.405,
+                },
+                "crs": "EPSG:32632",
+                "window_size_m": 600.0,
+                "analysis_resolution_m": 30.0,
+                "valid_fraction": 0.83,
+                "dataset_id": "dem-30",
+                "features": {
+                    "slope_mean_deg": {
+                        "value": 5.0,
+                        "unit": "degree",
+                        "method_version": "terrain-metrics-1.0.0",
+                        "extraction_scale_m": 30.0,
+                        "valid_fraction": 0.83,
+                        "quality": "verified",
+                    }
+                },
+                "context_observations": {
+                    "landcover_tree_cover_fraction": {
+                        "value": 0.2,
+                        "unit": "fraction",
+                        "method_version": "worldcover-2021-v200-1.0.0",
+                        "source_resolution_m": 10.0,
+                        "valid_fraction": 0.9,
+                        "quality": "verified",
+                        "class_code": 10,
+                        "provider": "ESA WorldCover",
+                        "dataset_id": "landcover-10",
+                    }
+                },
+            }
+        ],
+        "references": [],
+    }
+    migrated = migrate_v1_manifest(raw)
+    area = migrated.areas[0]
+    terrain = next(obs for obs in migrated.observations if obs.feature_id == "slope_mean_deg")
+    context = next(
+        obs for obs in migrated.observations if obs.feature_id == "landcover_tree_cover_fraction"
+    )
+
+    assert area.bbox == raw["candidates"][0]["bbox"]
+    assert area.crs == "EPSG:4326"
+    assert area.analysis_crs == "EPSG:32632"
+    assert terrain.spatial_support.window_size_m == 600.0
+    assert terrain.spatial_support.resolution_m == 30.0
+    assert terrain.spatial_support.source_resolution_m == 30.0
+    assert terrain.spatial_support.valid_fraction == 0.83
+    assert terrain.spatial_support.bbox != area.bbox
+    assert context.spatial_support.window_size_m == 600.0
+    assert context.spatial_support.resolution_m is None
+    assert context.spatial_support.source_resolution_m == 10.0
+    assert context.spatial_support.native_resolution_m == 10.0
+    assert context.spatial_support.valid_fraction == 0.9
+    assert context.spatial_support.bbox == terrain.spatial_support.bbox
+    assert context.spatial_support.crs == "EPSG:32632"
+    assert terrain.legacy_provenance["legacy_extraction_scale_m"] == 30.0
+    assert context.legacy_provenance["legacy_source_resolution_m"] == 10.0
+    # Migration never mutates the v1 payload.
+    assert "analysis_crs" not in raw["candidates"][0]
+    assert raw["candidates"][0]["bbox"]["west"] == 10.4
 
 
 def test_v1_manifest_still_valid_and_migration_preserves_ids():

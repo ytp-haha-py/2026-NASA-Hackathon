@@ -68,9 +68,23 @@ class GridCoverage:
     requested_bbox: dict[str, float]
     metric_bbox: dict[str, float]
     candidate_count: int
+    requested_area_km2: float
+    generated_extent_area_km2: float
     covered_area_km2: float
+    stride_gap_area_km2: float
+    boundary_margin_area_km2: float
+    coverage_fraction: float
+    coverage_denominator: str
     uncovered_margin_m: dict[str, float]
-    sample_label: str = "exhaustive_within_bbox"
+    valid_sampled_area_km2: float | None = None
+    missing_source_coverage: str = "not_evaluated"
+    excluded_regions: list[str] = field(default_factory=list)
+    sample_label: str = "generated_grid_not_exhaustive"
+    notes: str = (
+        "Coverage is computed against the projected envelope of the requested region. "
+        "It separates generated cell area, internal stride gaps and ungenerated boundary "
+        "margins; source-data validity is not evaluated here."
+    )
 
 
 @dataclass(slots=True)
@@ -190,17 +204,38 @@ def generate_region_grid(
                     },
                 )
             )
+    used_width = (cols - 1) * stride + window_size_m
+    used_height = (rows - 1) * stride + window_size_m
+    requested_area = width * height / 1e6
+    generated_extent_area = used_width * used_height / 1e6
     covered = len(cells) * (window_size_m**2) / 1e6
+    stride_gap_area = max(0.0, generated_extent_area - covered)
+    boundary_margin_area = max(0.0, requested_area - generated_extent_area)
+    coverage_fraction = covered / requested_area if requested_area > 0 else 0.0
     coverage = GridCoverage(
         region_id=region.region_id,
         requested_bbox=region.bbox(),
         metric_bbox={"west": minx, "south": miny, "east": maxx, "north": maxy},
         candidate_count=len(cells),
+        requested_area_km2=requested_area,
+        generated_extent_area_km2=generated_extent_area,
         covered_area_km2=covered,
+        stride_gap_area_km2=stride_gap_area,
+        boundary_margin_area_km2=boundary_margin_area,
+        coverage_fraction=coverage_fraction,
+        coverage_denominator="projected_region_envelope_area",
         uncovered_margin_m={
-            "east": width - ((cols - 1) * stride + window_size_m),
-            "north": height - ((rows - 1) * stride + window_size_m),
+            "west": 0.0,
+            "south": 0.0,
+            "east": max(0.0, width - used_width),
+            "north": max(0.0, height - used_height),
         },
+        excluded_regions=[],
+        sample_label=(
+            "generated_grid_complete_within_projected_envelope"
+            if stride_gap_area == 0 and boundary_margin_area == 0
+            else "generated_grid_not_exhaustive"
+        ),
     )
     return cells, coverage
 

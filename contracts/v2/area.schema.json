@@ -2,6 +2,18 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
+    "analysis_crs": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Analysis Crs"
+    },
     "area_id": {
       "title": "Area Id",
       "type": "string"
@@ -71,6 +83,31 @@
       ],
       "default": null,
       "title": "Geometry"
+    },
+    "geometry_crs": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Geometry Crs"
+    },
+    "legacy_provenance": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Legacy Provenance"
     },
     "notes": {
       "anyOf": [
