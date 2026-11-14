@@ -1,16 +1,49 @@
 import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import type { SearchResultOut } from "../api/client";
+import type {
+  FeatureOut,
+  NumericTarget,
+  SearchResponse,
+  SearchResultOut,
+} from "../api/client";
 import { useI18n } from "../i18n/I18nProvider";
+import { RankingOverlay } from "./RankingOverlay";
 
 type MapPanelProps = {
   results: SearchResultOut[];
   selectedId: string | null;
   onSelect: (locationId: string) => void;
+  /** When provided, the ranking window floats over the top-left corner of the map. */
+  response?: SearchResponse;
+  features?: FeatureOut[];
+  target?: NumericTarget;
 };
 
-export function MapPanel({ results, selectedId, onSelect }: MapPanelProps) {
+function rankIcon(rank: number, selected: boolean): L.DivIcon {
+  const size = selected ? 32 : 26;
+  const pin = document.createElement("span");
+  pin.className = `rank-pin${selected ? " is-selected" : ""}`;
+  const text = document.createElement("span");
+  text.textContent = String(rank);
+  pin.append(text);
+  return L.divIcon({
+    className: "rank-pin-icon",
+    html: pin,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size],
+    tooltipAnchor: [0, -size],
+  });
+}
+
+export function MapPanel({
+  results,
+  selectedId,
+  onSelect,
+  response,
+  features = [],
+  target = {},
+}: MapPanelProps) {
   const { t, tp, fmt } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
@@ -84,21 +117,19 @@ export function MapPanel({ results, selectedId, onSelect }: MapPanelProps) {
           [result.bbox.north, result.bbox.east],
         ],
         {
-          color: selected ? "#a33a12" : "#285c4d",
-          weight: selected ? 3 : 1.5,
-          fillColor: selected ? "#d97736" : "#3d7a65",
-          fillOpacity: selected ? 0.24 : 0.1,
+          color: selected ? "#b93d0a" : "#1d4ed8",
+          weight: selected ? 2.5 : 1,
+          fillColor: selected ? "#b93d0a" : "#1d4ed8",
+          fillOpacity: selected ? 0.18 : 0.06,
         },
       );
       rectangle.on("click", () => onSelectRef.current(result.location_id));
       rectangle.addTo(layer);
 
-      const marker = L.circleMarker([result.lat, result.lon], {
-        radius: selected ? 9 : 6,
-        color: selected ? "#74250b" : "#173d33",
-        weight: 2,
-        fillColor: selected ? "#e28a4a" : "#4f9078",
-        fillOpacity: 0.95,
+      const marker = L.marker([result.lat, result.lon], {
+        icon: rankIcon(result.rank, selected),
+        zIndexOffset: selected ? 1000 : 0,
+        keyboard: false,
       });
 
       const label = document.createElement("span");
@@ -121,18 +152,27 @@ export function MapPanel({ results, selectedId, onSelect }: MapPanelProps) {
   return (
     <section className="map-panel" aria-labelledby="map-heading">
       <div className="section-heading compact">
-        <p className="eyebrow">{t("map.eyebrow")}</p>
         <h2 id="map-heading">{t("map.heading")}</h2>
-        <p className="muted">{t("map.intro")}</p>
       </div>
 
-      <div
-        ref={containerRef}
-        className="map-canvas"
-        data-testid="leaflet-map"
-        role="region"
-        aria-label={t("map.regionLabel")}
-      />
+      <div className="map-stage">
+        <div
+          ref={containerRef}
+          className="map-canvas"
+          data-testid="leaflet-map"
+          role="region"
+          aria-label={t("map.regionLabel")}
+        />
+        {response && (
+          <RankingOverlay
+            response={response}
+            features={features}
+            target={target}
+            selectedId={selectedId}
+            onSelect={onSelect}
+          />
+        )}
+      </div>
 
       {basemapUnavailable && (
         <p className="map-status" role="status">

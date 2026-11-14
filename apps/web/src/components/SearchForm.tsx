@@ -42,6 +42,13 @@ type FilterState = {
   value: string;
 };
 
+/** Weight slider upper bound; the number input still accepts any finite value ≥ 0. */
+const WEIGHT_SLIDER_MAX = 3;
+
+function initialReferenceWeights(features: FeatureOut[]): Record<string, string> {
+  return Object.fromEntries(features.map((feature) => [feature.id, "0"]));
+}
+
 const EXAMPLE_VALUES: Record<string, { value: string; weight: string; included: boolean }> = {
   slope_mean_deg: { value: "12", weight: "1", included: true },
   slope_p90_deg: { value: "25", weight: "0.5", included: false },
@@ -121,6 +128,10 @@ export function SearchForm({
 }: SearchFormProps) {
   const { t, tp, rich, fmt, label } = useI18n();
   const [rows, setRows] = useState<Record<string, RowState>>(() => initialRows(features));
+  /** Reference mode starts with every weight at 0: the user opts each metric in explicitly. */
+  const [referenceWeights, setReferenceWeights] = useState<Record<string, string>>(() =>
+    initialReferenceWeights(features),
+  );
   const [body, setBody] = useState<SearchRequest["body"]>("custom");
   const [referenceId, setReferenceId] = useState("");
   const [limit, setLimit] = useState("10");
@@ -311,11 +322,35 @@ export function SearchForm({
       filters.landcover_built_up_fraction = { max: built.value };
     }
 
+    const weights: Record<string, number> = {};
+
     if (body !== "custom") {
       if (!selectedReference) {
         nextErrors.push({ key: "search.errSelectReference", vars: { body } });
       } else if (selectedReference.features.length === 0) {
         nextErrors.push({ key: "search.errReferenceEmpty", vars: { body } });
+      } else {
+        for (const observation of selectedReference.features) {
+          if (!features.some((feature) => feature.id === observation.feature_id)) {
+            continue;
+          }
+          const raw = referenceWeights[observation.feature_id] ?? "0";
+          const weight = Number(raw);
+          if (raw.trim() === "" || !Number.isFinite(weight) || weight < 0) {
+            nextFieldErrors[observation.feature_id] = {
+              ...nextFieldErrors[observation.feature_id],
+              weight: { key: "search.errWeight" },
+            };
+            continue;
+          }
+          weights[observation.feature_id] = weight;
+        }
+        if (
+          !Object.keys(nextFieldErrors).length &&
+          !Object.values(weights).some((weight) => weight > 0)
+        ) {
+          nextErrors.push({ key: "search.errNoWeight" });
+        }
       }
     } else {
       for (const feature of features) {
@@ -402,6 +437,7 @@ export function SearchForm({
       body,
       reference_id: body === "custom" ? null : referenceId,
       target: referenceMode ? {} : target,
+      ...(referenceMode ? { weights } : {}),
       filters,
       limit: parsedLimit,
     };
@@ -451,6 +487,174 @@ export function SearchForm({
   ].filter((value): value is string => value !== null);
   const unavailableBodyList = fmt.list(unavailableBodies.map((value) => label.body(value)));
   const renderedErrors = errors.map(renderMessage);
+
+  const dimensionGroups = useMemo(() => {
+    const groups: { dimensionId: string; features: FeatureOut[] }[] = [];
+    for (const feature of features) {
+      const existing = groups.find((group) => group.dimensionId === feature.dimension_id);
+      if (existing) {
+        existing.features.push(feature);
+      } else {
+        groups.push({ dimensionId: feature.dimension_id, features: [feature] });
+      }
+    }
+    return groups;
+  }, [features]);
+
+  /** Weight that would actually be sent for this metric (0 when it is not compared). */
+  function effectiveWeight(featureId: string): number {
+    if (referenceMode) {
+      const hasObservation = selectedReference?.features.some(
+        (observation) => observation.feature_id === featureId,
+      );
+      const weight = Number(referenceWeights[featureId] ?? "0");
+      return hasObservation && Number.isFinite(weight) ? weight : 0;
+    }
+    const row = rows[featureId];
+    const weight = Number(row?.weight ?? "0");
+    return row?.included && Number.isFinite(weight) ? weight : 0;
+  }
+
+  function isWeighted(featureId: string): boolean {
+    return effectiveWeight(featureId) > 0;
+  }
+
+  function setWeight(featureId: string, value: string) {
+    if (referenceMode) {
+      setReferenceWeights((current) => ({ ...current, [featureId]: value }));
+    } else {
+      updateRow(featureId, { weight: value });
+    }
+  }
+
+  function renderMetricRow(feature: FeatureOut) {
+    const row = rows[feature.id];
+    if (!row) {
+      return null;
+    }
+    const referenceFeature = selectedReference?.features.find(
+      (observation) => observation.feature_id === feature.id,
+    );
+    const valueDisabled = referenceMode;
+    const weightDisabled = referenceMode && !referenceFeature;
+    const displayValue = referenceMode
+      ? referenceFeature
+        ? String(referenceFeature.value)
+        : ""
+      : row.value;
+    const displayWeight = referenceMode
+      ? referenceFeature
+        ? (referenceWeights[feature.id] ?? "0")
+        : ""
+      : row.weight;
+    const sliderValue = Math.min(
+      WEIGHT_SLIDER_MAX,
+      Math.max(0, Number.isFinite(Number(displayWeight)) ? Number(displayWeight) : 0),
+    );
+    const weighted = isWeighted(feature.id);
+    const valueError = fieldErrors[feature.id]?.value;
+    const weightError = fieldErrors[feature.id]?.weight;
+    const featureLabel = label.feature(feature.id, feature.label);
+    const unitName = label.unitName(feature.unit);
+
+    return (
+      <div
+        className={`metric-form-row${weighted ? " is-weighted" : ""}`}
+        key={feature.id}
+        role="group"
+        aria-labelledby={`metric-${feature.id}-label`}
+      >
+        <div className="metric-form-header">
+          <h4 id={`metric-${feature.id}-label`}>{featureLabel}</h4>
+          <span className="unit-tag">{t("search.unitTag", { unit: unitName })}</span>
+        </div>
+        <div className="metric-inputs">
+          {!referenceMode && (
+            <div className="check-field">
+              <input
+                id={`metric-${feature.id}-included`}
+                type="checkbox"
+                checked={row.included}
+                onChange={(event) => updateRow(feature.id, { included: event.target.checked })}
+              />
+              <label htmlFor={`metric-${feature.id}-included`}>
+                {t("search.include", { label: featureLabel })}
+              </label>
+            </div>
+          )}
+          <div className="number-field">
+            <label htmlFor={`metric-${feature.id}-value`}>
+              {t("search.targetValue", { unit: unitName })}
+            </label>
+            <input
+              id={`metric-${feature.id}-value`}
+              type="number"
+              inputMode="decimal"
+              step="any"
+              min={feature.min_value}
+              max={feature.max_value}
+              value={displayValue}
+              disabled={valueDisabled}
+              aria-invalid={valueError ? true : undefined}
+              aria-describedby={valueError ? `metric-${feature.id}-value-error` : undefined}
+              onChange={(event) => updateRow(feature.id, { value: event.target.value })}
+            />
+            {valueError && (
+              <p className="field-error" id={`metric-${feature.id}-value-error`}>
+                {renderMessage(valueError)}
+              </p>
+            )}
+          </div>
+          <div className="number-field weight-field">
+            <label htmlFor={`metric-${feature.id}-weight`}>{t("search.weight")}</label>
+            <div className="weight-control">
+              <input
+                type="range"
+                className="weight-slider"
+                min="0"
+                max={WEIGHT_SLIDER_MAX}
+                step="0.5"
+                value={sliderValue}
+                disabled={weightDisabled}
+                aria-label={t("search.weightSlider", { label: featureLabel })}
+                onChange={(event) => setWeight(feature.id, event.target.value)}
+              />
+              <input
+                id={`metric-${feature.id}-weight`}
+                className="weight-number"
+                type="number"
+                inputMode="decimal"
+                step="any"
+                min="0"
+                value={displayWeight}
+                disabled={weightDisabled}
+                aria-invalid={weightError ? true : undefined}
+                aria-describedby={weightError ? `metric-${feature.id}-weight-error` : undefined}
+                onChange={(event) => setWeight(feature.id, event.target.value)}
+              />
+            </div>
+            {weightError && (
+              <p className="field-error" id={`metric-${feature.id}-weight-error`}>
+                {renderMessage(weightError)}
+              </p>
+            )}
+          </div>
+        </div>
+        <details className="metric-more">
+          <summary>{t("search.metricMore")}</summary>
+          <code>{feature.id}</code>
+          <p className="metric-description">
+            <SourceText>{feature.description}</SourceText>
+          </p>
+          <p className="metric-domain">
+            {rich("search.validDomain", {
+              domain: <SourceText>{feature.valid_domain}</SourceText>,
+            })}
+          </p>
+        </details>
+      </div>
+    );
+  }
 
   return (
     <form className="search-form" onSubmit={validateAndSubmit} noValidate>
@@ -618,139 +822,45 @@ export function SearchForm({
         </section>
       )}
 
+      <div className="dimension-board">
       <fieldset className="target-fieldset">
         <legend>
           {referenceMode ? t("search.referenceMetricsLegend") : t("search.customMetricsLegend")}
         </legend>
         {referenceMode ? (
-          <p className="field-hint">{t("search.referenceMetricsHint")}</p>
+          <p className="field-hint">{t("search.referenceWeightHint")}</p>
         ) : (
           <p className="example-note" id="example-note">
             <strong>{t("search.exampleTitle")}</strong> {t("search.exampleBody")}
           </p>
         )}
 
-        <div className="metric-form-list">
-          {features.map((feature) => {
-            const row = rows[feature.id];
-            if (!row) {
-              return null;
-            }
-            const referenceFeature = selectedReference?.features.find(
-              (observation) => observation.feature_id === feature.id,
-            );
-            const inputDisabled = referenceMode;
-            const displayValue = referenceMode
-              ? referenceFeature
-                ? String(referenceFeature.value)
-                : ""
-              : row.value;
-            const displayWeight = referenceMode
-              ? referenceFeature
-                ? "1"
-                : ""
-              : row.weight;
-            const valueError = fieldErrors[feature.id]?.value;
-            const weightError = fieldErrors[feature.id]?.weight;
-            const featureLabel = label.feature(feature.id, feature.label);
-            const unitName = label.unitName(feature.unit);
-
+        <div className="dimension-columns">
+          {dimensionGroups.map((group) => {
+            const activeCount = group.features.filter((feature) =>
+              isWeighted(feature.id),
+            ).length;
             return (
-              <div
-                className="metric-form-row"
-                key={feature.id}
-                role="group"
-                aria-labelledby={`metric-${feature.id}-label`}
+              <section
+                className="dimension-column"
+                key={group.dimensionId}
+                aria-label={label.dimension(group.dimensionId)}
               >
-                <div className="metric-form-header">
-                  <div>
-                    <h3 id={`metric-${feature.id}-label`}>{featureLabel}</h3>
-                    <code>{feature.id}</code>
-                  </div>
-                  <span className="unit-tag">{t("search.unitTag", { unit: unitName })}</span>
+                <div className="dimension-column-head">
+                  <h3>{label.dimension(group.dimensionId)}</h3>
+                  <span className={activeCount > 0 ? "dimension-count is-active" : "dimension-count"}>
+                    {activeCount > 0
+                      ? t("search.dimensionCount", {
+                          active: activeCount,
+                          total: group.features.length,
+                        })
+                      : t("search.dimensionNone")}
+                  </span>
                 </div>
-                <p className="metric-description">
-                  <SourceText>{feature.description}</SourceText>
-                </p>
-                <p className="metric-domain">
-                  {rich("search.validDomain", {
-                    domain: <SourceText>{feature.valid_domain}</SourceText>,
-                  })}
-                </p>
-                <div className="metric-inputs">
-                  <div className="check-field">
-                    <input
-                      id={`metric-${feature.id}-included`}
-                      type="checkbox"
-                      checked={referenceMode ? Boolean(referenceFeature) : row.included}
-                      disabled={inputDisabled}
-                      onChange={(event) =>
-                        updateRow(feature.id, { included: event.target.checked })
-                      }
-                    />
-                    <label htmlFor={`metric-${feature.id}-included`}>
-                      {t("search.include", { label: featureLabel })}
-                    </label>
-                  </div>
-                  <div className="number-field">
-                    <label htmlFor={`metric-${feature.id}-value`}>
-                      {t("search.targetValue", { unit: unitName })}
-                    </label>
-                    <input
-                      id={`metric-${feature.id}-value`}
-                      type="number"
-                      inputMode="decimal"
-                      step="any"
-                      min={feature.min_value}
-                      max={feature.max_value}
-                      value={displayValue}
-                      disabled={inputDisabled}
-                      aria-invalid={valueError ? true : undefined}
-                      aria-describedby={
-                        valueError ? `metric-${feature.id}-value-error` : undefined
-                      }
-                      onChange={(event) =>
-                        updateRow(feature.id, { value: event.target.value })
-                      }
-                    />
-                    {valueError && (
-                      <p
-                        className="field-error"
-                        id={`metric-${feature.id}-value-error`}
-                      >
-                        {renderMessage(valueError)}
-                      </p>
-                    )}
-                  </div>
-                  <div className="number-field">
-                    <label htmlFor={`metric-${feature.id}-weight`}>{t("search.weight")}</label>
-                    <input
-                      id={`metric-${feature.id}-weight`}
-                      type="number"
-                      inputMode="decimal"
-                      step="any"
-                      min="0"
-                      value={displayWeight}
-                      disabled={inputDisabled}
-                      aria-invalid={weightError ? true : undefined}
-                      aria-describedby={
-                        weightError ? `metric-${feature.id}-weight-error` : undefined
-                      }
-                      onChange={(event) =>
-                        updateRow(feature.id, { weight: event.target.value })
-                      }
-                    />
-                    {weightError && (
-                      <p
-                        className="field-error"
-                        id={`metric-${feature.id}-weight-error`}
-                      >
-                        {renderMessage(weightError)}
-                      </p>
-                    )}
-                  </div>
+                <div className="metric-form-list">
+                  {group.features.map((feature) => renderMetricRow(feature))}
                 </div>
-              </div>
+              </section>
             );
           })}
         </div>
@@ -842,6 +952,7 @@ export function SearchForm({
           </div>
         </div>
       </fieldset>
+      </div>
 
       <div className="field limit-field">
         <label htmlFor="limit-input">{t("search.limitLabel")}</label>
