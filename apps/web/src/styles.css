@@ -2702,6 +2702,27 @@ input.metric-number:disabled {
   font-weight: 600;
 }
 
+.map-show-all {
+  position: absolute;
+  top: 56px;
+  right: 12px;
+  z-index: 500;
+  padding: 7px 12px;
+  color: var(--ink);
+  font-size: 13px;
+  background: var(--surface);
+  border: 0;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgb(14 26 36 / 25%);
+  cursor: pointer;
+}
+
+.map-show-all:hover,
+.map-toggle button:hover {
+  color: var(--ink);
+  background: var(--surface-muted);
+}
+
 .map-note {
   margin: 6px 0 0;
   color: var(--muted);
@@ -3122,6 +3143,13 @@ input.metric-number:disabled {
   .map-toggle {
     top: auto;
     bottom: 12px;
+    left: 12px;
+    right: auto;
+  }
+
+  .map-show-all {
+    top: auto;
+    bottom: 56px;
     left: 12px;
     right: auto;
   }

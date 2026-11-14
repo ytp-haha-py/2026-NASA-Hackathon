@@ -220,7 +220,7 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "map.plotted_other":
     "已繪製 {count} 個回傳的視窗。點選圖釘或視窗矩形即可選取。放大地圖可看到此比例下的 1,980 m 視窗矩形。",
   "map.tooltip": "第 {rank} 名 {name} · 距離 {distance}",
-  "map.attribution": "底圖 © OpenStreetMap 貢獻者（ODbL）；地形樣式 © OpenTopoMap（CC-BY-SA），SRTM 高程。",
+  "map.attribution": "底圖 © OpenStreetMap 貢獻者（ODbL）；地形與衛星圖磚 © Esri 及合作夥伴。影像僅供定位參考，不是科學證據。",
 
   // Detail panel
   "detail.step": "步驟 3",
@@ -503,6 +503,8 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "map.basemapLabel": "底圖",
   "map.basemapMap": "地圖",
   "map.basemapTerrain": "地形",
+  "map.basemapSatellite": "衛星",
+  "map.showAll": "顯示全部結果",
   "overlay.idle": "把至少一個權重調到大於 0，再按搜尋，才會開始排序。",
   "search.dimensionCount": "計入 {active}/{total}",
   "search.dimensionNone": "未選",
