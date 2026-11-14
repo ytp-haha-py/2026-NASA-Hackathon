@@ -1,10 +1,13 @@
 import { useI18n } from "../i18n/I18nProvider";
 import type { Locale } from "../i18n/translate";
 
-/** Each option is named in its own language so it is recognizable from either UI. */
-const OPTIONS: { locale: Locale; label: string }[] = [
-  { locale: "zh-TW", label: "繁體中文" },
-  { locale: "en", label: "English" },
+/**
+ * Each option is named in its own language so it is recognizable from either UI. The visible
+ * text is short ("中文" / "EN"); the accessible name stays the full language name.
+ */
+const OPTIONS: { locale: Locale; label: string; short: string }[] = [
+  { locale: "zh-TW", label: "繁體中文", short: "中文" },
+  { locale: "en", label: "English", short: "EN" },
 ];
 
 export function LanguageSwitcher() {
@@ -19,9 +22,10 @@ export function LanguageSwitcher() {
           lang={option.locale}
           className={option.locale === locale ? "is-active" : ""}
           aria-pressed={option.locale === locale}
+          aria-label={option.label}
           onClick={() => setLocale(option.locale)}
         >
-          {option.label}
+          {option.short}
         </button>
       ))}
     </div>

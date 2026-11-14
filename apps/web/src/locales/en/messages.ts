@@ -127,7 +127,7 @@ export const en = {
     "Values are read from the selected GET /references record. They are not manually entered target values and are not a claim of physical equivalence.",
   "search.exampleTitle": "Hypothetical example, not a NASA measurement.",
   "search.exampleBody":
-    "The prefilled values are illustrative starting points; edit or replace them. Enabling a metric adds it to the target. Metrics with weight 0 are omitted from the request so they do not filter candidates.",
+    "The prefilled values are illustrative starting points; edit or replace them. A metric is compared only when its weight is above 0; metrics with weight 0 are omitted from the request.",
   "search.unitTag": "unit: {unit}",
   "search.validDomain": "Valid domain: {domain}",
   "search.include": "Include {label}",
@@ -153,7 +153,7 @@ export const en = {
     "This reference preset has no usable target values. Choose another reference or a custom target.",
   "search.errAoiNoValues":
     "The completed AOI did not return any similarity feature values that can be used as a target.",
-  "search.filtersLegend": "Optional Earth land-cover filters (context only)",
+  "search.filtersLegend": "Land-cover filter (context only)",
   "search.filtersHint":
     "These are hard subset filters on ESA WorldCover context fractions. They do not enter the distance and are not mineralogy or geology. Filtered-out candidates are counted as exclusions by the API.",
   "search.bareFilterLabel": "Only include candidates with {label} ≥",
@@ -246,7 +246,7 @@ export const en = {
     "{count} returned windows plotted. Click a pin or window rectangle to select it. Zoom in to see the 1,980 m window rectangles at this scale.",
   "map.tooltip": "#{rank} {name} · distance {distance}",
   "map.attribution":
-    "Basemap © OpenStreetMap contributors, available under the Open Database License.",
+    "Basemap © OpenStreetMap contributors (ODbL); terrain style © OpenTopoMap (CC-BY-SA), SRTM elevation.",
 
   // Detail panel
   "detail.step": "Step 3",
@@ -542,10 +542,46 @@ export const en = {
   "app.badgeAoi": "AOI {count}",
   "app.badgeMoon": "MOON {count}",
   "app.badgeMarsNone": "MARS —",
+  "app.badgeMars": "MARS {count}",
+  "app.themeToDark": "Switch to dark theme",
+  "app.themeToLight": "Switch to light theme",
+  "app.aboutSummary": "About this tool, coverage and limits",
+  "app.footerNotCompared":
+    "Not compared: gravity · atmosphere · radiation · regolith · mineralogy · temperature · illumination · geological history",
+  "map.basemapLabel": "Basemap",
+  "map.basemapMap": "Map",
+  "map.basemapTerrain": "Terrain",
+  "overlay.idle": "Set at least one weight above 0, then search to rank Earth windows.",
   "search.dimensionCount": "{active}/{total} compared",
   "search.dimensionNone": "none selected",
   "search.weightSlider": "{label} weight slider",
   "search.metricMore": "About this metric",
+  "search.targetBarLabel": "Search target",
+  "search.bodyCustomShort": "Custom",
+  "search.customTargetTitle": "Custom target",
+  "search.aboutCustom": "About custom targets",
+  "search.gridChip": "{resolution} m grid",
+  "search.referenceValueTitle": "Reference value (read-only)",
+  "search.noReferenceValue": "no reference value",
+  "search.targetSlider": "{label} target value slider",
+  "search.rangeLabel": "Range",
+  "search.targetShort": "Target",
+  "search.weightShort": "Weight",
+  "search.rangeMin": "{label} lower bound",
+  "search.rangeMax": "{label} upper bound",
+  "search.boardTitle": "Dimensions",
+  "search.limitShort": "Top",
+  "search.reset": "Reset",
+  "search.collapse": "Collapse",
+  "search.expand": "Expand",
+  "search.submitShort": "Search",
+  "search.dimensionPending": "Data in preparation",
+  "search.dimensionPendingBody":
+    "This dimension has no indexed data yet. It appears automatically once the API returns its metrics.",
+  "search.contextTag": "filter only",
+  "search.moreContext": "{count} more land-cover classes",
+  "search.customWeightHint":
+    "Each metric is compared only when its weight is above 0. The range only narrows which candidates are searched.",
   "search.referenceWeightHint":
     "Target values come from the reference record. Set a weight above 0 for each metric you want compared.",
   "search.errNoWeight":
