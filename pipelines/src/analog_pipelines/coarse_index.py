@@ -205,7 +205,6 @@ class CoarseIndexWriter:
         snapshot_id: str,
         source_datasets: list[dict[str, Any]] | None = None,
         max_rows_per_partition: int = 10_000,
-        overwrite: bool = False,
     ) -> None:
         if not snapshot_id or "/" in snapshot_id or "\\" in snapshot_id:
             raise IndexError_("snapshot_id must be a non-empty path-safe string")
@@ -217,10 +216,10 @@ class CoarseIndexWriter:
         self.max_rows_per_partition = max_rows_per_partition
         self.snapshot_root = self.root / SNAPSHOTS_DIR / snapshot_id
         self.partition_root = self.root / "partitions"
-        if (self.snapshot_root / "manifest.json").is_file() and not overwrite:
+        if (self.snapshot_root / "manifest.json").is_file():
             raise IndexError_(
                 f"snapshot {snapshot_id!r} already exists at {self.snapshot_root}; "
-                "publish a new immutable snapshot id instead of overwriting"
+                "published snapshots are immutable; publish a new snapshot id instead"
             )
         self._buffers: dict[str, list[CoarseRow]] = {}
         self._part_counts: dict[str, int] = {}
@@ -273,6 +272,7 @@ class CoarseIndexWriter:
         finally:
             if temp_path.exists():
                 temp_path.unlink()
+        self._part_counts[region_id] = self._part_counts.get(region_id, 0) + 1
         self.partitions.append(
             {
                 "region_id": region_id,
@@ -327,14 +327,12 @@ def build_index(
     snapshot_id: str,
     source_datasets: list[dict[str, Any]] | None = None,
     max_rows_per_partition: int = 10_000,
-    overwrite: bool = False,
 ) -> dict[str, Any]:
     writer = CoarseIndexWriter(
         root=root,
         snapshot_id=snapshot_id,
         source_datasets=source_datasets,
         max_rows_per_partition=max_rows_per_partition,
-        overwrite=overwrite,
     )
     writer.add_rows(rows)
     return writer.finalize()

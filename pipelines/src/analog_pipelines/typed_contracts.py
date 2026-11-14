@@ -84,6 +84,18 @@ class TemporalSupport(BaseModel):
     def interval_has_endpoints(self) -> TemporalSupport:
         if self.kind in {"instant", "interval", "composite"} and not self.start:
             raise ValueError(f"{self.kind} temporal support requires start")
+        if self.kind in {"interval", "composite"} and not self.end:
+            raise ValueError(f"{self.kind} temporal support requires both start and end")
+        if self.start and self.end:
+            from datetime import datetime
+
+            try:
+                start = datetime.fromisoformat(self.start.replace("Z", "+00:00"))
+                end = datetime.fromisoformat(self.end.replace("Z", "+00:00"))
+            except ValueError as exc:
+                raise ValueError("temporal support start/end must be ISO-8601") from exc
+            if end < start:
+                raise ValueError("temporal support end must not precede start")
         return self
 
 

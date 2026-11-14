@@ -9,11 +9,13 @@ from analog_pipelines.coarse_index import CoarseRow, build_index
 from fastapi.testclient import TestClient
 
 
-def _row(candidate_id: str, mean: float, p90: float, flat: float) -> CoarseRow:
+def _row(
+    candidate_id: str, mean: float, p90: float, flat: float, region: str = "pilot"
+) -> CoarseRow:
     return CoarseRow(
         candidate_id=candidate_id,
         grid_id="coarse-grid-1.0.0",
-        region_id="pilot",
+        region_id=region,
         body="Earth",
         west=10.0,
         south=45.0,
@@ -147,3 +149,22 @@ def test_api_can_select_an_explicit_immutable_snapshot(tmp_path: Path):
         assert coverage["snapshot_id"] == "snap-a"
         candidate = client.get("/api/v1/global/candidates/coarse-v1:a").json()
         assert candidate["slope_mean_deg"] == 10.0
+
+
+def test_coverage_reports_multiple_regions(tmp_path: Path):
+    index_dir = tmp_path / "global-index"
+    build_index(
+        [
+            _row("coarse-v1:a", 10.0, 20.0, 0.5, region="region-a"),
+            _row("coarse-v1:b", 12.0, 22.0, 0.6, region="region-b"),
+        ],
+        root=index_dir,
+        snapshot_id="multi",
+    )
+    settings = _settings(tmp_path, index=False).model_copy(
+        update={"global_index_dir": str(index_dir)}
+    )
+    with TestClient(create_app(settings)) as client:
+        coverage = client.get("/api/v1/global/coverage").json()
+        assert coverage["regions"] == ["region-a", "region-b"]
+        assert coverage["row_count"] == 2

@@ -277,3 +277,13 @@ def test_snapshots_share_immutable_partitions_and_remain_queryable(tmp_path: Pat
     assert repo_a.get("coarse-v1:a")["slope_mean_deg"] == 10.0
     repo_c = CoarseIndexRepository(root, snapshot_id="snap-c")
     assert repo_c.get("coarse-v1:a")["slope_mean_deg"] == 11.0
+
+
+def test_manifest_reports_all_regions_for_coverage(tmp_path: Path):
+    rows = [
+        row("coarse-v1:r1", 10.0, 20.0, 0.5, region="region-1"),
+        row("coarse-v1:r2", 12.0, 22.0, 0.4, region="region-2"),
+        row("coarse-v1:r3", 14.0, 24.0, 0.3, region="region-2"),
+    ]
+    manifest = build_index(rows, root=tmp_path / "index", snapshot_id="multi-region")
+    assert manifest["coverage"]["regions"] == ["region-1", "region-2"]

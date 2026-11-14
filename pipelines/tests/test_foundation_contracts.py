@@ -337,3 +337,14 @@ def test_committed_v2_observation_schema_is_current():
     generated = TypedObservation.model_json_schema()
     generated["$schema"] = "https://json-schema.org/draft/2020-12/schema"
     assert committed == generated
+
+
+def test_temporal_interval_requires_endpoints_and_chronological_order():
+    with pytest.raises(ValidationError):
+        TemporalSupport(kind="interval", start="2020-01-01")
+    with pytest.raises(ValidationError):
+        TemporalSupport(kind="interval", start="2020-01-03", end="2020-01-02")
+    with pytest.raises(ValidationError):
+        TemporalSupport(kind="interval", start="not-a-date", end="2020-01-02")
+    assert TemporalSupport(kind="interval", start="2020-01-01", end="2020-01-02")
+    assert TemporalSupport(kind="instant", start="2020-01-01")

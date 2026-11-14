@@ -68,9 +68,9 @@ No command in this phase downloads a source or stages a remote file.
 - Immutable content-addressed partitions: `partitions/<region_id>/<sha256>.parquet`.
   Snapshot manifests at `snapshots/<snapshot_id>/manifest.json` reference partitions.
   Unchanged partitions are shared by multiple snapshots; a changed partition gets a new
-  content hash. Publishing the same snapshot id twice is rejected unless an explicit
-  overwrite is requested. Old snapshots remain queryable because their manifests still
-  reference the old immutable partitions.
+  content hash. Publishing the same snapshot id twice is always rejected; published
+  snapshots are immutable. Old snapshots remain queryable because their manifests
+  still reference the old immutable partitions.
 - Snapshot membership is manifest-only: row-level `snapshot_id` is not stored in
   Parquet partitions.
 - Manifest: `snapshots/<snapshot_id>/manifest.json`, SHA-256 per partition, row count,
