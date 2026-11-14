@@ -1,21 +1,26 @@
 # PR #54 最新 head 複查
 
 審查對象：[PR #54](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/54)，
-**`92c986aa3ff34ace30422f3ed7e9e000574b7f9d`**，base `5d07072`。
-複查期間 head 從 `5ab3b3e` 更新，故重新檢查並執行 gate；不是對舊 `dfad348` 的重述。
+**`18951551b07322dc8e0836b0a3263f4182b1c34f`**，base `5d07072`。
+複查期間 head 從 `5ab3b3e` 更新至 `92c986a`，最後至 `1895155`，均重新核對差異與測試；
+不是對舊 `dfad348` 的重述。
 本輪沒有修改該分支、發布 review／comment、解除 change request 或 merge。
 
 ## 結論
 
-**目前仍不建議直接合併，但原來的大部分阻擋問題已實質修正。** 最新 head 已新增精確投影
+**#54 已於 2026-11-14 15:50:59 UTC 由 maintainer `ytp-haha-py` 合併**，
+main squash commit 為 `e2a50809ad358f2ba89901ea193e120720c07328`；該 maintainer 已對
+`1895155` 提交 APPROVED，先前的 change request 不再是當前 review decision。
+這些是本輪工作期間發生的遠端變動，不是 Codex 執行的 merge／approval。
+
+原來的大部分阻擋問題已實質修正。最終 head 已新增精確投影
 讀取、物理支撐 ID、共享 content-addressed partitions、manifest-only membership、實際 v1
 window／resolution，以及保留 runtime state 的 SQLite reset。不要把這些繼續列成「未實作」。
 
-合併前僅要求下面兩組現有 contract 正確性修正；不要求全球 ingestion、R2 操作、Tunnel、
-部署或六維真實資料。GitHub head 的 8 個 check runs 皆 completed/success；本輪 local gate／
-acceptance 輸出見 `OPENCODE_HANDOFF.md`。
-原 [CHANGES_REQUESTED](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/54#pullrequestreview-5904651164)
-尚未解除，應由原 reviewer 針對修正後 head 複查；不能因 CI 綠燈就略過。
+我的技術判定仍是下面兩組現有 contract 問題應先修正；既然已合併，請另開小型 fix PR，
+在真實 canonical ingestion／宣稱 exhaustive coverage 前完成。不要重新打開已完成的投影、
+ID、Snapshot 或 SQLite 實作，也不要求把全球 ingestion、R2、Tunnel、部署塞進修正。
+本輪 gate／acceptance 證據見 `OPENCODE_HANDOFF.md`。沒有要求 rollback 或操作 production。
 
 ## 1. 合併前修正：v1→v2 的 bbox CRS 與資訊保留仍不正確
 
@@ -61,12 +66,12 @@ source-support，無 v2 欄位時可保留明確版本化 legacy envelope／prov
 
 ## 原 review 與五項架構疑慮核對
 
-| 問題 | 最新 `92c986a` 證據 | 是否阻擋 #54 |
+| 問題 | 最終 `1895155` 證據 | 原合併判定／現後續安排 |
 |---|---|---|
 | degrees 被標 metre／四角 bbox | `read_window` 使用 Geod pixel spans；grid 轉四角；native angular metadata 保留 | 原錯誤已修正 |
 | 精確投影 footprint vs WGS84 envelope | 新 `read_projected_window` 建立原 metric bounds 的 destination raster；end-to-end test 已改走此路徑 | 不再因未實作投影 footprint 而阻擋；resampling／method 科學驗證留 ingestion 前 |
 | Stable AnalysisUnit／grid IDs | ID hash 包含 projected origin、CRS、window、stride、resolution、grid version，無 region label 依賴；測試改名／移區域 | 已解決本階段 identity 問題；同 region 5／10 km ID 現在不同 |
-| Snapshot manifest membership vs row snapshot_id | `partitions/<region>/<sha>.parquet` 由 manifests 重用；移除 row snapshot_id；測試同一 partition 跨 Snapshot 與舊結果可查 | 已實作；R2 publish、retention／GC 仍 follow-up |
+| Snapshot manifest membership vs row snapshot_id | `partitions/<region>/<sha>.parquet` 由 manifests 重用；移除 row snapshot_id；測試同一 partition 跨 Snapshot 與舊結果可查；最終 commit 另移除 overwrite 例外 | 已實作；R2 publish、retention／GC 仍 follow-up |
 | 無損、科學正確的 v1→v2 | 實際 window／resolution、獨立 asset IDs 與 unknown states 已修；bbox CRS／已知 quality support 未完整保留 | 上述第 1 項仍應阻擋 |
 | SQLite rebuild 與 user AOI／jobs | `_reset_scientific_index` 不再 drop_all；保留 on_demand candidates／features／context、jobs、typed rows 及相關 datasets；新增 safety test | 不再因 drop_all 而阻擋；備份／transaction recovery／舊 typed schema migration 為 deployment 前 follow-up |
 | 全量 input materialization | streaming `CoarseIndexWriter` 按 region／partition cap flush | 已修正；active regions 總 buffer cap 留 ingestion 前 |
@@ -86,9 +91,13 @@ mean=10° 是不同估計量。這項 method choice／邊界 kernel／p90／flat
 
 ## 實際重現與保存
 
+最終 `1895155` 另修正 partition flush 後 region counts、temporal interval endpoints／順序與
+禁止覆寫 Snapshot。這些修正沒有改動上述 bbox CRS／資訊遺失或 grid exhaustive label。
+
 程式：[review_pr54_probes.py](review_pr54_probes.py)。結果：
-[最新 92c986a](pr54-92c986a-probe-results.jsonl)、[歷史 5ab3b3e](pr54-probe-results.jsonl)。
-兩版均實際 exit 0；僅使用記憶體 manifest 複本、temporary synthetic GeoTIFF、in-memory SQLite。
+[最終 1895155](pr54-1895155-probe-results.jsonl)、[中間版 92c986a](pr54-92c986a-probe-results.jsonl)、
+[歷史 5ab3b3e](pr54-probe-results.jsonl)。三版均實際 exit 0；
+僅使用記憶體 manifest 複本、temporary synthetic GeoTIFF、in-memory SQLite。
 診斷程式與結果都可從 Geology PR 取回，不只留在本機 `/tmp`。
 
 ```bash

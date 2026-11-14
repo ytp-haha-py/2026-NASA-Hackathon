@@ -1,4 +1,4 @@
-# OpenCode 交接 — 2026-11-14
+# OpenCode 交接 — 2026-11-15（Asia/Taipei）
 
 本交接僅收尾既有 Geology pilot、驗證及複查 PR #54。未下載新的科學資料、未操作 R2、
 未設定 Tunnel、未部署、未修改 Issue／#54 分支／main，也未解除 change request 或 merge。
@@ -9,13 +9,13 @@ OpenCode desktop 接手真實資料 ingestion、六維整合、全球索引、R2
 | 用途 | 分支／版本 | 本機位置 |
 |---|---|---|
 | 原始 Geology，保持原工作位置 | `feat/16-geology-mineralogy`，保存 commit `7cdd9a8` | `/home/yingtung/2026-NASA-Hackathon` |
-| Geology 交付，基於最新 main | `feat/41-geology-handoff`，先 cherry-pick 為 `8496025`，再補交接 | `/tmp/opencode-geology` |
-| 共用 main 基底 | `5d070722cdaf44156e7591156fbdd246162f1b49` | `origin/main`，沒有移動本機 main |
-| PR #54 最新複查 | `feat/24-offline-backend-foundation`，`92c986aa3ff34ace30422f3ed7e9e000574b7f9d` | `/tmp/opencode-pr54-latest`，detached，唯讀原始碼 |
+| Geology 交付，基於最新 main | `feat/41-geology-handoff`，保存 `8496025`／交接 `2affdba`，再以 `49615a1` 合入 main | `/tmp/opencode-geology` |
+| 共用 main 基底 | 最終合入 `e2a50809ad358f2ba89901ea193e120720c07328`（#54 squash）；原始交付基底 `5d07072` | `origin/main`，沒有移動本機 main |
+| PR #54 最終複查 | `feat/24-offline-backend-foundation`，`18951551b07322dc8e0836b0a3263f4182b1c34f` | `/tmp/opencode-pr54-latest`，detached，唯讀原始碼 |
 | PR #54 歷史複查證據 | `5ab3b3ed54bcc0cb7b46e9af0e40ed2c10224ade` | `/tmp/opencode-pr54-review`，保留舊版對比，勿當最新 head |
 
-- [PR #54](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/54)：尚未合併；本次複查見 [PR54_REVIEW.md](PR54_REVIEW.md)。
-- Geology PR：以 `feat/41-geology-handoff` 對 main 提出，僅關聯 [#41](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/41)／[#42](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/42)，不宣告關閉兩個 Issue。
+- [PR #54](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/54)：已由 maintainer `ytp-haha-py` 於 15:50:59 UTC 合併，最終 head 有該 reviewer 的 APPROVED；Codex 未執行此 merge／approval。本次複查見 [PR54_REVIEW.md](PR54_REVIEW.md)。
+- **Geology [PR #57](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/57)**：`feat/41-geology-handoff` 對 main，僅關聯 [#41](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/41)／[#42](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/42)，不宣告關閉兩個 Issue。
 - 第一維度 `feat/15-terrain-landforms` 與 `snapshots/snap-0cef4d75b147866a/` 沒有改寫。
 - 起始工作樹無 tracked diff，32 個 Geology 新檔全部保存；沒有 reset、clean 或捨棄原始內容。
 - 原始備份 `/tmp/opencode-handoff-20261114T152017Z/original-geology.tar.gz`，SHA-256：
@@ -81,11 +81,13 @@ terrain observations 與 1,243 land-cover context observations。這些是共用
 
 | 對象 | 命令／結果 |
 |---|---|
-| Geology + 最新 main | `bash scripts/verify.sh`：最終 `PASS - 14 steps in 71s (full gate)`，298 項 backend tests、70 項 frontend tests；首次含 dependency 安裝為 407s |
-| PR #54 最新 `92c986a` | 同一完整 gate：`PASS - 14 steps in 102s (full gate)`，303 項 backend tests、70 項 frontend tests |
+| Geology + 合併後 main `e2a5080` | `bash scripts/verify.sh`：最終 `PASS - 14 steps in 88s (full gate)`，352 項 backend tests、70 項 frontend tests |
+| PR #54 最終 `1895155` | 同一完整 gate：`PASS - 14 steps in 86s (full gate)`，306 項 backend tests、70 項 frontend tests |
+| Geology + 舊 main `5d07072` | 先前 gate `PASS - 14 steps in 71s (full gate)`，298 backend／70 frontend；首次含 dependency 安裝為 407s |
+| PR #54 中間版 `92c986a` | 同一完整 gate：`PASS - 14 steps in 102s (full gate)`，303 項 backend tests、70 項 frontend tests |
 | PR #54 歷史 `5ab3b3e` | 同一完整 gate：`PASS - 14 steps in 468s (full gate)`，296 項 backend tests、70 項 frontend tests |
 | PR #54 acceptance | `bash scripts/backend_acceptance.sh`：`RESULT: PASS (offline; no source download, no R2)` |
-| Geology + GIS 額外套件 | 兩個 geology suites：`51 passed in 2.66s`；預設環境未安裝 GIS 的 module 另在此實際跑完 |
+| Geology + GIS 額外套件 | 合入最新 main 後兩個 geology suites：`51 passed in 1.90s`；預設環境未安裝 GIS 的 module 另在此實際跑完 |
 | Geology Snapshot | `PASS geo-snap-d1235d5f9defe6cd 8 pinned files; manifest validated; no source downloads` |
 | PR #54 小型診斷 | `docs/review_pr54_probes.py` 對兩個 head 均 exit 0；分別保存於兩份帶版本的 probe results，見 review 文件 |
 
@@ -110,7 +112,10 @@ UV_CACHE_DIR=/tmp/geology-uv-cache npm_config_cache=/tmp/geology-npm-cache bash 
 本輪 logs：`/tmp/opencode-geology-verify.log`、`/tmp/opencode-pr54-verify.log`、
 `/tmp/opencode-pr54-acceptance.log`、`/tmp/opencode-geology-focused.log`、
 `/tmp/opencode-pr54-latest-verify.log`、`/tmp/opencode-pr54-latest-acceptance.log`、
-`/tmp/opencode-geology-release-verify.log`（最終版本）。
+`/tmp/opencode-geology-release-verify.log`（舊 main）、
+`/tmp/opencode-geology-main-final-verify.log`（最終合入 main 的版本）、
+`/tmp/opencode-pr54-merged-verify.log`、`/tmp/opencode-pr54-merged-acceptance.log`、
+`/tmp/opencode-geology-main-focused.log`。
 PR #54 診斷程式與輸出已一併提交到 docs；診斷使用小型 synthetic raster／in-memory
 SQLite，只能證明軟體行為，不能證明真實來源可比性。
 
@@ -118,10 +123,12 @@ SQLite，只能證明軟體行為，不能證明真實來源可比性。
 
 1. 先 `git status --short --branch`、`git worktree list`，讀本交接與 #54 複查。
    保留原分支保存點與外部 cache；不要把兩個 PR 的檔案混在同一提交。
-2. 由 #54 作者處理複查中確實阻擋合併的最小修正並重新測試；請原 reviewer 複查。
-   本次沒有 dismiss、resolve review threads、approve 或 merge。後續 head 改變需重新確認。
+2. #54 已由原 reviewer 批准並合併；勿等待另一輪 merge。剩餘 bbox CRS／資訊保留與 grid
+   truthful coverage 問題請另開小型 fix PR，在真實 ingestion 前完成，見 review 文件。
+   Codex 本次沒有 dismiss、resolve review threads、approve 或 merge #54。
 3. 審查獨立 Geology PR：來源與科學限制明確保留，#41／#42 仍 open，避免把 pilot 當完整驗收。
-   #54 合併後再將最新 main 合入 Geology 分支，重跑 gate；勿直接覆寫／重新產生 pinned records。
+   本交付已將 #54 合併後的 main 合入自己的 Geology 分支並重跑 gate；勿重做此步，
+   也勿直接覆寫／重新產生 pinned records。
 4. 最新 #54 已實作投影 support、物理 grid identity、共享 partitions 與 SQLite 保護，勿重做。
    先完成 review 所列剩餘 bbox CRS／資訊保留與 truthful coverage 修正；真實 ingestion 前
    固定方法版本與科學可比性 gate，部署前確認 SQLite 備份／復原與既有 typed schema 相容。
@@ -226,3 +233,25 @@ git -C /tmp/opencode-geology push -u origin feat/41-geology-handoff
 
 其他成員只需 checkout 交付 PR／分支即可讀取既有 Geology 成果；不必取得 1.6 GiB 原始資料。
 六維 production readiness、全域檢索、R2 partition reuse 與部署仍是 OpenCode 後續工作。
+
+## 10. 從遠端取回成果
+
+遠端位置是 [PR #57](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/57) 的
+`feat/41-geology-handoff` 分支；資料不只存在 `/tmp` worktree。
+本輪收尾另由 GitHub API 讀回 branch／PR 與 Snapshot，核對遠端 Git tree 和本機已提交 blobs；
+具體結果亦在交接完成回覆中報告。沒有聲稱任何 R2 objects 已上傳。
+
+```bash
+# 在已有 clone 中，選擇尚未存在的 worktree 路徑：
+git fetch origin feat/41-geology-handoff
+git worktree add --detach /tmp/geology-retrieval origin/feat/41-geology-handoff
+cd /tmp/geology-retrieval
+uv sync --frozen
+uv run --frozen python -m analog_pipelines.geology verify
+uv run --frozen python -m analog_pipelines.geology report
+```
+
+以上會取回程式、Schemas、manifests、全部可分享 processed observations／artifacts、Snapshot、
+清冊、診斷程式／結果與本交接文件。只需安裝軟體 dependencies，不必從 NASA／USGS 重下 raw。
+若要重跑原始 GIS 分析，再由 OpenCode 依清冊保留的 source／version／checksum／方法及 cache
+處理；那是後續 ingestion 工作，不是讀取本次完成成果的必要條件。
