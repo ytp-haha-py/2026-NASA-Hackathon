@@ -1,0 +1,36 @@
+[
+  {
+    "observation_id": "fixture",
+    "area_id": "fixture-area",
+    "body": "Earth",
+    "dimension_code": "D01",
+    "feature_id": "curvature_curvedness_m1",
+    "value_kind": "numeric",
+    "state": "detected",
+    "value": 0.002,
+    "unit": "m^-1",
+    "spatial_support": {
+      "kind": "window",
+      "crs": "EPSG:32633",
+      "resolution_m": 90,
+      "window_size_m": 1980
+    },
+    "temporal_support": {
+      "kind": "static"
+    },
+    "depth_support": {
+      "kind": "surface"
+    },
+    "method_version": "curvature-geomorphon-0.1.0",
+    "source_asset_ids": [
+      "fixture-asset"
+    ],
+    "quality_flags": [
+      "synthetic_fixture"
+    ],
+    "score_role": "evidence_only",
+    "dataset_ids": [
+      "fixture-dataset"
+    ]
+  }
+]

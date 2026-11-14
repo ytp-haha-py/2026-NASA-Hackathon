@@ -262,6 +262,12 @@ See [`docs/DATA_ARCHITECTURE.md`](docs/DATA_ARCHITECTURE.md).
 | `GET /api/v1/locations/{id}/context` | grounded JSON export for external AI |
 | `GET /api/v1/references` | verified planetary references (verified LOLA and Jezero CTX windows) |
 | `GET /api/v1/datasets` | source/processing manifests |
+| `GET /api/v1/global/coverage` | coarse index coverage; explicit `no_index` when absent |
+| `POST /api/v1/global/search` | coarse 250 m-derived shortlist over a pinned Parquet index |
+| `GET /api/v1/global/candidates/{id}` | coarse candidate detail |
+| `POST /api/v1/global/refine-plan` | plan 90 m refinement windows (no download) |
+| `GET /api/v1/typed/observations` | typed D01–D06 fixture/verified observations |
+| `GET /api/v1/typed/areas/{id}` | typed area + observations |
 
 See [`docs/API.md`](docs/API.md). OpenAPI snapshot: `contracts/openapi.json`.
 
@@ -313,6 +319,11 @@ React 19 + TypeScript + Vite + Leaflet · FastAPI + Pydantic v2 + SQLAlchemy 2 +
 [Deployment](docs/DEPLOYMENT.md) ·
 [Roadmap](docs/ROADMAP.md) ·
 [R2 setup](docs/R2_SETUP.md) ·
+[Six-dimension inventory](docs/SIX_DIM_SOURCE_INVENTORY.md) ·
+[Ontology](docs/ONTOLOGY.md) ·
+[Global terrain pipeline](docs/GLOBAL_TERRAIN_PIPELINE.md) ·
+[Dimension adapters](docs/DIMENSION_ADAPTERS.md) ·
+[Backend acceptance](docs/PRODUCT_BACKEND_ACCEPTANCE.md) ·
 [Agent guide](AGENTS.md) ·
 [Contributing](CONTRIBUTING.md) ·
 [Contributing data](docs/CONTRIBUTING_DATA.md)

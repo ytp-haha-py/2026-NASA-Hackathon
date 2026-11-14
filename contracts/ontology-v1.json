@@ -1,0 +1,201 @@
+{
+  "ontology_version": "1.0.0",
+  "dimensions": [
+    {
+      "code": "D01",
+      "name": "Terrain & Landforms",
+      "research_question": "\u5730\u8868\u5177\u6709\u4ec0\u9ebc\u5f62\u72c0\uff1f",
+      "subgroups": [],
+      "research_classes": []
+    },
+    {
+      "code": "D02",
+      "name": "Geology & Mineralogy",
+      "research_question": "\u5730\u8868\u7531\u4ec0\u9ebc\u5ca9\u77f3\u8207\u7926\u7269\u69cb\u6210\uff1f",
+      "subgroups": [
+        "lithology",
+        "mineral_spectral_detection",
+        "geological_process"
+      ],
+      "research_classes": [
+        "igneous_geology",
+        "impact_geology",
+        "sedimentary_geology",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "code": "D03",
+      "name": "Thermal Environment",
+      "research_question": "\u5730\u8868\u5177\u6709\u4ec0\u9ebc\u6eab\u5ea6\u53ca\u71b1\u7269\u7406\u74b0\u5883\uff1f",
+      "subgroups": [
+        "surface_temperature",
+        "thermal_inertia"
+      ],
+      "research_classes": []
+    },
+    {
+      "code": "D04",
+      "name": "Water & Ice",
+      "research_question": "\u5730\u8868\uff0f\u5730\u4e0b\u6709\u54ea\u4e9b\u6c34\u8207\u51b0\u53ca\u89c0\u6e2c\u8b49\u64da\uff1f",
+      "subgroups": [
+        "surface_water",
+        "subsurface_ice",
+        "hydration_evidence"
+      ],
+      "research_classes": []
+    },
+    {
+      "code": "D05",
+      "name": "Solar Illumination & Radiation",
+      "research_question": "\u5730\u8868\u53d7\u5230\u4ec0\u9ebc\u5149\u7167\u8207\u8f3b\u5c04\u689d\u4ef6\uff1f",
+      "subgroups": [
+        "solar_illumination",
+        "ionizing_radiation"
+      ],
+      "research_classes": []
+    },
+    {
+      "code": "D06",
+      "name": "Regolith & Surface Properties",
+      "research_question": "\u5730\u8868\u6750\u6599\u5982\u4f55\u8868\u73fe\uff1f",
+      "subgroups": [
+        "particle_size",
+        "thickness_density_porosity",
+        "strength",
+        "dust"
+      ],
+      "research_classes": []
+    }
+  ],
+  "legacy_dimension_mapping": {
+    "terrain_shape": "D01",
+    "land_cover_context": null
+  },
+  "feature_mappings": {
+    "slope_mean_deg": {
+      "dimension_code": "D01",
+      "legacy_dimension": "terrain_shape",
+      "score_role": "similarity",
+      "compare_eligibility": "same_method_and_support",
+      "value_kind": "numeric"
+    },
+    "slope_p90_deg": {
+      "dimension_code": "D01",
+      "legacy_dimension": "terrain_shape",
+      "score_role": "similarity",
+      "compare_eligibility": "same_method_and_support",
+      "value_kind": "numeric"
+    },
+    "terrain_relief_p95_p05_m": {
+      "dimension_code": "D01",
+      "legacy_dimension": "terrain_shape",
+      "score_role": "similarity",
+      "compare_eligibility": "same_method_and_support",
+      "value_kind": "numeric"
+    },
+    "roughness_std_m": {
+      "dimension_code": "D01",
+      "legacy_dimension": "terrain_shape",
+      "score_role": "similarity",
+      "compare_eligibility": "same_method_and_support",
+      "value_kind": "numeric"
+    },
+    "flat_terrain_fraction": {
+      "dimension_code": "D01",
+      "legacy_dimension": "terrain_shape",
+      "score_role": "similarity",
+      "compare_eligibility": "same_method_and_support",
+      "value_kind": "numeric"
+    },
+    "landcover_tree_cover_fraction": {
+      "dimension_code": null,
+      "legacy_dimension": "land_cover_context",
+      "score_role": "context_only",
+      "compare_eligibility": "context_only",
+      "value_kind": "distribution",
+      "earth_only": true
+    },
+    "landcover_shrubland_fraction": {
+      "dimension_code": null,
+      "legacy_dimension": "land_cover_context",
+      "score_role": "context_only",
+      "compare_eligibility": "context_only",
+      "value_kind": "distribution",
+      "earth_only": true
+    },
+    "landcover_grassland_fraction": {
+      "dimension_code": null,
+      "legacy_dimension": "land_cover_context",
+      "score_role": "context_only",
+      "compare_eligibility": "context_only",
+      "value_kind": "distribution",
+      "earth_only": true
+    },
+    "landcover_cropland_fraction": {
+      "dimension_code": null,
+      "legacy_dimension": "land_cover_context",
+      "score_role": "context_only",
+      "compare_eligibility": "context_only",
+      "value_kind": "distribution",
+      "earth_only": true
+    },
+    "landcover_built_up_fraction": {
+      "dimension_code": null,
+      "legacy_dimension": "land_cover_context",
+      "score_role": "context_only",
+      "compare_eligibility": "context_only",
+      "value_kind": "distribution",
+      "earth_only": true
+    },
+    "landcover_bare_sparse_fraction": {
+      "dimension_code": null,
+      "legacy_dimension": "land_cover_context",
+      "score_role": "context_only",
+      "compare_eligibility": "context_only",
+      "value_kind": "distribution",
+      "earth_only": true
+    },
+    "landcover_snow_ice_fraction": {
+      "dimension_code": null,
+      "legacy_dimension": "land_cover_context",
+      "score_role": "context_only",
+      "compare_eligibility": "context_only",
+      "value_kind": "distribution",
+      "earth_only": true
+    },
+    "landcover_water_fraction": {
+      "dimension_code": null,
+      "legacy_dimension": "land_cover_context",
+      "score_role": "context_only",
+      "compare_eligibility": "context_only",
+      "value_kind": "distribution",
+      "earth_only": true
+    },
+    "landcover_herbaceous_wetland_fraction": {
+      "dimension_code": null,
+      "legacy_dimension": "land_cover_context",
+      "score_role": "context_only",
+      "compare_eligibility": "context_only",
+      "value_kind": "distribution",
+      "earth_only": true
+    },
+    "landcover_mangrove_fraction": {
+      "dimension_code": null,
+      "legacy_dimension": "land_cover_context",
+      "score_role": "context_only",
+      "compare_eligibility": "context_only",
+      "value_kind": "distribution",
+      "earth_only": true
+    },
+    "landcover_moss_lichen_fraction": {
+      "dimension_code": null,
+      "legacy_dimension": "land_cover_context",
+      "score_role": "context_only",
+      "compare_eligibility": "context_only",
+      "value_kind": "distribution",
+      "earth_only": true
+    }
+  },
+  "notes": "D02 research classes are non-exclusive views. D05 illumination and ionizing radiation are separate subgroups. land_cover_context is Earth-only context, not a seventh scored dimension."
+}

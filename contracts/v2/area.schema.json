@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "area_id": {
+      "title": "Area Id",
+      "type": "string"
+    },
+    "area_km2": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Area Km2"
+    },
+    "bbox": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Bbox"
+    },
+    "body": {
+      "enum": [
+        "Earth",
+        "Moon",
+        "Mars"
+      ],
+      "title": "Body",
+      "type": "string"
+    },
+    "coordinate_frame": {
+      "default": "unknown",
+      "enum": [
+        "earth_wgs84",
+        "earth_projected",
+        "lunar_projected",
+        "mars_projected",
+        "unknown"
+      ],
+      "title": "Coordinate Frame",
+      "type": "string"
+    },
+    "crs": {
+      "title": "Crs",
+      "type": "string"
+    },
+    "geometry": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Geometry"
+    },
+    "notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Notes"
+    },
+    "schema_version": {
+      "const": "2.0.0",
+      "default": "2.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_area_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Source Area Refs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "area_id",
+    "body",
+    "crs"
+  ],
+  "title": "AreaV2",
+  "type": "object"
+}
