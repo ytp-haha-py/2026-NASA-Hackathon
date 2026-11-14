@@ -14,8 +14,11 @@ closest to the target vector?" It does **not** answer "which place on Earth is m
 - Optional verified planetary reference. Reference mode takes target values from the reference's
   observations and rejects mixed reference/target input.
 
-All requested features must use method version `terrain-metrics-1.0.0`. Candidates lacking a
-requested metric or carrying an incompatible method version are excluded and reported.
+Every requested feature with a **positive weight** must use its registry method version. Candidates
+lacking a positive-weight metric or carrying an incompatible method version for it are excluded and
+reported. Zero-weight metrics are not compared: their target value is still validated, but a
+candidate does not need the value, contributes no distance term, and is not excluded for a missing
+or incompatible zero-weight observation. This rule is the same in custom and reference mode.
 
 **Hard filters run before the distance.** Optional inclusive `filters` (`{min?, max?}`) apply to
 Earth land-cover context (`landcover_*_fraction`, 0..1), e.g. bare/sparse ≥ 0.5 or built-up ≤ 0.1,
@@ -65,9 +68,12 @@ matches or differs.
 
 ## Missing data and exclusions
 
-- Missing/non-finite candidate metric: excluded with `missing_metric:<feature_id>`.
-- Candidate observation whose method version differs from the query: excluded with
+- Missing/non-finite candidate metric with a positive weight: excluded with
+  `missing_metric:<feature_id>`.
+- Positive-weight candidate observation whose method version differs from the query: excluded with
   `incompatible_method_version`.
+- A zero-weight metric never affects eligibility or distance. A compatible candidate value may be
+  listed with zero contribution; an absent, non-finite, or incompatible value is omitted.
 - Extraction rejects windows with <80% valid elevation cells; those windows should not have been
   persisted.
 - Empty index: `409 no_indexed_data`.

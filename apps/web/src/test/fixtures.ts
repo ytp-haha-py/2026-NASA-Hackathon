@@ -46,7 +46,7 @@ export const featuresFixture: FeatureOut[] = [
     extraction_scale_m: 90,
     valid_domain: "0 <= value <= 90 degrees",
     missing_policy:
-      "Candidates missing this metric are excluded from a search that requests it.",
+      "Candidates missing this metric are excluded only when it has a positive weight; zero-weight metrics are not compared.",
   },
   {
     ...featureContext,
@@ -64,7 +64,7 @@ export const featuresFixture: FeatureOut[] = [
     extraction_scale_m: 90,
     valid_domain: "0 <= value <= 90 degrees",
     missing_policy:
-      "Candidates missing this metric are excluded from a search that requests it.",
+      "Candidates missing this metric are excluded only when it has a positive weight; zero-weight metrics are not compared.",
   },
   {
     ...featureContext,
@@ -84,7 +84,7 @@ export const featuresFixture: FeatureOut[] = [
     extraction_scale_m: 90,
     valid_domain: "0 <= value <= 20000 meters",
     missing_policy:
-      "Candidates missing this metric are excluded from a search that requests it.",
+      "Candidates missing this metric are excluded only when it has a positive weight; zero-weight metrics are not compared.",
   },
   {
     ...featureContext,
@@ -103,7 +103,7 @@ export const featuresFixture: FeatureOut[] = [
     extraction_scale_m: 90,
     valid_domain: "0 <= value <= 5000 meters",
     missing_policy:
-      "Candidates missing this metric are excluded from a search that requests it.",
+      "Candidates missing this metric are excluded only when it has a positive weight; zero-weight metrics are not compared.",
   },
 ];
 

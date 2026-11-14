@@ -59,7 +59,8 @@ contracts/                            contract, manifest schema, OpenAPI snapsho
 3. Pydantic validates shape, known feature ids, finite values, domains, weights, exclusivity, and
    positive total weight (422 on failure).
 4. The repository loads indexed candidates. Candidates are excluded with explicit reasons when a
-   requested metric is missing/non-finite or has an incompatible method version.
+   **positive-weight** requested metric is missing/non-finite or has an incompatible method version.
+   Zero-weight metrics are not compared and never affect eligibility.
 5. Optional hard filters on Earth land-cover context run before the distance (missing context fails;
    values are never imputed). `rank_candidates` computes
    `sqrt(sum_i[w_i * ((c_i - t_i) / scale_i)^2] / sum_i w_i)`, sorts by `(distance, location_id)`,
@@ -159,8 +160,9 @@ provider. See `docs/DEPLOYMENT.md`.
 | Failure | Behavior |
 |---|---|
 | Empty index | `409 no_indexed_data`; UI shows no coverage |
-| Candidate missing requested metric | excluded with `missing_metric:<id>`; counted in response |
-| Method-version mismatch | excluded with `incompatible_method_version`; never compared silently |
+| Candidate missing a positive-weight requested metric | excluded with `missing_metric:<id>`; counted in response |
+| Positive-weight method-version mismatch | excluded with `incompatible_method_version`; never compared silently |
+| Zero-weight metric missing/mismatched | not compared; candidate remains eligible |
 | Invalid target/weight/limit | `422` with consistent error shape and field details |
 | Source window has <80% valid data | extraction fails; importer records the failure and omits the candidate |
 | Remote DEM/tile unavailable | importer documents blocker; no synthetic substitution |
