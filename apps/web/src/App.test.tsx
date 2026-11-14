@@ -560,12 +560,21 @@ describe("Mars reference mode", () => {
     const mars = screen.getByRole("option", { name: /Mars reference/ });
     expect((mars as HTMLOptionElement).disabled).toBe(false);
     await user.selectOptions(screen.getByLabelText("Body preset"), "Mars");
+
+    // Reference mode starts with every weight at 0; opt one metric in before searching.
+    const slopeWeight = within(screen.getByRole("group", { name: "Mean slope" })).getByLabelText(
+      "Weight (≥ 0)",
+    );
+    await user.clear(slopeWeight);
+    await user.type(slopeWeight, "1");
+
     await runSearch();
     await screen.findByTestId("coverage-headline");
     expect(searchRequestFromCalls(fetchMock)).toMatchObject({
       body: "Mars",
       reference_id: "mars-jezero-ctx-window-01",
       target: {},
+      weights: { slope_mean_deg: 1 },
     });
   });
 });
