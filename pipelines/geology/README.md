@@ -1,7 +1,8 @@
 # Dimension 02 — Geology & Mineralogy
 
 獨立、可離線讀取的研究模組。程式在 `pipelines/src/analog_pipelines/geology/`，不匯入
-Terrain scorer 或共用 Feature Registry。此工作位於 `feat/16-geology-mineralogy`，沒有修改
+Terrain scorer 或共用 Feature Registry。原始工作保存在 `feat/16-geology-mineralogy`，
+交付分支為 `feat/41-geology-handoff`（以最新 main 為基底），沒有修改
 共用 Catalog、Contract、Area Config、SQLite、API、前端、dependency lockfile 或 Terrain Snapshot。
 
 ## 本次真實資料結果
@@ -173,14 +174,15 @@ Snapshot ID 根據排序後的檔案 hash、size、relative path 產生，搬移
 ## GitHub 提交範圍與指令
 
 只提交以下新增目錄／檔案；不提交外部 raw/cache、`.env`、憑證或可重建的資料庫。
-本次依指示沒有自行 commit、push、merge。
+原始實作已提交保存；交付分支另含最新 main 的相容性檢查及 OpenCode 交接文件。
+本次沒有 merge 或操作 R2。完整交接見 `docs/OPENCODE_HANDOFF.md`。
 
 ```bash
-git branch --show-current  # 應為 feat/16-geology-mineralogy
+git branch --show-current  # 交付工作目錄應為 feat/41-geology-handoff
 git add pipelines/src/analog_pipelines/geology pipelines/geology pipelines/tests/test_geology.py pipelines/tests/test_geology_spatial.py
 git diff --cached --stat
 git commit -m "feat(geology): add independent evidence-based geology dimension"
-git push -u origin feat/16-geology-mineralogy
+git push -u origin feat/41-geology-handoff
 ```
 
 推送後建立 PR，交由其他 reviewer，通過 required CI 再由 maintainer 決定 merge；

@@ -1,6 +1,8 @@
 # Observed validation — 2026-11-14
 
-Branch: `feat/16-geology-mineralogy`；未 commit、push、merge、上傳 R2 或刪除資料。
+以下為原始 `feat/16-geology-mineralogy` 實作階段的歷史驗證，當時尚未提交。
+後續交付已將原始內容提交保存；最新 main 基底的交付驗證與 PR #54 複查結果另見
+`docs/OPENCODE_HANDOFF.md`，請勿將本頁舊基底的數量當作目前共用 Snapshot。
 
 ## 最終品質 gate
 

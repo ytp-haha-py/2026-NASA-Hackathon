@@ -55,14 +55,21 @@ def portable():
 
 def test_existing_area_ids_and_planetary_geometry_are_preserved():
     areas = existing_areas(REPO)
-    assert len(areas) == 6
-    assert {a.area_id for a in areas if a.body == "Earth"} == {
+    expected_ids = {
+        candidate["location_id"]
+        for path in (REPO / "pipelines/earth/manifests").glob("*.json")
+        for candidate in json.loads(path.read_text()).get("candidates", [])
+    }
+    actual_ids = {a.area_id for a in areas if a.body == "Earth"}
+    assert actual_ids == expected_ids
+    assert len(areas) == len(expected_ids) + 1
+    assert {
         "earth-atacama-desert",
         "earth-death-valley",
         "earth-lanzarote",
         "earth-devon-island",
         "earth-rio-tinto",
-    }
+    } <= actual_ids
     moon = next(a for a in areas if a.body == "Moon")
     assert moon.geometry["coordinates"][0][0] == [-3747.5, -7332.5]
     assert "1737400" in moon.crs
