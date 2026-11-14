@@ -164,9 +164,10 @@ Response (abridged):
 }
 ```
 
-`eligible_candidate_count` counts all candidates with every requested metric.
-`excluded` lists `location_id` plus `missing_metric:<feature_id>` or
-`incompatible_method_version`. Results are sorted by ascending distance and then `location_id`.
+`eligible_candidate_count` counts all candidates with every requested metric that has a positive
+weight. Zero-weight metrics are not compared and do not require a candidate value. `excluded` lists
+`location_id` plus `missing_metric:<feature_id>` or `incompatible_method_version`. Results are sorted
+by ascending distance and then `location_id`.
 
 Empty index: `409 {"error":{"code":"no_indexed_data",...}}`. Empty eligible set with a non-empty
 index: HTTP 200 with `results: []` and exclusion reasons.

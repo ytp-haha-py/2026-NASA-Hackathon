@@ -157,8 +157,22 @@ def extract_coarse_features(
     }
 
 
+def _finite_candidate_value(candidate: Mapping[str, float | None], feature_id: str) -> float | None:
+    """Return a usable candidate value, treating null and non-finite as missing."""
+    if feature_id not in candidate:
+        return None
+    value = candidate[feature_id]
+    if value is None:
+        return None
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return None
+    return numeric if math.isfinite(numeric) else None
+
+
 def coarse_similarity_breakdown(
-    candidate: Mapping[str, float],
+    candidate: Mapping[str, float | None],
     target: Mapping[str, float],
     weights: Mapping[str, float],
 ) -> tuple[float, list[dict[str, float | str]]]:
@@ -170,18 +184,23 @@ def coarse_similarity_breakdown(
     total = 0.0
     breakdown: list[dict[str, float | str]] = []
     for feature_id in target:
-        if feature_id not in candidate:
-            raise CoarseExtractionError("missing_metric", f"candidate missing {feature_id}")
         weight = float(weights.get(feature_id, 1.0))
         if not math.isfinite(weight) or weight < 0:
             raise CoarseExtractionError("invalid_weight", "weights must be finite and >= 0")
-        total += weight
+        if weight > 0:
+            if _finite_candidate_value(candidate, feature_id) is None:
+                raise CoarseExtractionError("missing_metric", f"candidate missing {feature_id}")
+            total += weight
     if total <= 0:
         raise CoarseExtractionError("zero_total_weight", "at least one positive weight is required")
     squared = 0.0
     for feature_id, target_value in target.items():
+        candidate_value = _finite_candidate_value(candidate, feature_id)
+        if candidate_value is None:
+            # Only zero-weight features may be absent/null/non-finite; they are not compared.
+            continue
         definition = COARSE_FEATURE_BY_ID[feature_id]
-        delta = float(candidate[feature_id]) - float(target_value)
+        delta = candidate_value - float(target_value)
         weight = float(weights.get(feature_id, 1.0))
         normalized = delta / definition.scale
         contribution = weight * normalized**2 / total
@@ -190,7 +209,7 @@ def coarse_similarity_breakdown(
             {
                 "feature_id": feature_id,
                 "target": float(target_value),
-                "candidate": float(candidate[feature_id]),
+                "candidate": candidate_value,
                 "delta": delta,
                 "scale": definition.scale,
                 "weight": weight,

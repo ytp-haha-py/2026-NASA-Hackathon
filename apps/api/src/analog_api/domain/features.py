@@ -32,7 +32,8 @@ class FeatureDefinition:
     extraction_scale_m: int
     valid_domain: str
     missing_policy: str = (
-        "Candidates missing this metric are excluded from a search that requests it."
+        "Candidates missing this metric are excluded only when it has a positive weight; "
+        "zero-weight metrics are not compared."
     )
     dimension_id: str = "terrain_shape"
     value_kind: str = "numeric"

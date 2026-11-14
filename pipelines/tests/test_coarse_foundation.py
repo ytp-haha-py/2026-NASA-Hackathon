@@ -148,6 +148,46 @@ def test_coarse_distance_and_cross_scale_rejection():
         )
 
 
+def test_coarse_zero_weight_feature_may_be_missing_but_positive_weight_may_not():
+    target = {
+        "coarse_slope_mean_deg": 10.0,
+        "coarse_flat_fraction_lt5deg": 0.5,
+    }
+    candidate = {"coarse_slope_mean_deg": 10.0}
+
+    distance, breakdown = coarse_similarity_breakdown(
+        candidate, target, {"coarse_flat_fraction_lt5deg": 0.0}
+    )
+    assert distance == pytest.approx(0.0)
+    assert [entry["feature_id"] for entry in breakdown] == ["coarse_slope_mean_deg"]
+
+    with pytest.raises(CoarseExtractionError) as exc:
+        coarse_similarity_breakdown(candidate, target, {"coarse_flat_fraction_lt5deg": 1.0})
+    assert exc.value.code == "missing_metric"
+
+    # A non-finite zero-weight value is also not compared; a positive-weight one is missing.
+    non_finite = {"coarse_slope_mean_deg": 10.0, "coarse_flat_fraction_lt5deg": float("nan")}
+    distance, breakdown = coarse_similarity_breakdown(
+        non_finite, target, {"coarse_flat_fraction_lt5deg": 0.0}
+    )
+    assert distance == pytest.approx(0.0)
+    assert [entry["feature_id"] for entry in breakdown] == ["coarse_slope_mean_deg"]
+    with pytest.raises(CoarseExtractionError) as exc:
+        coarse_similarity_breakdown(non_finite, target, {"coarse_flat_fraction_lt5deg": 1.0})
+    assert exc.value.code == "missing_metric"
+
+    # Nullable candidate values must not raise TypeError, even at zero weight.
+    nullable = {"coarse_slope_mean_deg": 10.0, "coarse_flat_fraction_lt5deg": None}
+    distance, breakdown = coarse_similarity_breakdown(
+        nullable, target, {"coarse_flat_fraction_lt5deg": 0.0}
+    )
+    assert distance == pytest.approx(0.0)
+    assert [entry["feature_id"] for entry in breakdown] == ["coarse_slope_mean_deg"]
+    with pytest.raises(CoarseExtractionError) as exc:
+        coarse_similarity_breakdown(nullable, target, {"coarse_flat_fraction_lt5deg": 1.0})
+    assert exc.value.code == "missing_metric"
+
+
 def test_coarse_reference_validation_and_refine_plan():
     reference = CoarseReference(
         reference_id="moon-fixture",
