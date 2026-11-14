@@ -16,12 +16,11 @@ can still read a bounded window with HTTP range requests because the server adve
 bounds the requested window, refuses oversized estimates, retries at most twice, and
 caches only the small derived window under ``data/cache/lola`` (gitignored).
 
-The shared extractor is imported, never reimplemented. It transforms the lunar
-projected CRS to EPSG:4326 only to report an approximate centre. PROJ refuses that
-cross-celestial-body transform unless ``PROJ_IGNORE_CELESTIAL_BODY=YES`` is set, so
-this module sets that variable for the process. All four metrics are computed in the
-source projected CRS and are unaffected by the override. The exact extractor error
-without the override is documented in ``NASA_LOLA_STATUS.md``.
+The shared extractor is imported, never reimplemented. Centre coordinates are
+inverse-projected into the source lunar geodetic CRS, never Earth EPSG:4326.
+No cross-celestial-body override is enabled. Terrain metrics use the projected
+metric grid; the flat extension has its own registry method version. Historical
+pre-expansion access evidence remains in ``NASA_LOLA_STATUS.md``.
 """
 
 from __future__ import annotations
