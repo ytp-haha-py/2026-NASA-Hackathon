@@ -8,16 +8,16 @@ worktree/session/goal ownership. It does not replace each Issue's acceptance cri
 
 ## Workstreams
 
-| Issue | Worktree | Branch | Session ID | Native Goal ID | Goal status | Subagents | PR | Blocker |
-|---|---|---|---|---|---|---|---|---|
-| #142 Program coordinator |`.../phase2-coordinator-142`|`phase2/coordinator-142`|`ses_e253e85e9ffeLjB1ipw0gIVen0`|`a1caf80d-100c-4491-a301-cdf5020f0a69`|running|coordinator + ad-hoc|pending|none|
-| #135 D01 |`.../phase2-135-d01`|`phase2/135-d01`|`ses_e20fc8691ffeaMvQ1pjnNWscZp`|`0199a330-c186-4293-acd6-71762469219d`|running|delegated inside Goal|coverage matrix committed; PR pending|coordinate with #108/#97, no duplicate global D01 work|
-| #136 D02 |`.../phase2-136-d02`|`phase2/136-d02`|`ses_e20fc69adffe9JAGca55A3aX5R`|`8004c26a-8e34-464d-9bfb-8dc31680d2fe`|running|delegated inside Goal|geology matrix committed; PR pending|taxonomy/crosswalk validation|
-| #137 D03 |`.../phase2-137-d03`|`phase2/137-d03`|`ses_e20fc6930ffeoPYLni2B8ZosUx`|`0ceab842-708d-4164-81e2-96c4aeb23ca4`|idle|delegated inside Goal|#146|time/local-solar-time support|
-| #138 D04 |`.../phase2-138-d04`|`phase2/138-d04`|`ses_e20fc68bbffe2Sar4coxcaeuS7`|`642a1a88-25bc-4515-a3bb-2d153bad8bb1`|idle|delegated inside Goal|#144|proxy vs confirmed ice separation|
-| #139 D05 |`.../phase2-139-d05`|`phase2/139-d05`|`ses_e20fc684affe5mrOOQ6dvy5Ju5`|`993b3503-c9c2-4a47-a256-76f6e2f35ed9`|running|delegated inside Goal|#145|DEM horizon/shielding inputs|
-| #140 D06 |`.../phase2-140-d06`|`phase2/140-d06`|`ses_e20fc67c3ffeEHNB8Ra3Q5CLqP`|`96555f26-c85b-448d-8ed1-6c55880da63c`|running|delegated inside Goal|native goal active; worktree dirty|sparse Moon/Mars in-situ data|
-| #141 integration |`.../phase2-141-integration`|`phase2/141-integration`|`ses_e20fc6751ffeXuPBKd6WZyqGcN`|`2f312370-3a07-400f-b15a-95cd4cc8d251`|running|delegated inside Goal|native goal active; worktree dirty|dimension×feature weighting contract|
+| Issue | Worktree | Branch | Session ID | Native Goal ID | Goal / review | PR | Blocker |
+|---|---|---|---|---|---|---|---|
+| #142 Program coordinator | .../phase2-coordinator-142 | phase2/coordinator-142 | ses_e253e85e9ffeLjB1ipw0gIVen0 | a1caf80d-100c-4491-a301-cdf5020f0a69 | active / validated | coordinator | this PR | none |
+| #135 D01 | .../phase2-135-d01 | phase2/135-d01 | ses_e20fc8691ffeaMvQ1pjnNWscZp | 0199a330-c186-4293-acd6-71762469219d | phase complete / issue open | #147 | additional D01 ingest, #108/#97 |
+| #136 D02 | .../phase2-136-d02 | phase2/136-d02 | ses_e20fc69adffe9JAGca55A3aX5R | 8004c26a-8e34-464d-9bfb-8dc31680d2fe | complete / integrated | #148 | none |
+| #137 D03 | .../phase2-137-d03 | phase2/137-d03 | ses_e20fc6930ffeoPYLni2B8ZosUx | 0ceab842-708d-4164-81e2-96c4aeb23ca4 | complete / integrated | #146 | none |
+| #138 D04 | .../phase2-138-d04 | phase2/138-d04 | ses_e20fc68bbffe2Sar4coxcaeuS7 | 642a1a88-25bc-4515-a3bb-2d153bad8bb1 | complete / integrated | #144 | none |
+| #139 D05 | .../phase2-139-d05 | phase2/139-d05 | ses_e20fc684affe5mrOOQ6dvy5Ju5 | 993b3503-c9c2-4a47-a256-76f6e2f35ed9 | complete / integrated | #145 | none |
+| #140 D06 | .../phase2-140-d06 | phase2/140-d06 | ses_e20fc67c3ffeEHNB8Ra3Q5CLqP | 96555f26-c85b-448d-8ed1-6c55880da63c | complete / integrated | #150 | none |
+| #141 integration | .../phase2-141-integration | phase2/141-integration | ses_e20fc6751ffeXuPBKd6WZyqGcN | 2f312370-3a07-400f-b15a-95cd4cc8d251 | complete / integrated | #152 | none |
 
 
 `...` expands to `/home/panda/.local/share/opencode/worktree/204e7a/`.
@@ -93,6 +93,10 @@ It uses the supported `/api/event` SSE stream for immediate changes and a 90 s r
 for missed/crashed events. Goal state is read from OpenCode's read-only `kv` table
 (`plugin:%:session:<session-id>`), not inferred from session idle. State is persisted outside all
 worktrees at `/home/panda/.local/state/analogx-phase2/monitor.sqlite3`.
+
+## Final acceptance
+
+See [`ACCEPTANCE.md`](ACCEPTANCE.md) for the three-body public acceptance, data snapshot, formulas and limitations. #135–#139 remain open for additional bounded ingest; #140–#142 are closed.
 
 ## Update log
 

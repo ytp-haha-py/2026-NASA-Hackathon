@@ -160,6 +160,29 @@ def test_blocked_goal_alerts(tmp_path: Path):
     assert any(alert["kind"] == "goal_blocked" for alert in result.alerts)
 
 
+def test_mark_validated_and_integrated(tmp_path: Path):
+    store = StateStore(tmp_path / "state.db")
+    ws = _workstream()
+    store.seed([ws])
+    row = store.mark(135, validated=True, note="reviewed")
+    assert row["validated"] == 1
+    row = store.mark(135, integrated=True, note="merged")
+    assert row["integrated"] == 1
+
+
+def test_paused_goal_alerts(tmp_path: Path):
+    from tools.phase2_monitor.core import GOAL_PAUSED
+
+    store = StateStore(tmp_path / "state.db")
+    ws = _workstream()
+    source = FakeSource(
+        goals={ws.session_id: _goal(ws.session_id, GOAL_PAUSED, reason="waiting for coordinator")}
+    )
+    result = reconcile(workstreams=[ws], source=source, store=store)
+    assert result.rows[0]["goal_status"] == GOAL_PAUSED
+    assert any(alert["kind"] == "goal_paused" for alert in result.alerts)
+
+
 def test_interrupted_session_is_not_complete(tmp_path: Path):
     store = StateStore(tmp_path / "state.db")
     ws = _workstream()

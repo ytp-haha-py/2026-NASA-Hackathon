@@ -51,6 +51,10 @@ uv run python -m tools.phase2_monitor.cli events
 # Long-running monitor with SSE + 90s reconciliation
 uv run python -m tools.phase2_monitor.cli run --interval 90
 
+# Coordinator review decisions (do not auto-merge)
+uv run python -m tools.phase2_monitor.cli mark --issue 135 --validated --note "matrix/tests reviewed"
+uv run python -m tools.phase2_monitor.cli mark --issue 135 --integrated --note "PR merged"
+
 # Supervisor with restart-on-crash and a log outside all worktrees
 bash scripts/phase2_monitor.sh
 ```
@@ -92,6 +96,8 @@ deploys, resets data, or writes a Goal worktree.
 - SSE reconnect uses exponential backoff (1 s → 30 s).
 - A disconnect produces a `monitor.sse.disconnected` event and the next reconciliation repairs
   any missed state.
+- `paused`, `blocked` and `failed` native Goals produce distinct alerts; `complete` is never
+  treated as validated.
 - Reconciliation runs every 90 s by default and on `server.connected`.
 - Events are deduplicated by OpenCode event ID; repeated delivery does not repeat transitions.
 - Multiple Goals completing in one batch are processed independently.
