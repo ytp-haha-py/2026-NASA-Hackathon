@@ -1,21 +1,22 @@
 {
-  "base_commit": "10603ebdcd946f01cdbbf4cca564bf2e1582711c",
+  "base_commit": "0741eb2ce5f6f80ae2ad1dba128770a19cd756bc",
   "dimensions": {
     "D01": {
       "actual_observation_counts": {
         "Earth_fine": 565,
         "Mars_fine_references": 5,
         "Moon_fine_references": 18,
-        "coarse_real": 0
+        "coarse_real": 168
       },
       "comparison_status": "comparable_subset",
       "evidence": [
-        "113 Earth terrain windows and immutable fine snapshot"
+        "113 Earth terrain windows and immutable fine snapshot",
+        "Real 168-cell Geomorpho250 coarse pilot (3 regions) committed and served"
       ],
       "implementation_status": "merged",
       "remaining_blockers": [
-        "real coarse Geomorpho index",
-        "global coverage not claimed"
+        "global coarse coverage not claimed",
+        "same-support Moon/Mars coarse references unavailable"
       ],
       "scientific_data_status": "verified_subset"
     },
@@ -98,14 +99,14 @@
         "typed import and API query test",
         "18 NAIF SPICE model-derived solar-geometry observations at 4 Moon and 5 Mars reference sites",
         "pinned DE421/MOON_ME/IAU_MARS kernels with SHA-256 manifest",
-        "merged in PR #59 (c834285)"
+        "merged in PR #59 (c834285)",
+        "18 NAIF SPICE Moon/Mars model-derived solar-geometry observations; no radiation measurement"
       ],
       "implementation_status": "pilot",
       "remaining_blockers": [
-        "observed illumination product and terrain horizon/shadow model",
-        "radiation detectors",
-        "independent frame/prime-meridian validation",
-        "no combined scalar"
+        "ionizing radiation not measured",
+        "terrain horizon/shadow and area-average geometry not modeled",
+        "no cross-body D05 score"
       ],
       "scientific_data_status": "pilot_observations"
     },
@@ -129,7 +130,7 @@
       "scientific_data_status": "pilot_observations"
     }
   },
-  "generated_at": "2026-11-15T02:05:00+00:00",
+  "generated_at": "2026-11-15T06:00:00+00:00",
   "issues": [
     {
       "comparison_status": "not_comparable",
@@ -271,15 +272,14 @@
         "10 real NASA POWER Earth context timeseries observations",
         "5 AOIs, 2024-01-01..2024-01-07",
         "18 NAIF SPICE model-derived Moon/Mars solar-geometry observations",
-        "portable release and typed import test"
+        "portable release and typed import test",
+        "PR #78: 18 SPICE Moon/Mars solar-geometry observations; radiation remains separate/unavailable"
       ],
-      "implementation_status": "pilot",
+      "implementation_status": "merged",
       "number": 45,
       "remaining_blockers": [
-        "observed illumination and terrain horizon/shadow model",
-        "ionizing-radiation detectors",
-        "independent frame/prime-meridian validation",
-        "no combined scalar"
+        "ionizing radiation not measured",
+        "terrain horizon/shadow not modeled"
       ],
       "scientific_data_status": "pilot_observations",
       "title": "D05 illumination and radiation"
@@ -315,14 +315,12 @@
         "existing additive typed SQLite tables and /api/v1/typed endpoints",
         "committed D05 release imports as 5 areas, 5 assets and 10 observations",
         "merged integration work in PR #59 (c834285)",
-        "D02 typed bundle imports 8 areas, 33 assets and 56 observations"
+        "D02 typed bundle imports 8 areas, 33 assets and 56 observations",
+        "PR #61/#62/#63/#64/#75/#76: 199 typed records imported and queryable"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "merged",
       "number": 47,
-      "remaining_blockers": [
-        "import D02/D03/D04/D06 real observations",
-        "area provenance columns for new migration fields"
-      ],
+      "remaining_blockers": [],
       "scientific_data_status": "pilot_observations",
       "title": "Typed persistence and six-dimension queries"
     },
@@ -375,11 +373,9 @@
       "evidence": [
         "documentation audit only; no raster bytes"
       ],
-      "implementation_status": "blocked",
+      "implementation_status": "merged",
       "number": 28,
-      "remaining_blockers": [
-        "authorized bounded source acquisition"
-      ],
+      "remaining_blockers": [],
       "scientific_data_status": "metadata_only",
       "title": "Geomorpho source verification"
     },
@@ -393,9 +389,7 @@
       ],
       "implementation_status": "merged",
       "number": 29,
-      "remaining_blockers": [
-        "real source file"
-      ],
+      "remaining_blockers": [],
       "scientific_data_status": "verified_subset",
       "title": "Bounded local raster reader"
     },
@@ -408,11 +402,9 @@
         "content-derived IDs",
         "truthful partial coverage fields and tests"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "merged",
       "number": 30,
-      "remaining_blockers": [
-        "real regional coverage plan"
-      ],
+      "remaining_blockers": [],
       "scientific_data_status": "verified_subset",
       "title": "Deterministic metric grid"
     },
@@ -426,9 +418,7 @@
       ],
       "implementation_status": "merged",
       "number": 31,
-      "remaining_blockers": [
-        "real coarse reference support"
-      ],
+      "remaining_blockers": [],
       "scientific_data_status": "verified_subset",
       "title": "Coarse features"
     },
@@ -443,9 +433,7 @@
       ],
       "implementation_status": "merged",
       "number": 32,
-      "remaining_blockers": [
-        "real large batch"
-      ],
+      "remaining_blockers": [],
       "scientific_data_status": "verified_subset",
       "title": "Resumable batch runner"
     },
@@ -459,9 +447,7 @@
       ],
       "implementation_status": "merged",
       "number": 33,
-      "remaining_blockers": [
-        "R2 publication"
-      ],
+      "remaining_blockers": [],
       "scientific_data_status": "verified_subset",
       "title": "Partitioned Parquet index"
     },
@@ -475,9 +461,7 @@
       ],
       "implementation_status": "merged",
       "number": 34,
-      "remaining_blockers": [
-        "real index"
-      ],
+      "remaining_blockers": [],
       "scientific_data_status": "verified_subset",
       "title": "DuckDB coarse query"
     },
@@ -540,9 +524,7 @@
       ],
       "implementation_status": "merged",
       "number": 38,
-      "remaining_blockers": [
-        "real index"
-      ],
+      "remaining_blockers": [],
       "scientific_data_status": "verified_subset",
       "title": "Global API"
     },
@@ -613,13 +595,58 @@
       "merge_commit": "10603ebdcd946f01cdbbf4cca564bf2e1582711c",
       "number": 64,
       "title": "D04 NASA POWER water-context pilot"
+    },
+    {
+      "merge_commit": "7b6ec70e1cf5a369a2128079ff7028a42c5c75c2",
+      "number": 71,
+      "title": "real Geomorpho250 pilot"
+    },
+    {
+      "merge_commit": "41526df0157b6c4e458d8ed0ed6f5ae36865162f",
+      "number": 72,
+      "title": "opt-in Geomorpho range-read smoke"
+    },
+    {
+      "merge_commit": "42bad1917e5b00ffb894df4cdb5fd2dd789e4e78",
+      "number": 73,
+      "title": "Mars gates + PostGIS adapter"
+    },
+    {
+      "merge_commit": "17f851daed6941dc78e862e9773f5d47d3707e04",
+      "number": 75,
+      "title": "six-dimension and global UI"
+    },
+    {
+      "merge_commit": "84dc308f41fbc1adc89ffc495e70a5259850a7ad",
+      "number": 76,
+      "title": "DB capacity and backup drills"
+    },
+    {
+      "merge_commit": "10edbed7686dd5c10e2f131c702321c8b743090a",
+      "number": 77,
+      "title": "public E2E screenshots"
+    },
+    {
+      "merge_commit": "d2ae9e6117364bca290d08cbc9e959015164aaf9",
+      "number": 78,
+      "title": "NAIF SPICE D05 pilot"
+    },
+    {
+      "merge_commit": "4953c0320bf6053a20306c027a9710cf439e79f6",
+      "number": 79,
+      "title": "real resumable batch runner"
+    },
+    {
+      "merge_commit": "0741eb2ce5f6f80ae2ad1dba128770a19cd756bc",
+      "number": 80,
+      "title": "D05 screenshot refresh"
     }
   ],
   "next_independent_tasks": [
-    "Moon/Mars D03-D06 observations require authenticated/authorized source products or larger DEM/SPICE ingestion",
-    "real D01 coarse Geomorpho index requires an authorized bounded raster acquisition plan and disk budget",
-    "optional public CMR discovery provider for authenticated D03/D04 granule metadata",
-    "resolve GLiM rights, EMIT authentication, lunar mineral registration and CRISM thresholds"
+    "integrate #37 real coarse\u219290m refinement and #48 aggregate release/rebuild when their PRs pass",
+    "complete #49 end-to-end acceptance with refined candidate evidence",
+    "resolve remaining Moon/Mars D02-D04/D06 source and calibration blockers (#41-#44, #46)",
+    "verify a real PostGIS deployment or keep #3 open with the documented offline contract evidence"
   ],
   "repository": "ytp-haha-py/2026-NASA-Hackathon",
   "status_legend": {
