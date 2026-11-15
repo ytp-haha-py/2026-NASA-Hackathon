@@ -25,6 +25,7 @@ import {
 } from "../lib/dimensions";
 import type { SearchSubmission, SearchTargetPreset } from "../lib/search-types";
 import {
+  RESEARCH_FEATURE_IDS,
   RESEARCH_PRESETS,
   researchWeights,
   unavailableResearchFeatures,
@@ -746,6 +747,8 @@ export function SearchForm({
     <form className="search-form" onSubmit={validateAndSubmit} noValidate>
       <h2 className="sr-only">{t("search.heading")}</h2>
       <section className="target-bar" aria-label={t("search.targetBarLabel")}>
+        <div className="target-row">
+          <span className="row-label" aria-hidden="true">{t("search.targetRowLabel")}</span>
         <div className="segmented" role="radiogroup" aria-label={t("search.bodyPreset")}>
           {bodyOptions.map((option) => (
             <button
@@ -779,6 +782,8 @@ export function SearchForm({
             </strong>
           </p>
         )}
+
+        </div>
 
         {unavailableBodies.length > 0 && (
           <p className="field-hint target-note" id="preset-unavailable-note">
@@ -882,32 +887,41 @@ export function SearchForm({
             )}
           </details>
         )}
-      </section>
 
-      <div id="planet-preview" className="planet-preview" hidden={!planetMapOpen}>
-        {body !== "custom" && planetMapOpen && (
-          <>
-            <button
-              type="button"
-              className="secondary-button planet-preview-collapse"
-              onClick={() => {
-                setPlanetMapOpen(false);
-                activeBodyButton.current?.focus();
-              }}
-            >
-              {t("map.collapsePlanetPreview")}
-            </button>
-            <PlanetMap
-              key={body}
-              body={body}
-              references={mapReferences}
-              selectedReferenceId={selectedReference?.reference_id ?? null}
-              onSelectReference={selectReference}
-              regionLabel={t("map.planetRegionLabel", { body: label.body(body) })}
-            />
-          </>
+        {body === "custom" && (
+          <ResearchScenarioPicker
+            selectedId={selectedResearchPreset?.id ?? "manual"}
+            missing={missingResearchFeatures}
+            features={features}
+            onChange={applyResearchPreset}
+          />
         )}
-      </div>
+
+        <div id="planet-preview" className="planet-preview" hidden={!planetMapOpen}>
+          {body !== "custom" && planetMapOpen && (
+            <>
+              <button
+                type="button"
+                className="secondary-button planet-preview-collapse"
+                onClick={() => {
+                  setPlanetMapOpen(false);
+                  activeBodyButton.current?.focus();
+                }}
+              >
+                {t("map.collapsePlanetPreview")}
+              </button>
+              <PlanetMap
+                key={body}
+                body={body}
+                references={mapReferences}
+                selectedReferenceId={selectedReference?.reference_id ?? null}
+                onSelectReference={selectReference}
+                regionLabel={t("map.planetRegionLabel", { body: label.body(body) })}
+              />
+            </>
+          )}
+        </div>
+      </section>
 
       {renderedErrors.length > 0 && (
         <div className="alert alert-error" role="alert" aria-labelledby="form-errors-title">
@@ -926,27 +940,6 @@ export function SearchForm({
         <div className="board-head">
           <div className="board-title-controls">
             <h2 id="dimension-board-title">{t("search.boardTitle")}</h2>
-            {body === "custom" && (
-              <select
-                id="research-preset-select"
-                className="research-preset-select"
-                aria-label={t("research.label")}
-                value={selectedResearchPreset?.id ?? "manual"}
-                title={missingResearchFeatures.length > 0
-                  ? t("research.unavailable", {
-                    features: fmt.list(missingResearchFeatures.map((id) => label.feature(id))),
-                  })
-                  : t("research.disclaimer")}
-                onChange={(event) => applyResearchPreset(event.target.value)}
-              >
-                <option value="manual">{t("research.manual")}</option>
-                {RESEARCH_PRESETS.map((item) => (
-                  <option key={item.id} value={item.id} disabled={missingResearchFeatures.length > 0}>
-                    {t(item.titleKey)}
-                  </option>
-                ))}
-              </select>
-            )}
           </div>
           <div className="board-actions">
             <label className="limit-control">
@@ -1135,5 +1128,131 @@ export function SearchForm({
         </p>
       </section>
     </form>
+  );
+}
+
+/**
+ * "How to compare": one button shows the current research scenario; it opens a grouped list.
+ */
+function ResearchScenarioPicker({
+  selectedId,
+  missing,
+  features,
+  onChange,
+}: {
+  selectedId: string;
+  missing: readonly string[];
+  features: FeatureOut[];
+  onChange: (id: string) => void;
+}) {
+  const { t, fmt, label } = useI18n();
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const unavailable = missing.length > 0;
+  const selected = RESEARCH_PRESETS.find((item) => item.id === selectedId);
+  const featureLabels = useMemo(
+    () => new Map(features.map((f) => [f.id, f.label])),
+    [features],
+  );
+  const emphasis = useMemo(
+    () => selected
+      ? RESEARCH_FEATURE_IDS.map((id, index) => ({ id, index, r: selected.importance[id] }))
+          .sort((a, b) => b.r - a.r || a.index - b.index)
+          .slice(0, 3)
+          .map((entry) => label.feature(entry.id, featureLabels.get(entry.id)))
+      : [],
+    [selected, featureLabels, label],
+  );
+  const groups = [...new Set(RESEARCH_PRESETS.map((item) => item.groupKey))];
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+    const onPointer = (event: PointerEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  function choose(id: string) {
+    onChange(id);
+    setOpen(false);
+  }
+
+  function option(id: string, title: string) {
+    return (
+      <label key={id} className={`scenario-option${id === selectedId ? " is-selected" : ""}`}>
+        <input
+          type="radio"
+          name="research-scenario"
+          value={id}
+          checked={id === selectedId}
+          disabled={id !== "manual" && unavailable}
+          onChange={() => choose(id)}
+        />
+        <span className="scenario-option-title">{title}</span>
+      </label>
+    );
+  }
+
+  return (
+    <div className="target-row research-row" ref={rootRef}>
+      <span className="row-label" id="research-row-label">
+        {t("research.scenarioLabel")}
+      </span>
+      <div className="scenario-picker">
+        <button
+          type="button"
+          className="scenario-trigger"
+          aria-haspopup="true"
+          aria-expanded={open}
+          aria-labelledby="research-row-label research-trigger-value"
+          data-scenario={selectedId}
+          title={
+            unavailable
+              ? t("research.unavailable", { features: fmt.list(missing.map((id) => label.feature(id))) })
+              : t("research.disclaimer")
+          }
+          onClick={() => setOpen((value) => !value)}
+        >
+          <span id="research-trigger-value">{selected ? t(selected.titleKey) : t("research.manual")}</span>
+          <span className="scenario-chevron" aria-hidden="true" />
+        </button>
+        {open && (
+          <fieldset className="scenario-menu">
+            <legend className="sr-only">{t("research.scenarioLabel")}</legend>
+            {groups.map((groupKey) => (
+              <div key={groupKey} className="scenario-group">
+                <p className="scenario-group-title">{t(groupKey)}</p>
+                {RESEARCH_PRESETS.filter((item) => item.groupKey === groupKey).map((item) =>
+                  option(item.id, t(item.titleKey)),
+                )}
+              </div>
+            ))}
+            <div className="scenario-group is-manual">
+              {option("manual", t("research.manualLong"))}
+            </div>
+          </fieldset>
+        )}
+      </div>
+      {selected && emphasis.length > 0 && (
+        <p className="research-emphasis">
+          {t("research.emphasis", { features: fmt.list(emphasis) })}{" "}
+        </p>
+      )}
+    </div>
   );
 }

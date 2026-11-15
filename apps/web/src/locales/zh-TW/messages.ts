@@ -69,6 +69,13 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "map.drawStart": "框選區域",
   "map.drawStop": "取消框選",
   "map.drawHint": "在地圖上拖曳框出要分析的範圍；邊長與面積會依下方限制檢查。",
+  "research.scenarioLabel": "研究情境",
+  "research.emphasis": "這組權重最重視{features}。",
+  "research.basedOn": "依據：{source}",
+  "search.targetRowLabel": "比對目標",
+  "research.groupMobility": "移動與登陸",
+  "research.groupScience": "科學調查",
+  "research.manualLong": "手動設定（自己調權重）",
   "app.coverageEyebrow": "可搜尋的覆蓋範圍",
   "app.coverageHeading_other": "{count} 個可搜尋的地球區域",
   "app.coverageOrigins":
