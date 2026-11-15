@@ -404,8 +404,9 @@ export function SearchForm({
         typedCoverage,
         typedObservations,
         boardRegistry,
+        body === "custom" ? "Earth" : body,
       ),
-    [scoreFeatures, boardRegistry, typedCoverage, typedObservations],
+    [scoreFeatures, boardRegistry, typedCoverage, typedObservations, body],
   );
   /** D02–D05 filter-only controls from the live registry (never similarity targets). */
   const filterControls = useMemo(
@@ -476,33 +477,18 @@ export function SearchForm({
   function buildCategoryFilters(
     currentFilterControls: DimensionFilterControl[],
     currentCategories: Record<string, string>,
-  ): Record<string, { values: string[] }> {
-    const categoryFilters: Record<string, { values: string[] }> = {};
+  ): Record<string, string[]> {
+    const categoryFilters: Record<string, string[]> = {};
     for (const control of currentFilterControls) {
       if (control.kind !== "category" || control.disabledReason || !control.categoryField) {
         continue;
       }
       const value = currentCategories[control.id];
       if (value) {
-        categoryFilters[control.categoryField] = { values: [value] };
+        categoryFilters[control.categoryField] = [value];
       }
     }
     return categoryFilters;
-  }
-
-  /**
-   * The committed client type only knows numeric range filters. A backend that registers a
-   * category filter field also extends the request schema; until then `categoryFilters` is empty
-   * and this merge is a no-op.
-   */
-  function mergeCategoryFilters(
-    filters: Record<string, RangeFilterIn>,
-    categoryFilters: Record<string, { values: string[] }>,
-  ): Record<string, RangeFilterIn> {
-    if (Object.keys(categoryFilters).length === 0) {
-      return filters;
-    }
-    return { ...filters, ...categoryFilters } as unknown as Record<string, RangeFilterIn>;
   }
 
   useEffect(() => {
@@ -709,10 +695,7 @@ export function SearchForm({
     }
 
     const categoryFilterPayload = buildCategoryFilters(filterControls, categoryFilters);
-    const filters = mergeCategoryFilters(
-      buildFilters(features, contextFeatures, ranges, filterControls),
-      categoryFilterPayload,
-    );
+    const filters = buildFilters(features, contextFeatures, ranges, filterControls);
 
     const request: SearchRequest = {
       body,
@@ -747,10 +730,8 @@ export function SearchForm({
           candidate_body: "Earth",
           reference_id: null,
           targets: target,
-          filters: mergeCategoryFilters(
-            { ...buildFilters(features, [], ranges, filterControls), ...queryFilters },
-            categoryFilterPayload,
-          ),
+          filters: { ...buildFilters(features, [], ranges, filterControls), ...queryFilters },
+          category_filters: categoryFilterPayload,
           dimension_weights: {},
           limit: parsedLimit,
           offset: 0,
@@ -1027,6 +1008,8 @@ export function SearchForm({
         return t("search.filterNoDomain");
       case "category_values_not_registered":
         return t("search.filterCategoryNoValues");
+      case "category_earth_only":
+        return t("search.filterCategoryEarthOnly");
       default:
         return t("search.filterCategoryNotRegistered");
     }
