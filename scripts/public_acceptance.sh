@@ -65,6 +65,50 @@ say "planetary map catalog + overlays"
 "${CURL[@]}" "$API_BASE/api/v1/planetary/map-features?body=Moon&bbox=120,-90,-150,-85&limit=200" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["bbox"]["crosses_antimeridian"] is True; assert d["total"]>=20, d["total"]; print("ok Moon antimeridian total=", d["total"])'
 "${CURL[@]}" "$API_BASE/api/v1/planetary/coordinate-contract" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["contract_version"]=="planetary-coordinates-1.0.0"; assert {b["body"] for b in d["bodies"]}=={"Moon","Mars"}; print("ok coordinate contract")'
 
+say "phase-2 arbitrary-location coverage contract"
+for spec in   "Earth:lat=-23.5&lon=-68.4"   "Moon:lat=-89.43892646&lon=-137.09597807"   "Mars:lat=18.220253246764436&lon=77.37095200216012"; do
+  body="${spec%%:*}"
+  query="${spec#*:}"
+  "${CURL[@]}" "$API_BASE/api/v1/coverage/location?body=$body&$query" | python3 -c '
+import json,sys
+d=json.load(sys.stdin)
+assert d["contract_version"]=="location-coverage-status-1.0.0"
+assert d["actual_indexed_coverage"]["global_coverage_claimed"] is False
+assert set(d["dimensions"])=={"D01","D02","D03","D04","D05","D06"}
+assert any(len(v.get("declared_sources") or []) for v in d["dimensions"].values())
+print("ok", d["query"]["body"], "dimensions=6 declared_sources=", sum(len(v.get("declared_sources") or []) for v in d["dimensions"].values()))
+'
+done
+
+say "phase-2 dimension x feature weighting"
+"${CURL[@]}" "$API_BASE/api/v1/search/multidimensional" -H 'content-type: application/json' -d '{"targets":{"slope_mean_deg":{"value":10,"weight":1},"soil_clay_0_5cm_mean":{"value":200,"weight":1},"soil_sand_0_5cm_mean":{"value":300,"weight":1}},"dimension_weights":{"D01":{"weight":1,"enabled":true},"D06":{"weight":1,"enabled":true}},"scoring_version":"dimension-weighted-rms-v1","limit":3}' | python3 -c '
+import json,math,sys
+d=json.load(sys.stdin)
+assert d["scoring"]["version"]=="dimension-weighted-rms-v1", d["scoring"]
+assert d["scoring"]["active_dimensions"]==["D01","D06"]
+r=d["results"][0]
+c={x["feature_id"]:x for x in r["contributions"]}
+q1=((c["slope_mean_deg"]["candidate"]-10)/10)**2
+q6=(((c["soil_clay_0_5cm_mean"]["candidate"]-200)/200)**2+((c["soil_sand_0_5cm_mean"]["candidate"]-300)/200)**2)/2
+expected=math.sqrt((q1+q6)/2)
+assert abs(r["distance"]-expected)<1e-12, (r["distance"],expected)
+assert r["dimension_contributions"]["D01"]["feature_count"]==1
+assert r["dimension_contributions"]["D06"]["feature_count"]==2
+print("ok dimension-weighted distance recomputed=", round(expected,12), "top=", r["location_id"])
+'
+"${CURL[@]}" "$API_BASE/api/v1/search/multidimensional" -H 'content-type: application/json' -d '{"targets":{"slope_mean_deg":{"value":10,"weight":1},"soil_clay_5_15cm_mean":{"value":200,"weight":1}},"dimension_weights":{"D06":{"weight":0,"enabled":false}},"limit":3}' | python3 -c '
+import json,sys
+d=json.load(sys.stdin)
+assert d["scoring"]["dimension_controls"]["D06"]["active"] is False
+assert d["eligible_candidate_count"]>=100, d["eligible_candidate_count"]
+assert d["excluded_candidate_count"]==0
+assert all("soil_clay_5_15cm_mean" not in r["valid_features"] for r in d["results"])
+print("ok disabled D06 does not exclude; eligible=", d["eligible_candidate_count"])
+'
+
+say "legacy search compatibility"
+"${CURL[@]}" "$API_BASE/api/v1/search" -H 'content-type: application/json' -d '{"body":"custom","target":{"slope_mean_deg":{"value":10,"weight":1}},"limit":2}' | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["query_version"]=="search-1.1.0"; assert d["results"]; print("ok legacy results=", len(d["results"]))'
+
 say "web + CORS"
 "${CURL[@]}" -o /dev/null -w 'web=%{http_code}\n' "$WEB_BASE/"
 curl -sS -i --max-time 30 --retry 3 --retry-all-errors --resolve api.xn--2vxr09c.xn--kpry57d:443:104.21.85.194 -X OPTIONS "$API_BASE/api/v1/health" -H "Origin: https://xn--2vxr09c.xn--kpry57d" -H 'Access-Control-Request-Method: GET' | grep -qi 'access-control-allow-origin: https://xn--2vxr09c.xn--kpry57d' && echo 'cors=ok'

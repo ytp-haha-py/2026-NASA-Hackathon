@@ -648,6 +648,13 @@ def reconcile(
                 kind="goal_blocked",
                 message=f"#{item.issue} native Goal is {goal_status}: {goal_reason}",
             )
+        if goal_status == GOAL_PAUSED:
+            store.alert(
+                dedupe_key=f"goal-paused:{item.issue}:{fields['goal_id']}",
+                issue=item.issue,
+                kind="goal_paused",
+                message=f"#{item.issue} native Goal is paused: {goal_reason}",
+            )
         if (
             item.session_id
             and goal_status == GOAL_UNKNOWN
