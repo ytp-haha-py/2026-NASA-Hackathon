@@ -963,6 +963,129 @@ class D01Analyzer(Protocol):
     ) -> D01Analysis: ...
 
 
+class CommittedCoarseD01Engine:
+    """Concrete D01 engine backed by committed coarse planetary analysis.
+
+    Integrates with Goal D via both the runtime AOI processor contract
+    (``validate``/``analyze(ValidatedAoi) -> AoiResult`` used by
+    ``JobRunner``/``create_app(planetary_processor=...)`` and the additive engine
+    routes) and the domain ``D01Analyzer`` protocol. D01 terrain features are
+    computed from real committed/eligible coarse data selected by intersecting the
+    full requested bbox (tiling/union over available cells); no raster-calculation
+    kernels are modified here and no values are fabricated or zero-filled. Requests
+    outside available committed coverage remain explicit coverage failures/partials.
+    """
+
+    analyzer_id = "committed_coarse_d01_engine"
+
+    def __init__(self, *, root: str | None = None, allow_network: bool = False) -> None:
+        self.root = root
+        self.allow_network = allow_network
+        self._provider: Any | None = None
+
+    def _get_provider(self) -> Any:
+        if self._provider is None:
+            from analog_api.adapters.planetary_aoi import PlanetaryAoiProvider
+
+            self._provider = PlanetaryAoiProvider(root=self.root, allow_network=self.allow_network)
+        return self._provider
+
+    # --- runtime AOI processor contract (validate/analyze) ---
+
+    def validate(
+        self,
+        *,
+        body: str,
+        bbox: Mapping[str, float],
+        requested_features: Sequence[str] | None,
+        idempotency_key: str | None,
+    ) -> Any:
+        return self._get_provider().validate(
+            body=body,
+            bbox=dict(bbox),
+            requested_features=list(requested_features) if requested_features is not None else None,
+            idempotency_key=idempotency_key,
+        )
+
+    def analyze(
+        self,
+        request: Any = None,
+        *,
+        body: str | None = None,
+        requested_bbox: Mapping[str, float] | None = None,
+        requested_features: Sequence[str] | None = None,
+    ) -> Any:
+        """Dispatch: processor ``analyze(ValidatedAoi)`` or D01Analyzer protocol call."""
+        if request is not None and body is None and requested_bbox is None:
+            return self._get_provider().analyze(request)
+        if body is None or requested_bbox is None:
+            raise TypeError(
+                "analyze expects a ValidatedAoi request or body/requested_bbox keywords"
+            )
+        validated = self.validate(
+            body=body,
+            bbox=requested_bbox,
+            requested_features=requested_features,
+            idempotency_key=None,
+        )
+        result = self._get_provider().analyze(validated)
+        analysis_bbox = None
+        if getattr(result, "bbox", None) is not None and hasattr(result.bbox, "as_dict"):
+            analysis_bbox = result.bbox.as_dict()
+        provider_status = dict(getattr(result, "provider_status", {}) or {})
+        source_payloads = []
+        for ds in getattr(result, "datasets", ()) or ():
+            if hasattr(ds, "model_dump"):
+                source_payloads.append(ds.model_dump(mode="json"))
+            elif hasattr(ds, "as_dict"):
+                source_payloads.append(ds.as_dict())
+            else:
+                try:
+                    from dataclasses import asdict, is_dataclass
+
+                    if is_dataclass(ds):
+                        source_payloads.append(asdict(ds))
+                        continue
+                except Exception:
+                    pass
+                if isinstance(ds, Mapping):
+                    source_payloads.append(dict(ds))
+                else:
+                    source_payloads.append({"value": str(ds)})
+        sources = tuple(source_payloads)
+        d01_support = (getattr(result, "dimension_support", {}) or {}).get("D01") or {}
+        pixel_counts = {}
+        pa = d01_support.get("pixel_accounting") if isinstance(d01_support, Mapping) else None
+        if isinstance(pa, Mapping):
+            pixel_counts = {
+                "total": pa.get("total_pixels"),
+                "valid": pa.get("valid_pixels"),
+                "invalid_or_missing": pa.get("invalid_or_missing_pixels"),
+            }
+        analyzed_whole_bbox = False
+        req = {k: float(requested_bbox[k]) for k in ("west", "south", "east", "north")}
+        if isinstance(analysis_bbox, Mapping):
+            analyzed_whole_bbox = _bboxes_equal(req, _as_float_bbox(analysis_bbox))
+        return D01Analysis(
+            features=dict(getattr(result, "features", {}) or {}),
+            analysis_bbox=_as_float_bbox(analysis_bbox) or req,
+            area_km2=float(getattr(result, "area_km2", 0.0) or 0.0),
+            method_version=getattr(result, "method_version", None),
+            provider_status=provider_status,
+            sources=sources,
+            warnings=tuple(getattr(result, "warnings", ()) or ()),
+            valid_fraction=getattr(result, "valid_fraction", None),
+            pixel_counts=pixel_counts,
+            analyzed_whole_bbox=analyzed_whole_bbox,
+            analyzer_id=self.analyzer_id,
+        )
+
+    # --- D01Analyzer protocol helpers ---
+
+    def supports(self, *, body: str, requested_bbox: Mapping[str, float]) -> bool:
+        return body in {"Moon", "Mars"}
+
+
 __all__ = [
     "AOI_ENGINE_GEOMETRY_VERSION",
     "BODY_DEFAULT_LIMITS",
@@ -979,6 +1102,7 @@ __all__ = [
     "AoiGeometry",
     "AoiLimits",
     "BodyGeometry",
+    "CommittedCoarseD01Engine",
     "EngineFootprint",
     "MetricEnvelope",
     "D01Analysis",

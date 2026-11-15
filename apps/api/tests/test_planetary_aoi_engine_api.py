@@ -26,6 +26,7 @@ from analog_api.config import Settings
 from analog_api.domain.aoi import AoiResult, ValidatedAoi
 from analog_api.domain.entities import BBox, DatasetEntity
 from analog_api.domain.errors import AppError
+from analog_api.domain.planetary_aoi_engine import CommittedCoarseD01Engine
 from analog_api.domain.planetary_aoi_limits import (
     EARTH_PROVIDER_LIMITS,
     PLANETARY_PROVIDER_LIMITS,
@@ -646,6 +647,22 @@ MOON_UNION_BBOX = {
     "north": -9.835068981384325,
 }
 
+# Representative arbitrary bboxes that are fully covered by committed/eligible
+# coarse cells (analysis selects all intersecting cells; requested==analysis union).
+MOON_COMMITTED_UNION_BBOX = {
+    "west": 19.832481429354193,
+    "south": -10.16488943108404,
+    "east": 20.167518570645804,
+    "north": -9.835068981384325,
+}
+
+MARS_UNION_BBOX = {
+    "west": 78.08240903206506,
+    "south": 18.473312319636165,
+    "east": 78.26027328954129,
+    "north": 18.642018368217318,
+}
+
 
 def test_whole_requested_bbox_tiled_over_committed_cells_reports_full_aoi(client: TestClient):
     """Whole requested bbox is analyzed by tiling over all intersecting committed cells.
@@ -817,3 +834,110 @@ def test_polar_band_is_analyzed_as_full_latitude_band(full_aoi_client: TestClien
     assert support["shrink_applied"] is False
     assert len(support["bbox_pieces"]) == 1
     assert support["pixel_accounting"]["cell_count"] == 1
+
+
+def _assert_full_covered_real_d01(
+    payload: dict[str, Any],
+    bbox: dict[str, float],
+    *,
+    expected_cells: int,
+    expected_total_pixels: int,
+) -> None:
+    _assert_engine_contract(payload)
+    assert payload["status"] == "completed", payload
+    assert payload["full_aoi"] is True
+    assert payload["analysis_scope"] == "full_requested_aoi"
+    _assert_bbox_close(payload["requested_bbox"], bbox)
+    _assert_bbox_close(payload["analysis_bbox"], bbox)
+    assert payload["support"]["full_aoi"] is True
+    d01 = payload["dimensions"]["D01"]
+    assert d01["status"] == "available"
+    assert d01["value_origin"] == "observed_derived"
+    assert {feature["feature_id"] for feature in d01["features"]} == {
+        "coarse_slope_mean_deg",
+        "coarse_slope_p90_deg",
+        "coarse_flat_fraction_lt5deg",
+    }
+    assert all(isinstance(feature["value"], (int, float)) for feature in d01["features"])
+    assert d01["provenance"]["dataset_ids"], d01["provenance"]
+    accounting = d01["support"].get("pixel_accounting") or payload["coverage"].get(
+        "pixel_accounting"
+    )
+    assert accounting is not None, payload["coverage"]
+    assert accounting["cell_count"] == expected_cells
+    assert accounting["valid_fraction"] == 1.0
+    assert accounting["total_pixels"] == expected_total_pixels
+    assert accounting["valid_pixels"] == expected_total_pixels
+    assert accounting["invalid_or_missing_pixels"] == 0
+    assert accounting["resolution_m"] == 250.0
+    for code in ("D02", "D03", "D04", "D05", "D06"):
+        assert payload["dimensions"][code]["status"] in EXPLICIT_UNAVAILABLE
+        assert payload["dimensions"][code]["features"] == []
+
+
+def test_concrete_committed_coarse_d01_engine_analyzes_arbitrary_full_bboxes(
+    tmp_path: Path,
+):
+    """Concrete D01 engine (validate/analyze + D01Analyzer contract) analyzes full
+    representative arbitrary bboxes where committed data is available, with real D01
+    features and explicit pixel accounting (no center-window, no silent shrink)."""
+    engine = CommittedCoarseD01Engine()
+    assert engine.analyzer_id == "committed_coarse_d01_engine"
+    assert engine.supports(body="Moon", requested_bbox=MOON_COMMITTED_UNION_BBOX) is True
+    assert engine.supports(body="Mars", requested_bbox=MARS_UNION_BBOX) is True
+
+    with _make_client(tmp_path / "concrete-engine", planetary_processor=engine) as client:
+        moon = client.post(
+            ENGINE_CREATE_PATH,
+            json={
+                "body": "Moon",
+                "bbox": MOON_COMMITTED_UNION_BBOX,
+                "idempotency_key": "concrete-moon-union",
+            },
+        )
+        assert moon.status_code == 200, moon.text
+        moon_payload = moon.json()
+        _assert_full_covered_real_d01(
+            moon_payload, MOON_COMMITTED_UNION_BBOX, expected_cells=4, expected_total_pixels=1600
+        )
+        moon_result = client.get(f"/api/v1/planetary/aoi/{moon_payload['job_id']}/result")
+        assert moon_result.status_code == 200, moon_result.text
+        _assert_full_covered_real_d01(
+            moon_result.json(),
+            MOON_COMMITTED_UNION_BBOX,
+            expected_cells=4,
+            expected_total_pixels=1600,
+        )
+
+        mars = client.post(
+            ENGINE_CREATE_PATH,
+            json={
+                "body": "Mars",
+                "bbox": MARS_UNION_BBOX,
+                "idempotency_key": "concrete-mars-union",
+            },
+        )
+        assert mars.status_code == 200, mars.text
+        mars_payload = mars.json()
+        _assert_full_covered_real_d01(
+            mars_payload, MARS_UNION_BBOX, expected_cells=4, expected_total_pixels=1600
+        )
+        assert mars_payload["coordinate_frame"] == "mars_planetocentric"
+
+    # D01Analyzer protocol form: returns D01Analysis for real committed full-bbox analysis.
+    d01 = engine.analyze(body="Moon", requested_bbox=MOON_COMMITTED_UNION_BBOX)
+    from analog_api.domain.planetary_aoi_engine import D01Analysis
+
+    assert isinstance(d01, D01Analysis)
+    assert d01.analyzer_id == "committed_coarse_d01_engine"
+    assert d01.analyzed_whole_bbox is True
+    assert set(d01.features) == {
+        "coarse_slope_mean_deg",
+        "coarse_slope_p90_deg",
+        "coarse_flat_fraction_lt5deg",
+    }
+    assert d01.valid_fraction == 1.0
+    assert d01.pixel_counts.get("total") == 1600
+    assert d01.pixel_counts.get("valid") == 1600
+    assert d01.pixel_counts.get("invalid_or_missing") == 0
+    _assert_bbox_close(d01.analysis_bbox, MOON_COMMITTED_UNION_BBOX)
