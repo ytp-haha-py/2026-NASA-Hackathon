@@ -56,7 +56,10 @@ def test_d01_coverage_matrix_matches_committed_manifest_counts():
     matrix = _load("docs/data-sources/d01-coverage-matrix.json")
     earth = _load("pipelines/earth/manifests/copernicus_glo90_earth.json")
     moon = _load("pipelines/planetary/manifests/lola_site01_references.json")
-    moon_manifest_paths = sorted(str(p.relative_to(ROOT)) for p in (ROOT / "pipelines/planetary/manifests").glob("lola*.json"))
+    moon_manifest_paths = sorted(
+        str(p.relative_to(ROOT))
+        for p in (ROOT / "pipelines/planetary/manifests").glob("lola*.json")
+    )
     moon_all = sum(len(_load(p)["references"]) for p in moon_manifest_paths)
     mars = _load("pipelines/planetary/manifests/ctx_mars_references.json")
     coarse = _load("docs/global-terrain-results/coverage.json")
@@ -64,15 +67,25 @@ def test_d01_coverage_matrix_matches_committed_manifest_counts():
     entries = {(e["body"], e["feature_id"], e.get("source_id")): e for e in matrix["entries"]}
     fine = matrix["canonical_fine_features"]
     for fid in fine:
-        assert entries[("Earth", fid, "copernicus-dem-glo90")]["actual_indexed_queryable_coverage"]["indexed_windows"] == len(
-            earth["candidates"]
+        assert entries[("Earth", fid, "copernicus-dem-glo90")]["actual_indexed_queryable_coverage"][
+            "indexed_windows"
+        ] == len(earth["candidates"])
+        assert (
+            entries[("Moon", fid, "nasa-lola-south-pole-sites-5m")][
+                "actual_indexed_queryable_coverage"
+            ]["indexed_windows"]
+            == moon_all
         )
-        assert entries[("Moon", fid, "nasa-lola-south-pole-sites-5m")]["actual_indexed_queryable_coverage"]["indexed_windows"] == moon_all
-        assert entries[("Mars", fid, "usgs-m20-jezero-ctx-dem-20m")]["actual_indexed_queryable_coverage"]["indexed_windows"] == len(
-            mars["references"]
-        )
+        assert entries[("Mars", fid, "usgs-m20-jezero-ctx-dem-20m")][
+            "actual_indexed_queryable_coverage"
+        ]["indexed_windows"] == len(mars["references"])
     for fid in ["coarse_slope_mean_deg", "coarse_slope_p90_deg", "coarse_flat_fraction_lt5deg"]:
-        assert entries[("Earth", fid, "geomorpho250-slope")]["actual_indexed_queryable_coverage"]["indexed_cells"] == coarse["counts"]["cells"]
+        assert (
+            entries[("Earth", fid, "geomorpho250-slope")]["actual_indexed_queryable_coverage"][
+                "indexed_cells"
+            ]
+            == coarse["counts"]["cells"]
+        )
 
     # Representative query manifests contain the five fine features.
     for ref in mars["references"][:1] + moon["references"][:1]:
