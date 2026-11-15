@@ -1,0 +1,185 @@
+{
+  "schema_version": "spectral-detection-windows-1.0.0",
+  "purpose": "Bounded read evidence for the D02 CRISM spectral-detection pilot. Raw window bytes were never written to Git.",
+  "access": {
+    "method": "HTTPS byte-range GET on the official PDS Geosciences Node product",
+    "anonymous": true,
+    "credentials_used": false,
+    "observed_at_utc": "2026-11-15T06:46:00Z",
+    "range_support": "accept-ranges: bytes on every requested asset",
+    "full_cube_downloaded": false,
+    "bytes_downloaded_estimate": 12000000,
+    "note": "Only metadata, the 60-band refined summary window, the 9-band DP window and the band subsets needed by the two documented parameters were read."
+  },
+  "product": {
+    "product_id": "hrl000040ff_07_if183j_mtr3",
+    "collection_id": "MRO-M-CRISM-5-RDR-MPTARGETED-V1.0 (volume mrocr_4001)",
+    "label_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_if183j_mtr3.lbl",
+    "summary_header_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_sr183j_mtr3.hdr",
+    "information_header_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_in183j_mtr3.hdr",
+    "wavelength_table_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_wv183j_mtr3.tab",
+    "assets": [
+      {
+        "role": "spectral_cube",
+        "name": "hrl000040ff_07_if183j_mtr3.img",
+        "bytes": 668374980,
+        "geometry": "455 samples x 751 lines x 489 bands, BSQ float32",
+        "downloaded_in_full": false
+      },
+      {
+        "role": "refined_spectral_summary",
+        "name": "hrl000040ff_07_sr183j_mtr3.img",
+        "bytes": 82009200,
+        "geometry": "455 x 751 x 60, BSQ float32",
+        "downloaded_in_full": false
+      },
+      {
+        "role": "dp_information_maps",
+        "name": "hrl000040ff_07_in183j_mtr3.img",
+        "bytes": 12301380,
+        "geometry": "455 x 751 x 9, BSQ float32",
+        "downloaded_in_full": false
+      },
+      {
+        "role": "spectral_cube_header",
+        "name": "hrl000040ff_07_if183j_mtr3.hdr",
+        "bytes": 14842,
+        "sha256": "120c55955551d38ad5cf80bd4739aeffd7c0c999af3a81f01695546db341e230"
+      },
+      {
+        "role": "spectral_cube_label",
+        "name": "hrl000040ff_07_if183j_mtr3.lbl",
+        "bytes": 6179,
+        "sha256": "c0ac14dbdb17bd994d21099b42d9cb62cefde6a2238b6b5fdc79848f4a2f9e4e"
+      },
+      {
+        "role": "wavelength_table",
+        "name": "hrl000040ff_07_wv183j_mtr3.tab",
+        "bytes": 14670,
+        "sha256": "bc54157f4c376e5f4cb4242e091978b9efd2bb2b8a72a71fb39a1c8b61f146b3"
+      },
+      {
+        "role": "summary_header",
+        "name": "hrl000040ff_07_sr183j_mtr3.hdr",
+        "bytes": 1802,
+        "sha256": "089a0bd2443612399a0a8ebb98f6107154d6335f48b341ce30408874486ee2f4"
+      },
+      {
+        "role": "information_header",
+        "name": "hrl000040ff_07_in183j_mtr3.hdr",
+        "bytes": 1479,
+        "sha256": "fc43ecdf63a2c4430dac1521305f4afb84e39850518197006793bc8f2ae0618e"
+      }
+    ]
+  },
+  "band_semantics": {
+    "bands": 489,
+    "wavelength_units": "nanometers",
+    "first_nm": 436.13,
+    "last_nm": 3896.76,
+    "detector_gaps_nm": [[631.44, 709.68], [1010.18, 1047.2], [2654.95, 2800.35]],
+    "wavelength_table_rows": 489,
+    "wavelength_table_columns": ["detector(1=VNIR,0=IR)", "detector_channel", "wavelength_nm", "fwhm_nm", "bbl"],
+    "header_table_agreement": "489 header wavelengths; every header wavelength appears in the TAB and the header preserves ascending order except at the three documented gaps",
+    "bbl_all_ones": true
+  },
+  "geolocation": {
+    "map_projection": "MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]",
+    "sphere_radius_m": 3394839.813316312,
+    "standard_parallel_deg": 15.0,
+    "center_longitude_deg": 0.0,
+    "pixel_size_m": 36.0,
+    "ulp_pixel_center_map_m": [4422632.2, 1109935.5],
+    "label_bounds": {
+      "min_latitude": 18.27674,
+      "max_latitude": 18.732427,
+      "west_longitude": 77.27556,
+      "east_longitude": 77.561134
+    },
+    "corner_check": {
+      "recomputed_west_longitude_deg": 77.27556,
+      "recomputed_east_longitude_deg": 77.56113,
+      "recomputed_south_latitude_deg": 18.27674,
+      "recomputed_north_latitude_deg": 18.73243,
+      "max_edge_offset_m": 18.0,
+      "note": "Recomputed values reproduce the label's corner coordinates to the printed precision; the 18 m residual is half a 36 m pixel between edge and pixel-centre conventions."
+    },
+    "aoi_windows": {
+      "mars-test-jezero-floor": {"columns": [198, 262], "rows": [448, 515], "pixel_count": 4288},
+      "mars-test-jezero-western-delta": {"columns": [118, 167], "rows": [383, 433], "pixel_count": 2450}
+    },
+    "dp_mask_band": {
+      "index_1_based": 9,
+      "name": "VNIR/IR Mask",
+      "observed_values_in_read_windows": [0.0],
+      "interpretation": "0 observed; the MTRDR SIS bit definition was not validated here, so the mask is not used as a quality filter."
+    }
+  },
+  "reproduction_attempt": {
+    "method": "Viviano-Beck et al. (2014) Table 2, parameters 38 (D2300) and 14 (OLINDEX3), median kernels of 3/5/7 bands",
+    "reference_product": "hrl000040ff_07_sr183j_mtr3.img bands 41 (D2300) and 14 (OLINDEX3)",
+    "acceptance_tolerance_abs": 0.001,
+    "subwindows": {
+      "mars-test-jezero-floor": {
+        "rows": [474, 490],
+        "columns": [222, 238],
+        "pixels": 256,
+        "computed_d2300": {"median": 0.00826, "min": 0.00082, "max": 0.01692},
+        "official_d2300": {"median": -0.00088, "min": -0.00557, "max": 0.00347},
+        "d2300_pearson_r": -0.7122,
+        "d2300_rmse": 0.01049,
+        "computed_olindex3": {"median": 0.17211, "min": 0.10384, "max": 0.2127},
+        "official_olindex3": {"median": 0.14707, "min": 0.1033, "max": 0.19797},
+        "olindex3_pearson_r": 0.83,
+        "olindex3_rmse": 0.02365
+      },
+      "mars-test-jezero-western-delta": {
+        "rows": [399, 415],
+        "columns": [135, 151],
+        "pixels": 256,
+        "computed_d2300": {"median": 0.0124, "min": -0.00436, "max": 0.02365},
+        "official_d2300": {"median": -0.0018, "min": -0.00853, "max": 0.00399},
+        "d2300_pearson_r": 0.1147,
+        "d2300_rmse": 0.01465,
+        "computed_olindex3": {"median": 0.11395, "min": 0.09395, "max": 0.1343},
+        "official_olindex3": {"median": 0.12517, "min": 0.07592, "max": 0.16336},
+        "olindex3_pearson_r": 0.4757,
+        "olindex3_rmse": 0.01544
+      }
+    },
+    "verdict": "failed_reproduction_tolerance",
+    "decoder_validated": false,
+    "interpretation": "Agreement is far outside 0.001 and D2300 correlation is not consistently positive. The cause is not resolved: candidate causes are the exact band-to-wavelength kernel mapping (the TAB lists detector channel order, not band order), the source cube used for the SR product (IF versus Lambert albedo), and the CRISM destriping/flattening step applied before summary products. No detected/not-detected state can be emitted."
+  },
+  "official_context_only": {
+    "note": "Values read from the official refined-summary product inside the two read sub-windows. They are context, not a detection by this repository.",
+    "mars-test-jezero-floor": {"d2300_median": -0.00088, "olindex3_median": 0.14707},
+    "mars-test-jezero-western-delta": {"d2300_median": -0.0018, "olindex3_median": 0.12517}
+  },
+  "blockers": [
+    {
+      "blocker_id": "crism_band_kernel_mapping",
+      "summary": "Exact band-index kernels for the summary parameters are unresolved",
+      "detail": "The header wavelength vector is ascending but the TAB is detector-order (VNIR ascending, IR descending). Nearest-wavelength kernels reproduced neither D2300 nor OLINDEX3 within tolerance.",
+      "resolution_required": "Map each Table 2 reference wavelength to the exact product band index used by the CRISM pipeline, then re-run the reproduction check."
+    },
+    {
+      "blocker_id": "crism_source_cube_and_flattening",
+      "summary": "The cube and preprocessing used for the shipped summary product are not confirmed",
+      "detail": "The label exposes IF and Lambert-albedo products plus a destriping/flattening step described in Viviano-Beck et al. (2014) section 4.4/5; this pilot applied neither.",
+      "resolution_required": "Confirm the input cube and implement the documented median/destriping step before comparing to the official summary bands."
+    },
+    {
+      "blocker_id": "crism_detection_thresholds",
+      "summary": "No validated mineral-identification thresholds",
+      "detail": "Explicit pilot thresholds (D2300 > 0.02, OLINDEX3 > 0.10) are recorded but are not applied because the decoder is unvalidated and published thresholds are scene-dependent.",
+      "resolution_required": "Validate a detector against labelled CRISM type spectra or published per-scene thresholds before emitting mineral states."
+    },
+    {
+      "blocker_id": "crism_dp_mask_definition",
+      "summary": "DP information-map bit definitions not validated",
+      "detail": "The VNIR/IR mask read as 0 in all sampled pixels, but no SIS bit table was verified, so it cannot yet serve as a quality filter.",
+      "resolution_required": "Pin the MTRDR SIS DP mask bit table and test it on a scene with known masked pixels."
+    }
+  ]
+}

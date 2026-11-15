@@ -1,0 +1,90 @@
+{
+  "blockers": [
+    {
+      "blocker_id": "crism_band_kernel_mapping",
+      "detail": "The header wavelength vector is ascending but the TAB is detector-order (VNIR ascending, IR descending). Nearest-wavelength kernels reproduced neither D2300 nor OLINDEX3 within tolerance.",
+      "resolution_required": "Map each Table 2 reference wavelength to the exact product band index used by the CRISM pipeline, then re-run the reproduction check.",
+      "summary": "Exact band-index kernels for the summary parameters are unresolved"
+    },
+    {
+      "blocker_id": "crism_source_cube_and_flattening",
+      "detail": "The label exposes IF and Lambert-albedo products plus a destriping/flattening step described in Viviano-Beck et al. (2014) section 4.4/5; this pilot applied neither.",
+      "resolution_required": "Confirm the input cube and implement the documented median/destriping step before comparing to the official summary bands.",
+      "summary": "The cube and preprocessing used for the shipped summary product are not confirmed"
+    },
+    {
+      "blocker_id": "crism_detection_thresholds",
+      "detail": "Explicit pilot thresholds (D2300 > 0.02, OLINDEX3 > 0.10) are recorded but are not applied because the decoder is unvalidated and published thresholds are scene-dependent.",
+      "resolution_required": "Validate a detector against labelled CRISM type spectra or published per-scene thresholds before emitting mineral states.",
+      "summary": "No validated mineral-identification thresholds"
+    },
+    {
+      "blocker_id": "crism_dp_mask_definition",
+      "detail": "The VNIR/IR mask read as 0 in all sampled pixels, but no SIS bit table was verified, so it cannot yet serve as a quality filter.",
+      "resolution_required": "Pin the MTRDR SIS DP mask bit table and test it on a scene with known masked pixels.",
+      "summary": "DP information-map bit definitions not validated"
+    }
+  ],
+  "counts": {
+    "abundance_values": 0,
+    "areas": 2,
+    "by_state": {
+      "detected": 0,
+      "no_coverage": 0,
+      "not_applicable": 0,
+      "not_detected_under_valid_observation": 0,
+      "unknown": 4
+    },
+    "bytes_read_estimate": 12000000,
+    "features": 2,
+    "granules_downloaded_in_full": 0,
+    "numeric_values": 0,
+    "observations": 4,
+    "products_inspected": 2,
+    "reproduction": {
+      "acceptance_tolerance_abs": 0.001,
+      "d2300_rmse_by_area": {
+        "mars-test-jezero-floor": 0.01049,
+        "mars-test-jezero-western-delta": 0.01465
+      },
+      "decoder_validated": false,
+      "olindex3_rmse_by_area": {
+        "mars-test-jezero-floor": 0.02365,
+        "mars-test-jezero-western-delta": 0.01544
+      },
+      "verdict": "failed_reproduction_tolerance"
+    },
+    "sources": 2
+  },
+  "decoder_validated": false,
+  "issue": 42,
+  "limitations": [
+    "Band depth and spectral indices are dimensionless; no abundance is produced.",
+    "Mafic/Fe-oxide indices can never be relabelled aqueous alteration.",
+    "Two 256-pixel sub-windows were read; valid_fraction over the full AOIs is not asserted.",
+    "The official refined-summary medians are context, not detections by this repository."
+  ],
+  "method_version": "spectral-detection-0.1.0",
+  "pilot_id": "d02-spectral-detection",
+  "product_id": "hrl000040ff_07_if183j_mtr3",
+  "provenance": {
+    "observations_sha256": "bbfd199ffdf02c108203558ce620128df47ae2d90e48aafbdf3f1916fedd272c",
+    "raw_data_in_git": false,
+    "sources_sha256": "902534a8800bd135f328bfce0f1c1a71181552ce9c21b2905ba534d1cd948ad0",
+    "windows_sha256": "e574261826ddfccb2e350666f33ad38a872f4895d861175504f968da18509fe3"
+  },
+  "schema_version": "spectral-detection-pilot-1.0.0",
+  "scope": "One bounded CRISM MTRDR targeted observation over the two existing Mars test AOIs; one M3 global-mode product inspected over headers only. Not a global or body-wide survey.",
+  "thresholds": {
+    "d2300_2p3um_dropoff": {
+      "applied": false,
+      "status": "explicit_pilot_unvalidated",
+      "value": 0.02
+    },
+    "olindex3_1um_olivine_index": {
+      "applied": false,
+      "status": "explicit_pilot_unvalidated",
+      "value": 0.1
+    }
+  }
+}
