@@ -22,7 +22,7 @@ Mars regolith remain `no_coverage`.
 | **D03 Thermal Environment** | Identified: MOD11A2 (not fetched) | Identified: Diviner (not fetched) | Planned: no product ID asserted |
 | **D04 Water & Ice** | Planned: no product selected | Planned: no product selected | Planned: no product selected |
 | **D05 Illumination & Radiation** | Context: NASA POWER (10 timeseries, model/reanalysis) | Model geometry: NAIF SPICE (4 sites, 8 observations) | Model geometry: NAIF SPICE (5 sites, 10 observations) |
-| **D06 Regolith & Surface Properties** | Model predictions: SoilGrids 2.0, 5 AOIs × 5 properties × 4 depths (300 evidence-only observations) | No coverage: no registered public sample/PDS measurement | No coverage: no registered public sample/PDS measurement |
+| **D06 Regolith & Surface Properties** | Model predictions: SoilGrids 2.0, 5 AOIs × 5 properties × 4 depths + 3 AOIs × 5 properties × 0–5 cm (345 observations; gated 0–5 cm means may score) | No coverage: no registered public sample/PDS measurement | No coverage: no registered public sample/PDS measurement |
 
 ## Status semantics
 
