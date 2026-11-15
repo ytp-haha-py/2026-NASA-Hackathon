@@ -112,14 +112,26 @@ Correlations of 0.74-0.93 on non-flat terrain show that the choice of estimator 
 cosmetic detail. The quadratic r2/r3 pair is more stable than central-vs-smoothed, but
 none of these comparisons establishes a calibrated ranking scale.
 
-## Geomorphon blocker
+## Geomorphon reference validation
 
-`which grass` returns nothing and no passwordless package install is available. Therefore
-no pinned GRASS `r.geomorphon` 10-class output was produced, and **no geomorphon class
-values or class fractions are claimed**. The experiment establishes only that the normal
-22 x 22 crop supports 0/484 core cells at search=12, while the 46 x 46 buffered crop
-supports 484/484. Reference agreement, flat/peak/ridge/valley analytic fixtures against
-GRASS, and class-composition uncertainty remain open.
+GRASS `r.geomorphon` is still unavailable without a passwordless install, but an
+independent reference implementation was used: **WhiteboxTools v2.4.0 `Geomorphons`**
+(Jasiewicz & Stepinski 2013 algorithm, search=12, flat threshold 1 degree, 10 classes).
+A synthetic 80 x 80 / 90 m DEM with a pit, peak, ridge, valley, slope and flat was
+classified on the full DEM, the normal 22 x 22 crop, and a 46 x 46 crop with the required
+12-cell halo. Evidence: `docs/terrain-geomorphon-reference.json`.
+
+| Input | Valid cells | Core cells compared | 10-class agreement | Ternary agreement |
+|---|---:|---:|---:|---:|
+| Normal 22 x 22 | 400 / 484 | 400 | 1.0000 | **0.9550** |
+| Buffered 46 x 46 | 1,936 / 2,116 | 484 | **1.0000** | **1.0000** |
+
+The buffered core reproduces the full-DEM reference exactly on all 484 core cells for both
+10-class forms and ternary codes. The normal crop loses 84 core cells and disagrees on
+18/400 ternary codes (4.5%), confirming that edge-truncated rays change geomorphon
+patterns. This validates the buffer requirement with an independent implementation; it
+does **not** add a production geomorphon feature, assert class-name equivalence, or
+validate real Earth/Moon/Mars class composition. Those remain open.
 
 ## Decision
 
@@ -130,7 +142,8 @@ GRASS, and class-composition uncertainty remain open.
 - If curvature is ever promoted, require at least the full-support buffer (1 cell for the
   central prototype, 4 cells for the proposed smoothed method) and an independently
   calibrated scale plus reference agreement. If geomorphon is promoted, require 12 cells
-  (46 x 46 / 4,140 m), a pinned GRASS version, and class-agreement tests.
+  (46 x 46 / 4,140 m), the committed WhiteboxTools reference artifact, a pinned GRASS
+  version when available, and class-agreement tests.
 - The existing five registry metrics are numerically unchanged; the experiment recomputes
   them on the normal core and the buffered core and gets a maximum absolute difference of
   exactly 0.
