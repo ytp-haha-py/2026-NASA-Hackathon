@@ -86,7 +86,6 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "search.observationCount": "{count} 筆觀測",
   "soil.depthLabel": "深度",
   "soil.depthWeighted": "已設權重",
-  "app.coverageEyebrow": "可搜尋的覆蓋範圍",
   "app.coverageHeading_other": "{count} 個可搜尋的地球區域",
   "app.coverageOrigins":
     "來源：{indexed} + {onDemand}。隨選 AOI 由使用者建立，絕不代表全球覆蓋。",
@@ -104,7 +103,6 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "app.idleHeading": "這個 MVP 如何回答問題",
   "app.idleBody":
     "預先填入的目標是假設性範例，不是 NASA 的量測值。搜尋會以地形形狀的加權正規化歐氏距離，回傳可搜尋覆蓋範圍內最接近的分析視窗。",
-  "app.idleItemDistance": "距離越小代表越相似。距離絕不是百分比。",
   "app.idleItemSynthetic": "觀測資料與「示範／合成」資料都會明確標示；合成測試資料不能作為證據。",
   "app.idleItemOnDemand": "隨選 AOI 是使用者建立的視窗，不代表全球覆蓋，其來源會顯示在結果的注意事項中。",
   "app.idleItemNotCompared":
@@ -402,17 +400,13 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "export.copyUnknown": "未知的剪貼簿錯誤",
 
   // Sources and methods
-  "sources.eyebrow": "資料溯源",
   "sources.heading": "來源、覆蓋範圍與方法",
-  "sources.disclaimerHeading": "索引與覆蓋範圍聲明",
-  "sources.candidateRegions": "可搜尋的候選區域：{count}（覆蓋標籤 {label}）。",
-  "sources.originSplit": "來源分布：{indexed} + {onDemand}。隨選 AOI 是使用者建立的視窗，絕不代表全球覆蓋。",
-  "sources.extent": "地理範圍：{extent}",
-  "sources.extentMissing": "無法取得 — 可能沒有可搜尋的視窗。",
-  "sources.dataKinds": "包含的資料類型：{kinds}。",
+  "sources.coverageLabel": "覆蓋標籤",
+  "sources.dataKindsLabel": "包含的資料類型",
   "sources.closestOnly":
     "結果只是可搜尋覆蓋範圍內最接近的區域。這不是全球普查、不是完整的前 10 名，也不是基地選址建議。結果中沒有出現，不代表該地點不適合作為類比地。",
   "sources.methodHeading": "分析方法",
+  "sources.featureSpecs": "各特徵規格",
   "sources.contractVersion": "合約版本",
   "sources.methodVersion": "方法版本",
   "sources.analysisWindow": "分析視窗",
@@ -443,6 +437,7 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "sources.datasetsIntro":
     "以下紀錄直接來自 GET /datasets，用於標示來源、授權、存取時間與處理版本；它們不是裝飾性圖片。",
   "sources.datasetsFailed": "無法載入資料集溯源資訊。",
+  "sources.datasetsLoading": "正在載入資料來源…",
   "sources.noDatasets": "API 沒有回傳任何資料集溯源紀錄。",
 
   // AOI form
@@ -547,6 +542,7 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "app.themeToDark": "切換深色主題",
   "app.themeToLight": "切換淺色主題",
   "app.aboutSummary": "關於本工具、覆蓋範圍與限制",
+  "app.aboutLimits": "搜尋限制",
   "app.footerNotCompared": "不比較：重力 · 大氣 · 輻射 · 風化層 · 礦物 · 溫度 · 光照 · 地質史",
   "map.collapsePlanetPreview": "收合地圖",
   "map.planetRegionLabel": "{body}參考點地圖",

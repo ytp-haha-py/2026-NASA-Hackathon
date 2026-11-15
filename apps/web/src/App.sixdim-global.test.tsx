@@ -50,7 +50,7 @@ describe("global discovery integration", () => {
     expect(
       screen.getByText("DEMO / FIXTURE index — this is not a real global survey."),
     ).toBeInTheDocument();
-    expect(screen.getByText("Coarse and fine are separate methods")).toBeInTheDocument();
+    expect(resultsArea.getByText("Coarse and fine are separate methods")).toBeInTheDocument();
     expect(
       screen.getByText("local_coarse_index_not_global_exhaustive"),
     ).toBeInTheDocument();

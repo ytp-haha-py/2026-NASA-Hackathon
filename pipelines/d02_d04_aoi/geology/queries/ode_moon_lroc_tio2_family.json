@@ -1,0 +1,62 @@
+{
+  "area_id": null,
+  "body": "Moon",
+  "count": 16,
+  "dataset_id": "moon-lroc-wac-tio2",
+  "endpoint": "https://oderest.rsl.wustl.edu/live2/",
+  "method": "GET",
+  "params": {
+    "easternlon": "360.0",
+    "ihid": "LRO",
+    "iid": "LROC",
+    "loc": "b",
+    "maxlat": "70.0",
+    "minlat": "-70.0",
+    "output": "JSON",
+    "pt": "SDWTIO",
+    "query": "products",
+    "results": "cm",
+    "target": "moon",
+    "westernlon": "0.0"
+  },
+  "products": [],
+  "products_returned": 16,
+  "products_stored": 0,
+  "query_id": "moon-lroc-tio2-family-extent",
+  "raw_response_bytes": 1355469,
+  "raw_response_sha256": "sha256:a778859b3d283379f32110bfa2d0385b0e941cf32b72cd51c0a6b8172f322040",
+  "request_url": "https://oderest.rsl.wustl.edu/live2/?query=products&target=moon&results=cm&output=JSON&ihid=LRO&iid=LROC&pt=SDWTIO&minlat=-70.0&maxlat=70.0&westernlon=0.0&easternlon=360.0&loc=b",
+  "retrieved_at": "2026-11-15T14:16:51Z",
+  "selection": {
+    "selection_rule": "Family-level extent summary only; per-tile footprints are not stored."
+  },
+  "service": "NASA PDS Geosciences ODE REST",
+  "service_version": "ODE V2.1.5 (live2)",
+  "status": "Success",
+  "tile_summary": {
+    "latitude_max": 70.0,
+    "latitude_min": -70.0,
+    "longitude_max": 360.0,
+    "longitude_min": 0.0,
+    "tile_count": 16,
+    "tile_names": [
+      "WAC_TIO2_E350N0450.IMG",
+      "WAC_TIO2_E350N1350.IMG",
+      "WAC_TIO2_E350N2250.IMG",
+      "WAC_TIO2_E350N3150.IMG",
+      "WAC_TIO2_E350S0450.IMG",
+      "WAC_TIO2_E350S1350.IMG",
+      "WAC_TIO2_E350S2250.IMG",
+      "WAC_TIO2_E350S3150.IMG",
+      "WAC_TIO2_RATIO_E350N0450.IMG",
+      "WAC_TIO2_RATIO_E350N1350.IMG",
+      "WAC_TIO2_RATIO_E350N2250.IMG",
+      "WAC_TIO2_RATIO_E350N3150.IMG",
+      "WAC_TIO2_RATIO_E350S0450.IMG",
+      "WAC_TIO2_RATIO_E350S1350.IMG",
+      "WAC_TIO2_RATIO_E350S2250.IMG",
+      "WAC_TIO2_RATIO_E350S3150.IMG"
+    ]
+  },
+  "trimmed": true
+}
