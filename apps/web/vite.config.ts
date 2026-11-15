@@ -3,7 +3,7 @@ import path from "node:path";
 import { loadEnv } from "vite";
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
-import { createApiProxy, resolveProxyTarget } from "./vite.proxy";
+import { createApiProxy, resolveProxyTarget } from "./vite.proxy.ts";
 
 const webRoot = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(webRoot, "../..");
