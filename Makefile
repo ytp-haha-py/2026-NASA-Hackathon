@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
-.PHONY: help setup api web seed seed-demo test test-backend test-frontend lint verify smoke smoke-online docker-up docker-down data-earth data-earth-dry-run data-worldcover data-moon data-ingest-earth data-ingest-moon data-analyze-aoi data-demo data-validate data-verify data-snapshot data-index data-index-dry-run data-publish data-sync data-fetch data-rebuild-index db-audit db-benchmark-coarse db-benchmark-typed db-backup db-backup-drill
+.PHONY: help setup api web seed seed-demo test test-backend test-frontend lint verify smoke smoke-online docker-up docker-down data-earth data-earth-dry-run data-worldcover data-moon data-ingest-earth data-ingest-moon data-analyze-aoi data-demo data-validate data-verify data-snapshot data-index data-index-dry-run data-publish data-sync data-fetch data-rebuild-index db-audit db-benchmark-coarse db-benchmark-typed db-backup db-backup-drill data-refine-coarse data-refine-coarse-dry-run
 
 WEST ?= -6.617
 SOUTH ?= 37.682
@@ -139,3 +139,9 @@ public-smoke: ## Verify the public API/web endpoint
 
 data-coarse-pilot: ## Build the bounded real Geomorpho250 three-region coarse pilot
 	uv run python scripts/build_geomorpho_real_pilot.py
+
+data-refine-coarse: ## Refine deterministic coarse hits with the bounded 90 m pipeline (network)
+	uv run python pipelines/refine_coarse_hits.py
+
+data-refine-coarse-dry-run: ## Derive refinement focus windows offline (no provider calls)
+	uv run python pipelines/refine_coarse_hits.py --dry-run
