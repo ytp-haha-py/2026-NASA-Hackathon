@@ -19,17 +19,8 @@ from analog_pipelines.coarse_features import COARSE_METHOD_VERSION, extract_coar
 from analog_pipelines.coarse_grid import GRID_VERSION, GridRegion, generate_region_grid
 from analog_pipelines.coarse_index import CoarseIndexRepository, CoarseRow, build_index
 from analog_pipelines.geomorpho import read_projected_window
+from analog_pipelines.geomorpho_batch import PILOT_REGIONS, SOURCE_LICENSE, SOURCE_URL
 from rasterio.windows import from_bounds
-
-SOURCE_URL = (
-    "https://hs.pangaea.de/Maps/DEM_Geomorpho90m/dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
-)
-LICENSE = "CC BY 4.0"
-PILOT_REGIONS = [
-    GridRegion("pilot-sahara", "Sahara pilot", 10.0, 24.0, 10.4, 24.4),
-    GridRegion("pilot-alps", "Alps pilot", 10.0, 45.0, 10.4, 45.4),
-    GridRegion("pilot-grand-canyon", "Grand Canyon pilot", -112.2, 35.8, -111.8, 36.2),
-]
 
 
 def sha256(path: Path) -> str:
@@ -70,7 +61,7 @@ def read_remote_window(
         transform = src.window_transform(window)
         metadata = {
             "source_url": source_url,
-            "license": LICENSE,
+            "license": SOURCE_LICENSE,
             "source_crs": str(src.crs),
             "native_resolution_deg": abs(float(src.res[0])),
             "native_resolution_note": "7.5 arc-second (~250 m), not a fixed metric resolution",
@@ -169,7 +160,7 @@ def main() -> int:
     report = {
         "source": {
             "url": SOURCE_URL,
-            "license": LICENSE,
+            "license": SOURCE_LICENSE,
             "citation": "Amatulli et al. (2019/2020), Geomorpho90m, PANGAEA 899135",
             "access": "bounded /vsicurl range reads only; no full global download",
             "metadata": source_windows,

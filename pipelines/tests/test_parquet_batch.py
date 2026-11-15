@@ -72,7 +72,13 @@ def test_batch_resume_does_not_recompute_success(tmp_path: Path):
         run_id="run-1", checkpoint_path=checkpoint, worker=failing_worker, max_workers=1
     )
     first = runner.run(tasks)
-    assert first == {"succeeded": 2, "failed": 1, "skipped": 0}
+    assert first == {
+        "succeeded": 2,
+        "failed": 1,
+        "skipped": 0,
+        "no_coverage": 0,
+        "invalid": 0,
+    }
     assert calls == {"a": 1, "b": 2, "c": 1}  # b retried once by policy
 
     calls.clear()
@@ -80,7 +86,13 @@ def test_batch_resume_does_not_recompute_success(tmp_path: Path):
         run_id="run-1", checkpoint_path=checkpoint, worker=good_worker, max_workers=1
     )
     second = resumed.run(tasks, retry_failed=True)
-    assert second == {"succeeded": 1, "failed": 0, "skipped": 0}
+    assert second == {
+        "succeeded": 1,
+        "failed": 0,
+        "skipped": 2,
+        "no_coverage": 0,
+        "invalid": 0,
+    }
     assert calls == {"b": 1}
     assert resumed.report()["counts"] == {"succeeded": 3}
 
