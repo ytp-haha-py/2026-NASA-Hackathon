@@ -1,0 +1,22 @@
+# Example Cloudflare Tunnel configuration. Do not commit credentials.
+# Operator setup:
+#   cloudflared tunnel login
+#   cloudflared tunnel create planetary-analog
+#   cloudflared tunnel route dns planetary-analog api.貓熊.台灣
+# Then replace <TUNNEL_ID> and run:
+#   cloudflared tunnel --config deploy/cloudflared/config.example.yml run
+
+tunnel: <TUNNEL_ID>
+credentials-file: /etc/cloudflared/<TUNNEL_ID>.json
+
+ingress:
+  - hostname: api.貓熊.台灣
+    service: http://127.0.0.1:8000
+    originRequest:
+      connectTimeout: 30s
+      noHappyEyeballs: true
+  - hostname: 貓熊.台灣
+    service: http://127.0.0.1:8080
+  - hostname: www.貓熊.台灣
+    service: http://127.0.0.1:8080
+  - service: http_status:404

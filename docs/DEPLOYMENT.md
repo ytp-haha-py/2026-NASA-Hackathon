@@ -26,6 +26,59 @@ uv run python -m analog_api.cli seed
 
 The UI labels every synthetic record `DEMO / SYNTHETIC`; never ship the flag on in a real deployment.
 
+## Cloudflare Tunnel endpoint (intended public deployment)
+
+The intended public endpoint is:
+
+```text
+https://api.貓熊.台灣
+https://api.xn--2vxr09c.xn--kpry57d   # punycode
+```
+
+Suggested routes:
+
+| Hostname | Local service |
+|---|---|
+| `api.貓熊.台灣` | `http://127.0.0.1:8000` (FastAPI) |
+| `貓熊.台灣`, `www.貓熊.台灣` | `http://127.0.0.1:8080` (web container) or `http://127.0.0.1:5173` (local Vite) |
+
+The repository does **not** create the tunnel, DNS records or credentials automatically. A
+Cloudflare account with zone access and either a tunnel token or `cloudflared` certificate is
+required. Never commit the token, `cert.pem`, or `credentials.json`.
+
+```bash
+# One-time operator setup
+cloudflared tunnel login
+cloudflared tunnel create planetary-analog
+cloudflared tunnel route dns planetary-analog api.貓熊.台灣
+cloudflared tunnel route dns planetary-analog 貓熊.台灣
+cloudflared tunnel route dns planetary-analog www.貓熊.台灣
+
+# Example config: deploy/cloudflared/config.example.yml
+cloudflared tunnel --config deploy/cloudflared/config.example.yml run
+```
+
+Frontend production builds default to `https://api.貓熊.台灣/api/v1` and can be overridden with
+`VITE_API_BASE`. If the web app is on a different origin, add that origin to
+`ANALOG_CORS_ORIGINS`, for example:
+
+```dotenv
+ANALOG_CORS_ORIGINS=http://localhost:5173,https://貓熊.台灣,https://www.貓熊.台灣
+```
+
+Verification, once the operator has authenticated the tunnel:
+
+```bash
+curl -fsS https://api.貓熊.台灣/api/v1/health
+curl -fsS https://api.貓熊.台灣/api/v1/typed/coverage
+wrangler whoami                 # requires CLOUDFLARE_API_TOKEN
+cloudflared tunnel list         # requires cert.pem or TUNNEL_TOKEN
+```
+
+This WSL environment currently has `wrangler 4.162.0` available through `npx`, but no
+`CLOUDFLARE_API_TOKEN`, no `~/.cloudflared` certificate, and no `cloudflared` binary. Therefore the
+tunnel/DNS state cannot be confirmed here until credentials are supplied.
+
 ## Docker Compose
 
 ```bash

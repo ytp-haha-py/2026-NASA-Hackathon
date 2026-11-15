@@ -10,6 +10,28 @@
 
 這不是月球／火星基地選址系統，也不宣稱地球地點與其他星球在重力、溫度、地質或物理環境上相同。地圖底圖的世界涵蓋範圍**不代表搜尋索引涵蓋全球**。
 
+## 公開 API 端點
+
+Cloudflare Tunnel 公開部署的預設 API 端點：
+
+```text
+https://api.貓熊.台灣
+https://api.xn--2vxr09c.xn--kpry57d   # ASCII／punycode 形式
+```
+
+常用路徑：
+
+```text
+https://api.貓熊.台灣/api/v1/health
+https://api.貓熊.台灣/api/v1/capabilities
+https://api.貓熊.台灣/api/v1/typed/coverage
+https://api.貓熊.台灣/docs
+```
+
+正式前端建置預設使用 `https://api.貓熊.台灣/api/v1`，可用 `VITE_API_BASE` 覆寫。本機開發仍是
+`http://127.0.0.1:8000`，透過 Vite `/api` proxy 使用相對路徑 `/api/v1`。Tunnel 不由本
+repository 自動啟動；憑證、routes 與指令見 [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)。
+
 ## 目前功能與資料
 
 以下數量對應 Repository 已提交的 [固定資料快照](samples/snapshot/analog-demo.index-summary.json)，不是所有使用者執行時可能另外建立的 AOI 總數。
