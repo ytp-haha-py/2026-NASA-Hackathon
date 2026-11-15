@@ -32,7 +32,7 @@ export const en = {
   // App shell
   "app.skipLink": "Skip to content",
   "app.eyebrow": "Terrain-shape similarity · indexed + on-demand Earth",
-  "app.title": "Planetary Analog Explorer",
+  "app.title": "AnalogX",
   "app.summary":
     "Compare a hypothetical terrain-shape target with a committed Earth index, or analyze a bounded on-demand AOI. Land-cover context is shown separately and is never part of the similarity score. This is not a global survey, not a base-site recommendation, and not a physical-equivalence claim.",
   "app.capabilitiesLoading": "Loading capabilities and indexed coverage…",
@@ -73,7 +73,7 @@ export const en = {
   "app.noCapabilities":
     "No capabilities were returned. Search and AOI analysis are unavailable.",
   "app.footerVersions":
-    "Planetary Analog Explorer MVP · contract {contract} · method {method} · data {data} · snapshot {snapshot}",
+    "AnalogX MVP · contract {contract} · method {method} · data {data} · snapshot {snapshot}",
   "app.footerNote":
     "Distance is a weighted normalized Euclidean value on terrain shape only. Basemap © OpenStreetMap contributors.",
 

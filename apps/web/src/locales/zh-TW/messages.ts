@@ -32,7 +32,7 @@ export const zhTW: { [K in MessageKey]?: string } = {
   // App shell
   "app.skipLink": "跳至主要內容",
   "app.eyebrow": "地形形狀相似度 · 已索引 + 隨選地球區域",
-  "app.title": "行星類比地形探索器",
+  "app.title": "AnalogX",
   "app.summary":
     "將假設的地形形狀目標與已提交的地球索引比較，或分析一個有範圍限制的隨選 AOI（關注區域）。土地覆蓋背景資訊另外顯示，從不納入相似度分數。本工具不是全球普查、不是基地選址建議，也不宣稱物理條件等同。",
   "app.capabilitiesLoading": "正在載入系統能力與已索引覆蓋範圍…",
@@ -68,7 +68,7 @@ export const zhTW: { [K in MessageKey]?: string } = {
     "重力、大氣、輻射、風化層、礦物組成、溫度與地質歷史都不在比較範圍內。ESA WorldCover 背景資訊不是礦物學資料。",
   "app.noCapabilities": "API 未回傳系統能力資訊，因此無法使用搜尋與 AOI 分析。",
   "app.footerVersions":
-    "行星類比地形探索器 MVP · 合約 {contract} · 方法 {method} · 資料 {data} · 快照 {snapshot}",
+    "AnalogX MVP · 合約 {contract} · 方法 {method} · 資料 {data} · 快照 {snapshot}",
   "app.footerNote": "距離僅是地形形狀的加權正規化歐氏距離值。底圖 © OpenStreetMap 貢獻者。",
 
   // Coverage counts (shared)

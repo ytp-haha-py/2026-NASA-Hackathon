@@ -236,9 +236,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
         <div className="header-inner">
           <div className="header-left">
             <h1 className="brand">
-              <span className="brand-mark" aria-hidden="true">
-                PAE
-              </span>{" "}
+              <img className="brand-mark" src="/favicon.svg" alt="" width="24" height="24" />
               <span className="brand-name">{t("app.title")}</span>
             </h1>
             {capabilities && (
