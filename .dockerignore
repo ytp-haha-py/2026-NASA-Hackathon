@@ -11,4 +11,7 @@ var
 data/cache
 samples/**/*.tif
 samples/**/*.tiff
+# Committed planetary AOI fixtures are runtime science inputs (checksum-verified
+# and recomputed by the API); do not exclude them from the image build context.
+!samples/planetary/coarse/fixtures/*.tif
 .env
