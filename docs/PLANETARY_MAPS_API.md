@@ -144,6 +144,18 @@ Invalid body, latitude, bbox ordering or dimension returns a structured 422 with
 `unsupported_body`, `invalid_bbox_latitude`, `invalid_bbox`, `invalid_dimension`. Empty results are
 `total=0` with an empty `features` array, never a placeholder.
 
+## Limits and cache behavior
+
+- `limit` is 1–200 and `offset` must be non-negative; `limit=201` returns 422. The whole body is
+  never returned in one unbounded response.
+- `GET /planetary/maps` sends `Cache-Control: public, max-age=300`,
+  `X-Planetary-Catalog-Version` and `X-Data-Snapshot-ID`.
+- `GET /planetary/map-features` sends `Cache-Control: public, max-age=60,
+  stale-while-revalidate=300`, `X-Planetary-Catalog-Version` and `X-Data-Snapshot-ID`. Data-version
+  changes invalidate downstream caches.
+- `GET /planetary/coordinate-contract` sends `Cache-Control: public, max-age=86400`.
+- The API does not cache or proxy tile images; the browser fetches them directly from NASA Trek.
+
 ## Basemap extent vs scientific coverage
 
 The catalog separates two claims:

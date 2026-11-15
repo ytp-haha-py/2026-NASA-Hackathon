@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Literal
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Response
 from sqlalchemy.orm import Session
 
 from analog_api.adapters.typed_db import TypedObservationStore
@@ -40,9 +40,13 @@ MAX_PLANETARY_LIMIT = 200
 @router.get("/maps", response_model=PlanetaryMapsOut, responses=ERROR_RESPONSES)
 def planetary_maps(
     body: str,
+    response: Response,
     session: Session = Depends(get_session),
     repo: CandidateRepositoryFull = Depends(get_repo),
 ) -> dict[str, object]:
+    response.headers["Cache-Control"] = "public, max-age=300"
+    response.headers["X-Planetary-Catalog-Version"] = MAP_CATALOG_VERSION
+    response.headers["X-Data-Snapshot-ID"] = repo.data_version()
     info = get_body(body)
     typed = TypedObservationStore(session)
     summary = science_summary_payload(
@@ -57,6 +61,7 @@ def planetary_maps(
 @router.get("/map-features", response_model=PlanetaryMapFeaturesOut, responses=ERROR_RESPONSES)
 def planetary_map_features(
     body: str,
+    response: Response,
     bbox: str | None = Query(
         default=None,
         description=(
@@ -72,6 +77,9 @@ def planetary_map_features(
     session: Session = Depends(get_session),
     repo: CandidateRepositoryFull = Depends(get_repo),
 ) -> dict[str, object]:
+    response.headers["Cache-Control"] = "public, max-age=60, stale-while-revalidate=300"
+    response.headers["X-Planetary-Catalog-Version"] = MAP_CATALOG_VERSION
+    response.headers["X-Data-Snapshot-ID"] = repo.data_version()
     info = get_body(body)
     if dimension is not None:
         dimension = dimension.upper()
@@ -150,10 +158,13 @@ def planetary_map_features(
     "/coordinate-contract",
     response_model=PlanetaryCoordinateContractOut,
 )
-def planetary_coordinate_contract() -> dict[str, object]:
+def planetary_coordinate_contract(response: Response) -> dict[str, object]:
+    response.headers["Cache-Control"] = "public, max-age=86400"
+    response.headers["X-Planetary-Catalog-Version"] = MAP_CATALOG_VERSION
     return coordinate_contract_payload()
 
 
 @router.get("/bodies", response_model=list[dict[str, Any]])
-def planetary_bodies() -> list[dict[str, Any]]:
+def planetary_bodies(response: Response) -> list[dict[str, Any]]:
+    response.headers["Cache-Control"] = "public, max-age=3600"
     return [body.to_payload() for body in PLANETARY_BODIES.values()]
