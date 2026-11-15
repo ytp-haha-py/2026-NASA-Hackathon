@@ -3,9 +3,15 @@
 Machine-readable source of truth: [`catalog/dimension-source-inventory.yaml`](../catalog/dimension-source-inventory.yaml).
 Validator: `analog_pipelines.inventory.load_inventory()`.
 
+The machine-readable catalog records the pre-ingest planning inventory. This page
+additionally records the bounded D06 Earth SoilGrids pilot (five AOIs) without
+changing that planning file or claiming global coverage.
+
 This is an audit of **candidate and verified sources**, not a claim of coverage. The
-only verified observations in the repository are D01 terrain (113 Earth, 18 Moon,
-5 Mars windows) and Earth WorldCover context. D02–D06 are candidate/planned only.
+only verified terrain observations in the repository are D01 terrain (113 Earth, 18 Moon,
+5 Mars windows) and Earth WorldCover context. D02–D05 remain candidate/planned or
+model-derived. D06 has Earth SoilGrids 2.0 model predictions for five AOIs; Moon and
+Mars regolith remain `no_coverage`.
 
 ## Coverage matrix (18 body × dimension entries)
 
@@ -16,7 +22,7 @@ only verified observations in the repository are D01 terrain (113 Earth, 18 Moon
 | **D03 Thermal Environment** | Identified: MOD11A2 (not fetched) | Identified: Diviner (not fetched) | Planned: no product ID asserted |
 | **D04 Water & Ice** | Planned: no product selected | Planned: no product selected | Planned: no product selected |
 | **D05 Illumination & Radiation** | Context: NASA POWER (10 timeseries, model/reanalysis) | Model geometry: NAIF SPICE (4 sites, 8 observations) | Model geometry: NAIF SPICE (5 sites, 10 observations) |
-| **D06 Regolith & Surface Properties** | Planned: sparse evidence only | Planned: sparse evidence only | Planned: sparse evidence only |
+| **D06 Regolith & Surface Properties** | Model predictions: SoilGrids 2.0, 5 AOIs × 5 properties × 4 depths (300 evidence-only observations) | No coverage: no registered public sample/PDS measurement | No coverage: no registered public sample/PDS measurement |
 
 ## Status semantics
 
@@ -36,8 +42,9 @@ NAIF SPICE solar geometry); it is not an observation of the surface.
 ## What remains unknown
 
 Every candidate entry lists its `unknown_fields`. For D03–D06 no dataset ID or
-coverage is invented; planned entries use `not_selected` until a maintainer verifies
-an authoritative product, licence, access method and scientific semantics.
+coverage is invented; entries without a verified product use `not_selected`. D06 Earth
+has a verified SoilGrids 2.0 model-prediction source; D06 Moon/Mars remain
+`no_coverage` until a real sample/PDS measurement is registered.
 
 ## Baseline counts
 
@@ -48,7 +55,8 @@ an authoritative product, licence, access method and scientific semantics.
 | Mars reference windows | 5 | `pipelines/planetary/manifests/ctx_mars_references.json` |
 | Earth WorldCover context observations | 1,243 | `pipelines/worldcover/manifests/` |
 | D05 Moon/Mars model-derived solar-geometry observations | 18 | `pipelines/pilots/d05_spice_illumination/` |
-| D02–D06 observed values | **0** | not implemented / not downloaded |
+| D06 Earth model-prediction observations (4 depths) | 300 | `pipelines/pilots/d06_earth_soilgrids_depths/` |
+| D02–D06 measured in-situ/laboratory observations | **0** | not implemented / not downloaded |
 
 The D05 SPICE values are model-derived geometry (Sun incidence/elevation), not
 observed irradiance, shadow fraction or ionizing radiation. No new source raster

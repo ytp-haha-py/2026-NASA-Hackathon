@@ -1,7 +1,8 @@
 # Programmatic acquisition and ingestion
 
-Status: **implemented for the D05 Earth NASA POWER pilot; other providers remain explicitly
-unimplemented or blocked.** No large raster download and no R2/Tunnel/deployment action is implied.
+Status: **implemented for the D05 Earth NASA POWER pilot, D06 Earth SoilGrids predictions and
+metadata-only Mars gates; remaining providers are explicitly unimplemented or blocked.** No large
+raster download and no R2/Tunnel/deployment action is implied.
 
 ## Purpose
 
@@ -91,8 +92,11 @@ states use `detected`, `not_detected`, `no_coverage`, `unknown`, `not_applicable
   adapters and detection semantics.
 - D05 Moon/Mars illumination and ionizing radiation: SPICE/terrain horizon and detector-dose
   adapters are not implemented; no combined scalar is allowed.
-- D06 Earth/Moon/Mars: SoilGrids/WebDAV and sparse sample measurements require provider-specific
-  tables; no regolith property is inferred from terrain roughness.
+- D06 Earth: the five-AOI SoilGrids 2.0 pilot now covers 0–5, 5–15, 15–30 and
+  30–60 cm as separate evidence-only model predictions. D06 Moon/Mars: no registered
+  public sample/PDS measurement exists, so `sparse-regolith-samples` reports
+  `blocked` and plans zero tasks; no regolith property is inferred from terrain
+  roughness or Earth values. See `docs/D06_REGOLITH_SEMANTICS.md`.
 - D02: the merged independent Geology pilot still needs a v2/API integration; GLiM rights, EMIT
   authentication, lunar mineral registration and CRISM thresholds remain unresolved.
 - D01: the fine 90 m index remains unchanged; a real coarse Geomorpho index and same-support
@@ -120,7 +124,12 @@ to a projected Mars analysis CRS while the original geometry/CRS is retained in 
 
 ## D06 SoilGrids pilot
 
+The base pilot covers 0–5 cm; the Issue #46 extension adds bounded 5–15, 15–30 and
+30–60 cm requests for the same five AOIs and five properties, with explicit per-observation
+depth intervals and no cross-depth pooling.
+
 ```bash
+# Base 0–5 cm pilot (75 observations)
 uv run python -m analog_pipelines.acquisition plan \
   --scope pilot-d06-earth --dimension D06 --body Earth --provider soilgrids-wcs \
   --area-id earth-atacama-desert --area-id earth-death-valley \
@@ -129,11 +138,20 @@ uv run python -m analog_pipelines.acquisition plan \
 uv run python -m analog_pipelines.acquisition run \
   --plan var/plans/d06-earth-pilot.json --output var/runs/d06-earth-pilot \
   --cache var/cache/acquisition --workers 4 --resume
+
+# Multi-depth extension (300 observations, 4 depths); dry run first
+uv run python scripts/build_soilgrids_depth_pilot.py --dry-run
+uv run python scripts/build_soilgrids_depth_pilot.py --resume --workers 2
 ```
 
-The committed pilot contains 75 observations: clay, sand, silt, SOC and bulk density at 0–5 cm,
-with mean/Q0.05/Q0.95 quantiles. All are evidence-only, use 250 m metric source resolution and
-preserve the depth interval. They do not enter Terrain similarity.
+The committed base pilot contains 75 observations: clay, sand, silt, SOC and bulk density
+at 0–5 cm, with mean/Q0.05/Q0.95 quantiles. The multi-depth pilot
+(`pipelines/pilots/d06_earth_soilgrids_depths/`) contains 300 observations across
+0–5, 5–15, 15–30 and 30–60 cm. All are evidence-only model predictions, use 250 m metric
+source resolution, preserve the depth interval and never enter Terrain similarity.
+Raw TIFFs are not committed; per-request response checksums and statuses are recorded.
+No Moon/Mars regolith value is claimed; see `docs/D06_REGOLITH_SEMANTICS.md` and
+`contracts/d06-regolith-semantics-v1.json`.
 
 ## D03 Earth thermal pilot
 

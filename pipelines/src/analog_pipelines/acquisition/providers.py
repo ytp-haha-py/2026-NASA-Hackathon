@@ -468,11 +468,13 @@ def default_providers() -> dict[str, SourceProvider]:
         MarsMolaMegdrProvider,
         MarsThemisThermalProvider,
     )
+    from analog_pipelines.acquisition.providers_regolith import SparseRegolithProvider
     from analog_pipelines.acquisition.providers_soilgrids import SoilGridsProvider
 
     providers: list[SourceProvider] = [
         NasaPowerProvider(),
         SoilGridsProvider(),
+        SparseRegolithProvider(),
         MarsMolaMegdrProvider(),
         MarsThemisThermalProvider(),
     ]

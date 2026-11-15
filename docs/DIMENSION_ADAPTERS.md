@@ -2,8 +2,9 @@
 
 Code: `analog_pipelines.dimensions`. Typed contracts: `analog_pipelines.typed_contracts`.
 
-These adapters are **interfaces + validators + synthetic fixtures**, not measured
-coverage. No D02–D06 source raster or product has been downloaded.
+These adapters are **interfaces + validators + fixtures**, not measured coverage.
+D06 Earth additionally has a bounded SoilGrids 2.0 model-prediction pilot; no D02–D06
+measured in-situ/laboratory observation has been ingested.
 
 ## Rules
 
@@ -60,10 +61,17 @@ Typed features: solar incidence/elevation angle (degree) and absorbed dose (Gy).
 
 ## D06 Regolith & Surface Properties
 
-Typed features: particle size distribution, bulk density, cohesion.
+Typed features: particle size distribution, bulk density, porosity, cohesion,
+friction angle and bearing strength.
 - Sparse evidence tables, explicit bin edges/basis/depth/sample state.
+- Depth support is mandatory per observation; different depths are never pooled.
 - Never derive grain size or strength from DEM roughness or bare-fraction context.
 - Measured vs modeled evidence flags; experiments include gravity/moisture/load.
+- Earth SoilGrids 2.0 values are 250 m model predictions, never local measurements.
+- Moon and Mars are `no_coverage` until a real public sample/PDS measurement exists.
+- Versioned semantics: `contracts/d06-regolith-semantics-v1.json` and
+  `docs/D06_REGOLITH_SEMANTICS.md`; Earth pilot
+  `docs/D06_SOILGRIDS_DEPTH_PILOT.md`.
 
 ## Offline fixture parsing
 

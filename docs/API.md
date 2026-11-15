@@ -378,8 +378,9 @@ rejected rather than silently rescaled.
 
 `GET /typed/observations?dimension=D02&body=Earth&feature_id=...` and
 `GET /typed/areas/{area_id}` expose additive typed records from the SQLite typed
-tables. Current committed real data is D01 terrain + Earth context; D02–D06 fixture
-rows are synthetic and clearly labelled. The v2 contracts live in
+tables. Current committed real data is D01 terrain + Earth context, plus D06 Earth
+SoilGrids model-prediction releases (base 0–5 cm and the 300-observation multi-depth
+pilot). D02–D05 fixture rows are synthetic and clearly labelled. The v2 contracts live in
 `contracts/v2/*.schema.json`; v1 manifests/API remain unchanged.
 
 ## Method versions
