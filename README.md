@@ -73,7 +73,11 @@ npm ci
 npm run dev
 ```
 
-Open `http://localhost:5173`. The API normally runs at `http://127.0.0.1:8000`. The current Vite development proxy targets this local API; the hosted frontend uses the public backend. See [web development](apps/web/README.md) and [deployment](docs/DEPLOYMENT.md).
+Open `http://localhost:5173`. The Vite dev server is local-first: it probes
+`http://127.0.0.1:8000/api/v1/health` with a short timeout and proxies `/api/v1` there when the
+FastAPI health schema is valid; otherwise it uses `https://api.貓熊.台灣`. The choice is fixed for
+the Vite process and never switches per request. Set `VITE_API_PROXY_TARGET` to an origin to skip
+detection. See [web development](apps/web/README.md) and [deployment](docs/DEPLOYMENT.md).
 
 To run the project checks:
 
