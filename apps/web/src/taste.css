@@ -1947,3 +1947,9 @@ body {
   background: var(--accent);
   border-radius: 50%;
 }
+
+/* #170: the six-dimension panel is evidence-only; controls live in the dimension board. */
+.six-dimension-panel .typed-observation-list,
+.six-dimension-panel .coverage-panel {
+  display: none;
+}
