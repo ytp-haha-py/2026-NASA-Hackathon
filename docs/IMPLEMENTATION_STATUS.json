@@ -1,5 +1,5 @@
 {
-  "base_commit": "e271e0cfe8785c63b983c6c649a7a1cd687171b6",
+  "base_commit": "f0bff49c473bf45fcad00b1b4d1532e4777500d7",
   "dimensions": {
     "D01": {
       "actual_observation_counts": {
@@ -141,7 +141,7 @@
       "scientific_data_status": "pilot_observations"
     }
   },
-  "generated_at": "2026-11-15T08:25:00+00:00",
+  "generated_at": "2026-11-15T08:45:00+00:00",
   "issues": [
     {
       "comparison_status": "not_comparable",
@@ -363,12 +363,14 @@
       "evidence": [
         "full verify and backend acceptance pass",
         "D05 pilot is imported and queryable",
-        "merged integration work in PR #59 (c834285)"
+        "merged integration work in PR #59 (c834285)",
+        "PR #94 live executed refine UI; #96/#101/#102 acceptance and screenshots; public acceptance PASS at 520 observations"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "merged",
       "number": 49,
       "remaining_blockers": [
-        "final full gate and public acceptance run"
+        "no global coverage",
+        "executed refine is per-window and not persisted into the searchable index (see #97)"
       ],
       "scientific_data_status": "pilot_observations",
       "title": "End-to-end six-dimension acceptance"
