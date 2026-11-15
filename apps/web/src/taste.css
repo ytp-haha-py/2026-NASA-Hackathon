@@ -374,8 +374,16 @@ input.metric-number,
   text-transform: none;
 }
 
+.site-header h1.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .brand-mark {
-  display: none;
+  display: block;
+  width: 24px;
+  height: 24px;
 }
 
 .header-tabs {
