@@ -40,7 +40,7 @@ The committed research dataset currently includes:
 | Moon terrain references | 18 windows |
 | Mars terrain references | 5 windows |
 | Earth coarse discovery index | 168 grid cells across three pilot regions |
-| D02–D06 observations | 565 typed records across selected Earth, Moon, and Mars areas (D06: 345 SoilGrids predictions; 0–5 cm means gated for Earth-only query similarity) |
+| D02–D06 observations | 2,140 typed records across selected Earth, Moon, and Mars areas (D06: 1,920 SoilGrids predictions; gated 0–5 cm means cover all 113 Earth candidates) |
 
 These are **limited research samples**, not a complete scan of Earth, the Moon, or Mars. A map showing the whole planet does not imply scientific measurements exist everywhere. The backend also exposes verified Moon/Mars basemap metadata for a separate interactive-map frontend under development.
 

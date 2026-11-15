@@ -1,5 +1,11 @@
 # Data release checklist (offline / local first)
 
+> **Historical snapshot:** this report records the #48 release state. Current D02–D06
+> counts (2,140 typed observations; D06 1,920) and the gated 0–5 cm query role are in
+> [`SIX_DIMENSION_BACKEND_RELEASE.md`](SIX_DIMENSION_BACKEND_RELEASE.md) and
+> [`FEATURE_ELIGIBILITY_AUDIT.md`](FEATURE_ELIGIBILITY_AUDIT.md).
+
+
 This checklist covers the current pinned-snapshot release path. Real-source
 downloads and live R2 publication remain deferred until explicitly authorized.
 

@@ -19,8 +19,9 @@ say "typed six-dimension coverage"
 "${CURL[@]}" "$API_BASE/api/v1/typed/coverage" | python3 -c '
 import json,sys
 d=json.load(sys.stdin)
-assert d["total"] >= 181, d["total"]
+assert d["total"] >= 2140, d["total"]
 assert {"D02","D03","D04","D05","D06"} <= set(d["by_dimension"])
+assert d["by_dimension"]["D06"]["total"] >= 1920, d["by_dimension"]["D06"]
 print("ok total=", d["total"])
 '
 
@@ -39,19 +40,19 @@ assert d["registry_version"]=="feature-eligibility-1.0.0"
 features={f["feature_id"]:f for f in d["features"]}
 clay=features["soil_clay_0_5cm_mean"]
 assert clay["roles"]["similarity"]["supported"] is True
-assert clay["coverage"]["gated_candidate_count"]==8, clay["coverage"]
+assert clay["coverage"]["gated_candidate_count"]==113, clay["coverage"]
 assert d["join_audit"]["proximity_join_used"] is False
 print("ok D06 similarity features=", len(features), "clay gated=", clay["coverage"]["gated_candidate_count"])
 '
 "${CURL[@]}" "$API_BASE/api/v1/search/multidimensional" -H 'content-type: application/json' -d '{"targets":{"slope_mean_deg":{"value":10,"weight":1},"soil_clay_0_5cm_mean":{"value":200,"weight":1}},"limit":5}' | python3 -c '
 import json,sys
 d=json.load(sys.stdin)
-assert d["eligible_candidate_count"]==8, d["eligible_candidate_count"]
+assert d["eligible_candidate_count"]>=100, d["eligible_candidate_count"]
 clay=[i for i in d["results"][0]["contributions"] if i["feature_id"]=="soil_clay_0_5cm_mean"][0]
 assert clay["contribution"]>0
 assert clay["observation_id"].startswith("soilgrids:")
 assert clay["uncertainty"]["q05"] is not None
-print("ok eligible=8 top=", d["results"][0]["location_id"], "D06 contribution=", round(clay["contribution"],12))
+print("ok eligible=", d["eligible_candidate_count"], "top=", d["results"][0]["location_id"], "D06 contribution=", round(clay["contribution"],12))
 '
 cross_code="$(curl -sS -o /tmp/public-cross-body.json -w '%{http_code}' --max-time 30 -X POST -H 'content-type: application/json' -d '{"reference_id":"moon-lola-site01-roi1","targets":{"soil_clay_0_5cm_mean":{"value":200,"weight":1}}}' "$API_BASE/api/v1/search/multidimensional")"
 [ "$cross_code" = "422" ] || { echo "expected 422 cross-body, got $cross_code" >&2; exit 1; }

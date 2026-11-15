@@ -48,9 +48,9 @@ def main() -> int:
     d01_order = [row["location_id"] for row in d01_only["results"]]
     combined_order = [row["location_id"] for row in combined["results"]]
     assert d01_order != combined_order, "D06 did not affect the ranking"
-    assert combined["eligible_candidate_count"] == 8
+    assert combined["eligible_candidate_count"] == 113
     assert combined["excluded_candidate_count"] == len(combined["excluded"])
-    assert combined["coverage"]["features"]["soil_clay_0_5cm_mean"]["scored_result_count"] == 8
+    assert combined["coverage"]["features"]["soil_clay_0_5cm_mean"]["scored_result_count"] == 113
 
     first = combined["results"][0]
     clay = next(
