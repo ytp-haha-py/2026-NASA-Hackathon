@@ -344,3 +344,38 @@ def test_every_observed_typed_feature_has_a_discoverable_legal_role(client: Test
             assert feature["roles"]["similarity"]["reason"], feature_id
     assert len(observed_ids) >= 90
     assert len(registry) >= len(observed_ids)
+
+
+def test_time_series_context_feature_is_not_a_similarity_target(client: TestClient):
+    response = client.post(
+        "/api/v1/search/multidimensional",
+        json={"targets": {"surface_air_temperature_2m_c": {"value": 10, "weight": 1}}},
+    )
+    assert response.status_code == 422
+    error = response.json()["error"]
+    assert error["code"] == "feature_role_not_scoreable"
+    assert error["details"][0]["legal_roles"] == ["evidence", "context"]
+
+
+def test_multidimensional_query_is_bounded_and_paginated(client: TestClient):
+    import time
+
+    started = time.perf_counter()
+    response = client.post(
+        "/api/v1/search/multidimensional",
+        json={
+            "targets": {
+                "slope_mean_deg": {"value": 10, "weight": 1},
+                "soil_clay_0_5cm_mean": {"value": 200, "weight": 1},
+            },
+            "limit": 50,
+            "include_evidence": False,
+        },
+    )
+    elapsed = time.perf_counter() - started
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["limit"] == 50
+    assert body["returned"] == 5
+    assert body["next_offset"] is None
+    assert elapsed < 5.0, f"113-candidate query took {elapsed:.2f}s"

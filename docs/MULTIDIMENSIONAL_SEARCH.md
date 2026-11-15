@@ -241,3 +241,27 @@ uv run pytest apps/api/tests/test_feature_eligibility.py apps/api/tests/test_mul
 uv run python scripts/audit_feature_eligibility.py --output docs/FEATURE_ELIGIBILITY_AUDIT.md
 bash scripts/verify.sh --ci
 ```
+
+## Semantic and join audit (same name ≠ same quantity)
+
+| Feature / group | Bodies | Stored support | Query role | Why it is not silently joined |
+|---|---|---|---|---|
+| D01 slope/relief/roughness/flat fraction | Earth, Moon, Mars | 90 m projected windows, fixed 1.98 km | similarity/filter | Comparable only within the registered terrain method; planetary references are processed ROIs, not global coverage. |
+| D02 `geologic_unit` | Moon, Mars (and Earth availability records) | provider map-unit geometry, free-text code/name | evidence | No versioned taxonomy/crosswalk; `Ec` on the Moon is not an Earth ecological class. |
+| D02 mineral detections / spectral indices | Mars, Moon | single-provider detections/indices, mixed states | evidence/uncertainty | Detection state and index support are not validated against fine 90 m Earth candidates. |
+| D03 `surface_brightness_temperature_k` | Moon (Diviner), Mars (THEMIS/HEND bundles) | 240 m / 100 m windows, instrument-specific methods | evidence | Different instruments, wavelengths, time-of-day and native support; no shared Earth method. |
+| D03 Earth reanalysis time series | Earth | 50 km point support, daily timestamps | context | Temporal selector and spatial support are not the 90 m candidate window; time-series aggregation is not versioned for ranking. |
+| D04 water/ice detections, hydrogen, CPR | Moon, Mars | body-specific remote sensing windows | evidence | Hydrogen equivalent water, radar CPR, neutron flux and Earth soil wetness are different physical quantities. |
+| D04 Earth precipitation/wetness/snow | Earth | reanalysis point/time series | context | Different quantity and support from D06 soil predictions; not weighted. |
+| D05 solar geometry/irradiance | Earth, Moon, Mars | SPICE geometry or power time series | context | Illumination depends on a time selector and body ephemerides; it is not a surface-property similarity. |
+| D06 SoilGrids means | Earth | 250 m model cells, AOI envelope mean, 4 depths | similarity/filter | Only exact area-ID joins, same provider/method/depth/unit/bbox; 250 m model support is not 90 m terrain support. |
+| D06 SoilGrids Q05/Q95 | Earth | same model family, same depth | uncertainty only | Prediction quantiles, not independent observations; attached to the matching mean. |
+| ESA WorldCover fractions | Earth | 10 m land-cover context | context/filter (existing `/search` only) | Earth-only hard filter; never D07 and never part of the weighted distance. |
+
+### Materialisation is query-time, not a source rewrite
+
+The 520 typed rows are read from SQLite and materialised for the exact candidate ids at request
+time. This keeps the source `score_role`, observation ids, checksums and provenance untouched;
+materialisation is deterministic (same rows + registry version → same values) and bounded
+(113 candidates, 520 rows, no raster I/O). A future persisted index can reuse the same
+`materialize()` contract without changing the API.
