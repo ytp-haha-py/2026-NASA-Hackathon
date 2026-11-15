@@ -1,0 +1,604 @@
+{
+  "blockers": [
+    {
+      "blocker_id": "emit_auth",
+      "detail": "CMR metadata is anonymous, but every LP DAAC asset URL observed is lp-prod-protected. No credentials were requested, read or stored.",
+      "resolution_required": "An authorized operator must download one bounded granule and record its checksum; access remains opt-in and outside CI.",
+      "scope": "all",
+      "summary": "Earthdata Login required for granule assets"
+    },
+    {
+      "blocker_id": "emit_decoder",
+      "detail": "The repository has a tested native-pixel aggregation core (summarize_identification) but no granule-validated EMIT reader, mineral-group lookup or quality-bit mapping.",
+      "resolution_required": "Validate the real group/band names, fill values, QA mask and per-pixel uncertainty against one pinned granule before enabling state.",
+      "scope": "detection",
+      "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+    },
+    {
+      "blocker_id": "emit_native_swath",
+      "detail": "The counts in this report are CMR metadata candidates only. AOI intersection requires per-pixel geolocation, not a granule bounding box.",
+      "resolution_required": "Reproject/intersect native pixel centers and retain valid_fraction per AOI.",
+      "scope": "detection",
+      "summary": "Native swath geolocation not validated for the AOIs"
+    },
+    {
+      "blocker_id": "m3_registration",
+      "detail": "The official L2 product is documented as pixel-located in the Mean Earth frame, but no M3 granule was downloaded and no per-pixel latitude/longitude, thermal correction or band alignment was checked against the lunar ROI.",
+      "resolution_required": "Download one bounded L2 granule, validate its detached label geolocation and band binning, and record pixel-center coverage.",
+      "scope": "detection",
+      "summary": "M3 registration/geolocation not validated in this repository"
+    },
+    {
+      "blocker_id": "m3_thresholds",
+      "detail": "Continuum removal, band-depth placement and a detection threshold must be specified and tested before any detected/non-detected state.",
+      "resolution_required": "Pin an estimator and threshold with a citation and offline fixtures; keep reflectance and band depth separate from abundance.",
+      "scope": "detection",
+      "summary": "No validated M3 mineral detection thresholds"
+    },
+    {
+      "blocker_id": "m3_research_product",
+      "detail": "The pinned Zenodo v4 matrix has no CRS, transform, units, valid range, QA or uncertainty, and its registration is unverified.",
+      "resolution_required": "Do not extract AOI values from it; treat it as format-inspected metadata until an authoritative registration exists.",
+      "scope": "all",
+      "summary": "Research-derived polar matrix cannot substitute for M3"
+    },
+    {
+      "blocker_id": "crism_thresholds",
+      "detail": "OLINDEX3/LCPINDEX2/HCPINDEX2/D2300/BD1900_2/SINDEX2/CINDEX2 values are retained as medians, but no published threshold or DP-mask bit mapping was validated for mineral identification.",
+      "resolution_required": "Pin the CRISM ATBD/DP mask definition and validate thresholds on labelled spectra before emitting detected/non-detected states.",
+      "scope": "detection",
+      "summary": "CRISM summary-parameter detection thresholds undocumented here"
+    },
+    {
+      "blocker_id": "crism_continuum",
+      "detail": "The summary parameters are published indices; no independent band-depth estimator, atmospheric correction or uncertainty model was applied.",
+      "resolution_required": "Define measurement semantics and uncertainty before any numeric mineral observation is exported.",
+      "scope": "detection",
+      "summary": "No continuum removal or uncertainty propagation"
+    },
+    {
+      "blocker_id": "crism_bounded_query",
+      "detail": "The ODE query is bounded to two test AOIs and the first five products, then one smallest refined-summary cube is selected.",
+      "resolution_required": "Any wider claim needs a new bounded audit with explicit product counts.",
+      "scope": "all",
+      "summary": "Bounded product selection is not exhaustive coverage"
+    }
+  ],
+  "counts": {
+    "analyses": {
+      "by_body": {
+        "Earth": {
+          "auth_required": 8,
+          "no_coverage": 2,
+          "total": 15,
+          "unverified": 5
+        },
+        "Mars": {
+          "context_only": 2,
+          "success": 2,
+          "total": 4
+        },
+        "Moon": {
+          "success": 1,
+          "total": 2,
+          "unverified": 1
+        }
+      },
+      "total": 21
+    },
+    "areas": {
+      "Earth": 5,
+      "Mars": 2,
+      "Moon": 1
+    },
+    "crism_context": {
+      "abundance_values": 0,
+      "aoi_count": 2,
+      "coverage_semantics": "AOI pixel-center, non-fill finite summary and DP-mask pixels; not validated mineral detection coverage",
+      "mineral_detections": 0,
+      "native_resolution_m": [
+        36.0
+      ],
+      "parameter_count": 7,
+      "parameters": [
+        "BD1900_2",
+        "CINDEX2",
+        "D2300",
+        "HCPINDEX2",
+        "LCPINDEX2",
+        "OLINDEX3",
+        "SINDEX2"
+      ],
+      "selected_products": [
+        "hrl000040ff_07_if183j_mtr3"
+      ],
+      "unit": "dimensionless_spectral_parameter",
+      "valid_fraction_by_area": {
+        "mars-test-jezero-floor": 1.0,
+        "mars-test-jezero-western-delta": 1.0
+      },
+      "value_count": 14,
+      "values_by_area": {
+        "mars-test-jezero-floor": [
+          {
+            "observation_id": "geology:mars-test-jezero-floor:crism-mtrdr-context:context_bd1900_2:crism:hrl000040ff_07_if183j_mtr3:BD1900_2",
+            "parameter": "BD1900_2",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": 0.00605710968375206
+          },
+          {
+            "observation_id": "geology:mars-test-jezero-floor:crism-mtrdr-context:context_cindex2:crism:hrl000040ff_07_if183j_mtr3:CINDEX2",
+            "parameter": "CINDEX2",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": 0.012565605342388153
+          },
+          {
+            "observation_id": "geology:mars-test-jezero-floor:crism-mtrdr-context:context_d2300:crism:hrl000040ff_07_if183j_mtr3:D2300",
+            "parameter": "D2300",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": 0.006032830104231834
+          },
+          {
+            "observation_id": "geology:mars-test-jezero-floor:crism-mtrdr-context:context_hcpindex2:crism:hrl000040ff_07_if183j_mtr3:HCPINDEX2",
+            "parameter": "HCPINDEX2",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": -0.010801248252391815
+          },
+          {
+            "observation_id": "geology:mars-test-jezero-floor:crism-mtrdr-context:context_lcpindex2:crism:hrl000040ff_07_if183j_mtr3:LCPINDEX2",
+            "parameter": "LCPINDEX2",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": -0.041438937187194824
+          },
+          {
+            "observation_id": "geology:mars-test-jezero-floor:crism-mtrdr-context:context_olindex3:crism:hrl000040ff_07_if183j_mtr3:OLINDEX3",
+            "parameter": "OLINDEX3",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": 0.12867358326911926
+          },
+          {
+            "observation_id": "geology:mars-test-jezero-floor:crism-mtrdr-context:context_sindex2:crism:hrl000040ff_07_if183j_mtr3:SINDEX2",
+            "parameter": "SINDEX2",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": -0.005270387511700392
+          }
+        ],
+        "mars-test-jezero-western-delta": [
+          {
+            "observation_id": "geology:mars-test-jezero-western-delta:crism-mtrdr-context:context_bd1900_2:crism:hrl000040ff_07_if183j_mtr3:BD1900_2",
+            "parameter": "BD1900_2",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": 0.010236929170787334
+          },
+          {
+            "observation_id": "geology:mars-test-jezero-western-delta:crism-mtrdr-context:context_cindex2:crism:hrl000040ff_07_if183j_mtr3:CINDEX2",
+            "parameter": "CINDEX2",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": 0.016876891255378723
+          },
+          {
+            "observation_id": "geology:mars-test-jezero-western-delta:crism-mtrdr-context:context_d2300:crism:hrl000040ff_07_if183j_mtr3:D2300",
+            "parameter": "D2300",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": 0.012837685644626617
+          },
+          {
+            "observation_id": "geology:mars-test-jezero-western-delta:crism-mtrdr-context:context_hcpindex2:crism:hrl000040ff_07_if183j_mtr3:HCPINDEX2",
+            "parameter": "HCPINDEX2",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": -0.011555329896509647
+          },
+          {
+            "observation_id": "geology:mars-test-jezero-western-delta:crism-mtrdr-context:context_lcpindex2:crism:hrl000040ff_07_if183j_mtr3:LCPINDEX2",
+            "parameter": "LCPINDEX2",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": -0.036416228860616684
+          },
+          {
+            "observation_id": "geology:mars-test-jezero-western-delta:crism-mtrdr-context:context_olindex3:crism:hrl000040ff_07_if183j_mtr3:OLINDEX3",
+            "parameter": "OLINDEX3",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": 0.12565995752811432
+          },
+          {
+            "observation_id": "geology:mars-test-jezero-western-delta:crism-mtrdr-context:context_sindex2:crism:hrl000040ff_07_if183j_mtr3:SINDEX2",
+            "parameter": "SINDEX2",
+            "score_role": "evidence_only",
+            "state": "detected",
+            "unit": "dimensionless_spectral_parameter",
+            "valid_fraction": 1.0,
+            "value": -0.010751777328550816
+          }
+        ]
+      }
+    },
+    "emit_metadata_coverage": {
+      "abundance_values": 0,
+      "aoi_rows": 10,
+      "granules_downloaded": 0,
+      "mineral_detections": 0,
+      "versions": {
+        "001": {
+          "aoi_rows": 5,
+          "aois_with_candidates": 4,
+          "aois_without_candidates": 1,
+          "granules_downloaded": 0,
+          "metadata_candidate_count": 88,
+          "status_counts": {
+            "auth_required": 4,
+            "no_coverage": 1
+          },
+          "valid_pixel_fraction": null
+        },
+        "002": {
+          "aoi_rows": 5,
+          "aois_with_candidates": 4,
+          "aois_without_candidates": 1,
+          "granules_downloaded": 0,
+          "metadata_candidate_count": 50,
+          "status_counts": {
+            "auth_required": 4,
+            "no_coverage": 1
+          },
+          "valid_pixel_fraction": null
+        }
+      }
+    },
+    "exported_observations": {
+      "by_body": {
+        "Earth": 15,
+        "Mars": 38,
+        "Moon": 3
+      },
+      "by_state": {
+        "detected": 30,
+        "no_coverage": 2,
+        "not_applicable": 0,
+        "not_detected": 0,
+        "unknown": 24
+      },
+      "dimension_codes": {
+        "D02": 56
+      },
+      "score_roles": {
+        "evidence_only": 56
+      },
+      "total": 56
+    },
+    "m3_evidence": {
+      "abundance_values": 0,
+      "aoi_extractions": 0,
+      "granules_downloaded": 0,
+      "mineral_detections": 0,
+      "status": "official_product_identified_not_fetched",
+      "validated_observations": 0
+    },
+    "mineral_observations": {
+      "abundance_values": 0,
+      "by_body": {
+        "Earth": 0,
+        "Mars": 10,
+        "Moon": 0
+      },
+      "by_state": {
+        "detected": 0,
+        "no_coverage": 0,
+        "not_applicable": 0,
+        "not_detected": 0,
+        "unknown": 10
+      },
+      "detected": 0,
+      "numeric_values": 0,
+      "total": 10
+    },
+    "spectral_context_observations": {
+      "abundance_values": 0,
+      "by_body": {
+        "Earth": 0,
+        "Mars": 14,
+        "Moon": 0
+      },
+      "by_state": {
+        "detected": 14
+      },
+      "mineral_detection_claims": 0,
+      "numeric_values": 14,
+      "total": 14,
+      "units": [
+        "dimensionless_spectral_parameter"
+      ]
+    }
+  },
+  "limitations": [
+    "All counts describe the bounded AOIs above, not global coverage.",
+    "No mineral abundance is produced, imputed or zero-filled by this report.",
+    "EMIT counts are CMR metadata candidates; CRISM counts are spectral context."
+  ],
+  "matrix": {
+    "limitations": [
+      "No source in this pilot has a validated mineral detector or abundance model.",
+      "Band depth, spectral index and reflectance are never converted to mass fraction.",
+      "Metadata presence, footprint overlap and finite-pixel fraction are not detections.",
+      "Existing Terrain observations, IDs, method versions and snapshots are untouched."
+    ],
+    "schema_version": "mineral-evidence-1.0.0",
+    "scope": "Bounded audit of Earth EMIT, Moon M3 and Mars CRISM mineral spectral evidence for the five existing Earth AOIs, one existing lunar ROI and two explicitly marked Mars test AOIs; not a global survey.",
+    "sources": [
+      {
+        "abundance_enabled": false,
+        "access_status": "auth_required",
+        "blockers": [
+          {
+            "blocker_id": "emit_auth",
+            "detail": "CMR metadata is anonymous, but every LP DAAC asset URL observed is lp-prod-protected. No credentials were requested, read or stored.",
+            "resolution_required": "An authorized operator must download one bounded granule and record its checksum; access remains opt-in and outside CI.",
+            "scope": "all",
+            "summary": "Earthdata Login required for granule assets"
+          },
+          {
+            "blocker_id": "emit_decoder",
+            "detail": "The repository has a tested native-pixel aggregation core (summarize_identification) but no granule-validated EMIT reader, mineral-group lookup or quality-bit mapping.",
+            "resolution_required": "Validate the real group/band names, fill values, QA mask and per-pixel uncertainty against one pinned granule before enabling state.",
+            "scope": "detection",
+            "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+          },
+          {
+            "blocker_id": "emit_native_swath",
+            "detail": "The counts in this report are CMR metadata candidates only. AOI intersection requires per-pixel geolocation, not a granule bounding box.",
+            "resolution_required": "Reproject/intersect native pixel centers and retain valid_fraction per AOI.",
+            "scope": "detection",
+            "summary": "Native swath geolocation not validated for the AOIs"
+          }
+        ],
+        "body": "Earth",
+        "geology_dataset_ids": [
+          "emit-l2bmin-002",
+          "emit-l2bmin-001"
+        ],
+        "instrument": "EMIT imaging spectrometer",
+        "limitations": [
+          "A CMR bounding-box hit is potential footprint coverage, not valid pixel coverage.",
+          "EMIT is a native swath product, not orthorectified to a fixed grid.",
+          "60 m native pixels do not become a 1.98 km terrain metric.",
+          "No granule was downloaded in this pilot; no value is presented as observed."
+        ],
+        "mineral_detection_enabled": false,
+        "products": [
+          {
+            "access_note": "Anonymous CMR collection/granule metadata works; LP DAAC granule assets are under lp-prod-protected and require Earthdata Login. No credentials were used.",
+            "access_status": "auth_required",
+            "collection_id": "C4079846859-LPCLOUD",
+            "doi": "10.5067/EMIT/EMITL2BMIN.002",
+            "license": "NASA Earth science data and information policy (open, no fee)",
+            "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+            "metadata_query_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30",
+            "product_id": "EMITL2BMIN",
+            "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002",
+            "verified_example": "EMIT_L2B_MIN_002_20260927T195248",
+            "version": "002",
+            "wavelength_or_parameter_semantics": "60 m mineral identification codes with per-mineral band depth and uncertainty on the native EMIT swath; band depth is not mass fraction."
+          },
+          {
+            "access_note": "Historical release; same protected LP DAAC asset access as V002. Never silently substituted for the current version.",
+            "access_status": "auth_required",
+            "collection_id": "C2408034484-LPCLOUD",
+            "doi": "10.5067/EMIT/EMITL2BMIN.001",
+            "license": "NASA Earth science data and information policy (open, no fee)",
+            "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+            "metadata_query_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&page_size=30",
+            "product_id": "EMITL2BMIN",
+            "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
+            "verified_example": null,
+            "version": "001",
+            "wavelength_or_parameter_semantics": "60 m mineral identification codes with band depth and uncertainty; not an abundance product."
+          }
+        ],
+        "provider": "NASA JPL / LP DAAC (EMIT mission)",
+        "semantics": "L2B MIN supplies mineral identification plus band depth/uncertainty. Detections require decoding product IDs, quality and uncertainty on a real granule; a band depth is never converted to wt%.",
+        "source_id": "earth-emit-mineral",
+        "verification_status": "verified_metadata"
+      },
+      {
+        "abundance_enabled": false,
+        "access_status": "open",
+        "blockers": [
+          {
+            "blocker_id": "m3_registration",
+            "detail": "The official L2 product is documented as pixel-located in the Mean Earth frame, but no M3 granule was downloaded and no per-pixel latitude/longitude, thermal correction or band alignment was checked against the lunar ROI.",
+            "resolution_required": "Download one bounded L2 granule, validate its detached label geolocation and band binning, and record pixel-center coverage.",
+            "scope": "detection",
+            "summary": "M3 registration/geolocation not validated in this repository"
+          },
+          {
+            "blocker_id": "m3_thresholds",
+            "detail": "Continuum removal, band-depth placement and a detection threshold must be specified and tested before any detected/non-detected state.",
+            "resolution_required": "Pin an estimator and threshold with a citation and offline fixtures; keep reflectance and band depth separate from abundance.",
+            "scope": "detection",
+            "summary": "No validated M3 mineral detection thresholds"
+          },
+          {
+            "blocker_id": "m3_research_product",
+            "detail": "The pinned Zenodo v4 matrix has no CRS, transform, units, valid range, QA or uncertainty, and its registration is unverified.",
+            "resolution_required": "Do not extract AOI values from it; treat it as format-inspected metadata until an authoritative registration exists.",
+            "scope": "all",
+            "summary": "Research-derived polar matrix cannot substitute for M3"
+          }
+        ],
+        "body": "Moon",
+        "geology_dataset_ids": [],
+        "instrument": "Moon Mineralogy Mapper (M3) imaging spectrometer",
+        "limitations": [
+          "M3 operated 2008-11 to 2009-08 and covered about 95% of the Moon in global mode; it is not a current or exhaustive survey.",
+          "Global-mode footprints are coarse relative to a small ROI; target-mode coverage is minimal because the mission ended early.",
+          "The existing Zenodo v4 research-derived lunar mineral matrix is not the official M3 archive and lacks CRS, units, QA and uncertainty."
+        ],
+        "mineral_detection_enabled": false,
+        "products": [
+          {
+            "access_note": "Public PDS archive; no login. Data set was reorganised into the PDS4 collection urn:nasa:pds:ch1_m3:data::1.0 (DOI 10.17189/f8xf-6a29).",
+            "access_status": "open",
+            "collection_id": "urn:nasa:pds:ch1_m3:data::1.0",
+            "doi": "10.17189/f8xf-6a29",
+            "license": "NASA Planetary Data System archived data (public domain)",
+            "license_url": "https://pds.nasa.gov/",
+            "metadata_query_url": "https://pds.nasa.gov/ds-view/pds/viewCollection.jsp?identifier=urn:nasa:pds:ch1_m3:data",
+            "product_id": "CH1-ORB-L-M3-4-L2-REFLECTANCE-V1.0",
+            "url": "https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=CH1-ORB-L-M3-4-L2-REFLECTANCE-V1.0",
+            "verified_example": "M3G20090203T175131_V01_RFL",
+            "version": "1.0",
+            "wavelength_or_parameter_semantics": "Pixel-located, reflectance-calibrated (RADF at i=30 deg, e=0 deg) near-IR spectra in 85 global-mode or 260 target-mode bands, Mean Earth/planetocentric coordinates, 0-360 deg east longitude."
+          }
+        ],
+        "provider": "NASA Planetary Data System / Chandrayaan-1 M3 team",
+        "semantics": "M3 reflectance and derived band depth are spectral measurements. No validated continuum-removal estimator, detection threshold or abundance model is applied in this pilot.",
+        "source_id": "moon-m3-reflectance",
+        "verification_status": "identified_metadata"
+      },
+      {
+        "abundance_enabled": false,
+        "access_status": "open",
+        "blockers": [
+          {
+            "blocker_id": "crism_thresholds",
+            "detail": "OLINDEX3/LCPINDEX2/HCPINDEX2/D2300/BD1900_2/SINDEX2/CINDEX2 values are retained as medians, but no published threshold or DP-mask bit mapping was validated for mineral identification.",
+            "resolution_required": "Pin the CRISM ATBD/DP mask definition and validate thresholds on labelled spectra before emitting detected/non-detected states.",
+            "scope": "detection",
+            "summary": "CRISM summary-parameter detection thresholds undocumented here"
+          },
+          {
+            "blocker_id": "crism_continuum",
+            "detail": "The summary parameters are published indices; no independent band-depth estimator, atmospheric correction or uncertainty model was applied.",
+            "resolution_required": "Define measurement semantics and uncertainty before any numeric mineral observation is exported.",
+            "scope": "detection",
+            "summary": "No continuum removal or uncertainty propagation"
+          },
+          {
+            "blocker_id": "crism_bounded_query",
+            "detail": "The ODE query is bounded to two test AOIs and the first five products, then one smallest refined-summary cube is selected.",
+            "resolution_required": "Any wider claim needs a new bounded audit with explicit product counts.",
+            "scope": "all",
+            "summary": "Bounded product selection is not exhaustive coverage"
+          }
+        ],
+        "body": "Mars",
+        "geology_dataset_ids": [
+          "crism-mtrdr-context"
+        ],
+        "instrument": "Compact Reconnaissance Imaging Spectrometer for Mars (CRISM)",
+        "limitations": [
+          "Two explicitly marked Mars test AOIs only; not a Mars reference area.",
+          "Summary-parameter coverage counts finite non-fill pixels, not validated mineral detections.",
+          "MTRDR uses a latitude-dependent custom Mars sphere; native CRS and pixel size are retained rather than forced to WGS84.",
+          "One bounded ODE query over the first five products selected one summary cube; this is not an exhaustive CRISM survey."
+        ],
+        "mineral_detection_enabled": false,
+        "products": [
+          {
+            "access_note": "Public HTTPS. This pilot downloaded the refined spectral summary and DP information maps only, never the full spectral cube.",
+            "access_status": "open",
+            "collection_id": "mro-m-crism-5-rdr-mptargeted-v1 (volume mrocr_4001)",
+            "doi": null,
+            "license": "PDS archived data are in the public domain",
+            "license_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+            "metadata_query_url": "https://oderest.rsl.wustl.edu/live2/",
+            "product_id": "hrl000040ff_07_if183j_mtr3",
+            "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_if183j_mtr3.lbl",
+            "verified_example": "hrl000040ff_07_sr183j_mtr3 (refined summary pair)",
+            "version": "MTR3",
+            "wavelength_or_parameter_semantics": "36 m refined spectral summary parameters (OLINDEX3, LCPINDEX2, HCPINDEX2, D2300, BD1900_2, SINDEX2, CINDEX2); dimensionless spectral parameters, not band depth in abundance units."
+          }
+        ],
+        "provider": "NASA PDS Geosciences Node / MRO CRISM",
+        "semantics": "The MTRDR refined summary parameters are context. Published parameter names do not establish a mineral identification threshold, and the DP information maps are not interpreted as a detection algorithm here.",
+        "source_id": "mars-crism-mtrdr",
+        "verification_status": "verified_metadata"
+      }
+    ],
+    "state_contract": [
+      {
+        "meaning": "A validated detector identified the mineral in at least one valid AOI pixel; a numeric band depth may accompany identification.",
+        "never_means": "It is not an abundance, not a mass fraction, and not proof of aqueous alteration.",
+        "numeric_value": "optional",
+        "state": "detected",
+        "valid_fraction": "required_positive"
+      },
+      {
+        "meaning": "Valid observation covered the AOI but the validated detector did not identify the mineral; the state is categorical.",
+        "never_means": "It is not zero abundance, zero concentration or a quantitative null.",
+        "numeric_value": "forbidden",
+        "state": "not_detected_under_valid_observation",
+        "valid_fraction": "required_positive"
+      },
+      {
+        "meaning": "No provider pixel/footprint intersects the AOI, or the product is absent there.",
+        "never_means": "It is not non-detection and it is not zero mineral content.",
+        "numeric_value": "forbidden",
+        "state": "no_coverage",
+        "valid_fraction": "optional"
+      },
+      {
+        "meaning": "The footprint exists but no valid observation was obtained: provider outage, authentication block, missing quality/uncertainty, or unvalidated detector.",
+        "never_means": "It is not evidence of absence and it is not zero.",
+        "numeric_value": "forbidden",
+        "state": "unknown",
+        "valid_fraction": "optional"
+      },
+      {
+        "meaning": "The requested mineral or measurement is outside the valid scope of the body, sensor or product.",
+        "never_means": "It is not an outage, not a footprint miss and not a non-detection.",
+        "numeric_value": "forbidden",
+        "state": "not_applicable",
+        "valid_fraction": "optional"
+      }
+    ]
+  },
+  "provenance": {
+    "coverage_audit": "pipelines/geology/coverage-audit.json",
+    "coverage_audit_sha256": "a094cc7f44a6489defa3b7772db0474e03fee709691e3664f864751eb5e25ef5",
+    "manifest_generated_at": "2026-11-14T12:02:15.495827+00:00",
+    "pinned_snapshot_id": "geo-snap-d1235d5f9defe6cd",
+    "snapshot_created_at": "2026-11-14T13:29:49.458138+00:00",
+    "source_record": "pipelines/geology/records/geology-e920e7e3ae79e176.json",
+    "typed_observations_sha256": "9f8dd0ca82b0ba4b0cb0972643fbdf8eb3c3726db3855a34c76d16e482344eef"
+  },
+  "schema_version": "mineral-evidence-report-1.0.0"
+}
