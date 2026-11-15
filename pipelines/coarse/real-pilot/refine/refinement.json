@@ -1,0 +1,1283 @@
+{
+  "counts": {
+    "coarse_eligible": 168,
+    "coarse_indexed": 168,
+    "coarse_selected": 3,
+    "context_observations": 33,
+    "failures": 0,
+    "fine_feature_observations": 15,
+    "links": 3,
+    "refined_failed": 0,
+    "refined_no_coverage": 0,
+    "refined_succeeded": 3
+  },
+  "coverage": {
+    "claim": "Only the selected coarse cells and their focus windows were processed. No global or exhaustive best-match claim is made.",
+    "regions": [
+      "pilot-alps",
+      "pilot-grand-canyon",
+      "pilot-sahara"
+    ],
+    "scope": "local_coarse_index_not_global_exhaustive"
+  },
+  "datasets": [
+    {
+      "access_timestamp": "2026-11-14T10:22:46Z",
+      "dataset_id": "copernicus-dem-glo90",
+      "license": "Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry), under the Copernicus Contributing Mission Data Access Licence terms",
+      "license_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "native_resolution_m": 90.0,
+      "processing_version": "terrain-flat-extension-1.0.0",
+      "product_id": "COP-DEM_GLO-90-DGED",
+      "provider": "European Space Agency (ESA) / Airbus Defence and Space; AWS Open Data mirror",
+      "source_kind": "earth_dem",
+      "title": "Copernicus DEM GLO-90 Digital Surface Model (DSM), 3 arc-second COG"
+    },
+    {
+      "access_timestamp": "2026-11-14T10:00:34Z",
+      "dataset_id": "esa-worldcover-2021-v200",
+      "license": "CC BY 4.0 (Creative Commons Attribution 4.0 International)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "native_resolution_m": 10.0,
+      "processing_version": "worldcover-2021-v200-1.0.0",
+      "product_id": "ESA WorldCover 2021 v200",
+      "provider": "European Space Agency (ESA) WorldCover",
+      "source_kind": "landcover",
+      "title": "ESA WorldCover 10 m 2021 v200 land cover"
+    }
+  ],
+  "failures": [],
+  "focus": {
+    "analysis_resolution_m": 90,
+    "inside_coarse_window": true,
+    "placement_rule": "coarse_recorded_metric_bbox_centre_v1",
+    "selection_is_deterministic": true,
+    "window_m": 1980.0
+  },
+  "generated_at": "2026-11-15T06:07:19Z",
+  "generated_by": "pipelines/refine_coarse_hits.py",
+  "input_index": {
+    "coverage_label": "local_coarse_index_not_global_exhaustive",
+    "grid_version": "coarse-grid-1.0.0",
+    "index_version": "coarse-index-1.0.0",
+    "manifest_sha256": "f6ac5cc33c10f57d6ea2e5016b7612dfa3702a805cc037c1d44120e16716e301",
+    "method_version": "coarse-terrain-250m-1.0.0",
+    "partitions": [
+      {
+        "bytes": 9255,
+        "path": "partitions/pilot-sahara/c38a11e353011d3d22d00d07d5291f03aaf3a0ef6a431fdd64afda2a833f7eb6.parquet",
+        "rows": 64,
+        "sha256": "c38a11e353011d3d22d00d07d5291f03aaf3a0ef6a431fdd64afda2a833f7eb6"
+      },
+      {
+        "bytes": 8151,
+        "path": "partitions/pilot-alps/49a22a65f8e827a7f72a5552e224a3edac0bba8892e941896a69664f5bf87a3a.parquet",
+        "rows": 48,
+        "sha256": "49a22a65f8e827a7f72a5552e224a3edac0bba8892e941896a69664f5bf87a3a"
+      },
+      {
+        "bytes": 8767,
+        "path": "partitions/pilot-grand-canyon/b6d5a2d923d67c65619ac1f07c982fab498ada0706c97fdb7e6f4afa8b65ae40.parquet",
+        "rows": 56,
+        "sha256": "b6d5a2d923d67c65619ac1f07c982fab498ada0706c97fdb7e6f4afa8b65ae40"
+      }
+    ],
+    "path": "pipelines/coarse/real-pilot/index",
+    "regions": [
+      "pilot-alps",
+      "pilot-grand-canyon",
+      "pilot-sahara"
+    ],
+    "row_count": 168,
+    "snapshot_id": "geomorpho250-real-pilot-20261115"
+  },
+  "limitations": [
+    "This is a bounded local coarse pilot, not global coverage and not an exhaustive scan.",
+    "The coarse index contains 168 cells; only 3 selected hit(s) were refined. No recall or precision is estimated because no held-out labelled pilot is available.",
+    "Coarse 5 km / ~250 m features and fine 1.98 km / 90 m features have different support and method versions. The coarse rank is not a fine rank and the two are never merged into one score.",
+    "The 1.98 km focus window is placed at the centre of each coarse metric window. This fixed placement does not search for the most similar sub-window inside the 5 km candidate, so a coarse hit may contain a different fine-scale signature.",
+    "Copernicus GLO-90 is a DSM and may include vegetation, buildings and infrastructure; it is not a bare-earth terrain model.",
+    "ESA WorldCover is 2021 land-cover context only. It is not mineralogy, not geology, and does not enter the terrain similarity distance.",
+    "Provider status is per request. Failed or no-coverage windows are reported and omitted; no missing value is replaced with zero or a synthetic observation.",
+    "Refined windows are not promoted into the seedable index, the committed snapshot, or user-created AOIs by this pilot.",
+    "Region-stratified selection takes the top hit in each committed pilot region, not the global top three; it is not a ranking of regions."
+  ],
+  "link_method_version": "coarse-refine-link-1.0.0",
+  "links": [
+    {
+      "coarse": {
+        "bbox_wgs84": {
+          "east": 10.06228444,
+          "north": 45.31507199,
+          "south": 45.26949697,
+          "west": 9.99771564
+        },
+        "candidate_id": "coarse-v1:249d33516a874855",
+        "coarse_rank": 1,
+        "coarse_rank_scope": "within_region",
+        "crs": "EPSG:32632",
+        "dataset_id": "geomorpho250-slope-v1.0",
+        "distance": 0.727555209,
+        "features": {
+          "coarse_flat_fraction_lt5deg": 1.0,
+          "coarse_slope_mean_deg": 0.7244479088818051,
+          "coarse_slope_p90_deg": 1.4904872796345952
+        },
+        "grid_version": "coarse-grid-1.0.0",
+        "method_version": "coarse-terrain-250m-1.0.0",
+        "qa_flags": [
+          "bounded_remote_window",
+          "cc_by_4_0",
+          "real_geomorpho250"
+        ],
+        "region_id": "pilot-alps",
+        "snapshot_id": "geomorpho250-real-pilot-20261115",
+        "source_asset_id": "pangaea-slope-e1349d175135549f",
+        "source_resolution_m": 250.0,
+        "target": {
+          "coarse_slope_mean_deg": 8.0
+        },
+        "valid_fraction": 1.0,
+        "weights": {
+          "coarse_slope_mean_deg": 1.0
+        },
+        "window_size_m": 5000.0
+      },
+      "error": null,
+      "focus": {
+        "center_lat": 45.29228897,
+        "center_lon": 10.03001297,
+        "coarse_bbox_metric": {
+          "east": 583330.811,
+          "north": 5018500.695,
+          "south": 5013372.941,
+          "west": 578203.055
+        },
+        "coarse_bbox_wgs84": {
+          "east": 10.06228444,
+          "north": 45.31507199,
+          "south": 45.26949697,
+          "west": 9.99771564
+        },
+        "coarse_candidate_id": "coarse-v1:249d33516a874855",
+        "coarse_crs": "EPSG:32632",
+        "coarse_region_id": "pilot-alps",
+        "focus_bbox_metric": {
+          "east": 581756.933,
+          "north": 5016926.818,
+          "south": 5014946.818,
+          "west": 579776.933
+        },
+        "focus_bbox_wgs84": {
+          "east": 10.04279957,
+          "north": 45.30131216,
+          "south": 45.28326444,
+          "west": 10.01723032
+        },
+        "margins_m": {
+          "east": 1573.878,
+          "north": 1573.877,
+          "south": 1573.877,
+          "west": 1573.878
+        },
+        "placement_rule": "coarse_recorded_metric_bbox_centre_v1",
+        "window_m": 1980.0
+      },
+      "link_method_version": "coarse-refine-link-1.0.0",
+      "refined": {
+        "area_id": "earth-refine-48a9e5a4fee2ca81",
+        "area_km2": 3.9204,
+        "bbox_wgs84": {
+          "east": 10.04279957,
+          "north": 45.30131216,
+          "south": 45.28326444,
+          "west": 10.01723032
+        },
+        "center_lat": 45.29228897,
+        "center_lon": 10.03001297,
+        "checksum": "sha256:f1c654744a7cac54f5997c3f0a81ce9a700e36746fc425fcd9d9e57898878a73",
+        "context_observation_count": 11,
+        "context_observations": {
+          "landcover_bare_sparse_fraction": {
+            "class_code": 60,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.00021
+          },
+          "landcover_built_up_fraction": {
+            "class_code": 50,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.047419
+          },
+          "landcover_cropland_fraction": {
+            "class_code": 40,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.699125
+          },
+          "landcover_grassland_fraction": {
+            "class_code": 30,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.104054
+          },
+          "landcover_herbaceous_wetland_fraction": {
+            "class_code": 90,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.001351
+          },
+          "landcover_mangrove_fraction": {
+            "class_code": 95,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_moss_lichen_fraction": {
+            "class_code": 100,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_shrubland_fraction": {
+            "class_code": 20,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_snow_ice_fraction": {
+            "class_code": 70,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_tree_cover_fraction": {
+            "class_code": 10,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.144974
+          },
+          "landcover_water_fraction": {
+            "class_code": 80,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.002867
+          }
+        },
+        "crs": "EPSG:32632",
+        "data_kind": "observed",
+        "datasets": [
+          {
+            "access_timestamp": "2026-11-14T10:22:46Z",
+            "checksum": "sha256:f1001c155ec730b6d05dd4fd4b1db8b8428ac6b7bdab4f7a6047836fee4540e6",
+            "dataset_id": "copernicus-dem-glo90",
+            "license": "Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry), under the Copernicus Contributing Mission Data Access Licence terms",
+            "license_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+            "native_resolution_m": 90.0,
+            "notes": "GLO-90 DSM (COP-DEM_GLO-90-DGED source) from the 2021 Copernicus DEM release, mirrored as public COGs in s3://copernicus-dem-90m (eu-central-1). 3 arc-second native grid, EPSG:4326, EGM2008 heights in metres. DSM includes buildings, infrastructure and vegetation; ocean areas have no tiles. Each COG uses 2048x2048 internal blocks, so a window range-read may transfer the containing block. Attribution: produced using Copernicus WorldDEM-90 \u00a9 DLR e.V. 2010-2014 and \u00a9 Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. Batch checksum covers canonical candidate records, not full source objects. Updated checksum covers canonical derived records, including individual window checksums.",
+            "processing_version": "terrain-flat-extension-1.0.0",
+            "product_id": "COP-DEM_GLO-90-DGED",
+            "provider": "European Space Agency (ESA) / Airbus Defence and Space; AWS Open Data mirror",
+            "source_crs": "EPSG:4326",
+            "source_kind": "earth_dem",
+            "title": "Copernicus DEM GLO-90 Digital Surface Model (DSM), 3 arc-second COG",
+            "url": "https://registry.opendata.aws/copernicus-dem/"
+          },
+          {
+            "access_timestamp": "2026-11-14T10:00:34Z",
+            "checksum": "sha256:193079182df8f30ad8043061af5e77ca33627c3456b1ab24b696792e0995e0ac",
+            "dataset_id": "esa-worldcover-2021-v200",
+            "license": "CC BY 4.0 (Creative Commons Attribution 4.0 International)",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "native_resolution_m": 10.0,
+            "notes": "ESA WorldCover 2021 v200 static annual land-cover map at 10 m (1/12000 degree) in EPSG:4326. Class code 0 is nodata and is excluded from fraction denominators. Class codes: 10 Tree cover; 20 Shrubland; 30 Grassland; 40 Cropland; 50 Built-up; 60 Bare / sparse vegetation; 70 Snow and ice; 80 Permanent water bodies; 90 Herbaceous wetland; 95 Mangroves; 100 Moss and lichen. The AOI windows were read as bounded unsigned HTTPS range requests from the public AWS Open Data bucket s3://esa-worldcover (eu-central-1), prefix v200/2021/map/, with 3-degree tiles named ESA_WorldCover_10m_2021_v200_<N|S>dd<W|E>ddd_Map.tif. Fractions use valid (non-nodata) pixels as the denominator and sum to 1 within 0.0001; valid_fraction is the share of AOI pixels with data and must be >= 0.8 for quality 'verified'. Body: Earth. This is Earth land-cover context only: it is not lunar mineralogy, not geology, not a terrain measurement, and not a similarity feature. Limitations: 10 m static 2021 epoch, annual composite without a per-pixel date, cloud/seasonal and mixed-pixel artifacts, and helper-class semantics (for example 'bare / sparse vegetation' groups several surfaces). The published independent validation reports 76.7% overall accuracy for 2021 v200. Small 2 km AOIs can be dominated by one class and are not a regional or global survey. Citation: Zanaga, D., Van De Kerchove, R., Daems, D., De Keersmaecker, W., Brockmann, C., Kirches, G., Wevers, J., Cartus, O., Santoro, M., Fritz, S., Lesiv, M., Herold, M., Tsendbazar, N.E., Xu, P., Ramoino, F., Arino, O., 2022. ESA WorldCover 10 m 2021 v200. https://doi.org/10.5281/zenodo.7254221.",
+            "processing_version": "worldcover-2021-v200-1.0.0",
+            "product_id": "ESA WorldCover 2021 v200",
+            "provider": "European Space Agency (ESA) WorldCover",
+            "source_crs": "EPSG:4326",
+            "source_kind": "landcover",
+            "title": "ESA WorldCover 10 m 2021 v200 land cover",
+            "url": "https://esa-worldcover.org/en/data-access"
+          }
+        ],
+        "features": {
+          "flat_terrain_fraction": {
+            "extraction_scale_m": 90,
+            "method_version": "flat-terrain-fraction-1.0.0",
+            "quality": "verified",
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 1.0
+          },
+          "roughness_std_m": {
+            "extraction_scale_m": 90,
+            "method_version": "terrain-metrics-1.0.0",
+            "quality": "verified",
+            "unit": "meter",
+            "valid_fraction": 1.0,
+            "value": 2.660786
+          },
+          "slope_mean_deg": {
+            "extraction_scale_m": 90,
+            "method_version": "terrain-metrics-1.0.0",
+            "quality": "verified",
+            "unit": "degree",
+            "valid_fraction": 1.0,
+            "value": 0.784752
+          },
+          "slope_p90_deg": {
+            "extraction_scale_m": 90,
+            "method_version": "terrain-metrics-1.0.0",
+            "quality": "verified",
+            "unit": "degree",
+            "valid_fraction": 1.0,
+            "value": 1.790683
+          },
+          "terrain_relief_p95_p05_m": {
+            "extraction_scale_m": 90,
+            "method_version": "terrain-metrics-1.0.0",
+            "quality": "verified",
+            "unit": "meter",
+            "valid_fraction": 1.0,
+            "value": 17.070468
+          }
+        },
+        "method_versions": {
+          "context": "worldcover-2021-v200-1.0.0",
+          "extractor": "analog_pipelines.features.extract_features",
+          "flat": "flat-terrain-fraction-1.0.0",
+          "terrain": "terrain-metrics-1.0.0"
+        },
+        "origin": "coarse_refinement",
+        "provider_status": {
+          "copernicus-dem-glo90": {
+            "access_timestamp": "2026-11-15T06:07:02Z",
+            "read_mode": "bounded_gdal_vsicurl_range_read_bounded_mosaic",
+            "source_tiles": [
+              "Copernicus_DSM_COG_30_N45_00_E009_00_DEM",
+              "Copernicus_DSM_COG_30_N45_00_E010_00_DEM"
+            ],
+            "source_urls": [
+              "https://copernicus-dem-90m.s3.amazonaws.com/Copernicus_DSM_COG_30_N45_00_E009_00_DEM/Copernicus_DSM_COG_30_N45_00_E009_00_DEM.tif",
+              "https://copernicus-dem-90m.s3.amazonaws.com/Copernicus_DSM_COG_30_N45_00_E010_00_DEM/Copernicus_DSM_COG_30_N45_00_E010_00_DEM.tif"
+            ],
+            "status": "verified",
+            "valid_pixels": 5680,
+            "window_checksum": "sha256:f1c654744a7cac54f5997c3f0a81ce9a700e36746fc425fcd9d9e57898878a73",
+            "window_shapes": {
+              "Copernicus_DSM_COG_30_N45_00_E009_00_DEM": [
+                71,
+                4
+              ],
+              "Copernicus_DSM_COG_30_N45_00_E010_00_DEM": [
+                71,
+                76
+              ]
+            }
+          },
+          "esa-worldcover-2021-v200": {
+            "access_timestamp": "2026-11-15T06:07:02Z",
+            "checksum": "sha256:a1f4ba128b6b9bf0c14ee1ee03b93fa632005186ec21e9c134fe4d82abdac2c6",
+            "quality": "verified",
+            "source_url": "https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/",
+            "status": "verified",
+            "tiles": 1,
+            "valid_fraction": 1.0,
+            "valid_pixels": 66619
+          }
+        },
+        "quality_flags": [
+          "coarse_refined_window",
+          "focus_center_placement",
+          "copernicus_dsm_may_include_vegetation_buildings",
+          "glo90_native_3_arcsec_bilinear_to_90m",
+          "worldcover_context_2021_epoch"
+        ],
+        "resolution_m": 90.0,
+        "valid_fraction": 1.0,
+        "warnings": [
+          "bounded_gdal_vsicurl_range_read",
+          "bounded_tile_mosaic"
+        ],
+        "window_size_m": 1980.0
+      },
+      "scores": {
+        "coarse": {
+          "distance": 0.727555209,
+          "method_version": "coarse-terrain-250m-1.0.0",
+          "rank": 1,
+          "rank_scope": "within_region",
+          "spatial_support": "5 km candidate window aggregated from ~250 m source cells"
+        },
+        "coarse_and_fine_scores_interchangeable": false,
+        "fine": {
+          "distance": null,
+          "method_version": "terrain-metrics-1.0.0",
+          "rank": null,
+          "reason": "No fine-support target is defined for this pilot, so the 90 m observations are reported unranked. Coarse and fine supports are not interchangeable and the coarse rank is not a fine rank.",
+          "spatial_support": "1.98 km focus window on a 22 x 22 grid at 90 m"
+        }
+      },
+      "stage": "complete",
+      "status": "succeeded"
+    },
+    {
+      "coarse": {
+        "bbox_wgs84": {
+          "east": -112.0363212,
+          "north": 36.02358044,
+          "south": 35.97801632,
+          "west": -112.09239479
+        },
+        "candidate_id": "coarse-v1:e0d4c209d928961c",
+        "coarse_rank": 1,
+        "coarse_rank_scope": "within_region",
+        "crs": "EPSG:32612",
+        "dataset_id": "geomorpho250-slope-v1.0",
+        "distance": 0.095804934,
+        "features": {
+          "coarse_flat_fraction_lt5deg": 0.8275,
+          "coarse_slope_mean_deg": 7.041950658607611,
+          "coarse_slope_p90_deg": 31.548981117617437
+        },
+        "grid_version": "coarse-grid-1.0.0",
+        "method_version": "coarse-terrain-250m-1.0.0",
+        "qa_flags": [
+          "bounded_remote_window",
+          "cc_by_4_0",
+          "real_geomorpho250"
+        ],
+        "region_id": "pilot-grand-canyon",
+        "snapshot_id": "geomorpho250-real-pilot-20261115",
+        "source_asset_id": "pangaea-slope-e0c301f2dcd4891c",
+        "source_resolution_m": 250.0,
+        "target": {
+          "coarse_slope_mean_deg": 8.0
+        },
+        "valid_fraction": 1.0,
+        "weights": {
+          "coarse_slope_mean_deg": 1.0
+        },
+        "window_size_m": 5000.0
+      },
+      "error": null,
+      "focus": {
+        "center_lat": 36.00080169,
+        "center_lon": -112.06436606,
+        "coarse_bbox_metric": {
+          "east": 406625.064,
+          "north": 3987115.746,
+          "south": 3982006.555,
+          "west": 401515.872
+        },
+        "coarse_bbox_wgs84": {
+          "east": -112.0363212,
+          "north": 36.02358044,
+          "south": 35.97801632,
+          "west": -112.09239479
+        },
+        "coarse_candidate_id": "coarse-v1:e0d4c209d928961c",
+        "coarse_crs": "EPSG:32612",
+        "coarse_region_id": "pilot-grand-canyon",
+        "focus_bbox_metric": {
+          "east": 405060.468,
+          "north": 3985551.15,
+          "south": 3983571.15,
+          "west": 403080.468
+        },
+        "focus_bbox_wgs84": {
+          "east": -112.05326473,
+          "north": 36.00982291,
+          "south": 35.99177952,
+          "west": -112.07546987
+        },
+        "margins_m": {
+          "east": 1564.596,
+          "north": 1564.596,
+          "south": 1564.596,
+          "west": 1564.596
+        },
+        "placement_rule": "coarse_recorded_metric_bbox_centre_v1",
+        "window_m": 1980.0
+      },
+      "link_method_version": "coarse-refine-link-1.0.0",
+      "refined": {
+        "area_id": "earth-refine-432552ef1e4bb863",
+        "area_km2": 3.9204,
+        "bbox_wgs84": {
+          "east": -112.05326473,
+          "north": 36.00982291,
+          "south": 35.99177952,
+          "west": -112.07546987
+        },
+        "center_lat": 36.00080169,
+        "center_lon": -112.06436606,
+        "checksum": "sha256:2793783e09cf80360582885e2a75fd6069695c780d93891a71eb4fbf6a5d4f0f",
+        "context_observation_count": 11,
+        "context_observations": {
+          "landcover_bare_sparse_fraction": {
+            "class_code": 60,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_built_up_fraction": {
+            "class_code": 50,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.000346
+          },
+          "landcover_cropland_fraction": {
+            "class_code": 40,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_grassland_fraction": {
+            "class_code": 30,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.00052
+          },
+          "landcover_herbaceous_wetland_fraction": {
+            "class_code": 90,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_mangrove_fraction": {
+            "class_code": 95,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_moss_lichen_fraction": {
+            "class_code": 100,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_shrubland_fraction": {
+            "class_code": 20,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.003188
+          },
+          "landcover_snow_ice_fraction": {
+            "class_code": 70,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_tree_cover_fraction": {
+            "class_code": 10,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.995946
+          },
+          "landcover_water_fraction": {
+            "class_code": 80,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          }
+        },
+        "crs": "EPSG:32612",
+        "data_kind": "observed",
+        "datasets": [
+          {
+            "access_timestamp": "2026-11-14T10:22:46Z",
+            "checksum": "sha256:f1001c155ec730b6d05dd4fd4b1db8b8428ac6b7bdab4f7a6047836fee4540e6",
+            "dataset_id": "copernicus-dem-glo90",
+            "license": "Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry), under the Copernicus Contributing Mission Data Access Licence terms",
+            "license_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+            "native_resolution_m": 90.0,
+            "notes": "GLO-90 DSM (COP-DEM_GLO-90-DGED source) from the 2021 Copernicus DEM release, mirrored as public COGs in s3://copernicus-dem-90m (eu-central-1). 3 arc-second native grid, EPSG:4326, EGM2008 heights in metres. DSM includes buildings, infrastructure and vegetation; ocean areas have no tiles. Each COG uses 2048x2048 internal blocks, so a window range-read may transfer the containing block. Attribution: produced using Copernicus WorldDEM-90 \u00a9 DLR e.V. 2010-2014 and \u00a9 Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. Batch checksum covers canonical candidate records, not full source objects. Updated checksum covers canonical derived records, including individual window checksums.",
+            "processing_version": "terrain-flat-extension-1.0.0",
+            "product_id": "COP-DEM_GLO-90-DGED",
+            "provider": "European Space Agency (ESA) / Airbus Defence and Space; AWS Open Data mirror",
+            "source_crs": "EPSG:4326",
+            "source_kind": "earth_dem",
+            "title": "Copernicus DEM GLO-90 Digital Surface Model (DSM), 3 arc-second COG",
+            "url": "https://registry.opendata.aws/copernicus-dem/"
+          },
+          {
+            "access_timestamp": "2026-11-14T10:00:34Z",
+            "checksum": "sha256:193079182df8f30ad8043061af5e77ca33627c3456b1ab24b696792e0995e0ac",
+            "dataset_id": "esa-worldcover-2021-v200",
+            "license": "CC BY 4.0 (Creative Commons Attribution 4.0 International)",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "native_resolution_m": 10.0,
+            "notes": "ESA WorldCover 2021 v200 static annual land-cover map at 10 m (1/12000 degree) in EPSG:4326. Class code 0 is nodata and is excluded from fraction denominators. Class codes: 10 Tree cover; 20 Shrubland; 30 Grassland; 40 Cropland; 50 Built-up; 60 Bare / sparse vegetation; 70 Snow and ice; 80 Permanent water bodies; 90 Herbaceous wetland; 95 Mangroves; 100 Moss and lichen. The AOI windows were read as bounded unsigned HTTPS range requests from the public AWS Open Data bucket s3://esa-worldcover (eu-central-1), prefix v200/2021/map/, with 3-degree tiles named ESA_WorldCover_10m_2021_v200_<N|S>dd<W|E>ddd_Map.tif. Fractions use valid (non-nodata) pixels as the denominator and sum to 1 within 0.0001; valid_fraction is the share of AOI pixels with data and must be >= 0.8 for quality 'verified'. Body: Earth. This is Earth land-cover context only: it is not lunar mineralogy, not geology, not a terrain measurement, and not a similarity feature. Limitations: 10 m static 2021 epoch, annual composite without a per-pixel date, cloud/seasonal and mixed-pixel artifacts, and helper-class semantics (for example 'bare / sparse vegetation' groups several surfaces). The published independent validation reports 76.7% overall accuracy for 2021 v200. Small 2 km AOIs can be dominated by one class and are not a regional or global survey. Citation: Zanaga, D., Van De Kerchove, R., Daems, D., De Keersmaecker, W., Brockmann, C., Kirches, G., Wevers, J., Cartus, O., Santoro, M., Fritz, S., Lesiv, M., Herold, M., Tsendbazar, N.E., Xu, P., Ramoino, F., Arino, O., 2022. ESA WorldCover 10 m 2021 v200. https://doi.org/10.5281/zenodo.7254221.",
+            "processing_version": "worldcover-2021-v200-1.0.0",
+            "product_id": "ESA WorldCover 2021 v200",
+            "provider": "European Space Agency (ESA) WorldCover",
+            "source_crs": "EPSG:4326",
+            "source_kind": "landcover",
+            "title": "ESA WorldCover 10 m 2021 v200 land cover",
+            "url": "https://esa-worldcover.org/en/data-access"
+          }
+        ],
+        "features": {
+          "flat_terrain_fraction": {
+            "extraction_scale_m": 90,
+            "method_version": "flat-terrain-fraction-1.0.0",
+            "quality": "verified",
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 1.0
+          },
+          "roughness_std_m": {
+            "extraction_scale_m": 90,
+            "method_version": "terrain-metrics-1.0.0",
+            "quality": "verified",
+            "unit": "meter",
+            "valid_fraction": 1.0,
+            "value": 5.320958
+          },
+          "slope_mean_deg": {
+            "extraction_scale_m": 90,
+            "method_version": "terrain-metrics-1.0.0",
+            "quality": "verified",
+            "unit": "degree",
+            "valid_fraction": 1.0,
+            "value": 2.248833
+          },
+          "slope_p90_deg": {
+            "extraction_scale_m": 90,
+            "method_version": "terrain-metrics-1.0.0",
+            "quality": "verified",
+            "unit": "degree",
+            "valid_fraction": 1.0,
+            "value": 3.472857
+          },
+          "terrain_relief_p95_p05_m": {
+            "extraction_scale_m": 90,
+            "method_version": "terrain-metrics-1.0.0",
+            "quality": "verified",
+            "unit": "meter",
+            "valid_fraction": 1.0,
+            "value": 50.394
+          }
+        },
+        "method_versions": {
+          "context": "worldcover-2021-v200-1.0.0",
+          "extractor": "analog_pipelines.features.extract_features",
+          "flat": "flat-terrain-fraction-1.0.0",
+          "terrain": "terrain-metrics-1.0.0"
+        },
+        "origin": "coarse_refinement",
+        "provider_status": {
+          "copernicus-dem-glo90": {
+            "access_timestamp": "2026-11-15T06:07:13Z",
+            "read_mode": "bounded_gdal_vsicurl_range_read_bounded_mosaic",
+            "source_tiles": [
+              "Copernicus_DSM_COG_30_N35_00_W113_00_DEM",
+              "Copernicus_DSM_COG_30_N36_00_W113_00_DEM"
+            ],
+            "source_urls": [
+              "https://copernicus-dem-90m.s3.amazonaws.com/Copernicus_DSM_COG_30_N35_00_W113_00_DEM/Copernicus_DSM_COG_30_N35_00_W113_00_DEM.tif",
+              "https://copernicus-dem-90m.s3.amazonaws.com/Copernicus_DSM_COG_30_N36_00_W113_00_DEM/Copernicus_DSM_COG_30_N36_00_W113_00_DEM.tif"
+            ],
+            "status": "verified",
+            "valid_pixels": 5320,
+            "window_checksum": "sha256:2793783e09cf80360582885e2a75fd6069695c780d93891a71eb4fbf6a5d4f0f",
+            "window_shapes": {
+              "Copernicus_DSM_COG_30_N35_00_W113_00_DEM": [
+                34,
+                76
+              ],
+              "Copernicus_DSM_COG_30_N36_00_W113_00_DEM": [
+                36,
+                76
+              ]
+            }
+          },
+          "esa-worldcover-2021-v200": {
+            "access_timestamp": "2026-11-15T06:07:13Z",
+            "checksum": "sha256:2fd3152538d68145e38bfe6c30f9b72a2a146b207916eb88e8377bc703be5f53",
+            "quality": "verified",
+            "source_url": "https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/",
+            "status": "verified",
+            "tiles": 2,
+            "valid_fraction": 1.0,
+            "valid_pixels": 57722
+          }
+        },
+        "quality_flags": [
+          "coarse_refined_window",
+          "focus_center_placement",
+          "copernicus_dsm_may_include_vegetation_buildings",
+          "glo90_native_3_arcsec_bilinear_to_90m",
+          "worldcover_context_2021_epoch"
+        ],
+        "resolution_m": 90.0,
+        "valid_fraction": 1.0,
+        "warnings": [
+          "bounded_gdal_vsicurl_range_read",
+          "bounded_tile_mosaic"
+        ],
+        "window_size_m": 1980.0
+      },
+      "scores": {
+        "coarse": {
+          "distance": 0.095804934,
+          "method_version": "coarse-terrain-250m-1.0.0",
+          "rank": 1,
+          "rank_scope": "within_region",
+          "spatial_support": "5 km candidate window aggregated from ~250 m source cells"
+        },
+        "coarse_and_fine_scores_interchangeable": false,
+        "fine": {
+          "distance": null,
+          "method_version": "terrain-metrics-1.0.0",
+          "rank": null,
+          "reason": "No fine-support target is defined for this pilot, so the 90 m observations are reported unranked. Coarse and fine supports are not interchangeable and the coarse rank is not a fine rank.",
+          "spatial_support": "1.98 km focus window on a 22 x 22 grid at 90 m"
+        }
+      },
+      "stage": "complete",
+      "status": "succeeded"
+    },
+    {
+      "coarse": {
+        "bbox_wgs84": {
+          "east": 10.09633637,
+          "north": 24.13515325,
+          "south": 24.08965539,
+          "west": 10.04676743
+        },
+        "candidate_id": "coarse-v1:95046a41aeb31ca9",
+        "coarse_rank": 1,
+        "coarse_rank_scope": "within_region",
+        "crs": "EPSG:32632",
+        "dataset_id": "geomorpho250-slope-v1.0",
+        "distance": 0.013548552,
+        "features": {
+          "coarse_flat_fraction_lt5deg": 0.3875,
+          "coarse_slope_mean_deg": 8.135485515373434,
+          "coarse_slope_p90_deg": 16.653601987180306
+        },
+        "grid_version": "coarse-grid-1.0.0",
+        "method_version": "coarse-terrain-250m-1.0.0",
+        "qa_flags": [
+          "bounded_remote_window",
+          "cc_by_4_0",
+          "real_geomorpho250"
+        ],
+        "region_id": "pilot-sahara",
+        "snapshot_id": "geomorpho250-real-pilot-20261115",
+        "source_asset_id": "pangaea-slope-3c8a3f993c43ddf7",
+        "source_resolution_m": 250.0,
+        "target": {
+          "coarse_slope_mean_deg": 8.0
+        },
+        "valid_fraction": 1.0,
+        "weights": {
+          "coarse_slope_mean_deg": 1.0
+        },
+        "window_size_m": 5000.0
+      },
+      "error": null,
+      "focus": {
+        "center_lat": 24.11240646,
+        "center_lon": 10.07155628,
+        "coarse_bbox_metric": {
+          "east": 611436.727,
+          "north": 2669625.838,
+          "south": 2664549.43,
+          "west": 606360.319
+        },
+        "coarse_bbox_wgs84": {
+          "east": 10.09633637,
+          "north": 24.13515325,
+          "south": 24.08965539,
+          "west": 10.04676743
+        },
+        "coarse_candidate_id": "coarse-v1:95046a41aeb31ca9",
+        "coarse_crs": "EPSG:32632",
+        "coarse_region_id": "pilot-sahara",
+        "focus_bbox_metric": {
+          "east": 609888.523,
+          "north": 2668077.634,
+          "south": 2666097.634,
+          "west": 607908.523
+        },
+        "focus_bbox_wgs84": {
+          "east": 10.08137161,
+          "north": 24.12141475,
+          "south": 24.10339759,
+          "west": 10.06174231
+        },
+        "margins_m": {
+          "east": 1548.204,
+          "north": 1548.204,
+          "south": 1548.204,
+          "west": 1548.204
+        },
+        "placement_rule": "coarse_recorded_metric_bbox_centre_v1",
+        "window_m": 1980.0
+      },
+      "link_method_version": "coarse-refine-link-1.0.0",
+      "refined": {
+        "area_id": "earth-refine-01a341a9cef18971",
+        "area_km2": 3.9204,
+        "bbox_wgs84": {
+          "east": 10.08137161,
+          "north": 24.12141475,
+          "south": 24.10339759,
+          "west": 10.06174231
+        },
+        "center_lat": 24.11240646,
+        "center_lon": 10.07155628,
+        "checksum": "sha256:01d0da0618265083bb9c96e35783383a270958e8c64565a1553b9a289b556a71",
+        "context_observation_count": 11,
+        "context_observations": {
+          "landcover_bare_sparse_fraction": {
+            "class_code": 60,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.99998
+          },
+          "landcover_built_up_fraction": {
+            "class_code": 50,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_cropland_fraction": {
+            "class_code": 40,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_grassland_fraction": {
+            "class_code": 30,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 2e-05
+          },
+          "landcover_herbaceous_wetland_fraction": {
+            "class_code": 90,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_mangrove_fraction": {
+            "class_code": 95,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_moss_lichen_fraction": {
+            "class_code": 100,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_shrubland_fraction": {
+            "class_code": 20,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_snow_ice_fraction": {
+            "class_code": 70,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_tree_cover_fraction": {
+            "class_code": 10,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          },
+          "landcover_water_fraction": {
+            "class_code": 80,
+            "dataset_id": "esa-worldcover-2021-v200",
+            "method_version": "worldcover-2021-v200-1.0.0",
+            "provider": "ESA WorldCover",
+            "quality": "verified",
+            "source_resolution_m": 10.0,
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.0
+          }
+        },
+        "crs": "EPSG:32632",
+        "data_kind": "observed",
+        "datasets": [
+          {
+            "access_timestamp": "2026-11-14T10:22:46Z",
+            "checksum": "sha256:f1001c155ec730b6d05dd4fd4b1db8b8428ac6b7bdab4f7a6047836fee4540e6",
+            "dataset_id": "copernicus-dem-glo90",
+            "license": "Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry), under the Copernicus Contributing Mission Data Access Licence terms",
+            "license_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+            "native_resolution_m": 90.0,
+            "notes": "GLO-90 DSM (COP-DEM_GLO-90-DGED source) from the 2021 Copernicus DEM release, mirrored as public COGs in s3://copernicus-dem-90m (eu-central-1). 3 arc-second native grid, EPSG:4326, EGM2008 heights in metres. DSM includes buildings, infrastructure and vegetation; ocean areas have no tiles. Each COG uses 2048x2048 internal blocks, so a window range-read may transfer the containing block. Attribution: produced using Copernicus WorldDEM-90 \u00a9 DLR e.V. 2010-2014 and \u00a9 Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. Batch checksum covers canonical candidate records, not full source objects. Updated checksum covers canonical derived records, including individual window checksums.",
+            "processing_version": "terrain-flat-extension-1.0.0",
+            "product_id": "COP-DEM_GLO-90-DGED",
+            "provider": "European Space Agency (ESA) / Airbus Defence and Space; AWS Open Data mirror",
+            "source_crs": "EPSG:4326",
+            "source_kind": "earth_dem",
+            "title": "Copernicus DEM GLO-90 Digital Surface Model (DSM), 3 arc-second COG",
+            "url": "https://registry.opendata.aws/copernicus-dem/"
+          },
+          {
+            "access_timestamp": "2026-11-14T10:00:34Z",
+            "checksum": "sha256:193079182df8f30ad8043061af5e77ca33627c3456b1ab24b696792e0995e0ac",
+            "dataset_id": "esa-worldcover-2021-v200",
+            "license": "CC BY 4.0 (Creative Commons Attribution 4.0 International)",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "native_resolution_m": 10.0,
+            "notes": "ESA WorldCover 2021 v200 static annual land-cover map at 10 m (1/12000 degree) in EPSG:4326. Class code 0 is nodata and is excluded from fraction denominators. Class codes: 10 Tree cover; 20 Shrubland; 30 Grassland; 40 Cropland; 50 Built-up; 60 Bare / sparse vegetation; 70 Snow and ice; 80 Permanent water bodies; 90 Herbaceous wetland; 95 Mangroves; 100 Moss and lichen. The AOI windows were read as bounded unsigned HTTPS range requests from the public AWS Open Data bucket s3://esa-worldcover (eu-central-1), prefix v200/2021/map/, with 3-degree tiles named ESA_WorldCover_10m_2021_v200_<N|S>dd<W|E>ddd_Map.tif. Fractions use valid (non-nodata) pixels as the denominator and sum to 1 within 0.0001; valid_fraction is the share of AOI pixels with data and must be >= 0.8 for quality 'verified'. Body: Earth. This is Earth land-cover context only: it is not lunar mineralogy, not geology, not a terrain measurement, and not a similarity feature. Limitations: 10 m static 2021 epoch, annual composite without a per-pixel date, cloud/seasonal and mixed-pixel artifacts, and helper-class semantics (for example 'bare / sparse vegetation' groups several surfaces). The published independent validation reports 76.7% overall accuracy for 2021 v200. Small 2 km AOIs can be dominated by one class and are not a regional or global survey. Citation: Zanaga, D., Van De Kerchove, R., Daems, D., De Keersmaecker, W., Brockmann, C., Kirches, G., Wevers, J., Cartus, O., Santoro, M., Fritz, S., Lesiv, M., Herold, M., Tsendbazar, N.E., Xu, P., Ramoino, F., Arino, O., 2022. ESA WorldCover 10 m 2021 v200. https://doi.org/10.5281/zenodo.7254221.",
+            "processing_version": "worldcover-2021-v200-1.0.0",
+            "product_id": "ESA WorldCover 2021 v200",
+            "provider": "European Space Agency (ESA) WorldCover",
+            "source_crs": "EPSG:4326",
+            "source_kind": "landcover",
+            "title": "ESA WorldCover 10 m 2021 v200 land cover",
+            "url": "https://esa-worldcover.org/en/data-access"
+          }
+        ],
+        "features": {
+          "flat_terrain_fraction": {
+            "extraction_scale_m": 90,
+            "method_version": "flat-terrain-fraction-1.0.0",
+            "quality": "verified",
+            "unit": "fraction",
+            "valid_fraction": 1.0,
+            "value": 0.19
+          },
+          "roughness_std_m": {
+            "extraction_scale_m": 90,
+            "method_version": "terrain-metrics-1.0.0",
+            "quality": "verified",
+            "unit": "meter",
+            "valid_fraction": 1.0,
+            "value": 42.211062
+          },
+          "slope_mean_deg": {
+            "extraction_scale_m": 90,
+            "method_version": "terrain-metrics-1.0.0",
+            "quality": "verified",
+            "unit": "degree",
+            "valid_fraction": 1.0,
+            "value": 12.456029
+          },
+          "slope_p90_deg": {
+            "extraction_scale_m": 90,
+            "method_version": "terrain-metrics-1.0.0",
+            "quality": "verified",
+            "unit": "degree",
+            "valid_fraction": 1.0,
+            "value": 22.96912
+          },
+          "terrain_relief_p95_p05_m": {
+            "extraction_scale_m": 90,
+            "method_version": "terrain-metrics-1.0.0",
+            "quality": "verified",
+            "unit": "meter",
+            "valid_fraction": 1.0,
+            "value": 154.650052
+          }
+        },
+        "method_versions": {
+          "context": "worldcover-2021-v200-1.0.0",
+          "extractor": "analog_pipelines.features.extract_features",
+          "flat": "flat-terrain-fraction-1.0.0",
+          "terrain": "terrain-metrics-1.0.0"
+        },
+        "origin": "coarse_refinement",
+        "provider_status": {
+          "copernicus-dem-glo90": {
+            "access_timestamp": "2026-11-15T06:07:19Z",
+            "read_mode": "bounded_gdal_vsicurl_range_read_bounded_mosaic",
+            "source_tiles": [
+              "Copernicus_DSM_COG_30_N24_00_E010_00_DEM"
+            ],
+            "source_urls": [
+              "https://copernicus-dem-90m.s3.amazonaws.com/Copernicus_DSM_COG_30_N24_00_E010_00_DEM/Copernicus_DSM_COG_30_N24_00_E010_00_DEM.tif"
+            ],
+            "status": "verified",
+            "valid_pixels": 5040,
+            "window_checksum": "sha256:01d0da0618265083bb9c96e35783383a270958e8c64565a1553b9a289b556a71",
+            "window_shapes": {
+              "Copernicus_DSM_COG_30_N24_00_E010_00_DEM": [
+                70,
+                72
+              ]
+            }
+          },
+          "esa-worldcover-2021-v200": {
+            "access_timestamp": "2026-11-15T06:07:19Z",
+            "checksum": "sha256:0968e2d54d7b746bb9b63bbe7d97e60474436d32f9a87bf2bca03952692ad70d",
+            "quality": "verified",
+            "source_url": "https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/",
+            "status": "verified",
+            "tiles": 1,
+            "valid_fraction": 1.0,
+            "valid_pixels": 50976
+          }
+        },
+        "quality_flags": [
+          "coarse_refined_window",
+          "focus_center_placement",
+          "copernicus_dsm_may_include_vegetation_buildings",
+          "glo90_native_3_arcsec_bilinear_to_90m",
+          "worldcover_context_2021_epoch"
+        ],
+        "resolution_m": 90.0,
+        "valid_fraction": 1.0,
+        "warnings": [
+          "bounded_gdal_vsicurl_range_read",
+          "bounded_tile_mosaic"
+        ],
+        "window_size_m": 1980.0
+      },
+      "scores": {
+        "coarse": {
+          "distance": 0.013548552,
+          "method_version": "coarse-terrain-250m-1.0.0",
+          "rank": 1,
+          "rank_scope": "within_region",
+          "spatial_support": "5 km candidate window aggregated from ~250 m source cells"
+        },
+        "coarse_and_fine_scores_interchangeable": false,
+        "fine": {
+          "distance": null,
+          "method_version": "terrain-metrics-1.0.0",
+          "rank": null,
+          "reason": "No fine-support target is defined for this pilot, so the 90 m observations are reported unranked. Coarse and fine supports are not interchangeable and the coarse rank is not a fine rank.",
+          "spatial_support": "1.98 km focus window on a 22 x 22 grid at 90 m"
+        }
+      },
+      "stage": "complete",
+      "status": "succeeded"
+    }
+  ],
+  "method_versions": {
+    "coarse": "coarse-terrain-250m-1.0.0",
+    "context": "worldcover-2021-v200-1.0.0",
+    "fine": "terrain-metrics-1.0.0",
+    "flat": "flat-terrain-fraction-1.0.0",
+    "link": "coarse-refine-link-1.0.0",
+    "report": "coarse-refine-report-1.0.0"
+  },
+  "provider": {
+    "access": "bounded GDAL /vsicurl HTTPS range reads for 1.98 km windows; no full tile or global download",
+    "analysis_resolution_m": 90,
+    "analysis_window_m": 1980.0,
+    "implementation": "analog_pipelines.refine_earth.RefineEarthProvider",
+    "network": true
+  },
+  "provider_counts": {
+    "copernicus-dem-glo90": {
+      "failed": 0,
+      "no_coverage": 0,
+      "unknown": 0,
+      "verified": 3
+    },
+    "esa-worldcover-2021-v200": {
+      "failed": 0,
+      "no_coverage": 0,
+      "unknown": 0,
+      "verified": 3
+    }
+  },
+  "recall_estimate": {
+    "reason": "No held-out labelled pilot is available. This run measures bounded refinement behaviour and provider support, not coarse-shortlist recall.",
+    "value": null
+  },
+  "report_version": "coarse-refine-report-1.0.0",
+  "run_metrics": {
+    "elapsed_s": 26.708,
+    "max_rss_mb": 201.2
+  },
+  "selection": {
+    "eligible_by_region": {
+      "pilot-alps": 48,
+      "pilot-grand-canyon": 56,
+      "pilot-sahara": 64
+    },
+    "eligible_candidate_count": 168,
+    "indexed_candidate_count": 168,
+    "limit": 3,
+    "rank_scope": "within_region",
+    "rule": "top-per-region",
+    "rule_description": "Top 1 hit per coarse region for the first 3 region(s) sorted by region_id; order inside each region is coarse distance then candidate_id.",
+    "selected_candidate_ids": [
+      "coarse-v1:249d33516a874855",
+      "coarse-v1:e0d4c209d928961c",
+      "coarse-v1:95046a41aeb31ca9"
+    ],
+    "target": {
+      "coarse_slope_mean_deg": 8.0
+    },
+    "weights": {
+      "coarse_slope_mean_deg": 1.0
+    }
+  }
+}
