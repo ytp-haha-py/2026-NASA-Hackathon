@@ -40,9 +40,9 @@ artifacts=8 files=59
 fine_snapshot_id=snap-0cef4d75b147866a data_version=dv-b46f3bad38ea
 candidates=113 references=23 datasets=9
 fine_feature_observations=565 context_observations=1243
-typed_observations=199 (D02 56, D03 20, D04 20, D05 10 + 18 SPICE, D06 75)
+typed_observations=520 (D02 56, D03 20 + 41 planetary, D04 20 + 55 planetary, D05 10 + 18 SPICE, D06 300)
 coarse_cells=168 regions=3 partitions=3
-explicit absent body×dimension cells=6
+explicit absent body×dimension cells=2 (D06 Moon/Mars)
 source_references=15 dataset_references=18
 ```
 
@@ -55,12 +55,12 @@ manifest and EDA report.
 |---|---|---|---|
 | **D01 Terrain** | 113 fine windows / 565 features / 1243 WorldCover context; 168 coarse cells in 3 pilot regions | 18 reference windows / 90 features | 5 reference windows / 25 features |
 | **D02 Geology/mineralogy** | 15 evidence records; 0 validated mineral detections; 15 `unknown`/`no_coverage` | 3 evidence records; 2 detected map/process records; 1 `unknown` | 38 evidence records; 28 detected map/process records; 10 `unknown` |
-| **D03 Thermal** | 20 NASA POWER model-context observations | **absent** | **absent** (THEMIS metadata only, not fetched) |
-| **D04 Water/ice** | 20 NASA POWER model-context observations | **absent** | **absent** |
+| **D03 Thermal** | 20 NASA POWER model-context observations | 36 Diviner brightness-temperature observations | 5 THEMIS thermal-inertia observations |
+| **D04 Water/ice** | 20 NASA POWER model-context observations | 53 LP NS/Mini-RF evidence observations | 2 HEND epithermal-flux observations |
 | **D05 Illumination/radiation** | 10 NASA POWER solar-context observations | 8 SPICE model-geometry observations | 10 SPICE model-geometry observations |
-| **D06 Regolith** | 75 SoilGrids 250 m model observations | **absent** | **absent** |
+| **D06 Regolith** | 300 SoilGrids 250 m model observations (4 depths) | **absent** (`no_coverage`) | **absent** (`no_coverage`) |
 
-The six absent cells are listed with reasons in the manifest. D05 Moon/Mars geometry is model-only; ionizing radiation remains absent. D02 detected
+The two absent cells are listed with reasons in the manifest. D05 Moon/Mars geometry is model-only; ionizing radiation remains absent. D02 detected
 records are map units/process evidence or unvalidated spectral context, not
 mineral abundance. NASA POWER and SoilGrids values are estimates; D01 metrics are
 derived from measured DEMs; WorldCover is mapped classification context only.
@@ -105,7 +105,7 @@ derived from measured DEMs; WorldCover is mapped classification context only.
 $ uv run python pipelines/build_release.py build \
     --output var/release-a.manifest.json --eda-output var/release-a.eda.json
 release_id=rel-c30a25fab81d2b7f artifacts=8 files=59 candidates=113 references=23 \
-typed_observations=199 coarse_cells=168 absent_dimensions=6
+typed_observations=520 coarse_cells=168 absent_dimensions=2
 
 $ uv run python pipelines/build_release.py build \
     --output var/release-b.manifest.json --eda-output var/release-b.eda.json
@@ -115,7 +115,7 @@ $ cmp var/release-a.eda.json var/release-b.eda.json
 # both files byte-identical
 
 $ uv run python pipelines/build_release.py verify
-OK release_id=rel-072e483bfdff1acd artifacts=9 files=65 absent_dimensions=6
+OK release_id=rel-627b049fd4da8f6b artifacts=11 files=68 absent_dimensions=2
 ```
 
 Focused tests (all exit 0):
@@ -151,7 +151,7 @@ uv run python pipelines/build_release.py report    # human summary
   maintainer authorization and credentials outside Git.
 - No live database reset; restore/rebuild drills are copy-only.
 - No global coverage claim: the coarse index covers three pilot regions, and
-  Moon/Mars D03–D06 remain absent.
+  Moon/Mars D06 remain absent; D03–D05 now have bounded evidence-only pilots.
 - Fine/coarse 90 m vs 250 m methods remain separate and must not be scored as one
   method.
 - D02 Earth GLiM/EMIT licence and validated mineral detection remain blocked.
