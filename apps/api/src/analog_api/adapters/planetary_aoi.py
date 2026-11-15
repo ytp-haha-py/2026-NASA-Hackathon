@@ -22,6 +22,7 @@ from analog_api.config import resolve_repo_path
 from analog_api.domain.aoi import AoiResult, ValidatedAoi
 from analog_api.domain.entities import BBox, DatasetEntity
 from analog_api.domain.errors import AppError
+from analog_api.domain.planetary_aoi_limits import validate_provider_geometry
 
 SUPPORTED_PLANETARY_BODIES = ("Moon", "Mars")
 DEFAULT_FEATURES = tuple(COARSE_FEATURE_BY_ID)
@@ -115,7 +116,8 @@ class PlanetaryAoiProvider:
                 status_code=422,
             )
         try:
-            spec = validate_planetary_aoi(body, bbox, root=self.root)
+            geometry = validate_provider_geometry(body, bbox, lon_convention="signed")
+            spec = validate_planetary_aoi(body, geometry.normalized_bbox, root=self.root)
         except PlanetaryAoiError as exc:
             raise AppError(exc.code, exc.message, status_code=_status_for(exc.code)) from exc
         normalized = _bbox_values(getattr(spec, "bbox", getattr(spec, "requested_bbox", bbox)))
