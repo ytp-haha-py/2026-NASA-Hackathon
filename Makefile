@@ -28,7 +28,7 @@ web: ## Run the Vite dev server on http://localhost:5173
 	cd apps/web && npm run dev
 
 seed: ## Load committed real-data manifests into ./var/analog.db
-	ANALOG_SEED_INCLUDE_SYNTHETIC=false uv run python -m analog_api.cli seed
+	ANALOG_SEED_INCLUDE_SYNTHETIC=false ANALOG_SEED_INCLUDE_TYPED=true uv run python -m analog_api.cli seed
 
 seed-demo: ## Load the clearly-labelled synthetic fixture into ./var/demo.db
 	ANALOG_DATABASE_URL=sqlite+pysqlite:///./var/demo.db ANALOG_SEED_INCLUDE_SYNTHETIC=true uv run python -m analog_api.cli seed

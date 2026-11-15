@@ -121,11 +121,18 @@ latency crosses the documented threshold.
 ## Seeding and migration
 
 ```bash
-uv run python -m analog_api.cli seed            # reset + load committed manifests
+uv run python -m analog_api.cli seed            # reset + load committed manifests and typed pilots
 uv run python -m analog_api.cli seed --keep-existing
+uv run python -m analog_api.cli seed --include-typed   # explicit typed-v2 pilot/bundle import
 uv run python -m analog_api.cli seed --include-synthetic   # TEST-ONLY demo data
 uv run python -m analog_api.cli status
 ```
+
+Committed typed-v2 pilots (`pipelines/pilots/*`) and the D02 geology bundle
+(`pipelines/geology/typed`) are imported idempotently when
+`ANALOG_SEED_INCLUDE_TYPED=true` (or `--include-typed`). This makes a fresh database
+reproduce the runtime 199-observation set offline, without importing on every unit-test
+database. `compose.public.yaml` and `make seed` enable it.
 
 Manifests are validated by Pydantic (`domain/manifest.py`) before persistence. The seed recomputes
 `data_version` and is idempotent when `--keep-existing` is used.
