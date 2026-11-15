@@ -92,6 +92,7 @@ describe("six-dimension workspace integration", () => {
     });
 
     await user.click(screen.getByRole("radio", { name: /^Moon/ }));
+    await user.click(screen.getByRole("button", { name: referenceFixture.display_name }));
     await user.click(screen.getByRole("button", { name: "Six-dimension comparison" }));
 
     expect(

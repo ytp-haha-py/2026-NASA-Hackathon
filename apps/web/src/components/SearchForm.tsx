@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
   getTypedCoverage,
   getTypedObservations,
@@ -29,10 +29,11 @@ import {
   researchWeights,
   unavailableResearchFeatures,
 } from "../lib/research-presets";
-import { DataKindBadge } from "./DataKindBadge";
+import { hasMapCoordinates, PlanetMap, type PlanetBody } from "./PlanetMap";
 import { RangeSlider, SingleSlider } from "./RangeSlider";
 
 type Body = SearchRequest["body"];
+const PLANET_BODIES = ["Moon", "Mars"] as const;
 
 type RowState = {
   value: string;
@@ -145,7 +146,9 @@ export function SearchForm({
   );
   const [body, setBody] = useState<Body>("custom");
   const [researchPresetId, setResearchPresetId] = useState("manual");
-  const [referenceId, setReferenceId] = useState("");
+  const [referenceIds, setReferenceIds] = useState<Partial<Record<PlanetBody, string>>>({});
+  const [planetMapOpen, setPlanetMapOpen] = useState(false);
+  const activeBodyButton = useRef<HTMLButtonElement>(null);
   const [limit, setLimit] = useState("10");
   const [boardOpen, setBoardOpen] = useState(true);
   const [activeDimension, setActiveDimension] = useState("D01");
@@ -191,14 +194,12 @@ export function SearchForm({
     setFieldErrors({});
   }
 
-  const bodyReferences = useMemo(
-    () => references.filter((reference) => reference.body === body),
-    [references, body],
+  const mapReferences = useMemo(() => references.filter(hasMapCoordinates), [references]);
+  const referenceMode = body !== "custom";
+  const referenceId = referenceMode ? (referenceIds[body] ?? null) : null;
+  const selectedReference = mapReferences.find(
+    (reference) => reference.body === body && reference.reference_id === referenceId,
   );
-  const selectedReference = references.find(
-    (reference) => reference.reference_id === referenceId,
-  );
-  const referenceMode = body !== "custom" && selectedReference !== undefined;
   const isLolaReference =
     selectedReference !== undefined &&
     (selectedReference.dataset_id.toLowerCase().includes("lola") ||
@@ -206,13 +207,20 @@ export function SearchForm({
   const referenceTarget = useMemo(() => referenceValues(selectedReference), [selectedReference]);
 
   useEffect(() => {
-    onReferenceChange?.(body !== "custom" ? (selectedReference ?? null) : null);
-  }, [body, selectedReference, onReferenceChange]);
+    onReferenceChange?.(selectedReference ?? null);
+  }, [selectedReference, onReferenceChange]);
 
   const availableBodies = useMemo(
-    () => new Set(references.map((reference) => reference.body)),
-    [references],
+    () => new Set(mapReferences.map((reference) => reference.body)),
+    [mapReferences],
   );
+  const selectReference = useCallback((id: string) => {
+    if (body !== "custom") {
+      setReferenceIds((current) => ({ ...current, [body]: id }));
+      setFieldErrors({});
+      setErrors([]);
+    }
+  }, [body]);
   const [typedCoverage, setTypedCoverage] = useState<TypedCoverageOut | null>(null);
   const [typedObservations, setTypedObservations] = useState<TypedObservationOut[]>([]);
   const [typedLoading, setTypedLoading] = useState(true);
@@ -328,7 +336,7 @@ export function SearchForm({
       return merged;
     });
     setBody("custom");
-    setReferenceId("");
+    setPlanetMapOpen(false);
     setFieldErrors({});
 
     if (Object.keys(target).length === 0) {
@@ -358,14 +366,9 @@ export function SearchForm({
 
   function handleBodyChange(nextBody: Body) {
     setBody(nextBody);
+    setPlanetMapOpen(nextBody !== "custom");
     setErrors([]);
     setFieldErrors({});
-    if (nextBody === "custom") {
-      setReferenceId("");
-      return;
-    }
-    const firstReference = references.find((reference) => reference.body === nextBody);
-    setReferenceId(firstReference?.reference_id ?? "");
   }
 
   function resetAll() {
@@ -489,7 +492,7 @@ export function SearchForm({
 
     const request: SearchRequest = {
       body,
-      reference_id: body === "custom" ? null : referenceId,
+      reference_id: referenceId,
       target: referenceMode ? {} : target,
       ...(referenceMode ? { weights } : {}),
       filters: buildFilters(features, contextFeatures, ranges),
@@ -500,7 +503,7 @@ export function SearchForm({
       request,
       target: effectiveTarget,
       body,
-      referenceId: body === "custom" ? null : referenceId,
+      referenceId,
       limit: parsedLimit,
     });
   }
@@ -533,7 +536,7 @@ export function SearchForm({
     return t(message.key, vars);
   }
 
-  const unavailableBodies = (["Moon", "Mars"] as const).filter((value) => !availableBodies.has(value));
+  const unavailableBodies = PLANET_BODIES.filter((value) => !availableBodies.has(value));
   const unavailableBodyList = fmt.list(unavailableBodies.map((value) => label.body(value)));
   const renderedErrors = errors.map(renderMessage);
 
@@ -735,9 +738,8 @@ export function SearchForm({
   }
 
   const bodyOptions: { value: Body; available: boolean }[] = [
-    { value: "Moon", available: availableBodies.has("Moon") },
+    ...PLANET_BODIES.map((value) => ({ value, available: availableBodies.has(value) })),
     { value: "custom", available: true },
-    { value: "Mars", available: availableBodies.has("Mars") },
   ];
 
   return (
@@ -750,7 +752,9 @@ export function SearchForm({
               key={option.value}
               type="button"
               role="radio"
+              ref={body === option.value ? activeBodyButton : undefined}
               aria-checked={body === option.value}
+              aria-controls={option.value === "custom" ? undefined : "planet-preview"}
               disabled={!option.available}
               className={`segment${body === option.value ? " is-active" : ""} body-${option.value.toLowerCase()}`}
               onClick={() => handleBodyChange(option.value)}
@@ -768,39 +772,12 @@ export function SearchForm({
             <span className="muted">{t("search.exampleTitle")}</span>
           </p>
         ) : (
-          <div className="target-summary">
+          <p className="target-summary">
             <span className="target-mark" aria-hidden="true" />
-            <label className="sr-only" htmlFor="reference-select">
-              {t("search.referenceRecord")}
-            </label>
-            <select
-              id="reference-select"
-              className="reference-select"
-              value={referenceId}
-              onChange={(event) => setReferenceId(event.target.value)}
-            >
-              {bodyReferences.map((reference) => (
-                <option key={reference.reference_id} value={reference.reference_id}>
-                  {reference.display_name}
-                </option>
-              ))}
-            </select>
-            {selectedReference && (
-              <span className="chips mono">
-                <span className="chip">{selectedReference.dataset_id}</span>
-                <DataKindBadge kind="observed" />
-                <span className="chip">
-                  {fmt.number(selectedReference.window_size_m / 1000, 2)} ×{" "}
-                  {fmt.number(selectedReference.window_size_m / 1000, 2)} km
-                </span>
-                <span className="chip">
-                  {t("search.gridChip", {
-                    resolution: fmt.number(selectedReference.analysis_resolution_m, 0),
-                  })}
-                </span>
-              </span>
-            )}
-          </div>
+            <strong role="status">
+              {selectedReference?.display_name ?? t("search.pickReferenceOnMap")}
+            </strong>
+          </p>
         )}
 
         {unavailableBodies.length > 0 && (
@@ -907,6 +884,31 @@ export function SearchForm({
         )}
       </section>
 
+      <div id="planet-preview" className="planet-preview" hidden={!planetMapOpen}>
+        {body !== "custom" && planetMapOpen && (
+          <>
+            <button
+              type="button"
+              className="secondary-button planet-preview-collapse"
+              onClick={() => {
+                setPlanetMapOpen(false);
+                activeBodyButton.current?.focus();
+              }}
+            >
+              {t("map.collapsePlanetPreview")}
+            </button>
+            <PlanetMap
+              key={body}
+              body={body}
+              references={mapReferences}
+              selectedReferenceId={selectedReference?.reference_id ?? null}
+              onSelectReference={selectReference}
+              regionLabel={t("map.planetRegionLabel", { body: label.body(body) })}
+            />
+          </>
+        )}
+      </div>
+
       {renderedErrors.length > 0 && (
         <div className="alert alert-error" role="alert" aria-labelledby="form-errors-title">
           <p id="form-errors-title">
@@ -985,7 +987,7 @@ export function SearchForm({
             <button
               className="primary-button"
               type="submit"
-              disabled={loading}
+              disabled={loading || (referenceMode && !selectedReference)}
               aria-label={t("search.submit")}
             >
               {loading ? t("search.submitting") : t("search.submitShort")}

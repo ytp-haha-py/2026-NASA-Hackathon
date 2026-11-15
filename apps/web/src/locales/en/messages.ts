@@ -69,7 +69,6 @@ export const en = {
   "map.drawStart": "Select area",
   "map.drawStop": "Cancel selection",
   "map.drawHint": "Drag on the map to draw the area to analyze. Sides and area are checked against the limits below.",
-  "map.planetAnalysisLimit": "Moon and Mars maps are browse-only: extracting data for an arbitrary area and the full six-dimension calculation are not supported yet.",
   "app.coverageEyebrow": "Searchable coverage",
   "app.coverageHeading_one": "{count} searchable Earth region",
   "app.coverageHeading_other": "{count} searchable Earth regions",
@@ -119,7 +118,7 @@ export const en = {
   "search.bodyCustom": "Custom target — search indexed Earth",
   "search.bodyReference": "{body} reference",
   "search.bodyUnavailableSuffix": " — unavailable",
-  "search.referenceRecord": "Reference record",
+  "search.pickReferenceOnMap": "Choose a reference point on the map",
   "search.noReference": "No reference — use the custom target",
   "search.referenceHint":
     "Selecting a reference switches to that body and uses the reference's returned observation values as the search target. Manual target inputs are not sent for reference searches.",
@@ -171,7 +170,7 @@ export const en = {
   "search.errFilterRange": "{label} must be a finite fraction from 0 to 1.",
   "search.filterBareName": "Bare/sparse minimum",
   "search.filterBuiltName": "Built-up maximum",
-  "search.errSelectReference": "Select a {body} reference record before searching.",
+  "search.errSelectReference": "Select a {body} reference point on the map before searching.",
   "search.errReferenceEmpty":
     "The selected {body} reference contains no compatible feature observations.",
   "search.errNoMetric":
@@ -575,7 +574,7 @@ export const en = {
   "app.aboutSummary": "About this tool, coverage and limits",
   "app.footerNotCompared":
     "Not compared: gravity · atmosphere · radiation · regolith · mineralogy · temperature · illumination · geological history",
-  "map.bodyLabel": "Body",
+  "map.collapsePlanetPreview": "Collapse map",
   "map.planetRegionLabel": "{body} reference sites map",
   "map.basemapLabel": "Basemap",
   "map.basemapMap": "Map",
@@ -591,7 +590,6 @@ export const en = {
   "search.bodyCustomShort": "Custom",
   "search.customTargetTitle": "Custom target",
   "search.aboutCustom": "About custom targets",
-  "search.gridChip": "{resolution} m grid",
   "search.referenceValueTitle": "Reference value (read-only)",
   "search.noReferenceValue": "no reference value",
   "search.targetSlider": "{label} target value slider",

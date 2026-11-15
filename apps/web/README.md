@@ -4,6 +4,8 @@ The React frontend for AnalogX. Use it to search measured Earth terrain, explore
 
 Only scientifically eligible features contribute to search scores. The map is for navigation; scientific data coverage remains limited to indexed areas.
 
+Choose **Moon** or **Mars** to open its compact map, then select a plotted reference point for the Earth analog search. Clicking overlapping points zooms into their area. Each body remembers its latest selection while the page is open. Use **Collapse map** to hide the preview, or select the same body to reopen it.
+
 ## Requirements
 
 - Node.js 22+ (This aligns with the repository quality gate; developed with Node 26.)
@@ -100,7 +102,7 @@ These are product requirements, not decoration:
    fixture values are not observations or evidence. Never relabel synthetic data
    as observed.
 5. **No invented data.** Reference presets (Moon/Mars) are enabled only when
-   `GET /api/v1/references` returns records. If references are empty or fail to
+   `GET /api/v1/references` returns records with map coordinates. If references are empty or fail to
    load, those presets stay disabled with an explanation. Never invent a target
    for a body. The real LOLA Moon reference is shown with its caveat: a 5 m
    source with about 90% interpolated pixels, resampled to the 90 m analysis

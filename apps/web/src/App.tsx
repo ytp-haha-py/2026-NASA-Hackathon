@@ -379,8 +379,6 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 features={capabilities.features}
                 target={activeTarget}
                 showIdle={!searchResponse && !searching}
-                references={references}
-                selectedReferenceId={selectedReference?.reference_id}
                 aoiBbox={aoiBbox}
                 onDrawBbox={handleDrawBbox}
               />
