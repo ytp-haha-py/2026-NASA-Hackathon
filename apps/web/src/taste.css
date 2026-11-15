@@ -1947,3 +1947,14 @@ body {
   background: var(--accent);
   border-radius: 50%;
 }
+
+/* #170: the six-dimension panel is evidence-only; controls live in the dimension board. */
+.six-dimension-panel .typed-observation-list,
+.six-dimension-panel .coverage-panel {
+  display: none;
+}
+
+/* #170: only adjustable controls belong in the dimension cards; hide read-only evidence rows. */
+.dimension-card .observed-feature-list {
+  display: none;
+}
