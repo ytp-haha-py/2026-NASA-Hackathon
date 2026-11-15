@@ -3,7 +3,7 @@
 **Record date:** 15 November 2026 (Asia/Taipei)  
 **Scope:** Human–AI collaboration on the AnalogX project for the NASA Space Apps Challenge 2026.
 
-This document describes how AI assistants contributed to project planning, implementation, debugging, data processing, scientific review, testing, documentation, and GitHub coordination. It covers the work recorded in the original Codex collaboration log and adds an anonymized account of work involving **ChatGPT (OpenAI)** and **OpenCode**.
+This document describes how AI assistants contributed to project planning, implementation, debugging, data processing, scientific review, testing, documentation, and GitHub coordination. It covers the work recorded in the original Codex collaboration log and adds an anonymized account of work involving **ChatGPT (OpenAI)**, **OpenCode**, and **Claude**.
 
 The account is **de-identified at the narrative level**: human participants are described by project roles rather than personal names, and private conversation transcripts, account information, machine-specific paths, and OpenCode session identifiers are omitted. Links to public GitHub issues, commits, pull requests, and screenshots remain because they are useful for independent verification; those public records may still identify their authors.
 
@@ -15,6 +15,7 @@ The account is **de-identified at the narrative level**: human participants are 
 | **ChatGPT (OpenAI)** | Translate product goals into technical requirements; critique UI, API, and data assumptions; inspect GitHub code/CI; draft issues and agent instructions; review and, when explicitly authorized, merge PRs | Recommendations and conversational analysis are not themselves code execution or scientific verification |
 | **OpenCode** | Coordinate multiple coding sessions, native Goals, specialized agents, Git worktrees, and implementation/validation of backend, data, and integration work | Agent completion claims require source, test, CI, and integration evidence |
 | **Codex** | Local project setup, frontend implementation, debugging, testing, browser verification, PR preparation, and version synchronization in the collaboration recorded below | Only the tasks and test outcomes documented for that work are attributed to Codex |
+| **Claude (claude.ai session)** | Frontend styling, map navigation, research-presets layout, site branding, and dimension-control iterations | This is a separate claude.ai/desktop-linked session; other Claude Code CLI contributions have their own pending disclosure PR |
 | Other human/AI collaborators | Independent frontend and backend contributions through repository issues and PRs | Authorship of a PR does not imply every design decision was made by an AI |
 
 The team used a **human-directed, AI-assisted development process**, not an autonomous scientific discovery process. AI-generated suggestions, code, reports, and test fixtures were subject to repository checks and human decisions. A green CI result, an agent's statement of completion, a merged PR, and a deployed public service are distinct states.
@@ -198,44 +199,7 @@ The maintainer subsequently requested restoration of the deleted ranking section
 All 118 frontend tests, lint, typecheck/build and generated API type checks passed before integration with newer main changes. Browser checks used the live local API at 1440 px in Traditional Chinese light mode and 390 px in English dark mode, confirming ranking summaries, linked selection and retained state across language changes. An existing filter-conflict test intermittently omitted a required target value; its fixture now supplies that value before asserting the conflict. The local full gate failed on Windows backend compatibility cases, including the Unix-only `resource` module; required Linux CI checks passed before the subsequent main synchronization.
 
 **Evidence:** [Issue #192](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/192), [PR #193](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/193), [desktop ranking](screenshots/41-restored-ranking-desktop.jpg) and [mobile ranking](screenshots/42-restored-ranking-mobile.jpg).
-提交期間 main 另合併 PR #186 的篩選功能，本分支同步後沿用新版的測試輔助函式，118 項前端測試通過。UI 刪除與這份文件由 PR #189 一併交付。[PR #189](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/189)
-
-## 15. Claude（claude.ai 上的 Claude Code 工作階段）參與的工作
-
-以下記錄同一天另一段由 Claude 協助的工作。Claude 在 claude.ai 的雲端工作階段執行，透過 Claude 桌面 app 連到使用者電腦上的 repo 資料夾修改程式，並用內建瀏覽器操作本機 `http://localhost:5173` 與公開 API（`api.貓熊.台灣`）確認畫面。提交時作者為使用者帳號，提交訊息附 `Co-Authored-By: Claude`。
-
-### 工作方式與限制
-
-- Claude 無法從這個環境推送到 GitHub：使用者電腦端的 shell 連 GitHub 回 HTTP 403，雲端端則因 repo 未安裝 Claude GitHub App 而被拒。每個分支都由使用者在本機 `git push` 後開 PR 與合併。
-- 該環境無法安裝 npm 套件，vitest 因缺少原生套件無法執行。Claude 每次修改只跑過 `tsc --noEmit` 與 `eslint`，前端測試請使用者以 `make test-frontend` 確認；本節不記錄任何測試通過數。
-- 套用 `design-taste-frontend`（taste-skill）作為介面設計準則，該 skill 檔案沒有提交進 repo。
-- 測試精篩介面時，曾在公開 API 實際執行一次 90 m 分析（Sahara 一個窗格），伺服器上因此多一筆隨選 AOI 紀錄。
-
-### 交付並合併的項目
-
-| 請求 | PR | 內容 |
-| --- | --- | --- |
-| 依 taste-skill 重做介面 | #120 | 移除多數小字、比較維度改成左側清單＋右側細項、權重預設 0、權重列位置固定、去除卡片框改用細分隔線、新增月球／火星地圖檢視 |
-| 網站更名與 favicon | #124 | 網站名稱改為 AnalogX；依使用者回饋多次重畫標誌，最後為線條風格的行星與環、不含字母的 favicon，並放在標題前 |
-| #123 單一地圖工作流程 | #126 | 移除四個頂層頁籤，改為以地圖為中心的單頁；地球地圖可框選區域並帶入 AOI 分析；月球／火星標示僅供瀏覽 |
-| 比對目標與研究情境的編排 | #171 | 「比對目標」與「研究情境」分成兩行；研究情境改成一顆按鈕＋分組選單；放大月球／火星選點地圖並把分隔線移到地圖下方 |
-| D02–D06 放進比較維度 | #181 | 讀取 `/search/features` 特徵登錄表；登錄表允許比對的 D06 SoilGrids 20 項提供與 D01 相同的權重／目標／範圍，使用時改走 `/search/multidimensional`；表土依深度切換顯示；D02–D05 列出觀測特徵、天體、筆數與數值範圍 |
-| 移除兩個區塊 | #184 | 移除「分析新區域」與「六維比較與觀測」區塊及其專用的框選工具、AOI 目標帶入與六維捷徑，並刪除只測這兩個區塊的整合測試 |
-
-#181 與 #184 合併時的衝突解決提交（`01a8d12`、`234dbc4`）不是 Claude 做的。
-
-### 做了但沒有合併的項目
-
-- 「更多分析工具」區塊的分區、刪小字、結果視覺化、全球粗篩候選畫到主地圖等一系列修改，放在分支 `feat/ui-section-clarity`，使用者後來要求整個刪除該分支，沒有進入 main。
-- 介面說明與設計提案（例如研究情境編排的示意圖、D02–D05 為何無法比對的說明）只在對話中提供。
-
-### 已知界線
-
-- D02–D05 目前沒有比對控制項，是因為後端登錄表把這些特徵標為只能當證據；前端沒有替它們虛構可計分的控制。
-- 多維搜尋不接受土地覆蓋篩選，介面在兩者同時使用時會拒絕送出並說明，不會靜默忽略篩選。
-- 結果詳細資料的逐項比較表當時只列 D01 指標，表土的比對數值未加入。
-
----
+During submission, main also incorporated the filtering controls from PR #186. The branch was synchronized to reuse its updated test helpers, after which 118 frontend tests passed. The earlier UI removal and disclosure document were delivered through [PR #189](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/189).
 
 ## 12. ChatGPT: product definition, critique, GitHub coordination, and review
 
@@ -315,6 +279,18 @@ Concurrent subagents were reported editing the same raster-cache file in the sam
 
 This incident illustrates a real trade-off: **more agents do not automatically produce faster, safer development**. Effective parallelism requires isolated worktrees for independently owned tasks, explicit ownership of shared files, small integration interfaces, and immediate conflict detection. This document does not claim that a suggested resolution was executed unless a subsequent commit or test confirms it.
 
+### Follow-up: #170 integration, filtering controls, and review boundaries
+
+Subsequent GitHub activity demonstrates how the team moved beyond source-data pilots while keeping implementation stages separate:
+
+- The Moon LOLA global DEM adapter ([PR #177](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/177)) and Mars MOLA MEGDR adapter ([PR #179](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/179)) were merged as independent bounded raster-analysis components. Cross-body D01 compatibility logic ([PR #176](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/176)) and the initial planetary AOI integration/acceptance assets ([PR #174](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/174)) were also merged. **Independently merged components do not prove that arbitrary Moon/Mars AOIs can already complete the whole public API workflow.**
+- AOI-footprint discovery and D02–D04 typed evidence ([PR #172](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/172)) and Earth NASA POWER context across indexed candidates ([PR #185](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/185)) extended the data layer. These records describe bounded source support, not globally measured six-dimensional environmental equivalence.
+- Earth-only D02–D05 filter roles ([PR #188](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/188)) and React filtering controls ([PR #186](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/186), [#195](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/195), [#197](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/197), [#198](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/198), [#201](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/201)) allowed range/category filtering where the registry authorizes it. The D01-style weight/target rows used for filter-only features are disabled or read-only UI elements, **not scored similarity features**.
+- At the time of this update, the shared raster infrastructure ([PR #173](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/173)), D05–D06 AOI evidence bundle ([PR #175](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/175)), and planetary AOI engine/API ([PR #178](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/178)) remained open. The coordinator was asked to reuse their existing worktrees and native Goals, delegate independent conflict resolution, data checks, API integration, and end-to-end tests to separate agents, and avoid concurrent edits to the same shared source file.
+- A public-deployment update in [Issue #170](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/170) reported a successful Pages acceptance check and a newer API dataset snapshot. That report is **deployment evidence for the stated build and snapshot only**; it does not establish that unmerged AOI-engine work or global D02–D06 measurements are publicly available.
+
+The human maintainer consistently asked to maximize safe parallel execution while preserving single-file ownership, bounded downloads, real official observations, provenance, error states, reproducible integration tests, and explicit distinctions between a merged PR and a deployed feature.
+
 ### Delivery boundaries
 
 OpenCode could implement and locally validate code, but a locally successful native Goal was not treated as proof of deployment. GitHub CI, merge state, production data version, authorized rollout, and rollback readiness were tracked separately. The project did not treat missing lunar/martian regolith properties, indirect ice proxies, or incomplete radiation observations as measured facts.
@@ -343,3 +319,40 @@ A disclosed AI contribution does not transfer accountability from the project te
 ### Scope of this revision
 
 This is a translated and expanded account of the collaboration **through 15 November 2026**, not a live status dashboard. The original Codex portions retain their point-in-time test evidence; the ChatGPT/OpenCode additions describe observed collaboration and link to independently inspectable repository artifacts. This document update itself was prepared using ChatGPT and submitted through the connected GitHub workflow at the maintainer's request.
+---
+
+## 15. Claude: claude.ai desktop-linked development session
+
+This section records a separate Claude-assisted session on the same day. The assistant worked from a claude.ai-hosted environment linked through the desktop application to a local repository folder, and it used browser checks of the locally running site and public API where available. Git commits were made under the human contributor's repository account with a Claude co-author trailer, as reported by that session. The session described here is **distinct from the Claude Code CLI session being documented separately in [PR #200](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/200)**.
+
+### Working environment, access restrictions, and testing
+
+- Direct pushes from this session were not available: the local GitHub connection returned HTTP 403, while the hosted environment did not have the necessary GitHub App access. The human contributor pushed the branches and created/merged the relevant PRs locally.
+- The environment could not install missing npm dependencies. Vitest did not run there because native packages were unavailable. The session reported running TypeScript typechecking via `tsc --noEmit` and ESLint; full frontend tests were left for the human contributor to verify with `make test-frontend`. **No unverified Vitest pass count is claimed here.**
+- The assistant applied a separate frontend design-guidance skill, known in that session as `design-taste-frontend`; the skill itself was not committed to this repository.
+- During interactive refinement testing, one real 90 m Sahara analysis was executed against the public API, adding an on-demand AOI record to the server's dataset. This was a real API-side effect, not merely a local preview.
+
+### Delivered, merged frontend contributions
+
+| Work | PR | Scope |
+| --- | --- | --- |
+| Visual redesign informed by the design-guidance skill | [#120](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/120) | Reduced secondary text, shifted the comparison dimensions to a list/detail layout, initialized weights to zero, aligned controls, reduced enclosing card borders, and introduced planetary map views |
+| Branding and favicon | [#124](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/124) | Renamed the site AnalogX and iteratively refined the planetary-ring icon in response to human feedback |
+| Unified map-centered workflow | [#126](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/126) | Replaced four top-level tabs with a single exploration layout, retained Earth AOI drawing and analysis entry points, and marked Moon/Mars browsing limitations |
+| Target and research scenario layout | [#171](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/171) | Split the target and research-scenario selectors into separate rows, revised the scenario picker, and enlarged the planetary selection map |
+| D02–D06 dimension board | [#181](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/181) | Read the live feature registry, enabled eligible Earth D06 SoilGrids target/weight/range controls through multidimensional search, added depth-specific display, and presented D02–D05 observational evidence |
+| Removal of standalone sections | [#184](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/184) | Removed standalone “Analyze a new area” and “Six-dimensional comparison” page sections and associated controls/tests |
+
+The conflict-resolution merge commits for #181 and #184 were performed separately and are **not attributed** to this Claude session.
+
+### Work not merged
+
+An exploratory branch for organizing additional analysis tools, reducing descriptive text, changing results visualization, and plotting global coarse candidates was later deleted at the human contributor's request. These experiments did not enter `main`. Other design explanations and layout proposals were provided in conversation only.
+
+### Limitations at the time
+
+- The earlier absence of D02–D05 similarity controls reflected the backend registry's eligibility rules; the assistant did not fabricate scoreable features. Later frontend/backend PRs added legal Earth context filters without reclassifying them as similarity scores.
+- At the time, the multidimensional search API did not accept Earth land-cover filters simultaneously; the UI rejected incompatible combinations instead of silently dropping the constraint.
+- The detailed result comparison table then displayed D01 but had not yet integrated every eligible soil-property contribution.
+
+These are **historical, point-in-time limitations**, not claims that later work has or has not resolved them. Current product behavior should be checked against the latest code and public API.
