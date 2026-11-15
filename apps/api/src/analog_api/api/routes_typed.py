@@ -12,6 +12,11 @@ from analog_api.domain.errors import AppError
 router = APIRouter(prefix="/api/v1/typed")
 
 
+@router.get("/coverage")
+def typed_coverage(session: Session = Depends(get_session)) -> dict[str, Any]:
+    return TypedObservationStore(session).coverage()
+
+
 @router.get("/observations")
 def list_typed_observations(
     dimension: str | None = None,

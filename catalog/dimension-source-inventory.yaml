@@ -112,7 +112,7 @@ dimensions:
       - impact_geology
       - sedimentary_geology
       - aqueous_alteration
-    baseline: "No D02 observations in the current index; candidate sources only"
+    baseline: "Moon/Mars map-unit evidence and provider status integrated as evidence-only D02 typed records; zero verified quantitative minerals and no shareable Earth GLiM values"
     bodies:
       Earth:
         sources:
@@ -154,21 +154,21 @@ dimensions:
         sources:
           - source_id: usgs-moon-unified-geologic-map
             provider: USGS Astrogeology
-            product: Unified Geologic Map of the Moon
-            url: https://astrogeology.usgs.gov/search/map/moon_unified_geologic_map
-            license: not_verified
-            license_url: not_verified
-            native_resolution: not_verified
-            spatial_support: not_verified
+            product: Unified Geologic Map of the Moon GIS v2
+            url: https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/
+            license: CC0; cite Fortezzo, Spudis and Harrel (2020)
+            license_url: https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/
+            native_resolution: vector polygons; map scale 1:5,000,000
+            spatial_support: One Shackleton ROI overlay; not global
             temporal_support: Static map
             depth_support: Surface geology
-            observation_kinds: [category, distribution, process_evidence]
-            qa: not_verified
-            availability: identified
-            data_status: not_fetched
-            comparability: unknown
-            notes: "Candidate only; preserve map scale/legend; never equate same codes across bodies."
-            unknown_fields: [license, native_resolution, spatial_support, qa]
+            observation_kinds: [category, process_evidence]
+            qa: Geometry/topology and map-unit provenance retained; fine-scale frame alignment unverified
+            availability: verified
+            data_status: existing_observed
+            comparability: evidence_only
+            notes: "1 map unit and 1 process record exported to typed-v2; no mineral abundance."
+            unknown_fields: []
           - source_id: nasa-m3
             provider: NASA / PDS
             product: Moon Mineralogy Mapper (M3) spectral products
@@ -189,22 +189,22 @@ dimensions:
       Mars:
         sources:
           - source_id: usgs-jezero-geologic-map
-            provider: USGS Astrogeology
-            product: Geologic Map of Jezero Crater and the Nili Planum Region, Mars
-            url: https://astrogeology.usgs.gov/search/map/geologic_map_of_jezero_crater_and_nili_planum_mars
-            license: not_verified
-            license_url: not_verified
-            native_resolution: not_verified
-            spatial_support: Jezero/Nili region only
+            provider: U.S. Geological Survey
+            product: Geologic Map of Jezero Crater and Nili Planum, SIM 3464
+            url: https://pubs.usgs.gov/publication/sim3464
+            license: USGS-authored GIS public domain; third-party material excluded
+            license_url: https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf
+            native_resolution: vector polygons; map scale 1:75,000
+            spatial_support: Two explicitly marked Jezero test AOIs; not a Mars reference
             temporal_support: Static map
             depth_support: Surface geology
-            observation_kinds: [category, distribution, process_evidence]
-            qa: not_verified
-            availability: identified
-            data_status: not_fetched
-            comparability: unknown
-            notes: "Candidate only; do not infer aqueous alteration from iron oxides alone."
-            unknown_fields: [license, native_resolution, qa]
+            observation_kinds: [category, process_evidence]
+            qa: Geometry/topology checked; 1304 polygons with 2 invalid excluded; map description sourced from official pamphlet
+            availability: verified
+            data_status: existing_observed
+            comparability: evidence_only
+            notes: "10 map-unit and 4 process records exported to typed-v2; CRISM values remain context."
+            unknown_fields: []
           - source_id: nasa-crism
             provider: NASA / PDS
             product: MRO CRISM spectral products

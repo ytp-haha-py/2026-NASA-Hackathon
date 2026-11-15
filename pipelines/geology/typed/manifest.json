@@ -1,0 +1,15 @@
+{
+  "areas": 8,
+  "assets": 33,
+  "datasets": 7,
+  "export_version": "geology-typed-export-1.0.0",
+  "generated_at": "2026-11-15T01:43:03.087868+00:00",
+  "observations": 56,
+  "observations_sha256": "9f8dd0ca82b0ba4b0cb0972643fbdf8eb3c3726db3855a34c76d16e482344eef",
+  "scope_note": "D02 evidence-only export. Map units, processes and mineral states are not Terrain similarity features; null/unknown states are preserved.",
+  "source_record": "pipelines/geology/records/geology-e920e7e3ae79e176.json",
+  "warnings": [
+    "mars-test-jezero-western-delta: geometry transformed +proj=longlat +R=3396190 +type=crs -> +proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs; original geometry/CRS retained in legacy_provenance",
+    "mars-test-jezero-floor: geometry transformed +proj=longlat +R=3396190 +type=crs -> +proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs; original geometry/CRS retained in legacy_provenance"
+  ]
+}
