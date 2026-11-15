@@ -1692,6 +1692,10 @@ export interface components {
             frame: string;
             /** Geographic Epsg */
             geographic_epsg: number;
+            /** Geographic Epsg Authority */
+            geographic_epsg_authority: string;
+            /** Geographic Epsg Is Epsg Registry */
+            geographic_epsg_is_epsg_registry: boolean;
             /** Geographic Epsg Uri */
             geographic_epsg_uri: string;
             /** Latitude Kind */
@@ -1822,8 +1826,12 @@ export interface components {
             bounds: components["schemas"]["PlanetaryBBoxOut"];
             /** Capabilities Url */
             capabilities_url: string;
+            /** Coordinate Note */
+            coordinate_note: string;
             /** Crs */
             crs: string;
+            /** Crs Authority */
+            crs_authority: string;
             /** Epsg */
             epsg: number;
             /** Fallback */
@@ -1856,6 +1864,8 @@ export interface components {
             title: string;
             verification: components["schemas"]["PlanetaryLayerVerificationOut"];
             zoom: components["schemas"]["PlanetaryZoomOut"];
+            /** Zoom Semantics */
+            zoom_semantics: string;
         };
         /** PlanetaryLayerVerificationOut */
         PlanetaryLayerVerificationOut: {

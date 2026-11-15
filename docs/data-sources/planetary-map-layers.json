@@ -1,0 +1,823 @@
+{
+  "schema_version": "planetary-map-layers-1.0.0",
+  "catalog_id": "planetary-basemap-sources",
+  "issue": "#117",
+  "checked_on": "2026-11-15",
+  "scope": "Verified visual basemap sources for the Moon and Mars. No science measurement, no global coverage claim, and no Earth basemap substitution.",
+  "verification_environment": {
+    "method": "Direct HTTPS requests from the audit host: GetCapabilities XML, WMTS REST tiles, USGS WMS GetCapabilities/GetMap, HEAD requests for fallback objects. Tiles were read in full only for the min-zoom tile and the three max-zoom edge tiles per layer; all other tile reads were capped with HTTP Range 0-1023 and verified by JPEG/PNG magic bytes.",
+    "max_raster_bytes_per_probe": 1024,
+    "network": "public internet, no credentials",
+    "checker": "scripts/check_planetary_trek_sources.py"
+  },
+  "coordinate_contract": {
+    "version": "planetary-coordinate-contract-1.0.0",
+    "bodies": {
+      "moon": {
+        "naif_id": 301,
+        "frame": "MOON_ME (mean Earth/polar axis, DE421), body-fixed rotating",
+        "reference_radius_m": 1737400.0,
+        "flattening": 0,
+        "declared_crs": "urn:ogc:def:crs:EPSG::104903",
+        "declared_crs_resolved": "ESRI:104903 GCS_Moon_2000: sphere R=1737400 m, prime meridian 0, longitude axis direction east. The code is an ESRI authority code, not a code in the EPSG dataset.",
+        "latitude_convention": "Planetocentric. On a sphere planetocentric and planetographic latitude are identical, so the Moon has no measurable ambiguity (<1e-6 deg).",
+        "longitude_direction": "east",
+        "longitude_range_service": [
+          -180,
+          180
+        ],
+        "longitude_range_native_products": [
+          0,
+          360
+        ],
+        "sources": [
+          "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/sldem2015/global/float_img/sldem2015_128_60s_60n_000_360_float.lbl",
+          "https://epsg.io/104903.json"
+        ]
+      },
+      "mars": {
+        "naif_id": 499,
+        "frame": "IAU2000 Mars body-fixed rotating",
+        "reference_radius_m": 3396190,
+        "polar_radius_m": 3376200,
+        "product_map_radius_m": 3396000,
+        "product_radius_note": "The PDS MOLA MEGDR label uses a 3396.0 km sphere (A_AXIS_RADIUS = 3396.0 <KM>) for its map projection. ESRI:104905 is an ellipsoid a=3396190 m, b=3376200 m. Do not substitute one radius for the other in distance or reprojection math.",
+        "flattening": 0.00588600755552545,
+        "declared_crs": "urn:ogc:def:crs:EPSG::104905",
+        "declared_crs_resolved": "ESRI:104905 GCS_Mars_2000: ellipsoid a=3396190 m, 1/f=169.894447, longitude axis direction east. The code is an ESRI authority code, not a code in the EPSG dataset.",
+        "latitude_convention": "PDS MOLA MEGDR labels declare PLANETOCENTRIC. ESRI:104905 geodetic latitude on the IAU ellipsoid is planetographic, so the two differ by up to 0.34 deg at 45 deg. The WMTS capabilities do not declare which convention the rendered tile grid carries; treat it as unverified and never relabel between conventions without an explicit transform.",
+        "longitude_direction": "east",
+        "longitude_range_service": [
+          -180,
+          180
+        ],
+        "longitude_range_native_products": [
+          0,
+          360
+        ],
+        "planetographic_note": "IAU WGCCRE planetographic longitude on Mars is positive west, the opposite axis direction from planetocentric east longitude. This is a sign convention, not a formatting choice.",
+        "sources": [
+          "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n000hb.lbl",
+          "https://epsg.io/104905.json"
+        ]
+      }
+    },
+    "tile_grid": {
+      "protocol": "OGC WMTS 1.0.0 RESTful",
+      "top_left_corner_degrees": [
+        -180,
+        90
+      ],
+      "zoom_0_matrix": [
+        2,
+        1
+      ],
+      "tile_size_px": [
+        256,
+        256
+      ],
+      "zoom_0_canvas_px": [
+        512,
+        256
+      ],
+      "row_direction": "south (row 0 is the north edge)",
+      "column_direction": "east (col 0 is the -180 edge)",
+      "seam_longitude_degrees": [
+        -180,
+        180
+      ],
+      "scale_denominator_note": "ScaleDenominator is Earth-referenced, not body-referenced. At zoom 0 the published value 2.7922763629807472e8 times the OGC 0.28 mm pixel size is 78183.7 m/px, which implies a sphere of R=6370984 m, i.e. Earth. Clients must derive planetary ground resolution from the body radius and matrix width, not from standard Web-Mercator zoom levels.",
+      "sources": [
+        "https://trek.nasa.gov/tiles/apidoc/trekAPI.html?body=moon",
+        "https://trek.nasa.gov/tiles/apidoc/config/config.json"
+      ]
+    },
+    "poles": {
+      "behavior": "These four layers publish only the equirectangular default028mm matrix set. Rows reach +90 and -90, so the poles are represented by stretched equirectangular rows. There is no polar-stereographic matrix set for these layers and no polar cap tile.",
+      "distortion": "1/cos(latitude): 2.0x at 60 deg, 11.5x at 85 deg, 57.3x at 89 deg",
+      "client_rule": "Do not request a north/south-pole matrix set for these layers; it is not advertised. Do not clamp planetary latitude to the Earth Web-Mercator limit of +/-85.0511 deg."
+    },
+    "antimeridian": {
+      "behavior": "The grid starts at -180, so the tile seam is at +/-180 deg, not at 0 deg. Column 0 covers [-180, -180+step); the last column covers [180-step, 180]. A tile at column 0 row 0 and a tile at the last column row 0 are both valid and were verified with HTTP 200.",
+      "client_rule": "Wrap the column index modulo MatrixWidth at the seam. Do not shift a longitude by -360 inside a tile, and do not assume x=0 corresponds to longitude 0."
+    },
+    "forbidden_earth_crs": {
+      "EPSG:4326": "WGS84 geodetic CRS: ellipsoid a=6378137 m, 1/f=298.257223563, Earth geoid/orthometric heights. One degree of latitude is 111.13 km on Earth, 30.32 km on the Moon and 59.27 km on Mars, so the same numeric degree denotes a different ground distance. It also declares an Earth datum and an ellipsoidal height that do not exist on either body.",
+      "EPSG:3857": "Spherical Web Mercator assumes R=6378137 m and clamps latitude to +/-85.0511 deg; its z/x/y tiling is defined for Earth. Using it for a planetary layer misplaces coordinates by thousands of kilometres and misrepresents the body.",
+      "OSM": "OpenStreetMap tiles are Earth imagery and an Earth tiling scheme. They must never be substituted for a Moon or Mars basemap, including when the planetary provider is unavailable."
+    },
+    "required_fields": [
+      "body (moon|mars) and NAIF id",
+      "frame (MOON_ME / IAU2000 Mars) and reference radius",
+      "latitude_convention (planetocentric|planetographic)",
+      "longitude_direction (east|west) and longitude_range",
+      "crs authority string plus resolved body/radius",
+      "tile_matrix_set id, zoom range, tile size, bbox",
+      "source id, provider, attribution, license status",
+      "availability state and science_role=basemap"
+    ]
+  },
+  "layers": [
+    {
+      "id": "moon_lro_wac_mosaic_global_303ppd_v02",
+      "body": "moon",
+      "body_naif_id": 301,
+      "role": "basemap_imagery",
+      "title": "LRO WAC Global Mosaic v2 (303 ppd)",
+      "provider": "NASA Solar System Treks (Moon Trek)",
+      "product_label": "LRO_WAC_Mosaic_Global_303ppd_v02",
+      "instrument": "LRO LROC Wide Angle Camera (WAC)",
+      "native_resolution": {
+        "pixels_per_degree": 303,
+        "meters_per_pixel_at_equator": 100.08,
+        "provider_statement": "303 pixels per degree (~100 m/px at the lunar equator)"
+      },
+      "wmts": {
+        "capabilities_url": "https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/WMTSCapabilities.xml",
+        "tile_template": "https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0//{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpg",
+        "tile_template_normalized": "https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpg",
+        "style": "default",
+        "tile_matrix_set": "default028mm",
+        "format": "image/jpeg",
+        "extension": "jpg",
+        "supported_crs": "urn:ogc:def:crs:EPSG::104903",
+        "crs_resolved": "ESRI:104903 GCS_Moon_2000; sphere R=1737400 m; east-positive longitude",
+        "bbox_degrees": [
+          -180,
+          -90,
+          180,
+          90
+        ],
+        "tile_size_px": [
+          256,
+          256
+        ],
+        "zoom_min": 0,
+        "zoom_max": 8,
+        "matrix_at_zoom_0": [
+          2,
+          1
+        ],
+        "matrix_at_zoom_max": [
+          512,
+          256
+        ],
+        "matrix_at_zoom_max_label": "512x256",
+        "max_zoom_degrees_per_pixel": 0.002746582031,
+        "max_zoom_meters_per_pixel_at_equator": 83.29,
+        "max_zoom_vs_native_ratio": 1.2,
+        "max_zoom_vs_native": "1.20x finer than native"
+      },
+      "verification": {
+        "capabilities": {
+          "http_status": 200,
+          "content_type": "application/xml",
+          "bytes": 7241
+        },
+        "cors": "Access-Control-Allow-Origin: *",
+        "content_length_note": "content_length is the provider's total object size. Mid-zoom rows were read with Range 0-1023 and report the Content-Range total.",
+        "tiles": [
+          {
+            "zoom": 0,
+            "row": 0,
+            "col": 0,
+            "kind": "min_zoom",
+            "http_status": 200,
+            "content_type": "image/jpeg",
+            "content_length": 49475,
+            "probe": "GET"
+          },
+          {
+            "zoom": 4,
+            "row": 8,
+            "col": 16,
+            "kind": "mid_zoom",
+            "http_status": 206,
+            "content_type": "image/jpeg",
+            "content_length": 44266,
+            "probe": "GET Range 0-1023"
+          },
+          {
+            "zoom": 8,
+            "row": 0,
+            "col": 0,
+            "kind": "max_zoom_north_west",
+            "http_status": 200,
+            "content_type": "image/jpeg",
+            "content_length": 13749,
+            "probe": "GET"
+          },
+          {
+            "zoom": 8,
+            "row": 255,
+            "col": 511,
+            "kind": "max_zoom_south_east",
+            "http_status": 200,
+            "content_type": "image/jpeg",
+            "content_length": 15467,
+            "probe": "GET"
+          },
+          {
+            "zoom": 8,
+            "row": 0,
+            "col": 511,
+            "kind": "max_zoom_antimeridian",
+            "http_status": 200,
+            "content_type": "image/jpeg",
+            "content_length": 10412,
+            "probe": "GET"
+          }
+        ],
+        "beyond_max_zoom": {
+          "zoom": 9,
+          "row": 0,
+          "col": 0,
+          "http_status": 404
+        }
+      },
+      "attribution": "NASA / LRO / LROC WAC (Arizona State University); mosaic served by NASA Moon Trek",
+      "license": {
+        "status": "not_stated_per_layer",
+        "detail": "The WMTS GetCapabilities document and the Trek FGDC metadata for this layer contain no licence field. NASA media guidelines state that NASA content is generally not subject to copyright in the United States and that the NASA insignia/identifiers are not public domain.",
+        "usage_guidelines": "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+      },
+      "coverage": {
+        "extent": "global (provider-advertised)",
+        "science_coverage": false,
+        "detail": "Rendered basemap mosaic only. It is not a global science survey, not a quantitative DEM, and never an input to similarity scoring."
+      },
+      "limitations": [
+        "Visual mosaic only; not a radiometrically calibrated science product.",
+        "Max zoom 8 is ~83.3 m/px at the equator, 1.20x finer than the 303 ppd source, so the deepest zoom is interpolated, not new detail.",
+        "Polar rows are stretched by the equirectangular projection."
+      ]
+    },
+    {
+      "id": "moon_lro_lola_clrshade_global_128ppd_v04",
+      "body": "moon",
+      "body_naif_id": 301,
+      "role": "basemap_elevation",
+      "title": "LRO LOLA Color Hillshade v4 (128 ppd)",
+      "provider": "NASA Solar System Treks (Moon Trek)",
+      "product_label": "LRO_LOLA_ClrShade_Global_128ppd_v04",
+      "instrument": "LRO Lunar Orbiter Laser Altimeter (LOLA)",
+      "native_resolution": {
+        "pixels_per_degree": 128,
+        "meters_per_pixel_at_equator": 236.9,
+        "provider_statement": "128 pixels per degree (~236.9 m/px at the lunar equator); values are radius relative to 1737400 m"
+      },
+      "wmts": {
+        "capabilities_url": "https://trek.nasa.gov/tiles/Moon/EQ/LRO_LOLA_ClrShade_Global_128ppd_v04/1.0.0/WMTSCapabilities.xml",
+        "tile_template": "https://trek.nasa.gov/tiles/Moon/EQ/LRO_LOLA_ClrShade_Global_128ppd_v04/1.0.0//{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png",
+        "tile_template_normalized": "https://trek.nasa.gov/tiles/Moon/EQ/LRO_LOLA_ClrShade_Global_128ppd_v04/1.0.0/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png",
+        "style": "default",
+        "tile_matrix_set": "default028mm",
+        "format": "image/png",
+        "extension": "png",
+        "supported_crs": "urn:ogc:def:crs:EPSG::104903",
+        "crs_resolved": "ESRI:104903 GCS_Moon_2000; sphere R=1737400 m; east-positive longitude",
+        "bbox_degrees": [
+          -180,
+          -90,
+          180,
+          90
+        ],
+        "tile_size_px": [
+          256,
+          256
+        ],
+        "zoom_min": 0,
+        "zoom_max": 5,
+        "matrix_at_zoom_0": [
+          2,
+          1
+        ],
+        "matrix_at_zoom_max": [
+          64,
+          32
+        ],
+        "matrix_at_zoom_max_label": "64x32",
+        "max_zoom_degrees_per_pixel": 0.02197265625,
+        "max_zoom_meters_per_pixel_at_equator": 666.28,
+        "max_zoom_vs_native_ratio": 2.81,
+        "max_zoom_vs_native": "2.81x coarser than native"
+      },
+      "verification": {
+        "capabilities": {
+          "http_status": 200,
+          "content_type": "application/xml",
+          "bytes": 6466
+        },
+        "cors": "Access-Control-Allow-Origin: *",
+        "content_length_note": "content_length is the provider's total object size. Mid-zoom rows were read with Range 0-1023 and report the Content-Range total.",
+        "tiles": [
+          {
+            "zoom": 0,
+            "row": 0,
+            "col": 0,
+            "kind": "min_zoom",
+            "http_status": 200,
+            "content_type": "image/png",
+            "content_length": 152697,
+            "probe": "GET"
+          },
+          {
+            "zoom": 2,
+            "row": 2,
+            "col": 4,
+            "kind": "mid_zoom",
+            "http_status": 206,
+            "content_type": "image/png",
+            "content_length": 171502,
+            "probe": "GET Range 0-1023"
+          },
+          {
+            "zoom": 5,
+            "row": 0,
+            "col": 0,
+            "kind": "max_zoom_north_west",
+            "http_status": 200,
+            "content_type": "image/png",
+            "content_length": 82650,
+            "probe": "GET"
+          },
+          {
+            "zoom": 5,
+            "row": 31,
+            "col": 63,
+            "kind": "max_zoom_south_east",
+            "http_status": 200,
+            "content_type": "image/png",
+            "content_length": 85208,
+            "probe": "GET"
+          },
+          {
+            "zoom": 5,
+            "row": 0,
+            "col": 63,
+            "kind": "max_zoom_antimeridian",
+            "http_status": 200,
+            "content_type": "image/png",
+            "content_length": 83095,
+            "probe": "GET"
+          }
+        ],
+        "beyond_max_zoom": {
+          "zoom": 6,
+          "row": 0,
+          "col": 0,
+          "http_status": 404
+        }
+      },
+      "attribution": "NASA / LRO / LOLA (NASA GSFC, MIT); color hillshade served by NASA Moon Trek",
+      "license": {
+        "status": "not_stated_per_layer",
+        "detail": "The WMTS GetCapabilities document and the Trek FGDC metadata for this layer contain no licence field. NASA media guidelines state that NASA content is generally not subject to copyright in the United States and that the NASA insignia/identifiers are not public domain.",
+        "usage_guidelines": "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+      },
+      "coverage": {
+        "extent": "global (provider-advertised)",
+        "science_coverage": false,
+        "detail": "Rendered basemap mosaic only. It is not a global science survey, not a quantitative DEM, and never an input to similarity scoring."
+      },
+      "limitations": [
+        "Rendered color hillshade, not the quantitative DEM: it carries no elevation values, units, or uncertainty.",
+        "Max zoom 5 is ~666.3 m/px at the equator, 2.81x coarser than the 128 ppd source, so the tile set never reaches the native DEM resolution.",
+        "Polar rows are stretched by the equirectangular projection."
+      ]
+    },
+    {
+      "id": "mars_viking_mdim21_clrmosaic_global_232m",
+      "body": "mars",
+      "body_naif_id": 499,
+      "role": "basemap_imagery",
+      "title": "Viking MDIM 2.1 Color Mosaic (232 m)",
+      "provider": "NASA Solar System Treks (Mars Trek)",
+      "product_label": "Mars_Viking_MDIM21_ClrMosaic_global_232m",
+      "instrument": "Viking Orbiter Imaging (MDIM 2.1)",
+      "native_resolution": {
+        "pixels_per_degree": 256,
+        "meters_per_pixel_at_equator": 231.54,
+        "provider_statement": "Viking MDIM 2.1 at 256 pixels/degree (~232 m/px); USGS states 231 m/px"
+      },
+      "wmts": {
+        "capabilities_url": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_232m/1.0.0/WMTSCapabilities.xml",
+        "tile_template": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_232m/1.0.0//{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpg",
+        "tile_template_normalized": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_232m/1.0.0/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpg",
+        "style": "default",
+        "tile_matrix_set": "default028mm",
+        "format": "image/jpeg",
+        "extension": "jpg",
+        "supported_crs": "urn:ogc:def:crs:EPSG::104905",
+        "crs_resolved": "ESRI:104905 GCS_Mars_2000; ellipsoid a=3396190 m, 1/f=169.894447; east-positive longitude",
+        "bbox_degrees": [
+          -180,
+          -90,
+          180,
+          90
+        ],
+        "tile_size_px": [
+          256,
+          256
+        ],
+        "zoom_min": 0,
+        "zoom_max": 7,
+        "matrix_at_zoom_0": [
+          2,
+          1
+        ],
+        "matrix_at_zoom_max": [
+          256,
+          128
+        ],
+        "matrix_at_zoom_max_label": "256x128",
+        "max_zoom_degrees_per_pixel": 0.005493164062,
+        "max_zoom_meters_per_pixel_at_equator": 325.61,
+        "max_zoom_vs_native_ratio": 1.41,
+        "max_zoom_vs_native": "1.41x coarser than native"
+      },
+      "verification": {
+        "capabilities": {
+          "http_status": 200,
+          "content_type": "application/xml",
+          "bytes": 7016
+        },
+        "cors": "Access-Control-Allow-Origin: *",
+        "content_length_note": "content_length is the provider's total object size. Mid-zoom rows were read with Range 0-1023 and report the Content-Range total.",
+        "tiles": [
+          {
+            "zoom": 0,
+            "row": 0,
+            "col": 0,
+            "kind": "min_zoom",
+            "http_status": 200,
+            "content_type": "image/jpeg",
+            "content_length": 52978,
+            "probe": "GET"
+          },
+          {
+            "zoom": 3,
+            "row": 4,
+            "col": 8,
+            "kind": "mid_zoom",
+            "http_status": 206,
+            "content_type": "image/jpeg",
+            "content_length": 59207,
+            "probe": "GET Range 0-1023"
+          },
+          {
+            "zoom": 7,
+            "row": 0,
+            "col": 0,
+            "kind": "max_zoom_north_west",
+            "http_status": 200,
+            "content_type": "image/jpeg",
+            "content_length": 11299,
+            "probe": "GET"
+          },
+          {
+            "zoom": 7,
+            "row": 127,
+            "col": 255,
+            "kind": "max_zoom_south_east",
+            "http_status": 200,
+            "content_type": "image/jpeg",
+            "content_length": 17612,
+            "probe": "GET"
+          },
+          {
+            "zoom": 7,
+            "row": 0,
+            "col": 255,
+            "kind": "max_zoom_antimeridian",
+            "http_status": 200,
+            "content_type": "image/jpeg",
+            "content_length": 10688,
+            "probe": "GET"
+          }
+        ],
+        "beyond_max_zoom": {
+          "zoom": 8,
+          "row": 0,
+          "col": 0,
+          "http_status": 404
+        }
+      },
+      "attribution": "NASA / Viking Orbiter Imaging; USGS MDIM 2.1; served by NASA Mars Trek",
+      "license": {
+        "status": "not_stated_per_layer",
+        "detail": "The WMTS GetCapabilities document and the Trek FGDC metadata for this layer contain no licence field. NASA media guidelines state that NASA content is generally not subject to copyright in the United States and that the NASA insignia/identifiers are not public domain.",
+        "usage_guidelines": "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+      },
+      "coverage": {
+        "extent": "global (provider-advertised)",
+        "science_coverage": false,
+        "detail": "Rendered basemap mosaic only. It is not a global science survey, not a quantitative DEM, and never an input to similarity scoring."
+      },
+      "limitations": [
+        "Visual mosaic only; Viking-era coverage and radiometry.",
+        "Max zoom 7 is ~325.6 m/px at the equator, 1.41x coarser than the 232 m source, so native resolution is not available through WMTS.",
+        "The Trek FGDC record for this layer is a placeholder (values 'TBD' and Access_Constraints 'PRIVATE'); authoritative metadata comes from PDS/USGS.",
+        "Polar rows are stretched by the equirectangular projection."
+      ]
+    },
+    {
+      "id": "mars_mgs_mola_clrshade_merge_global_463m",
+      "body": "mars",
+      "body_naif_id": 499,
+      "role": "basemap_elevation",
+      "title": "MGS MOLA Global Color Hillshade (463 m)",
+      "provider": "NASA Solar System Treks (Mars Trek)",
+      "product_label": "Mars_MGS_MOLA_ClrShade_merge_global_463m",
+      "instrument": "Mars Global Surveyor MOLA",
+      "native_resolution": {
+        "pixels_per_degree": 128,
+        "meters_per_pixel_at_equator": 463.08,
+        "provider_statement": "MERGE 128 ppd base (~463.1 m/px); PDS MOLA MEGDR is planetocentric, positive east, sphere R=3396.0 km"
+      },
+      "wmts": {
+        "capabilities_url": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/WMTSCapabilities.xml",
+        "tile_template": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0//{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpg",
+        "tile_template_normalized": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpg",
+        "style": "default",
+        "tile_matrix_set": "default028mm",
+        "format": "image/jpeg",
+        "extension": "jpg",
+        "supported_crs": "urn:ogc:def:crs:EPSG::104905",
+        "crs_resolved": "ESRI:104905 GCS_Mars_2000; ellipsoid a=3396190 m, 1/f=169.894447; east-positive longitude",
+        "bbox_degrees": [
+          -180,
+          -90,
+          180,
+          90
+        ],
+        "tile_size_px": [
+          256,
+          256
+        ],
+        "zoom_min": 0,
+        "zoom_max": 7,
+        "matrix_at_zoom_0": [
+          2,
+          1
+        ],
+        "matrix_at_zoom_max": [
+          256,
+          128
+        ],
+        "matrix_at_zoom_max_label": "256x128",
+        "max_zoom_degrees_per_pixel": 0.005493164062,
+        "max_zoom_meters_per_pixel_at_equator": 325.61,
+        "max_zoom_vs_native_ratio": 1.42,
+        "max_zoom_vs_native": "1.42x finer than native"
+      },
+      "verification": {
+        "capabilities": {
+          "http_status": 200,
+          "content_type": "application/xml",
+          "bytes": 7040
+        },
+        "cors": "Access-Control-Allow-Origin: *",
+        "content_length_note": "content_length is the provider's total object size. Mid-zoom rows were read with Range 0-1023 and report the Content-Range total.",
+        "tiles": [
+          {
+            "zoom": 0,
+            "row": 0,
+            "col": 0,
+            "kind": "min_zoom",
+            "http_status": 200,
+            "content_type": "image/jpeg",
+            "content_length": 62976,
+            "probe": "GET"
+          },
+          {
+            "zoom": 3,
+            "row": 4,
+            "col": 8,
+            "kind": "mid_zoom",
+            "http_status": 206,
+            "content_type": "image/jpeg",
+            "content_length": 76017,
+            "probe": "GET Range 0-1023"
+          },
+          {
+            "zoom": 7,
+            "row": 0,
+            "col": 0,
+            "kind": "max_zoom_north_west",
+            "http_status": 200,
+            "content_type": "image/jpeg",
+            "content_length": 20006,
+            "probe": "GET"
+          },
+          {
+            "zoom": 7,
+            "row": 127,
+            "col": 255,
+            "kind": "max_zoom_south_east",
+            "http_status": 200,
+            "content_type": "image/jpeg",
+            "content_length": 13652,
+            "probe": "GET"
+          },
+          {
+            "zoom": 7,
+            "row": 0,
+            "col": 255,
+            "kind": "max_zoom_antimeridian",
+            "http_status": 200,
+            "content_type": "image/jpeg",
+            "content_length": 16999,
+            "probe": "GET"
+          }
+        ],
+        "beyond_max_zoom": {
+          "zoom": 8,
+          "row": 0,
+          "col": 0,
+          "http_status": 404
+        }
+      },
+      "attribution": "NASA / MGS / MOLA (NASA GSFC); served by NASA Mars Trek",
+      "license": {
+        "status": "not_stated_per_layer",
+        "detail": "The WMTS GetCapabilities document and the Trek FGDC metadata for this layer contain no licence field. NASA media guidelines state that NASA content is generally not subject to copyright in the United States and that the NASA insignia/identifiers are not public domain.",
+        "usage_guidelines": "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+      },
+      "coverage": {
+        "extent": "global (provider-advertised)",
+        "science_coverage": false,
+        "detail": "Rendered basemap mosaic only. It is not a global science survey, not a quantitative DEM, and never an input to similarity scoring."
+      },
+      "limitations": [
+        "Rendered color hillshade, not the quantitative MOLA DEM.",
+        "Max zoom 7 is ~325.6 m/px at the equator, 1.42x finer than the 463 m source, so the deepest zoom is interpolated.",
+        "Polar rows are stretched by the equirectangular projection."
+      ]
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "trek_wmts_api_documentation",
+      "kind": "official API documentation",
+      "provider": "NASA Solar System Treks",
+      "urls": {
+        "api_index": "https://trek.nasa.gov/tiles/apidoc",
+        "moon_doc": "https://trek.nasa.gov/tiles/apidoc/trekAPI.html?body=moon",
+        "mars_doc": "https://trek.nasa.gov/tiles/apidoc/trekAPI.html?body=mars",
+        "config": "https://trek.nasa.gov/tiles/apidoc/config/config.json"
+      },
+      "verification": {
+        "moon_doc_http_status": 200,
+        "mars_doc_http_status": 200,
+        "config_http_status": 200,
+        "config_bytes": 10233
+      },
+      "verified_facts": [
+        "REST template is {endpoint}/1.0.0/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.{ext}",
+        "Zoom 0 has two columns and one row; each level doubles.",
+        "A missing image tile means the provider has no data coverage there.",
+        "Moon equirectangular projection is declared urn:ogc:def:crs:EPSG::104903.",
+        "Mars equirectangular projection is declared urn:ogc:def:crs:IAU2000::104905, a different authority string from the WMTS capabilities.",
+        "Official zoom-0 samples point at the same tiles used in this audit."
+      ]
+    },
+    {
+      "id": "usgs_astrogeology_wms_moon",
+      "kind": "OGC WMS 1.1.1 alternative",
+      "provider": "USGS Astrogeology Science Center",
+      "capabilities_url": "https://planetarymaps.usgs.gov/cgi-bin/mapserv?map=/maps/earth/moon_simp_cyl.map&SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.1.1",
+      "layers": [
+        "LROC_WAC",
+        "LOLA_color",
+        "LOLA_bw",
+        "LOLA_Kaguya_Shade"
+      ],
+      "verification": {
+        "capabilities_http_status": 200,
+        "capabilities_content_type": "application/vnd.ogc.wms_xml",
+        "capabilities_bytes": 18184,
+        "supported_crs": [
+          "EPSG:4326 (Earth alias)",
+          "IAU_2015:30100"
+        ],
+        "getmap_probe_url": "https://planetarymaps.usgs.gov/cgi-bin/mapserv?map=/maps/earth/moon_simp_cyl.map&service=WMS&version=1.1.1&request=GetMap&layers=LROC_WAC&styles=&format=image/png&width=64&height=32&srs=IAU_2015:30100&bbox=-180,-90,180,90",
+        "getmap_http_status": 200,
+        "getmap_content_type": "image/png",
+        "getmap_bytes": 119,
+        "getmap_dimensions": [
+          64,
+          32
+        ]
+      },
+      "limitations": [
+        "WMS renders a requested bbox; it is not a pre-tiled pyramid with a zoom range.",
+        "The layer bbox is advertised as 0..360 longitude, while GetMap accepts -180..180; the longitude direction is not declared in the capabilities.",
+        "EPSG:4326 is present only as a MapServer compatibility alias; it does not make the layer Earth WGS84."
+      ]
+    },
+    {
+      "id": "usgs_astrogeology_wms_mars",
+      "kind": "OGC WMS 1.1.1 alternative",
+      "provider": "USGS Astrogeology Science Center",
+      "capabilities_url": "https://planetarymaps.usgs.gov/cgi-bin/mapserv?map=/maps/mars/mars_simp_cyl.map&SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.1.1",
+      "layers": [
+        "MDIM21",
+        "MOLA_color",
+        "MOLA_bw",
+        "THEMIS",
+        "HRSC_MOLA_Blend_Hillshade"
+      ],
+      "verification": {
+        "capabilities_http_status": 200,
+        "capabilities_content_type": "application/vnd.ogc.wms_xml",
+        "capabilities_bytes": 20698,
+        "supported_crs": [
+          "EPSG:4326 (Earth alias)",
+          "IAU_2015:49900"
+        ],
+        "getmap_probe_url": "https://planetarymaps.usgs.gov/cgi-bin/mapserv?map=/maps/mars/mars_simp_cyl.map&service=WMS&version=1.1.1&request=GetMap&layers=MDIM21&styles=&format=image/jpeg&width=64&height=32&srs=IAU_2015:49900&bbox=-180,-90,180,90",
+        "getmap_http_status": 200,
+        "getmap_content_type": "image/jpeg",
+        "getmap_bytes": 295,
+        "getmap_dimensions": [
+          64,
+          32
+        ]
+      },
+      "limitations": [
+        "WMS renders a requested bbox; it is not a pre-tiled pyramid with a zoom range.",
+        "The MDIM 2.1 bbox is advertised as -180..360; the longitude direction is not declared in the capabilities.",
+        "EPSG:4326 is present only as a MapServer compatibility alias."
+      ]
+    }
+  ],
+  "fallbacks": [
+    {
+      "trigger": "NASA Trek WMTS unavailable or a layer returns non-200 capabilities",
+      "action": "Switch to the USGS Astrogeology WMS layer of the same body and role",
+      "mapping": {
+        "moon_lro_wac_mosaic_global_303ppd_v02": "USGS WMS LROC_WAC",
+        "moon_lro_lola_clrshade_global_128ppd_v04": "USGS WMS LOLA_color",
+        "mars_viking_mdim21_clrmosaic_global_232m": "USGS WMS MDIM21",
+        "mars_mgs_mola_clrshade_merge_global_463m": "USGS WMS MOLA_color"
+      },
+      "constraints": "Visual fallback only, no zoom matrix, no coordinate math inferred from the WMS bbox. Report the active provider in the API response."
+    },
+    {
+      "trigger": "Both Trek WMTS and USGS WMS unavailable",
+      "action": "Read a bounded window from the USGS GeoTIFF object with GDAL range reads; never download the full object for basemap display",
+      "objects": [
+        {
+          "body": "moon",
+          "url": "https://planetarymaps.usgs.gov/mosaic/Lunar_LRO_LROC-WAC_Mosaic_global_100m_June2013.tif",
+          "final_url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Lunar_LRO_LROC-WAC_Mosaic_global_100m_June2013.tif",
+          "head_http_status": 200,
+          "content_type": "image/tiff",
+          "content_length": 5959263751
+        },
+        {
+          "body": "mars",
+          "url": "https://planetarymaps.usgs.gov/mosaic/Mars_Viking_MDIM21_ClrMosaic_global_232m.tif",
+          "final_url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Mars_Viking_MDIM21_ClrMosaic_global_232m.tif",
+          "head_http_status": 200,
+          "content_type": "image/tiff",
+          "content_length": 12742411029
+        },
+        {
+          "body": "mars",
+          "url": "https://planetarymaps.usgs.gov/mosaic/Mars_MGS_MOLA_ClrShade_merge_global_463m.tif",
+          "final_url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Mars_MGS_MOLA_ClrShade_merge_global_463m.tif",
+          "head_http_status": 200,
+          "content_type": "image/tiff",
+          "content_length": 3185603207
+        }
+      ],
+      "constraints": "Objects are 3-13 GB; bounded window reads only. No committed rasters."
+    },
+    {
+      "trigger": "No planetary basemap provider reachable",
+      "action": "Return an explicit unavailable state for the basemap and render the map without imagery",
+      "constraints": "Never substitute Earth OSM/WGS84/Web-Mercator tiles, never zero-fill a raster, and never present a placeholder as observed imagery."
+    }
+  ],
+  "limitations": [
+    "Availability was verified at a single point in time; NASA/USGS provide no SLA.",
+    "No per-layer licence text exists in the WMTS or FGDC metadata; recorded as not_stated with the NASA media-usage guideline as the only usage reference.",
+    "The Mars Trek FGDC record is a placeholder with TBD fields and a PRIVATE access constraint, so it is not used as provenance.",
+    "Rendered JPEG/PNG basemaps carry no quantitative elevations, units, uncertainties, or science-grade calibration.",
+    "The Mars latitude convention of the rendered grid is not declared in WMTS; the underlying PDS MOLA product is planetocentric, ESRI:104905 geodetic latitude is planetographic.",
+    "EPSG:104903 and 104905 are ESRI authority codes used inside OGC urn strings that say EPSG; resolve by code and body, not by the authority token.",
+    "The checker verifies capabilities shape, tile availability, content type, and 256x256 dimensions. It does not verify radiometric content or imagery freshness.",
+    "Polar and antimeridian rows/columns are stretched equirectangular data; no polar stereographic matrix set is published for these four layers.",
+    "Bounding boxes are nominal: the Mars MOLA layer advertises -180,-89.9991635,179.9983271,90 and the Moon LOLA layer prints extra decimals. The grid edges are effectively +/-180/+/-90 but not bit-identical."
+  ],
+  "reproducible_commands": [
+    "curl -sS -o /dev/null -w '%{http_code} %{content_type}\\n' https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/WMTSCapabilities.xml",
+    "curl -sS -r 0-1023 -o /tmp/tile.bin https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/default/default028mm/8/0/0.jpg",
+    "curl -sS -o /dev/null -w '%{http_code}\\n' https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/default/default028mm/8/0/0.jpg",
+    "curl -sS 'https://planetarymaps.usgs.gov/cgi-bin/mapserv?map=/maps/earth/moon_simp_cyl.map&SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.1.1'",
+    "curl -sSI https://planetarymaps.usgs.gov/mosaic/Lunar_LRO_LROC-WAC_Mosaic_global_100m_June2013.tif",
+    "python3 scripts/check_planetary_trek_sources.py"
+  ]
+}

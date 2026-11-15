@@ -1,0 +1,2269 @@
+{
+  "audit_date": "2026-11-15",
+  "blocked_or_unverified": [
+    {
+      "alternative": "usgs-stac-kaguya-tc-dtms-v2 (CC0-1.0, per-item COG DTMs).",
+      "body": "Moon",
+      "endpoint": "https://darts.isas.jaxa.jp/",
+      "product": "JAXA SELENE/Kaguya Terrain Camera raw/processed stereo data via DARTS",
+      "reason": "No anonymous, documented bulk API was verified in this audit. DARTS access and some products require user registration/agreement. The USGS STAC Kaguya TC v2 DTMs are the verified open alternative.",
+      "source_id": "jaxa-selene-kaguya-tc-darts",
+      "status": "blocked_or_unverified"
+    },
+    {
+      "alternative": "usgs-mars-hrsc-mola-blend-200m (access verified, licence share-alike, coarse context only).",
+      "body": "Mars",
+      "endpoint": "https://psa.esa.int/",
+      "product": "ESA Mars Express HRSC level-4 DTM products via PSA",
+      "reason": "The PSA access path and product-level licences were not verified in this audit. The verified global alternative is the USGS HRSC-MOLA blend, but it is CC BY-SA 3.0 IGO and 200 m.",
+      "source_id": "esa-mex-hrsc-psa",
+      "status": "blocked_or_unverified"
+    },
+    {
+      "alternative": "pds4-mgs-mola-megdr (463 m global tiles) for coarse context; CTX DTMs for fine windows.",
+      "body": "Mars",
+      "endpoint": "https://oderest.rsl.wustl.edu/livegds?query=molapedr",
+      "product": "MGS MOLA Precision Experiment Data Records (shot points)",
+      "reason": "Shot-point archive; producing a 90 m DEM requires a documented gridding method that this audit did not validate. It is not a ready DEM.",
+      "source_id": "pds-mgs-mola-pedr",
+      "status": "blocked_or_unverified"
+    },
+    {
+      "alternative": "usgs-pds-lro-lola-sldem2015-512ppd and nasa-pgda-lola-south-pole-sites-5m.",
+      "body": "Moon",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/",
+      "product": "LRO LOLA RDR shot/altimetry archive",
+      "reason": "Raw/Reduced Data Records are not a DEM; gridding is required. The COPC index (usgs-stac-lola-shot-copc) was verified but is also not a DEM.",
+      "source_id": "nasa-lola-rdr-direct",
+      "status": "blocked_or_unverified"
+    }
+  ],
+  "catalog_version": "1.0.0",
+  "checker": {
+    "command": "python3 scripts/check_d01_sources.py",
+    "exit_nonzero_on": [
+      "probe status mismatch",
+      "content-type mismatch",
+      "missing required body token",
+      "total bytes below the recorded floor",
+      "schema field missing"
+    ],
+    "network_policy": "Metadata-only. Raster probes use HTTP Range: bytes=0-1023 (1 KiB). No DEM raster is downloaded.",
+    "path": "scripts/check_d01_sources.py",
+    "timeout_s": 60
+  },
+  "checkpoint_plan": [
+    {
+      "checkpoint_id": "CP0",
+      "cpu_cap_min": 2,
+      "gate": "All verified probes pass; no raster download larger than 1 KiB range probes.",
+      "max_windows": 0,
+      "network_cap_mb": 8,
+      "objective": "Source/access audit only; no new terrain observations.",
+      "output": "docs/data-sources/d01-terrain.json, docs/D01_COVERAGE_AUDIT.md, scripts/check_d01_sources.py",
+      "resumable_key": "not applicable",
+      "sources": [
+        "all catalogued sources"
+      ],
+      "stop_rule": "If any verified source regresses, stop and update the catalog rather than substituting an unverified source."
+    },
+    {
+      "checkpoint_id": "CP1",
+      "cpu_cap_min": 5,
+      "gate": "24/24 windows computed; valid_fraction >= 0.8; no NaN/void window; per-window source bytes <= 256 KiB.",
+      "max_windows": 24,
+      "network_cap_mb": 32,
+      "objective": "Moon mid-latitude 90 m windows from SLDEM2015 512 ppd.",
+      "output": "pipelines/planetary/manifests/d01_sldem_cp1.json (derived numbers only; no rasters committed)",
+      "resumable_key": "source_id + tile + centre_lon + centre_lat",
+      "sampling": "8 longitude sectors x 3 latitude bands (30S, 0, 30N), one 1.98 km window per cell, deterministic centre offsets.",
+      "sources": [
+        "usgs-pds-lro-lola-sldem2015-512ppd"
+      ],
+      "stop_rule": "Stop after the first 8 windows if >1 window fails the valid-fraction gate; report the failure instead of filling."
+    },
+    {
+      "checkpoint_id": "CP2",
+      "cpu_cap_min": 10,
+      "gate": "12/12 windows computed; valid_fraction >= 0.8; per-window source bytes <= 2 MiB; no full mosaic download.",
+      "max_windows": 12,
+      "network_cap_mb": 64,
+      "objective": "Moon south-polar 90 m windows at 5 m native support.",
+      "output": "pipelines/planetary/manifests/d01_lola_polar_cp2.json",
+      "resumable_key": "source_id + site + centre_lon + centre_lat",
+      "sampling": "8 windows from the 87-90S mosaic and 4 from existing site DEMs not already represented in the 18 references.",
+      "sources": [
+        "nasa-pgda-lola-south-pole-mosaic-5m",
+        "nasa-pgda-lola-south-pole-sites-5m"
+      ],
+      "stop_rule": "Abort if >2 windows fall outside the 5 m product footprint; do not fall back to 118 m upsampling."
+    },
+    {
+      "checkpoint_id": "CP3",
+      "cpu_cap_min": 15,
+      "gate": ">=27/30 windows computed; valid_fraction >= 0.8; all rejected items recorded with reason; no zero-fill.",
+      "max_windows": 30,
+      "network_cap_mb": 96,
+      "objective": "Moon Kaguya TC v2 windows across three regions.",
+      "output": "pipelines/planetary/manifests/d01_kaguya_cp3.json",
+      "resumable_key": "stac_item_id + centre_lon + centre_lat",
+      "sampling": "10 items per region; filter gsd <= 30 m, proj:shape >= [200, 200] px, and footprint fully containing the 2.2 km read bbox.",
+      "sources": [
+        "usgs-stac-kaguya-tc-dtms-v2"
+      ],
+      "stop_rule": "Stop after 10 items if >3 items fail QA or coverage; report the region as sparse, not global."
+    },
+    {
+      "checkpoint_id": "CP4",
+      "cpu_cap_min": 15,
+      "gate": ">=27/30 windows computed; valid_fraction >= 0.8; no Jezero bbox request; every rejected item recorded.",
+      "max_windows": 30,
+      "network_cap_mb": 96,
+      "objective": "Mars CTX DTM windows across three regions; no Jezero STAC expansion.",
+      "output": "pipelines/planetary/manifests/d01_ctx_cp4.json",
+      "resumable_key": "stac_item_id + centre_lon + centre_lat",
+      "sampling": "10 items per region (Gale and two other bboxes with >= 20 matching items); filter gsd <= 36 m and footprint fully containing the 2.2 km read bbox.",
+      "sources": [
+        "usgs-stac-mro-ctx-dtms"
+      ],
+      "stop_rule": "Stop after 10 items if >3 items fail QA or coverage. Never substitute MOLA 463 m for a failed 90 m window."
+    },
+    {
+      "checkpoint_id": "CP5",
+      "cpu_cap_min": 10,
+      "gate": "5/5 windows computed; valid_fraction >= 0.8; per-window source bytes <= 16 MiB; no 0.25 m full-resolution read.",
+      "max_windows": 5,
+      "network_cap_mb": 64,
+      "objective": "Mars HiRISE 90 m validation subset (not a coverage expansion).",
+      "output": "pipelines/planetary/manifests/d01_hirise_cp5.json",
+      "resumable_key": "stac_item_id + centre_lon + centre_lat",
+      "sampling": "5 items with gsd 2.0-2.15 m, footprint >= 2.2 km in both axes, and repaired/validated dtm href; use COG overviews.",
+      "sources": [
+        "usgs-stac-hirise-dtms"
+      ],
+      "stop_rule": "Abort on any 404 href or footprint smaller than the read bbox; record the item as missing."
+    },
+    {
+      "checkpoint_id": "CP6",
+      "cpu_cap_min": 5,
+      "gate": "Coarse cells computed at native support only; every record tagged not_comparable; HRSC excluded unless licence review passes.",
+      "max_windows": 0,
+      "network_cap_mb": 32,
+      "objective": "Optional coarse context only; no 90 m metrics and no scoring.",
+      "output": "coarse-only report, not a D01 index",
+      "resumable_key": "source_id + coarse_cell_id",
+      "sources": [
+        "nasa-pgda-lola-ldem128-pa",
+        "usgs-mgs-mola-dem-global-463m",
+        "usgs-mars-hrsc-mola-blend-200m"
+      ],
+      "stop_rule": "Never upsample a coarse source into the 90 m D01 index."
+    }
+  ],
+  "gap_summary": [
+    {
+      "body": "Mars",
+      "finding": "No verified global Mars DEM at or finer than 90 m exists in the sources checked. Best global products are HRSC-MOLA 200 m (CC BY-SA, 2.22x coarser) and MOLA 463 m (5.15x coarser).",
+      "gap_id": "mars-global-90m",
+      "implication": "Mars D01 metrics remain limited to sparse 20-36 m CTX DTMs, sparse HiRISE DTMs, and the five existing Jezero windows. No global Mars 90 m claim is possible.",
+      "severity": "blocker_for_global_claim"
+    },
+    {
+      "body": "Moon",
+      "finding": "SLDEM2015 512 ppd covers only 60S-60N. Poleward of 60 degrees the verified global grids are 118.45 m (LOLA 256 ppd / Moon Trek) or 236.9 m (LDEM128); the only fine polar product is the 5 m LOLA south-pole mosaic/site set.",
+      "gap_id": "moon-polar-90m",
+      "implication": "Moon north-polar and 60-87S windows cannot be produced at true 90 m from a global source. South-polar windows can use 5 m LOLA; elsewhere polar metrics are coarse/context or require new products.",
+      "severity": "coverage_gap"
+    },
+    {
+      "body": "Moon and Mars",
+      "finding": "The fine sources are sparse footprints: 155,925 Kaguya DTMs, 44,628 CTX DTMs and 1,262 HiRISE DTMs. Item counts are not area coverage, and a 1.98 km square window is not guaranteed inside a footprint.",
+      "gap_id": "sparse-fine-dtm-coverage",
+      "implication": "Any expansion must be checkpointed and per-window coverage-checked; failed windows are missing, never zero-filled.",
+      "severity": "coverage_gap"
+    },
+    {
+      "body": "Moon",
+      "finding": "SLDEM2015 is a LOLA + Kaguya TC fusion at 59.2 m. It is method-compatible with the 90 m contract but has not been co-located and compared with the 5 m LOLA site windows.",
+      "gap_id": "sldem-fusion-comparability",
+      "implication": "Treat SLDEM-derived metrics as a separate source until a co-located sensitivity test quantifies the difference. Do not mix them silently with existing 5 m LOLA reference values.",
+      "severity": "method_gap"
+    },
+    {
+      "body": "Moon",
+      "finding": "Kaguya TC v2 items vary from 10.33 m to 5,003 m GSD in sampled records; one sampled item was a 9 x 2,181 px strip.",
+      "gap_id": "kaguya-per-item-qa",
+      "implication": "Filter on item gsd, proj:shape and footprint before planning a 1.98 km window. Reject items that cannot contain the window.",
+      "severity": "data_quality"
+    },
+    {
+      "body": "Mars",
+      "finding": "3 of 10 sampled HiRISE STAC items advertised a dtm href without the stereo-pair folder and returned HTTP 404; the corrected folder URL returned HTTP 206.",
+      "gap_id": "hirise-broken-hrefs",
+      "implication": "The planner must repair or validate each href before reading. A 404 is recorded as a missing item, never zero-filled.",
+      "severity": "access_defect"
+    },
+    {
+      "body": "Mars",
+      "finding": "The sampled Jezero bbox (18-18.7E, 18.3-18.7N) returned 0 CTX DTMs in the 44,628-item STAC collection. The existing five Jezero windows use a separate USGS Mars 2020 mosaic.",
+      "gap_id": "jezero-ctx-stac-absence",
+      "implication": "Do not plan Jezero expansion from the CTX STAC collection. Reuse the existing mosaic only within its verified footprint.",
+      "severity": "coverage_gap"
+    },
+    {
+      "body": "Mars",
+      "finding": "The USGS HRSC-MOLA 200 m blend is licensed as MOLA (CC0) + HRSC (CC BY-SA 3.0 IGO).",
+      "gap_id": "hrsc-share-alike",
+      "implication": "Derived products may carry share-alike obligations. Legal review is required before ingestion; MOLA 463 m (public domain) or CTX DTMs (CC0) are the safer coarse/fine alternatives.",
+      "severity": "licence_blocker"
+    },
+    {
+      "body": "Moon",
+      "finding": "The PGDA LDEM128, six 5 m site DEMs and the 87-90S mosaic do not state a licence on their product pages.",
+      "gap_id": "pgda-licence-unstated",
+      "implication": "The existing repository relies on the NASA Science Data Portal CC0 general licence and citation. Confirm before redistributing new derived products; do not describe them as explicitly CC0.",
+      "severity": "licence_gap"
+    },
+    {
+      "body": "Moon",
+      "finding": "LOLA RDR/COPC is a point cloud, not a DEM; gridding changes slope, roughness and flat fraction.",
+      "gap_id": "point-cloud-gridding",
+      "implication": "Do not compute D01 metrics directly from points. Use SLDEM2015, PGDA DEMs or a documented, validated gridding method.",
+      "severity": "method_gap"
+    }
+  ],
+  "metadata_services": [
+    {
+      "access_method": "STAC 1.1 API: /collections, /collections/{id}/items with bbox and limit; items expose COG asset hrefs, licence, GSD and proj WKT2.",
+      "attribution": "USGS Astrogeology Science Center and the originating missions (JAXA Kaguya, NASA MRO CTX/HiRISE).",
+      "body": [
+        "Moon",
+        "Mars"
+      ],
+      "coverage": {
+        "notes": "19 collections observed. DTM collections: Kaguya TC v2 (155,925 items), MRO CTX (44,628), MRO HiRISE (1,262). Item counts are not area coverage.",
+        "scope": "metadata_index",
+        "verified_collection_count": 19
+      },
+      "crs": null,
+      "endpoint": "https://stac.astrogeology.usgs.gov/api/",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "usgs-stac-api",
+            "content_type_prefix_any": [
+              "application/json"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 2987,
+            "content_type": "application/json; charset=utf-8",
+            "status": 200,
+            "total_bytes": 2987
+          },
+          "request": "GET",
+          "url": "https://stac.astrogeology.usgs.gov/api/"
+        }
+      ],
+      "license": "Per collection/item; the Kaguya, CTX and HiRISE DTM collections state CC0-1.0.",
+      "license_status": "per_item",
+      "license_url": "https://stac.astrogeology.usgs.gov/api/collections",
+      "limitations": [
+        "Item metadata can be inconsistent: 3 of 10 sampled HiRISE dtm hrefs were missing the stereo-pair folder and returned HTTP 404.",
+        "Collection bbox is not a coverage guarantee.",
+        "Asset content types vary between image/tiff and binary/octet-stream."
+      ],
+      "metrics": {
+        "computable": [],
+        "native_to_90m_ratio": null,
+        "notes": "Discovery service; metrics depend on the selected DTM item.",
+        "support_at_90m": "not_applicable"
+      },
+      "native_resolution_m": null,
+      "product": "USGS Astrogeology STAC API (planetary analysis-ready data)",
+      "provider": "USGS Astrogeology Science Center",
+      "reproducible_command": "curl -s 'https://stac.astrogeology.usgs.gov/api/collections?limit=100' | python3 -c 'import json,sys; print(len(json.load(sys.stdin)[\"collections\"]))'",
+      "service_id": "usgs-astrogeology-stac",
+      "status": "verified"
+    },
+    {
+      "access_method": "REST product counts/metadata by IHID, IID and PT; no raster bytes.",
+      "attribution": "NASA PDS Geosciences Node, Washington University in St. Louis.",
+      "body": [
+        "Moon",
+        "Mars"
+      ],
+      "coverage": {
+        "notes": "Moon and Mars orbital product indexes; counts depend on the IIPT combination.",
+        "scope": "metadata_index"
+      },
+      "crs": null,
+      "endpoint": "https://oderest.rsl.wustl.edu/live2/",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "REST Interfaces",
+            "content_type_prefix_any": [
+              "text/html"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 19785,
+            "content_type": "text/html",
+            "status": 200,
+            "total_bytes": 19785
+          },
+          "request": "GET",
+          "url": "https://oderest.rsl.wustl.edu/"
+        }
+      ],
+      "license": "PDS public archive metadata; product licences vary.",
+      "license_status": "per_product",
+      "license_url": "https://pds-geosciences.wustl.edu/",
+      "limitations": [
+        "Requires a valid IHID/IID/PT combination; a target-only query returns an error.",
+        "Metadata only; product files must be fetched from PDS volumes."
+      ],
+      "metrics": {
+        "computable": [],
+        "native_to_90m_ratio": null,
+        "notes": "Metadata discovery only.",
+        "support_at_90m": "not_applicable"
+      },
+      "native_resolution_m": null,
+      "product": "Orbital Data Explorer (ODE) REST interface",
+      "provider": "NASA PDS Geosciences Node",
+      "reproducible_command": "curl -s 'https://oderest.rsl.wustl.edu/live2/?query=iipt' | head -c 300",
+      "service_id": "pds-ode",
+      "status": "verified"
+    }
+  ],
+  "non_claims": [
+    "No global D01 metric coverage is claimed for the Moon or Mars.",
+    "No new terrain observation is created by this audit; it is a source and access audit.",
+    "Coarse global products are not upsampled to 90 m and are not scored.",
+    "Item counts are not area coverage.",
+    "The 1x1 ImageServer export smoke tests are service checks, not terrain observations.",
+    "A verified HTTP response does not imply scientific comparability."
+  ],
+  "rejected_candidates": [
+    {
+      "body": "Mars",
+      "endpoint": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Mars_Viking_MDIM21_Mosaic_global_232m.tif",
+      "product": "Mars Viking MDIM 2.1 global mosaic, 232 m",
+      "reason": "Panchromatic image mosaic, not an elevation model. It cannot produce slope, relief, roughness or flat fraction from elevation.",
+      "source_id": "usgs-mars-viking-mdim21-232m",
+      "status": "rejected"
+    },
+    {
+      "body": "Moon",
+      "endpoint": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Lunar_LRO_LOLA_ClrShade_Global_128ppd_v04.tif",
+      "product": "LRO LOLA color shaded relief / hillshade, 128 ppd",
+      "reason": "Rendered shaded relief, not elevation values. It is a visualization product and cannot produce the D01 terrain metrics.",
+      "source_id": "usgs-lro-lola-clrshade-128ppd",
+      "status": "rejected"
+    }
+  ],
+  "repository_baseline": {
+    "earth_fine_windows": 113,
+    "mars_fine_references": 5,
+    "moon_fine_references": 18,
+    "notes": "Baseline read from repository manifests and docs on 2026-11-15. This audit does not recompute or expand those observations.",
+    "planetary_coarse_cells": 10
+  },
+  "scope": "D01 terrain sources for Moon and Mars; access, licence, native support, CRS/frame, coverage and metric compatibility. Earth sources are out of scope.",
+  "sources": [
+    {
+      "access_method": "Anonymous HTTPS byte-range reads of PDS3 flat-binary .img tiles (row-major, 92,160 bytes/row) using the .lbl; no full tile download.",
+      "attribution": "Barker et al. (2016), A new lunar digital elevation model from the Lunar Orbiter Laser Altimeter and SELENE Terrain Camera, Icarus 273:346-355, doi:10.1016/j.icarus.2015.07.039; NASA LRO LOLA and JAXA SELENE TC; PDS dataset LRO-L-LOLA-4-GDR-V1.0.",
+      "body": "Moon",
+      "coverage": {
+        "bbox_deg": [
+          -180.0,
+          -60.0,
+          180.0,
+          60.0
+        ],
+        "latitude_range_deg": [
+          -60.0,
+          60.0
+        ],
+        "notes": "32 tiles: four latitude bands (60S-30S, 30S-0, 0-30N, 30N-60N) by eight 45-degree longitude sectors. No coverage poleward of +/-60 degrees.",
+        "scope": "global_mid_latitudes",
+        "tile_count": 32,
+        "verified_item_count": 32
+      },
+      "crs": {
+        "body_radius_m": 1737400.0,
+        "horizontal_units": "degree",
+        "kind": "geographic_planetocentric",
+        "name": "SimpleCylindrical / MOON_ME (DE421)",
+        "notes": "SIMPLE CYLINDRICAL, center longitude 180 deg, positive east, pixel registered; COORDINATE_SYSTEM_NAME = MEAN EARTH/POLAR AXIS OF DE421.",
+        "vertical_datum": "height above the 1737.4 km reference sphere; the label stores kilometres and supplies OFFSET 1737.4"
+      },
+      "d01_role": "candidate_fine",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/sldem2015/tiles/float_img/",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "MAP_RESOLUTION               = 512",
+            "content_type_prefix_any": [
+              "text/plain"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 4692,
+            "content_type": "text/plain",
+            "status": 200,
+            "total_bytes": 4692
+          },
+          "request": "GET",
+          "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/sldem2015/tiles/float_img/sldem2015_512_00n_30n_000_045_float.lbl"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "application/octet-stream"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/1415577600",
+            "content_type": "application/octet-stream",
+            "status": 206,
+            "total_bytes": 1415577600
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/sldem2015/tiles/float_img/sldem2015_512_00n_30n_000_045_float.img"
+        },
+        {
+          "expect": {
+            "body_contains": "sldem2015_512",
+            "content_type_prefix_any": [
+              "text/html"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 22916,
+            "content_type": "text/html; charset=UTF-8",
+            "status": 200,
+            "total_bytes": 22916
+          },
+          "request": "GET",
+          "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/sldem2015/tiles/float_img/"
+        }
+      ],
+      "license": "Public domain per the USGS Astropedia product page (Access Constraints: public domain) and PDS distribution. Upstream Kaguya TC data are JAXA; attribution to LOLA and Kaguya teams is required.",
+      "license_status": "public_domain",
+      "license_url": "https://astrogeology.usgs.gov/search/map/moon_lro_lola_selene_kaguya_tc_dem_merge_60n60s_59m",
+      "limitations": [
+        "PDS3 flat binary, not a COG: bounded access requires row-offset arithmetic; there are no internal overviews.",
+        "Each tile is about 1.42 GB (15,360 x 23,040 float32); only row windows may be read.",
+        "Covers only 60S-60N; polar terrain requires other products.",
+        "LOLA + SELENE TC fusion; per-pixel provenance and uncertainty are not supplied in the label.",
+        "Vertical values are kilometres relative to a 1737.4 km sphere, not metres above a geoid."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 0.65805882,
+        "notes": "59.2 m native support is finer than the 90 m analysis grid, so bilinear downsampling is legitimate. The product is a LOLA + Kaguya TC fusion; it is method-compatible but has not yet been co-located and compared against the 5 m LOLA site windows.",
+        "support_at_90m": "downsample_to_90m"
+      },
+      "native_resolution_m": 59.2252938,
+      "native_resolution_note": "MAP_SCALE = 0.0592252938 km/pix at the equator, 512 pixels/degree.",
+      "product": "SLDEM2015 512 pixels/degree tiles (PDS3 LRO-L-LOLA-4-GDR-V1.0, product version 2.0)",
+      "product_type": "global_dem_tiles",
+      "provider": "NASA PDS Geosciences Node / LRO LOLA + JAXA SELENE Terrain Camera",
+      "reproducible_command": "curl -s https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/sldem2015/tiles/float_img/sldem2015_512_00n_30n_000_045_float.lbl | grep -E 'MAP_RESOLUTION|MAP_SCALE|MINIMUM_LATITUDE|MAXIMUM_LATITUDE'",
+      "source_id": "usgs-pds-lro-lola-sldem2015-512ppd",
+      "status": "verified"
+    },
+    {
+      "access_method": "Anonymous HTTPS byte-range read of a 2.70 GB GeoTIFF; bounded windows only.",
+      "attribution": "Neumann, G. (2024), LOLA MOON_PA gridded dataset, NASA Goddard Space Flight Center Planetary Geodesy Data Archive, doi:10.60903/LOLA_PA.",
+      "body": "Moon",
+      "coverage": {
+        "bbox_deg": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "latitude_range_deg": [
+          -90.0,
+          90.0
+        ],
+        "notes": "Global 128 ppd grid. Native support is 2.63x coarser than the 90 m D01 analysis grid.",
+        "raster_shape_px": [
+          46080,
+          23040
+        ],
+        "scope": "global"
+      },
+      "crs": {
+        "body_radius_m": 1737400.0,
+        "horizontal_units": "degree",
+        "kind": "geographic_planetocentric",
+        "name": "GCS_Moon_2000 / MOON_PA (DE421)",
+        "notes": "GeoTIFF geographic keys; MOON_PA principal-axis frame, not MOON_ME. NoData = NaN.",
+        "vertical_datum": "metres relative to the 1737.4 km reference radius"
+      },
+      "d01_role": "coarse_context_only",
+      "endpoint": "https://pgda.gsfc.nasa.gov/data/LOLA_PA/LDEM128_PA_pixel_202405.tif",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "LOLA MOON_PA",
+            "content_type_prefix_any": [
+              "text/html"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 13073,
+            "content_type": "text/html; charset=utf-8",
+            "status": 200,
+            "total_bytes": 13073
+          },
+          "request": "GET",
+          "url": "https://pgda.gsfc.nasa.gov/products/95"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/2705286892",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 2705286892
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_PA/LDEM128_PA_pixel_202405.tif"
+        }
+      ],
+      "license": "Not stated on the PGDA product page. NASA PGDA public archive with a citation request; the NASA Science Data Portal general data licence is CC0-1.0, but redistribution should be confirmed.",
+      "license_status": "unstated_nasa_public_archive",
+      "license_url": "https://pgda.gsfc.nasa.gov/products/95",
+      "limitations": [
+        "236.9 m native resolution is 2.63x coarser than the 90 m contract grid.",
+        "MOON_PA frame differs from the MOON_ME frame used by the existing LOLA site windows by about 875 m on the surface; frame conversion is required before any comparison.",
+        "No per-pixel uncertainty or interpolation mask is supplied.",
+        "Licence is not stated on the product page."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 2.6322333,
+        "notes": "236.9 m native support cannot produce independent 90 m metrics. Upsampling would fabricate detail; use only as coarse/context terrain, never as a D01-comparable window.",
+        "support_at_90m": "upsample_required"
+      },
+      "native_resolution_m": 236.901,
+      "native_resolution_note": "128 pixels/degree, 0.0078125 degree; 236.901 m at the equator.",
+      "product": "LOLA MOON_PA gridded shape model, 128 pixels/degree GeoTIFF (LDEM128_PA_pixel_202405.tif)",
+      "product_type": "global_dem",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO LOLA",
+      "reproducible_command": "curl -sS -o /dev/null -D - -r 0-1023 https://pgda.gsfc.nasa.gov/data/LOLA_PA/LDEM128_PA_pixel_202405.tif",
+      "source_id": "nasa-pgda-lola-ldem128-pa",
+      "status": "verified"
+    },
+    {
+      "access_method": "Anonymous HTTPS byte-range read of each GeoTIFF; the repository already reads bounded 1.98 km windows.",
+      "attribution": "Barker, M.K., et al. (2021), Improved LOLA Elevation Maps for South Pole Landing Sites: Error Estimates and Their Impact on Illumination Conditions, Planetary and Space Science 203, 105119, doi:10.1016/j.pss.2020.105119.",
+      "body": "Moon",
+      "coverage": {
+        "bbox_deg": null,
+        "notes": "Six local south-pole site DEMs used by 18 existing repository reference windows. These are individual landing-site products, not a global or contiguous polar DEM.",
+        "scope": "regional_sites",
+        "site_count": 6,
+        "sites": [
+          "Site01",
+          "Site04",
+          "Site07",
+          "Site11",
+          "Site20",
+          "Site23"
+        ],
+        "verified_item_count": 6
+      },
+      "crs": {
+        "body_radius_m": 1737400.0,
+        "horizontal_units": "metre",
+        "kind": "projected_body_fixed",
+        "name": "South polar stereographic / MOON_ME (DE421)",
+        "notes": "Polar Stereographic (variant B), latitude of standard parallel -90, longitude of origin 0, false easting/northing 0. GMT pixel-registered convention (coordinates are pixel centres).",
+        "vertical_datum": "metres of surface height; NoData = NaN"
+      },
+      "d01_role": "existing_reference",
+      "endpoint": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_final_adj_5mpp_surf.tif",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "High-Resolution LOLA Topography",
+            "content_type_prefix_any": [
+              "text/html"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 317341,
+            "content_type": "text/html; charset=utf-8",
+            "status": 200,
+            "total_bytes": 317341
+          },
+          "request": "GET",
+          "url": "https://pgda.gsfc.nasa.gov/products/78"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/40980806",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 40980806
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_final_adj_5mpp_surf.tif"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/40980810",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 40980810
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_final_adj_5mpp_surf.tif"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/40980808",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 40980808
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site07/Site07_final_adj_5mpp_surf.tif"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/40980806",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 40980806
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site11/Site11_final_adj_5mpp_surf.tif"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/40980802",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 40980802
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site20/Site20_final_adj_5mpp_surf.tif"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/70586804",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 70586804
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site23/Site23_final_adj_5mpp_surf.tif"
+        }
+      ],
+      "license": "Not stated on the PGDA product page. The repository's existing manifest records CC0-1.0 via the NASA Science Data Portal and a citation request; that legal inference is not restated by PGDA.",
+      "license_status": "unstated_nasa_public_archive",
+      "license_url": "https://pgda.gsfc.nasa.gov/products/78",
+      "limitations": [
+        "Only six local south-pole sites; no contiguous coverage.",
+        "About 90% of 5 m pixels are interpolated between LOLA tracks.",
+        "Median RMS Z error about 0.30-0.50 m and median slope error about 1.5-2.5 degrees (product page); no per-window uncertainty is supplied.",
+        "Source is striped and not a COG, with no overviews.",
+        "Licence is not stated on the product page."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 0.05555556,
+        "notes": "5 m native support is much finer than 90 m; bounded windows are downsampled to the contract grid. About 90% of 5 m pixels are interpolated, so the 5 m texture is not independent evidence.",
+        "support_at_90m": "downsample_to_90m"
+      },
+      "native_resolution_m": 5.0,
+      "native_resolution_note": "5 m/pixel; Site04 is 3,200 x 3,200 px (16 x 16 km). Per-site rasters can differ in size.",
+      "product": "LOLA 5 m/pixel south-pole site surface DEMs: Site01, Site04, Site07, Site11, Site20, Site23 (final_adj_5mpp_surf)",
+      "product_type": "regional_dem",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO LOLA",
+      "reproducible_command": "curl -sS -o /dev/null -D - -r 0-1023 https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_final_adj_5mpp_surf.tif",
+      "source_id": "nasa-pgda-lola-south-pole-sites-5m",
+      "status": "verified"
+    },
+    {
+      "access_method": "Anonymous HTTPS byte-range read of a 4.20 GB Cloud-Optimized GeoTIFF.",
+      "attribution": "Barker et al. (2021), Planetary and Space Science 203, 105119, doi:10.1016/j.pss.2020.105119; NASA LRO LOLA; mosaic constructed from 97 individual 20 x 20 km fields (README).",
+      "body": "Moon",
+      "coverage": {
+        "bbox_deg": null,
+        "latitude_range_deg": [
+          -90.0,
+          -87.0
+        ],
+        "notes": "87-90S south-polar mosaic, 200 x 200 km. This is the only verified contiguous 5 m polar mosaic in this audit.",
+        "raster_shape_px": [
+          40000,
+          40000
+        ],
+        "scope": "regional_sites"
+      },
+      "crs": {
+        "body_radius_m": 1737400.0,
+        "horizontal_units": "metre",
+        "kind": "projected_body_fixed",
+        "name": "Moon2000_spole / MOON_ME (DE421)",
+        "notes": "South polar stereographic, metres; MOON_ME reference frame of DE421 (README).",
+        "vertical_datum": "metres of surface height; NoData = NaN"
+      },
+      "d01_role": "candidate_fine",
+      "endpoint": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Lunar_safed/LMAP/SouthPolar/ldem_87s_5mpp_cog.tif",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "ldem_87s_5mpp",
+            "content_type_prefix_any": [
+              "text/plain"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1611,
+            "content_type": "text/plain; charset=utf-8",
+            "status": 200,
+            "total_bytes": 1611
+          },
+          "request": "GET",
+          "url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Lunar_safed/LMAP/SouthPolar/ldem_87s_5mpp_README.txt"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/4200862545",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 4200862545
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Lunar_safed/LMAP/SouthPolar/ldem_87s_5mpp_cog.tif"
+        },
+        {
+          "expect": {
+            "body_contains": "South Pole LOLA DEM Mosaic",
+            "content_type_prefix_any": [
+              "text/html"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 7230,
+            "content_type": "text/html; charset=utf-8",
+            "status": 200,
+            "total_bytes": 7230
+          },
+          "request": "GET",
+          "url": "https://pgda.gsfc.nasa.gov/products/81"
+        }
+      ],
+      "license": "Not stated in the README or PGDA page. The README requires citation; the USGS-hosted mirror does not add a licence field. Confirm before redistribution.",
+      "license_status": "unstated_nasa_public_archive",
+      "license_url": "https://pgda.gsfc.nasa.gov/products/81",
+      "limitations": [
+        "Covers only 87-90S, not the whole Moon.",
+        "Mosaic of 97 individual fields; typical RMS residual 30-55 cm against the individual fields.",
+        "Interpolation filling of empty pixels; 5 m texture is not independent evidence.",
+        "Licence is not stated; cite Barker et al. (2021)."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 0.05555556,
+        "notes": "5 m native support can be downsampled to 90 m. Interpolation filling is extensive and the mosaic blends 97 fields; use only with the published RMS caveat.",
+        "support_at_90m": "downsample_to_90m"
+      },
+      "native_resolution_m": 5.0,
+      "native_resolution_note": "5 m/pixel; 40,000 x 40,000 px = 200 x 200 km.",
+      "product": "South Pole LOLA DEM Mosaic 87-90S, 5 m/pixel COG (ldem_87s_5mpp_cog.tif; PGDA product 81)",
+      "product_type": "regional_dem",
+      "provider": "NASA GSFC PGDA / USGS Astrogeology mirror",
+      "reproducible_command": "curl -sS -o /dev/null -D - -r 0-1023 https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Lunar_safed/LMAP/SouthPolar/ldem_87s_5mpp_cog.tif",
+      "source_id": "nasa-pgda-lola-south-pole-mosaic-5m",
+      "status": "verified"
+    },
+    {
+      "access_method": "Anonymous HTTPS byte-range read of a 10.46 GB BigTIFF; bounded windows only.",
+      "attribution": "Scholten et al. (2012), GLD100: The near-global lunar 100 m raster DTM from LROC WAC stereo image data, J. Geophys. Res. 117, E00H17; USGS Astrogeology / LROC Team.",
+      "body": "Moon",
+      "coverage": {
+        "bbox_deg": [
+          -180.0,
+          -79.0,
+          180.0,
+          79.0
+        ],
+        "latitude_range_deg": [
+          -79.0,
+          79.0
+        ],
+        "notes": "79S-79N, reported as 98.2% of the lunar surface on the USGS product page. No polar coverage.",
+        "raster_shape_px": [
+          109165,
+          47912
+        ],
+        "scope": "global_mid_latitudes"
+      },
+      "crs": {
+        "body_radius_m": 1737400.0,
+        "horizontal_units": "degree",
+        "kind": "geographic_planetocentric",
+        "name": "Equirectangular Moon / Moon 2000 sphere",
+        "notes": "GeoTIFF equirectangular, center longitude 180 deg; 16-bit signed integer.",
+        "vertical_datum": "metres relative to the 1737.4 km reference radius; NoData = -32768"
+      },
+      "d01_role": "candidate_fine_with_caveat",
+      "endpoint": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Lunar_LRO_WAC_GLD100_DTM_79S79N_100m_v1.1.tif",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/10461394351",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 10461394351
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Lunar_LRO_WAC_GLD100_DTM_79S79N_100m_v1.1.tif"
+        },
+        {
+          "expect": {
+            "body_contains": "GLD100",
+            "content_type_prefix_any": [
+              "text/html"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": null,
+            "content_type": "text/html; charset=utf-8",
+            "status": 200,
+            "total_bytes": null
+          },
+          "request": "GET",
+          "url": "https://astrogeology.usgs.gov/search/map/moon_lroc_wac_dtm_gld100_118m"
+        }
+      ],
+      "license": "Public domain per the USGS Astropedia product page; cite authors.",
+      "license_status": "public_domain",
+      "license_url": "https://astrogeology.usgs.gov/search/map/moon_lroc_wac_dtm_gld100_118m",
+      "limitations": [
+        "100 m native support is slightly coarser than the 90 m contract grid.",
+        "Stereo DTM; shadows, steep slopes and high-incidence terrain can have artifacts.",
+        "No polar coverage; GLD100 covers 79S-79N.",
+        "BigTIFF, not a verified COG; bounded reads require row arithmetic.",
+        "10.46 GB full file."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 1.1111111,
+        "notes": "100 m native support is 11% coarser than 90 m. Resampling to 90 m is a slight upsample; do not use for scored D01 metrics until a sensitivity test against a finer source shows the bias is acceptable.",
+        "support_at_90m": "slight_upsample_1_11x"
+      },
+      "native_resolution_m": 100.0,
+      "native_resolution_note": "100 m/pixel; 109,165 x 47,912 px; 79S-79N.",
+      "product": "GLD100 v1.1 near-global lunar DTM, 100 m/pixel (79S-79N)",
+      "product_type": "global_dem",
+      "provider": "USGS Astrogeology / NASA LRO LROC WAC",
+      "reproducible_command": "curl -sS -o /dev/null -D - -r 0-1023 https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Lunar_LRO_WAC_GLD100_DTM_79S79N_100m_v1.1.tif",
+      "source_id": "usgs-lro-wac-gld100-100m",
+      "status": "verified"
+    },
+    {
+      "access_method": "STAC item search by bbox, then anonymous HTTPS byte-range read of the per-item Cloud-Optimized GeoTIFF dtm asset.",
+      "attribution": "USGS Astrogeology Science Center; JAXA SELENE/Kaguya Terrain Camera; DTMs absolutely aligned to LOLA. See the STAC collection description.",
+      "body": "Moon",
+      "coverage": {
+        "bbox_deg": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "bbox_semantics": "collection_extent_not_coverage",
+        "notes": "155,925 STAC items intersect the collection bbox, but coverage is a set of stereo strips, not a seamless global DEM. Item counts are not area coverage.",
+        "sampled_bbox_counts": [
+          {
+            "bbox_deg": [
+              0.0,
+              -10.0,
+              10.0,
+              10.0
+            ],
+            "items": 625
+          },
+          {
+            "bbox_deg": [
+              -180.0,
+              -90.0,
+              -150.0,
+              -60.0
+            ],
+            "items": 1454
+          }
+        ],
+        "scope": "sparse_footprints",
+        "verified_item_count": 155925
+      },
+      "crs": {
+        "body_radius_m": 1737400.0,
+        "horizontal_units": "metre or degree",
+        "kind": "per_item_projected_or_geographic",
+        "name": "Per-item IAU WKT2 (Moon 2015 sphere)",
+        "notes": "Sampled item: Moon (2015) Sphere / Ocentric / Equirectangular, clon = 180, R = 1,737,400 m; other items use south polar stereographic. The item's proj:wkt2 is authoritative.",
+        "vertical_datum": "per-item; sampled items use NoData -32767"
+      },
+      "d01_role": "candidate_fine",
+      "endpoint": "https://stac.astrogeology.usgs.gov/api/collections/kaguya_terrain_camera_usgs_dtms_v2",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "Kaguya/SELENE Terrain Camera (TC) Version 2.0 USGS DTMs",
+            "content_type_prefix_any": [
+              "application/json"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 3518,
+            "content_type": "application/json; charset=utf-8",
+            "status": 200,
+            "total_bytes": 3518
+          },
+          "request": "GET",
+          "url": "https://stac.astrogeology.usgs.gov/api/collections/kaguya_terrain_camera_usgs_dtms_v2"
+        },
+        {
+          "expect": {
+            "body_contains": "\"numberMatched\"",
+            "content_type_prefix_any": [
+              "application/geo+json"
+            ],
+            "json_number_matched": 625,
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 10351,
+            "content_type": "application/geo+json; charset=utf-8",
+            "status": 200,
+            "total_bytes": 10351
+          },
+          "request": "GET",
+          "url": "https://stac.astrogeology.usgs.gov/api/collections/kaguya_terrain_camera_usgs_dtms_v2/items?limit=1&bbox=0,-10,10,10"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/4225791",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 4225791
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/moon/kaguya/terrain_camera/usgs_dtms_v2/TC1W2B0_01_05191S065E3594__TC2W2B0_01_05191S061E3594/TC1W2B0_01_05191S065E3594__TC2W2B0_01_05191S061E3594-DEM.tif"
+        }
+      ],
+      "license": "CC0-1.0, stated in the STAC collection and item metadata.",
+      "license_status": "cc0",
+      "license_url": "https://stac.astrogeology.usgs.gov/api/collections/kaguya_terrain_camera_usgs_dtms_v2",
+      "limitations": [
+        "Per-item GSD and shape vary by orders of magnitude; sampled items included 10.33 m, 29.97 m and 5,003 m.",
+        "Sparse stereo strips; a given 1.98 km window may not be fully covered.",
+        "Some items are long, thin strips (sampled shape 9 x 2,181 px), unusable for a 2 km square window.",
+        "All 10 sampled dtm assets returned HTTP 206, but coverage and valid-data fraction still require per-window checks.",
+        "No global coverage claim."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 0.1147969,
+        "notes": "Native items at 10-30 m can be downsampled to 90 m. Items at 5,003 m or with very small shapes must be rejected. Each window must be checked for full 1.98 km coverage before use.",
+        "support_at_90m": "downsample_to_90m"
+      },
+      "native_resolution_m": 10.331718798760479,
+      "native_resolution_note": "Nominal first-sampled item is 10.33 m. Per-item GSD varies widely: 10.33 m, 29.97 m and 5,003 m were observed in sampled items. Filter every item; do not treat the collection summary as a uniform resolution.",
+      "product": "Kaguya/SELENE Terrain Camera Version 2.0 USGS DTMs",
+      "product_type": "stereo_dtm_collection",
+      "provider": "USGS Astrogeology (from JAXA SELENE/Kaguya TC, aligned to LOLA)",
+      "reproducible_command": "curl -s 'https://stac.astrogeology.usgs.gov/api/collections/kaguya_terrain_camera_usgs_dtms_v2/items?limit=1&bbox=0,-10,10,10' | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d[\"numberMatched\"], d[\"features\"][0][\"properties\"][\"gsd\"])'",
+      "source_id": "usgs-stac-kaguya-tc-dtms-v2",
+      "status": "verified"
+    },
+    {
+      "access_method": "STAC item search, then byte-range read of a COPC LAZ point cloud with PDAL or an equivalent reader. Not a ready DEM.",
+      "attribution": "NASA PDS LRO LOLA RDR; USGS Astrogeology conversion to COPC. See the STAC item metadata.",
+      "body": "Moon",
+      "coverage": {
+        "bbox_deg": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "bbox_semantics": "collection_extent_not_coverage",
+        "notes": "288 COPC tiles of LOLA shot observations. Sample tile: 31,443,240 points, 201.6 MB. Point density is not a DEM resolution.",
+        "scope": "sparse_footprints",
+        "verified_item_count": 288
+      },
+      "crs": {
+        "body_radius_m": 1737400.0,
+        "horizontal_units": "degree",
+        "kind": "geographic_planetocentric",
+        "name": "IAU Moon sphere, geographic",
+        "notes": "Item properties include an IAU WKT2; sampled tile is a 15 x 15 degree COPC tile.",
+        "vertical_datum": "LOLA radius/elevation; see the RDR product label"
+      },
+      "d01_role": "not_ready_requires_processing",
+      "endpoint": "https://stac.astrogeology.usgs.gov/api/collections/lunar_orbiter_laser_altimeter",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "Lunar Orbiter Laser Altimeter",
+            "content_type_prefix_any": [
+              "application/json"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 2704,
+            "content_type": "application/json; charset=utf-8",
+            "status": 200,
+            "total_bytes": 2704
+          },
+          "request": "GET",
+          "url": "https://stac.astrogeology.usgs.gov/api/collections/lunar_orbiter_laser_altimeter"
+        },
+        {
+          "expect": {
+            "body_contains": "\"numberMatched\"",
+            "content_type_prefix_any": [
+              "application/geo+json"
+            ],
+            "json_number_matched": 288,
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 6246,
+            "content_type": "application/geo+json; charset=utf-8",
+            "status": 200,
+            "total_bytes": 6246
+          },
+          "request": "GET",
+          "url": "https://stac.astrogeology.usgs.gov/api/collections/lunar_orbiter_laser_altimeter/items?limit=1"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "binary/octet-stream"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/201616541",
+            "content_type": "binary/octet-stream",
+            "status": 206,
+            "total_bytes": 201616541
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://asc-moon.s3-us-west-2.amazonaws.com/hobu/LolaRDR_-90N-75N_330E345E.copc.laz"
+        }
+      ],
+      "license": "CC0-1.0, stated in the STAC item metadata.",
+      "license_status": "cc0",
+      "license_url": "https://stac.astrogeology.usgs.gov/api/collections/lunar_orbiter_laser_altimeter",
+      "limitations": [
+        "Point cloud, not a DEM; requires a documented gridding method.",
+        "201.6 MB per sampled tile; 31.4 million points.",
+        "Gridding/interpolation can create or remove roughness and flat fraction.",
+        "No 90 m support until a grid is produced and validated."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": null,
+        "notes": "All five metrics are computable only after gridding/interpolation to a DEM. The gridding choice changes support and roughness; no official gridded product is produced here. Use SLDEM2015 or the PGDA DEMs for ready grids.",
+        "support_at_90m": "requires_gridding"
+      },
+      "native_resolution_m": null,
+      "native_resolution_note": "Point observations; spacing is variable along and across tracks. A gridded DEM resolution must be chosen and documented by the consumer.",
+      "product": "LOLA RDR shot observations as Cloud-Optimized Point Cloud (COPC/LAZ), 288 tiles",
+      "product_type": "point_cloud",
+      "provider": "USGS Astrogeology / NASA PDS LRO LOLA",
+      "reproducible_command": "curl -s 'https://stac.astrogeology.usgs.gov/api/collections/lunar_orbiter_laser_altimeter/items?limit=1' | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d[\"numberMatched\"], d[\"features\"][0][\"assets\"][\"data\"][\"href\"])'",
+      "source_id": "usgs-stac-lola-shot-copc",
+      "status": "verified"
+    },
+    {
+      "access_method": "ArcGIS ImageServer metadata (f=json) and exportImage with a bounding box and pixel size. A 1x1 export smoke test returned a 66,352-byte TIFF; the checker verifies metadata only to avoid raster downloads.",
+      "attribution": "NASA LRO LOLA; NASA/JPL Moon Trek service. No copyright text is supplied by the service.",
+      "body": "Moon",
+      "coverage": {
+        "bbox_deg": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "notes": "Global 256 ppd service; service metadata reports value range -9,126.5 to 7,026 m. Coverage is global, but 118.45 m native support cannot yield independent 90 m metrics.",
+        "scope": "global"
+      },
+      "crs": {
+        "body_radius_m": 1737400.0,
+        "horizontal_units": "degree",
+        "kind": "geographic_planetocentric",
+        "name": "GCS_MOON / Moon 2000 sphere",
+        "notes": "GEOGCS[\"GCS_MOON\",DATUM[\"D_MOON\",SPHEROID[\"MOON_2000\",1737400,0]]]; F32; global extent -180,-90,180,90.",
+        "vertical_datum": "metres; service JSON declares no noDataValue"
+      },
+      "d01_role": "coarse_context_only",
+      "endpoint": "https://trek.nasa.gov/moon/trekarcgis/rest/services/LRO_LOLA_DEM_Global_256ppd_v06/ImageServer",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "LRO_LOLA_DEM_Global_256ppd_v06",
+            "content_type_prefix_any": [
+              "application/json"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 2306,
+            "content_type": "application/json;charset=UTF-8",
+            "status": 200,
+            "total_bytes": 2306
+          },
+          "request": "GET",
+          "url": "https://trek.nasa.gov/moon/trekarcgis/rest/services/LRO_LOLA_DEM_Global_256ppd_v06/ImageServer?f=json"
+        },
+        {
+          "expect": {
+            "body_contains": "LRO_LOLA_DEM_SPole45_100mp_v04",
+            "content_type_prefix_any": [
+              "application/json"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 3368,
+            "content_type": "application/json;charset=UTF-8",
+            "status": 200,
+            "total_bytes": 3368
+          },
+          "request": "GET",
+          "url": "https://trek.nasa.gov/moon/trekarcgis/rest/services/LRO_LOLA_DEM_SPole45_100mp_v04/ImageServer?f=json"
+        }
+      ],
+      "license": "NASA public data; NASA Science Data Portal general licence is CC0-1.0. The ImageServer JSON has copyrightText = '' and no explicit licence field. Attribute NASA LOLA and Moon Trek.",
+      "license_status": "public_domain_nasa",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "limitations": [
+        "118.45 m native support; not a 90 m source.",
+        "Server-side export resampling method is not documented.",
+        "Service JSON declares no noDataValue; voids cannot be distinguished reliably.",
+        "The 1x1 export smoke test is a service check, not a terrain observation.",
+        "Not a substitute for the 5 m site DEMs or SLDEM2015."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 1.3161176,
+        "notes": "118.45 m native support is 1.32x coarser than 90 m. exportImage to 22 x 22 at 90 m would upsample; use only as coarse/context terrain.",
+        "support_at_90m": "upsample_required"
+      },
+      "native_resolution_m": 118.4505876,
+      "native_resolution_note": "pixelSizeX/Y = 0.00390625 degree (256 pixels/degree), about 118.45 m at the equator.",
+      "product": "LRO_LOLA_DEM_Global_256ppd_v06 ImageServer; plus LRO_LOLA_DEM_SPole45_100mp_v04",
+      "product_type": "image_service",
+      "provider": "NASA/JPL Moon Trek (LRO LOLA DEM service)",
+      "reproducible_command": "curl -s 'https://trek.nasa.gov/moon/trekarcgis/rest/services/LRO_LOLA_DEM_Global_256ppd_v06/ImageServer?f=json' | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d[\"pixelSizeX\"], d[\"extent\"])'",
+      "source_id": "nasa-moon-trek-lola-256ppd",
+      "status": "verified"
+    },
+    {
+      "access_method": "ODE REST count/metadata queries keyed by IHID=LRO, IID=LOLA, PT=GDRDEM|GDRDSM|GDRDRM. Product files are served by the PDS volumes, not by ODE.",
+      "attribution": "NASA PDS Geosciences Node; LRO LOLA team.",
+      "body": "Moon",
+      "coverage": {
+        "bbox_deg": null,
+        "notes": "Counts observed: GDRDEM 270, GDRDSM 7, GDRDRM 21. These are product counts, not area coverage.",
+        "scope": "metadata_index",
+        "verified_item_count": 270
+      },
+      "crs": {
+        "body_radius_m": 1737400.0,
+        "horizontal_units": "per product",
+        "kind": "per_product",
+        "name": "Per-product PDS labels",
+        "notes": "ODE returns footprints and map scales; it is not a raster endpoint.",
+        "vertical_datum": "per product"
+      },
+      "d01_role": "metadata_only",
+      "endpoint": "https://oderest.rsl.wustl.edu/live2/",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "<Count>270</Count>",
+            "content_type_prefix_any": [
+              "text/xml"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": null,
+            "content_type": "text/xml; charset=utf-8",
+            "status": 200,
+            "total_bytes": null
+          },
+          "request": "GET",
+          "url": "https://oderest.rsl.wustl.edu/live2/?query=product&results=c&target=moon&ihid=LRO&iid=LOLA&pt=GDRDEM"
+        },
+        {
+          "expect": {
+            "body_contains": "<Count>7</Count>",
+            "content_type_prefix_any": [
+              "text/xml"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": null,
+            "content_type": "text/xml; charset=utf-8",
+            "status": 200,
+            "total_bytes": null
+          },
+          "request": "GET",
+          "url": "https://oderest.rsl.wustl.edu/live2/?query=product&results=c&target=moon&ihid=LRO&iid=LOLA&pt=GDRDSM"
+        }
+      ],
+      "license": "PDS public archive metadata. Product-level licences vary and are not stated in the ODE response; check each product label.",
+      "license_status": "unstated_nasa_public_archive",
+      "license_url": "https://pds-geosciences.wustl.edu/missions/lro/lola.htm",
+      "limitations": [
+        "Metadata/count interface only; no raster bytes are served by ODE.",
+        "Requires a valid IHID/IID/PT combination; queries with only a target fail.",
+        "Product counts change with PDS releases.",
+        "GDRDEM/GDRDSM resolutions are coarser than 90 m."
+      ],
+      "metrics": {
+        "computable": [],
+        "native_to_90m_ratio": null,
+        "notes": "ODE itself produces no metrics. GDRDEM files can supply all five metrics at 118-1,895 m; GDRDSM is a slope-only product (slope/flat fraction, no relief or roughness); GDRDRM is a roughness product. All are coarser than 90 m or product-specific.",
+        "support_at_90m": "not_applicable"
+      },
+      "native_resolution_m": null,
+      "native_resolution_note": "Resolution is per product: GDRDEM includes 16 ppd (1,895.21 m), 128 ppd (236.901 m) and 256 ppd (118.4506 m) products; GDRDSM includes 120 m and 240 m polar slope maps and a 16 ppd global slope map.",
+      "product": "ODE index of LRO LOLA GDR products: GDRDEM (270), GDRDSM slope maps (7), GDRDRM roughness maps (21)",
+      "product_type": "metadata_index",
+      "provider": "NASA PDS Geosciences Node Orbital Data Explorer (ODE)",
+      "reproducible_command": "curl -s 'https://oderest.rsl.wustl.edu/live2/?query=product&results=c&target=moon&ihid=LRO&iid=LOLA&pt=GDRDEM'",
+      "source_id": "pds-ode-lro-lola-gdr",
+      "status": "verified_metadata_only"
+    },
+    {
+      "access_method": "Anonymous HTTPS byte-range read of a 2.13 GB GeoTIFF; bounded windows only.",
+      "attribution": "MOLA Team / NASA Goddard Space Flight Center; USGS Astrogeology Science Center. Cite the product page.",
+      "body": "Mars",
+      "coverage": {
+        "bbox_deg": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "notes": "Global MOLA median topography. Native support is 5.15x coarser than 90 m.",
+        "raster_shape_px": [
+          46080,
+          23040
+        ],
+        "scope": "global"
+      },
+      "crs": {
+        "body_radius_m": 3396190.0,
+        "horizontal_units": "degree",
+        "kind": "geographic_planetocentric",
+        "name": "Equirectangular Mars / GCS_Mars (local radius)",
+        "notes": "GeoTIFF equirectangular, GCS_Mars, R = 3,396,190 m; 16-bit signed integer.",
+        "vertical_datum": "metres above the MOLA areoid; NoData = -32768"
+      },
+      "d01_role": "coarse_context_only",
+      "endpoint": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Mars_MGS_MOLA_DEM_mosaic_global_463m.tif",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/2125771142",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 2125771142
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Mars_MGS_MOLA_DEM_mosaic_global_463m.tif"
+        },
+        {
+          "expect": {
+            "body_contains": "Mars MGS MOLA DEM 463m",
+            "content_type_prefix_any": [
+              "text/html"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": null,
+            "content_type": "text/html; charset=utf-8",
+            "status": 200,
+            "total_bytes": null
+          },
+          "request": "GET",
+          "url": "https://astrogeology.usgs.gov/search/map/mars_mgs_mola_dem_463m"
+        }
+      ],
+      "license": "Public domain per the USGS Astropedia product page (Access Constraints: public domain; Use Constraints: none).",
+      "license_status": "public_domain",
+      "license_url": "https://astrogeology.usgs.gov/search/map/mars_mgs_mola_dem_463m",
+      "limitations": [
+        "463 m native resolution is 5.15x coarser than 90 m.",
+        "Median-binned and interpolated where MOLA tracks are sparse.",
+        "No per-window vertical uncertainty.",
+        "Not a local 1.98 km DEM."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 5.1454838,
+        "notes": "463.1 m native support cannot produce independent 90 m metrics. Upsampling would fabricate detail; use only for coarse 5 km cells or context, never for D01-comparable windows.",
+        "support_at_90m": "upsample_required"
+      },
+      "native_resolution_m": 463.0935415503709,
+      "native_resolution_note": "4.6093e-3 degree, 46,080 x 23,040 px, 463.0935 m at the equator.",
+      "product": "Mars MGS MOLA DEM 463 m global GeoTIFF",
+      "product_type": "global_dem",
+      "provider": "USGS Astrogeology / NASA MGS MOLA",
+      "reproducible_command": "curl -sS -o /dev/null -D - -r 0-1023 https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Mars_MGS_MOLA_DEM_mosaic_global_463m.tif",
+      "source_id": "usgs-mgs-mola-dem-global-463m",
+      "status": "verified"
+    },
+    {
+      "access_method": "Anonymous HTTPS byte-range read of PDS3 .img tiles with the companion .lbl; PDS4 bundle metadata for provenance. No full tile download.",
+      "attribution": "MGS MOLA Team; PDS4 bundle urn:nasa:pds:mgs_mola_topography_derived, doi:10.17189/1z1b-kv84.",
+      "body": "Mars",
+      "coverage": {
+        "bbox_deg": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "notes": "Global tiled MEGDR archive. The verified tile megt44n000hb covers 90 x 44 degrees and is 129,761,280 bytes.",
+        "scope": "global",
+        "verified_item_count": 1
+      },
+      "crs": {
+        "body_radius_m": 3396000.0,
+        "horizontal_units": "degree",
+        "kind": "geographic_planetocentric",
+        "name": "Equirectangular, planetocentric, IAU2000",
+        "notes": "128 ppd tile is 11,520 x 5,632 px over 90 x 44 degrees; PDS3 label scaling factor 1.0, offset 0.0, NoData -32768.",
+        "vertical_datum": "metres relative to the GMM3 (mgm1025) areoid; label unit = meter"
+      },
+      "d01_role": "coarse_context_only",
+      "endpoint": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n000hb.img",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "10.17189/1z1b-kv84",
+            "content_type_prefix_any": [
+              "application/xml"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 6765,
+            "content_type": "application/xml",
+            "status": 200,
+            "total_bytes": 6765
+          },
+          "request": "GET",
+          "url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/mgs_mola_topography_derived_bundle.xml"
+        },
+        {
+          "expect": {
+            "body_contains": "MGS-M-MOLA-5-MEGDR-L3-V1.0",
+            "content_type_prefix_any": [
+              "text/plain"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 4820,
+            "content_type": "text/plain",
+            "status": 200,
+            "total_bytes": 4820
+          },
+          "request": "GET",
+          "url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n000hb.lbl"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "application/octet-stream"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/129761280",
+            "content_type": "application/octet-stream",
+            "status": 206,
+            "total_bytes": 129761280
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n000hb.img"
+        }
+      ],
+      "license": "No licence field in the PDS4 bundle or product labels. NASA PDS public archive; bundle DOI 10.17189/1z1b-kv84. Confirm redistribution terms.",
+      "license_status": "unstated_nasa_public_archive",
+      "license_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/mgs_mola_topography_derived_bundle.xml",
+      "limitations": [
+        "463.06 m native support; 16 ppd tiles are 3.70 km.",
+        "Median-binned/interpolated bins where no MOLA observations exist.",
+        "No licence field in the bundle or product labels.",
+        "No per-window vertical uncertainty.",
+        "PDS3 .img tiles require label-driven byte offsets."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 5.1450852,
+        "notes": "463.06 m native support is 5.15x coarser than 90 m; not D01-comparable. The 16 ppd product is far coarser.",
+        "support_at_90m": "upsample_required"
+      },
+      "native_resolution_m": 463.0576672,
+      "native_resolution_note": "128 ppd tile pixel = 0.4630576672 km; 16 ppd product = 3.7044613374 km/pixel.",
+      "product": "MGS MOLA Topography Derived bundle, MEGDR 128 ppd tiles (463.0576672 m) and 16 ppd tiles (3,704.46 m)",
+      "product_type": "global_dem_tiles",
+      "provider": "NASA PDS Geosciences Node / MGS MOLA",
+      "reproducible_command": "curl -sS -o /dev/null -D - -r 0-1023 https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n000hb.img",
+      "source_id": "pds4-mgs-mola-megdr",
+      "status": "verified"
+    },
+    {
+      "access_method": "Anonymous HTTPS byte-range read of an 11.38 GB BigTIFF; bounded windows only.",
+      "attribution": "Fergason, R.L., Hare, T.M., Laura, J. (2018), HRSC and MOLA Blended Digital Elevation Model at 200 m v2, USGS Astrogeology PDS Annex; DLR HRSC and NASA MOLA teams.",
+      "body": "Mars",
+      "coverage": {
+        "bbox_deg": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "notes": "Global blended DEM. Native support is 2.22x coarser than 90 m.",
+        "raster_shape_px": [
+          106694,
+          53347
+        ],
+        "scope": "global"
+      },
+      "crs": {
+        "body_radius_m": 3396190.0,
+        "horizontal_units": "degree",
+        "kind": "geographic_planetocentric",
+        "name": "GCS_Mars_2000_Sphere",
+        "notes": "GeoTIFF geographic, Mars 2000 Sphere, R = 3,396,190 m; 16-bit signed integer.",
+        "vertical_datum": "metres; NoData = -32768"
+      },
+      "d01_role": "coarse_context_only",
+      "endpoint": "https://planetarymaps.usgs.gov/mosaic/Mars/HRSC_MOLA_Blend/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2.tif",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/11384463908",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 11384463908
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://planetarymaps.usgs.gov/mosaic/Mars/HRSC_MOLA_Blend/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2.tif"
+        },
+        {
+          "expect": {
+            "body_contains": "HRSC and MOLA Blended Digital Elevation Model",
+            "content_type_prefix_any": [
+              "text/html"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": null,
+            "content_type": "text/html; charset=utf-8",
+            "status": 200,
+            "total_bytes": null
+          },
+          "request": "GET",
+          "url": "https://astrogeology.usgs.gov/search/map/mars_mgs_mola_mex_hrsc_blended_dem_global_200m"
+        }
+      ],
+      "license": "Composite licence stated on the USGS product page: MOLA (CC0) and HRSC (CC BY-SA 3.0 IGO). The HRSC component is share-alike; legal review is required before committing derived products.",
+      "license_blocker": true,
+      "license_status": "cc_by_sa",
+      "license_url": "https://astrogeology.usgs.gov/search/map/mars_mgs_mola_mex_hrsc_blended_dem_global_200m",
+      "limitations": [
+        "200 m native support; 2.22x coarser than 90 m.",
+        "HRSC component is CC BY-SA 3.0 IGO; share-alike and attribution obligations apply.",
+        "Global blend is 11.38 GB; bounded reads only.",
+        "Blending, interpolation and HRSC coverage gaps affect local terrain.",
+        "Not ingested by this audit; licence review is a blocker."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 2.2222222,
+        "notes": "200 m native support is 2.22x coarser than 90 m; not D01-comparable. All five metrics are computable only at coarse support.",
+        "support_at_90m": "upsample_required"
+      },
+      "native_resolution_m": 200.0,
+      "native_resolution_note": "0.0033741208 degree, 106,694 x 53,347 px, 200.0 m at the equator.",
+      "product": "Mars MGS MOLA - MEX HRSC Blended DEM Global 200 m v2",
+      "product_type": "global_dem",
+      "provider": "USGS Astrogeology / DLR Mars Express HRSC + NASA MGS MOLA",
+      "reproducible_command": "curl -sS -o /dev/null -D - -r 0-1023 https://planetarymaps.usgs.gov/mosaic/Mars/HRSC_MOLA_Blend/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2.tif",
+      "source_id": "usgs-mars-hrsc-mola-blend-200m",
+      "status": "verified"
+    },
+    {
+      "access_method": "STAC item search by bbox, then anonymous HTTPS byte-range read of the per-item Cloud-Optimized GeoTIFF dem asset.",
+      "attribution": "USGS Astrogeology Science Center; NASA MRO Context Camera; DTMs absolutely controlled to MOLA. See the STAC collection description.",
+      "body": "Mars",
+      "coverage": {
+        "bbox_deg": [
+          -179.75421556071058,
+          -65.44609866145721,
+          179.75566451529946,
+          65.94191738560878
+        ],
+        "bbox_semantics": "collection_extent_not_coverage",
+        "notes": "44,628 DTMs; item footprints are sparse strips. The Jezero bbox (18-18.7E, 18.3-18.7N) returned 0 CTX DTMs in this collection, so the existing five Jezero windows cannot be expanded from it.",
+        "sampled_bbox_counts": [
+          {
+            "bbox_deg": [
+              -138.0,
+              -6.0,
+              -136.0,
+              -4.0
+            ],
+            "items": 31
+          },
+          {
+            "bbox_deg": [
+              18.0,
+              18.3,
+              18.6,
+              18.7
+            ],
+            "items": 0
+          }
+        ],
+        "scope": "sparse_footprints",
+        "verified_item_count": 44628
+      },
+      "crs": {
+        "body_radius_m": 3396190.0,
+        "horizontal_units": "metre in the projected item CRS",
+        "kind": "geographic_planetocentric",
+        "name": "Mars (2015) Sphere / Ocentric / Equirectangular",
+        "notes": "Item proj:wkt2 is authoritative; sampled CRS is Mars 2015 Sphere, R = 3,396,190 m.",
+        "vertical_datum": "per-item; sampled item NoData = -32767"
+      },
+      "d01_role": "candidate_fine",
+      "endpoint": "https://stac.astrogeology.usgs.gov/api/collections/mro_ctx_controlled_usgs_dtms",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "Context Camera (CTX) Digital Terrain Models",
+            "content_type_prefix_any": [
+              "application/json"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 4529,
+            "content_type": "application/json; charset=utf-8",
+            "status": 200,
+            "total_bytes": 4529
+          },
+          "request": "GET",
+          "url": "https://stac.astrogeology.usgs.gov/api/collections/mro_ctx_controlled_usgs_dtms"
+        },
+        {
+          "expect": {
+            "body_contains": "\"numberMatched\":31",
+            "content_type_prefix_any": [
+              "application/geo+json"
+            ],
+            "json_number_matched": 31,
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 9536,
+            "content_type": "application/geo+json; charset=utf-8",
+            "status": 200,
+            "total_bytes": 9536
+          },
+          "request": "GET",
+          "url": "https://stac.astrogeology.usgs.gov/api/collections/mro_ctx_controlled_usgs_dtms/items?limit=1&bbox=-138,-6,-136,-4"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "binary/octet-stream",
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/635969",
+            "content_type": "binary/octet-stream",
+            "status": 206,
+            "total_bytes": 635969
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/P16_007221_1774_XN_02S136W__B19_017018_1726_XN_07S135W/P16_007221_1774_XN_02S136W__B19_017018_1726_XN_07S135W-DEM.tif"
+        }
+      ],
+      "license": "CC0-1.0, stated in the STAC collection and item metadata.",
+      "license_status": "cc0",
+      "license_url": "https://stac.astrogeology.usgs.gov/api/collections/mro_ctx_controlled_usgs_dtms",
+      "limitations": [
+        "Sparse stereo footprints, not global coverage.",
+        "Zero CTX DTM items in the sampled Jezero bbox; existing Jezero data are a separate mission mosaic.",
+        "Collection description warns that some DTMs are jittery or have large missing regions.",
+        "Per-item GSD ranges 20.0-35.96 m.",
+        "All 10 sampled dem assets returned HTTP 206, but valid-data fraction must be checked per window."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 0.2222245,
+        "notes": "20-36 m native support is finer than 90 m; downsample to the 90 m grid. Per-item valid fraction and DTM quality must be checked because the collection notes jitter and missing regions in some products.",
+        "support_at_90m": "downsample_to_90m"
+      },
+      "native_resolution_m": 20.00020653816136,
+      "native_resolution_note": "Collection GSD summary min 20.0002 m, max 35.9626 m. Sampled item is 20.0 m.",
+      "product": "MRO CTX controlled USGS DTMs (Ames Stereo Pipeline, MOLA-controlled)",
+      "product_type": "stereo_dtm_collection",
+      "provider": "USGS Astrogeology / NASA MRO CTX",
+      "reproducible_command": "curl -s 'https://stac.astrogeology.usgs.gov/api/collections/mro_ctx_controlled_usgs_dtms/items?limit=1&bbox=-138,-6,-136,-4' | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d[\"numberMatched\"], d[\"features\"][0][\"properties\"][\"gsd\"])'",
+      "source_id": "usgs-stac-mro-ctx-dtms",
+      "status": "verified"
+    },
+    {
+      "access_method": "STAC item search, then anonymous HTTPS byte-range read of the per-item Cloud-Optimized GeoTIFF dtm asset. Some item hrefs must be repaired (see limitations).",
+      "attribution": "University of Arizona HiRISE; USGS Astrogeology Science Center. See the STAC item metadata and https://www.uahirise.org/dtm/.",
+      "body": "Mars",
+      "coverage": {
+        "bbox_deg": [
+          -179.6659,
+          -89.0364,
+          179.004,
+          88.982
+        ],
+        "bbox_semantics": "collection_extent_not_coverage",
+        "notes": "1,262 DTMs. Ten sampled items: 7 advertised dtm hrefs returned HTTP 206 and 3 returned HTTP 404 because the href omitted the stereo-pair folder; corrected folder URLs returned HTTP 206. Coverage is sparse and must be checked per 1.98 km window.",
+        "scope": "sparse_footprints",
+        "verified_item_count": 1262
+      },
+      "crs": {
+        "body_radius_m": 3396190.0,
+        "horizontal_units": "metre in the projected item CRS",
+        "kind": "per_item_projected_or_geographic",
+        "name": "Per-item IAU WKT2 (Mars 2015 sphere)",
+        "notes": "Sampled item is Mars (2015) Sphere / Ocentric / South Polar; 2.01 m GSD, 4,969 x 2,287 px. Item proj:wkt2 is authoritative.",
+        "vertical_datum": "per-item; sampled item NoData = -3.4028226550889045e38"
+      },
+      "d01_role": "candidate_fine_validation_only",
+      "endpoint": "https://stac.astrogeology.usgs.gov/api/collections/mro_hirise_socet_dtms",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "High Resolution Imaging Science Experiment",
+            "content_type_prefix_any": [
+              "application/json"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 3471,
+            "content_type": "application/json; charset=utf-8",
+            "status": 200,
+            "total_bytes": 3471
+          },
+          "request": "GET",
+          "url": "https://stac.astrogeology.usgs.gov/api/collections/mro_hirise_socet_dtms"
+        },
+        {
+          "expect": {
+            "body_contains": "\"numberMatched\":1262",
+            "content_type_prefix_any": [
+              "application/geo+json"
+            ],
+            "json_number_matched": 1262,
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 7960,
+            "content_type": "application/geo+json; charset=utf-8",
+            "status": 200,
+            "total_bytes": 7960
+          },
+          "request": "GET",
+          "url": "https://stac.astrogeology.usgs.gov/api/collections/mro_hirise_socet_dtms/items?limit=1"
+        },
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "binary/octet-stream",
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/30171054",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 30171054
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/hirise/controlled/dtm/ESP_076532_0920_ESP_076203_0920/DTEPD_076532_0920_076203_0920_A01.tif"
+        }
+      ],
+      "license": "CC0-1.0, stated in the STAC item metadata.",
+      "license_status": "cc0",
+      "license_url": "https://stac.astrogeology.usgs.gov/api/collections/mro_hirise_socet_dtms",
+      "limitations": [
+        "1,262 DTMs; sparse, not global.",
+        "3 of 10 sampled advertised dtm hrefs were broken (HTTP 404) because the folder component was missing; derive the stereo-pair folder or repair the href before planning.",
+        "0.25 m items are expensive at a 2 km window; use overviews and a byte cap.",
+        "Sampled valid percentages 68.09% and 83.93%; the contract's 80% valid threshold can fail.",
+        "Some DTM footprints may not fully contain a 1.98 km square window."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 0.0223538,
+        "notes": "0.25-2.15 m native support can be downsampled to 90 m, but a 2 km window at 0.25 m is about 8,000 x 8,000 px; use COG overviews and cap the read. Sampled valid percentages were 68.09% and 83.93%, so the 80% valid rule can fail.",
+        "support_at_90m": "downsample_to_90m"
+      },
+      "native_resolution_m": 2.011841715538207,
+      "native_resolution_note": "Collection GSD range 0.25-2.15 m. The sampled item is 2.01 m.",
+      "product": "MRO HiRISE SOCET/GXP digital terrain models",
+      "product_type": "stereo_dtm_collection",
+      "provider": "USGS Astrogeology / University of Arizona HiRISE",
+      "reproducible_command": "curl -s 'https://stac.astrogeology.usgs.gov/api/collections/mro_hirise_socet_dtms/items?limit=1' | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d[\"numberMatched\"], d[\"features\"][0][\"properties\"][\"gsd\"])'",
+      "source_id": "usgs-stac-hirise-dtms",
+      "status": "verified"
+    },
+    {
+      "access_method": "ArcGIS ImageServer metadata (f=json) and exportImage with a bounding box and pixel size. A 1x1 export smoke test returned a 33,584-byte TIFF; the checker verifies metadata only to avoid raster downloads.",
+      "attribution": "NASA MGS MOLA; NASA/JPL Mars Trek service. No copyright text is supplied by the service.",
+      "body": "Mars",
+      "coverage": {
+        "bbox_deg": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "notes": "Global MOLA 128/64 merge. Native support is 5.15x coarser than 90 m.",
+        "scope": "global"
+      },
+      "crs": {
+        "body_radius_m": 3396190.0,
+        "horizontal_units": "degree",
+        "kind": "geographic_planetocentric",
+        "name": "Mars 2000 sphere, simple cylindrical",
+        "notes": "Service WKID 104905; S16; global extent -180,-90,180,90; value range -8,201 to 21,241 m.",
+        "vertical_datum": "metres; service JSON noDataValue = null"
+      },
+      "d01_role": "coarse_context_only",
+      "endpoint": "https://trek.nasa.gov/mars/trekarcgis/rest/services/mola128_mola64_merge_90Nto90S_SimpleC_clon0/ImageServer",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": "mola128_mola64_merge_90Nto90S_SimpleC_clon0",
+            "content_type_prefix_any": [
+              "application/json"
+            ],
+            "min_total_bytes": null,
+            "status": [
+              200,
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1989,
+            "content_type": "application/json;charset=UTF-8",
+            "status": 200,
+            "total_bytes": 1989
+          },
+          "request": "GET",
+          "url": "https://trek.nasa.gov/mars/trekarcgis/rest/services/mola128_mola64_merge_90Nto90S_SimpleC_clon0/ImageServer?f=json"
+        }
+      ],
+      "license": "NASA public data; NASA Science Data Portal general licence is CC0-1.0. The ImageServer JSON has copyrightText = '' and no explicit licence field. Attribute NASA MOLA and Mars Trek.",
+      "license_status": "public_domain_nasa",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "limitations": [
+        "463.06 m native support; 5.15x coarser than 90 m.",
+        "Service JSON declares noDataValue = null; voids cannot be distinguished reliably.",
+        "Server-side export resampling method is not documented.",
+        "The 1x1 export smoke test is a service check, not a terrain observation."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 5.1450852,
+        "notes": "463.06 m native support cannot produce independent 90 m metrics; use only for coarse/context terrain.",
+        "support_at_90m": "upsample_required"
+      },
+      "native_resolution_m": 463.0576672,
+      "native_resolution_note": "pixelSizeX/Y = 0.0078122457 degree (128 pixels/degree), about 463.06 m.",
+      "product": "mola128_mola64_merge_90Nto90S_SimpleC_clon0 ImageServer",
+      "product_type": "image_service",
+      "provider": "NASA/JPL Mars Trek (MGS MOLA DEM service)",
+      "reproducible_command": "curl -s 'https://trek.nasa.gov/mars/trekarcgis/rest/services/mola128_mola64_merge_90Nto90S_SimpleC_clon0/ImageServer?f=json' | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d[\"pixelSizeX\"], d[\"extent\"])'",
+      "source_id": "nasa-mars-trek-mola-128ppd",
+      "status": "verified"
+    },
+    {
+      "access_method": "Anonymous HTTPS byte-range read of a 90.35 MB GeoTIFF; the repository already reads five bounded windows.",
+      "attribution": "USGS Astrogeology Science Center / NASA Mars 2020; see the USGS Jezero Crater product page and the repository manifest.",
+      "body": "Mars",
+      "coverage": {
+        "bbox_deg": null,
+        "notes": "Jezero crater only; five existing 1.98 km windows. This is not a Mars-wide product.",
+        "raster_shape_px": [
+          4456,
+          5067
+        ],
+        "scope": "local"
+      },
+      "crs": {
+        "body_radius_m": 3396190.0,
+        "horizontal_units": "metre",
+        "kind": "projected_body_fixed",
+        "name": "Jezero_Crater_Projection / Mars 2000 sphere",
+        "notes": "GeoTIFF projected frame; GCS_Mars_2000_Sphere, R = 3,396,190 m; 32-bit float.",
+        "vertical_datum": "metres; NoData = -3.4028234663852886e38"
+      },
+      "d01_role": "existing_reference",
+      "endpoint": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+      "http_evidence": [
+        {
+          "expect": {
+            "body_contains": null,
+            "content_type_prefix_any": [
+              "image/tiff"
+            ],
+            "min_total_bytes": 500000,
+            "status": [
+              206
+            ]
+          },
+          "observed": {
+            "content_length": 1024,
+            "content_range": "bytes 0-1023/90345300",
+            "content_type": "image/tiff",
+            "status": 206,
+            "total_bytes": 90345300
+          },
+          "request": "GET Range: bytes=0-1023",
+          "url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif"
+        }
+      ],
+      "license": "Public domain per the USGS Astropedia product page (Use Constraints: public domain); cite authors.",
+      "license_status": "public_domain",
+      "license_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+      "limitations": [
+        "Jezero crater only; five windows.",
+        "Vertical error is not per-window verified; the existing manifest discloses a CRS radius discrepancy.",
+        "No global Mars coverage.",
+        "Not part of the 44,628-item CTX STAC collection; the Jezero bbox returned 0 STAC CTX DTMs."
+      ],
+      "metrics": {
+        "computable": [
+          "slope_mean_deg",
+          "slope_p90_deg",
+          "terrain_relief_p95_p05_m",
+          "roughness_std_m",
+          "flat_terrain_fraction"
+        ],
+        "native_to_90m_ratio": 0.2222222,
+        "notes": "20 m native support is finer than 90 m; downsample to the contract grid. The five existing windows already use this source.",
+        "support_at_90m": "downsample_to_90m"
+      },
+      "native_resolution_m": 20.0,
+      "native_resolution_note": "20 m/pixel; 4,456 x 5,067 px.",
+      "product": "Mars 2020 Jezero Crater CTX DEM mosaic, 20 m",
+      "product_type": "regional_dem",
+      "provider": "USGS Astrogeology / NASA Mars 2020",
+      "reproducible_command": "curl -sS -o /dev/null -D - -r 0-1023 https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+      "source_id": "usgs-m20-jezero-ctx-dem-20m",
+      "status": "verified"
+    }
+  ],
+  "summary": {
+    "blocked_or_unverified": 4,
+    "checkpoint_cpu_cap_min": 62,
+    "checkpoint_network_cap_mb": 392,
+    "checkpoint_window_cap": 101,
+    "http_probes": 44,
+    "metadata_services": 2,
+    "rejected_candidates": 2,
+    "sources_total": 16,
+    "sources_verified": 15,
+    "sources_verified_metadata_only": 1
+  }
+}

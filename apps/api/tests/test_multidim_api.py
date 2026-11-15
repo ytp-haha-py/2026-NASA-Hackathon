@@ -12,7 +12,10 @@ JOINED = {
     "earth-atacama-desert",
     "earth-death-valley",
     "earth-devon-island",
+    "earth-grand-canyon-r2c2",
+    "earth-iceland-r2c2",
     "earth-lanzarote",
+    "earth-namib-r2c2",
     "earth-sahara-r1c1",
 }
 
@@ -44,7 +47,7 @@ def test_registry_distinguishes_score_filters_evidence_and_uncertainty(client: T
     payload = response.json()
     assert payload["registry_version"] == "feature-eligibility-1.0.0"
     assert payload["join_audit"]["proximity_join_used"] is False
-    assert payload["join_audit"]["typed_areas_exactly_matching_fine_candidate"] == 6
+    assert payload["join_audit"]["typed_areas_exactly_matching_fine_candidate"] == 9
     features = {feature["feature_id"]: feature for feature in payload["features"]}
 
     mean = features["soil_clay_0_5cm_mean"]
@@ -53,7 +56,7 @@ def test_registry_distinguishes_score_filters_evidence_and_uncertainty(client: T
     assert mean["body_scope"] == ["Earth"]
     assert mean["selector"]["depth_interval_m"] == [0.0, 0.05]
     assert mean["selector"]["statistic"] == "mean"
-    assert mean["coverage"]["gated_candidate_count"] == 5
+    assert mean["coverage"]["gated_candidate_count"] == 8
     assert set(mean["coverage"]["gated_candidate_ids"]) == JOINED
 
     q05 = features["soil_clay_0_5cm_q05"]
@@ -112,8 +115,8 @@ def test_d06_feature_changes_a_real_ranking(client: TestClient):
     )
     assert combined.status_code == 200, combined.text
     body = combined.json()
-    assert body["eligible_candidate_count"] == 5
-    assert body["excluded_candidate_count"] == 108
+    assert body["eligible_candidate_count"] == 8
+    assert body["excluded_candidate_count"] == 105
     combined_order = [row["location_id"] for row in body["results"]]
     assert set(combined_order) == JOINED
     # D06 flips at least one pair; the D01-only order is not simply reused.
@@ -132,7 +135,7 @@ def test_d06_feature_changes_a_real_ranking(client: TestClient):
     assert clay["uncertainty"]["q05"] is not None
     assert clay["uncertainty"]["q95"] is not None
     assert clay["support"]["native_resolution_m"] == 250.0
-    assert body["coverage"]["features"]["soil_clay_0_5cm_mean"]["scored_result_count"] == 5
+    assert body["coverage"]["features"]["soil_clay_0_5cm_mean"]["scored_result_count"] == 8
     assert "six-dimension scientific total" in body["limitations"][0]
 
 
@@ -166,8 +169,8 @@ def test_zero_weight_does_not_exclude_but_positive_weight_does(client: TestClien
             "limit": 10,
         },
     ).json()
-    assert positive["eligible_candidate_count"] == 5
-    assert positive["excluded_candidate_count"] == 108
+    assert positive["eligible_candidate_count"] == 8
+    assert positive["excluded_candidate_count"] == 105
     alps = [row for row in positive["excluded"] if row["location_id"] == "earth-alps-r1c1"][0]
     assert alps["missing_features"] == ["soil_clay_0_5cm_mean"]
     assert "missing_feature:soil_clay_0_5cm_mean" in alps["reasons"]
@@ -179,7 +182,7 @@ def test_depth_selectors_are_not_pooled(client: TestClient):
     deeper = features["soil_clay_5_15cm_mean"]
     assert shallow["selector"]["depth_interval_m"] == [0.0, 0.05]
     assert deeper["selector"]["depth_interval_m"] == [0.05, 0.15]
-    assert shallow["coverage"]["gated_candidate_count"] == 5
+    assert shallow["coverage"]["gated_candidate_count"] == 8
     assert deeper["coverage"]["gated_candidate_count"] == 5
 
     response = client.post(
@@ -323,8 +326,8 @@ def test_existing_search_global_and_typed_endpoints_are_unchanged(client: TestCl
     assert "dimension_distances" in preserved.json()["results"][0]
     assert client.get("/api/v1/global/coverage").status_code == 200
     typed = client.get("/api/v1/typed/coverage").json()
-    assert typed["total"] == 520
-    assert typed["by_dimension"]["D06"]["total"] == 300
+    assert typed["total"] == 565
+    assert typed["by_dimension"]["D06"]["total"] == 345
 
 
 def test_every_observed_typed_feature_has_a_discoverable_legal_role(client: TestClient):
@@ -376,6 +379,6 @@ def test_multidimensional_query_is_bounded_and_paginated(client: TestClient):
     assert response.status_code == 200, response.text
     body = response.json()
     assert body["limit"] == 50
-    assert body["returned"] == 5
+    assert body["returned"] == 8
     assert body["next_offset"] is None
     assert elapsed < 5.0, f"113-candidate query took {elapsed:.2f}s"

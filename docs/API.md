@@ -19,8 +19,11 @@ All responses are JSON. Errors share one shape:
 ```
 
 Codes: `validation_error` (422), `unknown_feature` (422), `not_found` (404), `no_indexed_data`
-(409), `incompatible_method_version` (409), `body_mismatch` (422), `internal_error` (500). Stack
-traces are never returned.
+(409), `incompatible_method_version` (409), `body_mismatch` (422), `internal_error` (500). The
+#116/#117 paths additionally use `feature_role_not_scoreable` (422), `feature_role_not_filterable`
+(422), `body_out_of_scope` (422, `cross_body_incompatible`), `no_fine_candidates_for_body` (409),
+`unsupported_body` (422), `invalid_bbox` / `invalid_bbox_latitude` (422), `invalid_dimension` (422)
+and `invalid_longitude_convention` (422). Stack traces are never returned.
 
 ## GET /health
 

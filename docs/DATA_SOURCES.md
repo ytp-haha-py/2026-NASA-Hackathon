@@ -187,7 +187,7 @@ Implementation: `analog_pipelines.acquisition.providers_mars` and
 | Statistics | mean, Q0.05, Q0.95 |
 | Licence | CC BY 4.0; cite ISRIC SoilGrids 2.0 |
 | Evidence | **Model prediction**, not a local measurement and not `observed` |
-| Pilot | 5 AOIs × 5 properties × 4 depths × 3 statistics = 300 evidence-only observations |
+| Pilot | 5 AOIs × 5 properties × 4 depths × 3 statistics = 300 source observations, plus 3 AOIs × 5 properties × 0–5 cm × 3 statistics = 45 expansion observations (source `evidence_only`; gated 0–5 cm means may enter query similarity) |
 
 Raw TIFF responses are not committed; per-request SHA-256 checksums, HTTP status, exact endpoint
 and parameters are recorded in `pipelines/pilots/d06_earth_soilgrids_depths/requests.jsonl`.

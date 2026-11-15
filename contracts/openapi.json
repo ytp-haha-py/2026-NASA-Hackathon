@@ -3404,6 +3404,14 @@
             "title": "Geographic Epsg",
             "type": "integer"
           },
+          "geographic_epsg_authority": {
+            "title": "Geographic Epsg Authority",
+            "type": "string"
+          },
+          "geographic_epsg_is_epsg_registry": {
+            "title": "Geographic Epsg Is Epsg Registry",
+            "type": "boolean"
+          },
           "geographic_epsg_uri": {
             "title": "Geographic Epsg Uri",
             "type": "string"
@@ -3446,6 +3454,8 @@
           "api_longitude_domain",
           "geographic_epsg",
           "geographic_epsg_uri",
+          "geographic_epsg_authority",
+          "geographic_epsg_is_epsg_registry",
           "earth_wgs84",
           "notes"
         ],
@@ -3768,8 +3778,16 @@
             "title": "Capabilities Url",
             "type": "string"
           },
+          "coordinate_note": {
+            "title": "Coordinate Note",
+            "type": "string"
+          },
           "crs": {
             "title": "Crs",
+            "type": "string"
+          },
+          "crs_authority": {
+            "title": "Crs Authority",
             "type": "string"
           },
           "epsg": {
@@ -3850,6 +3868,10 @@
           },
           "zoom": {
             "$ref": "#/components/schemas/PlanetaryZoomOut"
+          },
+          "zoom_semantics": {
+            "title": "Zoom Semantics",
+            "type": "string"
           }
         },
         "required": [
@@ -3863,6 +3885,9 @@
           "tile_matrix_set",
           "crs",
           "epsg",
+          "crs_authority",
+          "coordinate_note",
+          "zoom_semantics",
           "zoom",
           "tile_size",
           "tile_matrix",
@@ -4982,7 +5007,7 @@
   },
   "info": {
     "description": "Search indexed Earth terrain windows for similarity to a user-supplied target vector, and analyze bounded new Earth AOIs on demand. Results are subset-based, terrain-shape-only comparisons with land-cover context.",
-    "title": "Planetary Analog Explorer API",
+    "title": "AnalogX API",
     "version": "0.1.0"
   },
   "openapi": "3.1.0",

@@ -1,0 +1,536 @@
+{
+  "asset_count": 45,
+  "depth_counts": {
+    "0-5cm": 45
+  },
+  "failed_requests": [],
+  "files": {
+    "qa.json": {
+      "sha256": "ed7db37bc6909cd1a99fa92e659a3557f665d9243c34ac7d928f827bb68ff222",
+      "version": "d06-soilgrids-depth-qa-1.0.0"
+    },
+    "requests.jsonl": {
+      "sha256": "f1ce74cea1cb74f67a33b2cd92ce5b66c4c794b9be805ca6d1af0ee1c24e489a",
+      "version": "d06-soilgrids-requests-1.0.0"
+    }
+  },
+  "generated_at": "2026-11-15T10:21:42.466851+00:00",
+  "notes": [
+    "Portable release of a bounded three-AOI 0-5 cm expansion, not a global survey.",
+    "SoilGrids values are 250 m global model predictions, not local measurements.",
+    "Each observation carries its own depth interval; only 0-5 cm was acquired in this expansion.",
+    "Source observations retain score_role=evidence_only; the versioned feature-eligibility registry may promote gated 0-5 cm means to query similarity. Q05/Q95 remain uncertainty evidence.",
+    "Raw rasters are not committed; response checksums are recorded per request.",
+    "The three AOIs are existing fine candidates; values join by exact area_id, not proximity."
+  ],
+  "observation_count": 45,
+  "observation_depths": [
+    [
+      0.0,
+      0.05
+    ]
+  ],
+  "observations_sha256": "64944ad5886d73e30c5067cd09f0aef36e88e458c4970f7070305a467c15b3ee",
+  "plan_sha256": "0a22e384fc2d634c6a65b8a1cefa22f7bb6b4ae72e8391d5b1e06b5b1f17a22d",
+  "property_counts": {
+    "bdod": 9,
+    "clay": 9,
+    "sand": 9,
+    "silt": 9,
+    "soc": 9
+  },
+  "qa": {
+    "groups": 15,
+    "missing_groups": 0,
+    "qa_version": "d06-soilgrids-depth-qa-1.0.0"
+  },
+  "raw": [],
+  "release_version": "acquisition-release-1.0.0",
+  "report": {
+    "areas": [
+      "earth-grand-canyon-r2c2",
+      "earth-iceland-r2c2",
+      "earth-namib-r2c2"
+    ],
+    "by_body": {
+      "Earth": 45
+    },
+    "by_dimension": {
+      "D06": 45
+    },
+    "by_feature": {
+      "soil_bdod_0_5cm_mean": 3,
+      "soil_bdod_0_5cm_q05": 3,
+      "soil_bdod_0_5cm_q95": 3,
+      "soil_clay_0_5cm_mean": 3,
+      "soil_clay_0_5cm_q05": 3,
+      "soil_clay_0_5cm_q95": 3,
+      "soil_sand_0_5cm_mean": 3,
+      "soil_sand_0_5cm_q05": 3,
+      "soil_sand_0_5cm_q95": 3,
+      "soil_silt_0_5cm_mean": 3,
+      "soil_silt_0_5cm_q05": 3,
+      "soil_silt_0_5cm_q95": 3,
+      "soil_soc_0_5cm_mean": 3,
+      "soil_soc_0_5cm_q05": 3,
+      "soil_soc_0_5cm_q95": 3
+    },
+    "by_state": {
+      "detected": 45
+    },
+    "total": 45
+  },
+  "request_count": 45,
+  "request_summary": {
+    "succeeded": 45
+  },
+  "scope": "d06-earth-expansion-01",
+  "source_provenance": {
+    "access": "public, no credentials",
+    "attribution_required": true,
+    "dataset_id": "soilgrids-250m-v2",
+    "endpoint": "https://maps.isric.org/mapserv",
+    "evidence_class": "model_prediction",
+    "license": "CC BY 4.0; cite ISRIC SoilGrids 2.0",
+    "license_url": "https://docs.isric.org/globaldata/soilgrids/",
+    "model_uncertainty": "Q0.05 and Q0.95 are separate SoilGrids prediction-quantile records per area/property/depth. They are not a confidence interval for the AOI mean.",
+    "native_resolution_m": 250.0,
+    "not_a_measurement": true,
+    "product": "ISRIC SoilGrids 2.0",
+    "product_version": "2.0",
+    "provider_id": "soilgrids-wcs",
+    "rate_limit": {
+      "backoff": "exponential, honours Retry-After, capped at 30 s",
+      "max_attempts": 4,
+      "min_interval_s": 0.25
+    },
+    "redistribution_allowed": "yes",
+    "request_parameters": {
+      "depths": [
+        "0-5cm"
+      ],
+      "format": "image/tiff",
+      "properties": [
+        "bdod",
+        "clay",
+        "sand",
+        "silt",
+        "soc"
+      ],
+      "statistics": [
+        "Q0.05",
+        "Q0.95",
+        "mean"
+      ],
+      "subsetting_crs": "EPSG:4326"
+    },
+    "wcs_version": "2.0.1"
+  },
+  "tasks": [
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-clay-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-clay-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-clay-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-sand-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-sand-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-sand-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-silt-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-silt-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-silt-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-soc-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-soc-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-soc-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-bdod-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-bdod-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-bdod-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-clay-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-clay-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-clay-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-sand-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-sand-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-sand-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-silt-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-silt-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-silt-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-soc-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-soc-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-soc-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-bdod-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-bdod-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-bdod-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-clay-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-clay-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-clay-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-sand-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-sand-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-sand-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-silt-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-silt-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-silt-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-soc-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-soc-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-soc-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-bdod-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-bdod-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-bdod-0-5cm-Q0.95"
+    }
+  ]
+}

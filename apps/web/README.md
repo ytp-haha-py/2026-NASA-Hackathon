@@ -1,9 +1,8 @@
-# Planetary Analog Explorer — Web
+# AnalogX — Web
 
-Vite + React + TypeScript single-page frontend for the Planetary Analog Explorer MVP.
-It searches a **small indexed subset of Earth terrain windows** for local terrain-shape
-similarity to a user-supplied target, and can analyze a bounded on-demand Earth AOI through
-the API. It is not a global survey and not a base-site recommendation.
+The React frontend for AnalogX. Use it to search measured Earth terrain, explore Moon and Mars references, inspect six dimensions of observations, and analyze a bounded Earth area.
+
+Only scientifically eligible features contribute to search scores. The map is for navigation; scientific data coverage remains limited to indexed areas.
 
 ## Requirements
 

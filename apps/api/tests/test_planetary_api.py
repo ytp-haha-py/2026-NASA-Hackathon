@@ -47,6 +47,7 @@ def test_moon_and_mars_map_catalog_uses_verified_official_layers(client: TestCli
         assert payload["body"]["latitude_kind"] == "planetocentric"
         assert payload["body"]["earth_wgs84"] is False
         assert payload["body"]["geographic_epsg"] == expected_epsg
+        assert payload["body"]["geographic_epsg_is_epsg_registry"] is False
         assert payload["catalog_version"].startswith("planetary-map-catalog-")
         assert {layer["layer_type"] for layer in payload["layers"]} == expected_layers
         for layer in payload["layers"]:
@@ -55,6 +56,9 @@ def test_moon_and_mars_map_catalog_uses_verified_official_layers(client: TestCli
             assert "{TileRow}" in layer["tile_template"]
             assert "{TileCol}" in layer["tile_template"]
             assert layer["epsg"] == expected_epsg
+            assert "not an EPSG registry code" in layer["crs_authority"]
+            assert layer["zoom_semantics"].startswith("WMTS TileMatrix")
+            assert "Do not treat these coordinates as Earth WGS84/OSM" in layer["coordinate_note"]
             assert layer["zoom"]["min"] == 0
             assert layer["zoom"]["max"] >= 5
             assert len(layer["tile_matrix"]) == layer["zoom"]["max"] + 1

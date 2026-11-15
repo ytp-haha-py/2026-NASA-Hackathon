@@ -31,7 +31,7 @@ function requestUrls(fetchMock: ReturnType<typeof installMockFetch>): string[] {
 async function renderReady(handlers: FetchHandlers = {}) {
   const fetchMock = installMockFetch(handlers);
   render(<App aoiPollIntervalMs={10} />);
-  await screen.findByRole("tab", { name: "Six dimensions" });
+  await screen.findByRole("button", { name: "Six-dimension comparison" });
   await applyExampleTarget();
   return fetchMock;
 }
@@ -52,13 +52,13 @@ describe("six-dimension workspace integration", () => {
       }),
     );
 
-    await user.click(screen.getByRole("tab", { name: "Six dimensions" }));
+    await user.click(screen.getByRole("button", { name: "Six-dimension comparison" }));
 
     expect(
       await screen.findByRole("heading", { name: "D01–D06 observations for one area" }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: "Six dimensions" })).toHaveAttribute(
-      "aria-selected",
+    expect(screen.getByRole("button", { name: "Six-dimension comparison" })).toHaveAttribute(
+      "aria-expanded",
       "true",
     );
 
@@ -92,7 +92,7 @@ describe("six-dimension workspace integration", () => {
     });
 
     await user.click(screen.getByRole("radio", { name: /^Moon/ }));
-    await user.click(screen.getByRole("tab", { name: "Six dimensions" }));
+    await user.click(screen.getByRole("button", { name: "Six-dimension comparison" }));
 
     expect(
       await screen.findByRole("button", {
@@ -120,7 +120,9 @@ describe("global discovery integration", () => {
     const user = userEvent.setup();
     await renderReady();
 
-    await user.click(screen.getByRole("tab", { name: "Global discovery" }));
+    await user.click(
+      screen.getByRole("button", { name: "Global coarse screening and refinement" }),
+    );
 
     expect(await screen.findByText("Verified coarse coverage")).toBeInTheDocument();
     expect(
