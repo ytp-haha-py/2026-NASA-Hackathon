@@ -10,6 +10,7 @@ COPY pyproject.toml uv.lock README.md ./
 COPY apps/api ./apps/api
 COPY pipelines ./pipelines
 COPY contracts ./contracts
+COPY catalog ./catalog
 RUN uv sync --frozen --no-dev
 
 FROM python:3.13-slim AS runtime
@@ -36,6 +37,7 @@ COPY --from=builder /app/.venv /app/.venv
 COPY --from=builder /app/apps /app/apps
 COPY --from=builder /app/pipelines /app/pipelines
 COPY --from=builder /app/contracts /app/contracts
+COPY --from=builder /app/catalog /app/catalog
 
 USER analog
 EXPOSE 8000

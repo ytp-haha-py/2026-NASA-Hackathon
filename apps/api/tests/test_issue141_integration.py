@@ -158,6 +158,17 @@ def test_location_coverage_status_contract_earth_and_moon(client: TestClient):
     assert isinstance(moon_payload["manifest_adapters"], list)
 
 
+def test_source_inventory_covers_d01_for_all_three_bodies():
+    from analog_api.domain.coverage_status import load_source_inventory
+
+    inventory = load_source_inventory()
+    d01 = next(item for item in inventory["dimensions"] if item["code"] == "D01")
+    for body in ("Earth", "Moon", "Mars"):
+        sources = d01["bodies"][body]["sources"]
+        assert sources, body
+        assert all(item.get("source_id") for item in sources)
+
+
 def test_location_coverage_validation(client: TestClient):
     missing = client.get("/api/v1/coverage/location", params={"body": "Earth"})
     assert missing.status_code == 422
