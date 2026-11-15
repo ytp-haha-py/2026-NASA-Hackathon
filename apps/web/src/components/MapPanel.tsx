@@ -4,18 +4,12 @@ import "leaflet/dist/leaflet.css";
 import type {
   FeatureOut,
   NumericTarget,
-  ReferenceOut,
   SearchResponse,
   SearchResultOut,
 } from "../api/client";
 import { useI18n } from "../i18n/I18nProvider";
 import { addEarthBasemap, type EarthBasemap } from "../lib/earthBasemap";
-import { PlanetMap, type PlanetBody } from "./PlanetMap";
 import { RankingOverlay } from "./RankingOverlay";
-
-type BodyView = "Earth" | PlanetBody;
-
-const BODY_ORDER: BodyView[] = ["Earth", "Moon", "Mars"];
 
 const BASEMAP_ORDER: EarthBasemap[] = ["map", "terrain", "satellite"];
 
@@ -29,9 +23,6 @@ type MapPanelProps = {
   target?: NumericTarget;
   /** Show the "nothing ranked yet" panel before the first search. */
   showIdle?: boolean;
-  /** Moon and Mars reference sites, shown on their own basemaps. */
-  references?: ReferenceOut[];
-  selectedReferenceId?: string | null;
   /** Area to outline (drawn here or typed in the analysis form). */
   aoiBbox?: MapBbox | null;
   /** Enables the "Select area" tool on the Earth map. */
@@ -97,19 +88,15 @@ export function MapPanel({
   features = [],
   target = {},
   showIdle = false,
-  references = [],
-  selectedReferenceId = null,
   aoiBbox = null,
   onDrawBbox,
 }: MapPanelProps) {
-  const { locale, t, tp, fmt, label } = useI18n();
+  const { locale, t, tp, fmt } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
   const onSelectRef = useRef(onSelect);
   const [basemap, setBasemap] = useState<EarthBasemap>("map");
-  const [bodyView, setBodyView] = useState<BodyView>("Earth");
-  const onEarth = bodyView === "Earth";
   const [drawing, setDrawing] = useState(false);
   const aoiLayerRef = useRef<L.Rectangle | null>(null);
   const onDrawRef = useRef(onDrawBbox);
@@ -146,7 +133,7 @@ export function MapPanel({
   useEffect(() => {
     const map = mapRef.current;
     const container = containerRef.current;
-    if (!drawing || !onEarth || !map || !container) {
+    if (!drawing || !map || !container) {
       return;
     }
     let start: L.LatLng | null = null;
@@ -221,7 +208,7 @@ export function MapPanel({
       box?.remove();
       map.dragging.enable();
     };
-  }, [drawing, onEarth]);
+  }, [drawing]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -255,8 +242,8 @@ export function MapPanel({
 
   useEffect(() => {
     const map = mapRef.current;
-    if (map && onEarth) return addEarthBasemap(map, locale, basemap, setBasemapUnavailable);
-  }, [basemap, locale, onEarth]);
+    if (map) return addEarthBasemap(map, locale, basemap, setBasemapUnavailable);
+  }, [basemap, locale]);
 
   const fitPadding = useCallback((): Pick<L.FitBoundsOptions, "paddingTopLeft" | "paddingBottomRight"> => {
     const wide = (containerRef.current?.clientWidth ?? 0) > 720;
@@ -382,36 +369,7 @@ export function MapPanel({
           aria-label={t("map.regionLabel")}
         />
 
-        {!onEarth && (
-          <PlanetMap
-            key={bodyView}
-            body={bodyView}
-            references={references}
-            selectedReferenceId={selectedReferenceId}
-            regionLabel={t("map.planetRegionLabel", { body: label.body(bodyView) })}
-          />
-        )}
-
-        <div className="map-toggle map-body-toggle" role="group" aria-label={t("map.bodyLabel")}>
-          {BODY_ORDER.map((value) => (
-            <button
-              key={value}
-              type="button"
-              aria-pressed={bodyView === value}
-              className={bodyView === value ? "is-active" : ""}
-              onClick={() => setBodyView(value)}
-            >
-              {label.body(value)}
-            </button>
-          ))}
-        </div>
-
-        <div
-          className="map-toggle"
-          role="group"
-          aria-label={t("map.basemapLabel")}
-          hidden={!onEarth}
-        >
+        <div className="map-toggle" role="group" aria-label={t("map.basemapLabel")}>
           {BASEMAP_ORDER.map((value) => (
             <button
               key={value}
@@ -429,7 +387,7 @@ export function MapPanel({
           ))}
         </div>
 
-        {onEarth && onDrawBbox && (
+        {onDrawBbox && (
           <button
             type="button"
             className={`map-draw${drawing ? " is-active" : ""}`}
@@ -440,13 +398,13 @@ export function MapPanel({
           </button>
         )}
 
-        {onEarth && results.length > 0 && (
+        {results.length > 0 && (
           <button type="button" className="map-show-all" onClick={showAll}>
             {t("map.showAll")}
           </button>
         )}
 
-        {onEarth && response && (
+        {response && (
           <RankingOverlay
             response={response}
             features={features}
@@ -462,15 +420,9 @@ export function MapPanel({
         )}
       </div>
 
-      {onEarth && drawing && (
+      {drawing && (
         <p className="map-status" role="status">
           {t("map.drawHint")}
-        </p>
-      )}
-
-      {!onEarth && onDrawBbox && (
-        <p className="map-status" role="status">
-          {t("map.planetAnalysisLimit")}
         </p>
       )}
 

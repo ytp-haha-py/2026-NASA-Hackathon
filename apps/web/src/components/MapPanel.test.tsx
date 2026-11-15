@@ -67,7 +67,7 @@ describe("MapPanel", () => {
     expect(screen.queryByRole("button", { name: "Show all results" })).not.toBeInTheDocument();
   });
 
-  it("offers an area-selection tool on Earth only, and says Moon/Mars are browse-only", async () => {
+  it("keeps area selection and basemaps on the Earth results map", async () => {
     const user = userEvent.setup();
     render(
       <I18nProvider initialLocale="en">
@@ -83,8 +83,7 @@ describe("MapPanel", () => {
     );
     expect(screen.getByText(/Drag on the map to draw the area to analyze/)).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: "Moon" }));
-    expect(screen.queryByRole("button", { name: /Select area|Cancel selection/ })).not.toBeInTheDocument();
-    expect(screen.getByText(/Moon and Mars maps are browse-only/)).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Basemap" })).toBeVisible();
+    expect(screen.queryByRole("button", { name: /^(Earth|Moon|Mars)$/ })).not.toBeInTheDocument();
   });
 });

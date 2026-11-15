@@ -157,7 +157,6 @@ pre,
 .panel-tabs [role="tab"],
 .map-toggle,
 select,
-select.reference-select,
 input.metric-number,
 .global-target-table input {
   border-radius: var(--r-sm);
@@ -429,10 +428,6 @@ input.metric-number,
 }
 
 .target-summary {
-  font-size: 18px;
-}
-
-select.reference-select {
   font-size: 18px;
 }
 
@@ -996,19 +991,30 @@ fieldset legend,
   order: 1;
 }
 
-/* ==========================================================================
-   Moon and Mars maps: the planet canvas covers the Earth map; body switch on
-   top, Earth basemap switch under it.
-   ========================================================================== */
-
 .map-stage > .map-canvas {
   isolation: isolate;
 }
 
-.planet-canvas {
+.planet-preview {
+  position: relative;
+  margin-top: 12px;
+}
+
+.planet-preview .planet-preview-collapse {
   position: absolute;
-  inset: 0;
-  z-index: 450;
+  z-index: 1;
+  top: 8px;
+  right: 8px;
+  min-height: 30px;
+  padding: 4px 10px;
+  font-size: 13px;
+}
+
+.planet-canvas {
+  isolation: isolate;
+  height: clamp(190px, 40vw, 240px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   background: #0b0b0b;
 }
 
@@ -1016,22 +1022,42 @@ fieldset legend,
   filter: none;
 }
 
+.planet-reference-pin {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.planet-reference-pin::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  box-sizing: border-box;
+  background: var(--rust);
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
+.planet-reference-pin[aria-pressed="true"]::before {
+  width: 17px;
+  height: 17px;
+  background: var(--accent);
+}
+
+.planet-reference-pin:focus-visible {
+  outline: 2px solid #fff;
+}
+
 .map-toggle {
-  top: 60px;
+  top: 12px;
   border-radius: var(--r-btn);
   box-shadow: 0 1px 3px rgb(17 17 17 / 18%);
-}
-
-.map-toggle.map-body-toggle {
-  top: 12px;
-}
-
-.map-toggle[hidden] {
-  display: none;
-}
-
-.map-show-all {
-  top: 108px;
 }
 
 /* ==========================================================================
@@ -1384,7 +1410,7 @@ body {
 
 .map-draw {
   position: absolute;
-  top: 108px;
+  top: 60px;
   right: 12px;
   z-index: 500;
   min-height: 40px;
@@ -1410,7 +1436,7 @@ body {
 }
 
 .map-show-all {
-  top: 156px;
+  top: 108px;
 }
 
 .map-canvas.is-drawing {
@@ -1483,27 +1509,10 @@ body {
   /* styles.css pins the controls to the bottom here; keep them stacked at the
      top-left instead and clear `bottom`, or top+bottom stretch them full height. */
   .map-toggle,
-  .map-toggle.map-body-toggle,
   .map-draw,
   .map-show-all {
     right: auto;
     bottom: auto;
     left: 12px;
-  }
-
-  .map-toggle.map-body-toggle {
-    top: 12px;
-  }
-
-  .map-toggle {
-    top: 60px;
-  }
-
-  .map-draw {
-    top: 108px;
-  }
-
-  .map-show-all {
-    top: 156px;
   }
 }
