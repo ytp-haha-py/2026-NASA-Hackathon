@@ -10,6 +10,11 @@ COPY pyproject.toml uv.lock README.md ./
 COPY apps/api ./apps/api
 COPY pipelines ./pipelines
 COPY contracts ./contracts
+COPY catalog ./catalog
+# Committed planetary AOI elevation fixtures are part of the runtime science
+# contract (they are checksum-verified and recomputed on demand), not build-only
+# test data. Keep this copy in sync with the manifest fixture paths.
+COPY samples/planetary ./samples/planetary
 RUN uv sync --frozen --no-dev
 
 FROM python:3.13-slim AS runtime
@@ -36,6 +41,8 @@ COPY --from=builder /app/.venv /app/.venv
 COPY --from=builder /app/apps /app/apps
 COPY --from=builder /app/pipelines /app/pipelines
 COPY --from=builder /app/contracts /app/contracts
+COPY --from=builder /app/catalog /app/catalog
+COPY --from=builder /app/samples/planetary /app/samples/planetary
 
 USER analog
 EXPOSE 8000

@@ -45,6 +45,18 @@ def _dimension_status(
                 "value_origin": "processed_reference_metric",
                 "comparability_gate": "D01 fine reference method and 90 m support",
             }
+        typed_d01 = typed_by_dimension.get(dimension, 0)
+        if typed_d01:
+            return {
+                "status": "present_evidence",
+                "record_count": typed_d01,
+                "value_origin": "stored_typing_record",
+                "comparability_gate": (
+                    "Stored D01 evidence (for example an on-demand coarse-window analysis). "
+                    "Its method and support differ from the fine 90 m reference metric and are "
+                    "never substituted for it."
+                ),
+            }
         return {
             "status": "absent",
             "record_count": 0,
