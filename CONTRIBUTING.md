@@ -1,6 +1,6 @@
 # Contributing
 
-Planetary Analog Explorer is a multi-contributor science tool. Changes follow
+AnalogX is an open-source planetary data and Earth-analog exploration tool. Changes follow
 `Issue -> branch -> Pull Request -> review -> required CI -> maintainer merge`.
 
 ## Setup

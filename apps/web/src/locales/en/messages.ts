@@ -31,10 +31,10 @@ export const en = {
 
   // App shell
   "app.skipLink": "Skip to content",
-  "app.eyebrow": "Terrain-shape similarity · indexed + on-demand Earth",
+  "app.eyebrow": "Explore Moon and Mars · Find Earth analogs",
   "app.title": "AnalogX",
   "app.summary":
-    "Compare a hypothetical terrain-shape target with a committed Earth index, or analyze a bounded on-demand AOI. Land-cover context is shown separately and is never part of the similarity score. This is not a global survey, not a base-site recommendation, and not a physical-equivalence claim.",
+    "Choose a Moon or Mars reference or define your own terrain target to find similar Earth locations. Explore six dimensions of observations and their sources. Only validated, comparable features contribute to search rankings.",
   "app.capabilitiesLoading": "Loading capabilities and indexed coverage…",
   "app.capabilitiesErrorTitle": "Capabilities could not be loaded.",
   "app.capabilitiesErrorHelp":
