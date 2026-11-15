@@ -1067,6 +1067,7 @@ def _collect_bundle_files(primary: Path) -> list[Path]:
         for path in sorted(base.rglob("*"))
         if path.is_file()
         and "__pycache__" not in path.parts
+        and not {"raw", "cache"} & set(path.relative_to(base).parts)
         and path.suffix not in {".pyc", ".pyo"}
     ]
 

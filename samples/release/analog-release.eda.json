@@ -956,7 +956,7 @@
     "coarse_partitions": 3,
     "coarse_regions": 3,
     "dataset_references": 19,
-    "files": 140,
+    "files": 50,
     "fine_candidates": 113,
     "fine_context_observations": 1243,
     "fine_data_version": "dv-b46f3bad38ea",
@@ -2521,7 +2521,7 @@
     "overlapping_fine_candidate_pairs": 1,
     "shared_candidate_records": 113
   },
-  "release_id": "rel-3b5e3af6b6bd4a23",
+  "release_id": "rel-90a7757ef12cbcb0",
   "scope": {
     "bodies": [
       "Earth",
