@@ -164,8 +164,9 @@ monitor restart -> state persisted in ~/.local/state/analogx-phase2/monitor.sqli
 
 ### Preflight / integration base
 
-- `origin/main` advanced to `f96fad1`; PR #151/#162/#164 (#132 Earth bbox + planetary AOI
-  analysis and Docker fixture fixes) are merged. No #132 worktree was modified.
+- `origin/main` advanced to `90d69ea`; PR #151/#162/#164 (#132 Earth bbox + planetary AOI
+  analysis and Docker fixture fixes), #155 (planet-map reference selection) and #169 (toolbar
+  shortcut fix) are merged. No #132/#153 worktree was modified.
 - #97 and #108 remain open with no active worktree/session. #153 is an external frontend PR (#155).
 - #118/#119/#123 remain frontend-owned; no UI file was edited by this coordinator.
 
@@ -176,7 +177,7 @@ monitor restart -> state persisted in ~/.local/state/analogx-phase2/monitor.sqli
 | #161 | D01–D05 bounded real ingest expansion (#135–#139) | `bash scripts/verify.sh --ci` PASS; `backend_acceptance.sh` PASS | open, not merged |
 | #166 | #160 P0 AOI-first six-dimension query, D01+D06 search, evidence filters | `bash scripts/verify.sh --ci` PASS; `accept_sixdim_aoi.sh` PASS | open, not merged |
 
-Both PRs were updated by merging `origin/main` (`f96fad1`) and re-running the full gate. GitHub
+Both PRs were updated by merging `origin/main` (`90d69ea`) and re-running the full gate. GitHub
 reports them mergeable; required review/merge is intentionally left to the maintainer.
 
 ### Native Goal verification (observed via `opencode session export`)
