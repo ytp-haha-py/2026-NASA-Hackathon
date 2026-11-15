@@ -132,9 +132,12 @@ source-derived overlay record。它**不**新增地質相似度、排名或六�
   uncertainty／QA 與非互斥 process labels。`no_coverage`／`unknown` 的 fraction 與
   area 為 `null`，不是 0。
 - `earth-glim-license.json`：GLiM polygon GIS 的授權查核結果為
-  `license_unverified`，不得提交或發布幾何與逐單元數值；替代方案為 Geological
-  Survey of Canada Open File 5529（Open Government Licence – Canada），狀態
-  `candidate_not_ingested`。
+  `license_unverified`，不得提交或發布幾何與逐單元數值。
+- `../gsc-world/`：已實際匯入 Geological Survey of Canada Open File 5529
+  （Open Government Licence – Canada 2.0）的 bounded 5×5 WMS point-grid pilot。
+  Atacama 為 sedimentary、Lanzarote 為 igneous，原始 GSC 屬性與 fraction
+  已提交；比例尺約 1:35,000,000，因此這是點取樣 fraction，不是 polygon
+  intersection，也沒有 abundance／aqueous alteration／similarity。
 - `SOURCE_VERIFICATION.md`：來源版本／授權、實測 fraction、方法與 blocker。
 
 Area 量測使用各天體正確 radius 的 equal-area LAEA；class raster 僅允許

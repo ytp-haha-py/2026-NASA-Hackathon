@@ -106,9 +106,15 @@ Government Licence – Canada, v2.0** (worldwide, royalty-free, commercial use
 allowed with attribution; third-party rights excluded).
 `https://doi.org/10.4095/223767`, `https://mrdata.usgs.gov/geology/gscworld`,
 `https://open.canada.ca/en/open-government-licence-canada`.
-Status: `candidate_not_ingested`. It is ~1:35,000,000 generalized bedrock, far
-coarser than GLiM; any future fetch must be opt-in, AOI-bounded and checksummed
-(the GIS ZIP is ~550 MB).
+Status: **ingested for two bounded Earth AOIs** via the public USGS WMS
+(`https://mrdata.usgs.gov/services/gscworld`, layer `geology`), without downloading
+the ~550 MB global GIS ZIP. The pilot is in `pipelines/geology/gsc-world/`:
+Atacama (raw `gid=8686`, sedimentary rocks) and Lanzarote (`gid=86`, volcanic
+rocks) both produced 25/25 covered 5x5 samples. This is a **point-grid fraction**,
+not polygon intersection; at ~1:35,000,000 the source is far coarser than a
+1.98 km AOI. See `pipelines/geology/gsc-world/README.md` for the exact method,
+checksums, limits and reproduction commands. No abundance, aqueous-alteration or
+geology similarity is claimed.
 
 ## Method and QA
 

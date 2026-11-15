@@ -1,0 +1,56 @@
+{
+  "aois": [
+    "earth-atacama-desert",
+    "earth-lanzarote"
+  ],
+  "checksums": {
+    "evidence_sha256": "a4af8c7a04d71bd0cdd5a36bdaa878fd6f7b5332aad3001590ada465ef0cf73f",
+    "registry_sha256": "86aba3e4d31528547ca35e3036f7e885733aa832c054018bbaeb17ee28ee1242",
+    "sources_sha256": "8c2700fa0f6e7348cd06dba8a78a8606750512ba836d023542afc8b804a75715"
+  },
+  "counts": {
+    "areas": 2,
+    "by_body": {
+      "Earth": 2
+    },
+    "by_category": {
+      "igneous": 1,
+      "sedimentary": 1
+    },
+    "detected": 2,
+    "no_coverage": 0,
+    "observations": 2
+  },
+  "generated_at": "2026-11-15T00:00:00Z",
+  "limitations": [
+    "GSC Open File 5529 is generalized bedrock at approximately 1:35,000,000, far coarser than a 1.98 km AOI.",
+    "Fractions are from a bounded WMS point grid, not polygon area intersection.",
+    "Map units are evidence only; no abundance, aqueous-alteration inference or geology similarity is produced.",
+    "The WMS service is a USGS rendering of the GSC data; the Excel/attribute database and original GIS ZIP were not downloaded."
+  ],
+  "method_version": "gsc-world-wms-point-grid-1.0.0",
+  "non_claims": [
+    "No mineral abundance.",
+    "No aqueous-alteration inference.",
+    "No geology similarity or combined six-dimension score.",
+    "No global or exhaustive lithology coverage."
+  ],
+  "release_version": "gsc-world-lithology-pilot-1.0.0",
+  "sample_grid": "5x5",
+  "source": {
+    "access": "public WMS, no credentials",
+    "dataset_id": "gsc-of-5529-world-geology",
+    "license": "Open Government Licence - Canada 2.0",
+    "license_url": "https://open.canada.ca/en/open-government-licence-canada",
+    "map_scale": "1:35,000,000",
+    "native_crs": "EPSG:4326",
+    "product": "Generalized Geology of the World: Bedrock Domains and Major Faults in GIS Format",
+    "provider": "Geological Survey of Canada / Natural Resources Canada; WMS by USGS Mineral Resources Program",
+    "redistribution_allowed": "yes",
+    "service_url": "https://mrdata.usgs.gov/geology/gscworld/",
+    "source_id": "gsc-of-5529-world-geology",
+    "url": "https://doi.org/10.4095/223767",
+    "version": "Open File 5529 (2007), approximately 1:35,000,000",
+    "wms_url": "https://mrdata.usgs.gov/services/gscworld"
+  }
+}

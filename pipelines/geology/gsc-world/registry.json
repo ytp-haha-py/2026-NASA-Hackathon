@@ -1,0 +1,47 @@
+{
+  "mapping": [
+    {
+      "categories": [
+        "metamorphic"
+      ],
+      "evidence_basis": "official GSC rxtyp attribute",
+      "raw_rxtyp": "crystalline metamorphic rocks"
+    },
+    {
+      "categories": [
+        "igneous"
+      ],
+      "evidence_basis": "official GSC rxtyp attribute",
+      "raw_rxtyp": "igneous rocks"
+    },
+    {
+      "categories": [
+        "metamorphic"
+      ],
+      "evidence_basis": "official GSC rxtyp attribute",
+      "raw_rxtyp": "metamorphic rocks"
+    },
+    {
+      "categories": [
+        "sedimentary"
+      ],
+      "evidence_basis": "official GSC rxtyp attribute",
+      "raw_rxtyp": "sedimentary rocks"
+    },
+    {
+      "categories": [
+        "igneous"
+      ],
+      "evidence_basis": "official GSC rxtyp attribute",
+      "raw_rxtyp": "volcanic rocks"
+    }
+  ],
+  "non_exclusive": true,
+  "notes": [
+    "Only documented rxtyp strings are mapped; unknown values stay unmapped.",
+    "No code is mapped to aqueous alteration.",
+    "Labels are non-exclusive and are not a similarity score."
+  ],
+  "registry_version": "gsc-world-lithology-registry-1.0.0",
+  "source_id": "gsc-of-5529-world-geology"
+}
