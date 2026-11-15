@@ -19,6 +19,11 @@ class Settings(BaseSettings):
     manifest_dir_planetary: str = "pipelines/planetary/manifests"
     manifest_dir_context: str = "pipelines/worldcover/manifests"
     seed_include_synthetic: bool = False
+    # Import committed typed-v2 pilot releases/bundles during seeding. Off by
+    # default so unit tests and ad-hoc databases start empty unless requested.
+    seed_include_typed: bool = False
+    pilot_dir: str = "pipelines/pilots"
+    geology_typed_dir: str = "pipelines/geology/typed"
     auto_seed: bool = True
     aoi_inline: bool = False
     aoi_workers: int = 2

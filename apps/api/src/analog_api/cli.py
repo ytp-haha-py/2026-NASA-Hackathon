@@ -14,6 +14,7 @@ from analog_api.adapters.seed import (
     ensure_seeded,
     make_engine,
     seed_manifests,
+    seed_typed_bundles,
 )
 from analog_api.config import Settings
 from analog_api.domain.aoi import validate_aoi_request
@@ -32,6 +33,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--include-synthetic",
         action="store_true",
         help="Include the committed TEST-ONLY synthetic fixture (loudly labelled in the API).",
+    )
+    seed.add_argument(
+        "--include-typed",
+        action="store_true",
+        help="Import committed typed-v2 pilot releases and the D02 geology bundle.",
     )
     seed.add_argument(
         "--keep-existing",
@@ -71,6 +77,8 @@ def main(argv: list[str] | None = None) -> int:
         settings = settings.model_copy(update={"manifest_dir_context": args.manifest_dir_context})
     if getattr(args, "include_synthetic", False):
         settings = settings.model_copy(update={"seed_include_synthetic": True})
+    if getattr(args, "include_typed", False):
+        settings = settings.model_copy(update={"seed_include_typed": True})
 
     if settings.sqlite_path is not None:
         settings.sqlite_path.parent.mkdir(parents=True, exist_ok=True)
@@ -90,6 +98,7 @@ def main(argv: list[str] | None = None) -> int:
             )
             return 2
         version = seed_manifests(engine, manifests, reset=not args.keep_existing)
+        typed = seed_typed_bundles(engine, settings) if settings.seed_include_typed else None
         with Session(engine) as session:
             candidates = session.query(Candidate).count()
             datasets = session.query(Dataset).count()
@@ -98,6 +107,11 @@ def main(argv: list[str] | None = None) -> int:
             f"Seeded {len(manifests)} manifest(s). Index: {candidates} candidate(s), "
             f"{datasets} dataset(s), {references} reference(s). data_version={version}"
         )
+        if typed is not None:
+            print(
+                f"Typed: {typed['typed_observations']} observation(s) from "
+                f"{len(typed['sources'])} committed release(s)/bundle(s)"
+            )
         return 0
 
     if args.command == "analyze-aoi":

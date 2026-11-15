@@ -1,0 +1,111 @@
+{
+  "batch": {
+    "analytic_peak_kind": "analytic_lower_bound_excludes_gdal_overhead",
+    "analytic_peak_mb": 0.375,
+    "artifact_verification": {
+      "ok": true,
+      "orphaned_artifacts": [],
+      "problems": [],
+      "terminal_tasks": 11,
+      "verified_tasks": 11
+    },
+    "cell_counts": {
+      "invalid": 0,
+      "no_coverage": 0,
+      "succeeded": 168
+    },
+    "cells": 168,
+    "cells_per_task": 16,
+    "derived_per_1000_cells": {
+      "cells": 1000,
+      "kind": "arithmetic_extrapolation_not_measurement",
+      "note": "Scaled from the committed 168-cell pilot; excludes raster I/O, validation, provider latency, and actual CPU/RSS sampling. It is a planning estimate, not a per-1000-window benchmark.",
+      "parquet_bytes_estimate": 416845,
+      "task_seconds_estimate": 9.043
+    },
+    "generated_at": "2026-11-15T05:48:42.990485+00:00",
+    "measurement_kind": "measured_committed_run",
+    "parquet_bytes": {
+      "per_cell": 416.845238,
+      "total": 70030
+    },
+    "region_rows": {
+      "pilot-alps": 48,
+      "pilot-grand-canyon": 56,
+      "pilot-sahara": 64
+    },
+    "source_mode": "real",
+    "source_run": "geomorpho-pilot-real-20261115",
+    "staged_inputs": {
+      "pilot-alps": {
+        "expected_published_sha256": "e1349d175135549fee6336c0aaa4d036fdaeb5d209b5a44c5865d73c17ca78fd",
+        "matches_published_window": true,
+        "staged_window_bytes": 83129,
+        "staged_window_sha256": "e1349d175135549fee6336c0aaa4d036fdaeb5d209b5a44c5865d73c17ca78fd"
+      },
+      "pilot-grand-canyon": {
+        "expected_published_sha256": "e0c301f2dcd4891c5f55533d526857f94b844bb8c80ab6a991e45bab34556885",
+        "matches_published_window": true,
+        "staged_window_bytes": 134933,
+        "staged_window_sha256": "e0c301f2dcd4891c5f55533d526857f94b844bb8c80ab6a991e45bab34556885"
+      },
+      "pilot-sahara": {
+        "expected_published_sha256": "3c8a3f993c43ddf79929b86db7c589abc781baa030b782db894926c8acf234c9",
+        "matches_published_window": true,
+        "staged_window_bytes": 131663,
+        "staged_window_sha256": "3c8a3f993c43ddf79929b86db7c589abc781baa030b782db894926c8acf234c9"
+      }
+    },
+    "task_duration_s": {
+      "max": 0.190106,
+      "mean": 0.143534,
+      "median": 0.142946,
+      "min": 0.093486,
+      "sum": 1.578878
+    },
+    "tasks": 11,
+    "workers": 2
+  },
+  "db": {
+    "measurement_kind": "documented_measurement_not_recomputed",
+    "source_doc": "docs/DB_CAPACITY_REPORT.md",
+    "source_sha256": "5f344e1d4e1dc1b1eac9bc224db34fcd1e3fcd72f8f9e0f07f11c42a72b63f94",
+    "sqlite": {
+      "file_bytes": 1191936,
+      "integrity_check": "ok"
+    },
+    "synthetic_coarse_benchmark": {
+      "label": "synthetic_benchmark_not_real_data",
+      "note": "Synthetic rows repeat values and compress unusually well; timings are a software capacity bound on one workstation, not real global coverage or a production SLA.",
+      "rows": {
+        "100000": {
+          "build_seconds": 54.122,
+          "parquet_bytes": 423242,
+          "parquet_bytes_per_row": 4.232,
+          "parquet_partitions": 16,
+          "peak_rss_mib": 190.0,
+          "topk_p50_p95_p99_ms": [
+            29.582,
+            34.59,
+            39.649
+          ],
+          "verify_seconds": 0.257
+        },
+        "1000000": {
+          "build_seconds": 501.057,
+          "parquet_bytes": 3939300,
+          "parquet_bytes_per_row": 3.939,
+          "parquet_partitions": 104,
+          "peak_rss_mib": 655.42,
+          "topk_p50_p95_p99_ms": [
+            60.111,
+            64.041,
+            64.041
+          ],
+          "verify_seconds": 1.722
+        }
+      }
+    }
+  },
+  "report_version": "global-terrain-results-1.0.0"
+}

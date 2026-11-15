@@ -75,6 +75,38 @@ PASS geo-snap-d1235d5f9defe6cd 8 pinned files; manifest validated; no source dow
 CLI `match --categories igneous impact sedimentary aqueous_alteration --rocks basalt`
 亦 exit 0；五個 Earth 候選均回傳 unknown／provider status，沒有虛構 Earth geology matches。
 
+## 礦物光譜證據 pilot（Issue #42，2026-11-15）
+
+新增 `mineral_evidence.py`、`scripts/build_mineral_evidence.py`、
+`pipelines/tests/test_mineral_evidence.py`，以及由 pinned snapshot、typed-v2 export 與
+coverage audit 重建的 `pipelines/geology/mineral-evidence.json` / `MINERAL_EVIDENCE.md`。
+沒有重新下載來源、沒有修改既有 pinned snapshot、typed export 或 Terrain observation。
+
+實際執行（本 worktree，皆離線）：
+
+```bash
+uv run --frozen pytest pipelines/tests/test_mineral_evidence.py -o addopts='' -q
+# 16 passed
+uv run --frozen pytest pipelines/tests/test_geology.py -o addopts='' -q
+# 46 passed
+uv run --frozen pytest pipelines/tests/test_geology.py pipelines/tests/test_geology_spatial.py \
+  pipelines/tests/test_mineral_evidence.py -o addopts='' -q
+# 62 passed, 1 skipped（共享環境缺少選配 GIS 套件，與既有行為相同）
+uv run --frozen pytest apps/api/tests/test_typed_api.py -o addopts='' -q
+# 7 passed
+uv run ruff check .
+# All checks passed!
+uv run ruff format --check .
+# 226 files already formatted
+```
+
+報告的實際計數：8 個 AOI、21 筆 analysis、56 筆 typed-v2 observation；礦物 observation 10 筆
+全部 `unknown`，detected／numeric／abundance 皆 0；CRISM 7 個參數、14 個 context 數值；
+EMIT CMR metadata 候選 V002 50／V001 88，下載 granule 0；M3 granule 0。EMIT auth、M3
+registration、CRISM thresholds 等 blocker 逐條列於 `MINERAL_EVIDENCE.md`。
+
+依 Issue 指示未執行完整 `scripts/verify.sh`；完整 gate 由整合端執行。
+
 ## 容量與隔離
 
 目前 Snapshot 固定內容合計 **195,541 bytes**（約 191 KiB），最大單檔 **135,233 bytes**。
@@ -95,3 +127,52 @@ CLI `match --categories igneous impact sedimentary aqueous_alteration --rocks ba
 pyproject／uv.lock／scripts 的 `git diff --exit-code` 均 exit **0**。
 所有變更都是本次新增的 geology package、`pipelines/geology/` 與兩個 geology test files。
 不含 raw raster、SQLite、cache、.env、token 或憑證。
+
+## Area-fraction／evidence pilot（2026-11-15，#41）
+
+本次只新增 D02 area-fraction pilot，不改共用 Snapshot、API、前端、catalog、contracts
+或既有 terrain observations。實際執行：
+
+```bash
+uv run --frozen python -m analog_pipelines.geology.area_fraction --report-only
+uv run --frozen python -m analog_pipelines.geology.area_fraction
+```
+
+`--report-only` 先驗證 registry 與 source record 並印出 summary；正式輸出寫入
+`pipelines/geology/area-fraction/evidence.json`、`evidence.jsonl`、`manifest.json`。
+輸出 29 筆 record、21 筆 area summary；bodies 為 Earth／Mars／Moon。`evidence.json`
+128 KB、`evidence.jsonl` 88 KB，全部為可攜 JSON，不含 raw geometry 或 cache。
+
+```bash
+uv run --frozen pytest pipelines/tests/test_geology.py \
+  pipelines/tests/test_geology_area_fraction.py -o addopts='' -q
+```
+
+實際輸出：`64 passed`（共用環境；GIS 模組 skip）。
+
+```bash
+uv run --frozen --with-requirements pipelines/geology/requirements-ingest.txt \
+  pytest pipelines/tests/test_geology.py pipelines/tests/test_geology_spatial.py \
+  pipelines/tests/test_geology_area_fraction.py \
+  pipelines/tests/test_geology_area_fraction_spatial.py -o addopts='' -q
+```
+
+實際輸出：`76 passed`（含 five 舊 vector tests 與 seven 新 area-fraction spatial tests）。
+
+```bash
+uv run --frozen ruff check .
+uv run --frozen ruff format --check .
+```
+
+實際輸出：`All checks passed!`、`228 files already formatted`。
+
+覆蓋範圍：registry 版本／非互斥、交叉天體 code 不等價、unknown code 明示、
+aqueous alteration 不得由 iron oxide 推論、nearest-neighbour 類別不內插、nodata 與
+class `0` 區分、all-nodata=`no_coverage`（fraction 為 null）、fraction/area 加成、
+`no_coverage`／`license_unverified` 不得 0 填、同 AOI 重疊不重複計 coverage、
+validity 預設排除與 opt-in repair、planetary native CRS 與 Earth WGS84 拒絕、
+deterministic 重跑，以及 similarity／combined score 欄位拒絕。
+
+GLiM 授權查核結果與替代方案見 `pipelines/geology/area-fraction/SOURCE_VERIFICATION.md`
+與 `earth-glim-license.json`：polygon GIS 為 `license_unverified`，不提交幾何或逐單元數值。
+

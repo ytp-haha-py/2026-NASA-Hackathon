@@ -1,0 +1,257 @@
+{
+  "checksums": {
+    "batch_evidence": [
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/report.json",
+        "sha256": "decc039e4a57fca7d46f8a70242b15c2e2f5a8e9a4bc82cf7a8bdf05a0e23a78"
+      },
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/checkpoint.json",
+        "sha256": "c5bd86ede881f900172465fb6bb4011657103996ca79059fe1b9923e5c694038"
+      },
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-415bceb2741c6f50/task.json",
+        "sha256": "8da49fbe0b01c31dcaf9e70fb8c4f75d260f5154459828d215df57c2897a36da"
+      },
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-65128d5a946443ce/task.json",
+        "sha256": "bc728da0938b758a17734e9e20f095d67c67d42123944b3f2c7e6ec2a8946026"
+      },
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-714e5c81d3777321/task.json",
+        "sha256": "b4bba96b9e4bf4d11d7759fcb34b1b3f9adba7c6f4b80e8ffd6ebbbd19f191b7"
+      },
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-9cccaaa3f9cc0ad4/task.json",
+        "sha256": "d4626933539795d64557f20aa415565229a8bcf228e0c48b65cb78378d48fcae"
+      },
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-aeedaabab626da85/task.json",
+        "sha256": "85991dced2ce99122a205310c8d255d9a029e8f0212f5521a3373e1637638dd9"
+      },
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-b12288bbb5059082/task.json",
+        "sha256": "301f2e2a5b32b8be8c548f832bc928415139280d6966d06c3faf84f0690d5ed1"
+      },
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-c7bc681722713d78/task.json",
+        "sha256": "82b933dfedc15fa1eb95a3f9121bc8d6d48602fae21648742b12710a589708a3"
+      },
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-c95ea5ef1ec5c77b/task.json",
+        "sha256": "906721c99c900803a3af495e8a7c05cf4be8a4a34f4f8156cc3aacb2507f54c4"
+      },
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-df8e4318e3b07efc/task.json",
+        "sha256": "359a7f7502f746914236931a9afb08d656c342f54fe5a172fd0bb8359b826fa9"
+      },
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-e46226ce9068c778/task.json",
+        "sha256": "cbf430b253f661699fdb89ed8a989cb2388d4c7a5daefe09a678b1cc0353f80e"
+      },
+      {
+        "path": "pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-f3a7c68709553e27/task.json",
+        "sha256": "ba2d80af27dd4d8edc721f591aa2bf729c7fc4f7ab8c569a6eedd6dd0b2e313f"
+      }
+    ],
+    "manifest_sha256": "f6ac5cc33c10f57d6ea2e5016b7612dfa3702a805cc037c1d44120e16716e301",
+    "partitions": [
+      {
+        "bytes": 8151,
+        "path": "partitions/pilot-alps/49a22a65f8e827a7f72a5552e224a3edac0bba8892e941896a69664f5bf87a3a.parquet",
+        "region_id": "pilot-alps",
+        "rows": 48,
+        "sha256": "49a22a65f8e827a7f72a5552e224a3edac0bba8892e941896a69664f5bf87a3a"
+      },
+      {
+        "bytes": 8767,
+        "path": "partitions/pilot-grand-canyon/b6d5a2d923d67c65619ac1f07c982fab498ada0706c97fdb7e6f4afa8b65ae40.parquet",
+        "region_id": "pilot-grand-canyon",
+        "rows": 56,
+        "sha256": "b6d5a2d923d67c65619ac1f07c982fab498ada0706c97fdb7e6f4afa8b65ae40"
+      },
+      {
+        "bytes": 9255,
+        "path": "partitions/pilot-sahara/c38a11e353011d3d22d00d07d5291f03aaf3a0ef6a431fdd64afda2a833f7eb6.parquet",
+        "region_id": "pilot-sahara",
+        "rows": 64,
+        "sha256": "c38a11e353011d3d22d00d07d5291f03aaf3a0ef6a431fdd64afda2a833f7eb6"
+      }
+    ],
+    "pilot_source_doc": {
+      "path": "GEOMORPHO_REAL_PILOT.md",
+      "sha256": "d63e099bbc3badef35e0670ac4636ae61f564091b4d366e27a79098993fba581"
+    }
+  },
+  "counts": {
+    "batch_rows": 168,
+    "cells": 168,
+    "distinct_candidate_ids": 168,
+    "partitions": 3,
+    "regions": 3
+  },
+  "coverage": {
+    "bbox": {
+      "east": 10.393982962,
+      "north": 45.360072102,
+      "south": 23.99695969,
+      "west": -112.205420797
+    },
+    "bbox_note": "The bbox spans the disjoint pilot windows; it is a bounding box, not a claim of contiguous coverage.",
+    "grid_version": "coarse-grid-1.0.0",
+    "grid_window_m": 5000,
+    "label": "local_coarse_index_not_global_exhaustive",
+    "method_version": "coarse-terrain-250m-1.0.0",
+    "regions": [
+      "pilot-alps",
+      "pilot-grand-canyon",
+      "pilot-sahara"
+    ],
+    "source_resolution_m": 250.0,
+    "source_resolution_note": "7.5 arc-second (~250 m) source pixels; there is no fixed metric source grid, so this is not a 90 m terrain product."
+  },
+  "exclusions": {
+    "batch_task_outcomes": {
+      "invalid": 0,
+      "no_coverage": 0,
+      "succeeded": 168
+    },
+    "cells_with_any_missing_feature": 0,
+    "declared_region_exclusions": [],
+    "missing_feature_values": {
+      "coarse_flat_fraction_lt5deg": 0,
+      "coarse_slope_mean_deg": 0,
+      "coarse_slope_p90_deg": 0
+    },
+    "query_excluded_cells": {
+      "Q1-flat-low-relief": 0,
+      "Q2-moderate-terrain": 0,
+      "Q3-steep-canyon": 0
+    },
+    "query_excluded_note": "Summing per-query exclusions would double-count cells; each query reports its own eligible/excluded counts.",
+    "source_coverage_limits": "Geomorpho90m covers roughly 60°S–85°N; Antarctica is excluded at source. No coarse Moon/Mars reference is validated in this phase.",
+    "unindexed_scope": "Every Earth land cell outside the three committed 0.4-degree pilot windows is unindexed. It is reported as missing scope, never zero-filled."
+  },
+  "per_region": [
+    {
+      "bbox": {
+        "east": 10.382243522,
+        "north": 45.360072102,
+        "south": 44.996117566,
+        "west": 9.993018
+      },
+      "cell_footprint_km2": 1200.0,
+      "cells": 48,
+      "flat_fraction": {
+        "max": 1.0,
+        "min": 1.0
+      },
+      "null_feature_cells": {
+        "coarse_flat_fraction_lt5deg": 0,
+        "coarse_slope_mean_deg": 0,
+        "coarse_slope_p90_deg": 0
+      },
+      "region_id": "pilot-alps",
+      "slope_mean_deg": {
+        "max": 0.724448,
+        "min": 0.093133
+      },
+      "slope_p90_deg": {
+        "max": 1.490487,
+        "min": 0.128187
+      },
+      "valid_fraction": {
+        "max": 1.0,
+        "min": 1.0
+      }
+    },
+    {
+      "bbox": {
+        "east": -111.812655897,
+        "north": 36.16051753,
+        "south": 35.796673322,
+        "west": -112.205420797
+      },
+      "cell_footprint_km2": 1400.0,
+      "cells": 56,
+      "flat_fraction": {
+        "max": 1.0,
+        "min": 0.0
+      },
+      "null_feature_cells": {
+        "coarse_flat_fraction_lt5deg": 0,
+        "coarse_slope_mean_deg": 0,
+        "coarse_slope_p90_deg": 0
+      },
+      "region_id": "pilot-grand-canyon",
+      "slope_mean_deg": {
+        "max": 31.854752,
+        "min": 1.367795
+      },
+      "slope_p90_deg": {
+        "max": 45.55098,
+        "min": 2.019668
+      },
+      "valid_fraction": {
+        "max": 1.0,
+        "min": 1.0
+      }
+    },
+    {
+      "bbox": {
+        "east": 10.393982962,
+        "north": 24.361248183,
+        "south": 23.99695969,
+        "west": 9.99688465
+      },
+      "cell_footprint_km2": 1600.0,
+      "cells": 64,
+      "flat_fraction": {
+        "max": 1.0,
+        "min": 0.285
+      },
+      "null_feature_cells": {
+        "coarse_flat_fraction_lt5deg": 0,
+        "coarse_slope_mean_deg": 0,
+        "coarse_slope_p90_deg": 0
+      },
+      "region_id": "pilot-sahara",
+      "slope_mean_deg": {
+        "max": 9.519341,
+        "min": 0.896926
+      },
+      "slope_p90_deg": {
+        "max": 18.043359,
+        "min": 1.541261
+      },
+      "valid_fraction": {
+        "max": 1.0,
+        "min": 1.0
+      }
+    }
+  ],
+  "report_version": "global-terrain-results-1.0.0",
+  "scope": {
+    "arithmetic_denominator": {
+      "cell_area_km2": 25.0,
+      "earth_land_area_km2": 148940000.0,
+      "indexed_share_percent": 0.00282,
+      "note": "Arithmetic denominator only. It is not a measured coverage percentage and must not be quoted as survey completeness.",
+      "possible_cells_if_complete": 5957600
+    },
+    "body": "Earth",
+    "cells": 168,
+    "global_claim": false,
+    "label": "local_coarse_index_not_global_exhaustive",
+    "regions_indexed": 3,
+    "statement": "Three 0.4-degree Earth pilot windows only. Coverage is the verified indexed candidate set; it is not global, exhaustive, or a survey percentage."
+  },
+  "versions": {
+    "created_at": "2026-11-15T05:19:51.447629+00:00",
+    "grid_version": "coarse-grid-1.0.0",
+    "index_version": "coarse-index-1.0.0",
+    "method_version": "coarse-terrain-250m-1.0.0",
+    "parquet_schema_version": "coarse-parquet-1.0.0",
+    "snapshot_id": "geomorpho250-real-pilot-20261115"
+  }
+}

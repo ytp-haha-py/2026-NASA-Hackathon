@@ -1,0 +1,74 @@
+{
+  "batch_schema_version": "geomorpho-batch-1.0.0",
+  "cell_counts": {
+    "invalid": 0,
+    "no_coverage": 0,
+    "succeeded": 16
+  },
+  "checkpoint_version": "1.0.0",
+  "dataset": {
+    "citation": "Amatulli et al. (2019/2020), Geomorpho90m, PANGAEA 899135",
+    "dataset_id": "geomorpho250-slope-v1.0",
+    "license": "CC BY 4.0",
+    "qa_flags": [
+      "real_geomorpho250",
+      "bounded_remote_window",
+      "cc_by_4_0",
+      "batch_partition"
+    ],
+    "source_url": "https://hs.pangaea.de/Maps/DEM_Geomorpho90m/dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
+  },
+  "outcome": "succeeded",
+  "output": {
+    "bytes": 6423,
+    "file": "rows.parquet",
+    "rows": 16,
+    "sha256": "df3d63726dbaa3b72166373a2b4f88f12d69f538d81f72d5dc8df684fcfcdf1f"
+  },
+  "reasons": [],
+  "rows": 16,
+  "run_id": "geomorpho-pilot-real-20261115",
+  "source_mode": "real",
+  "task": {
+    "cells": [
+      "coarse-v1:11f514665fd67999",
+      "coarse-v1:5513bab8e59e8faf",
+      "coarse-v1:6dd8188c764d9f8d",
+      "coarse-v1:3608235422e9974a",
+      "coarse-v1:12f6bcad953d036a",
+      "coarse-v1:141aa4dafd2214a3",
+      "coarse-v1:f4b19c5997b4aedf",
+      "coarse-v1:9d548a69af3766fe",
+      "coarse-v1:ac844b8a70a5a9ef",
+      "coarse-v1:9aab6c0550efce07",
+      "coarse-v1:8c44310a7bd61bb1",
+      "coarse-v1:e899d9eeb44eb09d",
+      "coarse-v1:a5531bd80851a8d5",
+      "coarse-v1:81256fe870ddf370",
+      "coarse-v1:cc2136d78195d059",
+      "coarse-v1:d850059e86e36b6d"
+    ],
+    "fingerprint": "3a2099af6ab40e6cd4b15e8386dbad09c89e615e140a1d379d4701aedcab1079",
+    "input": {
+      "bytes": 134933,
+      "matches_published_window": true,
+      "path": "var/cache/geomorpho-pilot/pilot-grand-canyon.tif",
+      "sha256": "e0c301f2dcd4891c5f55533d526857f94b844bb8c80ab6a991e45bab34556885"
+    },
+    "partition_index": 2,
+    "region_id": "pilot-grand-canyon",
+    "task_id": "geomorpho-batch-v1-df8e4318e3b07efc",
+    "window_count": 16
+  },
+  "timing": {
+    "duration_s": 0.145437,
+    "finished_at": "2026-11-15T05:48:42.617228+00:00",
+    "started_at": "2026-11-15T05:48:42.471776+00:00"
+  },
+  "versions": {
+    "grid_version": "coarse-grid-1.0.0",
+    "index_version": "coarse-index-1.0.0",
+    "method_version": "coarse-terrain-250m-1.0.0",
+    "parquet_schema_version": "coarse-parquet-1.0.0"
+  }
+}

@@ -3,6 +3,11 @@
 Status: **software implemented with synthetic fixtures; no Geomorpho250 raster was
 downloaded.** This is not a global index and not a scientific result.
 
+The reproducible evidence report for the real three-region pilot (coverage counts, source
+provenance, top-K examples, exclusions, measured batch/DB performance, and the explicit
+coarse-vs-refined gap) is [`GLOBAL_TERRAIN_RESULTS.md`](GLOBAL_TERRAIN_RESULTS.md). It is
+generated offline from committed artefacts by `scripts/report_global_terrain.py`.
+
 ## Components
 
 ```text
