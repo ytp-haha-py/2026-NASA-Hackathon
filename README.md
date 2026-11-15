@@ -356,6 +356,7 @@ React 19 + TypeScript + Vite + Leaflet · FastAPI + Pydantic v2 + SQLAlchemy 2 +
 [Six-dimension inventory](docs/SIX_DIM_SOURCE_INVENTORY.md) ·
 [Ontology](docs/ONTOLOGY.md) ·
 [Global terrain pipeline](docs/GLOBAL_TERRAIN_PIPELINE.md) ·
+[Global terrain results](docs/GLOBAL_TERRAIN_RESULTS.md) ·
 [DB capacity report](docs/DB_CAPACITY_REPORT.md) ·
 [Dimension adapters](docs/DIMENSION_ADAPTERS.md) ·
 [Backend acceptance](docs/PRODUCT_BACKEND_ACCEPTANCE.md) ·

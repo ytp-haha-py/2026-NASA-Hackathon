@@ -137,7 +137,13 @@ class AreaV2(BaseModel):
     geometry_crs: str | None = None
     analysis_crs: str | None = None
     coordinate_frame: Literal[
-        "earth_wgs84", "earth_projected", "lunar_projected", "mars_projected", "unknown"
+        "earth_wgs84",
+        "earth_projected",
+        "lunar_planetocentric",
+        "lunar_projected",
+        "mars_planetocentric",
+        "mars_projected",
+        "unknown",
     ] = "unknown"
     area_km2: float | None = Field(default=None, gt=0)
     source_area_refs: list[str] = Field(default_factory=list)
@@ -156,17 +162,18 @@ class AreaV2(BaseModel):
             raise ValueError(f"area CRS cannot be parsed: {self.crs}") from exc
         allowed = {
             "Earth": {"earth_wgs84", "earth_projected"},
-            "Moon": {"lunar_projected"},
-            "Mars": {"mars_projected"},
+            "Moon": {"lunar_planetocentric", "lunar_projected"},
+            "Mars": {"mars_planetocentric", "mars_projected"},
         }[self.body]
         frame = self.coordinate_frame
         if frame == "unknown":
             raise ValueError("area coordinate_frame must be explicit")
         if frame not in allowed:
             raise ValueError(f"{self.body} area cannot use coordinate frame {frame}")
-        if frame == "earth_wgs84" and not crs.is_geographic:
-            raise ValueError("earth_wgs84 area requires a geographic CRS")
-        if frame != "earth_wgs84" and not crs.is_projected:
+        geographic_frames = {"earth_wgs84", "lunar_planetocentric", "mars_planetocentric"}
+        if frame in geographic_frames and not crs.is_geographic:
+            raise ValueError(f"{frame} area requires a geographic CRS")
+        if frame not in geographic_frames and not crs.is_projected:
             raise ValueError(f"{frame} area requires a projected CRS")
         if self.body in {"Moon", "Mars"} and str(self.crs).upper().startswith("EPSG:"):
             raise ValueError(
@@ -325,6 +332,8 @@ class TypedObservation(BaseModel):
             for x in bins
         ):
             raise ValueError("distribution bins must be finite numbers")
+        if any(float(bins[i]) >= float(bins[i + 1]) for i in range(len(bins) - 1)):
+            raise ValueError("distribution bins must be strictly increasing")
         if any(
             isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x)
             for x in fractions

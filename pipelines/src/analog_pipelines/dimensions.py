@@ -1,8 +1,10 @@
 """Six-dimension typed feature catalog, provider interfaces and validators (Issues #40–#46).
 
-No dimension beyond D01 terrain has observed values in the repository. This module
-defines stable IDs, value kinds, units, roles, missingness/comparability rules and
-offline parsers for fixture evidence. It does not invent coverage.
+Only D01 terrain participates in similarity. D04 has bounded, evidence-only
+observations from public neutron and radar products (``pipelines/pilots/
+d04_water_ice_planetary``); they are not similarity features and not ice abundance.
+This module defines stable IDs, value kinds, units, roles, missingness/comparability
+rules and offline parsers for fixture evidence. It does not invent coverage.
 """
 
 from __future__ import annotations
@@ -168,6 +170,32 @@ FEATURES_V2: tuple[DimensionFeatureV2, ...] = (
         "Only calculate when actual samples support the definition.",
     ),
     DimensionFeatureV2(
+        "surface_brightness_temperature_k",
+        "D03",
+        "Surface brightness temperature",
+        "numeric",
+        "K",
+        "evidence_only",
+        _D03,
+        ("Moon",),
+        "Verified radiometric product with band/emissivity assumption, QA, local solar time and n",
+        "not_comparable to kinetic surface temperature or to another wavelength",
+        "Radiometric brightness temperature under a unit-emissivity assumption; not kinetic.",
+    ),
+    DimensionFeatureV2(
+        "thermal_inertia",
+        "D03",
+        "Apparent thermal inertia",
+        "numeric",
+        "J m^-2 K^-1 s^-1/2",
+        "evidence_only",
+        "thermal-inertia-evidence-0.1.0",
+        ("Mars",),
+        "Verified retrieval with documented model, season/local-time independence and uncertainty",
+        "not_comparable across bodies or retrieval models",
+        "Mars THEMIS apparent thermal inertia; no per-pixel uncertainty layer.",
+    ),
+    DimensionFeatureV2(
         "water_ice_detection",
         "D04",
         "Water/ice evidence detection",
@@ -191,6 +219,45 @@ FEATURES_V2: tuple[DimensionFeatureV2, ...] = (
         ("Earth", "Moon", "Mars"),
         "Verified retrieval with depth interval, footprint and uncertainty",
         "not_comparable across bodies without method validation",
+    ),
+    DimensionFeatureV2(
+        "water_equivalent_hydrogen_wt_percent",
+        "D04",
+        "Water-equivalent hydrogen mass percent",
+        "numeric",
+        "percent",
+        "evidence_only",
+        _D04,
+        ("Moon", "Mars"),
+        "Verified neutron-spectrometer product with documented H-to-H2O conversion, sensing depth and retrieval caveats",
+        "not_comparable to ice fraction, radar CPR or hydrated-mineral abundance",
+        "H ppm by weight x 9. Mars products are not converted to WEH in this repository.",
+    ),
+    DimensionFeatureV2(
+        "epithermal_neutron_flux_ratio",
+        "D04",
+        "Normalized epithermal neutron flux",
+        "numeric",
+        "1",
+        "evidence_only",
+        _D04,
+        ("Moon", "Mars"),
+        "Verified neutron map with declared normalization, native cell size and no invented per-cell uncertainty",
+        "not_comparable across instruments without a shared normalization",
+        "Low flux is a hydrogen proxy; it is not ice abundance and does not resolve a 1.98 km window.",
+    ),
+    DimensionFeatureV2(
+        "radar_circular_polarization_ratio",
+        "D04",
+        "Radar circular polarization ratio",
+        "numeric",
+        "1",
+        "evidence_only",
+        _D04,
+        ("Moon", "Mars"),
+        "Verified radar mosaic with native pixel size, wavelength, calibration/QA and coverage mask",
+        "not_comparable to neutron or spectral products",
+        "CPR at or above unity is ice-consistent but not diagnostic; no depth retrieval.",
     ),
     DimensionFeatureV2(
         "solar_incidence_deg",
@@ -268,9 +335,63 @@ FEATURES_V2: tuple[DimensionFeatureV2, ...] = (
         "Geotechnical experiment with gravity/moisture/load conditions",
         "not comparable without experiment conditions",
     ),
+    DimensionFeatureV2(
+        "porosity_fraction",
+        "D06",
+        "Porosity",
+        "numeric",
+        "fraction",
+        "evidence_only",
+        _D06,
+        ("Earth", "Moon", "Mars"),
+        "Sample/experiment measurement with depth, sample state, pore definition and uncertainty",
+        "not comparable across bodies without matching sample state and measurement method",
+        "A fraction in [0, 1]; never inferred from bulk density without a stated grain density.",
+    ),
+    DimensionFeatureV2(
+        "friction_angle_deg",
+        "D06",
+        "Friction angle",
+        "numeric",
+        "degree",
+        "evidence_only",
+        _D06,
+        ("Earth", "Moon", "Mars"),
+        "Geotechnical experiment with gravity/moisture/load conditions and failure criterion",
+        "not comparable without experiment conditions",
+        "Internal friction angle from a stated test; not a slope angle from a DEM.",
+    ),
+    DimensionFeatureV2(
+        "bearing_strength_kpa",
+        "D06",
+        "Bearing strength",
+        "numeric",
+        "kPa",
+        "evidence_only",
+        _D06,
+        ("Earth", "Moon", "Mars"),
+        "Penetrometer/plate test with gravity, load geometry, depth and moisture state",
+        "not comparable without experiment conditions",
+        "Bearing capacity or penetration resistance as measured; never a DEM-derived proxy.",
+    ),
 )
 
 FEATURE_V2_BY_ID = {feature.feature_id: feature for feature in FEATURES_V2}
+
+# SoilGrids texture predictions use the USDA particle-size classes. These edges
+# are lower bin edges in micrometres for a distribution with a terminal +inf bin.
+D06_PARTICLE_SIZE_BINS_UM: tuple[float, ...] = (0.0, 2.0, 50.0, 2000.0)
+D06_PARTICLE_SIZE_LABELS: tuple[str, ...] = ("clay", "silt", "sand")
+D06_DEPTH_EXPLICIT_FEATURES: frozenset[str] = frozenset(
+    {
+        "particle_size_distribution",
+        "bulk_density_kg_m3",
+        "porosity_fraction",
+        "cohesion_kpa",
+        "friction_angle_deg",
+        "bearing_strength_kpa",
+    }
+)
 
 
 class DimensionProvider(Protocol):
@@ -319,6 +440,30 @@ def validate_dimension_observation(observation: TypedObservation) -> list[str]:
         and observation.value_kind != "distribution"
     ):
         errors.append("particle size must be a distribution with bin edges")
+    if feature.dimension_code == "D06":
+        if observation.state == "detected" and observation.depth_support.kind == "unknown":
+            errors.append("D06 regolith observations require an explicit depth support")
+        if observation.state == "detected":
+            value = observation.value
+            if (
+                observation.feature_id == "porosity_fraction"
+                and isinstance(value, (int, float))
+                and not 0 <= float(value) <= 1
+            ):
+                errors.append("porosity_fraction must be within [0, 1]")
+            if (
+                observation.feature_id
+                in {"cohesion_kpa", "friction_angle_deg", "bearing_strength_kpa"}
+                and isinstance(value, (int, float))
+                and float(value) < 0
+            ):
+                errors.append(f"{observation.feature_id} cannot be negative")
+            if (
+                observation.feature_id == "friction_angle_deg"
+                and isinstance(value, (int, float))
+                and not 0 <= float(value) <= 90
+            ):
+                errors.append("friction_angle_deg must be within [0, 90] degrees")
     return errors
 
 

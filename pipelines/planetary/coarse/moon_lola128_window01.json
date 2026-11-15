@@ -1,0 +1,517 @@
+{
+  "cells": [
+    {
+      "analysis_resolution_m": 250.0,
+      "bbox_body_lonlat": {
+        "east": 20.0,
+        "north": -9.99995816387476,
+        "south": -10.16488943108404,
+        "west": 19.832481429354193
+      },
+      "bbox_metric": {
+        "east": 0.0,
+        "north": 0.0,
+        "south": -5000.0,
+        "west": -5000.0
+      },
+      "body": "Moon",
+      "candidate_id": "planet-coarse-v1:c22eb2732afdfa9a",
+      "col": 0,
+      "crs_name": "Lunar_Azimuthal_Equidistant_20E_10S",
+      "crs_wkt": "PROJCRS[\"Lunar_Azimuthal_Equidistant_20E_10S\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",-10,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",20,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "elevation_stats": {
+        "elevation_max_m": 2754.3736009441313,
+        "elevation_mean_m": 2384.089670219873,
+        "elevation_min_m": 1060.6901412269249,
+        "relief_p95_p05_m": 1121.4609677422484,
+        "valid_elevation_pixels": 400
+      },
+      "features": {
+        "coarse_flat_fraction_lt5deg": 0.1925,
+        "coarse_slope_mean_deg": 13.620178695315602,
+        "coarse_slope_p90_deg": 29.807479789526372
+      },
+      "fixture": {
+        "bbox_metric": {
+          "east": 250.0,
+          "north": 250.0,
+          "south": -5250.0,
+          "west": -5250.0
+        },
+        "bytes": 4258,
+        "crs_wkt": "PROJCRS[\"Lunar_Azimuthal_Equidistant_20E_10S\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",-10,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",20,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "pad_pixels": 1,
+        "path": "samples/planetary/coarse/fixtures/moon_c22eb2732afdfa9a.tif",
+        "sha256": "4c852adcdc64fe64863f1c99eeb943ca2254d6b9c61562257e541a395151f3b5",
+        "shape": [
+          22,
+          22
+        ],
+        "transform": [
+          250.0,
+          0.0,
+          -5250.0,
+          0.0,
+          -250.0,
+          250.0
+        ]
+      },
+      "grid_shape": [
+        20,
+        20
+      ],
+      "missing_slope_pixels": 0,
+      "qa_flags": [
+        "global_shape_model",
+        "derived_from_sldem2015_and_polar_ldems",
+        "partly_interpolated",
+        "pixel_registered_geographic",
+        "moon_pa_frame",
+        "vertical_unit_inferred_from_pixel_magnitude",
+        "bounded_vsicurl_window"
+      ],
+      "region_id": "moon-lola128-eqc-window-01",
+      "row": 0,
+      "source_id": "moon-lola128-pa-pixel-202405",
+      "source_read": {
+        "note": "Upper bound on raster bytes touched, including tiled/striped block alignment and a 64 KiB label/header allowance; not a network measurement.",
+        "source_window_pixels": 756,
+        "source_window_shape": [
+          27,
+          28
+        ],
+        "upper_bound_bytes": 1114112
+      },
+      "source_resolution_m": 236.90117518866782,
+      "valid_fraction": 1.0,
+      "valid_slope_pixels": 400,
+      "window_size_m": 5000.0
+    },
+    {
+      "analysis_resolution_m": 250.0,
+      "bbox_body_lonlat": {
+        "east": 20.167518570645804,
+        "north": -9.99995816387476,
+        "south": -10.16488943108404,
+        "west": 20.0
+      },
+      "bbox_metric": {
+        "east": 5000.0,
+        "north": 0.0,
+        "south": -5000.0,
+        "west": 0.0
+      },
+      "body": "Moon",
+      "candidate_id": "planet-coarse-v1:d7171e6af899065b",
+      "col": 1,
+      "crs_name": "Lunar_Azimuthal_Equidistant_20E_10S",
+      "crs_wkt": "PROJCRS[\"Lunar_Azimuthal_Equidistant_20E_10S\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",-10,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",20,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "elevation_stats": {
+        "elevation_max_m": 2199.7909325884348,
+        "elevation_mean_m": 1688.4623418719193,
+        "elevation_min_m": 529.052096622087,
+        "relief_p95_p05_m": 1352.1176607219795,
+        "valid_elevation_pixels": 400
+      },
+      "features": {
+        "coarse_flat_fraction_lt5deg": 0.23,
+        "coarse_slope_mean_deg": 17.65742155597971,
+        "coarse_slope_p90_deg": 31.39207122935244
+      },
+      "fixture": {
+        "bbox_metric": {
+          "east": 5250.0,
+          "north": 250.0,
+          "south": -5250.0,
+          "west": -250.0
+        },
+        "bytes": 4292,
+        "crs_wkt": "PROJCRS[\"Lunar_Azimuthal_Equidistant_20E_10S\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",-10,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",20,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "pad_pixels": 1,
+        "path": "samples/planetary/coarse/fixtures/moon_d7171e6af899065b.tif",
+        "sha256": "4d280a556e5630dffd327b32f055aa5eb44438b15c6d006c490fb4c0a030b3f9",
+        "shape": [
+          22,
+          22
+        ],
+        "transform": [
+          250.0,
+          0.0,
+          -250.0,
+          0.0,
+          -250.0,
+          250.0
+        ]
+      },
+      "grid_shape": [
+        20,
+        20
+      ],
+      "missing_slope_pixels": 0,
+      "qa_flags": [
+        "global_shape_model",
+        "derived_from_sldem2015_and_polar_ldems",
+        "partly_interpolated",
+        "pixel_registered_geographic",
+        "moon_pa_frame",
+        "vertical_unit_inferred_from_pixel_magnitude",
+        "bounded_vsicurl_window"
+      ],
+      "region_id": "moon-lola128-eqc-window-01",
+      "row": 0,
+      "source_id": "moon-lola128-pa-pixel-202405",
+      "source_read": {
+        "note": "Upper bound on raster bytes touched, including tiled/striped block alignment and a 64 KiB label/header allowance; not a network measurement.",
+        "source_window_pixels": 756,
+        "source_window_shape": [
+          27,
+          28
+        ],
+        "upper_bound_bytes": 1114112
+      },
+      "source_resolution_m": 236.90117518866782,
+      "valid_fraction": 1.0,
+      "valid_slope_pixels": 400,
+      "window_size_m": 5000.0
+    },
+    {
+      "analysis_resolution_m": 250.0,
+      "bbox_body_lonlat": {
+        "east": 20.0,
+        "north": -9.835068981384325,
+        "south": -10.0,
+        "west": 19.832566898029903
+      },
+      "bbox_metric": {
+        "east": 0.0,
+        "north": 5000.0,
+        "south": 0.0,
+        "west": -5000.0
+      },
+      "body": "Moon",
+      "candidate_id": "planet-coarse-v1:655983fe3845a2e8",
+      "col": 0,
+      "crs_name": "Lunar_Azimuthal_Equidistant_20E_10S",
+      "crs_wkt": "PROJCRS[\"Lunar_Azimuthal_Equidistant_20E_10S\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",-10,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",20,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "elevation_stats": {
+        "elevation_max_m": 2696.1148779809328,
+        "elevation_mean_m": 2371.1695808951686,
+        "elevation_min_m": 2151.5303432210885,
+        "relief_p95_p05_m": 433.4206412490398,
+        "valid_elevation_pixels": 400
+      },
+      "features": {
+        "coarse_flat_fraction_lt5deg": 0.2075,
+        "coarse_slope_mean_deg": 7.971737804766749,
+        "coarse_slope_p90_deg": 13.434315393696167
+      },
+      "fixture": {
+        "bbox_metric": {
+          "east": 250.0,
+          "north": 5250.0,
+          "south": -250.0,
+          "west": -5250.0
+        },
+        "bytes": 4236,
+        "crs_wkt": "PROJCRS[\"Lunar_Azimuthal_Equidistant_20E_10S\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",-10,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",20,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "pad_pixels": 1,
+        "path": "samples/planetary/coarse/fixtures/moon_655983fe3845a2e8.tif",
+        "sha256": "98d70c3e2fe52b098e116573ce5ee5516465aac6cb8eb32e41a16ba06b78ede3",
+        "shape": [
+          22,
+          22
+        ],
+        "transform": [
+          250.0,
+          0.0,
+          -5250.0,
+          0.0,
+          -250.0,
+          5250.0
+        ]
+      },
+      "grid_shape": [
+        20,
+        20
+      ],
+      "missing_slope_pixels": 0,
+      "qa_flags": [
+        "global_shape_model",
+        "derived_from_sldem2015_and_polar_ldems",
+        "partly_interpolated",
+        "pixel_registered_geographic",
+        "moon_pa_frame",
+        "vertical_unit_inferred_from_pixel_magnitude",
+        "bounded_vsicurl_window"
+      ],
+      "region_id": "moon-lola128-eqc-window-01",
+      "row": 1,
+      "source_id": "moon-lola128-pa-pixel-202405",
+      "source_read": {
+        "note": "Upper bound on raster bytes touched, including tiled/striped block alignment and a 64 KiB label/header allowance; not a network measurement.",
+        "source_window_pixels": 756,
+        "source_window_shape": [
+          27,
+          28
+        ],
+        "upper_bound_bytes": 1114112
+      },
+      "source_resolution_m": 236.90117518866782,
+      "valid_fraction": 1.0,
+      "valid_slope_pixels": 400,
+      "window_size_m": 5000.0
+    },
+    {
+      "analysis_resolution_m": 250.0,
+      "bbox_body_lonlat": {
+        "east": 20.167433101970094,
+        "north": -9.835068981384325,
+        "south": -10.0,
+        "west": 20.0
+      },
+      "bbox_metric": {
+        "east": 5000.0,
+        "north": 5000.0,
+        "south": 0.0,
+        "west": 0.0
+      },
+      "body": "Moon",
+      "candidate_id": "planet-coarse-v1:59b32ff4da5ab528",
+      "col": 1,
+      "crs_name": "Lunar_Azimuthal_Equidistant_20E_10S",
+      "crs_wkt": "PROJCRS[\"Lunar_Azimuthal_Equidistant_20E_10S\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",-10,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",20,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "elevation_stats": {
+        "elevation_max_m": 2541.623044628489,
+        "elevation_mean_m": 2276.4578917566587,
+        "elevation_min_m": 1991.4169034822587,
+        "relief_p95_p05_m": 462.8689486424048,
+        "valid_elevation_pixels": 400
+      },
+      "features": {
+        "coarse_flat_fraction_lt5deg": 0.255,
+        "coarse_slope_mean_deg": 6.5884995996637,
+        "coarse_slope_p90_deg": 9.61874348751517
+      },
+      "fixture": {
+        "bbox_metric": {
+          "east": 5250.0,
+          "north": 5250.0,
+          "south": -250.0,
+          "west": -250.0
+        },
+        "bytes": 4218,
+        "crs_wkt": "PROJCRS[\"Lunar_Azimuthal_Equidistant_20E_10S\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",-10,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",20,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "pad_pixels": 1,
+        "path": "samples/planetary/coarse/fixtures/moon_59b32ff4da5ab528.tif",
+        "sha256": "358c2666b22278bdb6154353bdebadd0f8f8f6c76d18b8ba250d63126b5b13a4",
+        "shape": [
+          22,
+          22
+        ],
+        "transform": [
+          250.0,
+          0.0,
+          -250.0,
+          0.0,
+          -250.0,
+          5250.0
+        ]
+      },
+      "grid_shape": [
+        20,
+        20
+      ],
+      "missing_slope_pixels": 0,
+      "qa_flags": [
+        "global_shape_model",
+        "derived_from_sldem2015_and_polar_ldems",
+        "partly_interpolated",
+        "pixel_registered_geographic",
+        "moon_pa_frame",
+        "vertical_unit_inferred_from_pixel_magnitude",
+        "bounded_vsicurl_window"
+      ],
+      "region_id": "moon-lola128-eqc-window-01",
+      "row": 1,
+      "source_id": "moon-lola128-pa-pixel-202405",
+      "source_read": {
+        "note": "Upper bound on raster bytes touched, including tiled/striped block alignment and a 64 KiB label/header allowance; not a network measurement.",
+        "source_window_pixels": 756,
+        "source_window_shape": [
+          27,
+          28
+        ],
+        "upper_bound_bytes": 1114112
+      },
+      "source_resolution_m": 236.90117518866782,
+      "valid_fraction": 1.0,
+      "valid_slope_pixels": 400,
+      "window_size_m": 5000.0
+    }
+  ],
+  "comparability": [
+    {
+      "decision": "evidence_only",
+      "earth_method_version": "coarse-terrain-250m-1.0.0",
+      "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+      "earth_value_source": "preprocessed Geomorpho250 slope product",
+      "feature_id": "coarse_slope_mean_deg",
+      "label": "Coarse mean slope (250 m source)",
+      "method_version": "coarse-planetary-dem-horn-1.0.0",
+      "planetary_support": "5 km window, 236.901 m native source, fixed 250 m analysis grid",
+      "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+      "reason": "coarse_slope_mean_deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 1.021.",
+      "support_ratio_vs_earth": 1.0214973431897119,
+      "unit": "degree"
+    },
+    {
+      "decision": "evidence_only",
+      "earth_method_version": "coarse-terrain-250m-1.0.0",
+      "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+      "earth_value_source": "preprocessed Geomorpho250 slope product",
+      "feature_id": "coarse_slope_p90_deg",
+      "label": "Coarse 90th percentile slope",
+      "method_version": "coarse-planetary-dem-horn-1.0.0",
+      "planetary_support": "5 km window, 236.901 m native source, fixed 250 m analysis grid",
+      "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+      "reason": "coarse_slope_p90_deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 1.021.",
+      "support_ratio_vs_earth": 1.0214973431897119,
+      "unit": "degree"
+    },
+    {
+      "decision": "evidence_only",
+      "earth_method_version": "coarse-terrain-250m-1.0.0",
+      "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+      "earth_value_source": "preprocessed Geomorpho250 slope product",
+      "feature_id": "coarse_flat_fraction_lt5deg",
+      "label": "Coarse flat fraction (<5\u00b0)",
+      "method_version": "coarse-planetary-dem-horn-1.0.0",
+      "planetary_support": "5 km window, 236.901 m native source, fixed 250 m analysis grid",
+      "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+      "reason": "coarse_flat_fraction_lt5deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 1.021.",
+      "support_ratio_vs_earth": 1.0214973431897119,
+      "unit": "fraction"
+    }
+  ],
+  "counts": {
+    "computed_cells": 4,
+    "failed_cells": 0,
+    "missing_slope_pixels": 0,
+    "requested_cells": 4,
+    "valid_fraction": 1.0,
+    "valid_slope_pixels": 1600
+  },
+  "cross_body_ranking": {
+    "blocking_features": [
+      "coarse_flat_fraction_lt5deg",
+      "coarse_slope_mean_deg",
+      "coarse_slope_p90_deg"
+    ],
+    "claim_scope": "bounded_pilot_cells_only_not_a_global_survey",
+    "enabled": false,
+    "reason": "Cross-body coarse ranking is disabled: no coarse metric is validated as the same quantity, method and support as the Earth coarse index. Evidence-only and not_comparable metrics must not be scored against Earth candidates."
+  },
+  "data_kind": "observed_derived",
+  "generated_at": "2026-11-15T06:28:04Z",
+  "limitations": [
+    "One 10 x 10 km coordinate window at 20E, 10S; not lunar global coverage.",
+    "LDEM128 is a derived global shape model (SLDEM2015 256 ppd plus polar LDEMs averaged at 128 ppd), not raw LOLA altimetry, and is partly interpolated.",
+    "The value is a Horn 3x3 derivative of elevation, not the published Geomorpho250 preprocessed slope product used by the Earth coarse index.",
+    "No cross-body ranking is enabled; the comparability table marks every slope-derived metric evidence_only."
+  ],
+  "method": {
+    "aggregation": "mean and linear p90 of valid Horn slope pixels, and fraction strictly below 5 degrees, over the central 5 km cell",
+    "analysis_resolution_m": 250.0,
+    "earth_coarse_grid_version": "coarse-grid-1.0.0",
+    "earth_coarse_method_version": "coarse-terrain-250m-1.0.0",
+    "elevation_fixture": "padded reprojected elevation in metres, committed so the slope and aggregation can be recomputed offline",
+    "grid_version": "planet-coarse-grid-1.0.0",
+    "method_version": "coarse-planetary-dem-horn-1.0.0",
+    "min_valid_fraction": 0.8,
+    "slope_algorithm": "Horn 3x3 on the reprojected elevation grid",
+    "vertical_scale_to_m": 1.0,
+    "window_size_m": 5000
+  },
+  "method_calibration": {
+    "earth_coarse_method_version": "coarse-terrain-250m-1.0.0",
+    "earth_source": "Geomorpho250 (PANGAEA 899135) dtm_slope_merit.dem_m_250m, a published 7.5 arc-second preprocessed slope product; the Earth pipeline never computes a slope derivative in this repository.",
+    "measured_on_mars": "The Mars pilot computes the same Horn 3x3 + 5 km aggregation twice: once from the 20 m CTX DTM reprojected to a 250 m grid (comparable support) and once from the native 463.0576672 m MOLA MEGDR grid. The observed per-cell deltas are in the MOLA evidence manifest and quantify a support/interpolation effect, not an Earth calibration.",
+    "not_measured_against_earth": "The Earth coarse pilot consumes a published slope product (PANGAEA 899135, 7.5 arc-second). The source MERIT DEM and the product's preprocessing kernel are not part of the pinned snapshot, so computing an Earth Horn-at-250 m control would require downloading a global DEM, which this issue forbids. The preprocessed-product vs DEM-derivative difference against Earth is therefore unmeasured, and every slope-derived planetary metric is marked evidence_only.",
+    "planetary_coarse_method_version": "coarse-planetary-dem-horn-1.0.0",
+    "unsupported_metrics": [
+      "terrain_relief_p95_p05_m",
+      "roughness_std_m",
+      "curvature",
+      "geomorphon_composition",
+      "any 90 m fine metric"
+    ],
+    "unsupported_reason": "The Earth coarse pilot defined only slope mean, slope p90, and flat fraction <5 degrees. Relief/roughness/curvature/geomorphon are not part of that coarse feature set, so no planetary coarse value is emitted for them."
+  },
+  "region": {
+    "analysis_resolution_m": 250.0,
+    "bbox_metric": {
+      "east": 5000.0,
+      "north": 5000.0,
+      "south": -5000.0,
+      "west": -5000.0
+    },
+    "body": "Moon",
+    "cell_count": 4,
+    "crs_frame_note": "body-fixed planetary frame; never Earth WGS84/UTM",
+    "crs_name": "Lunar_Azimuthal_Equidistant_20E_10S",
+    "crs_wkt": "PROJCRS[\"Lunar_Azimuthal_Equidistant_20E_10S\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",-10,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",20,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+    "label": "Moon LOLA128 coordinate window 01 (20E, 10S)",
+    "n_pixels_per_side": 20,
+    "notes": "Coordinate window only; no landform or geologic interpretation. The local azimuthal-equidistant CRS is defined on the lunar 1737.4 km sphere.",
+    "region_id": "moon-lola128-eqc-window-01",
+    "sample_label": "bounded_pilot_not_global_exhaustive",
+    "window_size_m": 5000.0
+  },
+  "run": {
+    "command": "uv run python pipelines/build_planetary_coarse.py --allow-network",
+    "elapsed_s_at_write": 17.22,
+    "fixture_bytes": 17004,
+    "fixture_count": 4,
+    "network_io_note": "Per-cell upper bound includes block alignment and a 64 KiB label allowance; it is not a measured network byte count.",
+    "peak_rss_kib_at_write": 113740,
+    "pilot": "moon",
+    "source_read_upper_bound_bytes": 4456448
+  },
+  "schema_version": "planetary-coarse-reference-1.0.0",
+  "source": {
+    "body": "Moon",
+    "citation": "Neumann, G. (2024). LOLA MOON_PA gridded dataset [Data set]. NASA Goddard Space Flight Center Planetary Geodesy Data Archive. doi:10.60903/LOLA_PA",
+    "coordinate_system": "planetocentric, east-positive, geographic 0..360 longitude",
+    "dataset_id": "nasa-pgda-lola-moon-pa-ldem128-202405",
+    "doi": "10.60903/LOLA_PA",
+    "frame": "MOON_PA (DE421), body-fixed",
+    "license": "not stated on the PGDA product page; public NASA archive with a citation requirement (Data Usage Policy)",
+    "license_url": "https://science.data.nasa.gov/about/license",
+    "native_ppd": 128.0,
+    "native_resolution_m": 236.90117518866782,
+    "native_support_note": "128 pixels/degree is 0.0078125 degrees, 236.90 m at the equator; the analysis grid is a fixed 250 m metric grid, so the source is ~2.1% coarser than the 7.5 arc-second Earth coarse product at the equator.",
+    "notes": "Pixel-registered global GeoTIFF (46080 x 23040, float32, deflate, 256x256 tiles, nodata NaN). The product page states it was built by transforming SLDEM2015 256 ppd and the LOLA polar stereographic LDEMs to MOON_PA and averaging them at 64/128 ppd; it is a derived, partly interpolated shape model, not raw altimetry. Full object size 2,705,286,892 bytes (HTTP Content-Length). The GeoTIFF has no explicit vertical unit in its TIFF tags: sampled pixel values span about -2.6e3 to +2.8e3 and match the published lunar elevation range (-9127 to +10779 m), while the band actual_range tag (-9.127 to 10.779) is inherited in kilometres from the sibling .grd. Pixels are therefore read as metres with scales=(1.0,) and offsets=(0.0,); the unit is inferred from pixel magnitude and flagged, not label-declared. During the 2026-11-15 retrieval, south-polar tiles near longitude 202-203 degrees returned TIFFReadEncodedTile errors; the pilot window at 20E, 10S is unaffected.",
+    "product_id": "LDEM128_PA_pixel_202405",
+    "product_lid": null,
+    "product_page": "https://pgda.gsfc.nasa.gov/products/95",
+    "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+    "quality_flags": [
+      "global_shape_model",
+      "derived_from_sldem2015_and_polar_ldems",
+      "partly_interpolated",
+      "pixel_registered_geographic",
+      "moon_pa_frame",
+      "vertical_unit_inferred_from_pixel_magnitude",
+      "bounded_vsicurl_window"
+    ],
+    "raster_url": "https://pgda.gsfc.nasa.gov/data/LOLA_PA/LDEM128_PA_pixel_202405.tif",
+    "same_support_as_earth": true,
+    "source_id": "moon-lola128-pa-pixel-202405",
+    "title": "LOLA MOON_PA global shape model, 128 pixels/degree, pixel-registered",
+    "url": "https://pgda.gsfc.nasa.gov/data/LOLA_PA/LDEM128_PA_pixel_202405.tif",
+    "vertical_reference": "lunar surface radius relative to the 1737.4 km reference sphere",
+    "vertical_scale_to_m": 1.0,
+    "vertical_unit": "metre",
+    "vertical_unit_status": "inferred from pixel magnitude; no vertical unit tag and the band actual_range tag is inherited in kilometres"
+  }
+}

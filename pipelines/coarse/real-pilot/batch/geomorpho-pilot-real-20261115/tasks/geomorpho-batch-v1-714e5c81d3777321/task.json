@@ -1,0 +1,74 @@
+{
+  "batch_schema_version": "geomorpho-batch-1.0.0",
+  "cell_counts": {
+    "invalid": 0,
+    "no_coverage": 0,
+    "succeeded": 16
+  },
+  "checkpoint_version": "1.0.0",
+  "dataset": {
+    "citation": "Amatulli et al. (2019/2020), Geomorpho90m, PANGAEA 899135",
+    "dataset_id": "geomorpho250-slope-v1.0",
+    "license": "CC BY 4.0",
+    "qa_flags": [
+      "real_geomorpho250",
+      "bounded_remote_window",
+      "cc_by_4_0",
+      "batch_partition"
+    ],
+    "source_url": "https://hs.pangaea.de/Maps/DEM_Geomorpho90m/dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
+  },
+  "outcome": "succeeded",
+  "output": {
+    "bytes": 6417,
+    "file": "rows.parquet",
+    "rows": 16,
+    "sha256": "4800369870db55b73ed12cddb8343f02cb08836e4f82e806bc66d392fcf762fb"
+  },
+  "reasons": [],
+  "rows": 16,
+  "run_id": "geomorpho-pilot-real-20261115",
+  "source_mode": "real",
+  "task": {
+    "cells": [
+      "coarse-v1:b3572b494d702d44",
+      "coarse-v1:b8999cd4a671346d",
+      "coarse-v1:61c31ae082cf0dbe",
+      "coarse-v1:e585fd3f4c9e5c9b",
+      "coarse-v1:eed0a9777c1acf5e",
+      "coarse-v1:6d6f6d94658cbc25",
+      "coarse-v1:28c44f0877f52138",
+      "coarse-v1:f9fc0a3e5badb6f9",
+      "coarse-v1:b77394284670ef4d",
+      "coarse-v1:70945d7ebec30b38",
+      "coarse-v1:fb2a79d97eca90d1",
+      "coarse-v1:8da746021efb02b2",
+      "coarse-v1:2fc2266a7439a313",
+      "coarse-v1:124b7349a46688df",
+      "coarse-v1:c5a2eb149dae2b3c",
+      "coarse-v1:ee93ba7eac13a30c"
+    ],
+    "fingerprint": "f5020ead7680919ee5009908123203ac70fa45eb34abf0cc14f9046d2cdd025f",
+    "input": {
+      "bytes": 131663,
+      "matches_published_window": true,
+      "path": "var/cache/geomorpho-pilot/pilot-sahara.tif",
+      "sha256": "3c8a3f993c43ddf79929b86db7c589abc781baa030b782db894926c8acf234c9"
+    },
+    "partition_index": 0,
+    "region_id": "pilot-sahara",
+    "task_id": "geomorpho-batch-v1-714e5c81d3777321",
+    "window_count": 16
+  },
+  "timing": {
+    "duration_s": 0.128088,
+    "finished_at": "2026-11-15T05:48:42.750816+00:00",
+    "started_at": "2026-11-15T05:48:42.622711+00:00"
+  },
+  "versions": {
+    "grid_version": "coarse-grid-1.0.0",
+    "index_version": "coarse-index-1.0.0",
+    "method_version": "coarse-terrain-250m-1.0.0",
+    "parquet_schema_version": "coarse-parquet-1.0.0"
+  }
+}

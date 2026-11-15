@@ -1,0 +1,988 @@
+{
+  "generated_at": "2026-11-15T00:00:00Z",
+  "notes": [
+    "Bounded pilot at the existing Moon/Mars terrain reference windows only.",
+    "Native source grids are preserved; nothing is resampled to 90 m.",
+    "Neutron-derived hydrogen and radar CPR are evidence, not ice detections.",
+    "Raw products and window bytes are not committed."
+  ],
+  "plan_version": "acquisition-plan-1.0.0",
+  "scope": "pilot-d04-water-ice-planetary",
+  "tasks": [
+    {
+      "area": {
+        "area_id": "moon-lp-h2-cell-s85p25-e31p75",
+        "bbox": {
+          "east": 32.0,
+          "north": -85.0,
+          "south": -85.5,
+          "west": 31.5
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+        "display_name": "LP NS hydrogen cell",
+        "notes": "Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame."
+      },
+      "body": "Moon",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "expected_bytes": 14256401,
+      "method_version": "lp-ns-hydrogenhd-1.0.0",
+      "output_suffix": ".txt",
+      "parameters": {
+        "cell_latitude_deg": "-85.25",
+        "cell_longitude_deg": "31.75",
+        "native_resolution_deg": "0.5"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lp-ns-hydrogenhd",
+      "task_id": "lp-h2-moon-lp-h2-cell-s85p25-e31p75"
+    },
+    {
+      "area": {
+        "area_id": "moon-lp-h2-cell-s85p75-w0p25",
+        "bbox": {
+          "east": 0.0,
+          "north": -85.5,
+          "south": -86.0,
+          "west": -0.5
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+        "display_name": "LP NS hydrogen cell",
+        "notes": "Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame."
+      },
+      "body": "Moon",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "expected_bytes": 14256401,
+      "method_version": "lp-ns-hydrogenhd-1.0.0",
+      "output_suffix": ".txt",
+      "parameters": {
+        "cell_latitude_deg": "-85.75",
+        "cell_longitude_deg": "-0.25",
+        "native_resolution_deg": "0.5"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lp-ns-hydrogenhd",
+      "task_id": "lp-h2-moon-lp-h2-cell-s85p75-w0p25"
+    },
+    {
+      "area": {
+        "area_id": "moon-lp-h2-cell-s88p75-e123p75",
+        "bbox": {
+          "east": 124.0,
+          "north": -88.5,
+          "south": -89.0,
+          "west": 123.5
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+        "display_name": "LP NS hydrogen cell",
+        "notes": "Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame."
+      },
+      "body": "Moon",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "expected_bytes": 14256401,
+      "method_version": "lp-ns-hydrogenhd-1.0.0",
+      "output_suffix": ".txt",
+      "parameters": {
+        "cell_latitude_deg": "-88.75",
+        "cell_longitude_deg": "123.75",
+        "native_resolution_deg": "0.5"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lp-ns-hydrogenhd",
+      "task_id": "lp-h2-moon-lp-h2-cell-s88p75-e123p75"
+    },
+    {
+      "area": {
+        "area_id": "moon-lp-h2-cell-s88p75-w68p25",
+        "bbox": {
+          "east": -68.0,
+          "north": -88.5,
+          "south": -89.0,
+          "west": -68.5
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+        "display_name": "LP NS hydrogen cell",
+        "notes": "Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame."
+      },
+      "body": "Moon",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "expected_bytes": 14256401,
+      "method_version": "lp-ns-hydrogenhd-1.0.0",
+      "output_suffix": ".txt",
+      "parameters": {
+        "cell_latitude_deg": "-88.75",
+        "cell_longitude_deg": "-68.25",
+        "native_resolution_deg": "0.5"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lp-ns-hydrogenhd",
+      "task_id": "lp-h2-moon-lp-h2-cell-s88p75-w68p25"
+    },
+    {
+      "area": {
+        "area_id": "moon-lp-h2-cell-s88p75-w68p75",
+        "bbox": {
+          "east": -68.5,
+          "north": -88.5,
+          "south": -89.0,
+          "west": -69.0
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+        "display_name": "LP NS hydrogen cell",
+        "notes": "Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame."
+      },
+      "body": "Moon",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "expected_bytes": 14256401,
+      "method_version": "lp-ns-hydrogenhd-1.0.0",
+      "output_suffix": ".txt",
+      "parameters": {
+        "cell_latitude_deg": "-88.75",
+        "cell_longitude_deg": "-68.75",
+        "native_resolution_deg": "0.5"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lp-ns-hydrogenhd",
+      "task_id": "lp-h2-moon-lp-h2-cell-s88p75-w68p75"
+    },
+    {
+      "area": {
+        "area_id": "moon-lp-h2-cell-s89p25-w137p25",
+        "bbox": {
+          "east": -137.0,
+          "north": -89.0,
+          "south": -89.5,
+          "west": -137.5
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+        "display_name": "LP NS hydrogen cell",
+        "notes": "Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame."
+      },
+      "body": "Moon",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "expected_bytes": 14256401,
+      "method_version": "lp-ns-hydrogenhd-1.0.0",
+      "output_suffix": ".txt",
+      "parameters": {
+        "cell_latitude_deg": "-89.25",
+        "cell_longitude_deg": "-137.25",
+        "native_resolution_deg": "0.5"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lp-ns-hydrogenhd",
+      "task_id": "lp-h2-moon-lp-h2-cell-s89p25-w137p25"
+    },
+    {
+      "area": {
+        "area_id": "moon-lp-h2-cell-s89p25-w137p75",
+        "bbox": {
+          "east": -137.5,
+          "north": -89.0,
+          "south": -89.5,
+          "west": -138.0
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+        "display_name": "LP NS hydrogen cell",
+        "notes": "Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame."
+      },
+      "body": "Moon",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "expected_bytes": 14256401,
+      "method_version": "lp-ns-hydrogenhd-1.0.0",
+      "output_suffix": ".txt",
+      "parameters": {
+        "cell_latitude_deg": "-89.25",
+        "cell_longitude_deg": "-137.75",
+        "native_resolution_deg": "0.5"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lp-ns-hydrogenhd",
+      "task_id": "lp-h2-moon-lp-h2-cell-s89p25-w137p75"
+    },
+    {
+      "area": {
+        "area_id": "moon-lp-h2-cell-s89p25-w138p25",
+        "bbox": {
+          "east": -138.0,
+          "north": -89.0,
+          "south": -89.5,
+          "west": -138.5
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+        "display_name": "LP NS hydrogen cell",
+        "notes": "Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame."
+      },
+      "body": "Moon",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "expected_bytes": 14256401,
+      "method_version": "lp-ns-hydrogenhd-1.0.0",
+      "output_suffix": ".txt",
+      "parameters": {
+        "cell_latitude_deg": "-89.25",
+        "cell_longitude_deg": "-138.25",
+        "native_resolution_deg": "0.5"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lp-ns-hydrogenhd",
+      "task_id": "lp-h2-moon-lp-h2-cell-s89p25-w138p25"
+    },
+    {
+      "area": {
+        "area_id": "moon-lp-h2-cell-s89p75-w155p75",
+        "bbox": {
+          "east": -155.5,
+          "north": -89.5,
+          "south": -90.0,
+          "west": -156.0
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+        "display_name": "LP NS hydrogen cell",
+        "notes": "Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame."
+      },
+      "body": "Moon",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "expected_bytes": 14256401,
+      "method_version": "lp-ns-hydrogenhd-1.0.0",
+      "output_suffix": ".txt",
+      "parameters": {
+        "cell_latitude_deg": "-89.75",
+        "cell_longitude_deg": "-155.75",
+        "native_resolution_deg": "0.5"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lp-ns-hydrogenhd",
+      "task_id": "lp-h2-moon-lp-h2-cell-s89p75-w155p75"
+    },
+    {
+      "area": {
+        "area_id": "moon-lp-h2-cell-s89p75-w156p25",
+        "bbox": {
+          "east": -156.0,
+          "north": -89.5,
+          "south": -90.0,
+          "west": -156.5
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+        "display_name": "LP NS hydrogen cell",
+        "notes": "Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame."
+      },
+      "body": "Moon",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "expected_bytes": 14256401,
+      "method_version": "lp-ns-hydrogenhd-1.0.0",
+      "output_suffix": ".txt",
+      "parameters": {
+        "cell_latitude_deg": "-89.75",
+        "cell_longitude_deg": "-156.25",
+        "native_resolution_deg": "0.5"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lp-ns-hydrogenhd",
+      "task_id": "lp-h2-moon-lp-h2-cell-s89p75-w156p25"
+    },
+    {
+      "area": {
+        "area_id": "moon-lp-h2-cell-s89p75-w156p75",
+        "bbox": {
+          "east": -156.5,
+          "north": -89.5,
+          "south": -90.0,
+          "west": -157.0
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+        "display_name": "LP NS hydrogen cell",
+        "notes": "Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame."
+      },
+      "body": "Moon",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "expected_bytes": 14256401,
+      "method_version": "lp-ns-hydrogenhd-1.0.0",
+      "output_suffix": ".txt",
+      "parameters": {
+        "cell_latitude_deg": "-89.75",
+        "cell_longitude_deg": "-156.75",
+        "native_resolution_deg": "0.5"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lp-ns-hydrogenhd",
+      "task_id": "lp-h2-moon-lp-h2-cell-s89p75-w156p75"
+    },
+    {
+      "area": {
+        "area_id": "moon-lp-h2-cell-s89p75-w157p25",
+        "bbox": {
+          "east": -157.0,
+          "north": -89.5,
+          "south": -90.0,
+          "west": -157.5
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+        "display_name": "LP NS hydrogen cell",
+        "notes": "Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame."
+      },
+      "body": "Moon",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "expected_bytes": 14256401,
+      "method_version": "lp-ns-hydrogenhd-1.0.0",
+      "output_suffix": ".txt",
+      "parameters": {
+        "cell_latitude_deg": "-89.75",
+        "cell_longitude_deg": "-157.25",
+        "native_resolution_deg": "0.5"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lp-ns-hydrogenhd",
+      "task_id": "lp-h2-moon-lp-h2-cell-s89p75-w157p25"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l23009-s03074",
+        "bbox": {
+          "east": -155.9296875,
+          "north": -89.75,
+          "south": -89.8125,
+          "west": -155.9921875
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4240846852",
+        "line_first": "23009",
+        "pixels": "8",
+        "sample_first": "3074"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l23009-s03074"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l23008-s03027",
+        "bbox": {
+          "east": -156.296875,
+          "north": -89.7421875,
+          "south": -89.8046875,
+          "west": -156.359375
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4240662344",
+        "line_first": "23008",
+        "pixels": "8",
+        "sample_first": "3027"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l23008-s03027"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l23007-s03004",
+        "bbox": {
+          "east": -156.4765625,
+          "north": -89.734375,
+          "south": -89.796875,
+          "west": -156.5390625
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4240477932",
+        "line_first": "23007",
+        "pixels": "8",
+        "sample_first": "3004"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l23007-s03004"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l23006-s02932",
+        "bbox": {
+          "east": -157.0390625,
+          "north": -89.7265625,
+          "south": -89.7890625,
+          "west": -157.1015625
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4240293324",
+        "line_first": "23006",
+        "pixels": "8",
+        "sample_first": "2932"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l23006-s02932"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22971-s05311",
+        "bbox": {
+          "east": -138.453125,
+          "north": -89.453125,
+          "south": -89.515625,
+          "west": -138.515625
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4233851640",
+        "line_first": "22971",
+        "pixels": "8",
+        "sample_first": "5311"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22971-s05311"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22969-s05452",
+        "bbox": {
+          "east": -137.3515625,
+          "north": -89.4375,
+          "south": -89.5,
+          "west": -137.4140625
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4233483564",
+        "line_first": "22969",
+        "pixels": "8",
+        "sample_first": "5452"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22969-s05452"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22968-s05489",
+        "bbox": {
+          "east": -137.0625,
+          "north": -89.4296875,
+          "south": -89.4921875,
+          "west": -137.125
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4233299392",
+        "line_first": "22968",
+        "pixels": "8",
+        "sample_first": "5489"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22968-s05489"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22966-s05481",
+        "bbox": {
+          "east": -137.125,
+          "north": -89.4140625,
+          "south": -89.4765625,
+          "west": -137.1875
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4232930720",
+        "line_first": "22966",
+        "pixels": "8",
+        "sample_first": "5481"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22966-s05481"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22965-s05488",
+        "bbox": {
+          "east": -137.0703125,
+          "north": -89.40625,
+          "south": -89.46875,
+          "west": -137.1328125
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4232746428",
+        "line_first": "22965",
+        "pixels": "8",
+        "sample_first": "5488"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22965-s05488"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22965-s05430",
+        "bbox": {
+          "east": -137.5234375,
+          "north": -89.40625,
+          "south": -89.46875,
+          "west": -137.5859375
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4232746196",
+        "line_first": "22965",
+        "pixels": "8",
+        "sample_first": "5430"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22965-s05430"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22965-s05403",
+        "bbox": {
+          "east": -137.734375,
+          "north": -89.40625,
+          "south": -89.46875,
+          "west": -137.796875
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4232746088",
+        "line_first": "22965",
+        "pixels": "8",
+        "sample_first": "5403"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22965-s05403"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22884-s38850",
+        "bbox": {
+          "east": 123.5703125,
+          "north": -88.7734375,
+          "south": -88.8359375,
+          "west": 123.5078125
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4217949956",
+        "line_first": "22884",
+        "pixels": "8",
+        "sample_first": "38850"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22884-s38850"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22871-s14265",
+        "bbox": {
+          "east": -68.5,
+          "north": -88.671875,
+          "south": -88.734375,
+          "west": -68.5625
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4215455456",
+        "line_first": "22871",
+        "pixels": "8",
+        "sample_first": "14265"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22871-s14265"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22867-s14274",
+        "bbox": {
+          "east": -68.4296875,
+          "north": -88.640625,
+          "south": -88.703125,
+          "west": -68.4921875
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4214718212",
+        "line_first": "22867",
+        "pixels": "8",
+        "sample_first": "14274"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22867-s14274"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22866-s14284",
+        "bbox": {
+          "east": -68.3515625,
+          "north": -88.6328125,
+          "south": -88.6953125,
+          "west": -68.4140625
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4214533932",
+        "line_first": "22866",
+        "pixels": "8",
+        "sample_first": "14284"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22866-s14284"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22524-s23006",
+        "bbox": {
+          "east": -0.2109375,
+          "north": -85.9609375,
+          "south": -86.0234375,
+          "west": -0.2734375
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4151531380",
+        "line_first": "22524",
+        "pixels": "8",
+        "sample_first": "23006"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22524-s23006"
+    },
+    {
+      "area": {
+        "area_id": "moon-minirf-cpr-l22451-s27100",
+        "bbox": {
+          "east": 31.7734375,
+          "north": -85.390625,
+          "south": -85.453125,
+          "west": 31.7109375
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+        "display_name": "Mini-RF CPR native window",
+        "notes": "8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling."
+      },
+      "body": "Moon",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "expected_bytes": 1474560,
+      "method_version": "minirf-cpr-window-1.0.0",
+      "output_suffix": ".bin",
+      "parameters": {
+        "byte_length": "1474560",
+        "byte_offset": "4138092396",
+        "line_first": "22451",
+        "pixels": "8",
+        "sample_first": "27100"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "lro-minirf-cpr-128ppd",
+      "task_id": "minirf-moon-minirf-cpr-l22451-s27100"
+    },
+    {
+      "area": {
+        "area_id": "mars-hend-cell-n20p00-e78p00",
+        "bbox": {
+          "east": 80.000001,
+          "north": 22.0,
+          "south": 18.0,
+          "west": 76.000001
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_MARS planetocentric longitude/latitude (4 degree cell grid)",
+        "display_name": "HEND 4 degree cell",
+        "notes": "Native 4 x 4 degree HEND cell containing the five Jezero CTX reference windows; no Earth frame."
+      },
+      "body": "Mars",
+      "dataset_id": "mro-hend-epithermal-020917",
+      "dimension": "D04",
+      "endpoint": "https://pds-geosciences.wustl.edu/ody/urn-nasa-pds-odyssey_grs_special/data/hend_epithermal_020917.tab",
+      "expected_bytes": 202500,
+      "method_version": "hend-epithermal-1.0.0",
+      "output_suffix": ".tab",
+      "parameters": {
+        "cell_latitude_deg": "20.00",
+        "cell_longitude_deg": "78.00",
+        "native_resolution_deg": "4"
+      },
+      "provider_id": "pds-geosciences",
+      "source_id": "mro-hend-epithermal-020917",
+      "task_id": "hend-mars-hend-cell-n20p00-e78p00"
+    }
+  ],
+  "totals": {
+    "by_body": {
+      "Mars": 1,
+      "Moon": 29
+    },
+    "by_dimension": {
+      "D04": 30
+    },
+    "expected_bytes": 196346832,
+    "tasks": 30
+  }
+}

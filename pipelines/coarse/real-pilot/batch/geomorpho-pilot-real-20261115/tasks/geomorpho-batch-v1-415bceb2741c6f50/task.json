@@ -1,0 +1,66 @@
+{
+  "batch_schema_version": "geomorpho-batch-1.0.0",
+  "cell_counts": {
+    "invalid": 0,
+    "no_coverage": 0,
+    "succeeded": 8
+  },
+  "checkpoint_version": "1.0.0",
+  "dataset": {
+    "citation": "Amatulli et al. (2019/2020), Geomorpho90m, PANGAEA 899135",
+    "dataset_id": "geomorpho250-slope-v1.0",
+    "license": "CC BY 4.0",
+    "qa_flags": [
+      "real_geomorpho250",
+      "bounded_remote_window",
+      "cc_by_4_0",
+      "batch_partition"
+    ],
+    "source_url": "https://hs.pangaea.de/Maps/DEM_Geomorpho90m/dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
+  },
+  "outcome": "succeeded",
+  "output": {
+    "bytes": 5912,
+    "file": "rows.parquet",
+    "rows": 8,
+    "sha256": "5c751f0b3b5e5bbe60eeecf71f6526171c77281abf3a719142cb528b014063b4"
+  },
+  "reasons": [],
+  "rows": 8,
+  "run_id": "geomorpho-pilot-real-20261115",
+  "source_mode": "real",
+  "task": {
+    "cells": [
+      "coarse-v1:167228e14e251659",
+      "coarse-v1:2a5a8dd5158d243f",
+      "coarse-v1:41e26fb330c54cf5",
+      "coarse-v1:6b03069624aa31c5",
+      "coarse-v1:22fdc53b0486cf41",
+      "coarse-v1:edacef7813b9cba6",
+      "coarse-v1:4c3c9c0578be8ed0",
+      "coarse-v1:32314a012f8bda0d"
+    ],
+    "fingerprint": "6a2a6ac04c14ec85acccf6cb169c0ec994429d77332d02bfe1173ca8fabd05fe",
+    "input": {
+      "bytes": 134933,
+      "matches_published_window": true,
+      "path": "var/cache/geomorpho-pilot/pilot-grand-canyon.tif",
+      "sha256": "e0c301f2dcd4891c5f55533d526857f94b844bb8c80ab6a991e45bab34556885"
+    },
+    "partition_index": 3,
+    "region_id": "pilot-grand-canyon",
+    "task_id": "geomorpho-batch-v1-415bceb2741c6f50",
+    "window_count": 8
+  },
+  "timing": {
+    "duration_s": 0.093486,
+    "finished_at": "2026-11-15T05:48:42.715654+00:00",
+    "started_at": "2026-11-15T05:48:42.622148+00:00"
+  },
+  "versions": {
+    "grid_version": "coarse-grid-1.0.0",
+    "index_version": "coarse-index-1.0.0",
+    "method_version": "coarse-terrain-250m-1.0.0",
+    "parquet_schema_version": "coarse-parquet-1.0.0"
+  }
+}

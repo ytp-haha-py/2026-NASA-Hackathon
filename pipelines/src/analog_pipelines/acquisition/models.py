@@ -116,6 +116,7 @@ class LocalAsset(BaseModel):
     sha256: str
     bytes: int = Field(ge=0)
     content_type: str = "application/octet-stream"
+    http_status: int | None = Field(default=None, ge=100, le=599)
     fetched_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
 
 

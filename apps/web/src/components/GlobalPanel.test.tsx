@@ -3,9 +3,11 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { I18nProvider } from "../i18n/I18nProvider";
 import {
+  aoiLocationFixture,
   globalCoverageFixture,
   globalEmptySearchResponseFixture,
   globalNoIndexCoverageFixture,
+  jobCompletedFixture,
 } from "../test/fixtures";
 import { errorResponse, installMockFetch, jsonResponse } from "../test/mock-api";
 import { GlobalPanel } from "./GlobalPanel";
@@ -90,9 +92,11 @@ describe("GlobalPanel", () => {
       .toBeInTheDocument();
     expect(within(plan).getByText("fixture-candidate-001:fine:0")).toBeInTheDocument();
     expect(
-      within(plan).getByText(/Fine execution is not offered because the API does not return/),
+      within(plan).getByText(/Execution uses POST \/areas\/analyze and GET \/jobs/),
     ).toBeInTheDocument();
-    expect(within(plan).queryByRole("button", { name: /execute/i })).not.toBeInTheDocument();
+    expect(
+      within(plan).getAllByRole("button", { name: "Execute 90 m analysis" }),
+    ).toHaveLength(2);
     expect(fetchMock).toHaveBeenCalled();
 
     // Selecting another candidate replaces the detail and clears the previous plan.
@@ -220,6 +224,54 @@ describe("GlobalPanel", () => {
       screen.getByText("示範／測試索引 — 這不是真實全球普查。"),
     ).toBeInTheDocument();
     expect(screen.getByText("250 m 粗篩索引 → 5 km 候選")).toBeInTheDocument();
+  });
+
+  it("executes a planned 90 m window through the AOI job API and shows real features", async () => {
+    const fetchMock = installMockFetch({
+      analyze: () =>
+        jsonResponse(
+          {
+            job_id: "job-refine-1",
+            status: "completed",
+            area_id: "earth-aoi-test",
+            cache_key: "cache-refine-1",
+            cached: false,
+            provider_status: {},
+            result: { area_id: "earth-aoi-test" },
+            links: { job: "/api/v1/jobs/job-refine-1" },
+          },
+          200,
+        ),
+      job: () => jsonResponse(jobCompletedFixture),
+      areaFeatures: () => jsonResponse({ ...aoiLocationFixture, location_id: "earth-aoi-test" }),
+    });
+    renderPanel();
+    const user = await searchCoarse();
+    await user.click(
+      await screen.findByRole("button", {
+        name: "Inspect coarse candidate fixture-candidate-001",
+      }),
+    );
+    await user.click(await screen.findByRole("button", { name: "Create refine plan" }));
+    const plan = await screen.findByTestId("refine-plan");
+    await user.click(
+      within(plan).getAllByRole("button", { name: "Execute 90 m analysis" })[0],
+    );
+
+    const execution = await screen.findByTestId("refine-execution");
+    expect(within(execution).getByText("Job status: completed")).toBeInTheDocument();
+    expect(
+      within(execution).getByText("Actual 90 m feature observations"),
+    ).toBeInTheDocument();
+    expect(within(execution).getByText("earth-aoi-test")).toBeInTheDocument();
+    expect(
+      fetchMock.mock.calls.some(([input]) =>
+        String(input).endsWith("/api/v1/areas/analyze"),
+      ),
+    ).toBe(true);
+    expect(
+      fetchMock.mock.calls.some(([input]) => String(input).includes("/api/v1/jobs/")),
+    ).toBe(true);
   });
 
   it("retries coverage after an API failure and never substitutes a candidate list", async () => {

@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from analog_pipelines.acquisition.models import AcquisitionPlan
+from analog_pipelines.acquisition.release import verify_release_integrity
 from analog_pipelines.typed_contracts import (
     AreaV2,
     ProcessingRunV2,
@@ -20,6 +21,7 @@ from analog_api.adapters.typed_db import TypedObservationStore
 
 def import_release(session: Session, release_dir: str | Path) -> dict[str, Any]:
     root = Path(release_dir)
+    integrity = verify_release_integrity(root)
     manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
     plan = AcquisitionPlan.model_validate_json((root / "plan.json").read_text(encoding="utf-8"))
     assets = json.loads((root / "assets.json").read_text(encoding="utf-8"))
@@ -89,4 +91,5 @@ def import_release(session: Session, release_dir: str | Path) -> dict[str, Any]:
         "observations": len(observations),
         "run_id": run.run_id,
         "release_version": manifest.get("release_version"),
+        "integrity": integrity,
     }
