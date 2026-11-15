@@ -161,6 +161,7 @@ def persist_planetary_aoi_result(session: Session, result: AoiResult) -> str:
         fine_definition = FINE_D01_BY_ID.get(feature_id) if definition is None else None
         if definition is None and fine_definition is None:
             raise ValueError(f"unsupported planetary AOI feature {feature_id!r}")
+        stored_feature_id = feature_id if definition is not None else f"planetary_{feature_id}"
         unit = definition.unit if definition is not None else fine_definition.unit
         method_version = (
             definition.method_version
@@ -184,11 +185,11 @@ def persist_planetary_aoi_result(session: Session, result: AoiResult) -> str:
             ]
         )
         observation = TypedObservation(
-            observation_id=f"{result.area_id}:{feature_id}",
+            observation_id=f"{result.area_id}:{stored_feature_id}",
             area_id=result.area_id,
             body=body,  # type: ignore[arg-type]
             dimension_code=PLANETARY_DIMENSION,  # type: ignore[arg-type]
-            feature_id=feature_id,
+            feature_id=stored_feature_id,
             value_kind="numeric",
             state="detected",
             value=float(value),
