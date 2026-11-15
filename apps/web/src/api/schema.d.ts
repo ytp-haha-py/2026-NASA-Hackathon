@@ -1339,8 +1339,33 @@ export interface components {
             by_state: {
                 [key: string]: number;
             };
+            /**
+             * Candidate Pool Size
+             * @default 0
+             */
+            candidate_pool_size: number;
+            /** Category Value Counts */
+            category_value_counts?: {
+                [key: string]: number;
+            };
+            /**
+             * Coverage Fraction
+             * @default 0
+             */
+            coverage_fraction: number;
             /** Dataset Ids */
             dataset_ids: string[];
+            /** Filter Kind */
+            filter_kind?: string | null;
+            /**
+             * Filter Value Count
+             * @default 0
+             */
+            filter_value_count: number;
+            /** Filter Value Max */
+            filter_value_max?: number | null;
+            /** Filter Value Min */
+            filter_value_min?: number | null;
             /** Gated Candidate Count */
             gated_candidate_count: number;
             /** Gated Candidate Ids */
@@ -1446,6 +1471,8 @@ export interface components {
         /** FeatureRegistryOut */
         FeatureRegistryOut: {
             audit_summary: components["schemas"]["AuditSummaryOut"];
+            /** Context Filter Version */
+            context_filter_version: string;
             /** Data Version */
             data_version: string;
             /** Features */
@@ -2014,6 +2041,10 @@ export interface components {
              * @enum {string}
              */
             candidate_body: "Earth" | "Moon" | "Mars";
+            /** Category Filters */
+            category_filters?: {
+                [key: string]: string[];
+            };
             /** Dimension Weights */
             dimension_weights?: {
                 [key: string]: components["schemas"]["DimensionWeightIn"];
@@ -2566,6 +2597,8 @@ export interface components {
             body_scope: string[];
             /** Comparability Gates */
             comparability_gates: string[];
+            /** Context Filter Version */
+            context_filter_version?: string | null;
             coverage: components["schemas"]["FeatureCoverageOut"] | null;
             /** Dimension Id */
             dimension_id: string;
@@ -2573,6 +2606,10 @@ export interface components {
             dimension_label: string;
             /** Feature Id */
             feature_id: string;
+            /** Filter Kind */
+            filter_kind?: string | null;
+            /** Filter Statistic */
+            filter_statistic?: string | null;
             /** Label */
             label: string;
             /** Max Value */

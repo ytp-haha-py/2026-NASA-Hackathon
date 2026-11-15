@@ -10,6 +10,7 @@ from typing import Any
 
 from analog_api.domain.eligibility import (
     REGISTRY_VERSION,
+    ROLE_CATEGORY_MATCH,
     ROLE_HARD_FILTER,
     ROLE_SIMILARITY,
     FeatureCoverage,
@@ -25,7 +26,7 @@ from analog_api.domain.eligibility import (
 )
 from analog_api.domain.entities import CandidateEntity, ReferenceEntity
 from analog_api.domain.errors import AppError
-from analog_api.domain.features import FEATURES
+from analog_api.domain.features import CONTEXT_FILTER_VERSION, FEATURES
 from analog_api.domain.multidim import (
     DISTANCE_SCOPE_LEGACY,
     MAX_MULTIDIM_LIMIT,
@@ -52,6 +53,9 @@ BASE_LIMITATIONS = [
     "same-body/method/support counterpart remain evidence/context.",
     "The candidate pool is the curated fine Earth index in this database; absence from results "
     "does not mean a location is a poor analog.",
+    "Range filters (D01/D06/coarse Earth D03-D05 context) and D02 category filters only select "
+    "the candidate set. They never change the weighted distance, and D02-D05 are never "
+    "similarity features.",
 ]
 
 
@@ -263,12 +267,17 @@ def registry_payload(
         if dimension is not None and entry.dimension_id != dimension.upper():
             continue
         if role is not None:
-            support = entry.roles.get(role)
-            if support is None or not support.supported:
-                continue
+            if role == "filter":
+                if not (entry.hard_filter_supported or entry.category_match_supported):
+                    continue
+            else:
+                support = entry.roles.get(role)
+                if support is None or not support.supported:
+                    continue
         features.append(_feature_payload(entry, snapshot.coverage.get(feature_id)))
     return {
         "registry_version": REGISTRY_VERSION,
+        "context_filter_version": CONTEXT_FILTER_VERSION,
         "data_version": data_version,
         "filters": {"body": body, "dimension": dimension, "role": role},
         "features": features,
@@ -281,6 +290,9 @@ def registry_payload(
             "six-dimension completeness or global coverage.",
             "Mean/Q05/Q95 from SoilGrids belong to one measurement family; they are not three "
             "independent observations.",
+            "D03-D05 Earth context features expose a coarse range filter only; they are never "
+            "similarity targets. The D02 geologic_unit control is an exact source-label "
+            "dropdown (category_match), not a taxonomy crosswalk.",
         ],
     }
 
@@ -347,6 +359,9 @@ def _candidate_features(
     features_by_area: dict[str, dict[str, MaterializedFeature]] = {}
     for (area_id, feature_id), value in snapshot.outcome.values.items():
         features_by_area.setdefault(area_id, {})[feature_id] = value
+    categories_by_area: dict[str, dict[str, object]] = {}
+    for (area_id, feature_id), value in snapshot.outcome.categories.items():
+        categories_by_area.setdefault(area_id, {})[feature_id] = value
     result: list[MultiDimCandidate] = []
     for candidate in snapshot.candidates:
         values: dict[str, MaterializedFeature] = {}
@@ -362,6 +377,7 @@ def _candidate_features(
                 location_id=candidate.location_id,
                 body="Earth",
                 features={key: value for key, value in values.items() if value is not None},
+                categories=categories_by_area.get(candidate.location_id, {}),
             )
         )
     return result
@@ -371,6 +387,7 @@ def _filter_values(
     *,
     snapshot: RegistrySnapshot,
     filters: Mapping[str, Mapping[str, float | None]],
+    category_filters: Mapping[str, Sequence[str]] | None = None,
 ) -> tuple[list[MultiDimCandidate], list[MultiDimExclusion], dict[str, object]]:
     applied: dict[str, object] = {}
     for feature_id, constraint in filters.items():
@@ -409,13 +426,51 @@ def _filter_values(
                 status_code=422,
             )
         applied[feature_id] = {
+            "kind": "range",
+            "filter_kind": "range",
             "min": low,
             "max": high,
             "unit": entry.unit,
             "dimension_id": entry.dimension_id,
             "support": entry.support,
+            "statistic": entry.filter_statistic,
         }
-    if not filters:
+
+    requested_categories: dict[str, tuple[str, ...]] = {}
+    for feature_id, values in (category_filters or {}).items():
+        entry = snapshot.registry.get(feature_id)
+        if entry is None:
+            raise AppError(
+                "unknown_feature",
+                f"Unsupported category filter feature id: {feature_id}.",
+                status_code=422,
+            )
+        if not entry.roles[ROLE_CATEGORY_MATCH].supported:
+            raise AppError(
+                "feature_role_not_category_filterable",
+                f"{feature_id} is not registered as a category filter. "
+                f"{entry.roles[ROLE_CATEGORY_MATCH].reason or 'It is evidence only.'}",
+                status_code=422,
+            )
+        requested = tuple(str(value) for value in values)
+        if not requested or any(not value.strip() for value in requested):
+            raise AppError(
+                "invalid_category_filter",
+                f"category_filters for {feature_id} must contain at least one non-blank "
+                "stored label.",
+                status_code=422,
+            )
+        requested_categories[feature_id] = requested
+        applied[feature_id] = {
+            "kind": "category",
+            "filter_kind": "category",
+            "values": list(requested),
+            "unit": entry.unit,
+            "dimension_id": entry.dimension_id,
+            "support": entry.support,
+        }
+
+    if not filters and not requested_categories:
         return _candidate_features(snapshot, snapshot.registry), [], applied
 
     entry_by_id = {feature_id: snapshot.registry[feature_id] for feature_id in snapshot.registry}
@@ -425,6 +480,7 @@ def _filter_values(
     for candidate in candidates:
         reasons: list[str] = []
         missing: list[str] = []
+        incompatible: list[str] = []
         for feature_id, constraint in filters.items():
             value = candidate.features.get(feature_id)
             if value is None:
@@ -432,18 +488,28 @@ def _filter_values(
                 reasons.append(f"missing_filter:{feature_id}")
                 continue
             if value.unit != snapshot.registry[feature_id].unit:
+                incompatible.append(feature_id)
                 reasons.append(f"unit_mismatch:{feature_id}")
                 continue
             low = constraint.get("min")
             high = constraint.get("max")
             if (low is not None and value.value < low) or (high is not None and value.value > high):
                 reasons.append(f"filter:{feature_id}")
+        for feature_id, requested in requested_categories.items():
+            category = candidate.categories.get(feature_id)
+            if category is None:
+                missing.append(feature_id)
+                reasons.append(f"missing_filter:{feature_id}")
+                continue
+            if not set(requested) & set(category.labels):
+                reasons.append(f"category:{feature_id}")
         if reasons:
             excluded.append(
                 MultiDimExclusion(
                     location_id=candidate.location_id,
                     reasons=tuple(reasons),
                     missing_features=tuple(missing),
+                    incompatible_features=tuple(incompatible),
                 )
             )
         else:
@@ -514,6 +580,7 @@ def execute_multidimensional_search(
     snapshot: RegistrySnapshot,
     raw_targets: Mapping[str, tuple[float, float]],
     filters: Mapping[str, Mapping[str, float | None]],
+    category_filters: Mapping[str, Sequence[str]] | None = None,
     reference_id: str | None,
     candidate_body: str,
     dimension_weights: Mapping[str, tuple[float, bool]] | None = None,
@@ -588,7 +655,9 @@ def execute_multidimensional_search(
         raise AppError(exc.code, exc.message, status_code=422, details=exc.details) from exc
 
     candidates, filter_excluded, filters_applied = _filter_values(
-        snapshot=snapshot, filters=filters
+        snapshot=snapshot,
+        filters=filters,
+        category_filters=category_filters,
     )
     outcome = rank_candidates(
         targets=targets,

@@ -67,6 +67,7 @@ class MultiDimCandidate:
     location_id: str
     body: str
     features: Mapping[str, MaterializedFeature]
+    categories: Mapping[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True, slots=True)

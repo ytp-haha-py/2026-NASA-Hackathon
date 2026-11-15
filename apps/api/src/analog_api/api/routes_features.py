@@ -104,6 +104,7 @@ def multidimensional_search(
         snapshot=snapshot,
         raw_targets=raw_targets,
         filters=filters,
+        category_filters=request.category_filters or None,
         reference_id=request.reference_id,
         candidate_body=request.candidate_body,
         dimension_weights=dimension_weights,

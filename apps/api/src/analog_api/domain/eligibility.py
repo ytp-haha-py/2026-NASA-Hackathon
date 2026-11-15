@@ -28,7 +28,14 @@ from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass, field
 from typing import Any
 
-from analog_api.domain.features import FEATURES, FeatureDefinition
+from analog_api.domain.features import (
+    CONTEXT_FILTER_BY_ID,
+    CONTEXT_FILTER_FEATURES,
+    CONTEXT_FILTER_VERSION,
+    FEATURES,
+    ContextFilterDefinition,
+    FeatureDefinition,
+)
 
 REGISTRY_VERSION = "feature-eligibility-1.0.0"
 D06_METHOD_VERSION = "soilgrids-wcs-2.0.0"
@@ -44,10 +51,14 @@ ROLE_CATEGORY_MATCH = "category_match"
 ROLE_EVIDENCE = "evidence"
 ROLE_UNCERTAINTY = "uncertainty"
 ROLE_CONTEXT = "context"
+# Read-only alias used by /search/features for "any active filter role" (hard_filter or
+# category_match). It is never stored and never a similarity role.
+ROLE_FILTER = "filter"
 QUERY_ROLES = (
     ROLE_SIMILARITY,
     ROLE_HARD_FILTER,
     ROLE_CATEGORY_MATCH,
+    ROLE_FILTER,
     ROLE_EVIDENCE,
     ROLE_UNCERTAINTY,
     ROLE_CONTEXT,
@@ -170,11 +181,13 @@ def _roles(
     evidence: RoleSupport,
     uncertainty: RoleSupport | None = None,
     context: RoleSupport | None = None,
+    category_match: RoleSupport | None = None,
 ) -> dict[str, RoleSupport]:
     return {
         ROLE_SIMILARITY: similarity,
         ROLE_HARD_FILTER: hard_filter,
-        ROLE_CATEGORY_MATCH: RoleSupport(
+        ROLE_CATEGORY_MATCH: category_match
+        or RoleSupport(
             False,
             "No validated taxonomy/crosswalk is registered for this feature.",
             ("Categorical similarity is disabled until a versioned crosswalk exists.",),
@@ -210,6 +223,8 @@ class FeatureEligibility:
     unsupported_reason: str | None = None
     measurement_family: str | None = None
     uncertainty_feature_ids: tuple[str, ...] = ()
+    filter_kind: str | None = None
+    filter_statistic: str | None = None
 
     @property
     def similarity_supported(self) -> bool:
@@ -220,6 +235,16 @@ class FeatureEligibility:
         return self.roles[ROLE_HARD_FILTER].supported
 
     @property
+    def category_match_supported(self) -> bool:
+        return self.roles[ROLE_CATEGORY_MATCH].supported
+
+    @property
+    def materializable(self) -> bool:
+        return (
+            self.similarity_supported or self.hard_filter_supported or self.category_match_supported
+        )
+
+    @property
     def depth_interval(self) -> tuple[float, float] | None:
         raw = self.selector.get("depth_interval_m")
         if isinstance(raw, (list, tuple)) and len(raw) == 2:
@@ -227,6 +252,19 @@ class FeatureEligibility:
         return None
 
     def to_payload(self) -> dict[str, object]:
+        roles = {role: support.to_payload() for role, support in self.roles.items()}
+        # ``filter`` is an additive, read-only alias for whichever filter role is active
+        # (range -> hard_filter, category -> category_match). ``hard_filter`` stays canonical
+        # for the range-filter path so existing clients keep working.
+        active_filter = (
+            self.roles[ROLE_HARD_FILTER]
+            if self.hard_filter_supported
+            else self.roles[ROLE_CATEGORY_MATCH]
+            if self.category_match_supported
+            else None
+        )
+        if active_filter is not None:
+            roles[ROLE_FILTER] = active_filter.to_payload()
         return {
             "feature_id": self.feature_id,
             "dimension_id": self.dimension_id,
@@ -236,7 +274,9 @@ class FeatureEligibility:
             "value_kind": self.value_kind,
             "body_scope": list(self.body_scope),
             "score_role": self.score_role,
-            "roles": {role: support.to_payload() for role, support in self.roles.items()},
+            "roles": roles,
+            "filter_kind": self.filter_kind,
+            "filter_statistic": self.filter_statistic,
             "min_value": self.min_value,
             "max_value": self.max_value,
             "scale": self.scale,
@@ -251,6 +291,7 @@ class FeatureEligibility:
             "unsupported_reason": self.unsupported_reason,
             "measurement_family": self.measurement_family,
             "uncertainty_feature_ids": list(self.uncertainty_feature_ids),
+            "context_filter_version": CONTEXT_FILTER_VERSION if self.filter_kind else None,
             "registry_version": REGISTRY_VERSION,
         }
 
@@ -385,6 +426,7 @@ def _d01_entry(feature: FeatureDefinition) -> FeatureEligibility:
             "license": "Copernicus DEM licence; see /api/v1/datasets",
         },
         measurement_family=f"d01:{feature.method_version}:{feature.id}",
+        filter_kind="range",
     )
 
 
@@ -514,6 +556,7 @@ def _d06_entry(
         )
         if is_mean
         else (),
+        filter_kind="range" if is_mean else None,
     )
 
 
@@ -587,23 +630,236 @@ def _evidence_only_entry(
     )
 
 
-def _typed_entry(feature_id: str, observed: ObservedFeature) -> FeatureEligibility:
+def category_labels(value: Any) -> tuple[str, ...]:
+    """Return stored, source-native category labels without normalising or inventing any.
+
+    The committed D02 ``geologic_unit`` payload is a point-query object. Its meaningful
+    labels are the source ``code``/``name`` plus every returned map-unit name under
+    ``units[].name``. Blank values are dropped; no crosswalk, casing or taxonomy is applied.
+    """
+
+    labels: list[str] = []
+    if isinstance(value, str):
+        text = value.strip()
+        if text:
+            labels.append(text)
+    elif isinstance(value, Mapping):
+        for key in ("code", "name"):
+            raw = value.get(key)
+            if isinstance(raw, str) and raw.strip():
+                labels.append(raw.strip())
+        units = value.get("units")
+        if isinstance(units, (list, tuple)):
+            for unit in units:
+                if not isinstance(unit, Mapping):
+                    continue
+                raw = unit.get("name")
+                if isinstance(raw, str) and raw.strip():
+                    labels.append(raw.strip())
+    return tuple(dict.fromkeys(labels))
+
+
+def _geologic_unit_entry(
+    feature_id: str,
+    observed: ObservedFeature,
+    labels_by_area: Mapping[str, tuple[str, ...]],
+) -> FeatureEligibility:
+    taxonomy_reason = (
+        "Geologic map-unit names are dataset-specific free text. No versioned taxonomy "
+        "crosswalk exists, so map units cannot enter categorical or weighted similarity."
+    )
+    bodies = tuple(sorted(observed.bodies)) or ("Earth",)
+    methods = tuple(sorted(observed.method_versions))
+    if labels_by_area:
+        category_role = RoleSupport(
+            True,
+            "Exact match against the stored, source-native map-unit label. This is a dropdown "
+            "lookup, not a taxonomy crosswalk and not an equivalence claim.",
+            (
+                "Earth body only; Moon/Mars map units remain evidence and are never matched "
+                "across bodies.",
+                "Labels are stored verbatim (value.code / value.name / value.units[].name); "
+                "no casing, spelling or taxonomy normalisation is applied.",
+                "A candidate with no stored label is excluded as missing, never filled.",
+                "Category selection changes only the candidate set; it never enters distance.",
+            ),
+        )
+        category_unsupported = None
+    else:
+        category_role = RoleSupport(
+            False,
+            "No Earth geologic_unit observations with a stored label are present in this "
+            "database, so the category control has no real coverage.",
+        )
+        category_unsupported = category_role.reason
+    return FeatureEligibility(
+        feature_id=feature_id,
+        dimension_id="D02",
+        label="Geologic map unit (source-native label)",
+        unit="category",
+        value_kind="category",
+        body_scope=bodies,
+        score_role=ROLE_EVIDENCE,
+        roles=_roles(
+            similarity=RoleSupport(False, taxonomy_reason),
+            hard_filter=RoleSupport(
+                False,
+                "Numeric range filtering is undefined for a categorical map-unit label; use "
+                "category_filters instead.",
+            ),
+            evidence=RoleSupport(True, taxonomy_reason),
+            category_match=category_role,
+        ),
+        min_value=None,
+        max_value=None,
+        scale=None,
+        scale_rationale=None,
+        selector={
+            "kind": "source_native_category",
+            "category_body": "Earth",
+            "match": "exact stored label equality",
+            "labels_from": ["value.code", "value.name", "value.units[].name"],
+            "normalisation": "none",
+        },
+        method_versions=methods,
+        support={
+            "kind": "point_query",
+            "spatial_support": (
+                "Macrostrat API v2 point query at the AOI centre; not a 1.98 km area fraction."
+            ),
+            "temporal_support": "static compilation, age depends on the source map",
+            "taxonomy_crosswalk": False,
+            "earth_only_control": True,
+            "value_origin": "third_party_map_compilation",
+        },
+        missing_policy=MISSING_POLICY,
+        qa_rules=(
+            "state must be detected",
+            "body must be Earth for the category control",
+            "the stored label must be non-blank",
+            "missing category is excluded, never imputed",
+        ),
+        comparability_gates=(
+            "body Earth only for the category control",
+            "no taxonomy/crosswalk; exact source label match only",
+            "third-party map compilation with partial global coverage",
+            "not a weighted-similarity feature",
+        ),
+        source={
+            "provider": "Macrostrat API v2",
+            "dataset_ids": sorted(observed.dataset_ids) or ["macrostrat-api"],
+            "value_origin": "third_party_map_compilation",
+        },
+        unsupported_reason=category_unsupported or taxonomy_reason,
+        measurement_family=None,
+        filter_kind="category",
+    )
+
+
+def _context_filter_entry(
+    feature: ContextFilterDefinition, observed: ObservedFeature
+) -> FeatureEligibility:
+    support_kind = "coarse_grid_point"
+    selector = {
+        "kind": "derived_period_mean",
+        "statistic": feature.filter_statistic,
+        "source_value_kind": "timeseries",
+        "temporal_interval": {
+            "start": "2024-01-01",
+            "end": "2024-01-07",
+        },
+        "derivation": (
+            "arithmetic mean of the stored finite daily values; missing_count must be 0 and "
+            "every sample must be finite (no zero-fill, no interpolation)"
+        ),
+        "filter_kind": feature.filter_kind,
+    }
+    support = {
+        "kind": support_kind,
+        "native_resolution_m": 50000.0,
+        "spatial_support": feature.spatial_support,
+        "temporal_support": feature.temporal_support,
+        "requires_bbox_match": True,
+        "filter_value_semantics": "period_mean_of_stored_timeseries",
+        "value_origin": "model_reanalysis_context",
+        "not_a_local_measurement": True,
+    }
+    reason = (
+        "Registered as a coarse Earth range filter only. NASA POWER reanalysis support is "
+        "not shared with the 90 m terrain window, so this feature is never a similarity input."
+    )
+    return FeatureEligibility(
+        feature_id=feature.feature_id,
+        dimension_id=feature.dimension_id,
+        label=feature.label,
+        unit=feature.unit,
+        value_kind="numeric",
+        body_scope=("Earth",),
+        score_role=feature.score_role,
+        roles=_roles(
+            similarity=RoleSupport(False, reason),
+            hard_filter=RoleSupport(
+                True,
+                None,
+                (
+                    "Earth only; inclusive min/max inside the registered physical domain.",
+                    "Exact area_id join to a fine candidate and matching stored pilot bbox.",
+                    "Filter value is the registered 2024-01-01..2024-01-07 period mean; "
+                    "missing samples reject the observation.",
+                    "Range filtering selects candidates and never changes the weighted distance.",
+                ),
+            ),
+            evidence=RoleSupport(True, reason),
+            context=RoleSupport(True, reason),
+        ),
+        min_value=feature.min_value,
+        max_value=feature.max_value,
+        scale=feature.scale,
+        scale_rationale=feature.scale_rationale,
+        selector=selector,
+        method_versions=(feature.method_version,),
+        support=support,
+        missing_policy=MISSING_POLICY,
+        qa_rules=(
+            "body Earth only",
+            "state must be detected",
+            "method_version must equal nasa-power-daily-1.0.0",
+            "unit must equal the registry unit",
+            "temporal_support must be the exact 2024-01-01..2024-01-07 interval",
+            "every stored daily sample must be finite and missing_count must be 0",
+            "recorded AOI bbox must equal the candidate bbox within 1e-6 degree",
+        ),
+        comparability_gates=(
+            "body Earth only",
+            "coarse ~0.5 x 0.625 degree reanalysis support; not a 1.98 km measurement",
+            "filter-only role; never weighted similarity",
+            "no cross-body or same-quantity equivalence",
+            "derived period mean, not a new observed value",
+        ),
+        source={
+            "provider": "NASA POWER",
+            "dataset_ids": ["nasa-power-daily-point"],
+            "url": feature.reference,
+            "license": "NASA POWER free and open data; citation requested",
+            "value_origin": "model_reanalysis_context",
+        },
+        unsupported_reason=reason,
+        measurement_family=(f"{feature.dimension_id.lower()}:nasa-power:{feature.method_version}"),
+        filter_kind=feature.filter_kind,
+        filter_statistic=feature.filter_statistic,
+    )
+
+
+def _typed_entry(
+    feature_id: str,
+    observed: ObservedFeature,
+    category_labels_by_area: Mapping[str, tuple[str, ...]] | None = None,
+) -> FeatureEligibility:
     dimension = next(iter(sorted(observed.dimensions)), "unregistered")
     body_label = "/".join(sorted(observed.bodies)) or "unknown"
     if dimension == "D02":
         if feature_id == "geologic_unit":
-            reason = (
-                "Geologic map-unit names are dataset-specific free text. No versioned taxonomy "
-                "crosswalk exists, so map units cannot enter categorical or weighted similarity."
-            )
-            return _evidence_only_entry(
-                feature_id,
-                observed,
-                dimension_id="D02",
-                label="Geologic map unit",
-                score_role=ROLE_EVIDENCE,
-                reason=reason,
-            )
+            return _geologic_unit_entry(feature_id, observed, category_labels_by_area or {})
         if feature_id == "geology_analysis_availability":
             reason = (
                 "Coverage/availability record (unknown or no_coverage). It is a quality/evidence "
@@ -701,18 +957,50 @@ def _typed_entry(feature_id: str, observed: ObservedFeature) -> FeatureEligibili
     )
 
 
+def _earth_category_labels_by_area(
+    rows: Sequence[Mapping[str, Any]],
+) -> dict[str, tuple[str, ...]]:
+    labels: dict[str, set[str]] = defaultdict(set)
+    for row in rows:
+        if row.get("feature_id") != "geologic_unit":
+            continue
+        if str(row.get("body") or "") != "Earth":
+            continue
+        if row.get("state") != "detected":
+            continue
+        found = category_labels(row.get("value"))
+        if found:
+            labels[str(row["area_id"])].update(found)
+    return {area_id: tuple(sorted(values)) for area_id, values in labels.items() if values}
+
+
 def build_registry(rows: Sequence[Mapping[str, Any]]) -> dict[str, FeatureEligibility]:
-    """Build the registry for all D01 features plus every observed typed feature."""
+    """Build the registry for all D01 features plus every observed typed feature.
+
+    The Earth scalar context range filters are registered even when a database has zero
+    observations, so ``/search/features`` can truthfully report 0 coverage instead of hiding
+    the control. They never gain a similarity role.
+    """
     observed = ObservedFeature.from_rows(rows)
+    category_by_area = _earth_category_labels_by_area(rows)
     registry: dict[str, FeatureEligibility] = {
         feature.id: _d01_entry(feature) for feature in FEATURES
     }
+    for feature in CONTEXT_FILTER_FEATURES:
+        registry[feature.feature_id] = _context_filter_entry(
+            feature,
+            observed.get(feature.feature_id) or ObservedFeature(feature_id=feature.feature_id),
+        )
     for feature_id, item in sorted(observed.items()):
+        if feature_id in CONTEXT_FILTER_BY_ID:
+            continue
         match = _D06_PATTERN.match(feature_id)
         if match and "D06" in item.dimensions:
             registry[feature_id] = _d06_entry(feature_id, match, item)
         else:
-            registry[feature_id] = _typed_entry(feature_id, item)
+            registry[feature_id] = _typed_entry(
+                feature_id, item, category_labels_by_area=category_by_area
+            )
     return registry
 
 
@@ -774,6 +1062,34 @@ class MaterializedFeature:
 
 
 @dataclass(frozen=True, slots=True)
+class MaterializedCategoryFeature:
+    feature_id: str
+    area_id: str
+    body: str
+    labels: tuple[str, ...]
+    observation_id: str
+    dimension_id: str
+    selector: dict[str, Any]
+    support: dict[str, Any]
+    dataset_ids: tuple[str, ...]
+    quality_flags: tuple[str, ...]
+
+    def to_payload(self) -> dict[str, object]:
+        return {
+            "feature_id": self.feature_id,
+            "area_id": self.area_id,
+            "body": self.body,
+            "labels": list(self.labels),
+            "observation_id": self.observation_id,
+            "dimension_id": self.dimension_id,
+            "selector": self.selector,
+            "support": self.support,
+            "dataset_ids": list(self.dataset_ids),
+            "quality_flags": list(self.quality_flags),
+        }
+
+
+@dataclass(frozen=True, slots=True)
 class RejectedObservation:
     area_id: str
     feature_id: str
@@ -792,7 +1108,66 @@ class RejectedObservation:
 @dataclass(slots=True)
 class MaterializationOutcome:
     values: dict[tuple[str, str], MaterializedFeature] = field(default_factory=dict)
+    categories: dict[tuple[str, str], MaterializedCategoryFeature] = field(default_factory=dict)
     rejected: list[RejectedObservation] = field(default_factory=list)
+
+
+def _period_mean(
+    entry: FeatureEligibility, row: Mapping[str, Any]
+) -> tuple[float | None, list[str]]:
+    """Derive the registered period mean from a stored timeseries.
+
+    This is the only arithmetic performed on stored source values. It rejects rather than
+    filling: a missing sample, a non-finite sample, a missing timestamp or a different temporal
+    interval yields explicit reasons and no value.
+    """
+
+    reasons: list[str] = []
+    expected = entry.selector.get("temporal_interval") or {}
+    temporal = row.get("temporal_support") or {}
+    if str(temporal.get("kind") or "") != "interval":
+        reasons.append("temporal_support_mismatch")
+    if str(temporal.get("start") or "") != str(expected.get("start") or "") or str(
+        temporal.get("end") or ""
+    ) != str(expected.get("end") or ""):
+        reasons.append("temporal_support_mismatch")
+    payload = row.get("value")
+    if not isinstance(payload, Mapping):
+        return None, [*reasons, "value_not_finite_numeric"]
+    inner_unit = payload.get("unit")
+    if inner_unit is not None and str(inner_unit) != entry.unit:
+        reasons.append("timeseries_unit_mismatch")
+    missing_count = payload.get("missing_count")
+    if (
+        isinstance(missing_count, (int, float))
+        and not isinstance(missing_count, bool)
+        and float(missing_count) > 0
+    ):
+        reasons.append("timeseries_missing_values")
+    values = payload.get("values")
+    if not isinstance(values, (list, tuple)) or not values:
+        return None, [*reasons, "value_not_finite_numeric"]
+    timestamps = payload.get("timestamps")
+    if not isinstance(timestamps, (list, tuple)) or len(timestamps) != len(values):
+        reasons.append("timeseries_timestamps_missing")
+    numeric: list[float] = []
+    for sample in values:
+        number = _finite_number(sample)
+        if number is None:
+            return None, [*reasons, "value_not_finite_numeric"]
+        numeric.append(number)
+    if reasons:
+        return None, reasons
+    return sum(numeric) / len(numeric), []
+
+
+def _query_numeric(
+    entry: FeatureEligibility, row: Mapping[str, Any]
+) -> tuple[float | None, list[str]]:
+    if entry.support.get("filter_value_semantics") == "period_mean_of_stored_timeseries":
+        return _period_mean(entry, row)
+    numeric = _finite_number(row.get("value"))
+    return numeric, [] if numeric is not None else ["value_not_finite_numeric"]
 
 
 def _gate_observation(
@@ -800,16 +1175,15 @@ def _gate_observation(
     entry: FeatureEligibility,
     row: Mapping[str, Any],
     candidate_bbox: Mapping[str, Any] | None,
-) -> list[str]:
+) -> tuple[list[str], float | None]:
     reasons: list[str] = []
     body = str(row.get("body") or "")
     if body not in entry.body_scope:
         reasons.append("body_out_of_scope")
     if row.get("state") != "detected":
         reasons.append(f"state:{row.get('state') or 'unknown'}")
-    numeric = _finite_number(row.get("value"))
-    if numeric is None:
-        reasons.append("value_not_finite_numeric")
+    numeric, value_reasons = _query_numeric(entry, row)
+    reasons.extend(value_reasons)
     if str(row.get("unit") or "") != entry.unit:
         reasons.append("unit_mismatch")
     if str(row.get("method_version") or "") not in entry.method_versions:
@@ -825,13 +1199,15 @@ def _gate_observation(
             if abs(recorded[0] - depth[0]) > 1e-9 or abs(recorded[1] - depth[1]) > 1e-9:
                 reasons.append("depth_interval_mismatch")
     spatial = row.get("spatial_support") or {}
-    if entry.support.get("kind") == "area_envelope_mean":
+    if entry.support.get("kind") == "area_envelope_mean" or entry.support.get(
+        "requires_bbox_match"
+    ):
         recorded_bbox = spatial.get("bbox")
         if not _bbox_close(recorded_bbox, candidate_bbox):
             reasons.append("spatial_bbox_mismatch")
         if (spatial.get("bbox_crs") or "").upper() != "EPSG:4326":
             reasons.append("spatial_crs_mismatch")
-    return reasons
+    return reasons, numeric
 
 
 def _uncertainty_for(
@@ -850,10 +1226,10 @@ def _uncertainty_for(
             continue
         candidates = rows_by_key.get((area_id, quantile_id), [])
         for row in candidates:
-            if _gate_observation(entry=quantile_entry, row=row, candidate_bbox=candidate_bbox):
-                continue
-            numeric = _finite_number(row.get("value"))
-            if numeric is None:
+            reasons, numeric = _gate_observation(
+                entry=quantile_entry, row=row, candidate_bbox=candidate_bbox
+            )
+            if reasons or numeric is None:
                 continue
             suffix = "q05" if quantile_id.endswith("q05") else "q95"
             quantiles[suffix] = numeric
@@ -873,13 +1249,98 @@ def _uncertainty_for(
     }
 
 
+def _materialize_category(
+    *,
+    outcome: MaterializationOutcome,
+    entry: FeatureEligibility,
+    area_id: str,
+    feature_id: str,
+    group: Sequence[Mapping[str, Any]],
+    candidate_bbox: Mapping[str, Any] | None,
+) -> None:
+    label_sets: list[tuple[str, ...]] = []
+    valid_rows: list[Mapping[str, Any]] = []
+    rejected_reasons: list[str] = []
+    for row in group:
+        reasons: list[str] = []
+        if str(row.get("body") or "") not in entry.body_scope:
+            reasons.append("body_out_of_scope")
+        if str(row.get("body") or "") != "Earth":
+            reasons.append("category_body_out_of_scope")
+        if row.get("state") != "detected":
+            reasons.append(f"state:{row.get('state') or 'unknown'}")
+        if str(row.get("method_version") or "") not in entry.method_versions:
+            reasons.append("method_version_mismatch")
+        labels = category_labels(row.get("value"))
+        if not labels:
+            reasons.append("category_value_missing")
+        spatial = row.get("spatial_support") or {}
+        if entry.support.get("requires_bbox_match") and not _bbox_close(
+            spatial.get("bbox"), candidate_bbox
+        ):
+            reasons.append("spatial_bbox_mismatch")
+        if reasons:
+            rejected_reasons.extend(reason for reason in reasons if reason not in rejected_reasons)
+            outcome.rejected.append(
+                RejectedObservation(
+                    area_id=area_id,
+                    feature_id=feature_id,
+                    observation_id=str(row["observation_id"]),
+                    reasons=tuple(reasons),
+                )
+            )
+            continue
+        label_sets.append(labels)
+        valid_rows.append(row)
+
+    if not valid_rows:
+        if not rejected_reasons:
+            outcome.rejected.append(
+                RejectedObservation(
+                    area_id=area_id,
+                    feature_id=feature_id,
+                    observation_id=str(group[0]["observation_id"]),
+                    reasons=("no_valid_observation",),
+                )
+            )
+        return
+    if len({frozenset(labels) for labels in label_sets}) > 1:
+        outcome.rejected.append(
+            RejectedObservation(
+                area_id=area_id,
+                feature_id=feature_id,
+                observation_id=str(valid_rows[0]["observation_id"]),
+                reasons=("ambiguous_duplicate_categories",),
+            )
+        )
+        return
+    row = min(valid_rows, key=lambda item: str(item["observation_id"]))
+    outcome.categories[(area_id, feature_id)] = MaterializedCategoryFeature(
+        feature_id=feature_id,
+        area_id=area_id,
+        body="Earth",
+        labels=tuple(sorted(set(label_sets[0]))),
+        observation_id=str(row["observation_id"]),
+        dimension_id=entry.dimension_id,
+        selector=dict(entry.selector),
+        support=dict(entry.support),
+        dataset_ids=tuple(str(item) for item in (row.get("dataset_ids") or [])),
+        quality_flags=tuple(str(item) for item in (row.get("quality_flags") or [])),
+    )
+
+
 def materialize(
     *,
     registry: Mapping[str, FeatureEligibility],
     rows: Sequence[Mapping[str, Any]],
     candidate_bboxes: Mapping[str, Mapping[str, Any] | None],
 ) -> MaterializationOutcome:
-    """Materialise query values for exact candidate joins, never modifying source rows."""
+    """Materialise query and filter values for exact candidate joins.
+
+    Only features with a supported query role (similarity, range filter or category match) are
+    materialised. Source rows are never modified, and a filter-only feature never gains a
+    similarity role.
+    """
     rows_by_key: dict[tuple[str, str], list[Mapping[str, Any]]] = defaultdict(list)
     for row in rows:
         rows_by_key[(str(row["area_id"]), str(row["feature_id"]))].append(row)
@@ -887,7 +1348,7 @@ def materialize(
     outcome = MaterializationOutcome()
     for (area_id, feature_id), group in sorted(rows_by_key.items()):
         entry = registry.get(feature_id)
-        if entry is None or not entry.similarity_supported:
+        if entry is None or not entry.materializable:
             continue
         if area_id not in candidate_bboxes:
             outcome.rejected.append(
@@ -899,15 +1360,25 @@ def materialize(
                 )
             )
             continue
+        if entry.category_match_supported:
+            _materialize_category(
+                outcome=outcome,
+                entry=entry,
+                area_id=area_id,
+                feature_id=feature_id,
+                group=group,
+                candidate_bbox=candidate_bboxes.get(area_id),
+            )
+            continue
         valid: list[tuple[Mapping[str, Any], float]] = []
         rejected_reasons: list[str] = []
         for row in group:
-            reasons = _gate_observation(
+            reasons, numeric = _gate_observation(
                 entry=entry,
                 row=row,
                 candidate_bbox=candidate_bboxes.get(area_id),
             )
-            if reasons:
+            if reasons or numeric is None:
                 rejected_reasons.extend(
                     reason for reason in reasons if reason not in rejected_reasons
                 )
@@ -920,8 +1391,6 @@ def materialize(
                     )
                 )
                 continue
-            numeric = _finite_number(row.get("value"))
-            assert numeric is not None
             valid.append((row, numeric))
 
         if not valid:
@@ -1007,15 +1476,29 @@ class FeatureCoverage:
     joined_candidate_ids: tuple[str, ...]
     gated_candidate_ids: tuple[str, ...]
     rejected_count: int
+    filter_kind: str | None = None
+    category_value_counts: dict[str, int] = field(default_factory=dict)
+    filter_value_count: int = 0
+    filter_value_min: float | None = None
+    filter_value_max: float | None = None
+    candidate_pool_size: int = 0
+    coverage_fraction: float = 0.0
 
     def to_payload(self) -> dict[str, object]:
         return {
             **self.observed.to_payload(),
+            "candidate_pool_size": self.candidate_pool_size,
+            "coverage_fraction": self.coverage_fraction,
             "joined_candidate_count": len(self.joined_candidate_ids),
             "joined_candidate_ids": list(self.joined_candidate_ids),
             "gated_candidate_count": len(self.gated_candidate_ids),
             "gated_candidate_ids": list(self.gated_candidate_ids),
             "rejected_observation_count": self.rejected_count,
+            "filter_kind": self.filter_kind,
+            "category_value_counts": dict(sorted(self.category_value_counts.items())),
+            "filter_value_count": self.filter_value_count,
+            "filter_value_min": self.filter_value_min,
+            "filter_value_max": self.filter_value_max,
         }
 
 
@@ -1031,14 +1514,39 @@ def coverage_for_registry(
     gated: dict[str, set[str]] = defaultdict(set)
     for area_id, feature_id in outcome.values:
         gated[feature_id].add(area_id)
+    for area_id, feature_id in outcome.categories:
+        gated[feature_id].add(area_id)
+    category_counts: dict[str, Counter[str]] = defaultdict(Counter)
+    for (_, feature_id), item in outcome.categories.items():
+        for label in item.labels:
+            category_counts[feature_id][label] += 1
+    filter_values: dict[str, list[float]] = defaultdict(list)
+    for (_, feature_id), materialized in outcome.values.items():
+        filter_values[feature_id].append(materialized.value)
     coverage: dict[str, FeatureCoverage] = {}
-    for feature_id in registry:
+    for feature_id, entry in registry.items():
         item = observed.get(feature_id) or ObservedFeature(feature_id=feature_id)
+        derived = (
+            filter_values.get(feature_id, [])
+            if entry.support.get("filter_value_semantics") == "period_mean_of_stored_timeseries"
+            else []
+        )
         coverage[feature_id] = FeatureCoverage(
             feature_id=feature_id,
             observed=item,
             joined_candidate_ids=tuple(sorted(item.area_ids & candidate_set)),
             gated_candidate_ids=tuple(sorted(gated.get(feature_id, set()))),
             rejected_count=rejected_counts.get(feature_id, 0),
+            filter_kind=entry.filter_kind,
+            category_value_counts=dict(category_counts.get(feature_id, {})),
+            filter_value_count=len(derived),
+            filter_value_min=min(derived) if derived else None,
+            filter_value_max=max(derived) if derived else None,
+            candidate_pool_size=len(candidate_set),
+            coverage_fraction=(
+                round(len(gated.get(feature_id, set())) / len(candidate_set), 6)
+                if candidate_set
+                else 0.0
+            ),
         )
     return coverage
