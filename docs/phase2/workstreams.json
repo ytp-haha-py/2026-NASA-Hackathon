@@ -6,7 +6,9 @@
     "branch": "phase2/coordinator-142",
     "session_id": "ses_e253e85e9ffeLjB1ipw0gIVen0",
     "goal_id": "a1caf80d-100c-4491-a301-cdf5020f0a69",
-    "goal_status": "running"
+    "goal_status": "running",
+    "validated": true,
+    "integrated": false
   },
   "preflight": {
     "origin_main": "ca0fc8f",
@@ -49,16 +51,18 @@
       "branch": "phase2/135-d01",
       "session_id": "ses_e20fc8691ffeaMvQ1pjnNWscZp",
       "goal_id": "0199a330-c186-4293-acd6-71762469219d",
-      "goal_status": "running",
+      "goal_status": "complete",
       "subagents": "delegated inside Goal",
-      "pr": null,
+      "pr": 147,
       "blockers": [
         "coordinate with #108/#97",
         "no duplicate global D01 work"
       ],
       "native_goal_verified": true,
       "head_commit": "89c01d6",
-      "note": "coverage matrix committed; PR pending"
+      "note": "coverage matrix committed; PR pending",
+      "validated": true,
+      "integrated": true
     },
     {
       "issue": 136,
@@ -68,15 +72,17 @@
       "branch": "phase2/136-d02",
       "session_id": "ses_e20fc69adffe9JAGca55A3aX5R",
       "goal_id": "8004c26a-8e34-464d-9bfb-8dc31680d2fe",
-      "goal_status": "running",
+      "goal_status": "complete",
       "subagents": "delegated inside Goal",
-      "pr": null,
+      "pr": 148,
       "blockers": [
         "taxonomy/crosswalk validation"
       ],
       "native_goal_verified": true,
       "head_commit": "4f9c3bd",
-      "note": "geology matrix committed; PR pending"
+      "note": "geology matrix committed; PR pending",
+      "validated": true,
+      "integrated": true
     },
     {
       "issue": 137,
@@ -86,7 +92,7 @@
       "branch": "phase2/137-d03",
       "session_id": "ses_e20fc6930ffeoPYLni2B8ZosUx",
       "goal_id": "0ceab842-708d-4164-81e2-96c4aeb23ca4",
-      "goal_status": "idle",
+      "goal_status": "complete",
       "subagents": "delegated inside Goal",
       "pr": 146,
       "blockers": [
@@ -94,7 +100,9 @@
       ],
       "native_goal_verified": true,
       "head_commit": "7e08d88",
-      "note": "phase PR open"
+      "note": "phase PR open",
+      "validated": true,
+      "integrated": true
     },
     {
       "issue": 138,
@@ -104,7 +112,7 @@
       "branch": "phase2/138-d04",
       "session_id": "ses_e20fc68bbffe2Sar4coxcaeuS7",
       "goal_id": "642a1a88-25bc-4515-a3bb-2d153bad8bb1",
-      "goal_status": "idle",
+      "goal_status": "complete",
       "subagents": "delegated inside Goal",
       "pr": 144,
       "blockers": [
@@ -112,7 +120,9 @@
       ],
       "native_goal_verified": true,
       "head_commit": "b658f86",
-      "note": "phase PR open"
+      "note": "phase PR open",
+      "validated": true,
+      "integrated": true
     },
     {
       "issue": 139,
@@ -122,7 +132,7 @@
       "branch": "phase2/139-d05",
       "session_id": "ses_e20fc684affe5mrOOQ6dvy5Ju5",
       "goal_id": "993b3503-c9c2-4a47-a256-76f6e2f35ed9",
-      "goal_status": "running",
+      "goal_status": "complete",
       "subagents": "delegated inside Goal",
       "pr": 145,
       "blockers": [
@@ -130,7 +140,9 @@
       ],
       "native_goal_verified": true,
       "head_commit": "54e2789",
-      "note": "phase PR open"
+      "note": "phase PR open",
+      "validated": true,
+      "integrated": true
     },
     {
       "issue": 140,
@@ -140,15 +152,17 @@
       "branch": "phase2/140-d06",
       "session_id": "ses_e20fc67c3ffeEHNB8Ra3Q5CLqP",
       "goal_id": "96555f26-c85b-448d-8ed1-6c55880da63c",
-      "goal_status": "running",
+      "goal_status": "complete",
       "subagents": "delegated inside Goal",
-      "pr": null,
+      "pr": 150,
       "blockers": [
         "sparse Moon/Mars in-situ data"
       ],
       "native_goal_verified": true,
       "head_commit": "ca0fc8f",
-      "note": "native goal active; worktree dirty"
+      "note": "native goal active; worktree dirty",
+      "validated": true,
+      "integrated": true
     },
     {
       "issue": 141,
@@ -158,15 +172,17 @@
       "branch": "phase2/141-integration",
       "session_id": "ses_e20fc6751ffeXuPBKd6WZyqGcN",
       "goal_id": "2f312370-3a07-400f-b15a-95cd4cc8d251",
-      "goal_status": "running",
+      "goal_status": "complete",
       "subagents": "delegated inside Goal",
-      "pr": null,
+      "pr": 152,
       "blockers": [
         "dimension\u00d7feature weighting contract"
       ],
       "native_goal_verified": true,
       "head_commit": "ca0fc8f",
-      "note": "native goal active; worktree dirty"
+      "note": "native goal active; worktree dirty",
+      "validated": true,
+      "integrated": true
     }
   ],
   "native_goal_mechanism": "POST /api/session/{sessionID}/command with {\"name\":\"goal\",\"text\":objective}; verified by a synthetic first-class goal message",
@@ -218,5 +234,6 @@
         "open; no active worktree/session; coordinate with #135"
       ]
     }
-  ]
+  ],
+  "acceptance_report": "docs/phase2/ACCEPTANCE.md"
 }

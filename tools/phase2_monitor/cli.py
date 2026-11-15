@@ -31,7 +31,7 @@ from .core import (
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "command", choices=["run", "once", "status", "events"], nargs="?", default="run"
+        "command", choices=["run", "once", "status", "events", "mark"], nargs="?", default="run"
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--db", type=Path, default=DEFAULT_STATE_DB)
@@ -42,6 +42,12 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--notify-session", default=None)
     parser.add_argument("--no-sse", action="store_true")
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--issue", type=int)
+    parser.add_argument("--validated", action="store_true")
+    parser.add_argument("--unvalidated", action="store_true")
+    parser.add_argument("--integrated", action="store_true")
+    parser.add_argument("--unintegrated", action="store_true")
+    parser.add_argument("--note", default="")
     return parser
 
 
@@ -159,6 +165,20 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "status":
             _snapshot(store, args.json)
             return 0
+        if args.command == "mark":
+            if args.issue is None:
+                print("mark requires --issue", file=__import__("sys").stderr)
+                return 2
+            validated = True if args.validated else False if args.unvalidated else None
+            integrated = True if args.integrated else False if args.unintegrated else None
+            row = store.mark(
+                args.issue,
+                validated=validated,
+                integrated=integrated,
+                note=args.note,
+            )
+            print(json.dumps(row, indent=2) if row else f"issue {args.issue} not found")
+            return 0 if row else 1
         source = OpenCodeSource(service_json=args.service_json, opencode_db=args.opencode_db)
         if args.command == "events":
             return _run_events(args, source)
