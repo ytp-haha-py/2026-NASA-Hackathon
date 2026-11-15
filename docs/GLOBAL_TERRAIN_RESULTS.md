@@ -149,6 +149,11 @@ Source: committed run `geomorpho-pilot-real-20261115` (`report.json`, `checkpoin
 The committed human summary in `docs/GEOMORPHO_BATCH_PILOT.md` also records wall time and
 peak RSS; those values are quoted there, not re-measured by this report.
 
+Arithmetic extrapolation, **not** a per-1000-window benchmark: 1,000 cells ≈
+416,845 Parquet bytes and ≈ 9.043 s of task time at
+16 cells/task. It excludes raster I/O, validation, provider latency,
+and actual CPU/RSS sampling; no per-1000-window CPU or RSS measurement exists for this pilot.
+
 ## 8. Measured DB / index capacity
 
 Source: `docs/DB_CAPACITY_REPORT.md` (documented_measurement_not_recomputed). These are **synthetic** software
@@ -258,7 +263,7 @@ Committed artifact digests:
 | Artifact | Bytes | SHA-256 |
 |---|---:|---|
 | `docs/global-terrain-results/coverage.json` | 9239 | `134b84b7ab66d67f9e6e71c9cc0f978a46644351c348f7224821140956ea516e` |
-| `docs/global-terrain-results/performance.json` | 3330 | `3fe6551a4d3b44122bd2af6390d73844b0a39fa89b4c784eede7ef4275035ec2` |
+| `docs/global-terrain-results/performance.json` | 3724 | `877976b3b864f078181cd15eb1ca910ccd78818141d4329f0ee516181b714ffe` |
 | `docs/global-terrain-results/refinement.json` | 5633 | `e243c77ba4624b44e12c0596349068c96d44157f9b6026f602f479352426c1a4` |
 | `docs/global-terrain-results/regions.csv` | 1185 | `77482a6d819274c03acb82a3908d4af1b3901abae6b5c2c756f505115ff31586` |
 | `docs/global-terrain-results/top-k-queries.json` | 10780 | `45c85fc53fb4d4dbd19bb024996167bd3b21145c29290743df1bb0319b45f4d6` |

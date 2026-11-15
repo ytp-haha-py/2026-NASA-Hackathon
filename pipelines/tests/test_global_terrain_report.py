@@ -118,6 +118,17 @@ def test_counts_and_checksums_track_committed_manifest_and_batch() -> None:
         "pilot-sahara": 64,
     }
     assert performance["batch"]["artifact_verification"]["verified_tasks"] == 11
+    assert performance["batch"]["derived_per_1000_cells"] == {
+        "kind": "arithmetic_extrapolation_not_measurement",
+        "cells": 1000,
+        "parquet_bytes_estimate": 416845,
+        "task_seconds_estimate": 9.043,
+        "note": (
+            "Scaled from the committed 168-cell pilot; excludes raster I/O, "
+            "validation, provider latency, and actual CPU/RSS sampling. It is a "
+            "planning estimate, not a per-1000-window benchmark."
+        ),
+    }
     assert batch["outcomes"]["rows"] == 168
 
     assert refinement["available"] is True

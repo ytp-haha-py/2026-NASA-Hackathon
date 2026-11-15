@@ -16,6 +16,13 @@
     },
     "cells": 168,
     "cells_per_task": 16,
+    "derived_per_1000_cells": {
+      "cells": 1000,
+      "kind": "arithmetic_extrapolation_not_measurement",
+      "note": "Scaled from the committed 168-cell pilot; excludes raster I/O, validation, provider latency, and actual CPU/RSS sampling. It is a planning estimate, not a per-1000-window benchmark.",
+      "parquet_bytes_estimate": 416845,
+      "task_seconds_estimate": 9.043
+    },
     "generated_at": "2026-11-15T05:48:42.990485+00:00",
     "measurement_kind": "measured_committed_run",
     "parquet_bytes": {

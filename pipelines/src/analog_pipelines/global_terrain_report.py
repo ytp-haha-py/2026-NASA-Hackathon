@@ -1069,6 +1069,20 @@ def build_global_terrain_report(inputs: ReportInputs) -> dict[str, str]:
             "analytic_peak_kind": batch["analytic_peak_kind"],
             "artifact_verification": batch["verification"],
             "staged_inputs": batch["inputs"],
+            "derived_per_1000_cells": {
+                "kind": "arithmetic_extrapolation_not_measurement",
+                "cells": 1000,
+                "parquet_bytes_estimate": round(batch["parquet_bytes"]["per_cell"] * 1000),
+                "task_seconds_estimate": round(
+                    batch["task_duration_s"]["mean"] * math.ceil(1000 / batch["cells_per_task"]),
+                    3,
+                ),
+                "note": (
+                    "Scaled from the committed 168-cell pilot; excludes raster I/O, "
+                    "validation, provider latency, and actual CPU/RSS sampling. It is a "
+                    "planning estimate, not a per-1000-window benchmark."
+                ),
+            },
         },
         "db": db,
     }
@@ -1196,6 +1210,8 @@ Target/weights: {target}. Eligible {query["eligible_candidate_count"]} of {query
     denominator = int(EARTH_LAND_AREA_KM2 / CELL_AREA_KM2)
     share = batch["cells"] / denominator * 100
     duration = batch["task_duration_s"]
+    per_1000_bytes = round(batch["parquet_bytes"]["per_cell"] * 1000)
+    per_1000_seconds = round(duration["mean"] * math.ceil(1000 / batch["cells_per_task"]), 3)
     db_rows = db["synthetic_coarse_benchmark"]["rows"]
     partition_footprint = sum(region["cell_footprint_km2"] for region in regions)
     bbox = manifest["coverage"]["bbox"]
@@ -1324,6 +1340,11 @@ Source: committed run `{batch["run_id"]}` (`report.json`, `checkpoint.json`, tas
 
 The committed human summary in `docs/GEOMORPHO_BATCH_PILOT.md` also records wall time and
 peak RSS; those values are quoted there, not re-measured by this report.
+
+Arithmetic extrapolation, **not** a per-1000-window benchmark: 1,000 cells ≈
+{per_1000_bytes:,} Parquet bytes and ≈ {per_1000_seconds} s of task time at
+{batch["cells_per_task"]} cells/task. It excludes raster I/O, validation, provider latency,
+and actual CPU/RSS sampling; no per-1000-window CPU or RSS measurement exists for this pilot.
 
 ## 8. Measured DB / index capacity
 
