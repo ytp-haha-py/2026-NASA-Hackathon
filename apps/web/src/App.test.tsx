@@ -880,7 +880,7 @@ describe("dimension board", () => {
     });
   });
 
-  it("shows fixed D01–D06 cards with real typed status and no evidence scoring controls", async () => {
+  it("shows fixed D01–D06 cards with real typed status and no scoring controls without a registry", async () => {
     await renderReady();
     const board = screen.getByRole("region", { name: "Dimensions" });
     const d01 = within(board).getByRole("region", { name: "D01 Terrain & Landforms" });
@@ -889,7 +889,6 @@ describe("dimension board", () => {
     for (const code of ["D02", "D03", "D04", "D05", "D06"] as const) {
       const card = within(board).getByTestId(`dimension-card-${code}`);
       expect(await within(card).findByText(/typed observations/)).toBeInTheDocument();
-      expect(card).toHaveTextContent(/not scored/);
       expect(within(card).queryByRole("slider")).not.toBeInTheDocument();
       expect(within(card).queryByRole("spinbutton")).not.toBeInTheDocument();
       expect(within(card).getByRole("button", { name: "View observations" })).toBeInTheDocument();
