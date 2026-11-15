@@ -7,6 +7,7 @@ from urllib.parse import urlencode
 import numpy as np
 
 from analog_pipelines.geology.io import Cache, artifact
+from analog_pipelines.geology.mineral_evidence import unavailable_state
 from analog_pipelines.geology.models import Analysis, Area, Context, Dataset, Mineral
 from analog_pipelines.geology.providers import base_analysis
 from analog_pipelines.geology.spatial import area_shape, transform_geometry
@@ -119,7 +120,7 @@ def emit_audit(area: Area, dataset: Dataset, cache: Cache) -> tuple[Analysis, di
     record.mineralogy = unavailable_minerals(
         ["clay_minerals", "hydrated_sulfates", "carbonates", "iron_oxides"],
         reason,
-        "no_coverage" if hits == 0 else "unknown",
+        unavailable_state("outside_footprint" if hits == 0 else "observation_unavailable"),
     )
     record.quality_flags = [
         "cmr_bbox_hits_are_not_valid_pixel_coverage",
@@ -193,6 +194,7 @@ def lunar_audit(area: Area, dataset: Dataset, cache: Cache) -> tuple[Analysis, d
     record.mineralogy = unavailable_minerals(
         ["olivine", "plagioclase", "low_calcium_pyroxene", "high_calcium_pyroxene"],
         reason,
+        unavailable_state("observation_unavailable"),
     )
     record.quality_flags = [
         "research_derived_product",
@@ -353,6 +355,7 @@ def crism_context(area: Area, dataset: Dataset, cache: Cache) -> tuple[Analysis,
     record.mineralogy = unavailable_minerals(
         ["olivine", "pyroxene", "clay_minerals", "hydrated_sulfates", "carbonates"],
         "Spectral parameter evidence retained in geological_context only; mineral detector not validated.",
+        unavailable_state("observation_unavailable"),
     )
     record.quality_flags = [
         "context_only",

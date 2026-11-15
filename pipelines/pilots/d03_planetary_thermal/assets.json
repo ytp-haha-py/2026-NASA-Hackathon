@@ -1,0 +1,53 @@
+[
+  {
+    "asset_id": "pcp:pcp_avg_tbol_pols_sum_ltim01_240",
+    "bytes": 212653759,
+    "checksum": "414354cb2334b62161e895fe0f36369fdee77af13b0c5f333b86ddb05a0f618b",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "lro-diviner-pcp-pols-summer-240m",
+    "fetched_at": "2026-11-15T06:19:53.155749+00:00",
+    "native_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "native_units": "K (bolometric brightness temperature)",
+    "nodata": null,
+    "offset": 0.0,
+    "redistribution_allowed": "unknown",
+    "scale": 1.0,
+    "schema_version": "2.0.0",
+    "uri": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/diurnal/ltim/pols/pcp_avg_tbol_pols_sum_ltim01_240.tab"
+  },
+  {
+    "asset_id": "pcp:pcp_avg_tbol_pols_sum_ltim49_240",
+    "bytes": 197367449,
+    "checksum": "35348174fb3d973fe3d43fa7777cb4a10055361c6313675f35b181079bad5ca3",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "lro-diviner-pcp-pols-summer-240m",
+    "fetched_at": "2026-11-15T06:21:31.294882+00:00",
+    "native_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "native_units": "K (bolometric brightness temperature)",
+    "nodata": null,
+    "offset": 0.0,
+    "redistribution_allowed": "unknown",
+    "scale": 1.0,
+    "schema_version": "2.0.0",
+    "uri": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/diurnal/ltim/pols/pcp_avg_tbol_pols_sum_ltim49_240.tab"
+  },
+  {
+    "asset_id": "themis-ti:THEMIS_TI_Mosaic_Quant_00N060E_100mpp:blocks",
+    "bytes": 327680,
+    "checksum": "23c18665d2e108917f564b94d6eb68f865752bb69325af44959899598bda37ca",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "window",
+    "dataset_id": "usgs-mars-themis-global-thermal-inertia-quantitative",
+    "fetched_at": "2026-11-15T06:27:26.029297+00:00",
+    "native_crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "native_units": "J m^-2 K^-1 s^-1/2",
+    "nodata": null,
+    "offset": 0.0,
+    "redistribution_allowed": "yes",
+    "scale": 1.0,
+    "schema_version": "2.0.0",
+    "uri": "https://asc-astropedia.s3.us-west-2.amazonaws.com/Mars/Odyssey/THEMIS-Global-Thermal-Inertia-Mosaic/Quantitative-32-Bit/THEMIS_TI_Mosaic_Quant_00N060E_100mpp.cub"
+  }
+]

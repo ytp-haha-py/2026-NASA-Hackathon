@@ -114,9 +114,21 @@ def bbox_predicate(bbox: BBox, *, dialect_name: str = POSTGIS_DIALECT) -> Column
     if dialect_name == POSTGIS_DIALECT:
         envelope = candidate_envelope()
         requested = query_envelope(bbox)
-        # ``&&`` is the index-friendly bounding-box test; ST_Intersects is the
-        # exact predicate and also protects against a stale or missing index.
-        return envelope.op("&&")(requested) & func.ST_Intersects(envelope, requested)
+        # ``&&`` is the index-friendly bounding-box test; ST_Intersects is the exact
+        # predicate and also protects against a stale or missing index.
+        #
+        # PostGIS counts a shared edge as intersecting, while the documented contract
+        # (and the SQLite subset below) is half-open: a footprint that merely touches
+        # the query box is excluded. The explicit comparisons restore that contract;
+        # they are evaluated only on envelope candidates.
+        return (
+            envelope.op("&&")(requested)
+            & func.ST_Intersects(envelope, requested)
+            & (Candidate.west < bbox.east)
+            & (Candidate.east > bbox.west)
+            & (Candidate.south < bbox.north)
+            & (Candidate.north > bbox.south)
+        )
     if dialect_name == SQLITE_TEST_SUBSET:
         return (
             (Candidate.east > bbox.west)

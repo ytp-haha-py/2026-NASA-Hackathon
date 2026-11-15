@@ -41,7 +41,7 @@ sources contribute no numbers to the index.
 | ESA WorldCover 2021 v200 | Earth land-cover context | **verified** | 10 m (1/12000°) | `ESA WorldCover 2021 v200` | CC BY 4.0 |
 | NASA LRO-LOLA Site04 5 m | Moon reference | **verified** | 5 m source; 90 m analysis | `Site04_final_adj_5mpp_surf` | CC0-1.0 per NASA Science Data Portal; PGDA requests citation |
 | Mars MOLA MEGDR | Mars terrain metadata | **in_progress** | 0.463–3.704 km/pixel | PDS4 bundle 1.0 / product 1.1 | not stated in bundle; recorded `not_verified` |
-| Mars THEMIS thermal inertia | Mars thermal evidence | **in_progress** | 100 m | 24-tile quantitative mosaic, edition 1 | public domain; cite authors |
+| Mars THEMIS thermal inertia | Mars thermal evidence | **bounded pilot** | 100 m | 24-tile quantitative mosaic, edition 1; 5 Jezero windows | public domain; cite authors |
 
 Mars CTX reference windows remain **verified**; they are listed under the terrain expansion
 manifests. MOLA and THEMIS have metadata interfaces but no validated observation, so zero MOLA or
@@ -153,21 +153,23 @@ support, and the grid contains interpolated bins. `MarsMolaMegdrProvider` theref
 returns metadata only and fails closed on acquisition/processing. Mars remains absent
 from `supported_bodies` for MOLA until a real comparable reference manifest validates.
 
-## Mars — THEMIS global thermal inertia (metadata verified, no observation)
+## Mars — THEMIS global thermal inertia (bounded evidence pilot)
 
 | Field | Value |
 |---|---|
 | Provider | USGS Astrogeology Science Center / ASU Mars Space Flight Facility / NASA MDAP |
 | Product | THEMIS-derived global thermal inertia mosaic, quantitative 32-bit, edition 1 |
 | Official URL | <https://astrogeology.usgs.gov/search/map/mars-themis-derived-global-thermal-inertia-mosaic> |
-| Status | `in_progress` (metadata verified; no observation) |
-| Native resolution / coverage | 100 m/pixel; 24 tiles; 60°S to 60°N |
+| Status | `bounded pilot` (5 Jezero reference windows; evidence-only) |
+| Native resolution / coverage | 100 m/pixel; 24 tiles; 60°S to 60°N; pilot reads tile `00N060E` only |
 | Licence | Public domain; please cite authors |
-| Measurements | none |
+| Measurements | 5 `thermal_inertia` observations, native 100 m, 1.98 km windows |
 
-Thermal inertia is `evidence_only`. There is no approved D03 similarity feature ID and
-no per-pixel QA/uncertainty layer; the ~2.36 GB ISIS3 tiles were not downloaded. See
-[MARS_PROVIDER_GATES.md](MARS_PROVIDER_GATES.md) for the blockers and tests.
+Thermal inertia is `evidence_only`. There is no per-pixel QA/uncertainty layer and no
+approved similarity feature ID; absolute accuracy is ~20%. Only small 128 x 128 ISIS
+tiles were read by HTTP range request, never a 2.36 GB tile or a global mosaic. See
+[`pipelines/pilots/d03_planetary_thermal/REPORT.md`](../pipelines/pilots/d03_planetary_thermal/REPORT.md)
+and [MARS_PROVIDER_GATES.md](MARS_PROVIDER_GATES.md).
 
 ## Synthetic fixtures
 

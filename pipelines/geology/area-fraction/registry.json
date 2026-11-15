@@ -1,0 +1,141 @@
+{
+  "registry_version": "geology-legend-registry-1.0.0",
+  "nonexclusive": true,
+  "reviewed_at": "2026-11-15",
+  "scope": "Bounded D02 pilot for USGS Moon Unified Geologic Map v2 and USGS SIM 3464 Jezero/Nili Planum map units. Only source codes observed in the committed pilot record are mapped; every other code stays unmapped until it is reviewed against its own official legend.",
+  "categories": {
+    "igneous": {
+      "label": "Igneous",
+      "meaning": "Mapped or documented evidence for igneous rock formation (volcanic or plutonic).",
+      "required_evidence": "Official map unit name/description or documented interpretation that states an igneous origin."
+    },
+    "impact": {
+      "label": "Impact",
+      "meaning": "Mapped or documented evidence for impact-crater formation or impact deposits.",
+      "required_evidence": "Official map unit family/name/description that states an impact-crater origin. Morphology alone does not establish impact melt, breccia or shock-mineral abundance."
+    },
+    "sedimentary": {
+      "label": "Sedimentary",
+      "meaning": "Mapped or documented evidence for sedimentary deposition or sedimentary landforms.",
+      "required_evidence": "Official map unit name/description or documented interpretation that states a depositional sedimentary process (for example deltaic, lacustrine, fluvial or eolian)."
+    },
+    "aqueous_alteration": {
+      "label": "Aqueous alteration",
+      "meaning": "Mapped or documented evidence for aqueous alteration (hydrated or clay mineralogy, sulfate alteration).",
+      "required_evidence": "Official map unit description or documented interpretation that explicitly states aqueous/hydrated/clay/sulfate alteration. Iron-oxide or other spectral indicators alone are insufficient, and carbonate-bearing sedimentary rock does not by itself prove aqueous alteration."
+    }
+  },
+  "policies": {
+    "unknown_code": "A raw code absent from its own dataset entry resolves to unmapped_code; it is never guessed from a similar code on another body or dataset.",
+    "cross_body_equivalence": "Raw codes are dataset-scoped. The same text code on Moon and Mars is not evidence of the same unit, process or material; there is no global code table.",
+    "nonexclusive": "A unit may carry zero, one or several process labels from different categories. Absence of a label is not evidence of absence.",
+    "aqueous_alteration": "Never inferred from iron oxides, hematite, goethite or spectral indices alone.",
+    "iron_oxide_alone_insufficient": true,
+    "no_numeric_similarity": "Process labels are evidence only. This registry defines no geology similarity value and no combined six-dimension score."
+  },
+  "datasets": {
+    "usgs-moon-geology-v2": {
+      "body": "Moon",
+      "legend_source": "USGS Unified Geologic Map of the Moon GIS v2: GeoUnits shapefile attributes plus the official DOMU descriptions CSV distributed in the same package.",
+      "legend_version": "2.0 (March 3, 2020)",
+      "native_frame": "Moon 2000 sphere, planetocentric latitude, east-positive longitude, LOLA control; no Earth WGS84.",
+      "map_scale": 5000000,
+      "units": {
+        "Ec": {
+          "unit_name": "Eratosthenian Crater",
+          "official_family": "Crater Unit",
+          "process_labels": [
+            {
+              "category": "impact",
+              "process": "impact_crater_unit",
+              "evidence_basis": "mapped_geology",
+              "confidence": "mapped",
+              "supporting_statement": "Official DOMU unit name 'Eratosthenian Crater', source family 'Crater Unit' and description (non-rayed circular craters with sharp to partially subdued rim crests and circumferential ejecta) document a primary impact-crater unit. No impact-melt, breccia, ejecta thickness or shock-mineral abundance is inferred.",
+              "source_document": "USGS Unified Geologic Map of the Moon GIS v2, DOMU descriptions CSV (unit Ec) and GeoUnits attribute FIRST_Un_2"
+            }
+          ],
+          "rock_labels": [],
+          "notes": "Map-scale crater unit only; the 1:5,000,000 source cannot resolve local lithology or composition. Other DOMU codes remain unmapped in this pilot."
+        }
+      }
+    },
+    "usgs-jezero-sim3464": {
+      "body": "Mars",
+      "legend_source": "USGS SIM 3464 GIS GeoUnits_v1 attributes plus the official map-sheet descriptions (the distributed XML unit descriptions are empty).",
+      "legend_version": "2020; distributed GeoUnits_v1",
+      "native_frame": "Mars 2000 sphere, planetocentric latitude, east-positive longitude, body-fixed MTM zone 77.5E; no Earth WGS84.",
+      "map_scale": 75000,
+      "units": {
+        "cr": {
+          "unit_name": "Crater rim unit",
+          "official_family": "Crater rim unit",
+          "process_labels": [
+            {
+              "category": "impact",
+              "process": "impact_crater_rim",
+              "evidence_basis": "mapped_geology",
+              "confidence": "mapped",
+              "supporting_statement": "Official SIM3464 unit name 'Crater rim unit' and description (high-relief scarps surrounding circular or quasicircular depressions) document an impact-crater rim landform. No impact-melt, breccia or shock-mineral abundance is inferred.",
+              "source_document": "USGS SIM 3464 map sheet, unit description for crater rim unit (symbol cr)"
+            }
+          ],
+          "rock_labels": [],
+          "notes": "Geomorphological crater-rim unit only."
+        },
+        "NHjf2": {
+          "unit_name": "Jezero fan 2 unit",
+          "official_family": "Jezero fan unit",
+          "process_labels": [
+            {
+              "category": "sedimentary",
+              "process": "deltaic_lacustrine_deposition",
+              "evidence_basis": "documented_interpretation",
+              "confidence": "interpreted",
+              "supporting_statement": "Official SIM3464 map-sheet interpretation identifies deltaic/lacustrine or alluvial/fluvial deposits for this fan unit; the mapped description documents stratified, lobate fan deposits at the mouth of Neretva Vallis. No grain size, mineralogy or aqueous-alteration assemblage is inferred from this label alone.",
+              "source_document": "USGS SIM 3464 map sheet and pamphlet interpretation for Jezero fan units"
+            }
+          ],
+          "rock_labels": [],
+          "notes": "Depositional fan interpretation only; mineralogy and alteration require separate evidence."
+        },
+        "Aeb": {
+          "unit_name": "Eolian bedform unit",
+          "official_family": "Eolian bedform unit",
+          "process_labels": [
+            {
+              "category": "sedimentary",
+              "process": "eolian_deposition",
+              "evidence_basis": "mapped_geology",
+              "confidence": "mapped",
+              "supporting_statement": "Official SIM3464 unit name 'Eolian bedform unit' and description (light-toned, linear, commonly parallel, low-relief ridges in local topographic lows) document wind-formed sedimentary bedforms. No grain size, composition or aqueous origin is inferred.",
+              "source_document": "USGS SIM 3464 map sheet, unit description for eolian bedform unit (symbol Aeb)"
+            }
+          ],
+          "rock_labels": [],
+          "notes": "Eolian landform evidence only; not a mineral or aqueous-alteration observation."
+        },
+        "Nue": {
+          "unit_name": "Upper etched unit",
+          "official_family": "Etched unit",
+          "process_labels": [],
+          "rock_labels": [],
+          "notes": "Official description documents an etched, rugged surficial unit without stating an igneous, impact, sedimentary or aqueous-alteration process. Kept mapped_without_process_evidence; no category is guessed."
+        },
+        "Nle": {
+          "unit_name": "Lower etched unit",
+          "official_family": "Etched unit",
+          "process_labels": [],
+          "rock_labels": [],
+          "notes": "Official description documents an etched, rugged surficial unit without stating an igneous, impact, sedimentary or aqueous-alteration process. Kept mapped_without_process_evidence; no category is guessed."
+        },
+        "Njf": {
+          "unit_name": "Jezero floor unit",
+          "official_family": "Floor unit",
+          "process_labels": [],
+          "rock_labels": [],
+          "notes": "The description mentions impact craters on the surface but the unit itself is a floor unit, not an impact unit. No process label is assigned; crater counts are not impact-process evidence for the unit."
+        }
+      }
+    }
+  }
+}

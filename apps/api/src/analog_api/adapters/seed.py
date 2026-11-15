@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 
+from pydantic import ValidationError
 from sqlalchemy import create_engine, delete, select
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
@@ -21,7 +22,7 @@ from analog_api.adapters.db import (
 )
 from analog_api.adapters.schema import ensure_schema_compatible, stamp_schema_version
 from analog_api.adapters.typed_db import TypedSourceAsset
-from analog_api.config import Settings, resolve_repo_path
+from analog_api.config import REPO_ROOT, Settings, resolve_repo_path
 from analog_api.data.synthetic import synthetic_manifest
 from analog_api.domain.manifest import Manifest
 
@@ -61,6 +62,71 @@ def discover_manifests(settings: Settings) -> list[Manifest]:
     if settings.seed_include_synthetic:
         manifests.append(Manifest.model_validate(synthetic_manifest()))
     return manifests
+
+
+def discover_typed_releases(settings: Settings) -> tuple[list[Path], list[Path]]:
+    """Return committed acquisition releases and standalone typed bundles.
+
+    Releases carry ``plan.json`` and are imported link-by-link (coarse/fine
+    provenance preserved). Bundles such as the D02 geology export carry areas,
+    assets and observations only. Both are deterministic directory scans so a
+    fresh database can be rebuilt without a network connection.
+    """
+    releases: list[Path] = []
+    bundles: list[Path] = []
+    pilot_root = resolve_repo_path(settings.pilot_dir)
+    if pilot_root.is_dir():
+        for candidate in sorted(pilot_root.iterdir()):
+            if (candidate / "manifest.json").is_file() and (candidate / "plan.json").is_file():
+                releases.append(candidate)
+    bundle_root = resolve_repo_path(settings.geology_typed_dir)
+    if (bundle_root / "manifest.json").is_file() and (bundle_root / "areas.json").is_file():
+        bundles.append(bundle_root)
+    return releases, bundles
+
+
+def seed_typed_bundles(engine: Engine, settings: Settings) -> dict[str, object]:
+    """Import every committed typed-v2 release/bundle idempotently.
+
+    Observation/area/asset primary keys are deterministic, so repeated runs
+    update in place instead of duplicating. The import never deletes typed
+    rows, AOIs or jobs.
+    """
+    from analog_api.adapters.release_import import import_release
+    from analog_api.adapters.typed_bundle import import_typed_bundle
+    from analog_api.adapters.typed_db import (
+        TypedObservationRow,
+        init_typed_db,
+    )
+
+    init_typed_db(engine)
+    releases, bundles = discover_typed_releases(settings)
+    imported: list[dict[str, object]] = []
+    with Session(engine) as session:
+        for release in releases:
+            try:
+                result = import_release(session, release)
+            except ValidationError:
+                # Some committed pilots carry a provider-specific plan that is
+                # not an AcquisitionPlan. If the portable areas/observations
+                # bundle is present, import it directly instead of failing the
+                # whole seed. Typed-bundle imports preserve provenance fields.
+                if not (release / "areas.json").is_file():
+                    raise
+                result = import_typed_bundle(session, release)
+                result["import_mode"] = "typed_bundle_fallback"
+            else:
+                result["import_mode"] = "acquisition_release"
+            result["path"] = str(release.relative_to(REPO_ROOT))
+            imported.append(result)
+        for bundle in bundles:
+            result = import_typed_bundle(session, bundle)
+            result["import_mode"] = "typed_bundle"
+            result["path"] = str(bundle.relative_to(REPO_ROOT))
+            imported.append(result)
+        session.commit()
+        total = session.query(TypedObservationRow).count()
+    return {"sources": imported, "typed_observations": total}
 
 
 def compute_data_version(manifests: list[Manifest]) -> str:
@@ -350,6 +416,8 @@ def ensure_seeded(engine: Engine, settings: Settings) -> None:
         count = session.query(Candidate).count()
     if count == 0:
         seed_manifests(engine, discover_manifests(settings), reset=False)
+    if settings.seed_include_typed:
+        seed_typed_bundles(engine, settings)
 
 
 def make_engine(database_url: str) -> Engine:

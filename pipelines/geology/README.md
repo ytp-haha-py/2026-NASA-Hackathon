@@ -84,6 +84,64 @@ Mars 使用官方 1:75,000 GIS，1304 個多邊形中 2 個無效幾何被排除
 精確來源 URL、版本、存取時間、CRS、map scale／native resolution、checksum、處理方法、
 quality flags 與 limitations 由 manifest 的 area、dataset、analysis 三層以驗證過的 ID 連結。
 
+## 礦物光譜證據 pilot（Issue #42）
+
+`pipelines/geology/mineral-evidence.json` 與 `MINERAL_EVIDENCE.md` 是可從 pinned snapshot、
+typed-v2 export 與 coverage audit 離線重建的 D02 證據報告，不新增任何礦物偵測或 abundance。
+三個官方來源與存取狀態如下，完整 product ID、DOI、授權、URL 與 blocker 見報告：
+
+| 天體 | 來源 | 官方產品 | 存取 | 本次狀態 |
+|---|---|---|---|---|
+| Earth | NASA JPL / LP DAAC EMIT | `EMITL2BMIN` V002（CMR `C4079846859-LPCLOUD`）與 V001（`C2408034484-LPCLOUD`） | `auth_required` | 只查匿名 CMR metadata；未下載 granule |
+| Moon | NASA PDS / Chandrayaan-1 M3 | L2 reflectance `CH1-ORB-L-M3-4-L2-REFLECTANCE-V1.0`（PDS4 `urn:nasa:pds:ch1_m3:data::1.0`，DOI `10.17189/f8xf-6a29`） | `open` | 已定位官方 archive；未下載、registration 未驗證 |
+| Mars | NASA PDS Geosciences / MRO CRISM | MTRDR `hrl000040ff_07_if183j_mtr3`（MTR3） | `open` | 只讀 refined summary 與 DP information；spectral parameter 僅 context |
+
+實際計數（pinned `geo-snap-d1235d5f9defe6cd`）：8 個 AOI、21 筆 analysis、56 筆 typed-v2
+observation；礦物 observation 10 筆且全部 `unknown`，detected 0、numeric 0、abundance 0；
+CRISM 7 個 spectral parameter、14 個 context 數值，全部是 `dimensionless_spectral_parameter`；
+EMIT CMR metadata 候選 V002 50、V001 88，下載 granule 0；M3 granule 0。這些數字只代表列出的
+bounded AOI，不是全球涵蓋率。
+
+五種 state 的語意由 `mineral_evidence.py` 與測試固定：`detected` 可帶 band depth；
+`not_detected_under_valid_observation` 是 categorical，typed-v2 映射為 `not_detected`，兩者都
+不是 0；`no_coverage`、`unknown`、`not_applicable` 各自保留 null，分別代表無足跡、有足跡但
+無有效觀測、超出產品適用範圍。`summarize_identification` 只回傳 spectral band depth，沒有
+abundance 欄位或 wt% 轉換。
+
+```bash
+uv run python scripts/build_mineral_evidence.py
+uv run pytest pipelines/tests/test_mineral_evidence.py -o addopts='' -q
+```
+
+builder 會先驗證 pinned snapshot 與 typed observations checksum，無網路存取，只寫上述兩個檔案；
+不修改既有 snapshot、typed export 或 Terrain observation。
+
+## Area-fraction／process evidence pilot（#41）
+
+`pipelines/geology/area-fraction/` 是獨立的 bounded pilot，只使用已驗證的 Moon
+Unified Geologic Map v2 與 Mars SIM3464 Jezero/Nili 圖幅，以及已提交的 AOI 與
+source-derived overlay record。它**不**新增地質相似度、排名或六維合併分數。
+
+- `registry.json`：`geology-legend-registry-1.0.0`，非互斥的 raw code → Igneous／
+  Impact／Sedimentary／Aqueous-alteration process evidence 對照。Mapping 以 dataset
+  為界，Moon `Ec` 與 Mars `cr` 不會互相等價；未審查的 code 保持 `unmapped_code`。
+  `aqueous_alteration` 必須有正面陳述的 alteration 證據，iron oxide／spectral
+  index 本身不合格。
+- `evidence.json` / `evidence.jsonl` / `manifest.json`：每個單元的原始 code、
+  fraction、area、source product/version/license、map scale、native/analysis CRS、
+  uncertainty／QA 與非互斥 process labels。`no_coverage`／`unknown` 的 fraction 與
+  area 為 `null`，不是 0。
+- `earth-glim-license.json`：GLiM polygon GIS 的授權查核結果為
+  `license_unverified`，不得提交或發布幾何與逐單元數值；替代方案為 Geological
+  Survey of Canada Open File 5529（Open Government Licence – Canada），狀態
+  `candidate_not_ingested`。
+- `SOURCE_VERIFICATION.md`：來源版本／授權、實測 fraction、方法與 blocker。
+
+Area 量測使用各天體正確 radius 的 equal-area LAEA；class raster 僅允許
+nearest-neighbour（超出來源範圍必須明示 nodata）；invalid geometry 預設排除並計數，
+`make_valid` 修復須明確開啟。實際結果與可重現指令見該目錄 README 與
+`SOURCE_VERIFICATION.md`。
+
 ## Clone 後直接離線讀取
 
 只需要原專案依賴，不必安裝 GIS 額外套件、不必重新下載原始資料，也不必登入 Earthdata。

@@ -1,0 +1,36 @@
+[
+  {
+    "body": "Moon",
+    "dataset_id": "lro-diviner-pcp-pols-summer-240m",
+    "depth_support": "surface thermal-infrared brightness temperature",
+    "license": "NASA PDS public archive; the PDS4 label carries no explicit licence field; cite Williams et al. (2019)",
+    "license_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/",
+    "native_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "native_resolution_m": 240.0,
+    "product_id": "PCP_AVG_TBOL_POLS_SUM_LTIM01_240.TAB; PCP_AVG_TBOL_POLS_SUM_LTIM49_240.TAB",
+    "provider": "NASA Planetary Data System Geosciences Node / UCLA Diviner Lunar Radiometer Experiment",
+    "redistribution_allowed": "unknown",
+    "schema_version": "2.0.0",
+    "temporal_support": "2009-07-05T16:50:26.195Z to 2019-02-17T00:00:00.000Z; southern_summer (subsolar latitude < 0 deg); 0.25 h local-time bins",
+    "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/",
+    "verification_status": "verified",
+    "version": "PDS4 collection 1.0 / product version 1; calibration software 4.0"
+  },
+  {
+    "body": "Mars",
+    "dataset_id": "usgs-mars-themis-global-thermal-inertia-quantitative",
+    "depth_support": "upper few centimetres (apparent thermal inertia)",
+    "license": "Public domain (USGS Astrogeology access constraints); cite authors",
+    "license_url": "https://astrogeology.usgs.gov/search/map/themis_thermal_inertia_mosaic_quantitative_00n060e_100mpp",
+    "native_crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "native_resolution_m": 100.0,
+    "product_id": "THEMIS_TI_Mosaic_Quant_00N060E_100mpp",
+    "provider": "USGS Astrogeology Science Center / Arizona State University / NASA Mars Data Analysis Program",
+    "redistribution_allowed": "yes",
+    "schema_version": "2.0.0",
+    "temporal_support": "Apparent thermal inertia is time-independent by retrieval; per-pixel acquisition time/season is not carried by the mosaic",
+    "url": "https://astrogeology.usgs.gov/search/map/themis_thermal_inertia_mosaic_quantitative_00n060e_100mpp",
+    "verification_status": "verified",
+    "version": "edition 1 (2014-05-30)"
+  }
+]

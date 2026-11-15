@@ -1,0 +1,70 @@
+{
+  "schema": "geology-source-license-verification-1.0.0",
+  "checked_at": "2026-11-15",
+  "body": "Earth",
+  "dataset_id": "glim-niveau-i-mirror",
+  "product": "GLiM / Lithological Map of the World polygon GIS",
+  "verdict": "license_unverified",
+  "redistribution_allowed": "no",
+  "availability_status": "license_unverified",
+  "decision": "Do not commit, publish or redistribute GLiM polygon geometry or per-unit derived values. Keep the bounded local overlay in the external cache and export only availability status plus this verification record.",
+  "findings": [
+    {
+      "checked_source": "CCGM/CGMW official product page (Lithological Map of the World, 1st edition 2015)",
+      "url": "https://www.ccgm.org/en/product/lithological-map-of-the-world",
+      "observed": "Priced map product marked '(c)CCGM-CGMW 2015'; the GIS data are distributed via the CCGM link. The PDF edition notes 'This card is subject to a licence agreement.'",
+      "status": "copyrighted_restricted",
+      "supports_redistribution": false
+    },
+    {
+      "checked_source": "CCGM/CGMW digital map licence agreement",
+      "url": "https://www.ccgm.org/en/licence-agreement-for-the-digital-maps-of-the-commission-for-the-geological-map-of-the-world",
+      "observed": "Licence is granted for internal educational/research use, limited to the licensee's premises, for five years and against a fee; the licensee may not assign, sell, distribute or transfer the maps or derived products to third parties.",
+      "status": "restricted",
+      "supports_redistribution": false
+    },
+    {
+      "checked_source": "University of Hamburg GLiM project page (official project description)",
+      "url": "https://www.geo.uni-hamburg.de/en/geologie/forschung/aquatische-geochemie/glim.html",
+      "observed": "The map can be ordered from CCGM and the original GIS data are downloadable through the CCGM link; no open licence is stated for the polygon GIS.",
+      "status": "no_open_licence_stated",
+      "supports_redistribution": false
+    },
+    {
+      "checked_source": "ArcGIS FeatureServer mirror item used by the pilot (GLiM_Niveau_I)",
+      "url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+      "observed": "licenseInfo is an empty string; accessInformation carries the citation only. Mirror provenance and upstream equivalence are not verified.",
+      "status": "license_unverified",
+      "supports_redistribution": false
+    },
+    {
+      "checked_source": "PANGAEA 788537 (GLiM v1.0 gridded to 0.5 degrees)",
+      "url": "https://doi.pangaea.de/10.1594/PANGAEA.788537",
+      "observed": "CC BY 3.0 applies to the separate 0.5-degree gridded dataset. This licence is not transferred to the polygon GIS and its coarse grid is not a substitute for the 1:3,750,000 polygon overlay.",
+      "status": "different_product_cc_by_3_0",
+      "supports_redistribution": false
+    }
+  ],
+  "legally_usable_alternative": {
+    "dataset_id": "gsc-generalized-geology-world-of5529",
+    "product": "Generalized Geology of the World: Bedrock Domains and Major Faults in GIS Format",
+    "provider": "Geological Survey of Canada / Natural Resources Canada",
+    "version": "Open File 5529, 2007",
+    "map_scale": 35000000,
+    "license": "Open Government Licence - Canada, version 2.0",
+    "license_url": "https://open.canada.ca/en/open-government-licence-canada",
+    "license_summary": "Worldwide, royalty-free, perpetual, non-exclusive licence, including commercial use, with attribution; third-party rights are excluded.",
+    "access_points": [
+      "https://doi.org/10.4095/223767",
+      "https://mrdata.usgs.gov/geology/gscworld"
+    ],
+    "redistribution_allowed": "yes_with_attribution",
+    "status": "candidate_not_ingested",
+    "download_note": "Not downloaded in this pilot. Any future fetch must be opt-in, bounded to the selected AOI/window and recorded with checksum; the GIS ZIP is roughly 550 MB so a full download is out of scope.",
+    "limitations": [
+      "Approximately 1:35,000,000 generalized bedrock domains; far coarser than GLiM and not a drop-in substitute for local lithology.",
+      "Attribute legend must be reviewed and versioned before any process labels are assigned.",
+      "The USGS mrdata page is a distribution mirror, not the data owner; attribution must name the Geological Survey of Canada."
+    ]
+  }
+}

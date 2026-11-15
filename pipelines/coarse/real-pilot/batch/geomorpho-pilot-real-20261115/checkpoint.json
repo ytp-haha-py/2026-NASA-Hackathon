@@ -1,0 +1,217 @@
+{
+  "checkpoint_version": "1.0.0",
+  "created_at": "2026-11-15T05:48:42.111277+00:00",
+  "run_id": "geomorpho-pilot-real-20261115",
+  "tasks": {
+    "geomorpho-batch-v1-415bceb2741c6f50": {
+      "attempts": 1,
+      "error": null,
+      "fingerprint": "6a2a6ac04c14ec85acccf6cb169c0ec994429d77332d02bfe1173ca8fabd05fe",
+      "input_checksum": "e0c301f2dcd4891c5f55533d526857f94b844bb8c80ab6a991e45bab34556885",
+      "metrics": {
+        "cells_invalid": 0,
+        "cells_no_coverage": 0,
+        "cells_succeeded": 8
+      },
+      "output_checksum": "5c751f0b3b5e5bbe60eeecf71f6526171c77281abf3a719142cb528b014063b4",
+      "output_path": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-415bceb2741c6f50/rows.parquet",
+      "region_id": "pilot-grand-canyon",
+      "rows": 8,
+      "status": "succeeded",
+      "updated_at": "2026-11-15T05:48:42.719953+00:00",
+      "warnings": [],
+      "window_count": 8
+    },
+    "geomorpho-batch-v1-65128d5a946443ce": {
+      "attempts": 1,
+      "error": null,
+      "fingerprint": "12385f646f6dbffdd1327c4c8d349d3c0e82f1021b0d700ef9f3e508bf43fe8d",
+      "input_checksum": "e0c301f2dcd4891c5f55533d526857f94b844bb8c80ab6a991e45bab34556885",
+      "metrics": {
+        "cells_invalid": 0,
+        "cells_no_coverage": 0,
+        "cells_succeeded": 16
+      },
+      "output_checksum": "53f58f01aca3a0c69c85f5a09633f2674ce2da34ebe4f3c5f22374db3cef3ae4",
+      "output_path": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-65128d5a946443ce/rows.parquet",
+      "region_id": "pilot-grand-canyon",
+      "rows": 16,
+      "status": "succeeded",
+      "updated_at": "2026-11-15T05:48:42.628875+00:00",
+      "warnings": [],
+      "window_count": 16
+    },
+    "geomorpho-batch-v1-714e5c81d3777321": {
+      "attempts": 1,
+      "error": null,
+      "fingerprint": "f5020ead7680919ee5009908123203ac70fa45eb34abf0cc14f9046d2cdd025f",
+      "input_checksum": "3c8a3f993c43ddf79929b86db7c589abc781baa030b782db894926c8acf234c9",
+      "metrics": {
+        "cells_invalid": 0,
+        "cells_no_coverage": 0,
+        "cells_succeeded": 16
+      },
+      "output_checksum": "4800369870db55b73ed12cddb8343f02cb08836e4f82e806bc66d392fcf762fb",
+      "output_path": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-714e5c81d3777321/rows.parquet",
+      "region_id": "pilot-sahara",
+      "rows": 16,
+      "status": "succeeded",
+      "updated_at": "2026-11-15T05:48:42.757214+00:00",
+      "warnings": [],
+      "window_count": 16
+    },
+    "geomorpho-batch-v1-9cccaaa3f9cc0ad4": {
+      "attempts": 1,
+      "error": null,
+      "fingerprint": "b596e22dd6ec2e58705914ecb9f199f3689b15a6e5459741c642f4e59ed2fd9b",
+      "input_checksum": "3c8a3f993c43ddf79929b86db7c589abc781baa030b782db894926c8acf234c9",
+      "metrics": {
+        "cells_invalid": 0,
+        "cells_no_coverage": 0,
+        "cells_succeeded": 16
+      },
+      "output_checksum": "e7a77882714f24854c8a4497acc016ee052e2051982a4c692ffdea390db057f3",
+      "output_path": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-9cccaaa3f9cc0ad4/rows.parquet",
+      "region_id": "pilot-sahara",
+      "rows": 16,
+      "status": "succeeded",
+      "updated_at": "2026-11-15T05:48:42.907031+00:00",
+      "warnings": [],
+      "window_count": 16
+    },
+    "geomorpho-batch-v1-aeedaabab626da85": {
+      "attempts": 1,
+      "error": null,
+      "fingerprint": "0afd4609a2d5a3257c18cec3d838883844bedc17a509a57bbe9af75329428a25",
+      "input_checksum": "e0c301f2dcd4891c5f55533d526857f94b844bb8c80ab6a991e45bab34556885",
+      "metrics": {
+        "cells_invalid": 0,
+        "cells_no_coverage": 0,
+        "cells_succeeded": 16
+      },
+      "output_checksum": "6771b01a76e41089563a6f0f442ac9c0575463677cb587ff761cc0cff584d3b5",
+      "output_path": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-aeedaabab626da85/rows.parquet",
+      "region_id": "pilot-grand-canyon",
+      "rows": 16,
+      "status": "succeeded",
+      "updated_at": "2026-11-15T05:48:42.471529+00:00",
+      "warnings": [],
+      "window_count": 16
+    },
+    "geomorpho-batch-v1-b12288bbb5059082": {
+      "attempts": 1,
+      "error": null,
+      "fingerprint": "601f390df7719d3542f45cb17e9906804867d86d101a2652d8bdf0374a131720",
+      "input_checksum": "e1349d175135549fee6336c0aaa4d036fdaeb5d209b5a44c5865d73c17ca78fd",
+      "metrics": {
+        "cells_invalid": 0,
+        "cells_no_coverage": 0,
+        "cells_succeeded": 16
+      },
+      "output_checksum": "77b9e62556608e69a3000dedd8e53679b54c7635948f385759f5f3f88957c91e",
+      "output_path": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-b12288bbb5059082/rows.parquet",
+      "region_id": "pilot-alps",
+      "rows": 16,
+      "status": "succeeded",
+      "updated_at": "2026-11-15T05:48:42.481723+00:00",
+      "warnings": [],
+      "window_count": 16
+    },
+    "geomorpho-batch-v1-c7bc681722713d78": {
+      "attempts": 1,
+      "error": null,
+      "fingerprint": "739e4e5407a68ae739ecb42a1f821c4ab04dc485b24b5bfc64941f5035cd7c7f",
+      "input_checksum": "e1349d175135549fee6336c0aaa4d036fdaeb5d209b5a44c5865d73c17ca78fd",
+      "metrics": {
+        "cells_invalid": 0,
+        "cells_no_coverage": 0,
+        "cells_succeeded": 16
+      },
+      "output_checksum": "65a4ad66287718ab4e50478013e84f31b15909c97362c2a51ef046b455f868ac",
+      "output_path": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-c7bc681722713d78/rows.parquet",
+      "region_id": "pilot-alps",
+      "rows": 16,
+      "status": "succeeded",
+      "updated_at": "2026-11-15T05:48:42.329325+00:00",
+      "warnings": [],
+      "window_count": 16
+    },
+    "geomorpho-batch-v1-c95ea5ef1ec5c77b": {
+      "attempts": 1,
+      "error": null,
+      "fingerprint": "2946470e0dbc49691bb892d8ba27e43b97abb838468beffba606007590d6706c",
+      "input_checksum": "3c8a3f993c43ddf79929b86db7c589abc781baa030b782db894926c8acf234c9",
+      "metrics": {
+        "cells_invalid": 0,
+        "cells_no_coverage": 0,
+        "cells_succeeded": 16
+      },
+      "output_checksum": "70cc1f1295f8973af229d021db55cb27000cd74a721d40523a1cd34b02d50318",
+      "output_path": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-c95ea5ef1ec5c77b/rows.parquet",
+      "region_id": "pilot-sahara",
+      "rows": 16,
+      "status": "succeeded",
+      "updated_at": "2026-11-15T05:48:42.853990+00:00",
+      "warnings": [],
+      "window_count": 16
+    },
+    "geomorpho-batch-v1-df8e4318e3b07efc": {
+      "attempts": 1,
+      "error": null,
+      "fingerprint": "3a2099af6ab40e6cd4b15e8386dbad09c89e615e140a1d379d4701aedcab1079",
+      "input_checksum": "e0c301f2dcd4891c5f55533d526857f94b844bb8c80ab6a991e45bab34556885",
+      "metrics": {
+        "cells_invalid": 0,
+        "cells_no_coverage": 0,
+        "cells_succeeded": 16
+      },
+      "output_checksum": "df3d63726dbaa3b72166373a2b4f88f12d69f538d81f72d5dc8df684fcfcdf1f",
+      "output_path": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-df8e4318e3b07efc/rows.parquet",
+      "region_id": "pilot-grand-canyon",
+      "rows": 16,
+      "status": "succeeded",
+      "updated_at": "2026-11-15T05:48:42.621874+00:00",
+      "warnings": [],
+      "window_count": 16
+    },
+    "geomorpho-batch-v1-e46226ce9068c778": {
+      "attempts": 1,
+      "error": null,
+      "fingerprint": "78217be403cbe53f88d73d6003b3200d7e04d2aade78c7bc9584cc7495d3887d",
+      "input_checksum": "3c8a3f993c43ddf79929b86db7c589abc781baa030b782db894926c8acf234c9",
+      "metrics": {
+        "cells_invalid": 0,
+        "cells_no_coverage": 0,
+        "cells_succeeded": 16
+      },
+      "output_checksum": "85e3f1e5c0704354c7d725d55265da155c57610cfac3daf82ec7cd04215a0d42",
+      "output_path": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-e46226ce9068c778/rows.parquet",
+      "region_id": "pilot-sahara",
+      "rows": 16,
+      "status": "succeeded",
+      "updated_at": "2026-11-15T05:48:42.983333+00:00",
+      "warnings": [],
+      "window_count": 16
+    },
+    "geomorpho-batch-v1-f3a7c68709553e27": {
+      "attempts": 1,
+      "error": null,
+      "fingerprint": "44045141e6215378065633e84ac072b289ff3b4b400a33d2e5cf611543e7b2e0",
+      "input_checksum": "e1349d175135549fee6336c0aaa4d036fdaeb5d209b5a44c5865d73c17ca78fd",
+      "metrics": {
+        "cells_invalid": 0,
+        "cells_no_coverage": 0,
+        "cells_succeeded": 16
+      },
+      "output_checksum": "02cc462542ed53c97fc145426b085ca3afd966d79711c226a96627814e246c34",
+      "output_path": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/tasks/geomorpho-batch-v1-f3a7c68709553e27/rows.parquet",
+      "region_id": "pilot-alps",
+      "rows": 16,
+      "status": "succeeded",
+      "updated_at": "2026-11-15T05:48:42.319255+00:00",
+      "warnings": [],
+      "window_count": 16
+    }
+  },
+  "updated_at": "2026-11-15T05:48:42.983343+00:00"
+}
