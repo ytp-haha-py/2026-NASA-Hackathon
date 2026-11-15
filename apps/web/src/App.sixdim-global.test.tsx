@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import { App } from "./App";
 import { emptyTypedAreaFixture, referenceFixture, typedAreaFixture } from "./test/fixtures";
 import { installMockFetch, jsonResponse, type FetchHandlers } from "./test/mock-api";
+import { applyExampleTarget } from "./test/example-target";
 
 vi.mock("./components/MapPanel", () => ({
   MapPanel: ({ results }: { results: { location_id: string }[] }) => (
@@ -31,6 +32,7 @@ async function renderReady(handlers: FetchHandlers = {}) {
   const fetchMock = installMockFetch(handlers);
   render(<App aoiPollIntervalMs={10} />);
   await screen.findByRole("tab", { name: "Six dimensions" });
+  await applyExampleTarget();
   return fetchMock;
 }
 
