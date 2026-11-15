@@ -30,6 +30,10 @@ class Settings(BaseSettings):
     global_index_dir: str = "data/global-index"
     global_snapshot_id: str | None = None
     planetary_coarse_dir: str = "pipelines/planetary/coarse"
+    # On-demand Moon analysis outside a committed pilot window may use a bounded
+    # /vsicurl read of the verified NASA source. Disabled by default so tests and
+    # offline deployments never reach the network implicitly.
+    planetary_allow_network: bool = False
 
     @property
     def cors_origin_list(self) -> list[str]:

@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from analog_api.adapters.aoi_store import persist_aoi_result
 from analog_api.adapters.db import AnalysisJob
+from analog_api.adapters.planetary_store import persist_planetary_aoi_result
 from analog_api.domain.aoi import AoiProcessor, ValidatedAoi
 from analog_api.domain.entities import BBox
 from analog_api.domain.errors import AppError
@@ -121,22 +122,48 @@ class JobRunner:
                     height_m=request["height_m"],
                 )
                 result = self.processor.analyze(aoi)
-                data_version = persist_aoi_result(session, result)
+                if result.body == "Earth":
+                    data_version = persist_aoi_result(session, result)
+                else:
+                    data_version = persist_planetary_aoi_result(session, result)
                 job.area_id = result.area_id
                 job.provider_status = result.provider_status
                 failed_providers = [
                     name
                     for name, status in result.provider_status.items()
-                    if status.get("status") not in {"verified", "ok"}
+                    if str(status.get("status", "")).lower()
+                    not in {"ok", "verified", "verified_committed_fixture", "observed"}
+                    and not str(status.get("status", "")).lower().startswith("verified")
                 ]
                 job.status = "partial" if failed_providers else "completed"
                 job.result_json = {
                     "area_id": result.area_id,
                     "location_id": result.area_id,
+                    "body": result.body,
+                    "coordinate_frame": result.coordinate_frame,
+                    "method_version": result.method_version,
+                    "analysis_kind": result.analysis_kind,
+                    "coverage_note": result.coverage_note,
                     "data_version": data_version,
                     "feature_count": len(result.features),
                     "context_feature_count": len(result.context_observations),
+                    "features": dict(result.features),
+                    "dimension_support": result.dimension_support,
                     "provider_status": result.provider_status,
+                    "sources": [
+                        {
+                            "dataset_id": dataset.dataset_id,
+                            "provider": dataset.provider,
+                            "product_id": dataset.product_id,
+                            "url": dataset.url,
+                            "license": dataset.license,
+                            "license_url": dataset.license_url,
+                            "source_kind": dataset.source_kind,
+                            "source_crs": dataset.source_crs,
+                            "native_resolution_m": dataset.native_resolution_m,
+                        }
+                        for dataset in result.datasets
+                    ],
                     "warnings": list(result.warnings),
                     "area_km2": result.area_km2,
                 }

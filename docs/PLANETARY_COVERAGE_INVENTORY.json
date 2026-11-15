@@ -1,0 +1,2179 @@
+{
+  "bodies": {
+    "Mars": {
+      "body": "Mars",
+      "coarse_d01": {
+        "bbox": {
+          "east": 78.26027328954129,
+          "north": 18.642810606074836,
+          "south": 18.472520081778647,
+          "west": 78.08240903206506
+        },
+        "cell_count": 6,
+        "claim_scope": "bounded_committed_subset_not_global",
+        "comparability_decisions": [
+          {
+            "decision": "evidence_only",
+            "earth_method_version": "coarse-terrain-250m-1.0.0",
+            "feature_id": "coarse_flat_fraction_lt5deg",
+            "method_version": "coarse-planetary-dem-horn-1.0.0",
+            "reason": "coarse_flat_fraction_lt5deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 0.086.",
+            "regions": [
+              "mars-ctx-jezero-window-01"
+            ],
+            "unit": "fraction"
+          },
+          {
+            "decision": "not_comparable",
+            "earth_method_version": "coarse-terrain-250m-1.0.0",
+            "feature_id": "coarse_flat_fraction_lt5deg",
+            "method_version": "coarse-planetary-dem-horn-1.0.0",
+            "reason": "MEGDR native support is 463.0576672 m/pixel (128 ppd), 1.85x coarser than the 250 m coarse analysis grid and 2.0x coarser than the 7.5 arc-second Earth coarse support; each 5 km cell contains only ~11 native pixels, and MEGDR supplies interpolated median values where no MOLA shot falls in a bin. A 250 m grid would upsample an interpolated product, not measure the same quantity at the same support.",
+            "regions": [
+              "mars-mola-meg128-evidence-01"
+            ],
+            "unit": "fraction"
+          },
+          {
+            "decision": "evidence_only",
+            "earth_method_version": "coarse-terrain-250m-1.0.0",
+            "feature_id": "coarse_slope_mean_deg",
+            "method_version": "coarse-planetary-dem-horn-1.0.0",
+            "reason": "coarse_slope_mean_deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 0.086.",
+            "regions": [
+              "mars-ctx-jezero-window-01"
+            ],
+            "unit": "degree"
+          },
+          {
+            "decision": "not_comparable",
+            "earth_method_version": "coarse-terrain-250m-1.0.0",
+            "feature_id": "coarse_slope_mean_deg",
+            "method_version": "coarse-planetary-dem-horn-1.0.0",
+            "reason": "MEGDR native support is 463.0576672 m/pixel (128 ppd), 1.85x coarser than the 250 m coarse analysis grid and 2.0x coarser than the 7.5 arc-second Earth coarse support; each 5 km cell contains only ~11 native pixels, and MEGDR supplies interpolated median values where no MOLA shot falls in a bin. A 250 m grid would upsample an interpolated product, not measure the same quantity at the same support.",
+            "regions": [
+              "mars-mola-meg128-evidence-01"
+            ],
+            "unit": "degree"
+          },
+          {
+            "decision": "evidence_only",
+            "earth_method_version": "coarse-terrain-250m-1.0.0",
+            "feature_id": "coarse_slope_p90_deg",
+            "method_version": "coarse-planetary-dem-horn-1.0.0",
+            "reason": "coarse_slope_p90_deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 0.086.",
+            "regions": [
+              "mars-ctx-jezero-window-01"
+            ],
+            "unit": "degree"
+          },
+          {
+            "decision": "not_comparable",
+            "earth_method_version": "coarse-terrain-250m-1.0.0",
+            "feature_id": "coarse_slope_p90_deg",
+            "method_version": "coarse-planetary-dem-horn-1.0.0",
+            "reason": "MEGDR native support is 463.0576672 m/pixel (128 ppd), 1.85x coarser than the 250 m coarse analysis grid and 2.0x coarser than the 7.5 arc-second Earth coarse support; each 5 km cell contains only ~11 native pixels, and MEGDR supplies interpolated median values where no MOLA shot falls in a bin. A 250 m grid would upsample an interpolated product, not measure the same quantity at the same support.",
+            "regions": [
+              "mars-mola-meg128-evidence-01"
+            ],
+            "unit": "degree"
+          }
+        ],
+        "comparable_bbox": {
+          "east": 78.26027328954129,
+          "north": 18.642018368217318,
+          "south": 18.473312319636165,
+          "west": 78.08240903206506
+        },
+        "comparable_candidate_ids": [
+          "planet-coarse-v1:8e7ce607c8c9001d",
+          "planet-coarse-v1:e81519aa779ebeca",
+          "planet-coarse-v1:2b7260352141922a",
+          "planet-coarse-v1:591d325c440579f8"
+        ],
+        "comparable_cell_count": 4,
+        "cross_body_ranking": {
+          "all_manifests_disabled": true,
+          "blocking_features": [
+            "coarse_flat_fraction_lt5deg",
+            "coarse_slope_mean_deg",
+            "coarse_slope_p90_deg"
+          ],
+          "claim_scope": "bounded_pilot_cells_only_not_a_global_survey",
+          "enabled": false,
+          "reason": "No planetary coarse metric is validated as the same quantity, method and support as the Earth coarse index. Evidence-only and not_comparable metrics must not be scored against Earth candidates."
+        },
+        "dataset_ids": [
+          "mars2020-jezero-ctx-dem-20m",
+          "pds-mgs-mola-megdr-meg128"
+        ],
+        "earth_coarse_method_versions": [
+          "coarse-terrain-250m-1.0.0"
+        ],
+        "evidence_only_bbox": {
+          "east": 78.25877597517503,
+          "north": 18.642810606074836,
+          "south": 18.472520081778647,
+          "west": 78.08390634643129
+        },
+        "evidence_only_candidate_ids": [
+          "planet-coarse-v1:bfd9fa9df7f8a644",
+          "planet-coarse-v1:a4c4f3fd39796da8"
+        ],
+        "evidence_only_cell_count": 2,
+        "evidence_only_separated": true,
+        "limitations": [
+          "Four 5 km cells inside one 10 x 10 km coordinate window of the Jezero CTX mosaic; not Mars global coverage and not a geological unit map.",
+          "The 20 m stereo DTM is aggregated to 250 m; mosaic seams and per-window vertical uncertainty are not validated.",
+          "The value is a Horn 3x3 derivative of elevation, not the published Geomorpho250 preprocessed slope product used by the Earth coarse index.",
+          "No cross-body ranking is enabled; every slope-derived metric is evidence_only.",
+          "Evidence-only: MEGDR native support is 463.0576672 m/pixel, so each cell contains ~11 native pixels and a 250 m grid would upsample an interpolated product.",
+          "MEGDR stores median observed topography and supplies interpolated values where no MOLA shot falls in a bin; the two evidence cells are at Jezero for a paired support comparison with CTX, not a new global grid.",
+          "MOLA licence/redistribution terms are not stated in the PDS4 bundle labels.",
+          "No cross-body or cross-method ranking is enabled."
+        ],
+        "method_versions": [
+          "coarse-planetary-dem-horn-1.0.0"
+        ],
+        "region_ids": [
+          "mars-ctx-jezero-window-01",
+          "mars-mola-meg128-evidence-01"
+        ],
+        "regions": [
+          {
+            "aggregate_features": {
+              "coarse_flat_fraction_lt5deg": {
+                "cell_count": 4,
+                "max": 0.9175,
+                "mean": 0.68875,
+                "min": 0.54
+              },
+              "coarse_slope_mean_deg": {
+                "cell_count": 4,
+                "max": 4.869835139787125,
+                "mean": 3.9077427583168487,
+                "min": 2.288862153252994
+              },
+              "coarse_slope_p90_deg": {
+                "cell_count": 4,
+                "max": 8.139509735536356,
+                "mean": 6.75516062562866,
+                "min": 4.719774101307491
+              }
+            },
+            "analysis_resolution_m": 250.0,
+            "bbox_body_lonlat": {
+              "east": 78.26027328954129,
+              "north": 18.642018368217318,
+              "south": 18.473312319636165,
+              "west": 78.08240903206506
+            },
+            "bbox_metric": {
+              "east": 4400000.0,
+              "north": 1105000.0,
+              "south": 1095000.0,
+              "west": 4390000.0
+            },
+            "candidate_ids": [
+              "planet-coarse-v1:8e7ce607c8c9001d",
+              "planet-coarse-v1:e81519aa779ebeca",
+              "planet-coarse-v1:2b7260352141922a",
+              "planet-coarse-v1:591d325c440579f8"
+            ],
+            "cell_count": 4,
+            "cells": [
+              {
+                "bbox_body_lonlat": {
+                  "east": 78.17134116080317,
+                  "north": 18.55766534392674,
+                  "south": 18.473312319636165,
+                  "west": 78.08240903206506
+                },
+                "candidate_id": "planet-coarse-v1:8e7ce607c8c9001d",
+                "col": 0,
+                "elevation_stats": {
+                  "elevation_max_m": -2085.675243325398,
+                  "elevation_mean_m": -2279.274499301611,
+                  "elevation_min_m": -2428.9820941061707,
+                  "relief_p95_p05_m": 226.36723350208194,
+                  "valid_elevation_pixels": 400
+                },
+                "features": {
+                  "coarse_flat_fraction_lt5deg": 0.69,
+                  "coarse_slope_mean_deg": 3.9766174118611417,
+                  "coarse_slope_p90_deg": 6.966672456377621
+                },
+                "row": 0,
+                "valid_fraction": 1.0
+              },
+              {
+                "bbox_body_lonlat": {
+                  "east": 78.26027328954129,
+                  "north": 18.55766534392674,
+                  "south": 18.473312319636165,
+                  "west": 78.17134116080317
+                },
+                "candidate_id": "planet-coarse-v1:e81519aa779ebeca",
+                "col": 1,
+                "elevation_stats": {
+                  "elevation_max_m": -2076.872163988095,
+                  "elevation_mean_m": -2219.0266861453265,
+                  "elevation_min_m": -2433.1254998032364,
+                  "relief_p95_p05_m": 256.0155962937947,
+                  "valid_elevation_pixels": 400
+                },
+                "features": {
+                  "coarse_flat_fraction_lt5deg": 0.54,
+                  "coarse_slope_mean_deg": 4.869835139787125,
+                  "coarse_slope_p90_deg": 8.139509735536356
+                },
+                "row": 0,
+                "valid_fraction": 1.0
+              },
+              {
+                "bbox_body_lonlat": {
+                  "east": 78.17134116080317,
+                  "north": 18.642018368217318,
+                  "south": 18.55766534392674,
+                  "west": 78.08240903206506
+                },
+                "candidate_id": "planet-coarse-v1:2b7260352141922a",
+                "col": 0,
+                "elevation_stats": {
+                  "elevation_max_m": -2196.394565112608,
+                  "elevation_mean_m": -2383.932322475411,
+                  "elevation_min_m": -2502.49230969313,
+                  "relief_p95_p05_m": 254.2869055958231,
+                  "valid_elevation_pixels": 400
+                },
+                "features": {
+                  "coarse_flat_fraction_lt5deg": 0.6075,
+                  "coarse_slope_mean_deg": 4.495656328366134,
+                  "coarse_slope_p90_deg": 7.194686209293172
+                },
+                "row": 1,
+                "valid_fraction": 1.0
+              },
+              {
+                "bbox_body_lonlat": {
+                  "east": 78.26027328954129,
+                  "north": 18.642018368217318,
+                  "south": 18.55766534392674,
+                  "west": 78.17134116080317
+                },
+                "candidate_id": "planet-coarse-v1:591d325c440579f8",
+                "col": 1,
+                "elevation_stats": {
+                  "elevation_max_m": -2247.941134491862,
+                  "elevation_mean_m": -2408.320399737163,
+                  "elevation_min_m": -2468.5549829169145,
+                  "relief_p95_p05_m": 120.01789617171426,
+                  "valid_elevation_pixels": 400
+                },
+                "features": {
+                  "coarse_flat_fraction_lt5deg": 0.9175,
+                  "coarse_slope_mean_deg": 2.288862153252994,
+                  "coarse_slope_p90_deg": 4.719774101307491
+                },
+                "row": 1,
+                "valid_fraction": 1.0
+              }
+            ],
+            "classification": "comparable_support_evidence_only",
+            "comparability": [
+              {
+                "decision": "evidence_only",
+                "earth_method_version": "coarse-terrain-250m-1.0.0",
+                "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+                "earth_value_source": "preprocessed Geomorpho250 slope product",
+                "feature_id": "coarse_slope_mean_deg",
+                "label": "Coarse mean slope (250 m source)",
+                "method_version": "coarse-planetary-dem-horn-1.0.0",
+                "planetary_support": "5 km window, 20.000 m native source, fixed 250 m analysis grid",
+                "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+                "reason": "coarse_slope_mean_deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 0.086.",
+                "support_ratio_vs_earth": 0.08623826727547405,
+                "unit": "degree"
+              },
+              {
+                "decision": "evidence_only",
+                "earth_method_version": "coarse-terrain-250m-1.0.0",
+                "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+                "earth_value_source": "preprocessed Geomorpho250 slope product",
+                "feature_id": "coarse_slope_p90_deg",
+                "label": "Coarse 90th percentile slope",
+                "method_version": "coarse-planetary-dem-horn-1.0.0",
+                "planetary_support": "5 km window, 20.000 m native source, fixed 250 m analysis grid",
+                "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+                "reason": "coarse_slope_p90_deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 0.086.",
+                "support_ratio_vs_earth": 0.08623826727547405,
+                "unit": "degree"
+              },
+              {
+                "decision": "evidence_only",
+                "earth_method_version": "coarse-terrain-250m-1.0.0",
+                "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+                "earth_value_source": "preprocessed Geomorpho250 slope product",
+                "feature_id": "coarse_flat_fraction_lt5deg",
+                "label": "Coarse flat fraction (<5\u00b0)",
+                "method_version": "coarse-planetary-dem-horn-1.0.0",
+                "planetary_support": "5 km window, 20.000 m native source, fixed 250 m analysis grid",
+                "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+                "reason": "coarse_flat_fraction_lt5deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 0.086.",
+                "support_ratio_vs_earth": 0.08623826727547405,
+                "unit": "fraction"
+              }
+            ],
+            "cross_body_ranking": {
+              "blocking_features": [
+                "coarse_flat_fraction_lt5deg",
+                "coarse_slope_mean_deg",
+                "coarse_slope_p90_deg"
+              ],
+              "claim_scope": "bounded_pilot_cells_only_not_a_global_survey",
+              "enabled": false,
+              "reason": "Cross-body coarse ranking is disabled: no coarse metric is validated as the same quantity, method and support as the Earth coarse index. Evidence-only and not_comparable metrics must not be scored against Earth candidates."
+            },
+            "crs_frame_note": "body-fixed planetary frame; never Earth WGS84/UTM",
+            "crs_name": "Jezero_Crater_Projection",
+            "dataset_id": "mars2020-jezero-ctx-dem-20m",
+            "earth_coarse_method_version": "coarse-terrain-250m-1.0.0",
+            "evidence_only_candidate_ids": [],
+            "label": "Mars Jezero CTX coordinate window 01",
+            "limitations": [
+              "Four 5 km cells inside one 10 x 10 km coordinate window of the Jezero CTX mosaic; not Mars global coverage and not a geological unit map.",
+              "The 20 m stereo DTM is aggregated to 250 m; mosaic seams and per-window vertical uncertainty are not validated.",
+              "The value is a Horn 3x3 derivative of elevation, not the published Geomorpho250 preprocessed slope product used by the Earth coarse index.",
+              "No cross-body ranking is enabled; every slope-derived metric is evidence_only."
+            ],
+            "manifest": "pipelines/planetary/coarse/mars_ctx_jezero_window01.json",
+            "method_version": "coarse-planetary-dem-horn-1.0.0",
+            "native_resolution_m": 20.0,
+            "ranking_decision": "evidence_only",
+            "region_id": "mars-ctx-jezero-window-01",
+            "source_id": "mars2020-jezero-ctx-dem-20m",
+            "support_comparable_candidate_ids": [
+              "planet-coarse-v1:8e7ce607c8c9001d",
+              "planet-coarse-v1:e81519aa779ebeca",
+              "planet-coarse-v1:2b7260352141922a",
+              "planet-coarse-v1:591d325c440579f8"
+            ]
+          },
+          {
+            "aggregate_features": {
+              "coarse_flat_fraction_lt5deg": {
+                "cell_count": 2,
+                "max": 0.9173553719008265,
+                "mean": 0.9132231404958677,
+                "min": 0.9090909090909091
+              },
+              "coarse_slope_mean_deg": {
+                "cell_count": 2,
+                "max": 3.2418688484030906,
+                "mean": 2.6448573390027663,
+                "min": 2.047845829602442
+              },
+              "coarse_slope_p90_deg": {
+                "cell_count": 2,
+                "max": 4.9432507835654205,
+                "mean": 4.91857417448803,
+                "min": 4.893897565410639
+              }
+            },
+            "analysis_resolution_m": 250.0,
+            "bbox_body_lonlat": {
+              "east": 78.25877597517503,
+              "north": 18.642810606074836,
+              "south": 18.472520081778647,
+              "west": 78.08390634643129
+            },
+            "bbox_metric": {
+              "east": -6030342.893047029,
+              "north": 1104985.1377582597,
+              "south": 1094891.7831442812,
+              "west": -6040707.657507178
+            },
+            "candidate_ids": [
+              "planet-coarse-v1:bfd9fa9df7f8a644",
+              "planet-coarse-v1:a4c4f3fd39796da8"
+            ],
+            "cell_count": 2,
+            "cells": [
+              {
+                "bbox_body_lonlat": {
+                  "east": 78.1698438464369,
+                  "north": 18.55845758178426,
+                  "south": 18.472520081778647,
+                  "west": 78.08390634643129
+                },
+                "candidate_id": "planet-coarse-v1:bfd9fa9df7f8a644",
+                "col": 0,
+                "elevation_stats": {
+                  "elevation_max_m": -2172.8693121368597,
+                  "elevation_mean_m": -2282.32524789913,
+                  "elevation_min_m": -2425.480629204933,
+                  "relief_p95_p05_m": 207.42382963628506,
+                  "valid_elevation_pixels": 121
+                },
+                "features": {
+                  "coarse_flat_fraction_lt5deg": 0.9173553719008265,
+                  "coarse_slope_mean_deg": 3.2418688484030906,
+                  "coarse_slope_p90_deg": 4.893897565410639
+                },
+                "row": 0,
+                "valid_fraction": 1.0
+              },
+              {
+                "bbox_body_lonlat": {
+                  "east": 78.25877597517503,
+                  "north": 18.642810606074836,
+                  "south": 18.556873106069222,
+                  "west": 78.17283847516941
+                },
+                "candidate_id": "planet-coarse-v1:a4c4f3fd39796da8",
+                "col": 1,
+                "elevation_stats": {
+                  "elevation_max_m": -2255.332372045466,
+                  "elevation_mean_m": -2393.443002545148,
+                  "elevation_min_m": -2447.099295665848,
+                  "relief_p95_p05_m": 144.01011861900952,
+                  "valid_elevation_pixels": 121
+                },
+                "features": {
+                  "coarse_flat_fraction_lt5deg": 0.9090909090909091,
+                  "coarse_slope_mean_deg": 2.047845829602442,
+                  "coarse_slope_p90_deg": 4.9432507835654205
+                },
+                "row": 1,
+                "valid_fraction": 1.0
+              }
+            ],
+            "classification": "evidence_only_not_comparable",
+            "comparability": [
+              {
+                "decision": "not_comparable",
+                "earth_method_version": "coarse-terrain-250m-1.0.0",
+                "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+                "earth_value_source": "preprocessed Geomorpho250 slope product",
+                "feature_id": "coarse_slope_mean_deg",
+                "label": "Coarse mean slope (250 m source)",
+                "method_version": "coarse-planetary-dem-horn-1.0.0",
+                "planetary_support": "5 km window, 463.058 m native source, fixed 250 m analysis grid",
+                "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+                "reason": "MEGDR native support is 463.0576672 m/pixel (128 ppd), 1.85x coarser than the 250 m coarse analysis grid and 2.0x coarser than the 7.5 arc-second Earth coarse support; each 5 km cell contains only ~11 native pixels, and MEGDR supplies interpolated median values where no MOLA shot falls in a bin. A 250 m grid would upsample an interpolated product, not measure the same quantity at the same support.",
+                "support_ratio_vs_earth": 1.9966645433975558,
+                "unit": "degree"
+              },
+              {
+                "decision": "not_comparable",
+                "earth_method_version": "coarse-terrain-250m-1.0.0",
+                "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+                "earth_value_source": "preprocessed Geomorpho250 slope product",
+                "feature_id": "coarse_slope_p90_deg",
+                "label": "Coarse 90th percentile slope",
+                "method_version": "coarse-planetary-dem-horn-1.0.0",
+                "planetary_support": "5 km window, 463.058 m native source, fixed 250 m analysis grid",
+                "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+                "reason": "MEGDR native support is 463.0576672 m/pixel (128 ppd), 1.85x coarser than the 250 m coarse analysis grid and 2.0x coarser than the 7.5 arc-second Earth coarse support; each 5 km cell contains only ~11 native pixels, and MEGDR supplies interpolated median values where no MOLA shot falls in a bin. A 250 m grid would upsample an interpolated product, not measure the same quantity at the same support.",
+                "support_ratio_vs_earth": 1.9966645433975558,
+                "unit": "degree"
+              },
+              {
+                "decision": "not_comparable",
+                "earth_method_version": "coarse-terrain-250m-1.0.0",
+                "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+                "earth_value_source": "preprocessed Geomorpho250 slope product",
+                "feature_id": "coarse_flat_fraction_lt5deg",
+                "label": "Coarse flat fraction (<5\u00b0)",
+                "method_version": "coarse-planetary-dem-horn-1.0.0",
+                "planetary_support": "5 km window, 463.058 m native source, fixed 250 m analysis grid",
+                "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+                "reason": "MEGDR native support is 463.0576672 m/pixel (128 ppd), 1.85x coarser than the 250 m coarse analysis grid and 2.0x coarser than the 7.5 arc-second Earth coarse support; each 5 km cell contains only ~11 native pixels, and MEGDR supplies interpolated median values where no MOLA shot falls in a bin. A 250 m grid would upsample an interpolated product, not measure the same quantity at the same support.",
+                "support_ratio_vs_earth": 1.9966645433975558,
+                "unit": "fraction"
+              }
+            ],
+            "cross_body_ranking": {
+              "blocking_features": [
+                "coarse_flat_fraction_lt5deg",
+                "coarse_slope_mean_deg",
+                "coarse_slope_p90_deg"
+              ],
+              "claim_scope": "bounded_pilot_cells_only_not_a_global_survey",
+              "enabled": false,
+              "reason": "Cross-body coarse ranking is disabled: no coarse metric is validated as the same quantity, method and support as the Earth coarse index. Evidence-only and not_comparable metrics must not be scored against Earth candidates."
+            },
+            "crs_frame_note": "body-fixed planetary frame; never Earth WGS84/UTM",
+            "crs_name": "SIMPLE_CYLINDRICAL MARS",
+            "dataset_id": "pds-mgs-mola-megdr-meg128",
+            "earth_coarse_method_version": "coarse-terrain-250m-1.0.0",
+            "evidence_only_candidate_ids": [
+              "planet-coarse-v1:bfd9fa9df7f8a644",
+              "planet-coarse-v1:a4c4f3fd39796da8"
+            ],
+            "label": "Mars MOLA MEGDR 128 ppd evidence cells at Jezero",
+            "limitations": [
+              "Evidence-only: MEGDR native support is 463.0576672 m/pixel, so each cell contains ~11 native pixels and a 250 m grid would upsample an interpolated product.",
+              "MEGDR stores median observed topography and supplies interpolated values where no MOLA shot falls in a bin; the two evidence cells are at Jezero for a paired support comparison with CTX, not a new global grid.",
+              "MOLA licence/redistribution terms are not stated in the PDS4 bundle labels.",
+              "No cross-body or cross-method ranking is enabled."
+            ],
+            "manifest": "pipelines/planetary/coarse/mars_mola_meg128_evidence.json",
+            "method_version": "coarse-planetary-dem-horn-1.0.0",
+            "native_resolution_m": 463.0576672,
+            "ranking_decision": "not_comparable",
+            "region_id": "mars-mola-meg128-evidence-01",
+            "source_id": "mars-mola-megdr-meg128-t44n000",
+            "support_comparable_candidate_ids": []
+          }
+        ],
+        "resolutions": {
+          "analysis_resolution_m": [
+            250.0
+          ],
+          "native_resolution_m": [
+            20.0,
+            463.0576672
+          ]
+        },
+        "source_ids": [
+          "mars-mola-megdr-meg128-t44n000",
+          "mars2020-jezero-ctx-dem-20m"
+        ],
+        "sources": [
+          {
+            "body": "Mars",
+            "citation": "USGS Astrogeology Science Center, Mars 2020 Science Investigation CTX DEM Mosaic, M20_JezeroCrater_CTXDEM_20m.",
+            "coordinate_system": "Jezero_Crater_Projection equirectangular, planetocentric, metres",
+            "dataset_id": "mars2020-jezero-ctx-dem-20m",
+            "doi": null,
+            "frame": "Mars_2000_Sphere (IAU2000), body-fixed",
+            "license": "public domain",
+            "license_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+            "manifest": "pipelines/planetary/coarse/mars_ctx_jezero_window01.json",
+            "native_ppd": null,
+            "native_resolution_m": 20.0,
+            "product_page": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+            "provider": "USGS Astrogeology Science Center / NASA Mars Missions",
+            "raster_url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+            "same_support_as_earth": true,
+            "source_id": "mars2020-jezero-ctx-dem-20m",
+            "title": "Mars 2020 Science Investigation CTX DEM Mosaic",
+            "url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+            "vertical_reference": "stereo-derived elevations localized vertically to MOLA"
+          },
+          {
+            "body": "Mars",
+            "citation": "Smith, D. E., et al. (2001), Mars Orbiter Laser Altimeter: Experiment summary after the first year of global mapping of Mars, J. Geophys. Res. 106(E10), 23689-23722. PDS bundle urn:nasa:pds:mgs_mola_topography_derived (1.0), collection data_meg128 (2.0), DOI 10.17189/1z1b-kv84.",
+            "coordinate_system": "equirectangular, east-positive, planetocentric latitude",
+            "dataset_id": "pds-mgs-mola-megdr-meg128",
+            "doi": "10.17189/1z1b-kv84",
+            "frame": "IAU2000 Mars body-fixed, planetocentric",
+            "license": "not stated in the PDS4 bundle, collection or product labels",
+            "license_url": null,
+            "manifest": "pipelines/planetary/coarse/mars_mola_meg128_evidence.json",
+            "native_ppd": 128.0,
+            "native_resolution_m": 463.0576672,
+            "product_page": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/",
+            "provider": "NASA PDS Geosciences Node / MGS MOLA",
+            "raster_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n000hb.img",
+            "same_support_as_earth": false,
+            "source_id": "mars-mola-megdr-meg128-t44n000",
+            "title": "MGS MOLA MEGDR median topography, 128 pixels/degree, 0-44N / 0-90E tile",
+            "url": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt44n000hb.lbl",
+            "vertical_reference": "planetary radius minus the GMM3 (mgm1025) areoid, evaluated to degree and order 50"
+          }
+        ],
+        "status": "present"
+      },
+      "coordinate_frames": [
+        "Mars_2000_Sphere / IAU_MARS planetocentric; never Earth WGS84"
+      ],
+      "dimension_support": {
+        "D01": {
+          "cell_count": 6,
+          "comparability": "evidence_only",
+          "comparability_detail": "No coarse metric is validated as the same quantity, method and support as the Earth coarse index; cross-body ranking remains disabled.",
+          "comparable_cell_count": 4,
+          "dataset_ids": [
+            "mars2020-jezero-ctx-dem-20m",
+            "pds-mgs-mola-megdr-meg128"
+          ],
+          "evidence": "Committed bounded coarse D01 pilot cells only: 4 support-comparable and 2 evidence-only. This is not global or body-wide coverage.",
+          "evidence_only_cell_count": 2,
+          "on_demand_analysis_reason": "Mars has only the bounded Jezero CTX 20 m source. Outside the Jezero mosaic no verified Mars source at or finer than the 250 m analysis grid is committed; MOLA MEGDR 463.0576672 m is not_comparable support and must not be upsampled into an on-demand D01 answer.",
+          "on_demand_analysis_scope": "jezero_ctx_mosaic_window_only",
+          "on_demand_analysis_supported": false,
+          "on_demand_analysis_supported_outside_scope": false,
+          "on_demand_analysis_supported_within_scope": true,
+          "reason": "Committed coarse fixtures exist for this body; see coarse_d01 for exact region ids, feature values and limitations.",
+          "record_count": 6,
+          "status": "present",
+          "typed_observation_count": 0
+        },
+        "D02": {
+          "area_count": 2,
+          "comparability": "evidence_only",
+          "dataset_ids": [
+            "crism-mtrdr-context",
+            "crism-mtrdr-hrl000040ff",
+            "usgs-jezero-sim3464"
+          ],
+          "evidence": [
+            "context_bd1900_2: 2",
+            "context_cindex2: 2",
+            "context_d2300: 2",
+            "context_hcpindex2: 2",
+            "context_lcpindex2: 2",
+            "context_olindex3: 2",
+            "context_sindex2: 2",
+            "d2300_2p3um_dropoff: 2",
+            "geologic_process: 4",
+            "geologic_unit: 10",
+            "mineral_carbonates: 2",
+            "mineral_clay_minerals: 2",
+            "mineral_hydrated_sulfates: 2",
+            "mineral_olivine: 2",
+            "mineral_pyroxene: 2",
+            "olindex3_1um_olivine_index: 2"
+          ],
+          "features": {
+            "context_bd1900_2": 2,
+            "context_cindex2": 2,
+            "context_d2300": 2,
+            "context_hcpindex2": 2,
+            "context_lcpindex2": 2,
+            "context_olindex3": 2,
+            "context_sindex2": 2,
+            "d2300_2p3um_dropoff": 2,
+            "geologic_process": 4,
+            "geologic_unit": 10,
+            "mineral_carbonates": 2,
+            "mineral_clay_minerals": 2,
+            "mineral_hydrated_sulfates": 2,
+            "mineral_olivine": 2,
+            "mineral_pyroxene": 2,
+            "olindex3_1um_olivine_index": 2
+          },
+          "observation_count": 42,
+          "on_demand_analysis_reason": "No Mars D02 on-demand provider is part of this issue; the committed records are a bounded evidence subset and are not a global survey.",
+          "on_demand_analysis_supported": false,
+          "reason": "Geologic map-unit/process/spectral records are evidence only. Mineral states are not abundances and no D02 similarity or hard-filter role is enabled.",
+          "record_count": 42,
+          "role": "evidence_only",
+          "states": {
+            "detected": 28,
+            "unknown": 14
+          },
+          "status": "evidence_only"
+        },
+        "D03": {
+          "area_count": 5,
+          "comparability": "evidence_only",
+          "dataset_ids": [
+            "usgs-mars-themis-global-thermal-inertia-quantitative"
+          ],
+          "evidence": [
+            "thermal_inertia: 5"
+          ],
+          "features": {
+            "thermal_inertia": 5
+          },
+          "observation_count": 5,
+          "on_demand_analysis_reason": "No Mars D03 on-demand provider is part of this issue; the committed records are a bounded evidence subset and are not a global survey.",
+          "on_demand_analysis_supported": false,
+          "reason": "Thermal records are evidence/context only. Brightness temperature and apparent thermal inertia use different instruments, methods and support; no cross-body temperature score exists.",
+          "record_count": 5,
+          "role": "evidence_only",
+          "states": {
+            "detected": 5
+          },
+          "status": "evidence_only"
+        },
+        "D04": {
+          "area_count": 1,
+          "comparability": "evidence_only",
+          "dataset_ids": [
+            "mro-hend-epithermal-020917"
+          ],
+          "evidence": [
+            "epithermal_neutron_flux_ratio: 1",
+            "water_ice_detection: 1"
+          ],
+          "features": {
+            "epithermal_neutron_flux_ratio": 1,
+            "water_ice_detection": 1
+          },
+          "observation_count": 2,
+          "on_demand_analysis_reason": "No Mars D04 on-demand provider is part of this issue; the committed records are a bounded evidence subset and are not a global survey.",
+          "on_demand_analysis_supported": false,
+          "reason": "Water-equivalent hydrogen, neutron flux and radar CPR are evidence, not confirmed ice; no D04 similarity feature exists.",
+          "record_count": 2,
+          "role": "evidence_only",
+          "states": {
+            "detected": 1,
+            "unknown": 1
+          },
+          "status": "evidence_only"
+        },
+        "D05": {
+          "area_count": 5,
+          "comparability": "evidence_only",
+          "dataset_ids": [
+            "naif-spice-generic-kernels"
+          ],
+          "evidence": [
+            "solar_elevation_deg: 5",
+            "solar_incidence_deg: 5"
+          ],
+          "features": {
+            "solar_elevation_deg": 5,
+            "solar_incidence_deg": 5
+          },
+          "observation_count": 10,
+          "on_demand_analysis_reason": "No Mars D05 on-demand provider is part of this issue; the committed records are a bounded evidence subset and are not a global survey.",
+          "on_demand_analysis_supported": false,
+          "reason": "Solar geometry is model-derived context only, not observed irradiance, shadow fraction or ionizing dose.",
+          "record_count": 10,
+          "role": "context_only",
+          "states": {
+            "detected": 10
+          },
+          "status": "evidence_only"
+        },
+        "D06": {
+          "comparability": "not_applicable",
+          "dataset_ids": [],
+          "evidence": [],
+          "evidence_note": "No committed Moon/Mars D06 observation exists. Earth SoilGrids 2.0 250 m records are Earth-only model predictions and are explicitly excluded from this body; see earth_only_exclusions.",
+          "observation_count": 0,
+          "on_demand_analysis_reason": "D06 has no committed Moon/Mars source and no on-demand regolith provider; Earth SoilGrids is never substituted for a planetary measurement.",
+          "on_demand_analysis_supported": false,
+          "reason": "Zero committed Moon/Mars D06 typed observations. SoilGrids is a 250 m Earth model prediction, not a lunar or Martian regolith measurement.",
+          "record_count": 0,
+          "status": "absent"
+        }
+      },
+      "global_coverage_claimed": false,
+      "provenance": {
+        "body": "Mars",
+        "sources": [
+          {
+            "body": "Mars",
+            "citation": "USGS Astrogeology Science Center, Mars 2020 Science Investigation CTX DEM Mosaic, M20_JezeroCrater_CTXDEM_20m.",
+            "claim_role": "D01_coarse",
+            "coordinate_system": "Jezero_Crater_Projection equirectangular, planetocentric, metres",
+            "dataset_id": "mars2020-jezero-ctx-dem-20m",
+            "doi": null,
+            "frame": "Mars_2000_Sphere (IAU2000), body-fixed",
+            "license": "public domain",
+            "license_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+            "manifest": "pipelines/planetary/coarse/mars_ctx_jezero_window01.json",
+            "native_ppd": null,
+            "native_resolution_m": 20.0,
+            "product_page": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+            "provider": "USGS Astrogeology Science Center / NASA Mars Missions",
+            "raster_url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+            "same_support_as_earth": true,
+            "source_id": "mars2020-jezero-ctx-dem-20m",
+            "title": "Mars 2020 Science Investigation CTX DEM Mosaic",
+            "url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+            "vertical_reference": "stereo-derived elevations localized vertically to MOLA"
+          },
+          {
+            "body": "Mars",
+            "citation": "Smith, D. E., et al. (2001), Mars Orbiter Laser Altimeter: Experiment summary after the first year of global mapping of Mars, J. Geophys. Res. 106(E10), 23689-23722. PDS bundle urn:nasa:pds:mgs_mola_topography_derived (1.0), collection data_meg128 (2.0), DOI 10.17189/1z1b-kv84.",
+            "claim_role": "D01_coarse",
+            "coordinate_system": "equirectangular, east-positive, planetocentric latitude",
+            "dataset_id": "pds-mgs-mola-megdr-meg128",
+            "doi": "10.17189/1z1b-kv84",
+            "frame": "IAU2000 Mars body-fixed, planetocentric",
+            "license": "not stated in the PDS4 bundle, collection or product labels",
+            "license_url": null,
+            "manifest": "pipelines/planetary/coarse/mars_mola_meg128_evidence.json",
+            "native_ppd": 128.0,
+            "native_resolution_m": 463.0576672,
+            "product_page": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/",
+            "provider": "NASA PDS Geosciences Node / MGS MOLA",
+            "raster_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n000hb.img",
+            "same_support_as_earth": false,
+            "source_id": "mars-mola-megdr-meg128-t44n000",
+            "title": "MGS MOLA MEGDR median topography, 128 pixels/degree, 0-44N / 0-90E tile",
+            "url": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt44n000hb.lbl",
+            "vertical_reference": "planetary radius minus the GMM3 (mgm1025) areoid, evaluated to degree and order 50"
+          },
+          {
+            "body": [
+              "Mars"
+            ],
+            "claim_role": "typed_evidence",
+            "dataset_id": "crism-mtrdr-context",
+            "license": "Data sets archived in the PDS are in the public domain.",
+            "license_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+            "metadata_files": [
+              "pipelines/geology/typed/assets.json",
+              "pipelines/geology/typed/datasets.json"
+            ],
+            "provider": "NASA PDS Geosciences Node / MRO CRISM",
+            "title": null,
+            "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm"
+          },
+          {
+            "body": [
+              "Mars"
+            ],
+            "claim_role": "typed_evidence",
+            "dataset_id": "crism-mtrdr-hrl000040ff",
+            "license": "PDS archived data are in the public domain (NASA PDS Geosciences Node)",
+            "license_url": "https://pds.nasa.gov/",
+            "metadata_files": [
+              "pipelines/pilots/d02_spectral_detection/sources.json"
+            ],
+            "provider": "NASA PDS Geosciences Node / MRO CRISM",
+            "title": null,
+            "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_if183j_mtr3.lbl"
+          },
+          {
+            "body": [
+              "Mars"
+            ],
+            "claim_role": "typed_evidence",
+            "dataset_id": "mro-hend-epithermal-020917",
+            "license": "CC0-1.0 (NASA-led mission data archived by the NASA Planetary Data System; no restrictive notice on the product page)",
+            "license_url": "https://science.data.nasa.gov/about/license",
+            "metadata_files": [
+              "pipelines/pilots/d04_water_ice_planetary/assets.json",
+              "pipelines/pilots/d04_water_ice_planetary/sources.json"
+            ],
+            "provider": "NASA 2001 Mars Odyssey HEND (PDS Geosciences Node GRS special products)",
+            "title": "HEND epithermal neutron flux, first 55 days of mapping",
+            "url": "https://pds-geosciences.wustl.edu/ody/urn-nasa-pds-odyssey_grs_special/data/hend_epithermal_020917.tab"
+          },
+          {
+            "body": [],
+            "claim_role": "typed_evidence",
+            "dataset_id": "naif-spice-generic-kernels",
+            "license": "not stated in the committed asset records; redistribution_allowed=unknown",
+            "license_url": null,
+            "metadata_files": [
+              "pipelines/pilots/d05_spice_illumination/assets.json"
+            ],
+            "provider": "NASA JPL NAIF generic kernels",
+            "title": null,
+            "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls"
+          },
+          {
+            "body": [
+              "Mars"
+            ],
+            "claim_role": "typed_evidence",
+            "dataset_id": "usgs-jezero-sim3464",
+            "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+            "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+            "metadata_files": [
+              "pipelines/geology/typed/assets.json",
+              "pipelines/geology/typed/datasets.json"
+            ],
+            "provider": "U.S. Geological Survey",
+            "title": null,
+            "url": "https://pubs.usgs.gov/publication/sim3464"
+          },
+          {
+            "body": [
+              "Mars"
+            ],
+            "claim_role": "typed_evidence",
+            "dataset_id": "usgs-mars-themis-global-thermal-inertia-quantitative",
+            "license": "Public domain (USGS Astrogeology access constraints); cite authors",
+            "license_url": "https://astrogeology.usgs.gov/search/map/themis_thermal_inertia_mosaic_quantitative_00n060e_100mpp",
+            "metadata_files": [
+              "pipelines/pilots/d03_planetary_thermal/assets.json",
+              "pipelines/pilots/d03_planetary_thermal/datasets.json"
+            ],
+            "provider": "USGS Astrogeology Science Center / Arizona State University / NASA Mars Data Analysis Program",
+            "title": null,
+            "url": "https://astrogeology.usgs.gov/search/map/themis_thermal_inertia_mosaic_quantitative_00n060e_100mpp"
+          }
+        ]
+      },
+      "typed_by_dimension": {
+        "D01": {
+          "area_count": 0,
+          "dataset_ids": [],
+          "feature_counts": {},
+          "observation_count": 0,
+          "pilots": [],
+          "role": "unspecified_in_committed_records",
+          "states": {}
+        },
+        "D02": {
+          "area_count": 2,
+          "dataset_ids": [
+            "crism-mtrdr-context",
+            "crism-mtrdr-hrl000040ff",
+            "usgs-jezero-sim3464"
+          ],
+          "feature_counts": {
+            "context_bd1900_2": 2,
+            "context_cindex2": 2,
+            "context_d2300": 2,
+            "context_hcpindex2": 2,
+            "context_lcpindex2": 2,
+            "context_olindex3": 2,
+            "context_sindex2": 2,
+            "d2300_2p3um_dropoff": 2,
+            "geologic_process": 4,
+            "geologic_unit": 10,
+            "mineral_carbonates": 2,
+            "mineral_clay_minerals": 2,
+            "mineral_hydrated_sulfates": 2,
+            "mineral_olivine": 2,
+            "mineral_pyroxene": 2,
+            "olindex3_1um_olivine_index": 2
+          },
+          "observation_count": 42,
+          "pilots": [
+            "d02_spectral_detection",
+            "geology-typed-bundle"
+          ],
+          "role": "evidence_only",
+          "states": {
+            "detected": 28,
+            "unknown": 14
+          }
+        },
+        "D03": {
+          "area_count": 5,
+          "dataset_ids": [
+            "usgs-mars-themis-global-thermal-inertia-quantitative"
+          ],
+          "feature_counts": {
+            "thermal_inertia": 5
+          },
+          "observation_count": 5,
+          "pilots": [
+            "d03_planetary_thermal"
+          ],
+          "role": "evidence_only",
+          "states": {
+            "detected": 5
+          }
+        },
+        "D04": {
+          "area_count": 1,
+          "dataset_ids": [
+            "mro-hend-epithermal-020917"
+          ],
+          "feature_counts": {
+            "epithermal_neutron_flux_ratio": 1,
+            "water_ice_detection": 1
+          },
+          "observation_count": 2,
+          "pilots": [
+            "d04_water_ice_planetary"
+          ],
+          "role": "evidence_only",
+          "states": {
+            "detected": 1,
+            "unknown": 1
+          }
+        },
+        "D05": {
+          "area_count": 5,
+          "dataset_ids": [
+            "naif-spice-generic-kernels"
+          ],
+          "feature_counts": {
+            "solar_elevation_deg": 5,
+            "solar_incidence_deg": 5
+          },
+          "observation_count": 10,
+          "pilots": [
+            "d05_spice_illumination"
+          ],
+          "role": "context_only",
+          "states": {
+            "detected": 10
+          }
+        },
+        "D06": {
+          "area_count": 0,
+          "dataset_ids": [],
+          "feature_counts": {},
+          "observation_count": 0,
+          "pilots": [],
+          "role": "unspecified_in_committed_records",
+          "states": {}
+        }
+      }
+    },
+    "Moon": {
+      "body": "Moon",
+      "coarse_d01": {
+        "bbox": {
+          "east": 20.167518570645804,
+          "north": -9.835068981384325,
+          "south": -10.16488943108404,
+          "west": 19.832481429354193
+        },
+        "cell_count": 4,
+        "claim_scope": "bounded_committed_subset_not_global",
+        "comparability_decisions": [
+          {
+            "decision": "evidence_only",
+            "earth_method_version": "coarse-terrain-250m-1.0.0",
+            "feature_id": "coarse_flat_fraction_lt5deg",
+            "method_version": "coarse-planetary-dem-horn-1.0.0",
+            "reason": "coarse_flat_fraction_lt5deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 1.021.",
+            "regions": [
+              "moon-lola128-eqc-window-01"
+            ],
+            "unit": "fraction"
+          },
+          {
+            "decision": "evidence_only",
+            "earth_method_version": "coarse-terrain-250m-1.0.0",
+            "feature_id": "coarse_slope_mean_deg",
+            "method_version": "coarse-planetary-dem-horn-1.0.0",
+            "reason": "coarse_slope_mean_deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 1.021.",
+            "regions": [
+              "moon-lola128-eqc-window-01"
+            ],
+            "unit": "degree"
+          },
+          {
+            "decision": "evidence_only",
+            "earth_method_version": "coarse-terrain-250m-1.0.0",
+            "feature_id": "coarse_slope_p90_deg",
+            "method_version": "coarse-planetary-dem-horn-1.0.0",
+            "reason": "coarse_slope_p90_deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 1.021.",
+            "regions": [
+              "moon-lola128-eqc-window-01"
+            ],
+            "unit": "degree"
+          }
+        ],
+        "comparable_bbox": {
+          "east": 20.167518570645804,
+          "north": -9.835068981384325,
+          "south": -10.16488943108404,
+          "west": 19.832481429354193
+        },
+        "comparable_candidate_ids": [
+          "planet-coarse-v1:c22eb2732afdfa9a",
+          "planet-coarse-v1:d7171e6af899065b",
+          "planet-coarse-v1:655983fe3845a2e8",
+          "planet-coarse-v1:59b32ff4da5ab528"
+        ],
+        "comparable_cell_count": 4,
+        "cross_body_ranking": {
+          "all_manifests_disabled": true,
+          "blocking_features": [
+            "coarse_flat_fraction_lt5deg",
+            "coarse_slope_mean_deg",
+            "coarse_slope_p90_deg"
+          ],
+          "claim_scope": "bounded_pilot_cells_only_not_a_global_survey",
+          "enabled": false,
+          "reason": "No planetary coarse metric is validated as the same quantity, method and support as the Earth coarse index. Evidence-only and not_comparable metrics must not be scored against Earth candidates."
+        },
+        "dataset_ids": [
+          "nasa-pgda-lola-moon-pa-ldem128-202405"
+        ],
+        "earth_coarse_method_versions": [
+          "coarse-terrain-250m-1.0.0"
+        ],
+        "evidence_only_bbox": null,
+        "evidence_only_candidate_ids": [],
+        "evidence_only_cell_count": 0,
+        "evidence_only_separated": true,
+        "limitations": [
+          "One 10 x 10 km coordinate window at 20E, 10S; not lunar global coverage.",
+          "LDEM128 is a derived global shape model (SLDEM2015 256 ppd plus polar LDEMs averaged at 128 ppd), not raw LOLA altimetry, and is partly interpolated.",
+          "The value is a Horn 3x3 derivative of elevation, not the published Geomorpho250 preprocessed slope product used by the Earth coarse index.",
+          "No cross-body ranking is enabled; the comparability table marks every slope-derived metric evidence_only."
+        ],
+        "method_versions": [
+          "coarse-planetary-dem-horn-1.0.0"
+        ],
+        "region_ids": [
+          "moon-lola128-eqc-window-01"
+        ],
+        "regions": [
+          {
+            "aggregate_features": {
+              "coarse_flat_fraction_lt5deg": {
+                "cell_count": 4,
+                "max": 0.255,
+                "mean": 0.22125,
+                "min": 0.1925
+              },
+              "coarse_slope_mean_deg": {
+                "cell_count": 4,
+                "max": 17.65742155597971,
+                "mean": 11.459459413931441,
+                "min": 6.5884995996637
+              },
+              "coarse_slope_p90_deg": {
+                "cell_count": 4,
+                "max": 31.39207122935244,
+                "mean": 21.063152475022537,
+                "min": 9.61874348751517
+              }
+            },
+            "analysis_resolution_m": 250.0,
+            "bbox_body_lonlat": {
+              "east": 20.167518570645804,
+              "north": -9.835068981384325,
+              "south": -10.16488943108404,
+              "west": 19.832481429354193
+            },
+            "bbox_metric": {
+              "east": 5000.0,
+              "north": 5000.0,
+              "south": -5000.0,
+              "west": -5000.0
+            },
+            "candidate_ids": [
+              "planet-coarse-v1:c22eb2732afdfa9a",
+              "planet-coarse-v1:d7171e6af899065b",
+              "planet-coarse-v1:655983fe3845a2e8",
+              "planet-coarse-v1:59b32ff4da5ab528"
+            ],
+            "cell_count": 4,
+            "cells": [
+              {
+                "bbox_body_lonlat": {
+                  "east": 20.0,
+                  "north": -9.99995816387476,
+                  "south": -10.16488943108404,
+                  "west": 19.832481429354193
+                },
+                "candidate_id": "planet-coarse-v1:c22eb2732afdfa9a",
+                "col": 0,
+                "elevation_stats": {
+                  "elevation_max_m": 2754.3736009441313,
+                  "elevation_mean_m": 2384.089670219873,
+                  "elevation_min_m": 1060.6901412269249,
+                  "relief_p95_p05_m": 1121.4609677422484,
+                  "valid_elevation_pixels": 400
+                },
+                "features": {
+                  "coarse_flat_fraction_lt5deg": 0.1925,
+                  "coarse_slope_mean_deg": 13.620178695315602,
+                  "coarse_slope_p90_deg": 29.807479789526372
+                },
+                "row": 0,
+                "valid_fraction": 1.0
+              },
+              {
+                "bbox_body_lonlat": {
+                  "east": 20.167518570645804,
+                  "north": -9.99995816387476,
+                  "south": -10.16488943108404,
+                  "west": 20.0
+                },
+                "candidate_id": "planet-coarse-v1:d7171e6af899065b",
+                "col": 1,
+                "elevation_stats": {
+                  "elevation_max_m": 2199.7909325884348,
+                  "elevation_mean_m": 1688.4623418719193,
+                  "elevation_min_m": 529.052096622087,
+                  "relief_p95_p05_m": 1352.1176607219795,
+                  "valid_elevation_pixels": 400
+                },
+                "features": {
+                  "coarse_flat_fraction_lt5deg": 0.23,
+                  "coarse_slope_mean_deg": 17.65742155597971,
+                  "coarse_slope_p90_deg": 31.39207122935244
+                },
+                "row": 0,
+                "valid_fraction": 1.0
+              },
+              {
+                "bbox_body_lonlat": {
+                  "east": 20.0,
+                  "north": -9.835068981384325,
+                  "south": -10.0,
+                  "west": 19.832566898029903
+                },
+                "candidate_id": "planet-coarse-v1:655983fe3845a2e8",
+                "col": 0,
+                "elevation_stats": {
+                  "elevation_max_m": 2696.1148779809328,
+                  "elevation_mean_m": 2371.1695808951686,
+                  "elevation_min_m": 2151.5303432210885,
+                  "relief_p95_p05_m": 433.4206412490398,
+                  "valid_elevation_pixels": 400
+                },
+                "features": {
+                  "coarse_flat_fraction_lt5deg": 0.2075,
+                  "coarse_slope_mean_deg": 7.971737804766749,
+                  "coarse_slope_p90_deg": 13.434315393696167
+                },
+                "row": 1,
+                "valid_fraction": 1.0
+              },
+              {
+                "bbox_body_lonlat": {
+                  "east": 20.167433101970094,
+                  "north": -9.835068981384325,
+                  "south": -10.0,
+                  "west": 20.0
+                },
+                "candidate_id": "planet-coarse-v1:59b32ff4da5ab528",
+                "col": 1,
+                "elevation_stats": {
+                  "elevation_max_m": 2541.623044628489,
+                  "elevation_mean_m": 2276.4578917566587,
+                  "elevation_min_m": 1991.4169034822587,
+                  "relief_p95_p05_m": 462.8689486424048,
+                  "valid_elevation_pixels": 400
+                },
+                "features": {
+                  "coarse_flat_fraction_lt5deg": 0.255,
+                  "coarse_slope_mean_deg": 6.5884995996637,
+                  "coarse_slope_p90_deg": 9.61874348751517
+                },
+                "row": 1,
+                "valid_fraction": 1.0
+              }
+            ],
+            "classification": "comparable_support_evidence_only",
+            "comparability": [
+              {
+                "decision": "evidence_only",
+                "earth_method_version": "coarse-terrain-250m-1.0.0",
+                "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+                "earth_value_source": "preprocessed Geomorpho250 slope product",
+                "feature_id": "coarse_slope_mean_deg",
+                "label": "Coarse mean slope (250 m source)",
+                "method_version": "coarse-planetary-dem-horn-1.0.0",
+                "planetary_support": "5 km window, 236.901 m native source, fixed 250 m analysis grid",
+                "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+                "reason": "coarse_slope_mean_deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 1.021.",
+                "support_ratio_vs_earth": 1.0214973431897119,
+                "unit": "degree"
+              },
+              {
+                "decision": "evidence_only",
+                "earth_method_version": "coarse-terrain-250m-1.0.0",
+                "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+                "earth_value_source": "preprocessed Geomorpho250 slope product",
+                "feature_id": "coarse_slope_p90_deg",
+                "label": "Coarse 90th percentile slope",
+                "method_version": "coarse-planetary-dem-horn-1.0.0",
+                "planetary_support": "5 km window, 236.901 m native source, fixed 250 m analysis grid",
+                "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+                "reason": "coarse_slope_p90_deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 1.021.",
+                "support_ratio_vs_earth": 1.0214973431897119,
+                "unit": "degree"
+              },
+              {
+                "decision": "evidence_only",
+                "earth_method_version": "coarse-terrain-250m-1.0.0",
+                "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+                "earth_value_source": "preprocessed Geomorpho250 slope product",
+                "feature_id": "coarse_flat_fraction_lt5deg",
+                "label": "Coarse flat fraction (<5\u00b0)",
+                "method_version": "coarse-planetary-dem-horn-1.0.0",
+                "planetary_support": "5 km window, 236.901 m native source, fixed 250 m analysis grid",
+                "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+                "reason": "coarse_flat_fraction_lt5deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 1.021.",
+                "support_ratio_vs_earth": 1.0214973431897119,
+                "unit": "fraction"
+              }
+            ],
+            "cross_body_ranking": {
+              "blocking_features": [
+                "coarse_flat_fraction_lt5deg",
+                "coarse_slope_mean_deg",
+                "coarse_slope_p90_deg"
+              ],
+              "claim_scope": "bounded_pilot_cells_only_not_a_global_survey",
+              "enabled": false,
+              "reason": "Cross-body coarse ranking is disabled: no coarse metric is validated as the same quantity, method and support as the Earth coarse index. Evidence-only and not_comparable metrics must not be scored against Earth candidates."
+            },
+            "crs_frame_note": "body-fixed planetary frame; never Earth WGS84/UTM",
+            "crs_name": "Lunar_Azimuthal_Equidistant_20E_10S",
+            "dataset_id": "nasa-pgda-lola-moon-pa-ldem128-202405",
+            "earth_coarse_method_version": "coarse-terrain-250m-1.0.0",
+            "evidence_only_candidate_ids": [],
+            "label": "Moon LOLA128 coordinate window 01 (20E, 10S)",
+            "limitations": [
+              "One 10 x 10 km coordinate window at 20E, 10S; not lunar global coverage.",
+              "LDEM128 is a derived global shape model (SLDEM2015 256 ppd plus polar LDEMs averaged at 128 ppd), not raw LOLA altimetry, and is partly interpolated.",
+              "The value is a Horn 3x3 derivative of elevation, not the published Geomorpho250 preprocessed slope product used by the Earth coarse index.",
+              "No cross-body ranking is enabled; the comparability table marks every slope-derived metric evidence_only."
+            ],
+            "manifest": "pipelines/planetary/coarse/moon_lola128_window01.json",
+            "method_version": "coarse-planetary-dem-horn-1.0.0",
+            "native_resolution_m": 236.90117518866782,
+            "ranking_decision": "evidence_only",
+            "region_id": "moon-lola128-eqc-window-01",
+            "source_id": "moon-lola128-pa-pixel-202405",
+            "support_comparable_candidate_ids": [
+              "planet-coarse-v1:c22eb2732afdfa9a",
+              "planet-coarse-v1:d7171e6af899065b",
+              "planet-coarse-v1:655983fe3845a2e8",
+              "planet-coarse-v1:59b32ff4da5ab528"
+            ]
+          }
+        ],
+        "resolutions": {
+          "analysis_resolution_m": [
+            250.0
+          ],
+          "native_resolution_m": [
+            236.90117518866782
+          ]
+        },
+        "source_ids": [
+          "moon-lola128-pa-pixel-202405"
+        ],
+        "sources": [
+          {
+            "body": "Moon",
+            "citation": "Neumann, G. (2024). LOLA MOON_PA gridded dataset [Data set]. NASA Goddard Space Flight Center Planetary Geodesy Data Archive. doi:10.60903/LOLA_PA",
+            "coordinate_system": "planetocentric, east-positive, geographic 0..360 longitude",
+            "dataset_id": "nasa-pgda-lola-moon-pa-ldem128-202405",
+            "doi": "10.60903/LOLA_PA",
+            "frame": "MOON_PA (DE421), body-fixed",
+            "license": "not stated on the PGDA product page; public NASA archive with a citation requirement (Data Usage Policy)",
+            "license_url": "https://science.data.nasa.gov/about/license",
+            "manifest": "pipelines/planetary/coarse/moon_lola128_window01.json",
+            "native_ppd": 128.0,
+            "native_resolution_m": 236.90117518866782,
+            "product_page": "https://pgda.gsfc.nasa.gov/products/95",
+            "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+            "raster_url": "https://pgda.gsfc.nasa.gov/data/LOLA_PA/LDEM128_PA_pixel_202405.tif",
+            "same_support_as_earth": true,
+            "source_id": "moon-lola128-pa-pixel-202405",
+            "title": "LOLA MOON_PA global shape model, 128 pixels/degree, pixel-registered",
+            "url": "https://pgda.gsfc.nasa.gov/data/LOLA_PA/LDEM128_PA_pixel_202405.tif",
+            "vertical_reference": "lunar surface radius relative to the 1737.4 km reference sphere"
+          }
+        ],
+        "status": "present"
+      },
+      "coordinate_frames": [
+        "MOON_PA / lunar_planetocentric; never Earth WGS84"
+      ],
+      "dimension_support": {
+        "D01": {
+          "cell_count": 4,
+          "comparability": "evidence_only",
+          "comparability_detail": "No coarse metric is validated as the same quantity, method and support as the Earth coarse index; cross-body ranking remains disabled.",
+          "comparable_cell_count": 4,
+          "dataset_ids": [
+            "nasa-pgda-lola-moon-pa-ldem128-202405"
+          ],
+          "evidence": "Committed bounded coarse D01 pilot cells only: 4 support-comparable and 0 evidence-only. This is not global or body-wide coverage.",
+          "evidence_only_cell_count": 0,
+          "on_demand_analysis_reason": "The Moon LOLA128 product covers the whole body and the committed coarse fixtures are committed, so a bounded on-demand D01 analysis is supported.",
+          "on_demand_analysis_scope": "global_lunar_body_via_bounded_lola128_windows",
+          "on_demand_analysis_supported": true,
+          "on_demand_analysis_supported_outside_scope": true,
+          "on_demand_analysis_supported_within_scope": true,
+          "reason": "Committed coarse fixtures exist for this body; see coarse_d01 for exact region ids, feature values and limitations.",
+          "record_count": 4,
+          "status": "present",
+          "typed_observation_count": 0
+        },
+        "D02": {
+          "area_count": 1,
+          "comparability": "evidence_only",
+          "dataset_ids": [
+            "lunar-polar-minerals-zenodo-v4",
+            "usgs-moon-geology-v2"
+          ],
+          "evidence": [
+            "geologic_process: 1",
+            "geologic_unit: 1",
+            "geology_analysis_availability: 1"
+          ],
+          "features": {
+            "geologic_process": 1,
+            "geologic_unit": 1,
+            "geology_analysis_availability": 1
+          },
+          "observation_count": 3,
+          "on_demand_analysis_reason": "No Moon D02 on-demand provider is part of this issue; the committed records are a bounded evidence subset and are not a global survey.",
+          "on_demand_analysis_supported": false,
+          "reason": "Geologic map-unit/process/spectral records are evidence only. Mineral states are not abundances and no D02 similarity or hard-filter role is enabled.",
+          "record_count": 3,
+          "role": "evidence_only",
+          "states": {
+            "detected": 2,
+            "unknown": 1
+          },
+          "status": "evidence_only"
+        },
+        "D03": {
+          "area_count": 18,
+          "comparability": "evidence_only",
+          "dataset_ids": [
+            "lro-diviner-pcp-pols-summer-240m"
+          ],
+          "evidence": [
+            "surface_brightness_temperature_k: 36"
+          ],
+          "features": {
+            "surface_brightness_temperature_k": 36
+          },
+          "observation_count": 36,
+          "on_demand_analysis_reason": "No Moon D03 on-demand provider is part of this issue; the committed records are a bounded evidence subset and are not a global survey.",
+          "on_demand_analysis_supported": false,
+          "reason": "Thermal records are evidence/context only. Brightness temperature and apparent thermal inertia use different instruments, methods and support; no cross-body temperature score exists.",
+          "record_count": 36,
+          "role": "evidence_only",
+          "states": {
+            "detected": 26,
+            "no_coverage": 7,
+            "unknown": 3
+          },
+          "status": "evidence_only"
+        },
+        "D04": {
+          "area_count": 29,
+          "comparability": "evidence_only",
+          "dataset_ids": [
+            "lp-ns-hydrogenhd",
+            "lro-minirf-cpr-128ppd"
+          ],
+          "evidence": [
+            "radar_circular_polarization_ratio: 12",
+            "water_equivalent_hydrogen_wt_percent: 12",
+            "water_ice_detection: 29"
+          ],
+          "features": {
+            "radar_circular_polarization_ratio": 12,
+            "water_equivalent_hydrogen_wt_percent": 12,
+            "water_ice_detection": 29
+          },
+          "observation_count": 53,
+          "on_demand_analysis_reason": "No Moon D04 on-demand provider is part of this issue; the committed records are a bounded evidence subset and are not a global survey.",
+          "on_demand_analysis_supported": false,
+          "reason": "Water-equivalent hydrogen, neutron flux and radar CPR are evidence, not confirmed ice; no D04 similarity feature exists.",
+          "record_count": 53,
+          "role": "evidence_only",
+          "states": {
+            "detected": 24,
+            "no_coverage": 5,
+            "not_detected": 1,
+            "unknown": 23
+          },
+          "status": "evidence_only"
+        },
+        "D05": {
+          "area_count": 4,
+          "comparability": "evidence_only",
+          "dataset_ids": [
+            "naif-spice-generic-kernels"
+          ],
+          "evidence": [
+            "solar_elevation_deg: 4",
+            "solar_incidence_deg: 4"
+          ],
+          "features": {
+            "solar_elevation_deg": 4,
+            "solar_incidence_deg": 4
+          },
+          "observation_count": 8,
+          "on_demand_analysis_reason": "No Moon D05 on-demand provider is part of this issue; the committed records are a bounded evidence subset and are not a global survey.",
+          "on_demand_analysis_supported": false,
+          "reason": "Solar geometry is model-derived context only, not observed irradiance, shadow fraction or ionizing dose.",
+          "record_count": 8,
+          "role": "context_only",
+          "states": {
+            "detected": 8
+          },
+          "status": "evidence_only"
+        },
+        "D06": {
+          "comparability": "not_applicable",
+          "dataset_ids": [],
+          "evidence": [],
+          "evidence_note": "No committed Moon/Mars D06 observation exists. Earth SoilGrids 2.0 250 m records are Earth-only model predictions and are explicitly excluded from this body; see earth_only_exclusions.",
+          "observation_count": 0,
+          "on_demand_analysis_reason": "D06 has no committed Moon/Mars source and no on-demand regolith provider; Earth SoilGrids is never substituted for a planetary measurement.",
+          "on_demand_analysis_supported": false,
+          "reason": "Zero committed Moon/Mars D06 typed observations. SoilGrids is a 250 m Earth model prediction, not a lunar or Martian regolith measurement.",
+          "record_count": 0,
+          "status": "absent"
+        }
+      },
+      "global_coverage_claimed": false,
+      "provenance": {
+        "body": "Moon",
+        "sources": [
+          {
+            "body": "Moon",
+            "citation": "Neumann, G. (2024). LOLA MOON_PA gridded dataset [Data set]. NASA Goddard Space Flight Center Planetary Geodesy Data Archive. doi:10.60903/LOLA_PA",
+            "claim_role": "D01_coarse",
+            "coordinate_system": "planetocentric, east-positive, geographic 0..360 longitude",
+            "dataset_id": "nasa-pgda-lola-moon-pa-ldem128-202405",
+            "doi": "10.60903/LOLA_PA",
+            "frame": "MOON_PA (DE421), body-fixed",
+            "license": "not stated on the PGDA product page; public NASA archive with a citation requirement (Data Usage Policy)",
+            "license_url": "https://science.data.nasa.gov/about/license",
+            "manifest": "pipelines/planetary/coarse/moon_lola128_window01.json",
+            "native_ppd": 128.0,
+            "native_resolution_m": 236.90117518866782,
+            "product_page": "https://pgda.gsfc.nasa.gov/products/95",
+            "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+            "raster_url": "https://pgda.gsfc.nasa.gov/data/LOLA_PA/LDEM128_PA_pixel_202405.tif",
+            "same_support_as_earth": true,
+            "source_id": "moon-lola128-pa-pixel-202405",
+            "title": "LOLA MOON_PA global shape model, 128 pixels/degree, pixel-registered",
+            "url": "https://pgda.gsfc.nasa.gov/data/LOLA_PA/LDEM128_PA_pixel_202405.tif",
+            "vertical_reference": "lunar surface radius relative to the 1737.4 km reference sphere"
+          },
+          {
+            "body": [
+              "Moon"
+            ],
+            "claim_role": "typed_evidence",
+            "dataset_id": "lp-ns-hydrogenhd",
+            "license": "CC0-1.0 (NASA-led mission data archived by the NASA Planetary Data System; no restrictive notice on the product page)",
+            "license_url": "https://science.data.nasa.gov/about/license",
+            "metadata_files": [
+              "pipelines/pilots/d04_water_ice_planetary/assets.json",
+              "pipelines/pilots/d04_water_ice_planetary/sources.json"
+            ],
+            "provider": "NASA Lunar Prospector Neutron Spectrometer (PDS Geosciences Node special product)",
+            "title": "Lunar Prospector half-degree hydrogen abundance from corrected epithermal neutrons",
+            "url": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt"
+          },
+          {
+            "body": [
+              "Moon"
+            ],
+            "claim_role": "typed_evidence",
+            "dataset_id": "lro-diviner-pcp-pols-summer-240m",
+            "license": "NASA PDS public archive; the PDS4 label carries no explicit licence field; cite Williams et al. (2019)",
+            "license_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/",
+            "metadata_files": [
+              "pipelines/pilots/d03_planetary_thermal/assets.json",
+              "pipelines/pilots/d03_planetary_thermal/datasets.json"
+            ],
+            "provider": "NASA Planetary Data System Geosciences Node / UCLA Diviner Lunar Radiometer Experiment",
+            "title": null,
+            "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/"
+          },
+          {
+            "body": [
+              "Moon"
+            ],
+            "claim_role": "typed_evidence",
+            "dataset_id": "lro-minirf-cpr-128ppd",
+            "license": "CC0-1.0 (NASA-led mission data archived by the NASA Planetary Data System; no restrictive notice on the product page)",
+            "license_url": "https://science.data.nasa.gov/about/license",
+            "metadata_files": [
+              "pipelines/pilots/d04_water_ice_planetary/assets.json",
+              "pipelines/pilots/d04_water_ice_planetary/sources.json"
+            ],
+            "provider": "NASA LRO Mini-RF (PDS Geosciences Node global mosaic bundle)",
+            "title": "Mini-RF global circular polarization ratio mosaic, 128 pixels per degree",
+            "url": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img"
+          },
+          {
+            "body": [
+              "Moon"
+            ],
+            "claim_role": "typed_evidence",
+            "dataset_id": "lunar-polar-minerals-zenodo-v4",
+            "license": "cc-by-4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+            "metadata_files": [
+              "pipelines/geology/typed/assets.json",
+              "pipelines/geology/typed/datasets.json"
+            ],
+            "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+            "title": null,
+            "url": "https://zenodo.org/records/20725024"
+          },
+          {
+            "body": [],
+            "claim_role": "typed_evidence",
+            "dataset_id": "naif-spice-generic-kernels",
+            "license": "not stated in the committed asset records; redistribution_allowed=unknown",
+            "license_url": null,
+            "metadata_files": [
+              "pipelines/pilots/d05_spice_illumination/assets.json"
+            ],
+            "provider": "NASA JPL NAIF generic kernels",
+            "title": null,
+            "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls"
+          },
+          {
+            "body": [
+              "Moon"
+            ],
+            "claim_role": "typed_evidence",
+            "dataset_id": "usgs-moon-geology-v2",
+            "license": "CC0, but please cite authors",
+            "license_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+            "metadata_files": [
+              "pipelines/geology/typed/assets.json",
+              "pipelines/geology/typed/datasets.json"
+            ],
+            "provider": "USGS Astrogeology Science Center",
+            "title": null,
+            "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/"
+          }
+        ]
+      },
+      "typed_by_dimension": {
+        "D01": {
+          "area_count": 0,
+          "dataset_ids": [],
+          "feature_counts": {},
+          "observation_count": 0,
+          "pilots": [],
+          "role": "unspecified_in_committed_records",
+          "states": {}
+        },
+        "D02": {
+          "area_count": 1,
+          "dataset_ids": [
+            "lunar-polar-minerals-zenodo-v4",
+            "usgs-moon-geology-v2"
+          ],
+          "feature_counts": {
+            "geologic_process": 1,
+            "geologic_unit": 1,
+            "geology_analysis_availability": 1
+          },
+          "observation_count": 3,
+          "pilots": [
+            "geology-typed-bundle"
+          ],
+          "role": "evidence_only",
+          "states": {
+            "detected": 2,
+            "unknown": 1
+          }
+        },
+        "D03": {
+          "area_count": 18,
+          "dataset_ids": [
+            "lro-diviner-pcp-pols-summer-240m"
+          ],
+          "feature_counts": {
+            "surface_brightness_temperature_k": 36
+          },
+          "observation_count": 36,
+          "pilots": [
+            "d03_planetary_thermal"
+          ],
+          "role": "evidence_only",
+          "states": {
+            "detected": 26,
+            "no_coverage": 7,
+            "unknown": 3
+          }
+        },
+        "D04": {
+          "area_count": 29,
+          "dataset_ids": [
+            "lp-ns-hydrogenhd",
+            "lro-minirf-cpr-128ppd"
+          ],
+          "feature_counts": {
+            "radar_circular_polarization_ratio": 12,
+            "water_equivalent_hydrogen_wt_percent": 12,
+            "water_ice_detection": 29
+          },
+          "observation_count": 53,
+          "pilots": [
+            "d04_water_ice_planetary"
+          ],
+          "role": "evidence_only",
+          "states": {
+            "detected": 24,
+            "no_coverage": 5,
+            "not_detected": 1,
+            "unknown": 23
+          }
+        },
+        "D05": {
+          "area_count": 4,
+          "dataset_ids": [
+            "naif-spice-generic-kernels"
+          ],
+          "feature_counts": {
+            "solar_elevation_deg": 4,
+            "solar_incidence_deg": 4
+          },
+          "observation_count": 8,
+          "pilots": [
+            "d05_spice_illumination"
+          ],
+          "role": "context_only",
+          "states": {
+            "detected": 8
+          }
+        },
+        "D06": {
+          "area_count": 0,
+          "dataset_ids": [],
+          "feature_counts": {},
+          "observation_count": 0,
+          "pilots": [],
+          "role": "unspecified_in_committed_records",
+          "states": {}
+        }
+      }
+    }
+  },
+  "body_wide_coverage_claimed": false,
+  "claim_scope": "bounded_committed_subset_not_global",
+  "cross_body_ranking_enabled": false,
+  "earth_only_exclusions": {
+    "D06": {
+      "dataset_ids": [
+        "soilgrids-250m-v2"
+      ],
+      "observation_count": 1995,
+      "reason": "SoilGrids 2.0 is a 250 m Earth model prediction. It is not a Moon or Mars regolith measurement and is never presented as one.",
+      "states": {
+        "detected": 1995
+      }
+    }
+  },
+  "global_claims": {
+    "body_wide_coverage_claimed": false,
+    "cross_body_ranking_enabled": false,
+    "earth_similarity_claimed": false,
+    "global": false,
+    "global_coverage": false,
+    "global_coverage_claimed": false,
+    "global_survey": false,
+    "global_survey_claimed": false,
+    "statement": "This inventory describes a bounded committed subset of Moon/Mars data. It is not a global or body-wide survey, does not rank bodies, and does not promote evidence-only records to similarity features."
+  },
+  "global_coverage_claimed": false,
+  "global_survey_claimed": false,
+  "metadata": {
+    "bodies": [
+      "Moon",
+      "Mars"
+    ],
+    "claim_scope": "bounded_committed_subset_not_global",
+    "coarse_index_schema_version": "planetary-coarse-index-1.0.0",
+    "deterministic": true,
+    "dimension_codes": [
+      "D01",
+      "D02",
+      "D03",
+      "D04",
+      "D05",
+      "D06"
+    ],
+    "files_scanned": [
+      "pipelines/geology/typed/manifest.json",
+      "pipelines/geology/typed/observations.jsonl",
+      "pipelines/pilots/d02_spectral_detection/manifest.json",
+      "pipelines/pilots/d02_spectral_detection/observations.jsonl",
+      "pipelines/pilots/d03_earth_power/manifest.json",
+      "pipelines/pilots/d03_earth_power/observations.jsonl",
+      "pipelines/pilots/d03_planetary_thermal/manifest.json",
+      "pipelines/pilots/d03_planetary_thermal/observations.jsonl",
+      "pipelines/pilots/d04_earth_power/manifest.json",
+      "pipelines/pilots/d04_earth_power/observations.jsonl",
+      "pipelines/pilots/d04_water_ice_planetary/manifest.json",
+      "pipelines/pilots/d04_water_ice_planetary/observations.jsonl",
+      "pipelines/pilots/d05_earth_power/manifest.json",
+      "pipelines/pilots/d05_earth_power/observations.jsonl",
+      "pipelines/pilots/d05_spice_illumination/manifest.json",
+      "pipelines/pilots/d05_spice_illumination/observations.jsonl",
+      "pipelines/pilots/d06_earth_soilgrids/manifest.json",
+      "pipelines/pilots/d06_earth_soilgrids/observations.jsonl",
+      "pipelines/pilots/d06_earth_soilgrids_all_0_5cm/manifest.json",
+      "pipelines/pilots/d06_earth_soilgrids_all_0_5cm/observations.jsonl",
+      "pipelines/pilots/d06_earth_soilgrids_depths/manifest.json",
+      "pipelines/pilots/d06_earth_soilgrids_depths/observations.jsonl",
+      "pipelines/pilots/d06_earth_soilgrids_expansion_01/manifest.json",
+      "pipelines/pilots/d06_earth_soilgrids_expansion_01/observations.jsonl"
+    ],
+    "generated_at": null,
+    "generated_at_note": "No generation timestamp is written; the inventory is a pure function of committed files so repeated runs are byte-identical.",
+    "generated_from": {
+      "coarse_index": "pipelines/planetary/coarse/index.json",
+      "coarse_manifests": [
+        "pipelines/planetary/coarse/mars_ctx_jezero_window01.json",
+        "pipelines/planetary/coarse/mars_mola_meg128_evidence.json",
+        "pipelines/planetary/coarse/moon_lola128_window01.json"
+      ],
+      "geology_typed_bundle": "pipelines/geology/typed",
+      "source_audits": [
+        "docs/D01_COVERAGE_AUDIT.md",
+        "docs/D02_SOURCE_AUDIT.md",
+        "docs/D03_D05_SOURCE_AUDIT.md",
+        "docs/D04_D06_SOURCE_AUDIT.md",
+        "docs/PLANETARY_COARSE_REFERENCE.md",
+        "docs/PLANETARY_MAPS_API.md",
+        "docs/PLANETARY_MAP_SOURCE_AUDIT.md",
+        "catalog/dimension-source-inventory.yaml"
+      ],
+      "typed_pilots_root": "pipelines/pilots"
+    },
+    "ignored_rows": [],
+    "inventory_version": "planetary-coverage-inventory-1.0.0",
+    "method_version": "coarse-planetary-dem-horn-1.0.0",
+    "missing_files": [],
+    "reproduce_command": "uv run python -m analog_pipelines.planetary_coverage --write docs/PLANETARY_COVERAGE_INVENTORY.json",
+    "typed_count_basis": "One count per committed typed-v2 observation row in pipelines/pilots/*/observations.jsonl and pipelines/geology/typed/observations.jsonl. Counts are not area coverage and are not a scientific measurement count."
+  },
+  "provenance": {
+    "source_audits": [
+      "docs/D01_COVERAGE_AUDIT.md",
+      "docs/D02_SOURCE_AUDIT.md",
+      "docs/D03_D05_SOURCE_AUDIT.md",
+      "docs/D04_D06_SOURCE_AUDIT.md",
+      "docs/PLANETARY_COARSE_REFERENCE.md",
+      "docs/PLANETARY_MAPS_API.md",
+      "docs/PLANETARY_MAP_SOURCE_AUDIT.md",
+      "catalog/dimension-source-inventory.yaml"
+    ],
+    "typed_source_registry": {
+      "crism-mtrdr-context": {
+        "body": [
+          "Mars"
+        ],
+        "dataset_id": "crism-mtrdr-context",
+        "license": "Data sets archived in the PDS are in the public domain.",
+        "license_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "metadata_files": [
+          "pipelines/geology/typed/assets.json",
+          "pipelines/geology/typed/datasets.json"
+        ],
+        "provider": "NASA PDS Geosciences Node / MRO CRISM",
+        "title": null,
+        "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm"
+      },
+      "crism-mtrdr-hrl000040ff": {
+        "body": [
+          "Mars"
+        ],
+        "dataset_id": "crism-mtrdr-hrl000040ff",
+        "license": "PDS archived data are in the public domain (NASA PDS Geosciences Node)",
+        "license_url": "https://pds.nasa.gov/",
+        "metadata_files": [
+          "pipelines/pilots/d02_spectral_detection/sources.json"
+        ],
+        "provider": "NASA PDS Geosciences Node / MRO CRISM",
+        "title": null,
+        "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_if183j_mtr3.lbl"
+      },
+      "emit-l2bmin-001": {
+        "body": [
+          "Earth"
+        ],
+        "dataset_id": "emit-l2bmin-001",
+        "license": "NASA Earth science data and information policy",
+        "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+        "metadata_files": [
+          "pipelines/geology/typed/assets.json",
+          "pipelines/geology/typed/datasets.json"
+        ],
+        "provider": "NASA JPL / LP DAAC",
+        "title": null,
+        "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001"
+      },
+      "emit-l2bmin-002": {
+        "body": [
+          "Earth"
+        ],
+        "dataset_id": "emit-l2bmin-002",
+        "license": "NASA Earth science data and information policy",
+        "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+        "metadata_files": [
+          "pipelines/geology/typed/assets.json",
+          "pipelines/geology/typed/datasets.json"
+        ],
+        "provider": "NASA JPL / LP DAAC",
+        "title": null,
+        "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002"
+      },
+      "glim-niveau-i-mirror": {
+        "body": [
+          "Earth"
+        ],
+        "dataset_id": "glim-niveau-i-mirror",
+        "license": "not_verified",
+        "license_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+        "metadata_files": [
+          "pipelines/geology/typed/assets.json",
+          "pipelines/geology/typed/datasets.json"
+        ],
+        "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+        "title": null,
+        "url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1"
+      },
+      "lcross-cabeus-impact": {
+        "body": [
+          "Moon"
+        ],
+        "dataset_id": "lcross-cabeus-impact",
+        "license": "unknown",
+        "license_url": null,
+        "metadata_files": [
+          "pipelines/pilots/d04_water_ice_planetary/sources.json"
+        ],
+        "provider": "NASA LCROSS",
+        "title": null,
+        "url": "https://pds-geosciences.wustl.edu/missions/lcross/default.htm"
+      },
+      "lp-ns-hydrogenhd": {
+        "body": [
+          "Moon"
+        ],
+        "dataset_id": "lp-ns-hydrogenhd",
+        "license": "CC0-1.0 (NASA-led mission data archived by the NASA Planetary Data System; no restrictive notice on the product page)",
+        "license_url": "https://science.data.nasa.gov/about/license",
+        "metadata_files": [
+          "pipelines/pilots/d04_water_ice_planetary/assets.json",
+          "pipelines/pilots/d04_water_ice_planetary/sources.json"
+        ],
+        "provider": "NASA Lunar Prospector Neutron Spectrometer (PDS Geosciences Node special product)",
+        "title": "Lunar Prospector half-degree hydrogen abundance from corrected epithermal neutrons",
+        "url": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt"
+      },
+      "lro-diviner-pcp-pols-summer-240m": {
+        "body": [
+          "Moon"
+        ],
+        "dataset_id": "lro-diviner-pcp-pols-summer-240m",
+        "license": "NASA PDS public archive; the PDS4 label carries no explicit licence field; cite Williams et al. (2019)",
+        "license_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/",
+        "metadata_files": [
+          "pipelines/pilots/d03_planetary_thermal/assets.json",
+          "pipelines/pilots/d03_planetary_thermal/datasets.json"
+        ],
+        "provider": "NASA Planetary Data System Geosciences Node / UCLA Diviner Lunar Radiometer Experiment",
+        "title": null,
+        "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/"
+      },
+      "lro-lamp-far-uv": {
+        "body": [
+          "Moon"
+        ],
+        "dataset_id": "lro-lamp-far-uv",
+        "license": "unknown",
+        "license_url": null,
+        "metadata_files": [
+          "pipelines/pilots/d04_water_ice_planetary/sources.json"
+        ],
+        "provider": "NASA LRO LAMP",
+        "title": null,
+        "url": "http://www.boulder.swri.edu/lamp/"
+      },
+      "lro-lend-alds-20090915": {
+        "body": [
+          "Moon"
+        ],
+        "dataset_id": "lro-lend-alds-20090915",
+        "license": "CC0-1.0 (NASA-led mission data archived by the NASA Planetary Data System; no restrictive notice on the product page)",
+        "license_url": "https://science.data.nasa.gov/about/license",
+        "metadata_files": [
+          "pipelines/pilots/d04_water_ice_planetary/sources.json"
+        ],
+        "provider": "NASA LRO LEND (PDS Geosciences Node)",
+        "title": "LEND averaged south-polar neutron counting rates, 0.5 degree grid",
+        "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alds_20090915.dat"
+      },
+      "lro-minirf-cpr-128ppd": {
+        "body": [
+          "Moon"
+        ],
+        "dataset_id": "lro-minirf-cpr-128ppd",
+        "license": "CC0-1.0 (NASA-led mission data archived by the NASA Planetary Data System; no restrictive notice on the product page)",
+        "license_url": "https://science.data.nasa.gov/about/license",
+        "metadata_files": [
+          "pipelines/pilots/d04_water_ice_planetary/assets.json",
+          "pipelines/pilots/d04_water_ice_planetary/sources.json"
+        ],
+        "provider": "NASA LRO Mini-RF (PDS Geosciences Node global mosaic bundle)",
+        "title": "Mini-RF global circular polarization ratio mosaic, 128 pixels per degree",
+        "url": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img"
+      },
+      "lunar-polar-minerals-zenodo-v4": {
+        "body": [
+          "Moon"
+        ],
+        "dataset_id": "lunar-polar-minerals-zenodo-v4",
+        "license": "cc-by-4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+        "metadata_files": [
+          "pipelines/geology/typed/assets.json",
+          "pipelines/geology/typed/datasets.json"
+        ],
+        "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+        "title": null,
+        "url": "https://zenodo.org/records/20725024"
+      },
+      "mex-marsis-radargrams": {
+        "body": [
+          "Mars"
+        ],
+        "dataset_id": "mex-marsis-radargrams",
+        "license": "unknown",
+        "license_url": null,
+        "metadata_files": [
+          "pipelines/pilots/d04_water_ice_planetary/sources.json"
+        ],
+        "provider": "ESA Mars Express MARSIS",
+        "title": null,
+        "url": "https://pds-geosciences.wustl.edu/missions/mars_express/marsis.htm"
+      },
+      "moon-m3-l2-reflectance": {
+        "body": [
+          "Moon"
+        ],
+        "dataset_id": "moon-m3-l2-reflectance",
+        "license": "NASA Planetary Data System archived data (public domain)",
+        "license_url": "https://pds.nasa.gov/",
+        "metadata_files": [
+          "pipelines/pilots/d02_spectral_detection/sources.json"
+        ],
+        "provider": "NASA PDS Imaging Node / Chandrayaan-1 M3 team",
+        "title": null,
+        "url": "https://planetarydata.jpl.nasa.gov/img/data/m3/CH1M3_0004/DATA/20081118_20090214/200902/L2/M3G20090203T175131_V01_L2.LBL"
+      },
+      "mro-crism-hydration": {
+        "body": [
+          "Mars"
+        ],
+        "dataset_id": "mro-crism-hydration",
+        "license": "unknown",
+        "license_url": null,
+        "metadata_files": [
+          "pipelines/pilots/d04_water_ice_planetary/sources.json"
+        ],
+        "provider": "NASA MRO CRISM",
+        "title": null,
+        "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-3-rdr-targeted-v1/"
+      },
+      "mro-hend-epithermal-020917": {
+        "body": [
+          "Mars"
+        ],
+        "dataset_id": "mro-hend-epithermal-020917",
+        "license": "CC0-1.0 (NASA-led mission data archived by the NASA Planetary Data System; no restrictive notice on the product page)",
+        "license_url": "https://science.data.nasa.gov/about/license",
+        "metadata_files": [
+          "pipelines/pilots/d04_water_ice_planetary/assets.json",
+          "pipelines/pilots/d04_water_ice_planetary/sources.json"
+        ],
+        "provider": "NASA 2001 Mars Odyssey HEND (PDS Geosciences Node GRS special products)",
+        "title": "HEND epithermal neutron flux, first 55 days of mapping",
+        "url": "https://pds-geosciences.wustl.edu/ody/urn-nasa-pds-odyssey_grs_special/data/hend_epithermal_020917.tab"
+      },
+      "mro-sharad-radargrams": {
+        "body": [
+          "Mars"
+        ],
+        "dataset_id": "mro-sharad-radargrams",
+        "license": "unknown",
+        "license_url": null,
+        "metadata_files": [
+          "pipelines/pilots/d04_water_ice_planetary/sources.json"
+        ],
+        "provider": "NASA MRO SHARAD",
+        "title": null,
+        "url": "https://pds-geosciences.wustl.edu/mro/mro-m-sharad-5-radargram-v2/mrosh_2101/"
+      },
+      "naif-spice-generic-kernels": {
+        "body": [],
+        "dataset_id": "naif-spice-generic-kernels",
+        "license": "not stated in the committed asset records; redistribution_allowed=unknown",
+        "license_url": null,
+        "metadata_files": [
+          "pipelines/pilots/d05_spice_illumination/assets.json"
+        ],
+        "provider": "NASA JPL NAIF generic kernels",
+        "title": null,
+        "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls"
+      },
+      "nasa-power-daily-point": {
+        "body": [],
+        "dataset_id": "nasa-power-daily-point",
+        "license": "not stated in the committed asset records; redistribution_allowed=unknown",
+        "license_url": null,
+        "metadata_files": [
+          "pipelines/pilots/d03_earth_power/assets.json",
+          "pipelines/pilots/d04_earth_power/assets.json",
+          "pipelines/pilots/d05_earth_power/assets.json"
+        ],
+        "provider": null,
+        "title": null,
+        "url": "raw/nasa-power-D03-earth-earth-atacama-desert-2024-01-01-2024-01-07.json"
+      },
+      "soilgrids-250m-v2": {
+        "body": [],
+        "dataset_id": "soilgrids-250m-v2",
+        "license": "not stated in the committed asset records; redistribution_allowed=unknown",
+        "license_url": "https://docs.isric.org/globaldata/soilgrids/",
+        "metadata_files": [
+          "pipelines/pilots/d06_earth_soilgrids/assets.json",
+          "pipelines/pilots/d06_earth_soilgrids_all_0_5cm/assets.json",
+          "pipelines/pilots/d06_earth_soilgrids_all_0_5cm/manifest.json",
+          "pipelines/pilots/d06_earth_soilgrids_depths/assets.json",
+          "pipelines/pilots/d06_earth_soilgrids_depths/manifest.json",
+          "pipelines/pilots/d06_earth_soilgrids_expansion_01/assets.json",
+          "pipelines/pilots/d06_earth_soilgrids_expansion_01/manifest.json"
+        ],
+        "provider": null,
+        "title": "ISRIC SoilGrids 2.0",
+        "url": "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.05.tif"
+      },
+      "usgs-jezero-sim3464": {
+        "body": [
+          "Mars"
+        ],
+        "dataset_id": "usgs-jezero-sim3464",
+        "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+        "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+        "metadata_files": [
+          "pipelines/geology/typed/assets.json",
+          "pipelines/geology/typed/datasets.json"
+        ],
+        "provider": "U.S. Geological Survey",
+        "title": null,
+        "url": "https://pubs.usgs.gov/publication/sim3464"
+      },
+      "usgs-mars-themis-global-thermal-inertia-quantitative": {
+        "body": [
+          "Mars"
+        ],
+        "dataset_id": "usgs-mars-themis-global-thermal-inertia-quantitative",
+        "license": "Public domain (USGS Astrogeology access constraints); cite authors",
+        "license_url": "https://astrogeology.usgs.gov/search/map/themis_thermal_inertia_mosaic_quantitative_00n060e_100mpp",
+        "metadata_files": [
+          "pipelines/pilots/d03_planetary_thermal/assets.json",
+          "pipelines/pilots/d03_planetary_thermal/datasets.json"
+        ],
+        "provider": "USGS Astrogeology Science Center / Arizona State University / NASA Mars Data Analysis Program",
+        "title": null,
+        "url": "https://astrogeology.usgs.gov/search/map/themis_thermal_inertia_mosaic_quantitative_00n060e_100mpp"
+      },
+      "usgs-moon-geology-v2": {
+        "body": [
+          "Moon"
+        ],
+        "dataset_id": "usgs-moon-geology-v2",
+        "license": "CC0, but please cite authors",
+        "license_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+        "metadata_files": [
+          "pipelines/geology/typed/assets.json",
+          "pipelines/geology/typed/datasets.json"
+        ],
+        "provider": "USGS Astrogeology Science Center",
+        "title": null,
+        "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/"
+      }
+    }
+  }
+}

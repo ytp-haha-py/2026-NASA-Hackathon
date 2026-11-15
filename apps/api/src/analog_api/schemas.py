@@ -370,6 +370,21 @@ class AoiAnalyzeRequest(BaseModel):
     idempotency_key: str | None = Field(default=None, max_length=128)
 
 
+class PlanetaryAoiAnalyzeRequest(BaseModel):
+    """On-demand Moon/Mars AOI analysis (Issue #132).
+
+    Coordinates are planetocentric lon/lat degrees in the declared body frame. This is
+    never Earth EPSG:4326. Only verified D01 terrain sources are recomputed; other
+    dimensions stay explicit unsupported evidence instead of being fabricated.
+    """
+
+    model_config = {"extra": "forbid"}
+    body: Literal["Moon", "Mars"]
+    bbox: GeoBBoxIn
+    requested_features: list[str] | None = None
+    idempotency_key: str | None = Field(default=None, max_length=128)
+
+
 class AoiAnalyzeResponse(BaseModel):
     job_id: str
     status: Literal["queued", "running", "completed", "partial", "failed"]
@@ -379,12 +394,19 @@ class AoiAnalyzeResponse(BaseModel):
     provider_status: dict[str, object] = Field(default_factory=dict)
     result: dict[str, object] | None = None
     links: dict[str, str] = Field(default_factory=dict)
+    body: str | None = None
+    coordinate_frame: str | None = None
+    method_version: str | None = None
+    coverage_note: str | None = None
+    dimension_support: dict[str, object] = Field(default_factory=dict)
 
 
 class JobOut(BaseModel):
     job_id: str
     status: Literal["queued", "running", "completed", "partial", "failed"]
     area_id: str | None
+    body: str | None = None
+    coordinate_frame: str | None = None
     provider_status: dict[str, object]
     error: dict[str, str] | None
     result: dict[str, object] | None
@@ -580,6 +602,32 @@ class RefinePlanOut(BaseModel):
     parent_method_version: str
     fine_method_version: str
     windows: list[RefineWindowOut]
+    note: str
+
+
+class GlobalRefineRequest(BaseModel):
+    """Execute one bounded coarse-hit refinement through the durable AOI queue."""
+
+    model_config = {"extra": "forbid"}
+    candidate_id: str
+    requested_features: list[str] | None = None
+    idempotency_key: str | None = Field(default=None, max_length=128)
+
+
+class GlobalRefineResponse(BaseModel):
+    job_id: str
+    status: Literal["queued", "running", "completed", "partial", "failed"]
+    area_id: str
+    candidate_id: str
+    coarse_candidate_id: str
+    coarse_region_id: str
+    coarse_method_version: str
+    fine_method_version: str
+    focus_window: dict[str, object]
+    cached: bool
+    provider_status: dict[str, object] = Field(default_factory=dict)
+    result: dict[str, object] | None = None
+    links: dict[str, str]
     note: str
 
 

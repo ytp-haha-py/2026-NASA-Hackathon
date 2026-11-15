@@ -112,6 +112,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/earth/map-features": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Earth Map Features */
+        get: operations["earth_map_features_api_v1_earth_map_features_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/global/candidates/{candidate_id}": {
         parameters: {
             query?: never;
@@ -160,6 +177,31 @@ export interface paths {
         get: operations["global_cross_body_gate_api_v1_global_cross_body_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/global/refine": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Refine Candidate
+         * @description Execute one centered 1.98 km refinement through the durable Earth AOI queue.
+         *
+         *     The coarse candidate remains coarse provenance. The returned area is a real 90 m
+         *     on-demand AOI persisted by the normal job runner, so it is immediately queryable
+         *     through ``/locations/{area_id}`` and participates in the standard search index.
+         *     Coarse values are never relabeled as fine metrics.
+         */
+        post: operations["refine_candidate_api_v1_global_refine_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -268,6 +310,47 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/planetary/areas/analyze": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Analyze Planetary Area
+         * @description Analyze a bounded Moon/Mars AOI from verified scientific sources.
+         *
+         *     The job is durable and queryable through the shared ``/jobs/{job_id}`` route.
+         *     Coordinates are planetocentric degrees in the selected body frame; they are
+         *     never interpreted as Earth WGS84.
+         */
+        post: operations["analyze_planetary_area_api_v1_planetary_areas_analyze_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/planetary/areas/{area_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Planetary Area */
+        get: operations["planetary_area_api_v1_planetary_areas__area_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/planetary/bodies": {
         parameters: {
             query?: never;
@@ -294,6 +377,23 @@ export interface paths {
         };
         /** Planetary Coordinate Contract */
         get: operations["planetary_coordinate_contract_api_v1_planetary_coordinate_contract_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/planetary/jobs/{job_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Planetary Job */
+        get: operations["get_planetary_job_api_v1_planetary_jobs__job_id__get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -500,16 +600,28 @@ export interface components {
         AoiAnalyzeResponse: {
             /** Area Id */
             area_id: string | null;
+            /** Body */
+            body?: string | null;
             /** Cache Key */
             cache_key: string;
             /** Cached */
             cached: boolean;
+            /** Coordinate Frame */
+            coordinate_frame?: string | null;
+            /** Coverage Note */
+            coverage_note?: string | null;
+            /** Dimension Support */
+            dimension_support?: {
+                [key: string]: unknown;
+            };
             /** Job Id */
             job_id: string;
             /** Links */
             links?: {
                 [key: string]: string;
             };
+            /** Method Version */
+            method_version?: string | null;
             /** Provider Status */
             provider_status?: {
                 [key: string]: unknown;
@@ -928,6 +1040,193 @@ export interface components {
             /** Method Version */
             method_version: string;
         };
+        /** EarthMapBBoxOut */
+        EarthMapBBoxOut: {
+            /** Crosses Antimeridian */
+            crosses_antimeridian: boolean;
+            /** Crs */
+            crs: string;
+            /** East */
+            east: number;
+            /** Longitude Span Deg */
+            longitude_span_deg: number;
+            /** North */
+            north: number;
+            /** Source */
+            source: string;
+            /** South */
+            south: number;
+            /** West */
+            west: number;
+        };
+        /** EarthMapCenterOut */
+        EarthMapCenterOut: {
+            /** Lat */
+            lat: number;
+            /** Lon */
+            lon: number;
+        };
+        /** EarthMapCoverageOut */
+        EarthMapCoverageOut: {
+            /** Coarse */
+            coarse: {
+                [key: string]: unknown;
+            };
+            /** Fine */
+            fine: {
+                [key: string]: unknown;
+            };
+            /** On Demand */
+            on_demand: {
+                [key: string]: unknown;
+            };
+            /** Typed */
+            typed: {
+                [key: string]: unknown;
+            };
+        } & {
+            [key: string]: unknown;
+        };
+        /** EarthMapFeatureOut */
+        EarthMapFeatureOut: {
+            /** Analysis Crs */
+            analysis_crs?: string | null;
+            /** Area Id */
+            area_id?: string | null;
+            /** Availability */
+            availability: {
+                [key: string]: unknown;
+            };
+            /** Available Dimensions */
+            available_dimensions: string[];
+            bbox: components["schemas"]["EarthMapBBoxOut"];
+            /** Bbox Crs */
+            bbox_crs: string;
+            /** Bbox Geometry */
+            bbox_geometry: {
+                [key: string]: unknown;
+            };
+            /**
+             * Body
+             * @constant
+             */
+            body: "Earth";
+            /** Candidate Id */
+            candidate_id?: string | null;
+            center: components["schemas"]["EarthMapCenterOut"];
+            /** Coordinate Frame */
+            coordinate_frame: string;
+            /** Crs */
+            crs: string;
+            /**
+             * Data Level
+             * @enum {string}
+             */
+            data_level: "fine" | "coarse" | "typed";
+            /** Data Version */
+            data_version: string;
+            /** Detail Links */
+            detail_links: {
+                [key: string]: string | null;
+            };
+            /** Dimension Status */
+            dimension_status: {
+                [key: string]: {
+                    [key: string]: unknown;
+                };
+            };
+            /** Display Name */
+            display_name: string;
+            /** Feature Id */
+            feature_id: string;
+            /**
+             * Feature Type
+             * @enum {string}
+             */
+            feature_type: "fine_candidate" | "on_demand_aoi" | "typed_area" | "coarse_candidate";
+            /** Geometry */
+            geometry: {
+                [key: string]: unknown;
+            };
+            /** Linked Candidate Id */
+            linked_candidate_id?: string | null;
+            /** Location Id */
+            location_id?: string | null;
+            /** Missing Dimensions */
+            missing_dimensions: string[];
+            /** Support */
+            support: string;
+            /** Support Label */
+            support_label: string;
+            /** Typed Area Id */
+            typed_area_id?: string | null;
+        } & {
+            [key: string]: unknown;
+        };
+        /** EarthMapFeaturesOut */
+        EarthMapFeaturesOut: {
+            bbox: components["schemas"]["EarthMapBBoxOut"];
+            /** Bbox Crs */
+            bbox_crs: string;
+            /**
+             * Body
+             * @constant
+             */
+            body: "Earth";
+            /** Contract Version */
+            contract_version: string;
+            /** Coordinate Contract Version */
+            coordinate_contract_version: string;
+            /** Coordinate Frame */
+            coordinate_frame: string;
+            /** Coordinate System */
+            coordinate_system: string;
+            /** Counts By Type */
+            counts_by_type: {
+                [key: string]: number;
+            };
+            coverage: components["schemas"]["EarthMapCoverageOut"];
+            /** Data Version */
+            data_version: string;
+            /** Features */
+            features: components["schemas"]["EarthMapFeatureOut"][];
+            /** Limit */
+            limit: number;
+            /** Next Offset */
+            next_offset: number | null;
+            /** Notes */
+            notes?: string[];
+            /** Offset */
+            offset: number;
+            query: components["schemas"]["EarthMapQueryOut"];
+            /** Returned */
+            returned: number;
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Total */
+            total: number;
+        };
+        /** EarthMapQueryOut */
+        EarthMapQueryOut: {
+            /** Availability */
+            availability: string;
+            /** Bbox */
+            bbox: string | null;
+            /** Bbox Lon Convention */
+            bbox_lon_convention: string;
+            /** Bbox Source */
+            bbox_source: string;
+            /** Data Level */
+            data_level: string;
+            /** Dimension */
+            dimension: string | null;
+            /** Feature Type */
+            feature_type: string;
+            /** Limit */
+            limit: number;
+            /** Offset */
+            offset: number;
+        };
         /** ErrorBody */
         ErrorBody: {
             /** Code */
@@ -1124,6 +1423,60 @@ export interface components {
              */
             status: "ready" | "no_index";
         };
+        /**
+         * GlobalRefineRequest
+         * @description Execute one bounded coarse-hit refinement through the durable AOI queue.
+         */
+        GlobalRefineRequest: {
+            /** Candidate Id */
+            candidate_id: string;
+            /** Idempotency Key */
+            idempotency_key?: string | null;
+            /** Requested Features */
+            requested_features?: string[] | null;
+        };
+        /** GlobalRefineResponse */
+        GlobalRefineResponse: {
+            /** Area Id */
+            area_id: string;
+            /** Cached */
+            cached: boolean;
+            /** Candidate Id */
+            candidate_id: string;
+            /** Coarse Candidate Id */
+            coarse_candidate_id: string;
+            /** Coarse Method Version */
+            coarse_method_version: string;
+            /** Coarse Region Id */
+            coarse_region_id: string;
+            /** Fine Method Version */
+            fine_method_version: string;
+            /** Focus Window */
+            focus_window: {
+                [key: string]: unknown;
+            };
+            /** Job Id */
+            job_id: string;
+            /** Links */
+            links: {
+                [key: string]: string;
+            };
+            /** Note */
+            note: string;
+            /** Provider Status */
+            provider_status?: {
+                [key: string]: unknown;
+            };
+            /** Result */
+            result?: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "queued" | "running" | "completed" | "partial" | "failed";
+        };
         /** GlobalSearchRequest */
         GlobalSearchRequest: {
             /**
@@ -1225,6 +1578,10 @@ export interface components {
         JobOut: {
             /** Area Id */
             area_id: string | null;
+            /** Body */
+            body?: string | null;
+            /** Coordinate Frame */
+            coordinate_frame?: string | null;
             /** Created At */
             created_at: string | null;
             /** Error */
@@ -1658,6 +2015,26 @@ export interface components {
             value: number;
             /** Weight */
             weight: number;
+        };
+        /**
+         * PlanetaryAoiAnalyzeRequest
+         * @description On-demand Moon/Mars AOI analysis (Issue #132).
+         *
+         *     Coordinates are planetocentric lon/lat degrees in the declared body frame. This is
+         *     never Earth EPSG:4326. Only verified D01 terrain sources are recomputed; other
+         *     dimensions stay explicit unsupported evidence instead of being fabricated.
+         */
+        PlanetaryAoiAnalyzeRequest: {
+            bbox: components["schemas"]["GeoBBoxIn"];
+            /**
+             * Body
+             * @enum {string}
+             */
+            body: "Moon" | "Mars";
+            /** Idempotency Key */
+            idempotency_key?: string | null;
+            /** Requested Features */
+            requested_features?: string[] | null;
         };
         /** PlanetaryBBoxOut */
         PlanetaryBBoxOut: {
@@ -2479,6 +2856,65 @@ export interface operations {
             };
         };
     };
+    earth_map_features_api_v1_earth_map_features_get: {
+        parameters: {
+            query?: {
+                /** @description Earth only. Moon/Mars map features live under /api/v1/planetary. */
+                body?: string;
+                /** @description west,south,east,north in Earth WGS84 degrees. west>east crosses the antimeridian. Omit for the whole world. */
+                bbox?: string | null;
+                bbox_lon_convention?: "signed" | "360";
+                limit?: number;
+                offset?: number;
+                feature_type?: "all" | "fine_candidate" | "on_demand_aoi" | "typed_area" | "coarse_candidate";
+                data_level?: "all" | "fine" | "coarse";
+                dimension?: string | null;
+                availability?: "any" | "present" | "absent";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EarthMapFeaturesOut"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
     global_candidate_api_v1_global_candidates__candidate_id__get: {
         parameters: {
             query?: never;
@@ -2566,6 +3002,57 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CrossBodyGateOut"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    refine_candidate_api_v1_global_refine_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GlobalRefineRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GlobalRefineResponse"];
                 };
             };
             /** @description Not Found */
@@ -2868,6 +3355,108 @@ export interface operations {
             };
         };
     };
+    analyze_planetary_area_api_v1_planetary_areas_analyze_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PlanetaryAoiAnalyzeRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AoiAnalyzeResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    planetary_area_api_v1_planetary_areas__area_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                area_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
     planetary_bodies_api_v1_planetary_bodies_get: {
         parameters: {
             query?: never;
@@ -2906,6 +3495,55 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PlanetaryCoordinateContractOut"];
+                };
+            };
+        };
+    };
+    get_planetary_job_api_v1_planetary_jobs__job_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                job_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobOut"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
                 };
             };
         };
