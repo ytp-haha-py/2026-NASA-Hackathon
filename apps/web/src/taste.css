@@ -1958,3 +1958,9 @@ body {
 .dimension-card .observed-feature-list {
   display: none;
 }
+
+/* #170: filter controls must remain visible even though unweighted similarity
+   target rows are hidden by the compact dimension-card layout. */
+.dimension-card .filter-metric .metric-row {
+  display: grid;
+}
