@@ -15,6 +15,8 @@ services:
       ANALOG_CORS_ORIGINS: "http://localhost:5173,https://貓熊.台灣,https://www.貓熊.台灣,https://xn--2vxr09c.xn--kpry57d,https://www.xn--2vxr09c.xn--kpry57d,https://2026-nasa-hackathon.貓熊.台灣,https://2026-nasa-hackathon.xn--2vxr09c.xn--kpry57d"
       ANALOG_SEED_INCLUDE_SYNTHETIC: "false"
       ANALOG_SEED_INCLUDE_TYPED: "true"
+      # #170: allow bounded /vsicurl reads for arbitrary Moon/Mars D01 AOIs.
+      ANALOG_PLANETARY_ALLOW_NETWORK: "true"
       ANALOG_MANIFEST_DIR: /app/pipelines/earth/manifests
       ANALOG_MANIFEST_DIR_CONTEXT: /app/pipelines/worldcover/manifests
       ANALOG_MANIFEST_DIR_PLANETARY: /app/pipelines/planetary/manifests
