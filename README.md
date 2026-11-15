@@ -52,7 +52,14 @@ AnalogX compares a chosen target with candidate areas using measured features an
 
 Missing measurements, incompatible methods, and unsuitable observation scales are identified rather than filled with zero. The multidimensional API can combine selected Earth terrain features with eligible Earth soil-property estimates; it does **not** treat all six dimensions as interchangeable or provide a validated Earth–Moon–Mars six-dimensional score.
 
-[Search method](docs/SEARCH_METHOD.md) · [Multidimensional API](docs/MULTIDIMENSIONAL_SEARCH.md) · [Planetary map API](docs/PLANETARY_MAPS_API.md)
+Map clients can query Earth viewports through `GET /api/v1/earth/map-features` and run bounded
+on-demand Moon/Mars D01 analysis through `POST /api/v1/planetary/areas/analyze`. Both endpoints
+separate a browsable basemap from stored scientific coverage, keep Earth WGS84 and planetary body
+frames distinct, and return explicit empty/unsupported states instead of synthetic values. The
+committed Moon (LOLA128) and Mars (Jezero CTX) pilot windows are reproducible offline; D02–D06
+remain explicit evidence/unsupported statuses rather than fabricated measurements.
+
+[Search method](docs/SEARCH_METHOD.md) · [Multidimensional API](docs/MULTIDIMENSIONAL_SEARCH.md) · [Planetary map API](docs/PLANETARY_MAPS_API.md) · [Earth map API](docs/EARTH_MAP_API.md) · [Planetary AOI analysis](docs/PLANETARY_AOI_ANALYSIS.md)
 
 ## Run locally
 

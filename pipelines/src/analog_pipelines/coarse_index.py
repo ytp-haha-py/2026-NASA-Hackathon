@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 import tempfile
 from collections.abc import Iterable, Sequence
@@ -59,6 +60,10 @@ _COLUMNS = [
     ("source_asset_id", "VARCHAR"),
     ("qa_flags", "VARCHAR"),
 ]
+_SELECT_COLUMNS = ", ".join(name for name, _ in _COLUMNS)
+_BBOX_ORDER = "region_id ASC, west ASC, south ASC, candidate_id ASC"
+MAX_BBOX_LIMIT = 200
+BBOX_COVERAGE_LABEL = "local_coarse_index_not_global_exhaustive"
 
 
 class IndexError_(RuntimeError):
@@ -411,6 +416,64 @@ def verify_index(root: str | Path, *, snapshot_id: str | None = None) -> dict[st
     return manifest
 
 
+def _bbox_coordinate(value: Any, field: str) -> float:
+    if isinstance(value, bool):
+        raise CoarseExtractionError("invalid_bbox", f"{field} must be a finite number")
+    try:
+        number = float(value)
+    except (TypeError, ValueError) as exc:
+        raise CoarseExtractionError("invalid_bbox", f"{field} must be a finite number") from exc
+    if not math.isfinite(number):
+        raise CoarseExtractionError("invalid_bbox", f"{field} must be a finite number")
+    return number
+
+
+def _validate_bbox_query(
+    *, west: float, south: float, east: float, north: float
+) -> tuple[float, float, float, float, list[tuple[float, float]]]:
+    """Validate a WGS84 bbox and split an antimeridian crossing into SQL intervals.
+
+    ``west > east`` is interpreted as the two intervals ``[west, 180]`` and
+    ``[-180, east]`` rather than being silently wrapped to a world-spanning bbox.
+    """
+    west = _bbox_coordinate(west, "west")
+    south = _bbox_coordinate(south, "south")
+    east = _bbox_coordinate(east, "east")
+    north = _bbox_coordinate(north, "north")
+    for name, value in (("west", west), ("east", east)):
+        if not -180.0 <= value <= 180.0:
+            raise CoarseExtractionError(
+                "invalid_bbox", f"{name} must be within [-180, 180], got {value}"
+            )
+    for name, value in (("south", south), ("north", north)):
+        if not -90.0 <= value <= 90.0:
+            raise CoarseExtractionError(
+                "invalid_bbox", f"{name} must be within [-90, 90], got {value}"
+            )
+    if south > north:
+        raise CoarseExtractionError("invalid_bbox", "south must be <= north")
+    if south == north:
+        raise CoarseExtractionError("invalid_bbox", "south == north is not a valid bbox")
+    if west == east:
+        raise CoarseExtractionError("invalid_bbox", "west == east is not a valid bbox")
+    intervals = [(west, east)] if west < east else [(west, 180.0), (-180.0, east)]
+    return west, south, east, north, intervals
+
+
+def _bbox_where(
+    intervals: Sequence[tuple[float, float]], south: float, north: float
+) -> tuple[str, list[Any]]:
+    """SQL overlap predicate for a candidate bbox and one or two query intervals."""
+    longitude_terms: list[str] = []
+    params: list[Any] = []
+    for interval_west, interval_east in intervals:
+        longitude_terms.append("(west <= ? AND east >= ?)")
+        params.extend([interval_east, interval_west])
+    clause = f"(({' OR '.join(longitude_terms)}) AND south <= ? AND north >= ?)"
+    params.extend([north, south])
+    return clause, params
+
+
 class CoarseIndexRepository:
     """Read-only DuckDB repository over a verified Parquet index."""
 
@@ -448,6 +511,186 @@ class CoarseIndexRepository:
             "method_version": self.manifest["method_version"],
             "features": self.manifest["features"],
             "verified_index": True,
+        }
+
+    def query_bbox(
+        self,
+        *,
+        west: float,
+        south: float,
+        east: float,
+        north: float,
+        limit: int = 50,
+        offset: int = 0,
+        region_id: str | None = None,
+    ) -> dict[str, Any]:
+        """Return committed coarse candidates intersecting a WGS84 bbox.
+
+        The filter is pushed into DuckDB over the Parquet ``west``/``south``/
+        ``east``/``north`` columns; the full index is never materialised in Python.
+        A candidate intersects when its bbox overlaps the query. ``west > east``
+        means an antimeridian crossing and is evaluated as two longitude intervals.
+        ``total`` is the SQL count for the filter, independent of ``limit``/``offset``.
+        """
+        if (
+            isinstance(limit, bool)
+            or not isinstance(limit, int)
+            or not 1 <= limit <= MAX_BBOX_LIMIT
+        ):
+            raise CoarseExtractionError(
+                "invalid_limit", f"limit must be an integer within 1..{MAX_BBOX_LIMIT}"
+            )
+        if isinstance(offset, bool) or not isinstance(offset, int) or offset < 0:
+            raise CoarseExtractionError("invalid_offset", "offset must be an integer >= 0")
+        west, south, east, north, intervals = _validate_bbox_query(
+            west=west, south=south, east=east, north=north
+        )
+        bbox_sql, bbox_params = _bbox_where(intervals, south, north)
+        where = ["method_version = ?", bbox_sql]
+        params: list[Any] = [COARSE_METHOD_VERSION, *bbox_params]
+        if region_id is not None:
+            where.append("region_id = ?")
+            params.append(region_id)
+        where_sql = " AND ".join(where)
+        con = self._conn()
+        try:
+            total = con.execute(
+                f"SELECT count(*) FROM coarse WHERE {where_sql}", params
+            ).fetchone()[0]
+            rows = con.execute(
+                f"SELECT {_SELECT_COLUMNS} FROM coarse WHERE {where_sql} "
+                f"ORDER BY {_BBOX_ORDER} LIMIT ? OFFSET ?",
+                [*params, limit, offset],
+            ).fetchall()
+            columns = [item[0] for item in con.description]
+        finally:
+            con.close()
+        results = []
+        for row in rows:
+            payload = dict(zip(columns, row, strict=True))
+            payload["qa_flags"] = json.loads(payload["qa_flags"] or "[]")
+            payload["bbox"] = {
+                "west": payload["west"],
+                "south": payload["south"],
+                "east": payload["east"],
+                "north": payload["north"],
+            }
+            results.append(payload)
+        next_offset = offset + len(results) if offset + len(results) < total else None
+        return {
+            "snapshot_id": self.snapshot_id,
+            "method_version": COARSE_METHOD_VERSION,
+            "coverage_label": BBOX_COVERAGE_LABEL,
+            "query": {
+                "west": west,
+                "south": south,
+                "east": east,
+                "north": north,
+                "region_id": region_id,
+                "limit": limit,
+                "offset": offset,
+                "antimeridian_crossing": west > east,
+                "longitude_intervals": [
+                    {"west": interval_west, "east": interval_east}
+                    for interval_west, interval_east in intervals
+                ],
+                "intersection": "candidate_bbox_overlaps_query_bbox",
+            },
+            "total": int(total),
+            "returned": len(results),
+            "offset": offset,
+            "limit": limit,
+            "next_offset": next_offset,
+            "rows": results,
+        }
+
+    def coverage_bbox(
+        self,
+        *,
+        west: float,
+        south: float,
+        east: float,
+        north: float,
+        region_id: str | None = None,
+    ) -> dict[str, Any]:
+        """SQL aggregate of committed candidates intersecting a WGS84 bbox.
+
+        This is a coverage/map summary, not a global survey claim. For an
+        antimeridian crossing each longitude interval is aggregated separately so
+        the result is never reported as a silently wrapped world bbox.
+        """
+        west, south, east, north, intervals = _validate_bbox_query(
+            west=west, south=south, east=east, north=north
+        )
+        bbox_sql, bbox_params = _bbox_where(intervals, south, north)
+        where = ["method_version = ?", bbox_sql]
+        params: list[Any] = [COARSE_METHOD_VERSION, *bbox_params]
+        if region_id is not None:
+            where.append("region_id = ?")
+            params.append(region_id)
+        where_sql = " AND ".join(where)
+        interval_summaries: list[dict[str, Any]] = []
+        con = self._conn()
+        try:
+            for interval_west, interval_east in intervals:
+                interval_sql, interval_params = _bbox_where(
+                    [(interval_west, interval_east)], south, north
+                )
+                interval_where = ["method_version = ?", interval_sql]
+                interval_where_params: list[Any] = [COARSE_METHOD_VERSION, *interval_params]
+                if region_id is not None:
+                    interval_where.append("region_id = ?")
+                    interval_where_params.append(region_id)
+                count, min_west, min_south, max_east, max_north = con.execute(
+                    "SELECT count(*), min(west), min(south), max(east), max(north) "
+                    f"FROM coarse WHERE {' AND '.join(interval_where)}",
+                    interval_where_params,
+                ).fetchone()
+                interval_summaries.append(
+                    {
+                        "west": interval_west,
+                        "east": interval_east,
+                        "total": int(count),
+                        "bbox": (
+                            None
+                            if count == 0
+                            else {
+                                "west": min_west,
+                                "south": min_south,
+                                "east": max_east,
+                                "north": max_north,
+                            }
+                        ),
+                    }
+                )
+            total = con.execute(
+                f"SELECT count(*) FROM coarse WHERE {where_sql}", params
+            ).fetchone()[0]
+            regions = [
+                row[0]
+                for row in con.execute(
+                    f"SELECT DISTINCT region_id FROM coarse WHERE {where_sql} ORDER BY region_id",
+                    params,
+                ).fetchall()
+            ]
+        finally:
+            con.close()
+        return {
+            "snapshot_id": self.snapshot_id,
+            "method_version": COARSE_METHOD_VERSION,
+            "coverage_label": BBOX_COVERAGE_LABEL,
+            "query": {
+                "west": west,
+                "south": south,
+                "east": east,
+                "north": north,
+                "region_id": region_id,
+                "antimeridian_crossing": west > east,
+            },
+            "total": int(total),
+            "region_count": len(regions),
+            "regions": regions,
+            "longitude_intervals": interval_summaries,
         }
 
     def get(self, candidate_id: str) -> dict[str, Any] | None:
