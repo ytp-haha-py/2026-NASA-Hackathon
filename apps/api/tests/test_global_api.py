@@ -8,6 +8,8 @@ from analog_pipelines.coarse_features import COARSE_METHOD_VERSION
 from analog_pipelines.coarse_index import CoarseRow, build_index
 from fastapi.testclient import TestClient
 
+ROOT = Path(__file__).resolve().parents[3]
+
 
 def _row(
     candidate_id: str, mean: float, p90: float, flat: float, region: str = "pilot"
@@ -168,3 +170,37 @@ def test_coverage_reports_multiple_regions(tmp_path: Path):
         coverage = client.get("/api/v1/global/coverage").json()
         assert coverage["regions"] == ["region-a", "region-b"]
         assert coverage["row_count"] == 2
+
+
+def test_real_geomorpho_pilot_index_is_served_by_global_api(tmp_path: Path):
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'real-coarse.db'}",
+        manifest_dir=str(tmp_path / "none"),
+        manifest_dir_planetary=str(tmp_path / "none"),
+        manifest_dir_context=str(tmp_path / "none"),
+        global_index_dir=str(ROOT / "pipelines/coarse/real-pilot/index"),
+        seed_include_synthetic=False,
+    )
+    app = create_app(settings)
+    with TestClient(app) as client:
+        coverage = client.get("/api/v1/global/coverage")
+        assert coverage.status_code == 200, coverage.text
+        body = coverage.json()
+        assert body["status"] == "ready"
+        assert body["row_count"] == 168
+        assert body["regions"] == ["pilot-alps", "pilot-grand-canyon", "pilot-sahara"]
+        assert body["label"] == "local_coarse_index_not_global_exhaustive"
+
+        search = client.post(
+            "/api/v1/global/search",
+            json={
+                "target": {"coarse_slope_mean_deg": {"value": 8.0, "weight": 1.0}},
+                "limit": 3,
+            },
+        )
+        assert search.status_code == 200, search.text
+        result = search.json()
+        assert result["indexed_candidate_count"] == 168
+        assert result["eligible_candidate_count"] == 168
+        assert len(result["results"]) == 3
+        assert result["coverage_label"] == "local_coarse_index_not_global_exhaustive"

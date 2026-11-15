@@ -15,24 +15,35 @@ product:
   native_resolution_m_approx: 250
   coverage: "Global land approximately 60°S to 85°N; Antarctica excluded"
   temporal_support: static MERIT-DEM derivatives (v1.0, 2018)
-  data_type: Int16 or UInt16 with scale factor in GeoTIFF metadata
+  data_type: Int16; GeoTIFF tag Scale=0.01, Offset=0; nodata=-32768
   verified:
     documentation: true
+    exact_url: true
+    remote_range_read: true
     raster_bytes_fetched: false
+    full_global_file_downloaded: false
     exact_remote_object_checksum: false
+    scale_offset_verified: true
+    nodata_verified: true
+    block_layout_verified: true
+    pilot_windows_processed: true
   licence_attribution: >-
     Geomorpho90m, Amatulli et al.; derived from MERIT-DEM; distributed under CC BY 4.0.
   source_note: >-
-    This catalog records documentation-level facts only. No Geomorpho90m raster was
-    downloaded. Exact object URLs, ETags, pixel scale/offset and block layout must be
-    verified from the chosen archive before any future ingestion.
+    The global slope COG was verified by HTTP range reads only. The full 4.8 GB object
+    was never downloaded. Verified URL:
+    https://hs.pangaea.de/Maps/DEM_Geomorpho90m/dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif
+    Dimensions 172800 x 71698, EPSG:4326, 0.00208333 degree pixels, Int16, scale 0.01,
+    nodata -32768, striped 1-row deflate blocks. A 3-region bounded pilot built 168 real
+    5 km cells. ETag/checksum is not published by the archive; local window SHA-256 values
+    are recorded in docs/GEOMORPHO_REAL_PILOT.md.
 layers:
   - layer_id: dtm_slope_merit
     filename_candidate: dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif
     variable: slope
     expected_unit: degree
     use: "Primary coarse slope source; confirm unit/scale before use"
-    status: identified_not_fetched
+    status: verified_pilot_windows
   - layer_id: dtm_tri_merit
     filename_candidate: dtm_tri_merit.dem_m_250m_s0..0cm_2018_v1.0.tif
     variable: terrain_ruggedness_index
@@ -61,6 +72,11 @@ go_no_go:
     - Claiming global coverage: product excludes Antarctica and is a MERIT-DEM derivative
     - Assuming every Geomorpho archive supports free remote range reads
 estimated_budget:
-  slope_file_size_range: "100 MB to 6 GB per 250 m global layer (documented range)"
-  pilot_download: "not executed; defer until explicit authorization"
-  storage_warning: "Do not fetch without checking disk and license; no CI download."
+  slope_file_size_bytes: 5022223729
+  slope_file_size_note: "Actual Content-Length for the global slope 250 m object (~4.8 GB); not downloaded in full."
+  pilot_download: "No full download. Three 240x240 padded source windows were range-read and cached locally for the real pilot."
+  pilot_regions_actual:
+    - {region_id: pilot-sahara, bbox: {west: 10.0, south: 24.0, east: 10.4, north: 24.4}}
+    - {region_id: pilot-alps, bbox: {west: 10.0, south: 45.0, east: 10.4, north: 45.4}}
+    - {region_id: pilot-grand-canyon, bbox: {west: -112.2, south: 35.8, east: -111.8, north: 36.2}}
+  storage_warning: "Do not fetch the full object; use bounded /vsicurl range reads. No CI download."
