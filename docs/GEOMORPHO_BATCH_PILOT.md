@@ -185,10 +185,10 @@ uv run pytest pipelines/tests/test_geomorpho_batch.py \
 # 29 passed
 
 uv run pytest pipelines/tests
-# 170 passed, 1 skipped
+# 191 passed, 2 skipped (after merging origin/main)
 
 uv run ruff check .              # All checks passed!
-uv run ruff format --check .     # 197 files already formatted
+uv run ruff format --check .     # 216 files already formatted
 ```
 
 `make verify` is run by the coordinator; this workstream did not run the full gate.

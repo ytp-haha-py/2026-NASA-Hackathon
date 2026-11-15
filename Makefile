@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
-.PHONY: help setup api web seed seed-demo test test-backend test-frontend lint verify smoke smoke-online docker-up docker-down data-earth data-earth-dry-run data-worldcover data-moon data-ingest-earth data-ingest-moon data-analyze-aoi data-demo data-validate data-verify data-snapshot data-index data-index-dry-run data-publish data-sync data-fetch data-rebuild-index data-coarse-pilot data-geomorpho-batch data-geomorpho-batch-dry-run
+.PHONY: help setup api web seed seed-demo test test-backend test-frontend lint verify smoke smoke-online docker-up docker-down data-earth data-earth-dry-run data-worldcover data-moon data-ingest-earth data-ingest-moon data-analyze-aoi data-demo data-validate data-verify data-snapshot data-index data-index-dry-run data-publish data-sync data-fetch data-rebuild-index data-coarse-pilot data-geomorpho-batch data-geomorpho-batch-dry-run db-audit db-benchmark-coarse db-benchmark-typed db-backup db-backup-drill
 
 WEST ?= -6.617
 SOUTH ?= 37.682
@@ -10,6 +10,9 @@ NORTH ?= 37.699
 SNAPSHOT ?= samples/snapshot/analog-demo.snapshot.json
 SNAPSHOT_ID ?=
 DESTINATION ?= data/snapshots
+DB ?= var/analog.db
+ROWS ?= 100000
+BACKUP ?= /tmp/analog-backup.db
 
 help: ## Show the available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -106,6 +109,21 @@ data-fetch: data-sync ## Alias for data-sync (requires SNAPSHOT_ID)
 
 data-rebuild-index: data-validate ## Rebuild SQLite from the pinned snapshot after checksum verification
 	uv run python pipelines/build_index.py --snapshot $(SNAPSHOT) --database-url sqlite+pysqlite:///./var/analog.db --reset
+
+db-audit: ## Report SQLite/Parquet/raw/cache/R2 storage separately
+	uv run python scripts/db_audit.py --database $(DB)
+
+db-benchmark-coarse: ## Synthetic coarse-index benchmark (ROWS=100000; not real coverage)
+	uv run python scripts/benchmark_coarse_index.py --rows $(ROWS) --json-out /tmp/coarse-$(ROWS).json
+
+db-benchmark-typed: ## Synthetic typed-observation index measurement (ROWS=100000)
+	uv run python scripts/benchmark_typed_observations.py --rows $(ROWS)
+
+db-backup: ## Create a verified online SQLite backup (BACKUP=/path/to/backup.db)
+	uv run python scripts/db_backup.py backup --source $(DB) --output $(BACKUP)
+
+db-backup-drill: ## Backup -> restore -> rebuild on copies; never resets DB
+	uv run python scripts/db_backup.py drill --source $(DB)
 
 public-up: ## Build and start api + web + Cloudflare Tunnel (one command)
 	docker compose -f compose.public.yaml up -d --build

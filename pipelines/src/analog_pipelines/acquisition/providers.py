@@ -12,6 +12,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Protocol
 
+from analog_pipelines.acquisition.errors import AcquisitionError
 from analog_pipelines.acquisition.models import (
     AcquisitionTask,
     LocalAsset,
@@ -58,10 +59,6 @@ NASA_POWER_WATER_PARAMETERS = {
     "SNODP": ("snow_depth_cm", "cm"),
     "PRECTOTCORR": ("precipitation_mm_day", "mm day-1"),
 }
-
-
-class AcquisitionError(RuntimeError):
-    pass
 
 
 class SourceProvider(Protocol):
@@ -467,7 +464,16 @@ class NasaPowerProvider:
 
 
 def default_providers() -> dict[str, SourceProvider]:
+    from analog_pipelines.acquisition.providers_mars import (
+        MarsMolaMegdrProvider,
+        MarsThemisThermalProvider,
+    )
     from analog_pipelines.acquisition.providers_soilgrids import SoilGridsProvider
 
-    providers: list[SourceProvider] = [NasaPowerProvider(), SoilGridsProvider()]
+    providers: list[SourceProvider] = [
+        NasaPowerProvider(),
+        SoilGridsProvider(),
+        MarsMolaMegdrProvider(),
+        MarsThemisThermalProvider(),
+    ]
     return {provider.provider_id: provider for provider in providers}

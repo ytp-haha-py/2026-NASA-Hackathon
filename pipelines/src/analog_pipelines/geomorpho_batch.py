@@ -889,9 +889,7 @@ def _run(args: argparse.Namespace) -> tuple[dict[str, object], int]:
     if args.resume:
         store = CheckpointStore(checkpoint)
         if store.state.run_id != args.run_id:
-            raise CliError(
-                f"checkpoint belongs to run {store.state.run_id!r}, not {args.run_id!r}"
-            )
+            raise CliError(f"checkpoint belongs to run {store.state.run_id!r}, not {args.run_id!r}")
         existing_ids = set(store.state.tasks)
         plan_ids = {task.task_id for task in planned_all}
         if (existing_ids - plan_ids) and (plan_ids - existing_ids):
