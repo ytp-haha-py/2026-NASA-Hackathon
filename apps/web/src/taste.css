@@ -1230,3 +1230,142 @@ table {
 .result-card.is-selected {
   background: transparent;
 }
+
+/* ==========================================================================
+   Rules run edge to edge; the dimension list has no pills.
+   ========================================================================== */
+
+html,
+body {
+  overflow-x: clip;
+}
+
+.target-bar,
+.dimension-board,
+.map-panel,
+.results-grid,
+.aoi-form,
+.aoi-workspace,
+.six-dimension-panel,
+.global-panel {
+  position: relative;
+  border-bottom: 0;
+}
+
+.target-bar::after,
+.dimension-board::after,
+.map-panel::after,
+.results-grid::after,
+.aoi-form::after,
+.aoi-workspace::after,
+.six-dimension-panel::after,
+.global-panel::after,
+.context-filters::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 100vw;
+  height: 1px;
+  margin-left: -50vw;
+  background: var(--line);
+  pointer-events: none;
+}
+
+.target-bar::after,
+.dimension-board::after,
+.map-panel::after,
+.results-grid::after,
+.aoi-form::after,
+.aoi-workspace::after,
+.six-dimension-panel::after,
+.global-panel::after {
+  bottom: 0;
+}
+
+.context-filters {
+  position: relative;
+  border-top: 0;
+}
+
+.context-filters::before {
+  top: 0;
+  background: var(--line-soft);
+}
+
+/* the vertical rule runs the full height of the board */
+.dimension-layout {
+  align-items: stretch;
+}
+
+.dimension-nav {
+  padding: 0 0 0 0;
+  border-right: 1px solid var(--line-soft);
+}
+
+.dimension-board-grid {
+  border-left: 0;
+}
+
+.dimension-nav-item,
+.dimension-nav-item:hover,
+.dimension-nav-item.is-active {
+  min-height: 44px;
+  margin: 0 -1px 0 0;
+  padding: 8px 20px 8px 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.dimension-nav-item {
+  color: var(--muted);
+}
+
+.dimension-nav-item:hover {
+  color: var(--ink);
+}
+
+.dimension-nav-item.is-active {
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: inset -2px 0 0 var(--ink);
+}
+
+.dimension-nav-count {
+  border-radius: 999px;
+}
+
+@media (max-width: 900px) {
+  .dimension-nav {
+    padding: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .dimension-nav-item,
+  .dimension-nav-item:hover,
+  .dimension-nav-item.is-active {
+    margin: 0 20px -1px 0;
+    padding: 10px 0;
+  }
+
+  .dimension-nav-item.is-active {
+    box-shadow: inset 0 -2px 0 var(--ink);
+  }
+}
+
+/* the board no longer scrolls sideways; let its rules reach the page edges */
+.dimension-scroll {
+  overflow: visible;
+}
+
+@media (max-width: 900px) {
+  .dimension-board-grid {
+    min-height: 0;
+    padding: 24px 0 8px;
+  }
+
+  .metric-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
