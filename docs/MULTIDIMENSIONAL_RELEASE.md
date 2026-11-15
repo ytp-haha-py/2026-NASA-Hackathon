@@ -1,5 +1,11 @@
 # Bounded multi-dimension release report (Issue #48)
 
+> **Historical snapshot:** this report records the #48 release state. Current D02–D06
+> counts (2,140 typed observations; D06 1,920) and the gated 0–5 cm query role are in
+> [`SIX_DIMENSION_BACKEND_RELEASE.md`](SIX_DIMENSION_BACKEND_RELEASE.md) and
+> [`FEATURE_ELIGIBILITY_AUDIT.md`](FEATURE_ELIGIBILITY_AUDIT.md).
+
+
 Status: **local bounded release workflow implemented.** It combines only committed
 artifacts, makes absent body × dimension cells explicit, and never claims global
 coverage. No R2 upload, live database reset, deployment or automatic merge was

@@ -12,7 +12,7 @@ The capture used bounded DNS overrides for the public hosts; no credentials are 
 | `03-six-dimensions-mars.png` | D02 Mars evidence/context |
 | `04-global-discovery.png` | Real 168-cell Earth coarse index |
 | `05-six-dimensions-moon.png` | D02 Moon geology + D05 SPICE solar geometry |
-| `06-home-desktop.png` | Desktop home with live counts (565 typed observations) |
+| `06-home-desktop.png` | Desktop home with live counts (2,140 typed observations) |
 | `07-reference-results-desktop.png` | Moon reference selected → indexed Earth candidate results |
 | `08-six-dimensions-desktop.png` | Six dimensions for a real Mars reference area |
 | `09-refine-plan-desktop.png` | 90 m refine plan for a real coarse candidate |
