@@ -26,9 +26,9 @@ uv run python -m analog_api.cli seed
 
 The UI labels every synthetic record `DEMO / SYNTHETIC`; never ship the flag on in a real deployment.
 
-## Cloudflare Tunnel endpoint (intended public deployment)
+## Cloudflare Tunnel endpoint (configured public deployment)
 
-The intended public endpoint is:
+The configured public endpoint is:
 
 ```text
 https://api.貓熊.台灣
@@ -75,9 +75,20 @@ wrangler whoami                 # requires CLOUDFLARE_API_TOKEN
 cloudflared tunnel list         # requires cert.pem or TUNNEL_TOKEN
 ```
 
-This WSL environment currently has `wrangler 4.162.0` available through `npx`, but no
-`CLOUDFLARE_API_TOKEN`, no `~/.cloudflared` certificate, and no `cloudflared` binary. Therefore the
-tunnel/DNS state cannot be confirmed here until credentials are supplied.
+Verified in this WSL environment on 2026-11-15:
+
+- `cf auth whoami`: authenticated OAuth profile with access to the `貓熊.台灣` zone.
+- Tunnel `planetary-analog` (`8ac424cb-4adf-42f2-8813-35c4904184c3`): `healthy` with four
+  active connections.
+- DNS CNAMEs: `api`, apex and `www` all point to the tunnel.
+- `https://api.貓熊.台灣/api/v1/health` and `/api/v1/typed/coverage`: HTTP 200.
+- Web apex and `www`: HTTP 200.
+- `cloudflared 2026.11.0` runs with `~/.cloudflared/config.yml` and a mode-600 credentials file.
+  Tokens, certificates and credentials are not committed.
+
+Local web preview currently runs on port `18081` (the host's `8080` is occupied); the example
+config uses `8080` for the production web container. Adjust the ingress service to the actual web
+port used on the host.
 
 ## Docker Compose
 
