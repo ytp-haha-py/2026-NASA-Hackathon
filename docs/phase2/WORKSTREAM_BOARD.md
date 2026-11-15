@@ -18,7 +18,7 @@ worktree/session/goal ownership. It does not replace each Issue's acceptance cri
 | #139 D05 | .../phase2-139-d05 | phase2/139-d05 | ses_e20fc684affe5mrOOQ6dvy5Ju5 | 993b3503-c9c2-4a47-a256-76f6e2f35ed9 | complete / integrated | #145 | additional ingest: 3 NASA POWER Earth AOIs added (context-only) |
 | #140 D06 | .../phase2-140-d06 | phase2/140-d06 | ses_e20fc67c3ffeEHNB8Ra3Q5CLqP | 96555f26-c85b-448d-8ed1-6c55880da63c | complete / integrated | #150 | none |
 | #141 integration | .../phase2-141-integration | phase2/141-integration | ses_e20fc6751ffeXuPBKd6WZyqGcN | 2f312370-3a07-400f-b15a-95cd4cc8d251 | complete / integrated | #152 | none |
-| #160 P0 six-dim AOI | .../phase2-160-sixdim | feat/160-sixdim-aoi | ses_e20b4eb76ffekA5MUFIVhI4mSc | 051525ff-6215-470c-847a-a570d6b1aea1 | active (native goal verified) | pending | D02–D05 query contract, D01+D06 E2E |
+| #160 P0 six-dim AOI | .../phase2-160-sixdim | feat/160-sixdim-aoi | ses_e20b4eb76ffekA5MUFIVhI4mSc | 051525ff-6215-470c-847a-a570d6b1aea1 | PR open / verified locally | #166 | no self-merge; #119 UI handoff; WorldCover multidimensional gap |
 
 
 `...` expands to `/home/panda/.local/share/opencode/worktree/204e7a/`.
