@@ -21,9 +21,10 @@ The same five registry feature ids and the shared Horn/relief/roughness/flat ope
 are used. Missing pixels stay missing: no value is invented, interpolated, or zero-filled
 by this module beyond the source product's own documented median-bin interpolation.
 
-Reading uses ``analog_pipelines.planetary_coarse.read_metric_window`` (rasterio + GDAL
-``/vsicurl/`` bounded range reads). No global tile is downloaded and no data cache is
-written. Remote reads are opt-in.
+Reading uses B1's ``analog_pipelines.mola_global.read_window`` adapter: the exact
+PDS4/ENVI tile georeference, bounded GDAL ``/vsicurl`` range reads, and no global tile
+download. GDAL's rounded PDS3 ``MAP_SCALE`` transform is never used. Remote reads are
+opt-in.
 """
 
 from __future__ import annotations
@@ -35,7 +36,7 @@ import math
 import os
 import sys
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -46,11 +47,14 @@ from analog_pipelines.features import ExtractionError, horn_slope_degrees, terra
 from analog_pipelines.planetary_coarse import (
     BODY_SPHERE_RADIUS_M,
     MARS_MOLA_MEG128,
-    PlanetaryCoarseError,
+    assert_planetary_crs,
     body_geographic_crs,
-    read_metric_window,
 )
 from pyproj import CRS, Transformer
+from rasterio.enums import Resampling
+from rasterio.transform import from_origin
+from rasterio.warp import reproject
+from rasterio.windows import transform as window_transform
 
 # The shared GEOGRAPHIC/body-fixed transform requires this override. All analysis
 # operators run in the local metric Mars CRS, so the override changes no value.
@@ -143,16 +147,56 @@ class MolaSourceWindow:
     source_window_pixels: int
     source_window_offsets: tuple[int, int]
     read_bytes_upper_bound: int
+    precise_tile_upper_left_m: tuple[float, float] | None = None
+    precise_window_upper_left_m: tuple[float, float] | None = None
+    gdal_upper_left_m: tuple[float, float] | None = None
+    precise_tile_transform: tuple[float, ...] | None = None
+    window_transform: tuple[float, ...] | None = None
+    gdal_transform: tuple[float, ...] | None = None
+    georeference_override: bool = False
+    georeference_delta: dict[str, float] = field(default_factory=dict)
+    access_timestamp: str | None = None
+    source_kind: str | None = None
+    source_url: str | None = None
 
     def to_payload(self) -> dict[str, Any]:
         return {
             "tile_id": self.tile_id,
             "product_id": self.product_id,
             "label_url": self.label_url,
+            "source_url": self.source_url,
+            "source_kind": self.source_kind,
             "source_window_shape": list(self.source_window_shape),
             "source_window_pixels": self.source_window_pixels,
             "source_window_offsets": list(self.source_window_offsets),
             "read_bytes_upper_bound": self.read_bytes_upper_bound,
+            "georeference_override": self.georeference_override,
+            "georeference_delta": dict(self.georeference_delta),
+            "precise_tile_upper_left_m": (
+                list(self.precise_tile_upper_left_m)
+                if self.precise_tile_upper_left_m is not None
+                else None
+            ),
+            "precise_window_upper_left_m": (
+                list(self.precise_window_upper_left_m)
+                if self.precise_window_upper_left_m is not None
+                else None
+            ),
+            "gdal_upper_left_m": (
+                list(self.gdal_upper_left_m) if self.gdal_upper_left_m is not None else None
+            ),
+            "precise_tile_transform": (
+                list(self.precise_tile_transform)
+                if self.precise_tile_transform is not None
+                else None
+            ),
+            "window_transform": (
+                list(self.window_transform) if self.window_transform is not None else None
+            ),
+            "gdal_transform": list(self.gdal_transform)
+            if self.gdal_transform is not None
+            else None,
+            "access_timestamp": self.access_timestamp,
         }
 
 
@@ -371,16 +415,23 @@ def validate_mola_aoi(bbox: Mapping[str, Any], *, label: str = "custom-mars-aoi"
         analysis_bbox_lonlat=analysis_bbox_lonlat,
         grid_shape=(ny, nx),
         resolution_m=resolution,
-        tiles=tiles_for_bbox(west, raw["south"], east, raw["north"]),
+        tiles=tiles_for_bbox(
+            analysis_bbox_lonlat["west"],
+            analysis_bbox_lonlat["south"],
+            analysis_bbox_lonlat["east"],
+            analysis_bbox_lonlat["north"],
+        ),
     )
 
 
 def _read_mola_window(request: MolaAoiRequest, *, allow_remote: bool) -> MolaWindow:
-    """Read the full requested bbox from every intersecting MEGDR tile.
+    """Read the full analysis footprint from every intersecting MEGDR tile.
 
-    The window request is the exact metric analysis bbox, not a fixed-size centre
-    window. Adjacent tiles are merged only where the first read is nodata; no value is
-    synthesized for a pixel that none of the source tiles supplies.
+    The requested lon/lat AOI is intersected with each verified MEGDR tile, and each
+    intersection is read through B1's ``mola_global.read_window`` adapter. That adapter
+    returns the exact PDS4/ENVI georeference (``tile_transform``), not GDAL's rounded
+    PDS3 ``MAP_SCALE`` transform. The native window array is then reprojected to this
+    module's local metric analysis grid. No shifted GDAL fallback is permitted.
     """
     if not allow_remote:
         raise MolaAoiError(
@@ -389,77 +440,171 @@ def _read_mola_window(request: MolaAoiRequest, *, allow_remote: bool) -> MolaWin
             "perform bounded /vsicurl range reads",
         )
 
+    try:
+        from mola_global import MolaSourceError, tile_for_product_id
+        from mola_global import read_window as read_precise_window
+        from mola_global import tile_transform as precise_tile_transform
+    except Exception as exc:  # noqa: BLE001 - fail closed, never fall back to GDAL PDS
+        raise MolaAoiError(
+            "source_adapter_unavailable",
+            f"cannot import B1's precise MOLA reader: {type(exc).__name__}: {exc}",
+        ) from exc
+
+    metric = request.analysis_bbox_metric
+    dst_transform = from_origin(
+        metric["west"], metric["north"], request.resolution_m, request.resolution_m
+    )
+    lonlat = request.analysis_bbox_lonlat
     merged: np.ndarray | None = None
     sources: list[MolaSourceWindow] = []
+    warnings: list[str] = []
     source_crs_wkt = ""
     source_crs_name = ""
     source_resolution_m = MARS_MOLA_MEG128.native_resolution_m
-    warnings: list[str] = []
-    read_bytes = 0
 
     for tile in request.tiles:
         try:
-            window = read_metric_window(
-                tile.label_url,
-                source=MARS_MOLA_MEG128,
-                bbox_metric=request.analysis_bbox_metric,
-                target_crs=request.crs,
-                resolution_m=request.resolution_m,
-                pad_pixels=2,
+            precise_tile = tile_for_product_id(tile.product_id)
+        except MolaSourceError as exc:
+            raise MolaAoiError("source_tile_unverified", f"{tile.product_id}: {exc}") from exc
+
+        sub_west = max(lonlat["west"], precise_tile.west_deg)
+        sub_south = max(lonlat["south"], precise_tile.south_deg)
+        sub_east = min(lonlat["east"], precise_tile.east_deg)
+        sub_north = min(lonlat["north"], precise_tile.north_deg)
+        if sub_east <= sub_west or sub_north <= sub_south:
+            warnings.append(
+                f"{tile.tile_id} no longer intersects the snapped analysis bbox; skipped"
+            )
+            continue
+
+        try:
+            raw = read_precise_window(
+                sub_west,
+                sub_south,
+                sub_east,
+                sub_north,
+                ppd=128,
+                role="topography",
                 allow_remote=True,
             )
-        except PlanetaryCoarseError as exc:
-            if exc.code == "window_outside_source":
+        except MolaSourceError as exc:
+            if exc.code == "no_valid_elevation":
                 warnings.append(
-                    f"{tile.tile_id} was selected by geographic intersection but its "
-                    "projected window does not intersect the analysis bbox; skipped"
+                    f"{tile.tile_id}: B1 reader found no finite elevation in the tile "
+                    "intersection; tile skipped, no value filled"
                 )
                 continue
-            raise MolaAoiError("source_read_failed", f"{tile.tile_id}: {exc.message}") from exc
+            raise MolaAoiError("source_read_failed", f"{tile.tile_id}: {exc.code}: {exc}") from exc
         except Exception as exc:  # noqa: BLE001 - GDAL/network failures must be explicit
             raise MolaAoiError(
                 "source_read_failed", f"{tile.tile_id}: {type(exc).__name__}: {exc}"
             ) from exc
 
-        if source_crs_wkt == "":
-            source_crs_wkt = window.metadata.crs_wkt
-            source_crs_name = window.metadata.crs_name
-            source_resolution_m = window.metadata.native_resolution_m
-        data = np.asarray(window.data, dtype="float64")
-        if merged is None:
-            merged = data.copy()
+        if not raw.georeference_override:
+            raise MolaAoiError(
+                "georeference_override_missing",
+                f"{tile.tile_id}: B1 reader did not apply the precise PDS4/ENVI "
+                "georeference; refusing to compute on a GDAL PDS transform",
+            )
+        try:
+            src_crs = CRS.from_user_input(raw.crs)
+            assert_planetary_crs(src_crs, body="Mars")
+        except Exception as exc:  # noqa: BLE001 - wrong-body CRS must fail closed
+            raise MolaAoiError(
+                "source_crs_invalid", f"{tile.tile_id}: {type(exc).__name__}: {exc}"
+            ) from exc
+
+        source_data = np.asarray(raw.data, dtype="float64")
+        source_data = np.where(np.isfinite(source_data), source_data, np.nan)
+        full_precise_transform = precise_tile_transform(raw.tile)
+        # B1 currently returns the full-tile precise affine on MolaWindow. If that
+        # changes to a window-local affine, use it directly instead of double-offsetting.
+        if math.isclose(
+            float(raw.transform.c), float(full_precise_transform.c), abs_tol=1e-6
+        ) and math.isclose(float(raw.transform.f), float(full_precise_transform.f), abs_tol=1e-6):
+            src_window_transform = window_transform(raw.window, raw.transform)
         else:
-            both_valid = np.isfinite(merged) & np.isfinite(data)
+            src_window_transform = raw.transform
+        destination = np.full(request.grid_shape, np.nan, dtype="float64")
+        reproject(
+            source=source_data,
+            destination=destination,
+            src_transform=src_window_transform,
+            src_crs=src_crs,
+            src_nodata=np.nan,
+            dst_transform=dst_transform,
+            dst_crs=request.crs,
+            dst_nodata=np.nan,
+            resampling=Resampling.bilinear,
+        )
+
+        if source_crs_wkt == "":
+            source_crs_wkt = src_crs.to_wkt()
+            source_crs_name = src_crs.name
+            source_resolution_m = float(raw.tile.pixel_resolution_m)
+        if merged is None:
+            merged = destination
+        else:
+            both_valid = np.isfinite(merged) & np.isfinite(destination)
             if both_valid.any():
-                largest_difference = float(np.max(np.abs(merged[both_valid] - data[both_valid])))
+                largest_difference = float(
+                    np.max(np.abs(merged[both_valid] - destination[both_valid]))
+                )
                 if largest_difference > 1.0:
                     warnings.append(
                         f"{tile.tile_id} disagrees with an earlier tile by up to "
                         f"{largest_difference:.2f} m on overlapping valid pixels; the "
                         "first read is retained"
                     )
-            merged = np.where(np.isfinite(merged), merged, data)
+            merged = np.where(np.isfinite(merged), merged, destination)
 
+        gdal_transform = tuple(float(value) for value in raw.gdal_transform)
+        precise_transform = tuple(float(value) for value in tuple(full_precise_transform)[:6])
         sources.append(
             MolaSourceWindow(
                 tile_id=tile.tile_id,
-                product_id=tile.product_id,
+                product_id=raw.tile.product_id,
                 label_url=tile.label_url,
-                source_window_shape=window.source_window_shape,
-                source_window_pixels=window.source_window_pixels,
+                source_window_shape=(int(raw.shape[0]), int(raw.shape[1])),
+                source_window_pixels=int(raw.window.width * raw.window.height),
                 source_window_offsets=(
-                    int(window.source_window.col_off),
-                    int(window.source_window.row_off),
+                    int(raw.window.col_off),
+                    int(raw.window.row_off),
                 ),
-                read_bytes_upper_bound=window.source_read_bytes_upper_bound,
+                read_bytes_upper_bound=int(raw.estimated_read_bytes),
+                precise_tile_upper_left_m=(
+                    float(full_precise_transform.c),
+                    float(full_precise_transform.f),
+                ),
+                precise_window_upper_left_m=(
+                    float(src_window_transform.c),
+                    float(src_window_transform.f),
+                ),
+                gdal_upper_left_m=(gdal_transform[2], gdal_transform[5]),
+                precise_tile_transform=precise_transform,
+                window_transform=tuple(float(value) for value in src_window_transform[:6]),
+                gdal_transform=gdal_transform,
+                georeference_override=bool(raw.georeference_override),
+                georeference_delta={
+                    key: float(value) for key, value in raw.georeference_delta.items()
+                },
+                access_timestamp=raw.access_timestamp,
+                source_kind=raw.source_kind,
+                source_url=raw.source,
             )
         )
-        read_bytes += window.source_read_bytes_upper_bound
 
     if merged is None:
-        raise MolaAoiError(
-            "aoi_outside_mola_coverage",
-            "no selected MOLA MEGDR tile intersects the requested bbox",
+        merged = np.full(request.grid_shape, np.nan, dtype="float64")
+        warnings.append(
+            "No selected MOLA MEGDR tile returned finite elevation; the result is an "
+            "explicit no_data grid, never a zero-filled surface."
+        )
+    if len(sources) > 1:
+        warnings.append(
+            f"AOI straddles MEGDR tile boundaries; merged {len(sources)} precise source "
+            "windows. Only finite pixels from the listed tiles are used."
         )
     return MolaWindow(
         data=merged,
@@ -510,6 +655,52 @@ def _source_payload(request: MolaAoiRequest, sources: Sequence[MolaSourceWindow]
     }
 
 
+def _georeference_payload(window: MolaWindow) -> dict[str, Any]:
+    entries = []
+    for source in window.sources:
+        entries.append(
+            {
+                "tile_id": source.tile_id,
+                "product_id": source.product_id,
+                "georeference_override": source.georeference_override,
+                "precise_tile_upper_left_m": (
+                    list(source.precise_tile_upper_left_m)
+                    if source.precise_tile_upper_left_m is not None
+                    else None
+                ),
+                "precise_window_upper_left_m": (
+                    list(source.precise_window_upper_left_m)
+                    if source.precise_window_upper_left_m is not None
+                    else None
+                ),
+                "gdal_upper_left_m": (
+                    list(source.gdal_upper_left_m) if source.gdal_upper_left_m is not None else None
+                ),
+                "georeference_delta": dict(source.georeference_delta),
+                "window_transform": (
+                    list(source.window_transform) if source.window_transform is not None else None
+                ),
+                "gdal_transform": (
+                    list(source.gdal_transform) if source.gdal_transform is not None else None
+                ),
+                "access_timestamp": source.access_timestamp,
+            }
+        )
+    return {
+        "override": bool(window.sources)
+        and all(source.georeference_override for source in window.sources),
+        "method": (
+            "PDS4 cart:Geo_Transformation / exact 2*pi*R/samples tile origin; "
+            "GDAL's rounded PDS3 MAP_SCALE transform is not used"
+        ),
+        "delta_convention": (
+            "gdal_minus_precise_m; positive means GDAL's origin is east/north of the "
+            "precise PDS4/ENVI origin"
+        ),
+        "sources": entries,
+    }
+
+
 def _crs_payload(request: MolaAoiRequest, window: MolaWindow) -> dict[str, Any]:
     return {
         "analysis": {
@@ -523,8 +714,10 @@ def _crs_payload(request: MolaAoiRequest, window: MolaWindow) -> dict[str, Any]:
         "source": {
             "name": window.source_crs_name,
             "wkt": window.source_crs_wkt,
-            "map_scale_resolution_m": window.source_resolution_m,
+            "native_resolution_m": window.source_resolution_m,
             "verified_product_resolution_m": MARS_MOLA_MEG128.native_resolution_m,
+            "georeference_override": bool(window.sources)
+            and all(source.georeference_override for source in window.sources),
         },
     }
 
@@ -735,6 +928,9 @@ def analyze_mola_aoi(
         },
         "source": _source_payload(request, window.sources),
         "crs": _crs_payload(request, window),
+        "georeference_override": bool(window.sources)
+        and all(source.georeference_override for source in window.sources),
+        "georeference": _georeference_payload(window),
         "source_windows": [source.to_payload() for source in window.sources],
         "read_bytes_upper_bound": int(
             sum(source.read_bytes_upper_bound for source in window.sources)
@@ -744,6 +940,12 @@ def analyze_mola_aoi(
     }
     payload["checksum"] = _checksum(payload)
     return payload
+
+
+def _without_access_timestamps(items: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    return [
+        {key: value for key, value in item.items() if key != "access_timestamp"} for item in items
+    ]
 
 
 def compare_with_evidence(result: Mapping[str, Any], evidence: Mapping[str, Any]) -> bool:
@@ -761,8 +963,19 @@ def compare_with_evidence(result: Mapping[str, Any], evidence: Mapping[str, Any]
         "analysis_bbox_metric",
         "features",
         "elevation_stats",
+        "georeference_override",
     )
-    return all(result.get(key) == evidence.get(key) for key in keys)
+    if not all(result.get(key) == evidence.get(key) for key in keys):
+        return False
+    result_georef = dict(result.get("georeference") or {})
+    evidence_georef = dict(evidence.get("georeference") or {})
+    result_georef["sources"] = _without_access_timestamps(result_georef.get("sources", []))
+    evidence_georef["sources"] = _without_access_timestamps(evidence_georef.get("sources", []))
+    if result_georef != evidence_georef:
+        return False
+    return _without_access_timestamps(
+        result.get("source_windows", [])
+    ) == _without_access_timestamps(evidence.get("source_windows", []))
 
 
 @dataclass(frozen=True, slots=True)
@@ -834,6 +1047,29 @@ def build_evidence(
         "source_version": SOURCE_VERSION,
         "generated_at": generated_at or datetime.now(UTC).replace(microsecond=0).isoformat(),
         "command": command,
+        "georeference": {
+            "override": all(
+                result.get("georeference_override")
+                for result in results
+                if result.get("status") != "error"
+            ),
+            "method": (
+                "PDS4 cart:Geo_Transformation / exact 2*pi*R/samples tile origin; "
+                "GDAL's rounded PDS3 MAP_SCALE transform is not used"
+            ),
+            "delta_convention": (
+                "gdal_minus_precise_m; positive means GDAL's origin is east/north of "
+                "the precise PDS4/ENVI origin"
+            ),
+            "per_aoi": [
+                {
+                    "label": result.get("label"),
+                    "status": result.get("status"),
+                    "sources": (result.get("georeference") or {}).get("sources", []),
+                }
+                for result in results
+            ],
+        },
         "limits": {
             "min_side_m": AOI_MIN_SIDE_M,
             "max_side_m": AOI_MAX_SIDE_M,

@@ -19,7 +19,7 @@
         77.44999999999999,
         18.44
       ],
-      "checksum": "sha256:d1f1a6c8d24bcfe679c162cc28fddd9a19ac2981de28e93d72d77cbd9e2d8455",
+      "checksum": "sha256:ee6577fb7de6fdb8ca4d40401b380321b96774e7e20db1951cee307b1c73ff42",
       "coordinate_frame": "mars_planetocentric",
       "crs": {
         "analysis": {
@@ -31,8 +31,9 @@
           "wkt": "PROJCRS[\"unknown\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",18.44,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",77.45,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
         },
         "source": {
-          "map_scale_resolution_m": 463.0,
+          "georeference_override": true,
           "name": "SIMPLE_CYLINDRICAL MARS",
+          "native_resolution_m": 463.0576672,
           "verified_product_resolution_m": 463.0576672,
           "wkt": "PROJCRS[\"SIMPLE_CYLINDRICAL MARS\",BASEGEOGCRS[\"GCS_MARS\",DATUM[\"D_MARS\",ELLIPSOID[\"MARS\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",180,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
         }
@@ -40,10 +41,10 @@
       "data_kind": "observed",
       "dimension": "D01",
       "elevation_stats": {
-        "max_m": -2280.73084,
-        "mean_m": -2541.184602,
-        "min_m": -2657.47897,
-        "relief_p95_p05_m": 239.427439
+        "max_m": -2318.538567,
+        "mean_m": -2545.453869,
+        "min_m": -2654.303636,
+        "relief_p95_p05_m": 227.155391
       },
       "features": {
         "flat_terrain_fraction": {
@@ -54,7 +55,7 @@
           "registry_feature_method_version": "flat-terrain-fraction-1.0.0",
           "unit": "fraction",
           "valid_fraction": 1.0,
-          "value": 0.970356
+          "value": 0.98419
         },
         "roughness_std_m": {
           "comparability": "not_comparable_to_90m_d01",
@@ -64,7 +65,7 @@
           "registry_feature_method_version": "terrain-metrics-1.0.0",
           "unit": "meter",
           "valid_fraction": 1.0,
-          "value": 32.390331
+          "value": 27.85552
         },
         "slope_mean_deg": {
           "comparability": "not_comparable_to_90m_d01",
@@ -74,7 +75,7 @@
           "registry_feature_method_version": "terrain-metrics-1.0.0",
           "unit": "degree",
           "valid_fraction": 1.0,
-          "value": 1.574908
+          "value": 1.451732
         },
         "slope_p90_deg": {
           "comparability": "not_comparable_to_90m_d01",
@@ -84,7 +85,7 @@
           "registry_feature_method_version": "terrain-metrics-1.0.0",
           "unit": "degree",
           "valid_fraction": 1.0,
-          "value": 2.89554
+          "value": 2.74422
         },
         "terrain_relief_p95_p05_m": {
           "comparability": "not_comparable_to_90m_d01",
@@ -94,9 +95,57 @@
           "registry_feature_method_version": "terrain-metrics-1.0.0",
           "unit": "meter",
           "valid_fraction": 1.0,
-          "value": 239.427439
+          "value": 227.155391
         }
       },
+      "georeference": {
+        "delta_convention": "gdal_minus_precise_m; positive means GDAL's origin is east/north of the precise PDS4/ENVI origin",
+        "method": "PDS4 cart:Geo_Transformation / exact 2*pi*R/samples tile origin; GDAL's rounded PDS3 MAP_SCALE transform is not used",
+        "override": true,
+        "sources": [
+          {
+            "access_timestamp": "2026-11-15T14:26:17Z",
+            "gdal_transform": [
+              463.0,
+              0.0,
+              -10667983.0,
+              0.0,
+              -463.0,
+              2608079.0
+            ],
+            "gdal_upper_left_m": [
+              -10667983.0,
+              2608079.0
+            ],
+            "georeference_delta": {
+              "origin_east_m": 865.6515909377486,
+              "origin_north_m": 138.2184999929741,
+              "resolution_east_m": -0.05766720000002579,
+              "resolution_north_m": -0.05766720000002579
+            },
+            "georeference_override": true,
+            "precise_tile_upper_left_m": [
+              -10668848.651590938,
+              2607940.781500007
+            ],
+            "precise_window_upper_left_m": [
+              -6084577.746310937,
+              1098835.844095207
+            ],
+            "product_id": "megt44n000hb",
+            "tile_id": "megt44n000hb",
+            "window_transform": [
+              463.0576672,
+              0.0,
+              -6084577.746310937,
+              0.0,
+              -463.0576672,
+              1098835.844095207
+            ]
+          }
+        ]
+      },
+      "georeference_override": true,
       "grid_shape": [
         24,
         25
@@ -123,7 +172,7 @@
         "no_zero_fill",
         "bounded_vsicurl_window"
       ],
-      "read_bytes_upper_bound": 710656,
+      "read_bytes_upper_bound": 707072,
       "requested_bbox_lonlat": {
         "east": 77.55,
         "north": 18.53,
@@ -180,19 +229,65 @@
       "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
       "source_windows": [
         {
+          "access_timestamp": "2026-11-15T14:26:17Z",
+          "gdal_transform": [
+            463.0,
+            0.0,
+            -10667983.0,
+            0.0,
+            -463.0,
+            2608079.0
+          ],
+          "gdal_upper_left_m": [
+            -10667983.0,
+            2608079.0
+          ],
+          "georeference_delta": {
+            "origin_east_m": 865.6515909377486,
+            "origin_north_m": 138.2184999929741,
+            "resolution_east_m": -0.05766720000002579,
+            "resolution_north_m": -0.05766720000002579
+          },
+          "georeference_override": true,
           "label_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n000hb.lbl",
+          "precise_tile_transform": [
+            463.0576672,
+            0.0,
+            -10668848.651590938,
+            0.0,
+            -463.0576672,
+            2607940.781500007
+          ],
+          "precise_tile_upper_left_m": [
+            -10668848.651590938,
+            2607940.781500007
+          ],
+          "precise_window_upper_left_m": [
+            -6084577.746310937,
+            1098835.844095207
+          ],
           "product_id": "megt44n000hb",
-          "read_bytes_upper_bound": 710656,
+          "read_bytes_upper_bound": 707072,
+          "source_kind": "remote",
+          "source_url": "/vsicurl/https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n000hb.lbl",
           "source_window_offsets": [
-            9897,
-            3258
+            9900,
+            3259
           ],
-          "source_window_pixels": 840,
+          "source_window_pixels": 675,
           "source_window_shape": [
-            28,
-            30
+            25,
+            27
           ],
-          "tile_id": "megt44n000hb"
+          "tile_id": "megt44n000hb",
+          "window_transform": [
+            463.0576672,
+            0.0,
+            -6084577.746310937,
+            0.0,
+            -463.0576672,
+            1098835.844095207
+          ]
         }
       ],
       "status": "complete",
@@ -235,7 +330,7 @@
         70.44999999999999,
         -42.4
       ],
-      "checksum": "sha256:d539d0682fd94184099cc4d65b46ceaa2ec5d8d9ac29d7a8db4c34cfe7a4911e",
+      "checksum": "sha256:30ebeedde441b9588c568f1745839f43ad199a90650c3d0a5ff6c93cc9d0784a",
       "coordinate_frame": "mars_planetocentric",
       "crs": {
         "analysis": {
@@ -247,8 +342,9 @@
           "wkt": "PROJCRS[\"unknown\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",-42.4,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",70.45,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
         },
         "source": {
-          "map_scale_resolution_m": 463.0,
+          "georeference_override": true,
           "name": "SIMPLE_CYLINDRICAL MARS",
+          "native_resolution_m": 463.0576672,
           "verified_product_resolution_m": 463.0576672,
           "wkt": "PROJCRS[\"SIMPLE_CYLINDRICAL MARS\",BASEGEOGCRS[\"GCS_MARS\",DATUM[\"D_MARS\",ELLIPSOID[\"MARS\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",180,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
         }
@@ -256,10 +352,10 @@
       "data_kind": "observed",
       "dimension": "D01",
       "elevation_stats": {
-        "max_m": -5859.106164,
-        "mean_m": -6047.64315,
-        "min_m": -6342.543275,
-        "relief_p95_p05_m": 305.534292
+        "max_m": -5873.958782,
+        "mean_m": -6042.442897,
+        "min_m": -6289.239058,
+        "relief_p95_p05_m": 247.510227
       },
       "features": {
         "flat_terrain_fraction": {
@@ -270,7 +366,7 @@
           "registry_feature_method_version": "flat-terrain-fraction-1.0.0",
           "unit": "fraction",
           "valid_fraction": 1.0,
-          "value": 0.990196
+          "value": 0.997549
         },
         "roughness_std_m": {
           "comparability": "not_comparable_to_90m_d01",
@@ -280,7 +376,7 @@
           "registry_feature_method_version": "terrain-metrics-1.0.0",
           "unit": "meter",
           "valid_fraction": 1.0,
-          "value": 75.004919
+          "value": 67.300124
         },
         "slope_mean_deg": {
           "comparability": "not_comparable_to_90m_d01",
@@ -290,7 +386,7 @@
           "registry_feature_method_version": "terrain-metrics-1.0.0",
           "unit": "degree",
           "valid_fraction": 1.0,
-          "value": 2.062752
+          "value": 1.891218
         },
         "slope_p90_deg": {
           "comparability": "not_comparable_to_90m_d01",
@@ -300,7 +396,7 @@
           "registry_feature_method_version": "terrain-metrics-1.0.0",
           "unit": "degree",
           "valid_fraction": 1.0,
-          "value": 3.597776
+          "value": 3.382902
         },
         "terrain_relief_p95_p05_m": {
           "comparability": "not_comparable_to_90m_d01",
@@ -310,9 +406,57 @@
           "registry_feature_method_version": "terrain-metrics-1.0.0",
           "unit": "meter",
           "valid_fraction": 1.0,
-          "value": 305.534292
+          "value": 247.510227
         }
       },
+      "georeference": {
+        "delta_convention": "gdal_minus_precise_m; positive means GDAL's origin is east/north of the precise PDS4/ENVI origin",
+        "method": "PDS4 cart:Geo_Transformation / exact 2*pi*R/samples tile origin; GDAL's rounded PDS3 MAP_SCALE transform is not used",
+        "override": true,
+        "sources": [
+          {
+            "access_timestamp": "2026-11-15T14:26:25Z",
+            "gdal_transform": [
+              463.0,
+              0.0,
+              -10667983.0,
+              0.0,
+              -463.0,
+              463.0
+            ],
+            "gdal_upper_left_m": [
+              -10667983.0,
+              463.0
+            ],
+            "georeference_delta": {
+              "origin_east_m": 865.6515909377486,
+              "origin_north_m": 463.0,
+              "resolution_east_m": -0.05766720000002579,
+              "resolution_north_m": -0.05766720000002579
+            },
+            "georeference_override": true,
+            "precise_tile_upper_left_m": [
+              -10668848.651590938,
+              0.0
+            ],
+            "precise_window_upper_left_m": [
+              -6499477.416122138,
+              -2506994.2102208002
+            ],
+            "product_id": "megt00n000hb",
+            "tile_id": "megt00n000hb",
+            "window_transform": [
+              463.0576672,
+              0.0,
+              -6499477.416122138,
+              0.0,
+              -463.0576672,
+              -2506994.2102208002
+            ]
+          }
+        ]
+      },
+      "georeference_override": true,
       "grid_shape": [
         26,
         19
@@ -339,7 +483,7 @@
         "no_zero_fill",
         "bounded_vsicurl_window"
       ],
-      "read_bytes_upper_bound": 756736,
+      "read_bytes_upper_bound": 753152,
       "requested_bbox_lonlat": {
         "east": 70.55,
         "north": -42.3,
@@ -396,19 +540,65 @@
       "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
       "source_windows": [
         {
+          "access_timestamp": "2026-11-15T14:26:25Z",
+          "gdal_transform": [
+            463.0,
+            0.0,
+            -10667983.0,
+            0.0,
+            -463.0,
+            463.0
+          ],
+          "gdal_upper_left_m": [
+            -10667983.0,
+            463.0
+          ],
+          "georeference_delta": {
+            "origin_east_m": 865.6515909377486,
+            "origin_north_m": 463.0,
+            "resolution_east_m": -0.05766720000002579,
+            "resolution_north_m": -0.05766720000002579
+          },
+          "georeference_override": true,
           "label_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt00n000hb.lbl",
+          "precise_tile_transform": [
+            463.0576672,
+            0.0,
+            -10668848.651590938,
+            0.0,
+            -463.0576672,
+            0.0
+          ],
+          "precise_tile_upper_left_m": [
+            -10668848.651590938,
+            0.0
+          ],
+          "precise_window_upper_left_m": [
+            -6499477.416122138,
+            -2506994.2102208002
+          ],
           "product_id": "megt00n000hb",
-          "read_bytes_upper_bound": 756736,
+          "read_bytes_upper_bound": 753152,
+          "source_kind": "remote",
+          "source_url": "/vsicurl/https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt00n000hb.lbl",
           "source_window_offsets": [
-            9002,
-            5413
+            9004,
+            5414
           ],
-          "source_window_pixels": 900,
+          "source_window_pixels": 729,
           "source_window_shape": [
-            30,
-            30
+            27,
+            27
           ],
-          "tile_id": "megt00n000hb"
+          "tile_id": "megt00n000hb",
+          "window_transform": [
+            463.0576672,
+            0.0,
+            -6499477.416122138,
+            0.0,
+            -463.0576672,
+            -2506994.2102208002
+          ]
         }
       ],
       "status": "complete",
@@ -451,7 +641,7 @@
         240.0,
         80.0
       ],
-      "checksum": "sha256:98166a0d62c55562ff182fc0d7e8a679841ae4644b00cd1676596e15379663a1",
+      "checksum": "sha256:55ef79685265e286d36cb6e39b322af142a417555d81515bb26ab04ce9912322",
       "coordinate_frame": "mars_planetocentric",
       "crs": {
         "analysis": {
@@ -463,8 +653,9 @@
           "wkt": "PROJCRS[\"unknown\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",80,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",240,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
         },
         "source": {
-          "map_scale_resolution_m": 463.0,
+          "georeference_override": true,
           "name": "SIMPLE_CYLINDRICAL MARS",
+          "native_resolution_m": 463.0576672,
           "verified_product_resolution_m": 463.0576672,
           "wkt": "PROJCRS[\"SIMPLE_CYLINDRICAL MARS\",BASEGEOGCRS[\"GCS_MARS\",DATUM[\"D_MARS\",ELLIPSOID[\"MARS\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",180,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
         }
@@ -472,10 +663,10 @@
       "data_kind": "observed",
       "dimension": "D01",
       "elevation_stats": {
-        "max_m": -4733.778861,
-        "mean_m": -4746.145999,
-        "min_m": -4757.178275,
-        "relief_p95_p05_m": 16.964091
+        "max_m": -4734.90967,
+        "mean_m": -4746.090045,
+        "min_m": -4758.349832,
+        "relief_p95_p05_m": 16.526044
       },
       "features": {
         "flat_terrain_fraction": {
@@ -496,7 +687,7 @@
           "registry_feature_method_version": "terrain-metrics-1.0.0",
           "unit": "meter",
           "valid_fraction": 1.0,
-          "value": 2.349769
+          "value": 2.267449
         },
         "slope_mean_deg": {
           "comparability": "not_comparable_to_90m_d01",
@@ -506,7 +697,7 @@
           "registry_feature_method_version": "terrain-metrics-1.0.0",
           "unit": "degree",
           "valid_fraction": 1.0,
-          "value": 0.206667
+          "value": 0.199755
         },
         "slope_p90_deg": {
           "comparability": "not_comparable_to_90m_d01",
@@ -516,7 +707,7 @@
           "registry_feature_method_version": "terrain-metrics-1.0.0",
           "unit": "degree",
           "valid_fraction": 1.0,
-          "value": 0.355936
+          "value": 0.343285
         },
         "terrain_relief_p95_p05_m": {
           "comparability": "not_comparable_to_90m_d01",
@@ -526,9 +717,57 @@
           "registry_feature_method_version": "terrain-metrics-1.0.0",
           "unit": "meter",
           "valid_fraction": 1.0,
-          "value": 16.964091
+          "value": 16.526044
         }
       },
+      "georeference": {
+        "delta_convention": "gdal_minus_precise_m; positive means GDAL's origin is east/north of the precise PDS4/ENVI origin",
+        "method": "PDS4 cart:Geo_Transformation / exact 2*pi*R/samples tile origin; GDAL's rounded PDS3 MAP_SCALE transform is not used",
+        "override": true,
+        "sources": [
+          {
+            "access_timestamp": "2026-11-15T14:26:31Z",
+            "gdal_transform": [
+              463.0,
+              0.0,
+              -463.0,
+              0.0,
+              -463.0,
+              5215695.0
+            ],
+            "gdal_upper_left_m": [
+              -463.0,
+              5215695.0
+            ],
+            "georeference_delta": {
+              "origin_east_m": -463.0,
+              "origin_north_m": -186.5630000140518,
+              "resolution_east_m": -0.05766720000002579,
+              "resolution_north_m": -0.05766720000002579
+            },
+            "georeference_override": true,
+            "precise_tile_upper_left_m": [
+              0.0,
+              5215881.563000014
+            ],
+            "precise_window_upper_left_m": [
+              3528036.3663968,
+              4746804.146126414
+            ],
+            "product_id": "megt88n180hb",
+            "tile_id": "megt88n180hb",
+            "window_transform": [
+              463.0576672,
+              0.0,
+              3528036.3663968,
+              0.0,
+              -463.0576672,
+              4746804.146126414
+            ]
+          }
+        ]
+      },
+      "georeference_override": true,
       "grid_shape": [
         21,
         21
@@ -555,7 +794,7 @@
         "no_zero_fill",
         "bounded_vsicurl_window"
       ],
-      "read_bytes_upper_bound": 641536,
+      "read_bytes_upper_bound": 637952,
       "requested_bbox_lonlat": {
         "east": 240.45,
         "north": 80.08,
@@ -612,19 +851,65 @@
       "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
       "source_windows": [
         {
+          "access_timestamp": "2026-11-15T14:26:31Z",
+          "gdal_transform": [
+            463.0,
+            0.0,
+            -463.0,
+            0.0,
+            -463.0,
+            5215695.0
+          ],
+          "gdal_upper_left_m": [
+            -463.0,
+            5215695.0
+          ],
+          "georeference_delta": {
+            "origin_east_m": -463.0,
+            "origin_north_m": -186.5630000140518,
+            "resolution_east_m": -0.05766720000002579,
+            "resolution_north_m": -0.05766720000002579
+          },
+          "georeference_override": true,
           "label_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt88n180hb.lbl",
+          "precise_tile_transform": [
+            463.0576672,
+            0.0,
+            0.0,
+            0.0,
+            -463.0576672,
+            5215881.563000014
+          ],
+          "precise_tile_upper_left_m": [
+            0.0,
+            5215881.563000014
+          ],
+          "precise_window_upper_left_m": [
+            3528036.3663968,
+            4746804.146126414
+          ],
           "product_id": "megt88n180hb",
-          "read_bytes_upper_bound": 641536,
+          "read_bytes_upper_bound": 637952,
+          "source_kind": "remote",
+          "source_url": "/vsicurl/https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt88n180hb.lbl",
           "source_window_offsets": [
             7619,
-            1011
+            1013
           ],
-          "source_window_pixels": 3150,
+          "source_window_pixels": 2684,
           "source_window_shape": [
-            25,
-            126
+            22,
+            122
           ],
-          "tile_id": "megt88n180hb"
+          "tile_id": "megt88n180hb",
+          "window_transform": [
+            463.0576672,
+            0.0,
+            3528036.3663968,
+            0.0,
+            -463.0576672,
+            4746804.146126414
+          ]
         }
       ],
       "status": "complete",
@@ -661,7 +946,152 @@
   ],
   "data_kind": "observed",
   "dimension": "D01",
-  "generated_at": "2026-11-15T14:16:32+00:00",
+  "generated_at": "2026-11-15T14:26:32+00:00",
+  "georeference": {
+    "delta_convention": "gdal_minus_precise_m; positive means GDAL's origin is east/north of the precise PDS4/ENVI origin",
+    "method": "PDS4 cart:Geo_Transformation / exact 2*pi*R/samples tile origin; GDAL's rounded PDS3 MAP_SCALE transform is not used",
+    "override": true,
+    "per_aoi": [
+      {
+        "label": "Jezero west low-latitude plain",
+        "sources": [
+          {
+            "access_timestamp": "2026-11-15T14:26:17Z",
+            "gdal_transform": [
+              463.0,
+              0.0,
+              -10667983.0,
+              0.0,
+              -463.0,
+              2608079.0
+            ],
+            "gdal_upper_left_m": [
+              -10667983.0,
+              2608079.0
+            ],
+            "georeference_delta": {
+              "origin_east_m": 865.6515909377486,
+              "origin_north_m": 138.2184999929741,
+              "resolution_east_m": -0.05766720000002579,
+              "resolution_north_m": -0.05766720000002579
+            },
+            "georeference_override": true,
+            "precise_tile_upper_left_m": [
+              -10668848.651590938,
+              2607940.781500007
+            ],
+            "precise_window_upper_left_m": [
+              -6084577.746310937,
+              1098835.844095207
+            ],
+            "product_id": "megt44n000hb",
+            "tile_id": "megt44n000hb",
+            "window_transform": [
+              463.0576672,
+              0.0,
+              -6084577.746310937,
+              0.0,
+              -463.0576672,
+              1098835.844095207
+            ]
+          }
+        ],
+        "status": "complete"
+      },
+      {
+        "label": "Hellas Planitia mid-latitude floor",
+        "sources": [
+          {
+            "access_timestamp": "2026-11-15T14:26:25Z",
+            "gdal_transform": [
+              463.0,
+              0.0,
+              -10667983.0,
+              0.0,
+              -463.0,
+              463.0
+            ],
+            "gdal_upper_left_m": [
+              -10667983.0,
+              463.0
+            ],
+            "georeference_delta": {
+              "origin_east_m": 865.6515909377486,
+              "origin_north_m": 463.0,
+              "resolution_east_m": -0.05766720000002579,
+              "resolution_north_m": -0.05766720000002579
+            },
+            "georeference_override": true,
+            "precise_tile_upper_left_m": [
+              -10668848.651590938,
+              0.0
+            ],
+            "precise_window_upper_left_m": [
+              -6499477.416122138,
+              -2506994.2102208002
+            ],
+            "product_id": "megt00n000hb",
+            "tile_id": "megt00n000hb",
+            "window_transform": [
+              463.0576672,
+              0.0,
+              -6499477.416122138,
+              0.0,
+              -463.0576672,
+              -2506994.2102208002
+            ]
+          }
+        ],
+        "status": "complete"
+      },
+      {
+        "label": "Olympia Undae high-latitude dune field",
+        "sources": [
+          {
+            "access_timestamp": "2026-11-15T14:26:31Z",
+            "gdal_transform": [
+              463.0,
+              0.0,
+              -463.0,
+              0.0,
+              -463.0,
+              5215695.0
+            ],
+            "gdal_upper_left_m": [
+              -463.0,
+              5215695.0
+            ],
+            "georeference_delta": {
+              "origin_east_m": -463.0,
+              "origin_north_m": -186.5630000140518,
+              "resolution_east_m": -0.05766720000002579,
+              "resolution_north_m": -0.05766720000002579
+            },
+            "georeference_override": true,
+            "precise_tile_upper_left_m": [
+              0.0,
+              5215881.563000014
+            ],
+            "precise_window_upper_left_m": [
+              3528036.3663968,
+              4746804.146126414
+            ],
+            "product_id": "megt88n180hb",
+            "tile_id": "megt88n180hb",
+            "window_transform": [
+              463.0576672,
+              0.0,
+              3528036.3663968,
+              0.0,
+              -463.0576672,
+              4746804.146126414
+            ]
+          }
+        ],
+        "status": "complete"
+      }
+    ]
+  },
   "limitations": [
     "MEGDR native support is 0.4630576672 km/pixel; a 90 m D01 comparison is invalid.",
     "MEGDR is a median-binned grid with interpolated bins where no MOLA shot exists.",

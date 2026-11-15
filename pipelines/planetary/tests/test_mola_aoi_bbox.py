@@ -219,6 +219,7 @@ def test_committed_evidence_has_three_dispersed_real_aois():
     assert evidence["dimension"] == "D01"
     assert evidence["data_kind"] == "observed"
     assert evidence["synthetic"] is False
+    assert evidence["georeference"]["override"] is True
     assert evidence["limits"]["analysis_resolution_m"] == pytest.approx(463.0576672)
     assert len(evidence["aois"]) == 3
     assert [item["latitude_band"] for item in evidence["aois"]] == ["low", "mid", "high"]
@@ -232,6 +233,14 @@ def test_committed_evidence_has_three_dispersed_real_aois():
         assert item["coordinate_frame"] == "mars_planetocentric"
         assert item["support_quality"]["d01_90m_comparable"] is False
         assert item["support_quality"]["interpolated_bins_present"] is True
+        assert item["georeference_override"] is True
+        assert item["georeference"]["override"] is True
+        assert item["georeference"]["sources"]
+        for source in item["georeference"]["sources"]:
+            assert source["georeference_override"] is True
+            assert source["precise_tile_upper_left_m"] is not None
+            assert source["gdal_upper_left_m"] is not None
+            assert source["georeference_delta"]["origin_east_m"] != 0.0
         assert item["resolution_m"] == pytest.approx(ANALYSIS_RESOLUTION_M)
         assert item["resolution"]["analysis_resolution_m"] == pytest.approx(463.0576672)
         assert "4326" not in item["crs"]["analysis"]["wkt"]
@@ -253,6 +262,16 @@ def test_committed_evidence_has_three_dispersed_real_aois():
     assert "not global coverage" in evidence["scope"]
     assert "not a Jezero-only claim" in evidence["scope"]
     assert "not a 90 m same-support D01 reference" in evidence["scope"]
+
+    jezero = next(item for item in evidence["aois"] if item["label"].startswith("Jezero"))
+    source = jezero["georeference"]["sources"][0]
+    assert source["tile_id"] == "megt44n000hb"
+    assert source["precise_tile_upper_left_m"] == pytest.approx(
+        [-10668848.652, 2607940.782], abs=0.001
+    )
+    assert source["gdal_upper_left_m"] == pytest.approx([-10667983.0, 2608079.0], abs=0.001)
+    assert source["georeference_delta"]["origin_east_m"] == pytest.approx(865.652, abs=0.001)
+    assert source["georeference_delta"]["origin_north_m"] == pytest.approx(138.218, abs=0.001)
 
 
 def test_result_checksum_is_deterministic_for_the_same_grid():
