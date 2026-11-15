@@ -548,6 +548,8 @@ export const en = {
   "app.aboutSummary": "About this tool, coverage and limits",
   "app.footerNotCompared":
     "Not compared: gravity · atmosphere · radiation · regolith · mineralogy · temperature · illumination · geological history",
+  "map.bodyLabel": "Body",
+  "map.planetRegionLabel": "{body} reference sites map",
   "map.basemapLabel": "Basemap",
   "map.basemapMap": "Map",
   "map.basemapTerrain": "Terrain",

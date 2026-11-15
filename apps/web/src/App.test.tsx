@@ -25,6 +25,7 @@ import {
   searchRequestFromCalls,
   type FetchHandlers,
 } from "./test/mock-api";
+import { applyExampleTarget } from "./test/example-target";
 
 vi.mock("./components/MapPanel", () => ({
   MapPanel: ({
@@ -44,6 +45,7 @@ async function renderReady(handlers: FetchHandlers = {}) {
   const fetchMock = installMockFetch(handlers);
   render(<App aoiPollIntervalMs={10} />);
   await screen.findByRole("heading", { name: "Describe a terrain-shape target" });
+  await applyExampleTarget();
   return fetchMock;
 }
 
@@ -80,7 +82,7 @@ async function openAoiTab(user: ReturnType<typeof userEvent.setup>) {
 }
 
 describe("search form", () => {
-  it("builds a 422-safe request body from the prefilled hypothetical target", async () => {
+  it("builds a 422-safe request body from the hypothetical example target", async () => {
     const fetchMock = await renderReady();
     expect(
       screen.getByText(/Hypothetical example, not a NASA measurement/),

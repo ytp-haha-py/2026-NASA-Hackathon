@@ -500,6 +500,8 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "app.themeToLight": "切換淺色主題",
   "app.aboutSummary": "關於本工具、覆蓋範圍與限制",
   "app.footerNotCompared": "不比較：重力 · 大氣 · 輻射 · 風化層 · 礦物 · 溫度 · 光照 · 地質史",
+  "map.bodyLabel": "天體",
+  "map.planetRegionLabel": "{body}參考點地圖",
   "map.basemapLabel": "底圖",
   "map.basemapMap": "地圖",
   "map.basemapTerrain": "地形",

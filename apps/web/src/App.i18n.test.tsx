@@ -16,6 +16,7 @@ import {
   searchRequestFromCalls,
   type FetchHandlers,
 } from "./test/mock-api";
+import { applyExampleTarget } from "./test/example-target";
 
 vi.mock("./components/MapPanel", () => ({
   MapPanel: ({ results }: { results: unknown[] }) => (
@@ -38,6 +39,7 @@ async function renderApp(
   const fetchMock = installMockFetch(handlers);
   const view = render(<App aoiPollIntervalMs={10} {...props} />);
   await screen.findByRole("tablist");
+  await applyExampleTarget();
   return { fetchMock, view };
 }
 
