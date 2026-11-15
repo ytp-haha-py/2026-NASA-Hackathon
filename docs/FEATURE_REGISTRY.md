@@ -23,14 +23,21 @@ The weighted distance is an **engineering matching score**, not a scientific sim
 | `slope_p90_deg` | terrain_shape | degree | 0–90 | 15° | similarity |
 | `terrain_relief_p95_p05_m` | terrain_shape | meter | 0–20000 | 200 m | similarity |
 | `roughness_std_m` | terrain_shape | meter | 0–5000 | 20 m | similarity |
+| `flat_terrain_fraction` | terrain_shape | fraction | 0–1 | 0.25 | similarity |
 
 - Support: 1.98 km × 1.98 km window (22 × 22 cells at 90 m), projected metric CRS, bilinear
   resampling, ≥80% valid cells.
-- Comparability gate: same method version (`terrain-metrics-1.0.0`), same metric CRS/grid/valid
+- Comparability gate: same method version per feature (`terrain-metrics-1.0.0` for the original
+  four, `flat-terrain-fraction-1.0.0` for flat fraction), same metric CRS/grid/valid
   rule. Moon/Mars ROIs use their own planetary projected/geographic frames; their degrees are never treated as Earth
   WGS84.
 - Terrain shape is not environmental equivalence. Gravity, atmosphere, radiation, regolith,
   mineralogy, temperature, and geological history are not in the score.
+- Custom-mode Research Presets reuse these five metrics and their existing scales; they only
+  change analyst weights, not feature definitions, targets, methods or missingness rules.
+  Ratings are research-informed heuristics, not NASA official/validated weights. See
+  [Search method: Research Presets](SEARCH_METHOD.md#research-informed-weight-presets-custom-mode)
+  for the rating matrix, NASA context references, capability gate and scientific limitations.
 
 ## Earth land-cover context (context-only, never a similarity score)
 
@@ -61,7 +68,7 @@ The challenge's considerations are the top-level vocabulary, not a claim of a un
 | dust / wind / erosion / volcanic or sedimentary processes | planned / evidence-only | process evidence, not a number |
 | biology / extremophiles / habitability / biosignatures | not implemented | no score until authoritative data and method exist |
 | caves / lava tubes / underground | planned / evidence-only | no score |
-| landing / mobility / navigation / operations | planned | mission weights may reuse the same search API |
+| landing / mobility / navigation / operations | terrain-only weight presets implemented | Research Presets reuse D01 search; they do not assess operational safety or complete research suitability |
 
 Unknown or unavailable dimensions stay `unknown`/`unavailable`; they are never zero-filled or
 silently accepted. Earth context can be used as a **hard pre-ranking filter** (`min`/`max` on a

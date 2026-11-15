@@ -11,6 +11,26 @@ export const en = {
   // Language switcher
   "language.label": "Language",
 
+  "research.label": "Research preset",
+  "research.manual": "Manual",
+  "research.targetHint": "Presets set D01 weights only. Set target values for your research; the initial zeros are not NASA-recommended targets. Search runs only when you press Search.",
+  "research.unavailable": "Research presets require all five comparable D01 metrics. API capabilities do not offer: {features}. Manual settings remain available.",
+  "research.disclaimer": "Research-informed initial heuristics, not official NASA weights or experimentally validated optimal weights.",
+  "research.basisTitle": "Weighting rationale and supporting evidence",
+  "research.basis": "Importance r: 5 core, 4 high, 3 medium, 2 low, 1 supporting, 0 not applicable. Sliders use r/2; normalized weights are r/sum(r). Existing fixed scales and distance rules apply. Higher importance means closer matching to your target, not preference for higher or lower terrain values.",
+  "research.roverTitle": "Rover Mobility & Autonomous Navigation",
+  "research.roverDescription": "Emphasizes steep-tail slope, mean slope and roughness to match representative mobility and navigation challenges, informed by ERNEST rover field testing.",
+  "research.roverContext": "D06 surface materials, D05 illumination and D03 thermal environment provide supporting evidence only; none enters this numerical score.",
+  "research.roverLimitation": "Terrain matching at 90 m cannot establish wheel-scale trafficability or actual rover safety.",
+  "research.landingTitle": "Precision Landing & Hazard Avoidance",
+  "research.landingDescription": "Emphasizes P90 slope, flat terrain fraction and roughness to match representative landing hazard-avoidance terrain, informed by SPLICE.",
+  "research.landingContext": "D05 illumination and D06 surface materials remain supporting evidence only.",
+  "research.landingLimitation": "A 90 m DEM cannot identify local rocks, contiguous safe landing areas or actual landing safety. This preset matches terrain challenges; it does not select safe landing sites.",
+  "research.fieldworkTitle": "Geological Fieldwork & Sampling",
+  "research.fieldworkDescription": "Emphasizes relief, roughness and mean slope to match fieldwork landforms, informed by Artemis JETT / D-RATS field tests.",
+  "research.fieldworkContext": "D02 geology and mineralogy are core research requirements; D06 surface materials are also valuable. Both currently provide supporting evidence only and do not enter this score.",
+  "research.fieldworkLimitation": "This is terrain matching only, not complete geological similarity or a sampling-site recommendation.",
+
   // Common
   "common.errorCode": "Error code: {code}",
   "common.httpStatus": " · HTTP {status}",

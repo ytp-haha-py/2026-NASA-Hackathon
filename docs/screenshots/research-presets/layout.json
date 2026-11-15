@@ -1,0 +1,80 @@
+[
+  {
+    "file": "desktop-zh-TW.png",
+    "locale": "zh-TW",
+    "preset": "rover-mobility",
+    "viewport": 1440,
+    "width": 1200,
+    "scrollWidth": 1200,
+    "title": {
+      "x": 120,
+      "y": 216.28125,
+      "width": 101.921875,
+      "height": 31.1875
+    },
+    "select": {
+      "x": 237.921875,
+      "y": 211.875,
+      "width": 219.59375,
+      "height": 40
+    },
+    "limit": {
+      "x": 882,
+      "y": 211.875,
+      "width": 87,
+      "height": 40
+    }
+  },
+  {
+    "file": "mobile-zh-TW.png",
+    "locale": "zh-TW",
+    "preset": "precision-landing",
+    "viewport": 390,
+    "width": 310,
+    "scrollWidth": 310,
+    "title": {
+      "x": 40,
+      "y": 254.875,
+      "width": 101.921875,
+      "height": 31.1875
+    },
+    "select": {
+      "x": 40,
+      "y": 296.0625,
+      "width": 219.59375,
+      "height": 40
+    },
+    "limit": {
+      "x": 40,
+      "y": 346.0625,
+      "width": 87,
+      "height": 40
+    }
+  },
+  {
+    "file": "desktop-en.png",
+    "locale": "en",
+    "preset": "geological-fieldwork",
+    "viewport": 1440,
+    "width": 1200,
+    "scrollWidth": 1200,
+    "title": {
+      "x": 120,
+      "y": 216.28125,
+      "width": 164.765625,
+      "height": 31.1875
+    },
+    "select": {
+      "x": 300.765625,
+      "y": 211.875,
+      "width": 348.59375,
+      "height": 40
+    },
+    "limit": {
+      "x": 739.15625,
+      "y": 211.875,
+      "width": 97.3125,
+      "height": 40
+    }
+  }
+]
