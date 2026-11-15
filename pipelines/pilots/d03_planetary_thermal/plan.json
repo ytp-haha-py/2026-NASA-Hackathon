@@ -1,0 +1,41 @@
+{
+  "bodies": [
+    "Moon",
+    "Mars"
+  ],
+  "dimension": "D03",
+  "local_time_bins": [
+    "00:00-00:15",
+    "12:00-12:15"
+  ],
+  "mars_reference_windows": [
+    "mars-jezero-ctx-window-01",
+    "mars-jezero-ctx-window-02",
+    "mars-jezero-ctx-window-03",
+    "mars-jezero-ctx-window-04",
+    "mars-jezero-ctx-window-05"
+  ],
+  "moon_reference_windows": [
+    "moon-shackleton-rim-site04-roi1",
+    "moon-shackleton-rim-site04-roi2",
+    "moon-shackleton-rim-site04-roi3",
+    "moon-shackleton-rim-site04-roi4",
+    "moon-lola-site01-roi1",
+    "moon-lola-site01-roi2",
+    "moon-lola-site01-roi3",
+    "moon-lola-site01-roi4",
+    "moon-lola-site01-roi5",
+    "moon-lola-site01-roi6",
+    "moon-lola-site01-roi7",
+    "moon-lola-site07-roi1",
+    "moon-lola-site11-roi1",
+    "moon-lola-site11-roi2",
+    "moon-lola-site11-roi3",
+    "moon-lola-site11-roi4",
+    "moon-lola-site20-bounds-centre",
+    "moon-lola-site23-bounds-centre"
+  ],
+  "plan_version": "acquisition-plan-1.0.0",
+  "scope": "pilot-d03-planetary-thermal",
+  "window_size_m": 1980.0
+}

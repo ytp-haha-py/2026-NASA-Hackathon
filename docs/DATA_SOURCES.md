@@ -164,9 +164,10 @@ MOLA value is claimed.
 
 Mars thermal source: <https://astrogeology.usgs.gov/search/map/mars-themis-derived-global-thermal-inertia-mosaic>
 (USGS Astrogeology THEMIS-derived quantitative thermal inertia, 100 m/pixel, 24 tiles, 60°S–60°N).
-It is public domain, requires citation, and is `evidence_only`. No D03 thermal-inertia similarity
-feature, per-pixel QA/uncertainty layer, or bounded tile acquisition exists, so no value is
-persisted.
+It is public domain, requires citation, and is `evidence_only`. Issue #43 adds a bounded pilot
+(`pipelines/pilots/d03_planetary_thermal/`) that reads small 128 x 128 ISIS tiles for the five
+Jezero windows and persists five `thermal_inertia` observations at native 100 m. There is still
+no per-pixel QA/uncertainty layer and no similarity feature.
 
 Implementation: `analog_pipelines.acquisition.providers_mars` and
 `mars_comparability`. Both providers fail closed; see

@@ -1,0 +1,109 @@
+{
+  "blockers": [
+    "Moon PCP is a multi-year composite at one local-time bin, not a single acquisition or same-sol time series.",
+    "Moon PCP supplies no per-bin uncertainty; the reported value is a spatial window mean.",
+    "Bolometric brightness temperature assumes unit emissivity and is not kinetic surface temperature.",
+    "No diurnal range or change rate is computed because local-time bins are not same-sol samples.",
+    "Mars THEMIS TI has no per-pixel uncertainty or QA layer; absolute accuracy is ~20%.",
+    "Mars THEMIS TI retrieval does not correct atmospheric clouds, surface slopes or subsurface ice/bedrock.",
+    "No cross-body D03 score; Earth NASA POWER context is unchanged."
+  ],
+  "checksums": {
+    "areas_sha256": "568c688b1a9a10f7e104859b123af1d1eda56cba27d9c1b89f3d680a2f138b13",
+    "assets_sha256": "7694a820b5016dc3b3c1443a8a0ff89c4eb889e3bd6d1fa2461f86a36da0c4f0",
+    "datasets_sha256": "45757713a89e1838902422470df959f928104ea5d0196e90dac5e92b0c7e2074",
+    "observations_sha256": "2690bb1f86199d9c0e9e9cca0d2daf0eafc5739c5ef57965c38676f000db11b9"
+  },
+  "counts": {
+    "areas": 23,
+    "assets": 3,
+    "by_body": {
+      "Mars": 5,
+      "Moon": 36
+    },
+    "by_feature": {
+      "surface_brightness_temperature_k": 36,
+      "thermal_inertia": 5
+    },
+    "by_local_solar_time": {
+      "00:00-00:15": 18,
+      "12:00-12:15": 18
+    },
+    "by_state": {
+      "detected": 31,
+      "no_coverage": 7,
+      "unknown": 3
+    },
+    "datasets": 2,
+    "mars_reference_windows": 5,
+    "mars_windows_with_samples": 5,
+    "moon_reference_windows": 18,
+    "moon_windows_with_samples": 18,
+    "observations": 41
+  },
+  "data_kind": "observed",
+  "export_version": "planetary-thermal-pilot-1.0.0",
+  "generated_at": "2026-11-15T06:27:26.029297+00:00",
+  "mars": {
+    "absolute_accuracy_fraction": 0.2,
+    "bytes_read": 327680,
+    "citation": "Fergason, R.L., Christensen, P.R., Kieffer, H.H. (2006), High-resolution thermal inertia derived from the Thermal Emission Imaging System (THEMIS): Thermal model and applications, J. Geophys. Res. 111, E12004, doi:10.1029/2006JE002735",
+    "coverage_test": "reference coordinate inside the tile footprint and at least one native 100 m pixel within a 990 m radius",
+    "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "doi": "10.1029/2006JE002735",
+    "footprint": "tile 00N060E: 0-30 N, 60-120 E",
+    "license": "Public domain (USGS Astrogeology); cite authors",
+    "native_resolution_m": 100.0,
+    "nodata": "no explicit no-data constant in the ISIS label; non-finite, non-positive and >10000 values rejected and counted",
+    "product": "USGS THEMIS-derived global thermal inertia mosaic, quantitative 32-bit",
+    "product_id": "THEMIS_TI_Mosaic_Quant_00N060E_100mpp",
+    "source_bytes": 2532510198,
+    "tiling": "ISIS3 tiled cube, 128 x 128 tiles, float32 LSB",
+    "uncertainty": "published absolute accuracy ~20%, relative within one image ~10%; no per-pixel uncertainty layer",
+    "units": "J m^-2 K^-1 s^-1/2",
+    "version": "edition 1 (2014-05-30)"
+  },
+  "moon": {
+    "bundle_lid": "urn:nasa:pds:lro_diviner_derived1",
+    "citation": "Williams, J.-P., Greenhagen, B.T., Paige, D.A., Schorghofer, N., Sefton-Nash, E., Hayne, P.O., Lucey, P.G., Siegler, M.A., Aye, K.-M. (2019), Seasonal polar temperatures on the Moon, J. Geophys. Res. 124, 2505-2521, doi:10.1029/2019JE006028",
+    "collection_lid": "urn:nasa:pds:lro_diviner_derived1:data_derived_pcp",
+    "coverage_test": "reference latitude within [-90, -80] and at least one native 240 m bin within a 990 m radius of the reference centre",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "doi": "10.1029/2019JE006028",
+    "footprint": "south polar cap 80-90 S, full longitude range",
+    "license": "NASA PDS public archive; no explicit licence field in the PDS4 label",
+    "local_time_bins": [
+      {
+        "local_solar_time": "00:00-00:15",
+        "product_id": "PCP_AVG_TBOL_POLS_SUM_LTIM01_240.TAB",
+        "source_bytes": 212653759,
+        "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/diurnal/ltim/pols/pcp_avg_tbol_pols_sum_ltim01_240.tab"
+      },
+      {
+        "local_solar_time": "12:00-12:15",
+        "product_id": "PCP_AVG_TBOL_POLS_SUM_LTIM49_240.TAB",
+        "source_bytes": 197367449,
+        "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/diurnal/ltim/pols/pcp_avg_tbol_pols_sum_ltim49_240.tab"
+      }
+    ],
+    "native_resolution_m": 240.0,
+    "nodata": "sparse bins omitted; invalid/unknown constants -9998/-9999 rejected",
+    "product": "LRO Diviner Polar Cumulative Products (bolometric brightness temperature)",
+    "product_ids": [
+      "PCP_AVG_TBOL_POLS_SUM_LTIM01_240.TAB",
+      "PCP_AVG_TBOL_POLS_SUM_LTIM49_240.TAB"
+    ],
+    "season": "southern_summer (subsolar latitude < 0 deg)",
+    "temporal_end": "2019-02-17T00:00:00.000Z",
+    "temporal_start": "2009-07-05T16:50:26.195Z",
+    "uncertainty": "no per-bin uncertainty supplied by the product",
+    "units": "K (bolometric brightness temperature)",
+    "version": "PDS4 collection 1.0 / product version 1; calibration software 4.0"
+  },
+  "reproduce": [
+    "uv run python scripts/build_planetary_thermal_pilot.py --download",
+    "uv run python scripts/build_planetary_thermal_pilot.py",
+    "uv run pytest pipelines/tests/test_thermal_planetary.py -q"
+  ],
+  "scope": "18 existing Moon LOLA reference windows at two Diviner PCP local-time bins, plus 5 existing Mars Jezero CTX reference windows from one THEMIS quantitative thermal-inertia tile. Not global coverage."
+}

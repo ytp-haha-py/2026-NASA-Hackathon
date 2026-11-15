@@ -1,0 +1,692 @@
+[
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-shackleton-rim-site04-roi1",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -1822.5000520849726,
+      "north": -5657.500121703934,
+      "south": -7637.500121703934,
+      "west": -3802.5000520849726
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-shackleton-rim-site04-roi1",
+      "reference_latitude_deg": -89.76196621,
+      "reference_longitude_deg": -157.06719662,
+      "reference_manifest": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "source_dataset_id": "nasa-lola-site04-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-shackleton-rim-site04-roi1"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-shackleton-rim-site04-roi2",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -1767.4999439557396,
+      "north": -5352.499871778464,
+      "south": -7332.499871778464,
+      "west": -3747.4999439557396
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-shackleton-rim-site04-roi2",
+      "reference_latitude_deg": -89.77192511,
+      "reference_longitude_deg": -156.50226014,
+      "reference_manifest": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "source_dataset_id": "nasa-lola-site04-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-shackleton-rim-site04-roi2"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-shackleton-rim-site04-roi3",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -1687.4999492646625,
+      "north": -5117.499884193413,
+      "south": -7097.499884193413,
+      "west": -3667.4999492646625
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-shackleton-rim-site04-roi3",
+      "reference_latitude_deg": -89.78008311,
+      "reference_longitude_deg": -156.32757511,
+      "reference_manifest": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "source_dataset_id": "nasa-lola-site04-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-shackleton-rim-site04-roi3"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-shackleton-rim-site04-roi4",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -1667.4999378287698,
+      "north": -4967.499861833757,
+      "south": -6947.499861833757,
+      "west": -3647.49993782877
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-shackleton-rim-site04-roi4",
+      "reference_latitude_deg": -89.78487392,
+      "reference_longitude_deg": -155.95947877,
+      "reference_manifest": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "source_dataset_id": "nasa-lola-site04-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-shackleton-rim-site04-roi4"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site01-roi1",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -10592.50009975156,
+      "north": -11472.500105682553,
+      "south": -13452.500105682553,
+      "west": -12572.50009975156
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site01-roi1",
+      "reference_latitude_deg": -89.43892646,
+      "reference_longitude_deg": -137.09597807,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "source_dataset_id": "nasa-lola-site01-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site01-roi1"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site01-roi2",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -10497.500045172534,
+      "north": -11567.500049261967,
+      "south": -13547.500049261967,
+      "west": -12477.500045172534
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site01-roi2",
+      "reference_latitude_deg": -89.43874696,
+      "reference_longitude_deg": -137.54797525,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "source_dataset_id": "nasa-lola-site01-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site01-roi2"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site01-roi3",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -10362.500038689725,
+      "north": -11512.500042783651,
+      "south": -13492.500042783651,
+      "west": -12342.500038689725
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site01-roi3",
+      "reference_latitude_deg": -89.44308632,
+      "reference_longitude_deg": -137.75997378,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "source_dataset_id": "nasa-lola-site01-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site01-roi3"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site01-roi4",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -10297.500010590611,
+      "north": -11177.500011412478,
+      "south": -13157.500011412478,
+      "west": -12277.500010590611
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site01-roi4",
+      "reference_latitude_deg": -89.45267485,
+      "reference_longitude_deg": -137.14865265,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "source_dataset_id": "nasa-lola-site01-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site01-roi4"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site01-roi5",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -10112.500049514678,
+      "north": -10952.50005309624,
+      "south": -12932.50005309624,
+      "west": -12092.500049514678
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site01-roi5",
+      "reference_latitude_deg": -89.46226332,
+      "reference_longitude_deg": -137.08753121,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "source_dataset_id": "nasa-lola-site01-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site01-roi5"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site01-roi6",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -9812.500003907775,
+      "north": -10747.50000623655,
+      "south": -12727.50000623655,
+      "west": -11792.500003907775
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site01-roi6",
+      "reference_latitude_deg": -89.47394396,
+      "reference_longitude_deg": -137.37537081,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "source_dataset_id": "nasa-lola-site01-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site01-roi6"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site01-roi7",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -9237.499971154662,
+      "north": -10562.499966769228,
+      "south": -12542.499966769228,
+      "west": -11217.499971154662
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site01-roi7",
+      "reference_latitude_deg": -89.49117902,
+      "reference_longitude_deg": -138.48133424,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "source_dataset_id": "nasa-lola-site01-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site01-roi7"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site07-roi1",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": 31157.499975547067,
+      "north": -19012.499982215806,
+      "south": -20992.499982215806,
+      "west": 29177.499975547067
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site07-roi1",
+      "reference_latitude_deg": -88.80636301,
+      "reference_longitude_deg": 123.54628783,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site07_references.json",
+      "source_dataset_id": "nasa-lola-site07-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site07-roi1"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site11-roi1",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -36552.49990331808,
+      "north": 15872.499964148828,
+      "south": 13892.499964148828,
+      "west": -38532.49990331808
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site11-roi1",
+      "reference_latitude_deg": -88.66825624,
+      "reference_longitude_deg": -68.37576419,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site11_references.json",
+      "source_dataset_id": "nasa-lola-site11-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site11-roi1"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site11-roi2",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -36402.50013664778,
+      "north": 15752.50005452023,
+      "south": 13772.50005452023,
+      "west": -38382.50013664778
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site11-roi2",
+      "reference_latitude_deg": -88.67431101,
+      "reference_longitude_deg": -68.45597152,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site11_references.json",
+      "source_dataset_id": "nasa-lola-site11-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site11-roi2"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site11-roi3",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -35527.499915887565,
+      "north": 15352.499964059076,
+      "south": 13372.499964059076,
+      "west": -37507.499915887565
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site11-roi3",
+      "reference_latitude_deg": -88.70598947,
+      "reference_longitude_deg": -68.53005841,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site11_references.json",
+      "source_dataset_id": "nasa-lola-site11-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site11-roi3"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site11-roi4",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": -35525.00002049302,
+      "north": 15352.500006213473,
+      "south": 13372.500006213473,
+      "west": -37505.00002049302
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site11-roi4",
+      "reference_latitude_deg": -88.70606618,
+      "reference_longitude_deg": -68.52872227,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site11_references.json",
+      "source_dataset_id": "nasa-lola-site11-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site11-roi4"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site20-bounds-centre",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": 73990.00000004061,
+      "north": 118990.00001580329,
+      "south": 117010.00001580329,
+      "west": 72010.00000004061
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site20-bounds-centre",
+      "reference_latitude_deg": -85.42657728,
+      "reference_longitude_deg": 31.74276115,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site20_references.json",
+      "source_dataset_id": "nasa-lola-site20-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site20-bounds-centre"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "thermal-moon-lola-site23-bounds-centre",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": 489.99999929346615,
+      "north": 122490.00010810408,
+      "south": 120510.00010810408,
+      "west": -1490.000000706534
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 240.0,
+      "reference_id": "moon-lola-site23-bounds-centre",
+      "reference_latitude_deg": -85.99478468,
+      "reference_longitude_deg": -0.23578377,
+      "reference_manifest": "pipelines/planetary/manifests/lola_site23_references.json",
+      "source_dataset_id": "nasa-lola-site23-5mpp-surf",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing LOLA reference window. The product's own polar-stereographic x/y convention is used; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "moon-lola-site23-bounds-centre"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "area_id": "thermal-mars-jezero-ctx-window-01",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": 4587129.777018285,
+      "north": 1080990.0,
+      "south": 1079010.0,
+      "west": 4585149.777018285
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_projected",
+    "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 100.0,
+      "reference_id": "mars-jezero-ctx-window-01",
+      "reference_latitude_deg": 18.220253246764436,
+      "reference_longitude_deg": 77.37095200216012,
+      "reference_manifest": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "source_dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing Jezero CTX reference window, in the THEMIS simple-cylindrical planetocentric tile frame. Native 100 m; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "mars-jezero-ctx-window-01"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "area_id": "thermal-mars-jezero-ctx-window-02",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": 4597672.627080398,
+      "north": 1090990.0,
+      "south": 1089010.0,
+      "west": 4595692.627080398
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_projected",
+    "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 100.0,
+      "reference_id": "mars-jezero-ctx-window-02",
+      "reference_latitude_deg": 18.388959295345586,
+      "reference_longitude_deg": 77.54881625963637,
+      "reference_manifest": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "source_dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing Jezero CTX reference window, in the THEMIS simple-cylindrical planetocentric tile frame. Native 100 m; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "mars-jezero-ctx-window-02"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "area_id": "thermal-mars-jezero-ctx-window-03",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": 4608215.477142508,
+      "north": 1100990.0,
+      "south": 1099010.0,
+      "west": 4606235.477142508
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_projected",
+    "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 100.0,
+      "reference_id": "mars-jezero-ctx-window-03",
+      "reference_latitude_deg": 18.55766534392674,
+      "reference_longitude_deg": 77.7266805171126,
+      "reference_manifest": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "source_dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing Jezero CTX reference window, in the THEMIS simple-cylindrical planetocentric tile frame. Native 100 m; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "mars-jezero-ctx-window-03"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "area_id": "thermal-mars-jezero-ctx-window-04",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": 4618758.327204619,
+      "north": 1110989.9999999998,
+      "south": 1109009.9999999998,
+      "west": 4616778.327204619
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_projected",
+    "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 100.0,
+      "reference_id": "mars-jezero-ctx-window-04",
+      "reference_latitude_deg": 18.72637139250789,
+      "reference_longitude_deg": 77.90454477458881,
+      "reference_manifest": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "source_dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing Jezero CTX reference window, in the THEMIS simple-cylindrical planetocentric tile frame. Native 100 m; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "mars-jezero-ctx-window-04"
+    ]
+  },
+  {
+    "analysis_crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "area_id": "thermal-mars-jezero-ctx-window-05",
+    "area_km2": 3.079074959783356,
+    "bbox": {
+      "east": 4629301.17726673,
+      "north": 1120990.0,
+      "south": 1119010.0,
+      "west": 4627321.17726673
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_projected",
+    "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": {
+      "native_resolution_m": 100.0,
+      "reference_id": "mars-jezero-ctx-window-05",
+      "reference_latitude_deg": 18.895077441089043,
+      "reference_longitude_deg": 78.08240903206506,
+      "reference_manifest": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "source_dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "window_size_m": 1980.0
+    },
+    "notes": "Thermal-only area around an existing Jezero CTX reference window, in the THEMIS simple-cylindrical planetocentric tile frame. Native 100 m; no 90 m resampling.",
+    "schema_version": "2.0.0",
+    "source_area_refs": [
+      "mars-jezero-ctx-window-05"
+    ]
+  }
+]

@@ -1,8 +1,10 @@
 # Mars provider metadata and comparability gates
 
-Status: **metadata interfaces implemented; no Mars MOLA or thermal observation exists.**
-No global Mars raster was downloaded. `GET /references` and the terrain index are unchanged by
-this work, and no Mars numeric value is fabricated, zero-filled, or scored.
+Status: **metadata interfaces implemented; no Mars MOLA terrain observation exists.**
+No global Mars raster was downloaded and the terrain index is unchanged. The separate Issue #43
+D03 pilot now persists bounded THEMIS thermal-inertia evidence (see below); the acquisition
+provider in this document still fails closed and emits no task. No Mars numeric value is
+fabricated, zero-filled, or scored.
 
 Code:
 
@@ -76,15 +78,28 @@ Inertia Mosaic**, quantitative 32-bit product, edition 1 (2014-05-30).
 
 `assess_themis_thermal_inertia(...)` returns `evidence_only` with blockers:
 
-- no approved D03 thermal-inertia similarity feature ID exists;
+- no approved D03 thermal-inertia **similarity** feature ID exists; Issue #43 adds only the
+  evidence-only `thermal_inertia` feature;
 - no per-pixel uncertainty layer and no verified per-pixel QA layer;
 - coverage stops at 60° latitude;
-- each tile is ~2.36 GB in ISIS3 `.cub` format, which has not been verified with the configured
-  raster reader.
+- each full tile is ~2.36 GB in ISIS3 `.cub` format.
 
-Consequently `plan()` returns no tasks, acquisition/processing fail closed, and `validate()`
-rejects `similarity` score roles and detected values. The provider never invents a surface
+The acquisition provider still returns no tasks and fails closed, so it never invents a surface
 temperature, thermal inertia, or `diurnal_temperature_range_k`.
+
+### Bounded Issue #43 pilot (separate from this provider)
+
+`scripts/build_planetary_thermal_pilot.py` reads only the 128 x 128 ISIS tiles touched by the
+existing five Jezero CTX windows from `THEMIS_TI_Mosaic_Quant_00N060E_100mpp.cub` (tile 0-30 N,
+60-120 E). The verified label gives `StartByte = 65537`, `Format = Tile`, `TileSamples = 128`,
+`TileLines = 128`, `Samples = 35566`, `Lines = 17783`, float32 LSB, 100 m/pixel. HTTP range
+requests read ~0.3-1.3 MB per run, never the 2.53 GB tile.
+
+The pilot persists five `thermal_inertia` observations at native 100 m over 1.98 km windows,
+with the Fergason et al. (2006) retrieval, `J m^-2 K^-1 s^-1/2`, a published ±20% absolute
+uncertainty range, and no claim of per-pixel QA. Thermal inertia remains separate from surface
+or brightness temperature and is never scored across bodies. See
+`pipelines/pilots/d03_planetary_thermal/REPORT.md`.
 
 ## Tests
 
@@ -114,10 +129,11 @@ identifiers/resolution/licence text still appear. It does not fetch a raster or 
   window), not an upsampled global MEGDR grid.
 - MOLA redistribution terms should be confirmed by the maintainer before any derived value is
   committed.
-- Persisting thermal inertia requires a reviewed D03 feature ID, retrieval model/uncertainty
-  support, and per-pixel QA. No such feature is registered today.
+- The evidence-only `thermal_inertia` feature now exists, but a similarity score still requires
+  per-pixel QA, a validated cross-body retrieval comparison and maintainer approval. None exists.
 - An AOI/ingest authorization for a multi-GB ISIS3 tile is an operator decision, not something
   this repository can infer.
 
 `GET /references` still contains only the existing observed Moon and Mars CTX windows; MOLA is
-not added because no validated manifest exists.
+not added because no validated manifest exists. The Issue #43 thermal pilot adds no terrain
+reference and no similarity feature.
