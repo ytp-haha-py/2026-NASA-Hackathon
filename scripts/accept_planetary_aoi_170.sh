@@ -74,10 +74,12 @@ if [[ "$MODE" == "offline" ]]; then
   require_file contracts/openapi.json
   require_file apps/web/src/api/schema.d.ts
 
-  echo "[goal170] committed coverage context (bounded, not global/exhaustive)"
-  echo "[goal170]   Moon:  pipelines/planetary/coarse/moon_lola128_window01.json (~20E,10S, low lat, 4 cells)"
-  echo "[goal170]   Mars:  pipelines/planetary/coarse/mars_ctx_jezero_window01.json (~78.17E,18.56N, low/mid lat, 4 comparable cells)"
-  echo "[goal170]   Successful dispersed-latitude analyses outside committed pilots are not claimed; required cases map to explicit non-fabricated outcomes."
+  echo "[goal170] committed coverage context (bounded, not global/exhaustive) — per-source proof"
+  echo "[goal170]   Moon analysis-eligible: pipelines/planetary/coarse/moon_lola128_window01.json (moon-lola128-eqc-window-01, 4 cells ~19.833-20.168E,-10.165..-9.835S, low lat ~10S)"
+  echo "[goal170]   Mars analysis-eligible: pipelines/planetary/coarse/mars_ctx_jezero_window01.json (mars-ctx-jezero-window-01, 4 cells ~78.082-78.260E,18.473-18.642N, low/mid lat ~18.5N)"
+  echo "[goal170]   Mars evidence-only (not comparable): pipelines/planetary/coarse/mars_mola_meg128_evidence.json"
+  echo "[goal170]   No other committed Moon/Mars coarse pilot manifests/cells/fixtures exist; no committed mid/high-lat Moon, low-outside/high-lat Mars, polar, dateline-crossing-in-coverage, or in-coverage nodata-only regions for successful real offline analysis."
+  echo "[goal170]   Only 6 committed-pilot AOIs can succeed (Moon 3 low-lat, Mars 3 low/mid-lat). All other required cases map to explicit non-fabricated outcomes."
 
   export ANALOG_DATABASE_URL="sqlite+pysqlite:///${TMP_DIR}/goal170.db"
   export ANALOG_AOI_RUNTIME_DIR="${TMP_DIR}/aoi-runtime"
