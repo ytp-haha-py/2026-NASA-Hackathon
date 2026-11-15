@@ -504,6 +504,20 @@ def test_missing_and_incompatible_features_are_not_zero_scored(client: TestClien
 # ---------------------------------------------------------------------------
 
 
+RANGE_FILTER_FEATURES = {
+    "surface_air_temperature_2m_c",
+    "surface_air_temperature_2m_max_c",
+    "surface_air_temperature_2m_min_c",
+    "surface_skin_temperature_c",
+    "precipitation_mm_day",
+    "root_zone_soil_wetness_fraction",
+    "snow_depth_cm",
+    "surface_soil_wetness_fraction",
+    "surface_shortwave_irradiance_kwh_m2_day",
+    "surface_longwave_irradiance_kwh_m2_day",
+}
+
+
 def test_d02_to_d05_roles_are_evidence_only_and_never_score(client: TestClient):
     registry_payload = client.get("/api/v1/search/features")
     assert registry_payload.status_code == 200, registry_payload.text
@@ -515,14 +529,27 @@ def test_d02_to_d05_roles_are_evidence_only_and_never_score(client: TestClient):
     for item in typed:
         feature_id = item["feature_id"]
         assert item["roles"]["similarity"]["supported"] is False, feature_id
-        assert item["roles"]["hard_filter"]["supported"] is False, feature_id
         assert item["roles"]["similarity"]["reason"], feature_id
         assert item["unsupported_reason"], feature_id
         legal = [role for role, support in item["roles"].items() if support["supported"]]
         assert legal, feature_id
         assert "similarity" not in legal
-        assert "hard_filter" not in legal
-        # Evidence-only features must declare one of the non-similarity roles explicitly.
+        # Issue #170: only the ten Earth scalar context fields are range-filterable and
+        # geologic_unit is an exact-label category filter. Everything else stays evidence.
+        if feature_id in RANGE_FILTER_FEATURES:
+            assert item["roles"]["hard_filter"]["supported"] is True, feature_id
+            assert item["roles"]["filter"]["supported"] is True, feature_id
+            assert item["filter_kind"] == "range", feature_id
+        elif feature_id == "geologic_unit":
+            assert item["roles"]["hard_filter"]["supported"] is False, feature_id
+            assert item["roles"]["category_match"]["supported"] is True, feature_id
+            assert item["roles"]["filter"]["supported"] is True, feature_id
+            assert item["filter_kind"] == "category", feature_id
+        else:
+            assert item["roles"]["hard_filter"]["supported"] is False, feature_id
+            assert item["roles"]["category_match"]["supported"] is False, feature_id
+            assert "hard_filter" not in legal, feature_id
+        # Evidence/context/uncertainty remain available for every D02-D05 row.
         assert set(legal) & {"evidence", "uncertainty", "context"}, feature_id
 
     representatives = {
@@ -603,7 +630,10 @@ def test_evidence_records_are_annotations_not_scores(client: TestClient):
     for record in evidence_only:
         assert record["stored_score_role"] in {"evidence_only", "context_only"}
         assert "similarity" not in record["legal_roles"]
-        assert "hard_filter" not in record["legal_roles"]
+        # Issue #170 exposes coarse range filters for ten Earth context fields. That filter
+        # role never makes them similarity inputs or distance contributions.
+        if record["feature_id"] not in RANGE_FILTER_FEATURES:
+            assert "hard_filter" not in record["legal_roles"]
         assert record["feature_id"] not in winner["valid_features"]
         assert "Evidence/context record" in record["note"]
     # Evidence rows are annotations only: they never enter the weighted distance.
@@ -724,11 +754,16 @@ def test_registry_exposes_exactly_25_scoreable_features(client: TestClient):
     assert summary["by_dimension"]["D06"]["similarity"] == 20
     for dimension_id in ("D02", "D03", "D04", "D05"):
         assert summary["by_dimension"][dimension_id]["similarity"] == 0
-        assert summary["by_dimension"][dimension_id]["hard_filter"] == 0
         assert (
             summary["by_dimension"][dimension_id]["unsupported_for_scoring"]
             == summary["by_dimension"][dimension_id]["features"]
         )
+    # Issue #170: filters are real controls, but they are still not similarity features.
+    assert summary["by_dimension"]["D02"]["hard_filter"] == 0
+    assert summary["by_dimension"]["D03"]["hard_filter"] == 4
+    assert summary["by_dimension"]["D04"]["hard_filter"] == 4
+    assert summary["by_dimension"]["D05"]["hard_filter"] == 2
+    assert summary["role_support_counts"]["category_match"] >= 1
     scoreable = [item for item in payload["features"] if item["roles"]["similarity"]["supported"]]
     assert {item["dimension_id"] for item in scoreable} == {"D01", "D06"}
     assert payload["join_audit"]["proximity_join_used"] is False

@@ -8,6 +8,10 @@ FLAT_METHOD_VERSION = "flat-terrain-fraction-1.0.0"
 QUERY_VERSION = "search-1.1.0"
 AOI_PROCESSING_VERSION = "aoi-analysis-1.0.0"
 CONTEXT_METHOD_VERSION = "worldcover-2021-v200-1.0.0"
+CONTEXT_FILTER_VERSION = "context-filter-1.0.0"
+CONTEXT_FILTER_METHOD_VERSION = "nasa-power-daily-1.0.0"
+CONTEXT_FILTER_PERIOD_START = "2024-01-01"
+CONTEXT_FILTER_PERIOD_END = "2024-01-07"
 ANALYSIS_WINDOW_M = 1980
 ANALYSIS_RESOLUTION_M = 90
 MIN_VALID_FRACTION = 0.8
@@ -311,3 +315,302 @@ AOI_LIMITS: dict[str, object] = {
 
 def context_feature_payloads() -> list[dict[str, object]]:
     return [feature.to_payload() for feature in CONTEXT_FEATURES]
+
+
+# ---------------------------------------------------------------------------
+# Earth scalar context range filters (Issue #170, D02-D05 controls).
+#
+# These are coarse NASA POWER reanalysis fields. They are registered as Earth-only
+# *range filters* that select the candidate set. They are NOT similarity features:
+# they never enter the weighted distance and do not make a 0.5 degree reanalysis
+# point comparable to a 90 m terrain window. The filter value is an explicit,
+# reproducible arithmetic mean of the stored 2024-01-01..2024-01-07 daily samples;
+# missing samples are rejected, never zero-filled.
+# ---------------------------------------------------------------------------
+
+_RANGE_FILTER_NOTE = (
+    "Coarse Earth context only. NASA POWER is a ~0.5 x 0.625 degree model/reanalysis "
+    "product, not a 1.98 km local measurement. This feature may select the candidate set "
+    "through a range filter; it is never a weighted-similarity input and never implies "
+    "environmental or cross-body equivalence."
+)
+
+
+@dataclass(frozen=True, slots=True)
+class ContextFilterDefinition:
+    feature_id: str
+    label: str
+    unit: str
+    dimension_id: str
+    description: str
+    method_version: str
+    min_value: float
+    max_value: float
+    scale: float
+    scale_rationale: str
+    filter_kind: str
+    filter_statistic: str
+    score_role: str
+    body: str
+    spatial_support: str
+    temporal_support: str
+    provider_coverage_by_body: dict[str, str]
+    comparability_note: str
+    reference: str
+
+    def to_payload(self) -> dict[str, object]:
+        return {
+            "feature_id": self.feature_id,
+            "label": self.label,
+            "unit": self.unit,
+            "dimension_id": self.dimension_id,
+            "description": self.description,
+            "method_version": self.method_version,
+            "min_value": self.min_value,
+            "max_value": self.max_value,
+            "scale": self.scale,
+            "scale_rationale": self.scale_rationale,
+            "filter_kind": self.filter_kind,
+            "filter_statistic": self.filter_statistic,
+            "score_role": self.score_role,
+            "body": self.body,
+            "spatial_support": self.spatial_support,
+            "temporal_support": self.temporal_support,
+            "provider_coverage_by_body": self.provider_coverage_by_body,
+            "comparability_note": self.comparability_note,
+            "reference": self.reference,
+            "context_filter_version": CONTEXT_FILTER_VERSION,
+        }
+
+
+_POWER_SPATIAL_SUPPORT = (
+    "NASA POWER daily grid point at the AOI centre, approximately 0.5 x 0.625 degree "
+    "(~50 km); this is not a 1.98 km measurement and the stored AOI bbox is the pilot "
+    "window, not the native reanalysis cell."
+)
+_POWER_TEMPORAL_SUPPORT = (
+    "Daily 2024-01-01..2024-01-07 (7 samples). The filter value is the arithmetic mean of "
+    "the stored finite daily values; a missing/None sample rejects the observation."
+)
+_POWER_COVERAGE = {
+    "Earth": "verified_where_indexed_pilot_aois_only",
+    "Moon": "not_applicable",
+    "Mars": "not_applicable",
+}
+
+
+def _power_filter(
+    *,
+    feature_id: str,
+    label: str,
+    unit: str,
+    dimension_id: str,
+    description: str,
+    min_value: float,
+    max_value: float,
+    scale: float,
+    scale_rationale: str,
+) -> ContextFilterDefinition:
+    return ContextFilterDefinition(
+        feature_id=feature_id,
+        label=label,
+        unit=unit,
+        dimension_id=dimension_id,
+        description=description,
+        method_version=CONTEXT_FILTER_METHOD_VERSION,
+        min_value=min_value,
+        max_value=max_value,
+        scale=scale,
+        scale_rationale=scale_rationale,
+        filter_kind="range",
+        filter_statistic="period_mean",
+        score_role="context_only",
+        body="Earth",
+        spatial_support=_POWER_SPATIAL_SUPPORT,
+        temporal_support=_POWER_TEMPORAL_SUPPORT,
+        provider_coverage_by_body=dict(_POWER_COVERAGE),
+        comparability_note=_RANGE_FILTER_NOTE,
+        reference="https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
+    )
+
+
+CONTEXT_FILTER_FEATURES: tuple[ContextFilterDefinition, ...] = (
+    _power_filter(
+        feature_id="surface_air_temperature_2m_c",
+        label="Mean 2 m air temperature",
+        unit="degree_Celsius",
+        dimension_id="D03",
+        description=(
+            "7-day mean of the stored NASA POWER daily 2 m air temperature samples "
+            "(T2M, 2024-01-01..2024-01-07)."
+        ),
+        min_value=-100.0,
+        max_value=100.0,
+        scale=10.0,
+        scale_rationale=(
+            "Engineering slider preset (10 degrees) for a coarse reanalysis control; filters "
+            "never enter the weighted distance, so this is not a similarity scale."
+        ),
+    ),
+    _power_filter(
+        feature_id="surface_air_temperature_2m_max_c",
+        label="Mean daily maximum 2 m air temperature",
+        unit="degree_Celsius",
+        dimension_id="D03",
+        description=(
+            "7-day mean of the stored NASA POWER daily maximum 2 m air temperature samples "
+            "(T2M_MAX, 2024-01-01..2024-01-07)."
+        ),
+        min_value=-100.0,
+        max_value=100.0,
+        scale=10.0,
+        scale_rationale=(
+            "Engineering slider preset (10 degrees); not a similarity scale and not a "
+            "calibrated thermal analogue."
+        ),
+    ),
+    _power_filter(
+        feature_id="surface_air_temperature_2m_min_c",
+        label="Mean daily minimum 2 m air temperature",
+        unit="degree_Celsius",
+        dimension_id="D03",
+        description=(
+            "7-day mean of the stored NASA POWER daily minimum 2 m air temperature samples "
+            "(T2M_MIN, 2024-01-01..2024-01-07)."
+        ),
+        min_value=-100.0,
+        max_value=100.0,
+        scale=10.0,
+        scale_rationale=(
+            "Engineering slider preset (10 degrees); not a similarity scale and not a "
+            "calibrated thermal analogue."
+        ),
+    ),
+    _power_filter(
+        feature_id="surface_skin_temperature_c",
+        label="Mean skin temperature",
+        unit="degree_Celsius",
+        dimension_id="D03",
+        description=(
+            "7-day mean of the stored NASA POWER daily skin temperature samples "
+            "(TS, 2024-01-01..2024-01-07). Not a remotely sensed land surface temperature."
+        ),
+        min_value=-100.0,
+        max_value=100.0,
+        scale=10.0,
+        scale_rationale=(
+            "Engineering slider preset (10 degrees); skin and 2 m air temperature are "
+            "different quantities and are neither interchangeable nor similarity inputs."
+        ),
+    ),
+    _power_filter(
+        feature_id="precipitation_mm_day",
+        label="Mean precipitation rate",
+        unit="mm day-1",
+        dimension_id="D04",
+        description=(
+            "7-day mean of the stored NASA POWER daily corrected precipitation samples "
+            "(PRECTOTCORR, 2024-01-01..2024-01-07). Liquid-water input proxy only."
+        ),
+        min_value=0.0,
+        max_value=2000.0,
+        scale=10.0,
+        scale_rationale=(
+            "Engineering slider preset (10 mm/day); precipitation is context, not a "
+            "confirmed water or ice measurement."
+        ),
+    ),
+    _power_filter(
+        feature_id="root_zone_soil_wetness_fraction",
+        label="Mean root-zone soil wetness",
+        unit="1",
+        dimension_id="D04",
+        description=(
+            "7-day mean of the stored NASA POWER root-zone soil wetness fraction samples "
+            "(GWETROOT, 2024-01-01..2024-01-07). Model output, not a soil measurement."
+        ),
+        min_value=0.0,
+        max_value=1.0,
+        scale=0.25,
+        scale_rationale=(
+            "Engineering slider preset (25 percentage points) for a bounded model fraction; "
+            "not a calibrated moisture-similarity scale."
+        ),
+    ),
+    _power_filter(
+        feature_id="snow_depth_cm",
+        label="Mean snow depth",
+        unit="cm",
+        dimension_id="D04",
+        description=(
+            "7-day mean of the stored NASA POWER daily snow depth samples "
+            "(SNODP, 2024-01-01..2024-01-07). Reanalysis context, not confirmed ice."
+        ),
+        min_value=0.0,
+        max_value=2000.0,
+        scale=50.0,
+        scale_rationale=(
+            "Engineering slider preset (50 cm) for a dynamic reanalysis field; not a "
+            "similarity scale."
+        ),
+    ),
+    _power_filter(
+        feature_id="surface_soil_wetness_fraction",
+        label="Mean surface soil wetness",
+        unit="1",
+        dimension_id="D04",
+        description=(
+            "7-day mean of the stored NASA POWER surface soil wetness fraction samples "
+            "(GWETTOP, 2024-01-01..2024-01-07). Model output, not a soil measurement."
+        ),
+        min_value=0.0,
+        max_value=1.0,
+        scale=0.25,
+        scale_rationale=(
+            "Engineering slider preset (25 percentage points) for a bounded model fraction; "
+            "not a calibrated moisture-similarity scale."
+        ),
+    ),
+    _power_filter(
+        feature_id="surface_shortwave_irradiance_kwh_m2_day",
+        label="Mean surface shortwave irradiance",
+        unit="kWh m-2 day-1",
+        dimension_id="D05",
+        description=(
+            "7-day mean of the stored NASA POWER all-sky surface shortwave irradiance "
+            "samples (ALLSKY_SFC_SW_DWN, 2024-01-01..2024-01-07)."
+        ),
+        min_value=0.0,
+        max_value=12.0,
+        scale=1.0,
+        scale_rationale=(
+            "Engineering slider preset (1 kWh m-2 day-1); solar irradiance is time- and "
+            "geometry-dependent context, never a surface-property similarity input."
+        ),
+    ),
+    _power_filter(
+        feature_id="surface_longwave_irradiance_kwh_m2_day",
+        label="Mean surface longwave irradiance",
+        unit="kWh m-2 day-1",
+        dimension_id="D05",
+        description=(
+            "7-day mean of the stored NASA POWER all-sky surface longwave irradiance "
+            "samples (ALLSKY_SFC_LW_DWN, 2024-01-01..2024-01-07)."
+        ),
+        min_value=0.0,
+        max_value=12.0,
+        scale=1.0,
+        scale_rationale=(
+            "Engineering slider preset (1 kWh m-2 day-1); longwave irradiance is context, "
+            "not a surface-property similarity input."
+        ),
+    ),
+)
+
+CONTEXT_FILTER_BY_ID: dict[str, ContextFilterDefinition] = {
+    feature.feature_id: feature for feature in CONTEXT_FILTER_FEATURES
+}
+
+
+def context_filter_payloads() -> list[dict[str, object]]:
+    return [feature.to_payload() for feature in CONTEXT_FILTER_FEATURES]

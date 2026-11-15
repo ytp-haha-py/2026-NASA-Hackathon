@@ -346,7 +346,9 @@ def test_time_series_context_feature_is_not_a_similarity_target(client: TestClie
     assert response.status_code == 422
     error = response.json()["error"]
     assert error["code"] == "feature_role_not_scoreable"
-    assert error["details"][0]["legal_roles"] == ["evidence", "context"]
+    # Issue #170 adds a coarse range-filter role, never a similarity role.
+    assert error["details"][0]["legal_roles"] == ["hard_filter", "evidence", "context"]
+    assert "similarity" not in error["details"][0]["legal_roles"]
 
 
 def test_multidimensional_query_is_bounded_and_paginated(client: TestClient):

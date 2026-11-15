@@ -15,8 +15,14 @@ curl -s localhost:8000/api/v1/search/features | python -m json.tool | head
 ```
 
 Seeded state at the time of writing: 104 registered features, 25 scoreable (5 D01 + 20 Earth D06
-means), 25 filterable, 104 evidence, 8 context, 74 uncertainty; 113 fine Earth candidates; typed
-join `typed_areas.area_id == candidates.location_id` (exact string, no proximity merge).
+means), 35 filterable (25 range + 10 coarse Earth D03-D05 context; plus one D02 category
+dropdown), 104 evidence, 12 context, 74 uncertainty; 113 fine Earth candidates; typed join
+`typed_areas.area_id == candidates.location_id` (exact string, no proximity merge).
+
+Issue #170 adds **filters without similarity**: the ten Earth scalar D03/D04/D05 context fields
+are coarse NASA POWER range filters, and `geologic_unit` is an exact source-label category
+dropdown. See [`D02_D05_CONTROLS_170.md`](D02_D05_CONTROLS_170.md). Filters change only the
+candidate set; they never enter the weighted distance.
 
 ## Legend
 
@@ -27,11 +33,12 @@ join `typed_areas.area_id == candidates.location_id` (exact string, no proximity
 | **E** | `evidence` | May be returned in `evidence_records`; never enters `distance`. |
 | **C** | `context` | Environment/annotation context only; never enters `distance`. |
 | **U** | `uncertainty` | Quantile/quality/variance evidence; never an independent observation. |
-| **—** | not comparable | Similarity and hard-filter are both disabled; the feature must not be scored or filtered. |
+| **X** | `category_match` | Exact stored source-label dropdown; never a taxonomy crosswalk. |
+| **—** | not comparable | Similarity and filter roles are both disabled; the feature must not be scored or filtered. |
 
-`category_match` is disabled for every feature (no versioned taxonomy/crosswalk), so it is omitted
-from the tables. Earth land-cover context (`landcover_*_fraction`) is a separate Earth-only context
-namespace, not dimension D07 and never a similarity input.
+`category_match` is enabled only for Earth `geologic_unit` (3/113 candidates). It is omitted from
+the other tables. Earth land-cover context (`landcover_*_fraction`) is a separate Earth-only
+context namespace, not dimension D07 and never a similarity input.
 
 ## D01 — Terrain and landforms (5/5 scoreable)
 
@@ -49,16 +56,17 @@ Moon/Mars scopes exist, but the fine candidate index this endpoint ranks is Eart
 
 Terrain-shape similarity does not imply environmental equivalence.
 
-## D02 — Geology and mineralogy (0/15 scoreable)
+## D02 — Geology and mineralogy (0/15 scoreable, 1 category dropdown)
 
-All rows are **not comparable** for score/filter: the pilots carry dataset-specific map-unit text,
+All rows are **not comparable** for similarity: the pilots carry dataset-specific map-unit text,
 single-provider spectral indices, or detection/availability states; no versioned taxonomy crosswalk
 and no validated same-quantity/support counterpart exists. Stored `score_role` stays
-`evidence_only`; the registry exposes E/U only.
+`evidence_only`. Issue #170 adds one exact-label Earth dropdown for `geologic_unit` (X), which
+selects the candidate set but is not similarity and is not a taxonomy crosswalk.
 
 | Feature | Body | S | F | E | C | U | Gate / why not a score | Source |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `geologic_unit` | Mars/Moon | — | — | E | — | — | Free-text map-unit names; no versioned taxonomy crosswalk | USGS Jezero SIM 3464 / USGS Moon geology v2 |
+| `geologic_unit` | Earth/Mars/Moon | — | — | E | — | — | Free-text map-unit names; no versioned taxonomy crosswalk. Earth rows additionally expose an exact-label `category_match` dropdown (3/113 candidates); Moon/Mars stay evidence only | Macrostrat / USGS Jezero SIM 3464 / USGS Moon geology v2 |
 | `geologic_process` | Mars/Moon | — | — | E | — | — | Descriptive process evidence; no numeric/categorical crosswalk | USGS Jezero SIM 3464 / USGS Moon geology v2 |
 | `geology_analysis_availability` | Earth/Moon | — | — | E | — | U | Coverage/availability (`unknown`/`no_coverage`), not a mineral measurement | EMIT L2B MIN, GLIM, lunar polar minerals bundle |
 | `mineral_carbonates` | Mars | — | — | E | — | U | Single-provider CRISM index; support not validated against the fine pool | `crism-mtrdr-context` |
@@ -74,26 +82,28 @@ and no validated same-quantity/support counterpart exists. Stored `score_role` s
 | `context_olindex3` | Mars | — | — | E | — | — | Same | `crism-mtrdr-context` |
 | `context_sindex2` | Mars | — | — | E | — | — | Same | `crism-mtrdr-context` |
 
-## D03 — Thermal environment (0/6 scoreable)
+## D03 — Thermal environment (0/6 scoreable, 4 range filters)
 
-All rows are **not comparable**: reanalysis/remote-sensing methods, native support and temporal
-selectors are not shared with the 90 m terrain windows; no cross-body temperature equivalence is
-registered.
+All rows are **not comparable for similarity**: reanalysis/remote-sensing methods, native support
+and temporal selectors are not shared with the 90 m terrain windows; no cross-body temperature
+equivalence is registered. The four Earth NASA POWER fields expose a coarse range filter (F*):
+the value is the 2024-01-01..07 period mean, coverage is 8/113, and it never enters the distance.
 
 | Feature | Body | S | F | E | C | U | Gate / why not a score | Source |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `surface_air_temperature_2m_c` | Earth | — | — | E | C | — | Daily reanalysis point/time selector ≠ 90 m static window | `nasa-power-daily-point` |
-| `surface_air_temperature_2m_max_c` | Earth | — | — | E | C | — | Same; daily maximum | `nasa-power-daily-point` |
-| `surface_air_temperature_2m_min_c` | Earth | — | — | E | C | — | Same; daily minimum | `nasa-power-daily-point` |
-| `surface_skin_temperature_c` | Earth | — | — | E | C | — | Same; skin temperature, different quantity | `nasa-power-daily-point` |
+| `surface_air_temperature_2m_c` | Earth | — | F* | E | C | — | Coarse reanalysis; period-mean range filter only, never similarity | `nasa-power-daily-point` |
+| `surface_air_temperature_2m_max_c` | Earth | — | F* | E | C | — | Same; daily maximum | `nasa-power-daily-point` |
+| `surface_air_temperature_2m_min_c` | Earth | — | F* | E | C | — | Same; daily minimum | `nasa-power-daily-point` |
+| `surface_skin_temperature_c` | Earth | — | F* | E | C | — | Same; skin and 2 m air temperature are different quantities | `nasa-power-daily-point` |
 | `surface_brightness_temperature_k` | Moon | — | — | E | — | U | Diviner bolometric T at 240 m bins; not Earth-comparable | `lro-diviner-pcp-pols-summer-240m` |
 | `thermal_inertia` | Mars | — | — | E | — | — | THEMIS thermal inertia; different method/support | `usgs-mars-themis-global-thermal-inertia-quantitative` |
 
-## D04 — Water and ice (0/8 scoreable)
+## D04 — Water and ice (0/8 scoreable, 4 range filters)
 
-All rows are **not comparable**: hydrogen proxies, radar CPR, reanalysis wetness and snow depth are
-different physical quantities with different supports; no validated cross-body or same-quantity
-mapping is registered.
+All rows are **not comparable for similarity**: hydrogen proxies, radar CPR, reanalysis wetness
+and snow depth are different physical quantities with different supports; no validated cross-body
+or same-quantity mapping is registered. The four Earth NASA POWER fields expose a coarse range
+filter (F*), coverage 8/113; they are reanalysis context, not confirmed water or ice.
 
 | Feature | Body | S | F | E | C | U | Gate / why not a score | Source |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -101,22 +111,29 @@ mapping is registered.
 | `radar_circular_polarization_ratio` | Moon | — | — | E | — | — | Mini-RF CPR; geometric/regolith interpretation needed | `lro-minirf-cpr-128ppd` |
 | `epithermal_neutron_flux_ratio` | Mars | — | — | E | — | — | HEND neutron proxy; different body/quantity | `mro-hend-epithermal-020917` |
 | `water_ice_detection` | Mars/Moon | — | — | E | — | U | Detection state, not a continuous measurement | HEND / Mini-RF / lunar hydrogen bundle |
-| `precipitation_mm_day` | Earth | — | — | E | — | — | Reanalysis daily rate; time selector/support differ | `nasa-power-daily-point` |
-| `surface_soil_wetness_fraction` | Earth | — | — | E | — | — | Reanalysis fraction; not a soil measurement at 90 m | `nasa-power-daily-point` |
-| `root_zone_soil_wetness_fraction` | Earth | — | — | E | — | — | Same; root-zone model output | `nasa-power-daily-point` |
-| `snow_depth_cm` | Earth | — | — | E | — | — | Reanalysis snow depth; dynamic, not static terrain | `nasa-power-daily-point` |
+| `precipitation_mm_day` | Earth | — | F* | E | — | — | Coarse reanalysis period-mean range filter only; not confirmed water | `nasa-power-daily-point` |
+| `surface_soil_wetness_fraction` | Earth | — | F* | E | — | — | Coarse reanalysis fraction; not a soil measurement at 90 m | `nasa-power-daily-point` |
+| `root_zone_soil_wetness_fraction` | Earth | — | F* | E | — | — | Same; root-zone model output | `nasa-power-daily-point` |
+| `snow_depth_cm` | Earth | — | F* | E | — | — | Coarse reanalysis snow depth; not confirmed ice | `nasa-power-daily-point` |
 
-## D05 — Solar illumination and radiation (0/4 scoreable)
+## D05 — Solar illumination and radiation (0/4 scoreable, 2 range filters)
 
-All rows are **not comparable**: solar geometry and irradiance depend on a time selector and
-body-specific ephemerides; they are context/evidence, not surface-property similarity.
+All rows are **not comparable for similarity**: solar geometry and irradiance depend on a time
+selector and body-specific ephemerides; they are context/evidence, not surface-property
+similarity. The two Earth NASA POWER irradiance fields expose a coarse range filter (F*),
+coverage 8/113.
 
 | Feature | Body | S | F | E | C | U | Gate / why not a score | Source |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `solar_elevation_deg` | Mars/Moon | — | — | E | C | — | SPICE geometry at a chosen epoch; time-dependent | `naif-spice-generic-kernels` |
 | `solar_incidence_deg` | Mars/Moon | — | — | E | C | — | Same | `naif-spice-generic-kernels` |
-| `surface_longwave_irradiance_kwh_m2_day` | Earth | — | — | E | C | — | Daily reanalysis irradiance; time selector differs | `nasa-power-daily-point` |
-| `surface_shortwave_irradiance_kwh_m2_day` | Earth | — | — | E | C | — | Same | `nasa-power-daily-point` |
+| `surface_longwave_irradiance_kwh_m2_day` | Earth | — | F* | E | C | — | Coarse reanalysis period-mean range filter only; time selector differs | `nasa-power-daily-point` |
+| `surface_shortwave_irradiance_kwh_m2_day` | Earth | — | F* | E | C | — | Same | `nasa-power-daily-point` |
+
+F* = Earth-only coarse range filter introduced by Issue #170. The filter value is the stored
+2024-01-01..2024-01-07 daily period mean on a ~0.5 x 0.625 degree NASA POWER grid point; it has
+8/113 candidate coverage and never enters `distance`. A missing value excludes the candidate as
+`missing_filter`, not as a zero.
 
 ## D06 — Regolith and surface properties (20/66 scoreable)
 
@@ -147,7 +164,10 @@ Notes:
 
 1. A target in any role other than `similarity` is rejected with `feature_role_not_scoreable` and
    the legal roles in `error.details`; it is never scored as zero.
-2. A filter in any role other than `hard_filter` is rejected with `feature_role_not_filterable`.
+2. A numeric filter in any role other than `hard_filter` is rejected with
+   `feature_role_not_filterable`; a `category_filters` entry in any role other than
+   `category_match` is rejected with `feature_role_not_category_filterable`. Filters only select
+   the candidate set and never change `distance`.
 3. A positive-weight score feature that is missing, QA-gated, unit/body/method-incompatible or
    non-finite excludes the candidate with `missing_feature:<id>` / `incompatible_features`; a
    zero-weight feature is reported as `zero_weight_not_compared` and never excludes. Missing is
@@ -164,3 +184,5 @@ Notes:
 Regression tests: `apps/api/tests/test_sixdim_weighted_search.py` asserts this matrix against the
 live registry and exercises D01-only, D06-only, combined D01+D06, feature/dimension weights, the
 missing/zero-weight policy, and the evidence-only roles.
+`apps/api/tests/test_context_filters_170.py` asserts the ten range filters, the D02 category
+dropdown, missing/zero-fill behaviour, range validation and distance invariance.
