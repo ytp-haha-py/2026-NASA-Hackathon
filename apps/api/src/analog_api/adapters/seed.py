@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 
+from pydantic import ValidationError
 from sqlalchemy import create_engine, delete, select
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
@@ -103,11 +104,24 @@ def seed_typed_bundles(engine: Engine, settings: Settings) -> dict[str, object]:
     imported: list[dict[str, object]] = []
     with Session(engine) as session:
         for release in releases:
-            result = import_release(session, release)
+            try:
+                result = import_release(session, release)
+            except ValidationError:
+                # Some committed pilots carry a provider-specific plan that is
+                # not an AcquisitionPlan. If the portable areas/observations
+                # bundle is present, import it directly instead of failing the
+                # whole seed. Typed-bundle imports preserve provenance fields.
+                if not (release / "areas.json").is_file():
+                    raise
+                result = import_typed_bundle(session, release)
+                result["import_mode"] = "typed_bundle_fallback"
+            else:
+                result["import_mode"] = "acquisition_release"
             result["path"] = str(release.relative_to(REPO_ROOT))
             imported.append(result)
         for bundle in bundles:
             result = import_typed_bundle(session, bundle)
+            result["import_mode"] = "typed_bundle"
             result["path"] = str(bundle.relative_to(REPO_ROOT))
             imported.append(result)
         session.commit()
