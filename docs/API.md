@@ -434,3 +434,90 @@ pilot). D02–D05 fixture rows are synthetic and clearly labelled. The v2 contra
 - Six-dimension evidence: `*-evidence-0.1.0` (not scored).
 
 Never mix coarse and fine features in one distance.
+
+## Feature eligibility registry (Issue #116)
+
+### GET /search/features
+
+Versioned query capability discovery, for example
+`/api/v1/search/features?role=similarity&body=Earth&dimension=D06`.
+
+Each feature reports:
+
+- `dimension_id`, `body_scope`, `unit`, `value_kind`;
+- six role slots (`similarity`, `hard_filter`, `category_match`, `evidence`, `uncertainty`,
+  `context`) with `supported`, `reason` and `constraints`;
+- `min_value`, `max_value`, `scale`, `scale_rationale`;
+- `selector` (depth/statistic/window), `method_versions`, `support`, `qa_rules`;
+- `comparability_gates`, `source`, `unsupported_reason`, `measurement_family`;
+- `coverage` with actual observation/area counts, exact-ID-joined candidate counts and gated
+  candidate ids.
+
+The response also carries `join_audit` (`proximity_join_used=false`) and `audit_summary`.
+`GET /search/features/{feature_id}` returns one entry or `404`.
+
+### POST /search/multidimensional
+
+```json
+{
+  "candidate_body": "Earth",
+  "reference_id": null,
+  "targets": {
+    "slope_mean_deg": {"value": 10, "weight": 1},
+    "soil_clay_0_5cm_mean": {"value": 200, "weight": 1}
+  },
+  "filters": {"soil_clay_0_5cm_mean": {"min": 100, "max": 300}},
+  "limit": 10,
+  "offset": 0,
+  "include_evidence": true,
+  "evidence_limit": 12
+}
+```
+
+- Only registry features with `roles.similarity.supported=true` may be targets. Evidence-only
+  targets return `422 feature_role_not_scoreable` with legal roles and a reason.
+- Only features with `roles.hard_filter.supported=true` may be filters.
+- A positive-weight missing/gated feature excludes a candidate with explicit reasons. A zero-weight
+  feature is never compared and never excludes.
+- The response returns `distance`, `distance_scope`, `dimension_contributions`,
+  per-feature `contributions` (target, candidate, delta, scale, weight, normalized delta,
+  contribution, contribution fraction, observation id, selector, support, uncertainty), `coverage`,
+  `excluded`, pagination fields and limitations.
+- `distance` is a weighted query distance, **not** a six-dimension scientific total and not a
+  cross-body equivalence.
+- Moon/Mars references can use D01, but Earth-only D06 targets are rejected with
+  `422 body_out_of_scope` (`reason: cross_body_incompatible`).
+
+See [`MULTIDIMENSIONAL_SEARCH.md`](MULTIDIMENSIONAL_SEARCH.md) and
+[`FEATURE_ELIGIBILITY_AUDIT.md`](FEATURE_ELIGIBILITY_AUDIT.md).
+
+## Planetary maps (Issue #117)
+
+### GET /planetary/maps?body=Moon|Mars
+
+Returns the versioned official NASA Trek WMTS catalog: tile template, format, tile matrix set,
+EPSG/body frame, zoom range, complete tile matrix, bounds, attribution, license, verification
+status/date and sample tile. It also returns a curated `science_coverage` summary and a
+`coverage_separation` block stating that a globally browsable basemap is not a global scientific
+survey.
+
+### GET /planetary/map-features?body=Moon|Mars&bbox=west,south,east,north
+
+Returns real planetary references and typed AOIs intersecting the bbox. `bbox` uses planetocentric
+lon/lat degrees; `west > east` crosses the antimeridian; `bbox_lon_convention=360` accepts 0–360
+longitudes. `feature_type` is `all|reference|typed_area`; `dimension=D01..D06` filters by stored
+coverage; `limit` is 1–200 with `offset`/`next_offset`. Each feature carries `center`, `bbox`,
+`geometry`, `bbox_geometry`, exact-ID `linked_feature_id`, `relationship`,
+`science_coverage.dimension_status` (`present`, `present_evidence`, `absent`), value origin,
+availability and detail links.
+
+Empty results are `total=0`; invalid body/bbox/dimension returns a structured 422. Earth records are
+never mixed in.
+
+### GET /planetary/coordinate-contract
+
+Returns Moon/Mars radii, IAU frames, planetocentric/planetographic rules, positive-east longitude
+conventions, `[-180,180)` vs `0..360` conversion formulas and examples, antimeridian split rules,
+pole behavior and GeoJSON metadata. Coordinates are never Earth EPSG:4326/OSM.
+
+See [`PLANETARY_MAPS_API.md`](PLANETARY_MAPS_API.md).
