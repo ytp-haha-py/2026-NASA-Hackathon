@@ -697,6 +697,7 @@ export function GlobalPanel({
                   })}
                 </p>
                 <strong>{t("global.notTop")}</strong>
+                <p>{t("global.colDistance")} · <code>{response.method_version}</code></p>
                 <details className="coarse-advanced">
                   <summary>{t("global.methodVersion")}</summary>
                   <p>{t("global.notTopBody")}</p>
@@ -773,6 +774,8 @@ export function GlobalPanel({
                       {t("global.fixture")}
                     </p>
                   )}
+                  <details className="coarse-advanced">
+                    <summary>{t("global.provenanceDetails")}</summary>
                   <dl className="facts-grid">
                     <div>
                       <dt>{t("global.candidateId")}</dt>
@@ -902,6 +905,7 @@ export function GlobalPanel({
                       t("global.noQa")
                     )}
                   </p>
+                  </details>
 
                   <section className="global-refine" aria-labelledby="global-refine-heading">
                     <h4 id="global-refine-heading">{t("global.refineHeading")}</h4>

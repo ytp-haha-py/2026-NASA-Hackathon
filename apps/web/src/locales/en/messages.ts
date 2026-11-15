@@ -915,6 +915,7 @@ export const en = {
   "global.executionStatus": "Job status: {status}",
   "global.refineUnavailable": "Fine analysis is unavailable. You can still preview a refinement plan.",
   "global.refinePlanOptions": "Refinement plan and window limits",
+  "global.provenanceDetails": "Candidate data and provenance",
   "global.rerank": "Refresh indexed ranking",
   "global.executionWindow": "Fine window",
   "global.executionJob": "Job ID",

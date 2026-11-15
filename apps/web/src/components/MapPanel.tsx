@@ -50,7 +50,7 @@ function wrapLongitude(lon: number): number {
 }
 
 /** Room for the floating ranking panel on the left, so fitted pins are not hidden under it. */
-const OVERLAY_PADDING: L.PointExpression = [340, 24];
+const OVERLAY_PADDING: L.PointExpression = [384, 24];
 
 /** A selected 1,980 m window fills a useful part of the map at this zoom without over-zooming. */
 const SELECTED_MAX_ZOOM = 13;
@@ -115,7 +115,7 @@ export function MapPanel({
   aoiBbox = null,
   onDrawBbox,
 }: MapPanelProps) {
-  const { locale, t, tp, fmt } = useI18n();
+  const { locale, t, tp, fmt, label } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
@@ -417,7 +417,7 @@ export function MapPanel({
       const bounds = earthBounds(refineWindow.bbox, map.getCenter().lng);
       if (bounds) {
         const tooltip = document.createElement("span");
-        tooltip.textContent = `${t("map.refineLayer")} · ${t("global.executionStatus", { status: refineWindow.status })} · ${refineWindow.method}`;
+        tooltip.textContent = `${t("map.refineLayer")} · ${t("global.executionStatus", { status: label.status(refineWindow.status) })} · ${refineWindow.method}`;
         L.rectangle(bounds, {
           color: COLORS.refine,
           weight: 3,
@@ -426,7 +426,7 @@ export function MapPanel({
         }).bindTooltip(tooltip).addTo(layer);
       }
     }
-  }, [windows, selectedId, coarseSelectedId, refineWindow, t, fmt]);
+  }, [windows, selectedId, coarseSelectedId, refineWindow, t, fmt, label]);
 
   return (
     <section className="map-panel" aria-labelledby="map-heading">

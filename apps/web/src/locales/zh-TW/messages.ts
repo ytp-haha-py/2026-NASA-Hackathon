@@ -861,6 +861,7 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "global.executionStatus": "工作狀態：{status}",
   "global.refineUnavailable": "精篩目前無法執行，仍可預覽精篩計畫。",
   "global.refinePlanOptions": "精篩計畫與視窗限制",
+  "global.provenanceDetails": "候選資料與來源",
   "global.rerank": "更新已索引排名",
   "global.executionWindow": "精篩視窗",
   "global.executionJob": "工作識別碼",

@@ -1623,11 +1623,11 @@ body {
   .has-search-scope .map-draw,
   .has-search-scope .map-show-all {
     top: auto;
-    bottom: 12px;
+    bottom: 40px;
   }
 
-  .has-search-scope .map-draw { bottom: 56px; }
-  .has-search-scope .map-show-all { bottom: 100px; }
+  .has-search-scope .map-draw { bottom: 84px; }
+  .has-search-scope .map-show-all { bottom: 128px; }
 }
 
 @media (max-width: 720px) {
