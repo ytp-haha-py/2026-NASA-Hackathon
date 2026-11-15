@@ -17,7 +17,11 @@ def _committed_typed_counts() -> tuple[int, dict[str, dict[str, int]]]:
     total changed.
     """
     unique: dict[str, dict[str, object]] = {}
-    files = sorted((REPO_ROOT / "pipelines/pilots").glob("*/observations.jsonl"))
+    files = sorted(
+        path
+        for path in (REPO_ROOT / "pipelines/pilots").glob("*/observations.jsonl")
+        if (path.parent / "plan.json").is_file()
+    )
     files.append(REPO_ROOT / "pipelines/geology/typed/observations.jsonl")
     for path in files:
         for line in path.read_text(encoding="utf-8").splitlines():
