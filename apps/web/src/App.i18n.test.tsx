@@ -225,8 +225,7 @@ describe("Traditional Chinese workflows", () => {
     expect(screen.getByText(/火星預設無法使用/)).toBeInTheDocument();
 
     await user.click(screen.getByRole("radio", { name: /^月球/ }));
-    expect(screen.getByRole("option", { name: "Shackleton Rim (LOLA Site04 ROI 2)" }))
-      .toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: referenceFixture.display_name }));
     expect(screen.getByText("LOLA 參考資料注意事項：")).toBeInTheDocument();
     expect(screen.getByText(/約有 90% 為內插值/)).toBeInTheDocument();
     expect(screen.getByText(/不是地球 WGS84/)).toBeInTheDocument();

@@ -82,6 +82,59 @@ async function openAoiTab(user: ReturnType<typeof userEvent.setup>) {
 }
 
 describe("search form", () => {
+  it("opens the target map and remembers the points selected for each body", async () => {
+    const user = userEvent.setup();
+    const marsReference = {
+      ...referenceFixture,
+      body: "Mars",
+      reference_id: "mars-test-reference",
+      display_name: "Jezero test reference",
+      lat: 18.5,
+      lon: 77.5,
+    };
+    await renderReady({ references: () => jsonResponse([referenceFixture, marsReference]) });
+
+    const [moonPreset, marsPreset, customPreset] = within(
+      screen.getByRole("radiogroup", { name: "Body preset" }),
+    ).getAllByRole("radio");
+    expect(moonPreset).toHaveAccessibleName(/^Moon/);
+    expect(marsPreset).toHaveAccessibleName(/^Mars/);
+    expect(customPreset).toHaveAccessibleName("Custom");
+
+    const search = screen.getByRole("button", { name: "Search indexed Earth candidates" });
+    const target = within(screen.getByRole("region", { name: "Search target" }));
+    await user.click(moonPreset);
+    const activeReference = target.getByRole("status");
+    expect(search).toBeDisabled();
+    expect(activeReference).toHaveTextContent("Choose a reference point on the map");
+    const moonMap = within(screen.getByRole("region", { name: "Moon reference sites map" }));
+    await user.click(moonMap.getByRole("button", { name: referenceFixture.display_name }));
+    expect(activeReference).toHaveTextContent(referenceFixture.display_name);
+    expect(moonMap.getByRole("button", { name: referenceFixture.display_name })).toHaveAttribute(
+      "aria-pressed", "true",
+    );
+    expect(search).toBeEnabled();
+
+    await user.click(screen.getByRole("button", { name: "Collapse map" }));
+    expect(screen.queryByRole("region", { name: "Moon reference sites map" })).not.toBeInTheDocument();
+    expect(activeReference).toHaveTextContent(referenceFixture.display_name);
+    await user.click(moonPreset);
+    expect(screen.getByRole("region", { name: "Moon reference sites map" })).toBeVisible();
+
+    await user.click(marsPreset);
+    expect(search).toBeDisabled();
+    await user.click(screen.getByRole("button", { name: marsReference.display_name }));
+    expect(activeReference).toHaveTextContent(marsReference.display_name);
+    await user.click(moonPreset);
+    expect(activeReference).toHaveTextContent(referenceFixture.display_name);
+    await user.click(marsPreset);
+    expect(activeReference).toHaveTextContent(marsReference.display_name);
+
+    await user.click(customPreset);
+    expect(screen.queryByRole("region", { name: "Mars reference sites map" })).not.toBeInTheDocument();
+    expect(customPreset).toHaveAttribute("aria-checked", "true");
+  });
+
   it("builds a 422-safe request body from the hypothetical example target", async () => {
     const fetchMock = await renderReady();
     expect(
@@ -166,7 +219,7 @@ describe("search form", () => {
     await user.click(screen.getByRole("radio", { name: /^Moon/ }));
     expect(screen.getByRole("radio", { name: /^Moon/ })).toHaveAttribute("aria-checked", "true");
     expect(
-      screen.getByRole("option", { name: "Shackleton Rim (LOLA Site04 ROI 2)" }),
+      screen.getByRole("button", { name: referenceFixture.display_name }),
     ).toBeInTheDocument();
   });
 });
@@ -467,6 +520,7 @@ describe("context filters and Moon reference mode", () => {
     });
 
     await user.click(screen.getByRole("radio", { name: /^Moon/ }));
+    await user.click(screen.getByRole("button", { name: referenceFixture.display_name }));
 
     expect(await screen.findByText(/LOLA reference caveat/)).toBeInTheDocument();
     expect(
@@ -554,6 +608,7 @@ describe("Mars reference mode", () => {
     const mars = screen.getByRole("radio", { name: /^Mars/ });
     expect(mars).toBeEnabled();
     await user.click(mars);
+    await user.click(screen.getByRole("button", { name: "TEST ONLY Jezero CTX reference" }));
 
     // Reference mode starts with every weight at 0; opt one metric in before searching.
     const slopeWeight = within(screen.getByRole("group", { name: "Mean slope" })).getByLabelText(
@@ -833,8 +888,7 @@ describe("dimension board", () => {
     const user = userEvent.setup();
     await renderReady({ references: () => jsonResponse([referenceFixture]) });
     await user.click(screen.getByRole("radio", { name: "Moon" }));
-    const select = screen.getByLabelText("Reference record") as HTMLSelectElement;
-    await user.selectOptions(select, referenceFixture.reference_id);
+    await user.click(screen.getByRole("button", { name: referenceFixture.display_name }));
     await user.click(screen.getByRole("button", { name: "Open six dimensions" }));
     expect(await screen.findByRole("heading", { name: "D01–D06 observations for one area" }))
       .toBeInTheDocument();
@@ -852,6 +906,7 @@ describe("dimension board", () => {
     expect(slopeTarget).toHaveValue(7.5);
 
     await user.click(screen.getByRole("radio", { name: /^Moon/ }));
+    await user.click(screen.getByRole("button", { name: referenceFixture.display_name }));
     const moonGroup = screen.getByRole("group", { name: "Mean slope" });
     expect(within(moonGroup).queryByLabelText("Target value (degree)")).not.toBeInTheDocument();
     expect(within(moonGroup).getByTitle("Reference value (read-only)")).toBeInTheDocument();
