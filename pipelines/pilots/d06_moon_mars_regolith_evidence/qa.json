@@ -1,0 +1,16 @@
+{
+  "by_body": {
+    "Mars": 6,
+    "Moon": 6
+  },
+  "by_state": {
+    "no_coverage": 12
+  },
+  "complete_groups": 12,
+  "groups": 12,
+  "missing_groups": 0,
+  "notes": [
+    "Explicit no_coverage records only; no fabricated numeric values."
+  ],
+  "qa_version": "d06-moon-mars-evidence-audit-qa-1.0.0"
+}
