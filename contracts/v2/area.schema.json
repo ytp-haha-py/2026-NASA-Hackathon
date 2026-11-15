@@ -60,7 +60,9 @@
       "enum": [
         "earth_wgs84",
         "earth_projected",
+        "lunar_planetocentric",
         "lunar_projected",
+        "mars_planetocentric",
         "mars_projected",
         "unknown"
       ],

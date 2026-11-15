@@ -1,0 +1,392 @@
+[
+  {
+    "area_id": "moon-lp-h2-cell-s85p25-e31p75",
+    "bbox": {
+      "east": 32.0,
+      "north": -85.0,
+      "south": -85.5,
+      "west": 31.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "LP NS hydrogen cell. Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)"
+  },
+  {
+    "area_id": "moon-lp-h2-cell-s85p75-w0p25",
+    "bbox": {
+      "east": 0.0,
+      "north": -85.5,
+      "south": -86.0,
+      "west": -0.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "LP NS hydrogen cell. Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)"
+  },
+  {
+    "area_id": "moon-lp-h2-cell-s88p75-e123p75",
+    "bbox": {
+      "east": 124.0,
+      "north": -88.5,
+      "south": -89.0,
+      "west": 123.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "LP NS hydrogen cell. Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)"
+  },
+  {
+    "area_id": "moon-lp-h2-cell-s88p75-w68p25",
+    "bbox": {
+      "east": -68.0,
+      "north": -88.5,
+      "south": -89.0,
+      "west": -68.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "LP NS hydrogen cell. Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)"
+  },
+  {
+    "area_id": "moon-lp-h2-cell-s88p75-w68p75",
+    "bbox": {
+      "east": -68.5,
+      "north": -88.5,
+      "south": -89.0,
+      "west": -69.0
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "LP NS hydrogen cell. Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)"
+  },
+  {
+    "area_id": "moon-lp-h2-cell-s89p25-w137p25",
+    "bbox": {
+      "east": -137.0,
+      "north": -89.0,
+      "south": -89.5,
+      "west": -137.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "LP NS hydrogen cell. Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)"
+  },
+  {
+    "area_id": "moon-lp-h2-cell-s89p25-w137p75",
+    "bbox": {
+      "east": -137.5,
+      "north": -89.0,
+      "south": -89.5,
+      "west": -138.0
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "LP NS hydrogen cell. Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)"
+  },
+  {
+    "area_id": "moon-lp-h2-cell-s89p25-w138p25",
+    "bbox": {
+      "east": -138.0,
+      "north": -89.0,
+      "south": -89.5,
+      "west": -138.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "LP NS hydrogen cell. Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)"
+  },
+  {
+    "area_id": "moon-lp-h2-cell-s89p75-w155p75",
+    "bbox": {
+      "east": -155.5,
+      "north": -89.5,
+      "south": -90.0,
+      "west": -156.0
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "LP NS hydrogen cell. Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)"
+  },
+  {
+    "area_id": "moon-lp-h2-cell-s89p75-w156p25",
+    "bbox": {
+      "east": -156.0,
+      "north": -89.5,
+      "south": -90.0,
+      "west": -156.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "LP NS hydrogen cell. Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)"
+  },
+  {
+    "area_id": "moon-lp-h2-cell-s89p75-w156p75",
+    "bbox": {
+      "east": -156.5,
+      "north": -89.5,
+      "south": -90.0,
+      "west": -157.0
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "LP NS hydrogen cell. Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)"
+  },
+  {
+    "area_id": "moon-lp-h2-cell-s89p75-w157p25",
+    "bbox": {
+      "east": -157.0,
+      "north": -89.5,
+      "south": -90.0,
+      "west": -157.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "LP NS hydrogen cell. Native 0.5 x 0.5 degree Lunar Prospector hydrogen cell; no resampling and no Earth frame. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l23009-s03074",
+    "bbox": {
+      "east": -155.9296875,
+      "north": -89.75,
+      "south": -89.8125,
+      "west": -155.9921875
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l23008-s03027",
+    "bbox": {
+      "east": -156.296875,
+      "north": -89.7421875,
+      "south": -89.8046875,
+      "west": -156.359375
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l23007-s03004",
+    "bbox": {
+      "east": -156.4765625,
+      "north": -89.734375,
+      "south": -89.796875,
+      "west": -156.5390625
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l23006-s02932",
+    "bbox": {
+      "east": -157.0390625,
+      "north": -89.7265625,
+      "south": -89.7890625,
+      "west": -157.1015625
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22971-s05311",
+    "bbox": {
+      "east": -138.453125,
+      "north": -89.453125,
+      "south": -89.515625,
+      "west": -138.515625
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22969-s05452",
+    "bbox": {
+      "east": -137.3515625,
+      "north": -89.4375,
+      "south": -89.5,
+      "west": -137.4140625
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22968-s05489",
+    "bbox": {
+      "east": -137.0625,
+      "north": -89.4296875,
+      "south": -89.4921875,
+      "west": -137.125
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22966-s05481",
+    "bbox": {
+      "east": -137.125,
+      "north": -89.4140625,
+      "south": -89.4765625,
+      "west": -137.1875
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22965-s05488",
+    "bbox": {
+      "east": -137.0703125,
+      "north": -89.40625,
+      "south": -89.46875,
+      "west": -137.1328125
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22965-s05430",
+    "bbox": {
+      "east": -137.5234375,
+      "north": -89.40625,
+      "south": -89.46875,
+      "west": -137.5859375
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22965-s05403",
+    "bbox": {
+      "east": -137.734375,
+      "north": -89.40625,
+      "south": -89.46875,
+      "west": -137.796875
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22884-s38850",
+    "bbox": {
+      "east": 123.5703125,
+      "north": -88.7734375,
+      "south": -88.8359375,
+      "west": 123.5078125
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22871-s14265",
+    "bbox": {
+      "east": -68.5,
+      "north": -88.671875,
+      "south": -88.734375,
+      "west": -68.5625
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22867-s14274",
+    "bbox": {
+      "east": -68.4296875,
+      "north": -88.640625,
+      "south": -88.703125,
+      "west": -68.4921875
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22866-s14284",
+    "bbox": {
+      "east": -68.3515625,
+      "north": -88.6328125,
+      "south": -88.6953125,
+      "west": -68.4140625
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22524-s23006",
+    "bbox": {
+      "east": -0.2109375,
+      "north": -85.9609375,
+      "south": -86.0234375,
+      "west": -0.2734375
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "moon-minirf-cpr-l22451-s27100",
+    "bbox": {
+      "east": 31.7734375,
+      "north": -85.390625,
+      "south": -85.453125,
+      "west": 31.7109375
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +a=1737400 +b=1737400 +no_defs",
+    "notes": "Mini-RF CPR native window. 8 x 8 native 236.9 m pixels read from the global mosaic by HTTP byte range; no resampling. Native frame: IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)"
+  },
+  {
+    "area_id": "mars-hend-cell-n20p00-e78p00",
+    "bbox": {
+      "east": 80.000001,
+      "north": 22.0,
+      "south": 18.0,
+      "west": 76.000001
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_planetocentric",
+    "crs": "+proj=longlat +a=3396190 +b=3396190 +no_defs",
+    "notes": "HEND 4 degree cell. Native 4 x 4 degree HEND cell containing the five Jezero CTX reference windows; no Earth frame. Native frame: IAU_MARS planetocentric longitude/latitude (4 degree cell grid)"
+  }
+]
