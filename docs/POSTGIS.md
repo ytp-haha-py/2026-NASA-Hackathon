@@ -197,7 +197,8 @@ Two SQLite-specific pitfalls observed while building the live test:
 
 ## Cost, egress and storage estimate (estimates, not measurements)
 
-Measured artifact sizes (bytes on disk, this repository):
+Measured artifact sizes (committed 168-cell index measured in this worktree; batch-pilot
+figures as reported in `docs/GEOMORPHO_BATCH_PILOT.md`):
 
 | Artifact | Bytes |
 |---|---|
