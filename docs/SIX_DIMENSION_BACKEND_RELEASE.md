@@ -45,7 +45,7 @@ zero-filled and are not reported as negative detections.
 | D03 Earth POWER | Context-only; coarse air/skin temperature, not local or thermal inertia |
 | D04 Earth POWER | Context-only; soil wetness, snow depth and precipitation; no confirmed ice |
 | D04 Moon/Mars | Not comparable; no validated observations |
-| D06 Earth SoilGrids | Evidence-only; 250 m model, not a local sample |
+| D06 Earth SoilGrids | Evidence-only; 250 m model predictions at four depths (300 records), not local samples |
 | D05 Earth POWER | Context-only; coarse model/reanalysis, not local irradiance |
 | D05 Moon/Mars SPICE | Model-only solar incidence/elevation; no observed irradiance, horizon/shadow, or radiation |
 | D05 radiation | Unavailable; never converted from solar geometry |
@@ -79,7 +79,8 @@ The committed release is under `pipelines/pilots/d05_earth_power/` with SHA-256 
 - D03 Moon/Mars thermal provider access and calibration; thermal inertia/local-solar-time products.
 - D04 Moon/Mars ice, neutron/radar/spectral evidence and detection semantics.
 - D05 terrain horizon/shadow, area-average illumination, and detector-based radiation.
-- D06 Moon/Mars sparse sample measurement tables and additional SoilGrids depths/properties.
+- D06 Moon/Mars sparse sample measurement tables. Earth SoilGrids now has 0–60 cm depth
+  coverage for the five pilot AOIs; 60–100 cm and 100–200 cm remain out of scope.
 - R2 publication, deployment and Tunnel are out of scope for this report.
 
 No unsupported comparison, large raster download, R2 transfer, deployment or automatic merge is

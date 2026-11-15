@@ -173,6 +173,28 @@ Implementation: `analog_pipelines.acquisition.providers_mars` and
 [`docs/MARS_PROVIDER_GATES.md`](MARS_PROVIDER_GATES.md). MOLA does not add a Mars reference or
 `supported_bodies` entry until a validated manifest exists.
 
+## Earth — ISRIC SoilGrids 2.0, 250 m (IMPLEMENTED, MODEL PREDICTION)
+
+| Field | Value |
+|---|---|
+| Provider | ISRIC — World Soil Information |
+| Product | SoilGrids 2.0, 250 m global soil property predictions |
+| Service | Public OGC WCS 2.0.1 at `https://maps.isric.org/mapserv` |
+| Access | Public HTTPS, no credentials; bounded AOI subsets only |
+| Properties | clay, sand, silt, SOC, bulk density of the fine earth fraction |
+| Depths | 0–5, 5–15, 15–30, 30–60 cm |
+| Statistics | mean, Q0.05, Q0.95 |
+| Licence | CC BY 4.0; cite ISRIC SoilGrids 2.0 |
+| Evidence | **Model prediction**, not a local measurement and not `observed` |
+| Pilot | 5 AOIs × 5 properties × 4 depths × 3 statistics = 300 evidence-only observations |
+
+Raw TIFF responses are not committed; per-request SHA-256 checksums, HTTP status, exact endpoint
+and parameters are recorded in `pipelines/pilots/d06_earth_soilgrids_depths/requests.jsonl`.
+Model uncertainty is represented by separate Q0.05/Q0.95 prediction-quantile records and is not a
+confidence interval for the AOI mean. See [`D06_SOILGRIDS_DEPTH_PILOT.md`](D06_SOILGRIDS_DEPTH_PILOT.md)
+and [`D06_REGOLITH_SEMANTICS.md`](D06_REGOLITH_SEMANTICS.md). No Moon or Mars regolith measurement
+is registered; those entries remain `no_coverage`.
+
 ## Challenge source
 
 <https://www.spaceappschallenge.org/2026/challenges/permanent-moon-base-locations-and-mars/>

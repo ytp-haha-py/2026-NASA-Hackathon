@@ -1,8 +1,14 @@
-"""SoilGrids 2.0 WCS provider for D06 Earth evidence-only soil properties."""
+"""SoilGrids 2.0 WCS provider for D06 Earth evidence-only soil properties.
+
+SoilGrids values are global model predictions on a 250 m grid, not local soil
+samples or rover measurements. Each observation keeps its own depth interval so
+different depths are never averaged together or scored as one feature.
+"""
 
 from __future__ import annotations
 
 import math
+import threading
 import time
 import urllib.error
 import urllib.parse
@@ -33,7 +39,12 @@ from analog_pipelines.typed_contracts import (
 
 SOILGRIDS_METHOD_VERSION = "soilgrids-wcs-2.0.0"
 SOILGRIDS_DATASET_ID = "soilgrids-250m-v2"
+SOILGRIDS_PRODUCT_VERSION = "2.0"
+SOILGRIDS_WCS_VERSION = "2.0.1"
 SOILGRIDS_BASE = "https://maps.isric.org/mapserv"
+SOILGRIDS_LICENSE = "CC BY 4.0; cite ISRIC SoilGrids 2.0"
+SOILGRIDS_LICENSE_URL = "https://docs.isric.org/globaldata/soilgrids/"
+SOILGRIDS_NATIVE_RESOLUTION_M = 250.0
 SOILGRIDS_PROPERTIES = {
     "clay": ("g kg-1", "Clay content mass fraction"),
     "sand": ("g kg-1", "Sand content mass fraction"),
@@ -41,12 +52,54 @@ SOILGRIDS_PROPERTIES = {
     "soc": ("dg kg-1", "Soil organic carbon"),
     "bdod": ("cg cm-3", "Bulk density of the fine earth fraction"),
 }
-SOILGRIDS_DEPTHS = {"0-5cm": (0, 5), "5-15cm": (5, 15)}
+# Standard SoilGrids 2.0 depth intervals, in centimetres. The public WCS endpoint
+# also serves 60-100cm and 100-200cm; only these four bounded intervals are
+# registered because they are the ones exercised by the D06 pilot.
+SOILGRIDS_DEPTHS = {
+    "0-5cm": (0, 5),
+    "5-15cm": (5, 15),
+    "15-30cm": (15, 30),
+    "30-60cm": (30, 60),
+}
 SOILGRIDS_STATISTICS = {
     "mean": "mean",
     "Q0.05": "q05",
     "Q0.95": "q95",
 }
+# ISRIC asks clients to be considerate. Requests are serialized to at most one
+# every 0.25 s per process, with exponential backoff on throttling/5xx errors.
+SOILGRIDS_MIN_REQUEST_INTERVAL_S = 0.25
+SOILGRIDS_MAX_ATTEMPTS = 4
+_RATE_LOCK = threading.Lock()
+_LAST_REQUEST_AT = 0.0
+
+
+def depth_interval_m(depth: str) -> tuple[float, float]:
+    """Return the registered depth interval in metres for a SoilGrids depth label."""
+    if depth not in SOILGRIDS_DEPTHS:
+        raise ValueError(f"unsupported SoilGrids depth {depth!r}")
+    start_cm, end_cm = SOILGRIDS_DEPTHS[depth]
+    return start_cm / 100.0, end_cm / 100.0
+
+
+def _wait_for_request_slot() -> None:
+    global _LAST_REQUEST_AT
+    with _RATE_LOCK:
+        now = time.monotonic()
+        wait = SOILGRIDS_MIN_REQUEST_INTERVAL_S - (now - _LAST_REQUEST_AT)
+        if wait > 0:
+            time.sleep(wait)
+        _LAST_REQUEST_AT = time.monotonic()
+
+
+def _retry_delay(attempt: int, retry_after: str | None = None) -> float:
+    """Exponential backoff, honouring a numeric Retry-After header when present."""
+    if retry_after:
+        try:
+            return min(30.0, max(0.0, float(retry_after)))
+        except ValueError:
+            pass
+    return min(30.0, float(2 ** (attempt + 1)))
 
 
 class SoilGridsError(RuntimeError):
@@ -56,7 +109,7 @@ class SoilGridsError(RuntimeError):
 def _wcs_url(property_id: str, coverage_id: str, bbox: dict[str, float]) -> str:
     params = [
         ("service", "WCS"),
-        ("version", "2.0.1"),
+        ("version", SOILGRIDS_WCS_VERSION),
         ("request", "GetCoverage"),
         ("CoverageId", coverage_id),
         ("subsettingCrs", "http://www.opengis.net/def/crs/EPSG/0/4326"),
@@ -82,16 +135,17 @@ class SoilGridsProvider:
                 body="Earth",
                 dimension="D06",
                 product="SoilGrids 2.0 250 m WCS",
-                version="2.0",
+                version=SOILGRIDS_PRODUCT_VERSION,
                 endpoint=SOILGRIDS_BASE,
-                license="CC BY 4.0; cite ISRIC SoilGrids 2.0",
-                license_url="https://docs.isric.org/globaldata/soilgrids/",
+                license=SOILGRIDS_LICENSE,
+                license_url=SOILGRIDS_LICENSE_URL,
                 native_resolution="250 m",
                 observation_kinds=["numeric"],
                 comparability="evidence_only",
                 notes=(
-                    "Model-derived soil properties at 250 m with depth intervals and quantiles. "
-                    "Not a local sample, not a rover measurement, and not a cross-body comparison."
+                    "Model-derived soil property predictions at 250 m with explicit depth "
+                    "intervals and Q0.05/Q0.95 prediction quantiles. Not a local sample, not a "
+                    "rover measurement, and not a cross-body comparison."
                 ),
                 metadata={
                     "properties": sorted(SOILGRIDS_PROPERTIES),
@@ -180,13 +234,15 @@ class SoilGridsProvider:
                 content_type="image/tiff",
             )
         last_error: Exception | None = None
-        for attempt in range(3):
+        for attempt in range(SOILGRIDS_MAX_ATTEMPTS):
             try:
+                _wait_for_request_slot()
                 request = urllib.request.Request(
                     task.endpoint,
                     headers={"User-Agent": "planetary-analog/0.1 (+acquisition)"},
                 )
                 with urllib.request.urlopen(request, timeout=60) as response:
+                    status = int(getattr(response, "status", 200))
                     data = response.read()
                 if len(data) > 5_000_000:
                     raise SoilGridsError("SoilGrids response exceeded bounded size")
@@ -201,11 +257,20 @@ class SoilGridsProvider:
                     sha256=file_sha256(final),
                     bytes=final.stat().st_size,
                     content_type="image/tiff",
+                    http_status=status,
                 )
+            except urllib.error.HTTPError as exc:
+                last_error = exc
+                retryable = exc.code == 429 or 500 <= exc.code < 600
+                if not retryable or attempt == SOILGRIDS_MAX_ATTEMPTS - 1:
+                    break
+                retry_after = exc.headers.get("Retry-After") if exc.headers else None
+                delay = _retry_delay(attempt, retry_after)
+                time.sleep(delay)
             except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
                 last_error = exc
-                if attempt < 2:
-                    time.sleep(min(8, 2**attempt))
+                if attempt < SOILGRIDS_MAX_ATTEMPTS - 1:
+                    time.sleep(_retry_delay(attempt))
         raise SoilGridsError(f"SoilGrids acquisition failed: {last_error}")
 
     def process(self, asset: LocalAsset, task: AcquisitionTask) -> list[TypedObservation]:
@@ -223,19 +288,20 @@ class SoilGridsProvider:
             valid_fraction = float(sample.size / total) if total else 0.0
             # WCS subsets are 250 m source cells expressed on a geographic grid; src.res is
             # in degrees and must never be recorded as a metric resolution.
-            resolution = 250.0
-            depth_min, depth_max = SOILGRIDS_DEPTHS[task.parameters["depth"]]
+            resolution = SOILGRIDS_NATIVE_RESOLUTION_M
+            depth = task.parameters["depth"]
+            depth_min_m, depth_max_m = depth_interval_m(depth)
             property_id = task.parameters["property"]
             statistic = task.parameters["statistic"]
             unit = task.parameters["unit"]
         state = "detected" if mean is not None and math.isfinite(mean) else "no_coverage"
         return [
             TypedObservation(
-                observation_id=f"soilgrids:{task.area.area_id}:{property_id}:{task.parameters['depth']}:{STATISTICS_TO_CODE[statistic]}",
+                observation_id=f"soilgrids:{task.area.area_id}:{property_id}:{depth}:{STATISTICS_TO_CODE[statistic]}",
                 area_id=task.area.area_id,
                 body="Earth",
                 dimension_code="D06",
-                feature_id=f"soil_{property_id}_{task.parameters['depth'].replace('-', '_')}_{STATISTICS_TO_CODE[statistic]}",
+                feature_id=f"soil_{property_id}_{depth.replace('-', '_')}_{STATISTICS_TO_CODE[statistic]}",
                 value_kind="numeric",
                 state=state,
                 value=mean if state == "detected" else None,
@@ -247,33 +313,37 @@ class SoilGridsProvider:
                     bbox_crs="EPSG:4326",
                     resolution_m=resolution,
                     source_resolution_m=resolution,
-                    native_resolution_m=250.0,
+                    native_resolution_m=SOILGRIDS_NATIVE_RESOLUTION_M,
                     valid_fraction=valid_fraction,
                     notes=(
                         "Windowed SoilGrids 2.0 WCS subset at the AOI envelope; mean of native "
-                        "250 m model cells. Not a local soil sample."
+                        "250 m model cells. Not a local soil sample. The AOI mean is not a "
+                        "SoilGrids product cell value."
                     ),
                 ),
                 temporal_support=TemporalSupport(kind="unknown"),
                 depth_support=DepthSupport(
                     kind="depth_interval",
-                    min_m=depth_min / 100.0,
-                    max_m=depth_max / 100.0,
+                    min_m=depth_min_m,
+                    max_m=depth_max_m,
                 ),
                 method_version=SOILGRIDS_METHOD_VERSION,
                 dataset_ids=[SOILGRIDS_DATASET_ID],
                 source_asset_ids=[f"{task.provider_id}:{task.area.area_id}:{task.task_id}"],
                 quality_flags=[
                     "model_derived_soil_property",
+                    "model_prediction_not_measurement",
                     "250m_native_grid",
                     "global_model_not_local_sample",
+                    f"depth_interval_{depth}",
                     f"statistic_{STATISTICS_TO_CODE[statistic]}",
                 ],
                 score_role="evidence_only",
                 notes=(
-                    f"{SOILGRIDS_PROPERTIES[property_id][1]} ({unit}); statistic {statistic}; "
-                    "model uncertainty represented by Q0.05/Q0.95 records, not a confidence interval "
-                    "for this AOI mean."
+                    f"{SOILGRIDS_PROPERTIES[property_id][1]} ({unit}); SoilGrids prediction for "
+                    f"depth {depth}; statistic {statistic}. Model uncertainty is carried by the "
+                    "separate Q0.05/Q0.95 prediction-quantile records at the same depth, not by a "
+                    "confidence interval for this AOI mean. Depths are never pooled."
                 ),
             )
         ]
@@ -320,6 +390,17 @@ class SoilGridsProvider:
                         ValidationIssue(
                             code="missing_depth",
                             message="SoilGrids observation requires a depth interval",
+                            observation_id=observation.observation_id,
+                        )
+                    )
+                elif (
+                    observation.depth_support.min_m,
+                    observation.depth_support.max_m,
+                ) not in {depth_interval_m(depth) for depth in SOILGRIDS_DEPTHS}:
+                    issues.append(
+                        ValidationIssue(
+                            code="unsupported_depth_interval",
+                            message="SoilGrids depth interval is not a registered product interval",
                             observation_id=observation.observation_id,
                         )
                     )

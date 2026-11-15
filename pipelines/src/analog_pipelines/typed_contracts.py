@@ -325,6 +325,8 @@ class TypedObservation(BaseModel):
             for x in bins
         ):
             raise ValueError("distribution bins must be finite numbers")
+        if any(float(bins[i]) >= float(bins[i + 1]) for i in range(len(bins) - 1)):
+            raise ValueError("distribution bins must be strictly increasing")
         if any(
             isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x)
             for x in fractions
