@@ -1,0 +1,130 @@
+{
+  "generated_at": "2026-11-15",
+  "coordinator": {
+    "issue": 142,
+    "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-coordinator-142",
+    "branch": "phase2/coordinator-142",
+    "session_id": "ses_e253e85e9ffeLjB1ipw0gIVen0",
+    "goal_id": "a1caf80d-100c-4491-a301-cdf5020f0a69",
+    "goal_status": "running"
+  },
+  "preflight": {
+    "origin_main": "ca0fc8f",
+    "main_checkout": {
+      "directory": "/home/panda/workspace/2026-NASA-Hackathon",
+      "branch": "docs/116-117-acceptance",
+      "head": "07df61b",
+      "used": false,
+      "reason": "dirty and not on main"
+    },
+    "issue_132": {
+      "state": "active",
+      "worktree": "/home/panda/workspace/analogx-issue-132",
+      "branch": "backend/issue-132",
+      "session_id": "ses_e2111ccf7ffevCZ3c5V62sEAX8",
+      "touch": false
+    },
+    "issue_108": {"state": "open", "active_worktree": null},
+    "issue_97": {"state": "open", "active_worktree": null},
+    "open_pr_134": "feat/130-research-weight-presets",
+    "indices": {
+      "var/global-coarse-index": "111 MB",
+      "var/analog.db": "7.0 MB",
+      "public_coarse_pilot_cells": 168,
+      "data/global-index": "absent"
+    }
+  },
+  "workstreams": [
+    {
+      "issue": 135,
+      "dimension": "D01",
+      "scope": "Earth/Moon/Mars terrain coverage and reproducible features",
+      "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-135-d01",
+      "branch": "phase2/135-d01",
+      "session_id": "ses_e20fc8691ffeaMvQ1pjnNWscZp",
+      "goal_id": "7433f495-d3a0-4b1c-9534-0e372fdd4f71",
+      "goal_status": "running",
+      "subagents": "delegated inside Goal",
+      "pr": null,
+      "blockers": ["coordinate with #108/#97", "no duplicate global D01 work"]
+    },
+    {
+      "issue": 136,
+      "dimension": "D02",
+      "scope": "geology/mineral coverage, taxonomy and evidence gates",
+      "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-136-d02",
+      "branch": "phase2/136-d02",
+      "session_id": "ses_e20fc69adffe9JAGca55A3aX5R",
+      "goal_id": "8c39f2b9-c93a-48ec-9458-d2ec3f2d1d84",
+      "goal_status": "running",
+      "subagents": "delegated inside Goal",
+      "pr": null,
+      "blockers": ["taxonomy/crosswalk validation"]
+    },
+    {
+      "issue": 137,
+      "dimension": "D03",
+      "scope": "thermal observations, time semantics and aggregation",
+      "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-137-d03",
+      "branch": "phase2/137-d03",
+      "session_id": "ses_e20fc6930ffeoPYLni2B8ZosUx",
+      "goal_id": "1f7c814b-5425-4bbc-982f-2ffe007527f0",
+      "goal_status": "running",
+      "subagents": "delegated inside Goal",
+      "pr": null,
+      "blockers": ["time/local-solar-time support"]
+    },
+    {
+      "issue": 138,
+      "dimension": "D04",
+      "scope": "water/ice/hydrogen evidence, phase/depth and detection limits",
+      "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-138-d04",
+      "branch": "phase2/138-d04",
+      "session_id": "ses_e20fc68bbffe2Sar4coxcaeuS7",
+      "goal_id": "87ae711a-860d-4874-bf8d-f3813a5f45b5",
+      "goal_status": "running",
+      "subagents": "delegated inside Goal",
+      "pr": null,
+      "blockers": ["proxy vs confirmed ice separation"]
+    },
+    {
+      "issue": 139,
+      "dimension": "D05",
+      "scope": "illumination vs ionizing radiation, location+time assumptions",
+      "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-139-d05",
+      "branch": "phase2/139-d05",
+      "session_id": "ses_e20fc684affe5mrOOQ6dvy5Ju5",
+      "goal_id": "250c8206-32b1-48ed-9a29-6d1f3d536c7a",
+      "goal_status": "running",
+      "subagents": "delegated inside Goal",
+      "pr": null,
+      "blockers": ["DEM horizon/shielding inputs"]
+    },
+    {
+      "issue": 140,
+      "dimension": "D06",
+      "scope": "Earth SoilGrids, Moon/Mars sparse regolith, depth/model/QA",
+      "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-140-d06",
+      "branch": "phase2/140-d06",
+      "session_id": "ses_e20fc67c3ffeEHNB8Ra3Q5CLqP",
+      "goal_id": "b54efab7-61f4-4f01-9902-b48b02b99e3e",
+      "goal_status": "running",
+      "subagents": "delegated inside Goal",
+      "pr": null,
+      "blockers": ["sparse Moon/Mars in-situ data"]
+    },
+    {
+      "issue": 141,
+      "dimension": "integration",
+      "scope": "arbitrary-location D01-D06 status, dimension×feature weights, search contract",
+      "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-141-integration",
+      "branch": "phase2/141-integration",
+      "session_id": "ses_e20fc6751ffeXuPBKd6WZyqGcN",
+      "goal_id": "5f5a47ff-310d-44b8-9be5-4b4626abf4d4",
+      "goal_status": "running",
+      "subagents": "delegated inside Goal",
+      "pr": null,
+      "blockers": ["dimension×feature weighting contract"]
+    }
+  ]
+}
