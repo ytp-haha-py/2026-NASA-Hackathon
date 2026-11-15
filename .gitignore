@@ -15,6 +15,8 @@ apps/web/dist/
 .vite/
 
 # Runtime state
+# Developer-specific Docker Compose mounts
+compose.override.yaml
 *.db
 *.db-journal
 *.sqlite3

@@ -117,5 +117,22 @@
     "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
     "verification_status": "verified",
     "version": "001"
+  },
+  {
+    "body": "Earth",
+    "dataset_id": "macrostrat-api",
+    "depth_support": "surface",
+    "license": "CC-BY 4.0",
+    "license_url": "https://macrostrat.org/api/v2",
+    "native_crs": "EPSG:4326",
+    "native_resolution_m": null,
+    "product_id": "Macrostrat geologic_units/map API",
+    "provider": "Macrostrat / University of Wisconsin-Madison",
+    "redistribution_allowed": "yes",
+    "schema_version": "2.0.0",
+    "temporal_support": "source-map compilation dependent",
+    "url": "https://macrostrat.org/api/v2/geologic_units/map",
+    "verification_status": "verified",
+    "version": "API v2"
   }
 ]

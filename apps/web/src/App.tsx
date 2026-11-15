@@ -9,6 +9,7 @@ import {
   getReferences,
   isAbortError,
   searchCandidates,
+  searchMultidimensional,
   type CapabilitiesOut,
   type DatasetOut,
   type NumericTarget,
@@ -17,6 +18,8 @@ import {
   type SearchResultOut,
 } from "./api/client";
 import { useAoiAnalysis } from "./hooks/useAoiAnalysis";
+import { adaptMultiDimResponse } from "./lib/multidim";
+import { readAoiLimits } from "./lib/aoi";
 import { I18nProvider, SourceText, useI18n } from "./i18n/I18nProvider";
 import type { Locale } from "./i18n/translate";
 import type { SearchSubmission, SearchTargetPreset } from "./lib/search-types";
@@ -25,7 +28,6 @@ import { AoiWorkspace } from "./components/AoiWorkspace";
 import { DetailPanel } from "./components/DetailPanel";
 import { GlobalPanel } from "./components/GlobalPanel";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
-import { MapPanel } from "./components/MapPanel";
 import { ResultsPanel } from "./components/ResultsPanel";
 import { SearchForm } from "./components/SearchForm";
 import {
@@ -36,6 +38,8 @@ import {
 } from "./components/SixDimensionPanel";
 import { SourcesAndMethods } from "./components/SourcesAndMethods";
 import { WorkflowSection } from "./components/WorkflowSection";
+
+const NO_RESULTS: SearchResultOut[] = [];
 
 type SearchErrorState = {
   message: string;
@@ -66,11 +70,11 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const [references, setReferences] = useState<ReferenceOut[]>([]);
   const [referencesError, setReferencesError] = useState<string | null>(null);
   const [datasets, setDatasets] = useState<DatasetOut[]>([]);
+  const [datasetsLoading, setDatasetsLoading] = useState(true);
   const [datasetsError, setDatasetsError] = useState<string | null>(null);
   const [bootstrapKey, setBootstrapKey] = useState(0);
   const [aoiOpen, setAoiOpen] = useState(false);
   const [dimensionsOpen, setDimensionsOpen] = useState(false);
-  const [globalOpen, setGlobalOpen] = useState(false);
   const [aoiBbox, setAoiBbox] = useState<AoiBbox | null>(null);
   const [aoiFormKey, setAoiFormKey] = useState(0);
   const [searchPreset, setSearchPreset] = useState<SearchTargetPreset | null>(null);
@@ -78,6 +82,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const aoi = useAoiAnalysis(aoiPollIntervalMs);
 
   const [searching, setSearching] = useState(false);
+  const [lastSubmission, setLastSubmission] = useState<SearchSubmission | null>(null);
   const [searchResponse, setSearchResponse] = useState<SearchResponse | null>(null);
   const [searchError, setSearchError] = useState<SearchErrorState | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -101,6 +106,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
     setCapabilitiesLoading(true);
     setCapabilitiesError(null);
     setReferencesError(null);
+    setDatasetsLoading(true);
     setDatasetsError(null);
 
     getCapabilities(controller.signal)
@@ -134,6 +140,9 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
           setDatasets([]);
           setDatasetsError(errorMessage(caught));
         }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setDatasetsLoading(false);
       });
 
     return () => controller.abort();
@@ -145,13 +154,18 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
     searchController.current = controller;
 
     setSearching(true);
+    setLastSubmission(submission);
     setSearchError(null);
     setSearchResponse(null);
     setSelectedId(null);
     setActiveTarget(submission.target);
 
     try {
-      const response = await searchCandidates(submission.request, controller.signal);
+      const response = submission.multidim
+        ? adaptMultiDimResponse(
+            await searchMultidimensional(submission.multidim, controller.signal),
+          )
+        : await searchCandidates(submission.request, controller.signal);
       if (!controller.signal.aborted) {
         setSearchResponse(response);
         if (response.results.length > 0) {
@@ -247,6 +261,10 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const searchErrorMeaning = label.errorCode(searchError?.code);
   const moonReferenceCount = references.filter((reference) => reference.body === "Moon").length;
   const marsReferenceCount = references.filter((reference) => reference.body === "Mars").length;
+  const aoiLimits = capabilities ? readAoiLimits(capabilities.aoi_analysis) : null;
+  const canRefine =
+    aoiLimits?.supportedBody === "Earth" &&
+    aoiLimits.providerStatus["copernicus-dem-glo90"]?.status === "verified";
 
   return (
     <div className="app">
@@ -371,16 +389,25 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 </div>
               )}
 
-              <MapPanel
-                results={searchResponse?.results ?? []}
-                selectedId={selectedId}
-                onSelect={setSelectedId}
-                response={searching ? undefined : (searchResponse ?? undefined)}
-                features={capabilities.features}
-                target={activeTarget}
-                showIdle={!searchResponse && !searching}
-                aoiBbox={aoiBbox}
-                onDrawBbox={handleDrawBbox}
+              <GlobalPanel
+                indexedCount={searchResponse?.eligible_candidate_count ?? capabilities.indexed_candidate_count}
+                indexedSnapshot={searchResponse?.data_snapshot_id ?? capabilities.data_snapshot_id}
+                indexedLoading={searching}
+                indexedSearched={searchResponse !== null}
+                canRefine={canRefine}
+                pollIntervalMs={aoiPollIntervalMs}
+                onRerank={lastSubmission ? () => void handleSearch(lastSubmission) : undefined}
+                map={{
+                  results: searchResponse?.results ?? NO_RESULTS,
+                  selectedId,
+                  onSelect: setSelectedId,
+                  response: searching ? undefined : (searchResponse ?? undefined),
+                  features: capabilities.features,
+                  target: activeTarget,
+                  showIdle: !searchResponse && !searching,
+                  aoiBbox,
+                  onDrawBbox: handleDrawBbox,
+                }}
               />
 
               <WorkflowSection
@@ -414,6 +441,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                     contextFeatures={capabilities.context_features}
                     selectedId={selectedId}
                     onSelect={setSelectedId}
+                    selectedOnly
                   />
                   {selectedResult ? (
                     <DetailPanel
@@ -446,65 +474,53 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 />
               </WorkflowSection>
 
-              <WorkflowSection
-                id="section-global"
-                title={t("flow.globalTitle")}
-                open={globalOpen}
-                onOpenChange={setGlobalOpen}
-              >
-                <GlobalPanel />
-              </WorkflowSection>
             </div>
 
             <details className="about-panel">
               <summary>{t("app.aboutSummary")}</summary>
-              <section className="coverage-strip" aria-labelledby="coverage-heading">
-                <p className="eyebrow">{t("app.coverageEyebrow")}</p>
-                <h2 id="coverage-heading">
-                  {tp("app.coverageHeading", capabilities.indexed_candidate_count)}
-                </h2>
-                <p className="coverage-origins">
-                  {rich("app.coverageOrigins", {
-                    indexed: (
-                      <strong>
-                        {t("coverage.indexedCount", { count: fmt.number(indexedOriginCount, 0) })}
-                      </strong>
-                    ),
-                    onDemand: (
-                      <strong>
-                        {t("coverage.onDemandCount", {
-                          count: fmt.number(onDemandOriginCount, 0),
-                        })}
-                      </strong>
-                    ),
-                  })}
-                </p>
-                <p>
-                  <SourceText>{capabilities.coverage.description}</SourceText>
-                </p>
-                <p className="coverage-extent">
-                  {capabilities.coverage.geographic_bbox
-                    ? t("app.coverageExtent", {
-                        bbox: fmt.bbox(capabilities.coverage.geographic_bbox),
-                      })
-                    : t("app.coverageExtentMissing")}
-                </p>
-              </section>
-              <section className="idle-panel" aria-labelledby="idle-heading">
-                <h2 id="idle-heading">{t("app.idleHeading")}</h2>
-                <p>{t("app.idleBody")}</p>
-                <ul>
-                  <li>{t("app.idleItemDistance")}</li>
-                  <li>{t("app.idleItemSynthetic")}</li>
-                  <li>{t("app.idleItemOnDemand")}</li>
-                  <li>{t("app.idleItemNotCompared")}</li>
-                </ul>
-              </section>
-              <SourcesAndMethods
-                capabilities={capabilities}
-                datasets={datasets}
-                datasetsError={datasetsError}
-              />
+              <div className="about-content">
+                <div className="about-overview">
+                  <section className="coverage-strip" aria-labelledby="coverage-heading">
+                    <h2 id="coverage-heading">
+                      {tp("app.coverageHeading", capabilities.indexed_candidate_count)}
+                    </h2>
+                    <p className="coverage-origins">
+                      {rich("app.coverageOrigins", {
+                        indexed: (
+                          <strong>
+                            {t("coverage.indexedCount", { count: fmt.number(indexedOriginCount, 0) })}
+                          </strong>
+                        ),
+                        onDemand: (
+                          <strong>
+                            {t("coverage.onDemandCount", {
+                              count: fmt.number(onDemandOriginCount, 0),
+                            })}
+                          </strong>
+                        ),
+                      })}
+                    </p>
+                    <p className="coverage-extent">
+                      {capabilities.coverage.geographic_bbox
+                        ? t("app.coverageExtent", {
+                            bbox: fmt.bbox(capabilities.coverage.geographic_bbox),
+                          })
+                        : t("app.coverageExtentMissing")}
+                    </p>
+                  </section>
+                  <section aria-labelledby="about-limits-heading">
+                    <h2 id="about-limits-heading">{t("app.aboutLimits")}</h2>
+                    <p className="about-coverage-note">{t("sources.closestOnly")}</p>
+                    <p>{t("app.idleItemNotCompared")}</p>
+                  </section>
+                </div>
+                <SourcesAndMethods
+                  capabilities={capabilities}
+                  datasets={datasets}
+                  datasetsLoading={datasetsLoading}
+                  datasetsError={datasetsError}
+                />
+              </div>
             </details>
 
             {capabilities.indexed_candidate_count === 0 && (

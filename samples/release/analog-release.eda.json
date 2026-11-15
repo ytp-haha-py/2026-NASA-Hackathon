@@ -37,8 +37,8 @@
             "candidates": 0,
             "context_observations": 0,
             "feature_observations": 0,
-            "reference_feature_observations": 25,
-            "references": 5
+            "reference_feature_observations": 35,
+            "references": 7
           },
           "Moon": {
             "candidates": 0,
@@ -53,10 +53,10 @@
         "context_observations": 1243,
         "datasets": 9,
         "feature_observations": 565,
-        "manifests": 9,
-        "reference_feature_observations": 115,
+        "manifests": 10,
+        "reference_feature_observations": 125,
         "reference_records_shared_across_manifests": 0,
-        "references": 23
+        "references": 25
       },
       "coverage": null,
       "dimensions": [
@@ -102,7 +102,7 @@
           "derived_from_measured_dem": 565
         },
         "Mars": {
-          "derived_from_measured_dem": 25
+          "derived_from_measured_dem": 35
         },
         "Moon": {
           "derived_from_measured_dem": 90
@@ -252,19 +252,20 @@
       ],
       "context_value_origins": null,
       "counts": {
-        "areas": 8,
-        "assets": 33,
+        "areas": 11,
+        "assets": 36,
         "by_body": {
           "Earth": {
             "by_state": {
+              "detected": 3,
               "no_coverage": 2,
               "unknown": 13
             },
-            "detected": 0,
-            "observations": 15,
+            "detected": 3,
+            "observations": 18,
             "unavailable": 15,
             "value_origins": {
-              "mapped_evidence": 15
+              "mapped_evidence": 18
             }
           },
           "Mars": {
@@ -294,10 +295,10 @@
           }
         },
         "by_dimension": {
-          "D02": 56
+          "D02": 59
         },
-        "datasets": 7,
-        "observations": 56
+        "datasets": 8,
+        "observations": 59
       },
       "coverage": null,
       "dimensions": [
@@ -329,7 +330,7 @@
             "mars-test-jezero-western-delta"
           ]
         ],
-        "overlapping_area_pairs": 11
+        "overlapping_area_pairs": 17
       },
       "kind": "typed_bundle_export",
       "limitations": [
@@ -418,6 +419,16 @@
           "source_resolution_m": null,
           "temporal_support": "unknown",
           "window_size_m": null
+        },
+        {
+          "crs": "EPSG:4326",
+          "depth_support": "surface",
+          "kind": "point",
+          "native_resolution_m": null,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "static",
+          "window_size_m": null
         }
       ],
       "units": [
@@ -425,7 +436,7 @@
       ],
       "value_origins": {
         "Earth": {
-          "mapped_evidence": 15
+          "mapped_evidence": 18
         },
         "Mars": {
           "mapped_evidence": 14,
@@ -1220,18 +1231,18 @@
     "coarse_cells": 168,
     "coarse_partitions": 3,
     "coarse_regions": 3,
-    "dataset_references": 24,
-    "files": 68,
+    "dataset_references": 25,
+    "files": 69,
     "fine_candidates": 113,
     "fine_context_observations": 1243,
-    "fine_data_version": "dv-b46f3bad38ea",
+    "fine_data_version": "dv-6fefaf3a7974",
     "fine_datasets": 9,
     "fine_feature_observations": 565,
-    "fine_references": 23,
-    "fine_snapshot_id": "snap-0cef4d75b147866a",
+    "fine_references": 25,
+    "fine_snapshot_id": "snap-0faad9cee4386729",
     "source_references": 22,
     "typed_by_dimension": {
-      "typed-d02-geology": 56,
+      "typed-d02-geology": 59,
       "typed-d03-planetary-thermal": 41,
       "typed-d03-thermal": 20,
       "typed-d04-water-ice": 20,
@@ -1240,7 +1251,7 @@
       "typed-d05-spice-geometry": 18,
       "typed-d06-regolith": 300
     },
-    "typed_observations": 520
+    "typed_observations": 523
   },
   "coverage_label": "bounded_local_subset_not_global",
   "dimensions": [
@@ -1318,16 +1329,16 @@
           "artifacts": [
             "fine-terrain-snapshot"
           ],
-          "attempted": 5,
+          "attempted": 7,
           "attempted_unit": "reference_windows",
           "body": "Mars",
           "breakdown": [
             {
               "artifact_id": "fine-terrain-snapshot",
-              "attempted": 5,
+              "attempted": 7,
               "attempted_unit": "reference_windows",
               "observations": 0,
-              "valid": 25,
+              "valid": 35,
               "valid_unit": "feature_observations"
             }
           ],
@@ -1337,7 +1348,7 @@
           "failed": null,
           "failed_unit": null,
           "feature_observations": 0,
-          "observations": 25,
+          "observations": 35,
           "status": "present",
           "support": [
             {
@@ -1354,10 +1365,10 @@
             "fraction",
             "meter"
           ],
-          "valid": 25,
+          "valid": 35,
           "valid_unit": "feature_observations",
           "value_origins": {
-            "derived_from_measured_dem": 25
+            "derived_from_measured_dem": 35
           }
         },
         "Moon": {
@@ -1512,7 +1523,7 @@
           "breakdown": [
             {
               "artifact_id": "typed-d02-geology",
-              "observations": 15
+              "observations": 18
             }
           ],
           "coarse_cells": 0,
@@ -1521,7 +1532,7 @@
           "failed": null,
           "failed_unit": null,
           "feature_observations": 0,
-          "observations": 15,
+          "observations": 18,
           "status": "present",
           "support": [
             {
@@ -1585,6 +1596,16 @@
               "window_size_m": null
             },
             {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "static",
+              "window_size_m": null
+            },
+            {
               "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
               "depth_support": "surface",
               "kind": "geometry",
@@ -1610,10 +1631,10 @@
           "units": [
             "dimensionless_spectral_parameter"
           ],
-          "valid": 0,
+          "valid": 3,
           "valid_unit": "detected_observations",
           "value_origins": {
-            "mapped_evidence": 15
+            "mapped_evidence": 18
           }
         },
         "Mars": {
@@ -1696,6 +1717,16 @@
               "resolution_m": null,
               "source_resolution_m": null,
               "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "static",
               "window_size_m": null
             },
             {
@@ -1811,6 +1842,16 @@
               "resolution_m": null,
               "source_resolution_m": null,
               "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "static",
               "window_size_m": null
             },
             {
@@ -2958,7 +2999,7 @@
     }
   ],
   "eda_version": "multi-dimension-eda-1.0.0",
-  "generated_at": "2026-11-15T06:27:26Z",
+  "generated_at": "2026-11-15T12:44:07Z",
   "global_claim": false,
   "limitations": [
     "This release is a bounded local subset; it is not a global or exhaustive survey.",
@@ -2976,7 +3017,7 @@
     "overlapping_fine_candidate_pairs": 1,
     "shared_candidate_records": 113
   },
-  "release_id": "rel-627b049fd4da8f6b",
+  "release_id": "rel-c24a910fe1eeb0d4",
   "scope": {
     "bodies": [
       "Earth",

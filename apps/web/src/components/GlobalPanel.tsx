@@ -1,27 +1,39 @@
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ComponentProps, type FormEvent } from "react";
 import {
   ApiError,
-  analyzeArea,
   createRefinePlan,
   errorCode,
   errorMessage,
-  getAreaFeatures,
   getGlobalCandidate,
   getGlobalCoverage,
-  getJob,
   isAbortError,
+  refineGlobalCandidate,
   searchGlobalCandidates,
   type GlobalCandidateOut,
   type GlobalCoverageOut,
+  type GlobalRefineResponse,
   type GlobalSearchRequest,
   type GlobalSearchResponse,
   type GlobalSearchResultOut,
-  type LocationOut,
   type RefinePlanOut,
 } from "../api/client";
+import { useAoiAnalysis } from "../hooks/useAoiAnalysis";
 import { SourceText, useI18n } from "../i18n/I18nProvider";
 import { looksLikeFixture } from "../lib/six-dimensions";
-import { GlobalMap } from "./GlobalMap";
+import { MapPanel } from "./MapPanel";
+
+const NO_RESULTS: GlobalSearchResultOut[] = [];
+
+type GlobalPanelProps = {
+  indexedCount: number;
+  indexedSnapshot: string;
+  indexedSearched?: boolean;
+  indexedLoading?: boolean;
+  canRefine: boolean;
+  pollIntervalMs: number;
+  onRerank?: () => void;
+  map: Omit<ComponentProps<typeof MapPanel>, "searchScope" | "coarse">;
+};
 
 type CoarseFeature = {
   featureId: string;
@@ -116,12 +128,16 @@ function candidateFixture(candidate: GlobalCandidateOut | null): boolean {
     : false;
 }
 
-export function GlobalPanel() {
+export function GlobalPanel({
+  indexedCount, indexedSnapshot, indexedSearched, indexedLoading,
+  canRefine, pollIntervalMs, onRerank, map,
+}: GlobalPanelProps) {
   const { t, tp, fmt, label } = useI18n();
   const [coverage, setCoverage] = useState<GlobalCoverageOut | null>(null);
   const [coverageLoading, setCoverageLoading] = useState(true);
   const [coverageError, setCoverageError] = useState<CoverageError | null>(null);
   const [coverageRetry, setCoverageRetry] = useState(0);
+  const [coarseOpen, setCoarseOpen] = useState(false);
 
   const [rows, setRows] = useState<Record<string, RowState>>({});
   const [limit, setLimit] = useState("10");
@@ -145,18 +161,24 @@ export function GlobalPanel() {
   const [planError, setPlanError] = useState<string | null>(null);
   const [planning, setPlanning] = useState(false);
 
-  type RefineExecution = {
-    windowId: string;
-    jobId: string | null;
-    status: string;
-    areaId: string | null;
-    features: LocationOut["features"] | null;
-    providers: Record<string, unknown> | null;
-    warnings: string[];
-    error: string | null;
-  };
-  const [execution, setExecution] = useState<RefineExecution | null>(null);
-  const [executing, setExecuting] = useState<string | null>(null);
+  const refine = useAoiAnalysis(pollIntervalMs);
+  const [refiningId, setRefiningId] = useState<string | null>(null);
+  const [refineResponse, setRefineResponse] = useState<GlobalRefineResponse | null>(null);
+  const planController = useRef<AbortController | null>(null);
+
+  useEffect(() => () => planController.current?.abort(), []);
+
+  useEffect(() => {
+    if (indexedLoading) setCoarseOpen(false);
+  }, [indexedLoading]);
+
+  const selectCandidate = useCallback((candidateId: string) => {
+    planController.current?.abort();
+    setSelectedId(candidateId);
+    setPlan(null);
+    setPlanError(null);
+    setPlanning(false);
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -265,6 +287,9 @@ export function GlobalPanel() {
   async function runSearch(request: GlobalSearchRequest) {
     setSearching(true);
     setSearchError(null);
+    setResponse(null);
+    planController.current?.abort();
+    setPlanning(false);
     setSelectedId(null);
     setCandidate(null);
     setPlan(null);
@@ -345,159 +370,107 @@ export function GlobalPanel() {
     if (!selectedId) {
       return;
     }
+    planController.current?.abort();
+    const controller = new AbortController();
+    planController.current = controller;
     setPlanning(true);
     setPlanError(null);
     setPlan(null);
-    setExecution(null);
     try {
       const payload = await createRefinePlan({
         candidate_id: selectedId,
         per_side: Number(perSide),
-      });
-      setPlan(payload);
+      }, controller.signal);
+      if (!controller.signal.aborted) setPlan(payload);
     } catch (caught: unknown) {
       if (!isAbortError(caught)) {
         setPlanError(errorMessage(caught));
       }
     } finally {
-      setPlanning(false);
+      if (!controller.signal.aborted) setPlanning(false);
     }
   }
 
-  async function executeWindow(window: RefinePlanOut["windows"][number]) {
-    setExecuting(window.fine_window_id);
-    setExecution({
-      windowId: window.fine_window_id,
-      jobId: null,
-      status: "queued",
-      areaId: null,
-      features: null,
-      providers: null,
-      warnings: [],
-      error: null,
+  function executeRefine(candidateId: string) {
+    setRefiningId(candidateId);
+    setRefineResponse(null);
+    refine.submitJob(async (signal) => {
+      const response = await refineGlobalCandidate(candidateId, signal);
+      if (!signal.aborted) setRefineResponse(response);
+      return response;
     });
-    try {
-      const created = await analyzeArea({
-        body: "Earth",
-        bbox: {
-          west: window.bbox_wgs84.west,
-          south: window.bbox_wgs84.south,
-          east: window.bbox_wgs84.east,
-          north: window.bbox_wgs84.north,
-        },
-      });
-      let job = await getJob(created.job_id);
-      let status = job.status;
-      setExecution((current) =>
-        current
-          ? {
-              ...current,
-              jobId: created.job_id,
-              status,
-              areaId: job.area_id ?? created.area_id,
-              providers: job.provider_status ?? created.provider_status ?? null,
-            }
-          : current,
-      );
-      for (let attempt = 0; attempt < 40 && (status === "queued" || status === "running"); attempt += 1) {
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        job = await getJob(created.job_id);
-        status = job.status;
-        setExecution((current) =>
-          current
-            ? {
-                ...current,
-                status,
-                areaId: job.area_id ?? created.area_id,
-                providers: job.provider_status ?? current.providers,
-              }
-            : current,
-        );
-      }
-      const areaId = job.area_id ?? created.area_id;
-      let features: LocationOut["features"] | null = null;
-      if (areaId && (status === "completed" || status === "partial")) {
-        const location = await getAreaFeatures(areaId);
-        features = location.features;
-      }
-      const rawWarnings = job.result?.warnings;
-      setExecution({
-        windowId: window.fine_window_id,
-        jobId: created.job_id,
-        status,
-        areaId,
-        features,
-        providers: job.provider_status ?? created.provider_status ?? null,
-        warnings: Array.isArray(rawWarnings) ? rawWarnings.map(String) : [],
-        error: job.error?.message ?? null,
-      });
-    } catch (caught: unknown) {
-      if (!isAbortError(caught)) {
-        setExecution((current) =>
-          current ? { ...current, status: "failed", error: errorMessage(caught) } : current,
-        );
-      }
-    } finally {
-      setExecuting(null);
-    }
   }
 
-  return (
-    <section className="global-panel" aria-labelledby="global-heading">
-      <div className="section-heading">
-        <p className="eyebrow">{t("global.eyebrow")}</p>
-        <h2 id="global-heading">{t("global.heading")}</h2>
-        <p>{t("global.intro")}</p>
+  const showExecution = refiningId !== null && refiningId === selectedId;
+  const executionError = refine.requestError ?? refine.pollError ?? refine.featureError;
+  const executionAvailable = canRefine && refine.requestError?.status !== 404 &&
+    refine.requestError?.status !== 405 && refine.requestError?.status !== 503;
+  const focus = refineResponse?.focus_window.bbox_wgs84;
+  const warnings = refine.job?.result?.warnings;
+  const refineWindow = showExecution && refine.status && isRecord(focus) && refineResponse
+    ? { bbox: focus, status: refine.status, method: refineResponse.fine_method_version }
+    : undefined;
+
+  const available = coverage?.status === "ready" && coverage.row_count > 0 && features.length > 0;
+  const showCoarse = coarseOpen && available;
+  const scope = (
+    <div className="search-scope">
+      <div className="search-scope-toggle" role="group" aria-label={t("overlay.scope")}>
+        <button
+          type="button"
+          aria-pressed={!showCoarse}
+          onClick={() => setCoarseOpen(false)}
+        >
+          {t("overlay.indexedScope")}
+        </button>
+        <button
+          type="button"
+          disabled={!available}
+          aria-pressed={showCoarse}
+          onClick={() => setCoarseOpen(true)}
+        >
+          {t(available ? "overlay.coarseScope" : "overlay.coarseUnavailable")}
+        </button>
       </div>
-
-      {coverageLoading && (
-        <p className="status-panel" role="status">
-          {t("global.loading")}
-        </p>
-      )}
-
+      <p>
+        {t((showCoarse ? response !== null : indexedSearched) ? "overlay.scopeSearched" : "overlay.scopeIndexedCount", {
+          count: fmt.number(showCoarse ? (response?.eligible_candidate_count ?? coverage.row_count) : indexedCount, 0),
+          snapshot: (showCoarse ? (response?.snapshot_id ?? coverage.snapshot_id) : indexedSnapshot) ||
+            t("common.notReported"),
+        })}
+      </p>
+      {coverageLoading && <p role="status">{t("global.loading")}</p>}
       {coverageError && (
-        <div className="alert alert-error" role="alert">
-          <p>
-            <strong>
-              {coverageError.code
-                ? t("global.failedWithCode", { code: coverageError.code })
-                : t("global.failed")}
-            </strong>{" "}
-            <SourceText>{coverageError.message}</SourceText>
-          </p>
-          {coverageError.status !== null && (
-            <p>{t("common.httpStatus", { status: coverageError.status })}</p>
-          )}
-          <button
-            type="button"
-            className="secondary-button"
-            onClick={() => setCoverageRetry((key) => key + 1)}
-          >
+        <p role="alert">
+          {t("global.failed")} <SourceText>{coverageError.message}</SourceText>{" "}
+          <button type="button" className="link-button" onClick={() => setCoverageRetry((key) => key + 1)}>
             {t("global.retry")}
           </button>
-        </div>
+        </p>
       )}
-
-      {coverage && coverage.status === "no_index" && (
-        <div className="alert alert-warning" role="status">
-          <h3>{t("global.noIndexTitle")}</h3>
+      {!available && coverage && (
+        <details>
+          <summary>{t("global.noIndexTitle")}</summary>
           <p>{t("global.noIndexBody")}</p>
           <p>{t("global.noIndexHelp")}</p>
-          <p>
-            <SourceText>{coverage.note}</SourceText>
-          </p>
-        </div>
+          <p><SourceText>{coverage.note}</SourceText></p>
+        </details>
       )}
+    </div>
+  );
 
-      {coverage && coverage.status !== "no_index" && (
-        <>
+  if (!showCoarse) return <MapPanel {...map} searchScope={scope} />;
+
+  const content = (
+    <>
           {fixtureIndex && (
             <div className="alert alert-synthetic" role="alert">
               <strong>{t("global.fixture")}</strong>
             </div>
           )}
 
+          <details className="coarse-advanced">
+            <summary>{t("overlay.coarseAdvanced")}</summary>
           <section className="coverage-panel" aria-labelledby="global-coverage-heading">
             <h3 id="global-coverage-heading">{t("global.coverageHeading")}</h3>
             <dl className="facts-grid">
@@ -556,11 +529,6 @@ export function GlobalPanel() {
             <p className="coverage-warning">{t("global.scaleWarning")}</p>
           </section>
 
-          {features.length === 0 ? (
-            <div className="alert alert-warning" role="status">
-              <p>{t("global.searchHint")}</p>
-            </div>
-          ) : (
             <section className="global-search" aria-labelledby="global-search-heading">
               <h3 id="global-search-heading">{t("global.searchHeading")}</h3>
               <p className="field-hint">{t("global.searchHint")}</p>
@@ -685,7 +653,9 @@ export function GlobalPanel() {
                 </button>
               </form>
             </section>
-          )}
+          </details>
+
+          {searching && <p role="status">{t("global.submitting")}</p>}
 
           {searchError && (
             <div className="alert alert-error" role="alert">
@@ -726,24 +696,21 @@ export function GlobalPanel() {
                     excluded: fmt.number(response.excluded_candidate_count, 0),
                   })}
                 </p>
-                <p className="coverage-warning">
-                  <strong>{t("global.notTop")}</strong> {t("global.notTopBody")}
-                </p>
-                <p>
-                  {t("global.coverageLabel", {
-                    label: response.coverage_label,
-                  })}
-                </p>
-                <p>
-                  {t("global.versions", {
+                <strong>{t("global.notTop")}</strong>
+                <p>{t("global.colDistance")} · <code>{response.method_version}</code></p>
+                <details className="coarse-advanced">
+                  <summary>{t("global.methodVersion")}</summary>
+                  <p>{t("global.notTopBody")}</p>
+                  <p>{t("global.coverageLabel", { label: response.coverage_label })}</p>
+                  <p>{t("global.versions", {
                     snapshot: response.snapshot_id,
                     index: response.index_version,
                     method: response.method_version,
-                  })}
-                </p>
-                {response.excluded_candidate_count > 0 && (
-                  <p>{t("global.exclusions", { count: fmt.number(response.excluded_candidate_count, 0) })}</p>
-                )}
+                  })}</p>
+                  {response.excluded_candidate_count > 0 && (
+                    <p>{t("global.exclusions", { count: fmt.number(response.excluded_candidate_count, 0) })}</p>
+                  )}
+                </details>
               </div>
 
               {response.results.length === 0 ? (
@@ -755,32 +722,16 @@ export function GlobalPanel() {
                   )}
                 </div>
               ) : (
-                <>
-                  <GlobalMap
-                    coverage={coverage}
-                    results={response.results}
-                    selectedId={selectedId}
-                    onSelect={(candidateId) => {
-                      setSelectedId(candidateId);
-                      setPlan(null);
-                      setPlanError(null);
-                    }}
-                  />
-                  <ol className="global-candidate-list">
+                  <ol className="ranking-list">
                     {response.results.map((result) => (
                       <GlobalCandidateCard
                         key={result.candidate_id}
                         result={result}
                         selected={result.candidate_id === selectedId}
-                        onSelect={() => {
-                          setSelectedId(result.candidate_id);
-                          setPlan(null);
-                          setPlanError(null);
-                        }}
+                        onSelect={() => selectCandidate(result.candidate_id)}
                       />
                     ))}
                   </ol>
-                </>
               )}
             </section>
           )}
@@ -823,6 +774,8 @@ export function GlobalPanel() {
                       {t("global.fixture")}
                     </p>
                   )}
+                  <details className="coarse-advanced">
+                    <summary>{t("global.provenanceDetails")}</summary>
                   <dl className="facts-grid">
                     <div>
                       <dt>{t("global.candidateId")}</dt>
@@ -952,10 +905,76 @@ export function GlobalPanel() {
                       t("global.noQa")
                     )}
                   </p>
+                  </details>
 
                   <section className="global-refine" aria-labelledby="global-refine-heading">
                     <h4 id="global-refine-heading">{t("global.refineHeading")}</h4>
-                    <p>{t("global.refineIntro")}</p>
+                    {executionAvailable ? (
+                      <button
+                        type="button"
+                        className="secondary-button"
+                        disabled={refine.busy && !refine.pollError}
+                        onClick={() => executeRefine(candidate.candidate_id)}
+                      >
+                        {showExecution && refine.submitting ? t("global.executing") : t("global.execute")}
+                      </button>
+                    ) : (
+                      <p className="field-hint">{t("global.refineUnavailable")}</p>
+                    )}
+                    {showExecution && (
+                      <div className="refine-execution" data-testid="refine-execution">
+                        <p role="status">
+                          {refine.status
+                            ? t("global.executionStatus", { status: label.status(refine.status) })
+                            : refine.submitting ? t("global.executing") : t("global.noExecution")}
+                        </p>
+                        {executionError && (
+                          <p role="alert">
+                            {t("global.executionFailed")} <SourceText>{executionError.message}</SourceText>
+                          </p>
+                        )}
+                        {(refine.pollError || refine.featureError) && (
+                          <button type="button" className="link-button" onClick={refine.retry}>
+                            {t("global.detailRetry")}
+                          </button>
+                        )}
+                        {refine.job?.error?.message && (
+                          <p role="alert"><SourceText>{refine.job.error.message}</SourceText></p>
+                        )}
+                        {Array.isArray(warnings) && warnings.length > 0 && (
+                          <p role="status">{warnings.map(String).join(", ")}</p>
+                        )}
+                        {refineResponse && (
+                          <p>
+                            {t("global.executionArea")} <code>{refineResponse.area_id}</code>{" "}
+                            · <code>{refineResponse.fine_method_version}</code>
+                          </p>
+                        )}
+                        {refine.location?.features.length ? (
+                          <>
+                            <details>
+                              <summary>{t("global.executionResults")}</summary>
+                              <dl>
+                                {refine.location.features.map((feature) => (
+                                  <div key={feature.feature_id}>
+                                    <dt>{label.feature(feature.feature_id, feature.label)}</dt>
+                                    <dd>{fmt.withUnit(feature.value, feature.unit)}</dd>
+                                  </div>
+                                ))}
+                              </dl>
+                            </details>
+                            {onRerank && (
+                              <button type="button" className="secondary-button" onClick={onRerank}>
+                                {t("global.rerank")}
+                              </button>
+                            )}
+                          </>
+                        ) : null}
+                      </div>
+                    )}
+                    <details className="coarse-advanced">
+                      <summary>{t("global.refinePlanOptions")}</summary>
+                      <p>{t("global.refineIntro")}</p>
                     <div className="global-search-controls">
                       <label>
                         <span>{t("global.perSide")}</span>
@@ -1028,7 +1047,6 @@ export function GlobalPanel() {
                                 <th scope="col">{t("global.bbox")}</th>
                                 <th scope="col">{t("global.colWindowSize")}</th>
                                 <th scope="col">{t("global.methodVersion")}</th>
-                                <th scope="col">{t("global.colExecution")}</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -1049,121 +1067,36 @@ export function GlobalPanel() {
                                   <td>
                                     <code>{window.method_version}</code>
                                   </td>
-                                  <td>
-                                    <button
-                                      type="button"
-                                      className="secondary-button"
-                                      disabled={executing !== null}
-                                      onClick={() => void executeWindow(window)}
-                                    >
-                                      {executing === window.fine_window_id
-                                        ? t("global.executing")
-                                        : t("global.execute")}
-                                    </button>
-                                  </td>
                                 </tr>
                               ))}
                             </tbody>
                           </table>
                         </div>
 
-                        <p className="field-hint">{t("global.executionIntro")}</p>
-
-                        {execution && (
-                          <div className="refine-execution" data-testid="refine-execution">
-                            <h5>{t("global.executionHeading")}</h5>
-                            <p role="status">
-                              {t("global.executionStatus", { status: execution.status })}
-                            </p>
-                            <dl className="facts-grid">
-                              <div>
-                                <dt>{t("global.executionWindow")}</dt>
-                                <dd>
-                                  <code>{execution.windowId}</code>
-                                </dd>
-                              </div>
-                              <div>
-                                <dt>{t("global.executionJob")}</dt>
-                                <dd>
-                                  <code>{execution.jobId ?? t("common.notReported")}</code>
-                                </dd>
-                              </div>
-                              <div>
-                                <dt>{t("global.executionArea")}</dt>
-                                <dd>
-                                  <code>{execution.areaId ?? t("common.notReported")}</code>
-                                </dd>
-                              </div>
-                              <div>
-                                <dt>{t("global.executionProviders")}</dt>
-                                <dd>
-                                  {execution.providers
-                                    ? Object.keys(execution.providers).join(", ")
-                                    : t("common.notReported")}
-                                </dd>
-                              </div>
-                            </dl>
-                            {execution.error && (
-                              <p className="alert alert-error" role="alert">
-                                {t("global.executionFailed")}{" "}
-                                <SourceText>{execution.error}</SourceText>
-                              </p>
-                            )}
-                            {execution.warnings.length > 0 && (
-                              <p className="alert alert-warning" role="status">
-                                {execution.warnings.join(", ")}
-                              </p>
-                            )}
-                            {execution.features && execution.features.length > 0 ? (
-                              <div className="table-scroll">
-                                <table className="metric-table">
-                                  <caption>{t("global.executionResults")}</caption>
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">{t("global.executionFeature")}</th>
-                                      <th scope="col">{t("global.value")}</th>
-                                      <th scope="col">{t("global.unit")}</th>
-                                      <th scope="col">{t("global.methodVersion")}</th>
-                                      <th scope="col">{t("global.validFraction")}</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    {execution.features.map((feature) => (
-                                      <tr key={feature.feature_id}>
-                                        <th scope="row">{feature.label}</th>
-                                        <td>{fmt.number(feature.value, 3)}</td>
-                                        <td>{feature.unit}</td>
-                                        <td>
-                                          <code>{feature.method_version}</code>
-                                        </td>
-                                        <td>{fmt.percent(feature.valid_fraction)}</td>
-                                      </tr>
-                                    ))}
-                                  </tbody>
-                                </table>
-                              </div>
-                            ) : (
-                              <p className="field-hint">{t("global.executionNoFeatures")}</p>
-                            )}
-                            <p className="field-hint">{t("global.executionNote")}</p>
-                          </div>
-                        )}
                       </div>
                     ) : (
                       <p className="field-hint">{t("global.noPlan")}</p>
                     )}
+                    </details>
                   </section>
                 </article>
               )}
             </section>
           )}
-        </>
-      )}
-
-      {coverage && coverage.status === "no_index" && (
-        <p className="field-hint">{t("global.noExecution")}</p>
-      )}
-    </section>
+    </>
+  );
+  return (
+    <MapPanel
+      {...map}
+      searchScope={scope}
+      coarse={{
+        content,
+        results: response?.results ?? NO_RESULTS,
+        selectedId,
+        onSelect: selectCandidate,
+        refineWindow,
+      }}
+    />
   );
 }
 
@@ -1178,78 +1111,23 @@ function GlobalCandidateCard({
 }) {
   const { t, fmt } = useI18n();
   return (
-    <li>
-      <article
-        className={`result-card global-candidate${selected ? " is-selected" : ""}`}
-        data-selected={selected ? "true" : "false"}
-        data-testid={`global-candidate-${result.candidate_id}`}
+    <li data-testid={`global-candidate-${result.candidate_id}`}>
+      <button
+        type="button"
+        className={`ranking-row${selected ? " is-selected" : ""}`}
+        aria-pressed={selected}
+        aria-label={t("global.selectLabel", { name: result.candidate_id })}
+        onClick={onSelect}
       >
-        <button
-          type="button"
-          className="result-select"
-          aria-pressed={selected}
-          aria-label={t("global.selectLabel", { name: result.candidate_id })}
-          onClick={onSelect}
-        >
-          <span className="result-rank">#{result.rank}</span>
-          <span className="result-title">
-            <strong>{result.candidate_id}</strong>
-            <span className="result-location">
-              {result.region_id} · {bboxText(result.bbox, fmt.bbox)}
-            </span>
-          </span>
-          <span className="result-distance">
-            <span className="distance-value">{fmt.distance(result.distance)}</span>
-            <span className="distance-label">{t("global.colDistance")}</span>
-          </span>
-        </button>
-        <div className="result-body">
-          <dl className="typed-facts">
-            <div>
-              <dt>{t("global.colValid")}</dt>
-              <dd>{fmt.percent(result.valid_fraction)}</dd>
-            </div>
-            <div>
-              <dt>{t("global.valueMeanSlope")}</dt>
-              <dd>
-                {result.slope_mean_deg === null
-                  ? t("six.noSource")
-                  : `${fmt.number(result.slope_mean_deg, 3)} degree`}
-              </dd>
-            </div>
-            <div>
-              <dt>{t("global.valueP90Slope")}</dt>
-              <dd>
-                {result.slope_p90_deg === null
-                  ? t("six.noSource")
-                  : `${fmt.number(result.slope_p90_deg, 3)} degree`}
-              </dd>
-            </div>
-            <div>
-              <dt>{t("global.valueFlatFraction")}</dt>
-              <dd>
-                {result.flat_fraction === null
-                  ? t("six.noSource")
-                  : fmt.percent(result.flat_fraction)}
-              </dd>
-            </div>
-            <div>
-              <dt>{t("global.colMethod")}</dt>
-              <dd>
-                <code>{result.method_version}</code>
-              </dd>
-            </div>
-            <div>
-              <dt>{t("global.colQa")}</dt>
-              <dd>
-                {result.qa_flags.length > 0
-                  ? result.qa_flags.join(", ")
-                  : t("global.noQa")}
-              </dd>
-            </div>
-          </dl>
-        </div>
-      </article>
+        <span className="ranking-rank">{result.rank}</span>
+        <span className="ranking-name">
+          <strong>{result.candidate_id}</strong>
+          <span>{result.region_id}</span>
+        </span>
+        <span className="ranking-distance" title={t("global.colDistance")}>
+          {fmt.distance(result.distance)}
+        </span>
+      </button>
     </li>
   );
 }

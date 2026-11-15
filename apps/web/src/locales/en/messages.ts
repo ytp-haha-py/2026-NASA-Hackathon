@@ -76,7 +76,16 @@ export const en = {
   "research.groupMobility": "Mobility and landing",
   "research.groupScience": "Science fieldwork",
   "research.manualLong": "Manual (set weights yourself)",
-  "app.coverageEyebrow": "Searchable coverage",
+  "soil.label": "{property} ({depth})",
+  "soil.bdod": "Bulk density",
+  "soil.clay": "Clay",
+  "soil.sand": "Sand",
+  "soil.silt": "Silt",
+  "soil.soc": "Soil organic carbon",
+  "search.errLandcoverWithSoil": "Land-cover filters can't be combined with regolith comparisons yet. Clear the land-cover filters, or set the regolith weights to 0.",
+  "search.observationCount": "{count} obs.",
+  "soil.depthLabel": "Depth",
+  "soil.depthWeighted": "has weights",
   "app.coverageHeading_one": "{count} searchable Earth region",
   "app.coverageHeading_other": "{count} searchable Earth regions",
   "app.coverageOrigins":
@@ -96,7 +105,6 @@ export const en = {
   "app.idleHeading": "How this MVP answers",
   "app.idleBody":
     "The prefilled target is a hypothetical example, not a NASA measurement. A search returns the closest windows within the searchable coverage using a weighted normalized Euclidean distance on terrain shape.",
-  "app.idleItemDistance": "Lower distance means more similar. It is never a percentage.",
   "app.idleItemSynthetic":
     "Observed and DEMO / SYNTHETIC records are labeled explicitly; synthetic fixtures are not evidence.",
   "app.idleItemOnDemand":
@@ -273,6 +281,11 @@ export const en = {
   "map.basemapUnavailable":
     "Basemap tiles are unavailable (offline or blocked). The ranked list and record details remain fully usable without the basemap.",
   "map.noWindows": "No result windows to plot yet.",
+  "map.sourceLayer": "Source area",
+  "map.indexedLayer": "Ranked 90 m results",
+  "map.coarseLayer": "5 km coarse candidates",
+  "map.refineLayer": "1.98 km refinement area",
+  "map.coarseCount": "{count} coarse candidates on the map.",
   "map.plotted_one":
     "{count} returned window plotted. Click a pin or window rectangle to select it. Zoom in to see the 1,980 m window rectangles at this scale.",
   "map.plotted_other":
@@ -421,18 +434,13 @@ export const en = {
   "export.copyUnknown": "unknown clipboard error",
 
   // Sources and methods
-  "sources.eyebrow": "Provenance",
   "sources.heading": "Sources, coverage and methods",
-  "sources.disclaimerHeading": "Indexing and coverage disclaimer",
-  "sources.candidateRegions": "Searchable candidate regions: {count} (coverage label {label}).",
-  "sources.originSplit":
-    "Origin split: {indexed} + {onDemand}. On-demand AOIs are user-created windows and are never global coverage.",
-  "sources.extent": "Geographic extent: {extent}",
-  "sources.extentMissing": "not available — there may be no searchable windows.",
-  "sources.dataKinds": "Data kinds present: {kinds}.",
+  "sources.coverageLabel": "Coverage label",
+  "sources.dataKindsLabel": "Data kinds present",
   "sources.closestOnly":
     "Results are the closest matches among the searchable coverage only. This is not a global survey, not an exhaustive top-10, and not a base-site recommendation. Absence from results does not mean a location is a poor analog.",
   "sources.methodHeading": "Analysis method",
+  "sources.featureSpecs": "Feature specifications",
   "sources.contractVersion": "Contract version",
   "sources.methodVersion": "Method version",
   "sources.analysisWindow": "Analysis window",
@@ -466,6 +474,7 @@ export const en = {
   "sources.datasetsIntro":
     "Records below come directly from GET /datasets. They identify the source, license, access time, and processing version; they are not decorative imagery.",
   "sources.datasetsFailed": "Dataset provenance could not be loaded.",
+  "sources.datasetsLoading": "Loading dataset provenance…",
   "sources.noDatasets": "No dataset provenance records were returned by the API.",
 
   // AOI form
@@ -579,6 +588,7 @@ export const en = {
   "app.themeToDark": "Switch to dark theme",
   "app.themeToLight": "Switch to light theme",
   "app.aboutSummary": "About this tool, coverage and limits",
+  "app.aboutLimits": "Search limits",
   "app.footerNotCompared":
     "Not compared: gravity · atmosphere · radiation · regolith · mineralogy · temperature · illumination · geological history",
   "map.collapsePlanetPreview": "Collapse map",
@@ -589,6 +599,13 @@ export const en = {
   "map.basemapSatellite": "Satellite",
   "map.showAll": "Show all results",
   "overlay.idle": "Set at least one weight above 0, then search to rank Earth windows.",
+  "overlay.scope": "Search scope",
+  "overlay.indexedScope": "Indexed results",
+  "overlay.coarseScope": "Expanded search",
+  "overlay.coarseUnavailable": "Expanded search unavailable",
+  "overlay.scopeIndexedCount": "{count} indexed candidates · Snapshot {snapshot}",
+  "overlay.scopeSearched": "{count} eligible candidates · Snapshot {snapshot}",
+  "overlay.coarseAdvanced": "Coarse search settings and coverage",
   "search.dimensionCount": "{active}/{total} compared",
   "search.dimensionNone": "none selected",
   "search.weightSlider": "{label} weight slider",
@@ -901,6 +918,10 @@ export const en = {
     "Execution uses POST /areas/analyze and GET /jobs/{id} with this bounded 1.98 km window. It performs real Copernicus/WorldCover reads; no result is synthesized.",
   "global.executionHeading": "Executed 90 m result",
   "global.executionStatus": "Job status: {status}",
+  "global.refineUnavailable": "Fine analysis is unavailable. You can still preview a refinement plan.",
+  "global.refinePlanOptions": "Refinement plan and window limits",
+  "global.provenanceDetails": "Candidate data and provenance",
+  "global.rerank": "Refresh indexed ranking",
   "global.executionWindow": "Fine window",
   "global.executionJob": "Job ID",
   "global.executionArea": "Area ID",

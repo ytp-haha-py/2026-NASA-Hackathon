@@ -45,7 +45,7 @@ def test_two_clean_rebuilds_are_identical(tmp_path: Path):
     assert first[:4] == second[:4]
     assert first[0] == 113
     assert first[1] == 9
-    assert first[2] == 23
+    assert first[2] == 25
     assert first[3] == 1243
     assert "verified snapshot=" in first[4]
     assert "verified snapshot=" in second[4]

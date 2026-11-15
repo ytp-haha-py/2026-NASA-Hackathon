@@ -6107,8 +6107,336 @@
         "summary": "Capabilities"
       }
     },
+    "/api/v1/coverage/aoi": {
+      "get": {
+        "description": "Unified AOI-first query (Issue #160): composes coverage/status and typed evidence.\n\nPrimary input is bbox (or point). Returns six-dimension statuses, intersecting records with\nquery/score/filter/evidence/context roles, source, resolution, time/depth, and missing reasons.\nCoarse/context records keep their declared spatial support and are never presented as small-AOI\nmeasurements. Typed joins are exact-ID only; no proximity join to fine Earth candidates.\n\nOptional ``dimension``/``feature_id``/``state``/``dataset_id``/``source_asset_id``/\n``time_start``/``time_end``/``depth_min_m``/``depth_max_m`` filters select records; records\nwithout declared time/depth support are excluded with an explicit reason rather than assumed\nto match. ``no_data``/``no_coverage``/``unavailable`` are never zero-filled.",
+        "operationId": "aoi_query_api_v1_coverage_aoi_get",
+        "parameters": [
+          {
+            "description": "Earth, Moon or Mars",
+            "in": "query",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "description": "Earth, Moon or Mars",
+              "title": "Body",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "lat",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lat"
+            }
+          },
+          {
+            "in": "query",
+            "name": "lon",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lon"
+            }
+          },
+          {
+            "in": "query",
+            "name": "west",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "West"
+            }
+          },
+          {
+            "in": "query",
+            "name": "south",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "South"
+            }
+          },
+          {
+            "in": "query",
+            "name": "east",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "East"
+            }
+          },
+          {
+            "in": "query",
+            "name": "north",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "North"
+            }
+          },
+          {
+            "in": "query",
+            "name": "bbox_lon_convention",
+            "required": false,
+            "schema": {
+              "default": "signed",
+              "title": "Bbox Lon Convention",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Comma-separated D01-D06 record filter, e.g. D01,D06.",
+            "in": "query",
+            "name": "dimension",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Comma-separated D01-D06 record filter, e.g. D01,D06.",
+              "title": "Dimension"
+            }
+          },
+          {
+            "description": "Comma-separated feature ids to include.",
+            "in": "query",
+            "name": "feature_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Comma-separated feature ids to include.",
+              "title": "Feature Id"
+            }
+          },
+          {
+            "description": "Comma-separated stored states, e.g. detected,no_coverage,unknown.",
+            "in": "query",
+            "name": "state",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Comma-separated stored states, e.g. detected,no_coverage,unknown.",
+              "title": "State"
+            }
+          },
+          {
+            "description": "Comma-separated dataset ids; exact membership match.",
+            "in": "query",
+            "name": "dataset_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Comma-separated dataset ids; exact membership match.",
+              "title": "Dataset Id"
+            }
+          },
+          {
+            "description": "Comma-separated source asset ids; exact membership match.",
+            "in": "query",
+            "name": "source_asset_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Comma-separated source asset ids; exact membership match.",
+              "title": "Source Asset Id"
+            }
+          },
+          {
+            "description": "Inclusive ISO date/datetime lower bound for declared temporal support.",
+            "in": "query",
+            "name": "time_start",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Inclusive ISO date/datetime lower bound for declared temporal support.",
+              "title": "Time Start"
+            }
+          },
+          {
+            "description": "Inclusive ISO date/datetime upper bound for declared temporal support.",
+            "in": "query",
+            "name": "time_end",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Inclusive ISO date/datetime upper bound for declared temporal support.",
+              "title": "Time End"
+            }
+          },
+          {
+            "description": "Inclusive minimum depth in metres below the surface.",
+            "in": "query",
+            "name": "depth_min_m",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Inclusive minimum depth in metres below the surface.",
+              "title": "Depth Min M"
+            }
+          },
+          {
+            "description": "Inclusive maximum depth in metres below the surface.",
+            "in": "query",
+            "name": "depth_max_m",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Inclusive maximum depth in metres below the surface.",
+              "title": "Depth Max M"
+            }
+          },
+          {
+            "in": "query",
+            "name": "max_records",
+            "required": false,
+            "schema": {
+              "default": 200,
+              "maximum": 2000,
+              "minimum": 1,
+              "title": "Max Records",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Aoi Query Api V1 Coverage Aoi Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Aoi Query",
+        "tags": [
+          "coverage"
+        ]
+      }
+    },
     "/api/v1/coverage/location": {
       "get": {
+        "description": "Body-aware D01-D06 coverage/status for a point or bbox AOI.\n\nThe endpoint accepts either ``lat``/``lon`` or ``west``/``south``/``east``/``north``.\nEarth bboxes use EPSG:4326 signed lon/lat degrees; Moon/Mars bboxes use planetocentric\nlongitude/latitude in the declared IAU body frame (``bbox_lon_convention=360`` accepts\na 0..360 client convention). ``west > east`` is an explicit antimeridian crossing.\n\nSet ``include_records=true`` and optional filters to receive the intersecting typed\nobservation records: observation/area ids, dimension/feature, state, value summary,\nunit, dataset/source ids, resolution, temporal/depth support, score/query roles,\nexact-join rankability and explicit missing/no_coverage reasons. Records are never\ncopied across AOIs and ``no_data``/``no_coverage``/``unavailable`` are never\nzero-filled. Earth land-cover remains a separate Earth-only context/filter layer, not\na D01-D06 similarity dimension.",
         "operationId": "location_coverage_api_v1_coverage_location_get",
         "parameters": [
           {
@@ -6226,6 +6554,192 @@
               "default": "signed",
               "title": "Bbox Lon Convention",
               "type": "string"
+            }
+          },
+          {
+            "description": "Opt in to the AOI observation-record view. Without it the pre-#160 response shape is preserved (plus additive metadata).",
+            "in": "query",
+            "name": "include_records",
+            "required": false,
+            "schema": {
+              "default": false,
+              "description": "Opt in to the AOI observation-record view. Without it the pre-#160 response shape is preserved (plus additive metadata).",
+              "title": "Include Records",
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Comma-separated D01-D06 record filter, e.g. D01,D06.",
+            "in": "query",
+            "name": "dimension",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Comma-separated D01-D06 record filter, e.g. D01,D06.",
+              "title": "Dimension"
+            }
+          },
+          {
+            "description": "Comma-separated feature ids to include.",
+            "in": "query",
+            "name": "feature_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Comma-separated feature ids to include.",
+              "title": "Feature Id"
+            }
+          },
+          {
+            "description": "Comma-separated stored states, e.g. detected,no_coverage,unknown.",
+            "in": "query",
+            "name": "state",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Comma-separated stored states, e.g. detected,no_coverage,unknown.",
+              "title": "State"
+            }
+          },
+          {
+            "description": "Comma-separated dataset ids; exact membership match.",
+            "in": "query",
+            "name": "dataset_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Comma-separated dataset ids; exact membership match.",
+              "title": "Dataset Id"
+            }
+          },
+          {
+            "description": "Comma-separated source asset ids; exact membership match.",
+            "in": "query",
+            "name": "source_asset_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Comma-separated source asset ids; exact membership match.",
+              "title": "Source Asset Id"
+            }
+          },
+          {
+            "description": "Inclusive ISO date/datetime lower bound for declared temporal support.",
+            "in": "query",
+            "name": "time_start",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Inclusive ISO date/datetime lower bound for declared temporal support.",
+              "title": "Time Start"
+            }
+          },
+          {
+            "description": "Inclusive ISO date/datetime upper bound for declared temporal support.",
+            "in": "query",
+            "name": "time_end",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Inclusive ISO date/datetime upper bound for declared temporal support.",
+              "title": "Time End"
+            }
+          },
+          {
+            "description": "Inclusive minimum depth in metres below the surface.",
+            "in": "query",
+            "name": "depth_min_m",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Inclusive minimum depth in metres below the surface.",
+              "title": "Depth Min M"
+            }
+          },
+          {
+            "description": "Inclusive maximum depth in metres below the surface.",
+            "in": "query",
+            "name": "depth_max_m",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Inclusive maximum depth in metres below the surface.",
+              "title": "Depth Max M"
+            }
+          },
+          {
+            "in": "query",
+            "name": "max_records",
+            "required": false,
+            "schema": {
+              "default": 200,
+              "maximum": 2000,
+              "minimum": 1,
+              "title": "Max Records",
+              "type": "integer"
             }
           }
         ],
@@ -7837,6 +8351,228 @@
               ],
               "title": "Feature Id"
             }
+          },
+          {
+            "in": "query",
+            "name": "area_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Area Id"
+            }
+          },
+          {
+            "description": "detected|not_detected|unknown|no_coverage|not_applicable",
+            "in": "query",
+            "name": "state",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "detected|not_detected|unknown|no_coverage|not_applicable",
+              "title": "State"
+            }
+          },
+          {
+            "in": "query",
+            "name": "dataset_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Dataset Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "source_asset_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Source Asset Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "min_depth_m",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Min Depth M"
+            }
+          },
+          {
+            "in": "query",
+            "name": "max_depth_m",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Max Depth M"
+            }
+          },
+          {
+            "in": "query",
+            "name": "temporal_kind",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Temporal Kind"
+            }
+          },
+          {
+            "in": "query",
+            "name": "west",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "West"
+            }
+          },
+          {
+            "in": "query",
+            "name": "south",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "South"
+            }
+          },
+          {
+            "in": "query",
+            "name": "east",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "East"
+            }
+          },
+          {
+            "in": "query",
+            "name": "north",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "North"
+            }
+          },
+          {
+            "in": "query",
+            "name": "lat",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lat"
+            }
+          },
+          {
+            "in": "query",
+            "name": "lon",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lon"
+            }
+          },
+          {
+            "description": "Return an explicit query envelope with status/no_data metadata instead of a plain array.",
+            "in": "query",
+            "name": "envelope",
+            "required": false,
+            "schema": {
+              "default": false,
+              "description": "Return an explicit query envelope with status/no_data metadata instead of a plain array.",
+              "title": "Envelope",
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -7844,12 +8580,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "items": {
-                    "additionalProperties": true,
-                    "type": "object"
-                  },
-                  "title": "Response List Typed Observations Api V1 Typed Observations Get",
-                  "type": "array"
+                  "title": "Response List Typed Observations Api V1 Typed Observations Get"
                 }
               }
             },

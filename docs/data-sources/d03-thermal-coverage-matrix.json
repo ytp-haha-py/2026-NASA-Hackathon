@@ -9,17 +9,23 @@
     "Earth": {
       "coverage_status": "bounded_context_pilot",
       "actual_indexed_queryable_coverage": {
-        "areas": 5,
-        "observations": 20,
-        "typed_bundle": "pipelines/pilots/d03_earth_power",
+        "areas": 8,
+        "observations": 32,
+        "typed_bundle": [
+          "pipelines/pilots/d03_earth_power",
+          "pipelines/pilots/d03_earth_power_expansion_01"
+        ],
         "area_ids": [
           "earth-atacama-desert",
           "earth-death-valley",
           "earth-devon-island",
+          "earth-grand-canyon-r2c2",
+          "earth-iceland-r2c2",
           "earth-lanzarote",
+          "earth-namib-r2c2",
           "earth-sahara-r1c1"
         ],
-        "note": "Five Earth reference points with NASA POWER daily time series; each point is a coarse grid location, not a 1.98 km in-situ measurement."
+        "note": "Eight Earth reference points with NASA POWER daily time series; each point is a coarse grid location, not a 1.98 km in-situ measurement. Three expansion AOIs were added 2026-11-15."
       },
       "sources": [
         {
@@ -49,7 +55,13 @@
           "quantity": "2 m air temperature (daily mean context)",
           "unit": "degree_Celsius",
           "measured_modeled_derived_evidence_no_coverage_unsupported": "modeled_reanalysis_context (detected values present)",
-          "state_counts": {"detected": 5, "not_detected": 0, "no_coverage": 0, "unknown": 0, "not_applicable": 0},
+          "state_counts": {
+            "detected": 5,
+            "not_detected": 0,
+            "no_coverage": 0,
+            "unknown": 0,
+            "not_applicable": 0
+          },
           "time_support": "daily interval 2024-01-01T00:00:00Z to 2024-01-07T00:00:00Z, 7 samples",
           "local_solar_time": "not_applicable (daily aggregate at model grid; no sub-daily LST)",
           "season_support": "single 7-day winter (Northern Hemisphere) window in committed pilot; seasonal representativeness not claimed",
@@ -64,7 +76,13 @@
           "quantity": "2 m daily maximum air temperature (context)",
           "unit": "degree_Celsius",
           "measured_modeled_derived_evidence_no_coverage_unsupported": "modeled_reanalysis_context (detected values present)",
-          "state_counts": {"detected": 5, "not_detected": 0, "no_coverage": 0, "unknown": 0, "not_applicable": 0},
+          "state_counts": {
+            "detected": 5,
+            "not_detected": 0,
+            "no_coverage": 0,
+            "unknown": 0,
+            "not_applicable": 0
+          },
           "time_support": "daily interval 2024-01-01T00:00:00Z to 2024-01-07T00:00:00Z, 7 samples",
           "local_solar_time": "not_applicable",
           "season_support": "single 7-day window",
@@ -79,7 +97,13 @@
           "quantity": "2 m daily minimum air temperature (context)",
           "unit": "degree_Celsius",
           "measured_modeled_derived_evidence_no_coverage_unsupported": "modeled_reanalysis_context (detected values present)",
-          "state_counts": {"detected": 5, "not_detected": 0, "no_coverage": 0, "unknown": 0, "not_applicable": 0},
+          "state_counts": {
+            "detected": 5,
+            "not_detected": 0,
+            "no_coverage": 0,
+            "unknown": 0,
+            "not_applicable": 0
+          },
           "time_support": "daily interval 2024-01-01T00:00:00Z to 2024-01-07T00:00:00Z, 7 samples",
           "local_solar_time": "not_applicable",
           "season_support": "single 7-day window",
@@ -94,7 +118,13 @@
           "quantity": "surface skin temperature (context)",
           "unit": "degree_Celsius",
           "measured_modeled_derived_evidence_no_coverage_unsupported": "modeled_reanalysis_context (detected values present)",
-          "state_counts": {"detected": 5, "not_detected": 0, "no_coverage": 0, "unknown": 0, "not_applicable": 0},
+          "state_counts": {
+            "detected": 5,
+            "not_detected": 0,
+            "no_coverage": 0,
+            "unknown": 0,
+            "not_applicable": 0
+          },
           "time_support": "daily interval 2024-01-01T00:00:00Z to 2024-01-07T00:00:00Z, 7 samples",
           "local_solar_time": "not_applicable",
           "season_support": "single 7-day window",
@@ -104,7 +134,26 @@
           "crs": "EPSG:4326 point query context",
           "gaps": "skin temperature is model/reanalysis; not comparable to Diviner brightness temperature or THEMIS TI"
         }
-      ]
+      ],
+      "expansion_2026_11_15": {
+        "release": "pipelines/pilots/d03_earth_power_expansion_01",
+        "areas": [
+          "earth-grand-canyon-r2c2",
+          "earth-iceland-r2c2",
+          "earth-namib-r2c2"
+        ],
+        "observations": 12,
+        "features": [
+          "surface_air_temperature_2m_c",
+          "surface_air_temperature_2m_max_c",
+          "surface_air_temperature_2m_min_c",
+          "surface_skin_temperature_c"
+        ],
+        "method_version": "nasa-power-daily-1.0.0",
+        "score_role": "context_only",
+        "global_claim": false,
+        "note": "Real bounded NASA POWER daily point ingest for three existing fine candidates; coarse reanalysis context, not local measurement."
+      }
     },
     "Moon": {
       "coverage_status": "bounded_evidence_pilot",
@@ -143,7 +192,13 @@
           "quantity": "bolometric brightness temperature (unit-emissivity assumption)",
           "unit": "K",
           "measured_modeled_derived_evidence_no_coverage_unsupported": "measured_radiometric_composite evidence with explicit states: detected/unknown/no_coverage",
-          "state_counts": {"detected": 26, "not_detected": 0, "no_coverage": 7, "unknown": 3, "not_applicable": 0},
+          "state_counts": {
+            "detected": 26,
+            "not_detected": 0,
+            "no_coverage": 7,
+            "unknown": 3,
+            "not_applicable": 0
+          },
           "time_support": "composite 2009-07-05T16:50:26.195Z to 2019-02-17T00:00:00.000Z (not a single acquisition)",
           "local_solar_time": "two 0.25 h bins committed: 00:00-00:15 and 12:00-12:15",
           "season_support": "southern summer composite only (subsolar latitude < 0 deg)",
@@ -192,7 +247,13 @@
           "quantity": "apparent thermal inertia (THEMIS retrieval)",
           "unit": "J m^-2 K^-1 s^-1/2",
           "measured_modeled_derived_evidence_no_coverage_unsupported": "derived_retrieval_evidence (detected values present); not an in-situ measurement and not a surface temperature",
-          "state_counts": {"detected": 5, "not_detected": 0, "no_coverage": 0, "unknown": 0, "not_applicable": 0},
+          "state_counts": {
+            "detected": 5,
+            "not_detected": 0,
+            "no_coverage": 0,
+            "unknown": 0,
+            "not_applicable": 0
+          },
           "time_support": "static/time-independent retrieval semantics; no per-pixel acquisition time, season, or local solar time available",
           "local_solar_time": "unsupported_by_product (not carried by mosaic)",
           "season_support": "unsupported_by_product (retrieval treats apparent TI as time-independent; seasonal effects not separable per pixel)",

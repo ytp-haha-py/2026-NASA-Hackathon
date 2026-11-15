@@ -266,7 +266,7 @@
           "coarse index/query flows"
         ],
         "geographic_scope": "Three bounded 0.4-degree pilot windows only (168 real 5 km cells). Bounding box spans disjoint pilots and is not contiguous/global coverage.",
-        "exclusions": "All Earth land outside the three committed pilot windows is unindexed; Antarctica excluded at source (~60°S–85°N coverage)"
+        "exclusions": "All Earth land outside the three committed pilot windows is unindexed; Antarctica excluded at source (~60\u00b0S\u201385\u00b0N coverage)"
       },
       "data_status": "measured_coarse_context",
       "observation_kind": "derived_from_preprocessed_slope_product",
@@ -313,7 +313,7 @@
           "coarse index/query flows"
         ],
         "geographic_scope": "Three bounded 0.4-degree pilot windows only (168 real 5 km cells). Bounding box spans disjoint pilots and is not contiguous/global coverage.",
-        "exclusions": "All Earth land outside the three committed pilot windows is unindexed; Antarctica excluded at source (~60°S–85°N coverage)"
+        "exclusions": "All Earth land outside the three committed pilot windows is unindexed; Antarctica excluded at source (~60\u00b0S\u201385\u00b0N coverage)"
       },
       "data_status": "measured_coarse_context",
       "observation_kind": "derived_from_preprocessed_slope_product",
@@ -360,7 +360,7 @@
           "coarse index/query flows"
         ],
         "geographic_scope": "Three bounded 0.4-degree pilot windows only (168 real 5 km cells). Bounding box spans disjoint pilots and is not contiguous/global coverage.",
-        "exclusions": "All Earth land outside the three committed pilot windows is unindexed; Antarctica excluded at source (~60°S–85°N coverage)"
+        "exclusions": "All Earth land outside the three committed pilot windows is unindexed; Antarctica excluded at source (~60\u00b0S\u201385\u00b0N coverage)"
       },
       "data_status": "measured_coarse_context",
       "observation_kind": "derived_from_preprocessed_slope_product",
@@ -614,12 +614,13 @@
       "licence": "Public domain (USGS product page states public domain); cite authors",
       "licence_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
       "actual_indexed_queryable_coverage": {
-        "indexed_windows": 5,
+        "indexed_windows": 7,
         "queryable_via": [
-          "pipelines/planetary/manifests/ctx_mars_references.json"
+          "pipelines/planetary/manifests/ctx_mars_references.json",
+          "pipelines/planetary/manifests/ctx_mars_references_expansion_01.json"
         ],
-        "geographic_scope": "Jezero crater only, five 1.98 km windows; not global Mars coverage",
-        "exclusions": "All Mars locations outside these five Jezero windows are no_coverage for fine Mars D01 references"
+        "geographic_scope": "Jezero crater only, seven 1.98 km windows (five original + two bounded expansion windows); not global Mars coverage",
+        "exclusions": "All Mars locations outside these seven Jezero windows are no_coverage for fine Mars D01 references"
       },
       "data_status": "measured",
       "observation_kind": "derived_from_observed_stereo_dem",
@@ -637,10 +638,9 @@
       },
       "gaps": [
         "Single-region (Jezero) sparse coverage only",
-        "No global Mars fine D01 index",
-        "No verified HiRISE/CTX expansion beyond committed references in this state"
+        "No global Mars fine D01 index"
       ],
-      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json and ctx_mars_references_expansion_01.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
     },
     {
       "body": "Mars",
@@ -653,12 +653,13 @@
       "licence": "Public domain (USGS product page states public domain); cite authors",
       "licence_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
       "actual_indexed_queryable_coverage": {
-        "indexed_windows": 5,
+        "indexed_windows": 7,
         "queryable_via": [
-          "pipelines/planetary/manifests/ctx_mars_references.json"
+          "pipelines/planetary/manifests/ctx_mars_references.json",
+          "pipelines/planetary/manifests/ctx_mars_references_expansion_01.json"
         ],
-        "geographic_scope": "Jezero crater only, five 1.98 km windows; not global Mars coverage",
-        "exclusions": "All Mars locations outside these five Jezero windows are no_coverage for fine Mars D01 references"
+        "geographic_scope": "Jezero crater only, seven 1.98 km windows (five original + two bounded expansion windows); not global Mars coverage",
+        "exclusions": "All Mars locations outside these seven Jezero windows are no_coverage for fine Mars D01 references"
       },
       "data_status": "measured",
       "observation_kind": "derived_from_observed_stereo_dem",
@@ -676,10 +677,9 @@
       },
       "gaps": [
         "Single-region (Jezero) sparse coverage only",
-        "No global Mars fine D01 index",
-        "No verified HiRISE/CTX expansion beyond committed references in this state"
+        "No global Mars fine D01 index"
       ],
-      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json and ctx_mars_references_expansion_01.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
     },
     {
       "body": "Mars",
@@ -692,12 +692,13 @@
       "licence": "Public domain (USGS product page states public domain); cite authors",
       "licence_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
       "actual_indexed_queryable_coverage": {
-        "indexed_windows": 5,
+        "indexed_windows": 7,
         "queryable_via": [
-          "pipelines/planetary/manifests/ctx_mars_references.json"
+          "pipelines/planetary/manifests/ctx_mars_references.json",
+          "pipelines/planetary/manifests/ctx_mars_references_expansion_01.json"
         ],
-        "geographic_scope": "Jezero crater only, five 1.98 km windows; not global Mars coverage",
-        "exclusions": "All Mars locations outside these five Jezero windows are no_coverage for fine Mars D01 references"
+        "geographic_scope": "Jezero crater only, seven 1.98 km windows (five original + two bounded expansion windows); not global Mars coverage",
+        "exclusions": "All Mars locations outside these seven Jezero windows are no_coverage for fine Mars D01 references"
       },
       "data_status": "measured",
       "observation_kind": "derived_from_observed_stereo_dem",
@@ -715,10 +716,9 @@
       },
       "gaps": [
         "Single-region (Jezero) sparse coverage only",
-        "No global Mars fine D01 index",
-        "No verified HiRISE/CTX expansion beyond committed references in this state"
+        "No global Mars fine D01 index"
       ],
-      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json and ctx_mars_references_expansion_01.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
     },
     {
       "body": "Mars",
@@ -731,12 +731,13 @@
       "licence": "Public domain (USGS product page states public domain); cite authors",
       "licence_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
       "actual_indexed_queryable_coverage": {
-        "indexed_windows": 5,
+        "indexed_windows": 7,
         "queryable_via": [
-          "pipelines/planetary/manifests/ctx_mars_references.json"
+          "pipelines/planetary/manifests/ctx_mars_references.json",
+          "pipelines/planetary/manifests/ctx_mars_references_expansion_01.json"
         ],
-        "geographic_scope": "Jezero crater only, five 1.98 km windows; not global Mars coverage",
-        "exclusions": "All Mars locations outside these five Jezero windows are no_coverage for fine Mars D01 references"
+        "geographic_scope": "Jezero crater only, seven 1.98 km windows (five original + two bounded expansion windows); not global Mars coverage",
+        "exclusions": "All Mars locations outside these seven Jezero windows are no_coverage for fine Mars D01 references"
       },
       "data_status": "measured",
       "observation_kind": "derived_from_observed_stereo_dem",
@@ -754,10 +755,9 @@
       },
       "gaps": [
         "Single-region (Jezero) sparse coverage only",
-        "No global Mars fine D01 index",
-        "No verified HiRISE/CTX expansion beyond committed references in this state"
+        "No global Mars fine D01 index"
       ],
-      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json and ctx_mars_references_expansion_01.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
     },
     {
       "body": "Mars",
@@ -770,12 +770,13 @@
       "licence": "Public domain (USGS product page states public domain); cite authors",
       "licence_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
       "actual_indexed_queryable_coverage": {
-        "indexed_windows": 5,
+        "indexed_windows": 7,
         "queryable_via": [
-          "pipelines/planetary/manifests/ctx_mars_references.json"
+          "pipelines/planetary/manifests/ctx_mars_references.json",
+          "pipelines/planetary/manifests/ctx_mars_references_expansion_01.json"
         ],
-        "geographic_scope": "Jezero crater only, five 1.98 km windows; not global Mars coverage",
-        "exclusions": "All Mars locations outside these five Jezero windows are no_coverage for fine Mars D01 references"
+        "geographic_scope": "Jezero crater only, seven 1.98 km windows (five original + two bounded expansion windows); not global Mars coverage",
+        "exclusions": "All Mars locations outside these seven Jezero windows are no_coverage for fine Mars D01 references"
       },
       "data_status": "measured",
       "observation_kind": "derived_from_observed_stereo_dem",
@@ -793,10 +794,9 @@
       },
       "gaps": [
         "Single-region (Jezero) sparse coverage only",
-        "No global Mars fine D01 index",
-        "No verified HiRISE/CTX expansion beyond committed references in this state"
+        "No global Mars fine D01 index"
       ],
-      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json and ctx_mars_references_expansion_01.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
     }
   ],
   "verified_blockers_and_alternatives": [

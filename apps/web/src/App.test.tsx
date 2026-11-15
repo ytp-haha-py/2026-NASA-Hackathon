@@ -6,6 +6,7 @@ import {
   analyzeQueuedFixture,
   capabilitiesFixture,
   aoiLocationFixture,
+  datasetFixture,
   emptySearchResponseFixture,
   jobCompletedFixture,
   jobFailedFixture,
@@ -31,12 +32,19 @@ vi.mock("./components/MapPanel", () => ({
   MapPanel: ({
     results,
     selectedId,
+    onSelect,
   }: {
-    results: { location_id: string }[];
+    results: typeof searchResponseFixture.results;
     selectedId: string | null;
+    onSelect: (id: string) => void;
   }) => (
     <div data-testid="map-stub" data-selected={selectedId ?? ""}>
       {results.length} windows plotted
+      {results.map((result) => (
+        <button key={result.location_id} onClick={() => onSelect(result.location_id)}>
+          Select rank {result.rank}: {result.display_name}
+        </button>
+      ))}
     </div>
   ),
 }));
@@ -232,7 +240,7 @@ describe("search states and results", () => {
     });
     const fetchMock = await renderReady({ search: () => pending });
 
-    await runSearch();
+    const user = await runSearch();
 
     expect(
       await screen.findByText("Searching searchable Earth regions…"),
@@ -250,6 +258,7 @@ describe("search states and results", () => {
       "1 of 2 returned record is DEMO / SYNTHETIC",
     );
 
+    await user.click(screen.getByRole("button", { name: "Select rank 1: Observed test window" }));
     const observedCard = screen.getByTestId("result-earth-observed-1");
     expect(within(observedCard).getByText("Observed")).toBeInTheDocument();
     expect(within(observedCard).getByText("0.037")).toBeInTheDocument();
@@ -257,6 +266,8 @@ describe("search states and results", () => {
     expect(within(observedCard).getByText("12 deg")).toBeInTheDocument();
     expect(within(observedCard).getByText("+0.4 deg")).toBeInTheDocument();
 
+    expect(screen.queryByTestId("result-earth-synthetic-2")).not.toBeInTheDocument();
+    await user.click(within(screen.getByTestId("map-stub")).getByRole("button", { name: /^Select rank 2:/ }));
     const syntheticCard = screen.getByTestId("result-earth-synthetic-2");
     expect(within(syntheticCard).getByText("DEMO / SYNTHETIC")).toBeInTheDocument();
 
@@ -328,6 +339,33 @@ describe("search states and results", () => {
       screen.getByText(/No searchable Earth candidates are available/),
     ).toBeInTheDocument();
     expect(screen.getByText(/No geographic coverage extent is available/)).toBeInTheDocument();
+  });
+});
+
+describe("about panel", () => {
+  it("shows the coverage summary first and loads provenance inside its disclosure", async () => {
+    const pending = deferredResponse();
+    const user = userEvent.setup();
+    await renderReady({ datasets: () => pending.promise });
+
+    const toggle = screen.getByText("About this tool, coverage and limits");
+    await user.click(toggle);
+    const about = within(toggle.closest("details")!);
+    expect(about.getByText(/^Results are the closest matches/)).toBeVisible();
+    expect(about.getByText("On-demand AOI limits")).not.toBeVisible();
+    expect(about.getByText("Loading dataset provenance…")).not.toBeVisible();
+
+    await user.click(about.getByText("Dataset provenance"));
+    expect(about.getByRole("status")).toHaveTextContent("Loading dataset provenance…");
+    await act(async () => pending.resolve(jsonResponse([datasetFixture])));
+    expect(await about.findByRole("link", { name: datasetFixture.license }))
+      .toHaveAttribute("href", datasetFixture.license_url);
+    expect(about.queryByText("Loading dataset provenance…")).not.toBeInTheDocument();
+    expect(about.getByText("On-demand AOI limits")).not.toBeVisible();
+
+    await user.click(about.getByText("Analysis method"));
+    expect(about.getByText("On-demand AOI limits")).toBeVisible();
+    expect(about.getByText("Coarse and fine are separate methods")).toBeVisible();
   });
 });
 
@@ -537,7 +575,9 @@ describe("context filters and Moon reference mode", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "Set at least one weight above 0. Metrics with weight 0 are not compared.",
     );
-    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/search"))).toBe(false);
+    expect(fetchMock.mock.calls.some(([url, init]) =>
+      init?.method === "POST" && /\/api\/v1\/search(?:\/multidimensional)?$/.test(String(url)),
+    )).toBe(false);
 
     const slopeGroup = screen.getByRole("group", { name: "Mean slope" });
     const slopeWeight = within(slopeGroup).getByLabelText("Weight (≥ 0)");
@@ -842,7 +882,7 @@ describe("dimension board", () => {
     });
   });
 
-  it("shows fixed D01–D06 cards with real typed status and no evidence scoring controls", async () => {
+  it("shows fixed D01–D06 cards with real typed status and no scoring controls without a registry", async () => {
     await renderReady();
     const board = screen.getByRole("region", { name: "Dimensions" });
     const d01 = within(board).getByRole("region", { name: "D01 Terrain & Landforms" });
@@ -851,7 +891,6 @@ describe("dimension board", () => {
     for (const code of ["D02", "D03", "D04", "D05", "D06"] as const) {
       const card = within(board).getByTestId(`dimension-card-${code}`);
       expect(await within(card).findByText(/typed observations/)).toBeInTheDocument();
-      expect(card).toHaveTextContent(/not scored/);
       expect(within(card).queryByRole("slider")).not.toBeInTheDocument();
       expect(within(card).queryByRole("spinbutton")).not.toBeInTheDocument();
       expect(within(card).getByRole("button", { name: "View observations" })).toBeInTheDocument();

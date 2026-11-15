@@ -1,0 +1,123 @@
+{
+  "generated_at": "2026-11-15T12:35:58.549636+00:00",
+  "notes": [],
+  "plan_version": "acquisition-plan-1.0.0",
+  "scope": "phase2-D04-earth-expansion",
+  "tasks": [
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "nasa-power-daily-point",
+      "dimension": "D04",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=-112.200001&latitude=36.200000&start=20240101&end=20240107&format=JSON",
+      "expected_bytes": 50000,
+      "method_version": "nasa-power-water-daily-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "community": "AG",
+        "end": "20240107",
+        "format": "JSON",
+        "latitude": "36.200000",
+        "longitude": "-112.200001",
+        "parameters": "GWETTOP,GWETROOT,SNODP,PRECTOTCORR",
+        "start": "20240101"
+      },
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D04-earth-earth-grand-canyon-r2c2-2024-01-01-2024-01-07"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "nasa-power-daily-point",
+      "dimension": "D04",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=-16.800007&latitude=65.699999&start=20240101&end=20240107&format=JSON",
+      "expected_bytes": 50000,
+      "method_version": "nasa-power-water-daily-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "community": "AG",
+        "end": "20240107",
+        "format": "JSON",
+        "latitude": "65.699999",
+        "longitude": "-16.800007",
+        "parameters": "GWETTOP,GWETROOT,SNODP,PRECTOTCORR",
+        "start": "20240101"
+      },
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D04-earth-earth-iceland-r2c2-2024-01-01-2024-01-07"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "nasa-power-daily-point",
+      "dimension": "D04",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=15.300001&latitude=-24.700000&start=20240101&end=20240107&format=JSON",
+      "expected_bytes": 50000,
+      "method_version": "nasa-power-water-daily-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "community": "AG",
+        "end": "20240107",
+        "format": "JSON",
+        "latitude": "-24.700000",
+        "longitude": "15.300001",
+        "parameters": "GWETTOP,GWETROOT,SNODP,PRECTOTCORR",
+        "start": "20240101"
+      },
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D04-earth-earth-namib-r2c2-2024-01-01-2024-01-07"
+    }
+  ],
+  "totals": {
+    "by_body": {
+      "Earth": 3
+    },
+    "by_dimension": {
+      "D04": 3
+    },
+    "expected_bytes": 150000,
+    "tasks": 3
+  }
+}

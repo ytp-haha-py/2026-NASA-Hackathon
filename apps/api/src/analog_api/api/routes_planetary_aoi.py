@@ -18,17 +18,21 @@ from analog_api.schemas import AoiAnalyzeResponse, JobOut, PlanetaryAoiAnalyzeRe
 router = APIRouter(prefix="/api/v1/planetary", tags=["planetary"])
 
 
-def _links(body: str, area_id: str | None, bbox: dict[str, float]) -> dict[str, str]:
+def _links(
+    body: str, area_id: str | None, bbox: dict[str, float], *, status: str
+) -> dict[str, str]:
     links = {"job": ""}
     if area_id:
-        links = {
-            "job": "",
-            "typed_area": f"/api/v1/typed/areas/{area_id}",
-            "map_features": (
-                "/api/v1/planetary/map-features?body="
-                f"{body}&bbox={bbox['west']},{bbox['south']},{bbox['east']},{bbox['north']}"
-            ),
-        }
+        # ``typed_area`` is only valid after a completed/partial job persisted the area. A failed
+        # out-of-coverage job may carry an area_id for its durable row but no typed area exists, and
+        # a queued/running job has not persisted one yet. Advertising it would send the client to a
+        # guaranteed 404. The map-features link is a bbox query and remains valid without an area.
+        if status in {"completed", "partial"}:
+            links["typed_area"] = f"/api/v1/typed/areas/{area_id}"
+        links["map_features"] = (
+            "/api/v1/planetary/map-features?body="
+            f"{body}&bbox={bbox['west']},{bbox['south']},{bbox['east']},{bbox['north']}"
+        )
     return links
 
 
@@ -43,7 +47,7 @@ def _response_payload(
     bbox: dict[str, float],
 ) -> dict[str, Any]:
     result = job.result_json or {}
-    links = _links(body, job.area_id, bbox)
+    links = _links(body, job.area_id, bbox, status=job.status)
     links["job"] = f"/api/v1/jobs/{job.job_id}"
     return {
         "job_id": job.job_id,
