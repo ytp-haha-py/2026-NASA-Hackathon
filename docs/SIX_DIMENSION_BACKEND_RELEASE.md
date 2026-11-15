@@ -28,9 +28,9 @@ Machine-readable issue state is in [`IMPLEMENTATION_STATUS.json`](IMPLEMENTATION
 
 | Body | D01 Terrain | D02 Geology/mineralogy | D03 Thermal | D04 Water/ice | D05 Illumination/radiation | D06 Regolith |
 |---|---|---|---|---|---|---|
-| Earth | 113 fine windows, 565 feature observations; **168 real 5 km coarse cells** in 3 pilot regions | 15 evidence-only availability/status records; 0 shareable GLiM values | **20 NASA POWER thermal context observations** (5 AOIs) | **20 NASA POWER water-context observations** (5 AOIs) | **10 NASA POWER solar context observations**; no ionizing radiation | **75 SoilGrids evidence-only observations** (5 AOIs, 5 properties, 0–5 cm) |
-| Moon | 18 fine reference windows | **1 map unit + 1 process record**; 0 verified quantitative minerals | No observations | No observations | **8 SPICE model-geometry observations** | No observations |
-| Mars | 5 fine reference windows | **10 map units + 4 process records + 14 CRISM context values**; 10 unknown mineral states; 0 verified quantitative minerals | No observations | No observations | **10 SPICE model-geometry observations** | No observations |
+| Earth | 113 fine windows, 565 feature observations; **168 real 5 km coarse cells** in 3 pilot regions | **15 evidence-only availability/status records**; 0 shareable GLiM values | **20 NASA POWER thermal context observations** (5 AOIs) | **20 NASA POWER water-context observations** (5 AOIs) | **10 NASA POWER solar context observations**; no ionizing radiation | **300 SoilGrids evidence-only observations** (5 AOIs, 5 properties, 4 depths, mean/Q05/Q95) |
+| Moon | 18 fine reference windows; **4 planetary coarse evidence cells** (not cross-body ranked) | **3 evidence records**: map units/process/availability; 0 verified quantitative minerals | **36 Diviner brightness-temperature observations** (2 local-time bins; 26 detected, 7 no-coverage, 3 unknown) | **53 LP NS/Mini-RF evidence observations** (WEH wt%, CPR; no confirmed ice) | **8 SPICE model-geometry observations** | No observations (`no_coverage`) |
+| Mars | 5 fine reference windows; **4 CTX + 2 MOLA planetary coarse evidence cells** (MOLA not comparable) | **38 evidence records**: 10 map units + 4 process + 14 CRISM context; 10 unknown mineral states; 0 verified quantitative minerals | **5 THEMIS thermal-inertia observations** (Jezero windows) | **2 HEND epithermal neutron-flux observations** (hydrogen proxy; no WEH/ice claim) | **10 SPICE model-geometry observations** | No observations (`no_coverage`) |
 
 Counts are observed records in the specified subset, not global coverage. Missing sources are not
 zero-filled and are not reported as negative detections.
@@ -40,12 +40,15 @@ zero-filled and are not reported as negative detections.
 | Dimension | Current rule |
 |---|---|
 | D01 fine terrain | Comparable only among the same 90 m method/support subset |
-| D01 coarse | Real 168-cell pilot index; separate 250 m method; no global coverage or same-support Moon/Mars coarse reference |
+| D01 coarse | Real 168-cell Earth pilot index; separate 250 m method; planetary coarse pilots are evidence-only and cross-body ranking is disabled |
 | D02 geology | 56 evidence-only typed records; no Terrain Euclidean score; quantitative minerals unavailable |
 | D03 Earth POWER | Context-only; coarse air/skin temperature, not local or thermal inertia |
+| D03 Moon Diviner | Evidence-only brightness temperature at two local-time bins; not kinetic temperature; no diurnal rate |
+| D03 Mars THEMIS | Evidence-only apparent thermal inertia; ~20% absolute accuracy, no per-pixel uncertainty, 60° latitude limit |
 | D04 Earth POWER | Context-only; soil wetness, snow depth and precipitation; no confirmed ice |
-| D04 Moon/Mars | Not comparable; no validated observations |
+| D04 Moon/Mars | Evidence-only WEH/CPR/neutron-flux proxies; no confirmed ice detection and no D04 score |
 | D06 Earth SoilGrids | Evidence-only; 250 m model predictions at four depths (300 records), not local samples |
+| D06 Moon/Mars | `no_coverage`; no public sample/PDS measurement registered |
 | D05 Earth POWER | Context-only; coarse model/reanalysis, not local irradiance |
 | D05 Moon/Mars SPICE | Model-only solar incidence/elevation; no observed irradiance, horizon/shadow, or radiation |
 | D05 radiation | Unavailable; never converted from solar geometry |

@@ -96,12 +96,20 @@ These diagrams document the current MVP, including the in-process AOI job runner
 | Mars terrain reference | **5 observed Jezero CTX windows**, 20 m source → 90 m analysis | `pipelines/planetary/ctx_import.py` |
 | UI | Form, ranked list, Leaflet/OSM map, details, provenance, limitations, JSON context export | React + TypeScript |
 | Reproducible snapshots | Pinned manifest + SHA-256 + offline index rebuild; optional S3/R2 publish/fetch | `samples/snapshot/`, `pipelines/build_index.py`, `ObjectStore` |
+| Real coarse global discovery | **168 real 5 km cells** in three bounded pilot regions (Sahara/Alps/Grand Canyon), 250 m source; separate from 90 m | `pipelines/coarse/real-pilot/`; `GET /api/v1/global/*` |
+| Executed 90 m refinement | Plan → **real AOI job execution** for a 1.98 km window → tracked job → actual Copernicus/WorldCover features | `POST /api/v1/areas/analyze`, `GET /api/v1/jobs/{id}`, `GET /api/v1/areas/{id}/features` |
+| Six-dimension typed evidence | **520 real observations**: D02 56, D03 61, D04 75, D05 28, D06 300 | `GET /api/v1/typed/coverage`; `docs/SIX_DIMENSION_BACKEND_RELEASE.md` |
+| Typed-area UI | Six-dimension panel renders state, role, value kind, units, support, time/depth, QA, provenance and limitations | `apps/web/src/components/SixDimensionPanel.tsx` |
+| Global UI | Coverage map, candidate ranking, candidate detail, refine plan and executed 90 m result | `apps/web/src/components/GlobalPanel.tsx` |
 | Tests / CI / Compose | Backend/pipeline tests + frontend suite; CI jobs; Compose definitions | `scripts/verify.sh`, `.github/workflows/ci.yml` |
 
 ### Explicitly not implemented / not comparable
 
-- Global/country-scale indexing and a global top 10.
-- Temperature/illumination, mineralogy, process, biology, cave, and mission-simulation features.
+- Global/country-scale exhaustive indexing and a global top 10.
+- Confirmed ice detection, quantitative mineral abundance, kinetic surface temperature,
+  observed irradiance/shadow, ionizing radiation dose, or Moon/Mars regolith measurements.
+- Cross-body coarse ranking until quantity/method/support are validated as equivalent.
+- A combined six-dimension similarity score.
 - AI/LLM chat in the request path (a grounded context export exists instead).
 - Physical equivalence between Earth terrain and Moon/Mars conditions.
 
@@ -224,6 +232,9 @@ For the bounded expansion plan, commands, path configuration, and failure limita
 | Earth land-cover context | **11 WorldCover fractions × 113 windows** | ESA WorldCover 2021 v200, CC BY 4.0 |
 | Moon terrain reference | **18 observed windows**, six LOLA sites (including original Site04 ROI 2) | NASA PGDA LOLA 5 m/pix `Site04_final_adj_5mpp_surf` |
 | Mars terrain reference | **5 observed Jezero CTX windows** | USGS Mars 2020 Science Investigation CTX DEM Mosaic |
+| Earth coarse 250 m pilot | **168 cells / 3 regions** (Sahara, Alps, Grand Canyon), separate 250 m method | Geomorpho90m slope (PANGAEA, CC BY 4.0) |
+| Six-dimension typed evidence | **520 observations** across D02–D06 (Earth/Moon/Mars as available) | NASA POWER, USGS, NAIF SPICE, ISRIC SoilGrids, LP NS/Mini-RF/HEND, Diviner/THEMIS |
+| Planetary coarse evidence | **4 Moon + 4 Mars CTX + 2 MOLA cells**, evidence-only; no cross-body rank | PGDA LOLA LDEM128, USGS Jezero CTX, PDS4 MOLA MEGDR |
 
 Analysis support: 1.98 km × 1.98 km window, 22 × 22 cells at 90 m, projected metric CRS,
 bilinear resampling, ≥80% valid data. On-demand AOIs use a 0.6–2 km footprint at 90 m and are
