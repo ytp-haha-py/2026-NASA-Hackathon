@@ -1964,3 +1964,9 @@ body {
 .dimension-card .filter-metric .metric-row {
   display: grid;
 }
+
+/* #170: override the higher-specificity compact-card rule that hides
+   unweighted metric rows; filter controls are not unweighted similarity rows. */
+.dimension-card .metric.filter-metric .metric-row:not(.metric-row-weight) {
+  display: grid;
+}
