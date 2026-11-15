@@ -149,6 +149,55 @@ def test_committed_d05_spice_model_geometry_imports_and_queries(tmp_path: Path):
         assert coverage["by_dimension"]["D05"]["by_body"] == {"Mars": 10, "Moon": 8}
 
 
+def test_committed_planetary_thermal_bundle_imports_as_evidence_only_d03(tmp_path: Path):
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'thermal.db'}",
+        manifest_dir=str(tmp_path / "none"),
+        manifest_dir_planetary=str(tmp_path / "none"),
+        manifest_dir_context=str(tmp_path / "none"),
+        seed_include_synthetic=False,
+    )
+    app = create_app(settings)
+    with TestClient(app) as client:
+        with app.state.session_factory() as session:
+            result = import_typed_bundle(session, ROOT / "pipelines/pilots/d03_planetary_thermal")
+            session.commit()
+        assert result == {
+            "areas": 23,
+            "assets": 3,
+            "observations": 41,
+            "dimensions": ["D03"],
+        }
+        response = client.get("/api/v1/typed/observations", params={"dimension": "D03"})
+        assert response.status_code == 200, response.text
+        rows = response.json()
+        assert len(rows) == 41
+        assert {row["body"] for row in rows} == {"Moon", "Mars"}
+        assert {row["score_role"] for row in rows} == {"evidence_only"}
+        assert {row["state"] for row in rows} == {"detected", "unknown", "no_coverage"}
+        assert {row["feature_id"] for row in rows} == {
+            "surface_brightness_temperature_k",
+            "thermal_inertia",
+        }
+        assert not any(row["feature_id"] == "surface_temperature_mean_k" for row in rows)
+        thermal_inertia = [row for row in rows if row["feature_id"] == "thermal_inertia"]
+        assert len(thermal_inertia) == 5
+        assert {row["spatial_support"]["native_resolution_m"] for row in thermal_inertia} == {100.0}
+        brightness = [
+            row for row in rows if row["feature_id"] == "surface_brightness_temperature_k"
+        ]
+        assert len(brightness) == 36
+        assert {row["spatial_support"]["native_resolution_m"] for row in brightness} == {240.0}
+        assert not any(row["spatial_support"]["resolution_m"] == 90.0 for row in rows)
+        coverage = client.get("/api/v1/typed/coverage")
+        assert coverage.status_code == 200, coverage.text
+        assert coverage.json()["by_dimension"]["D03"]["total"] == 41
+        assert coverage.json()["by_dimension"]["D03"]["by_body"] == {
+            "Mars": 5,
+            "Moon": 36,
+        }
+
+
 def test_committed_geology_bundle_imports_as_evidence_only_d02(tmp_path: Path):
     settings = Settings(
         database_url=f"sqlite+pysqlite:///{tmp_path / 'geology.db'}",
