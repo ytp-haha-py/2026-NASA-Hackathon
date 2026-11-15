@@ -1,5 +1,10 @@
 # GSC Open File 5529 Earth-lithology pilot
 
+**Acceptance status: evidence-only, insufficient for #41 area-fraction acceptance.**
+No polygon/raster extract was obtained; this pilot is a bounded WMS point-grid
+sample. It is retained because it is transparent and legally usable, not because
+it satisfies the polygon/true-area-intersection requirement.
+
 Bounded ingestion of the legally usable alternative identified in
 `../area-fraction/SOURCE_VERIFICATION.md`: the Geological Survey of Canada
 *Generalized Geology of the World* (Chorlton, 2007, Open File 5529, about
@@ -41,6 +46,13 @@ checksums.
   share of 25 bounded WMS samples assigned to a raw unit. This is flagged in
   every record (`point_grid_not_polygon_intersection`,
   `map_scale_1_35m_coarser_than_aoi`).
+- **Why no polygon extract:** the public USGS WFS endpoint for this dataset is
+  unavailable (`msLoadMap(): Unable to access file`), and WMS GetFeatureInfo
+  returns attributes plus a feature bbox, not polygon geometry. The original
+  ~550 MB global GIS ZIP was not downloaded because the issue requires a
+  bounded extract. The manifest records
+  `acceptance.polygon_extract = "not_obtained"` and
+  `acceptance.status = "evidence_only_insufficient_for_area_fraction_acceptance"`.
 - No abundance, no mineral detection, no aqueous-alteration inference, no
   geology similarity or combined six-dimension score.
 - A no-result sample is a real gap and lowers coverage; it is never zero-filled.

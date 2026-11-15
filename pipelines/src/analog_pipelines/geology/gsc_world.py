@@ -63,6 +63,23 @@ CATEGORY_BY_RXTYp: dict[str, tuple[str, ...]] = {
     "metamorphic rocks": ("metamorphic",),
 }
 
+ACCEPTANCE_STATUS = "evidence_only_insufficient_for_area_fraction_acceptance"
+POLYGON_EXTRACT_STATUS = "not_obtained"
+ACCEPTANCE = {
+    "status": ACCEPTANCE_STATUS,
+    "polygon_extract": POLYGON_EXTRACT_STATUS,
+    "reason": (
+        "The public USGS WFS endpoint for this dataset is unavailable, and WMS "
+        "GetFeatureInfo returns attributes and a feature bbox but not polygon geometry. "
+        "The original ~550 MB global GIS ZIP was not downloaded because the issue requires "
+        "a bounded extract."
+    ),
+    "what_is_valid": (
+        "Bounded WMS point-grid map-unit presence and sample fraction at approximately "
+        "1:35,000,000; not a polygon/raster classification or true area-fraction intersection."
+    ),
+}
+
 FORBIDDEN_KEYS = {
     "abundance",
     "mineral_abundance",
@@ -206,6 +223,7 @@ def measure_bbox(
                 "sample_count": total,
                 "fraction_basis": f"wms_point_grid_{side}x{side}",
                 "coverage_state": "no_coverage",
+                "acceptance_status": ACCEPTANCE_STATUS,
                 "qa_flags": ["no_mapped_unit_at_sample_points"],
                 "limitations": limitations(),
             }
@@ -255,6 +273,7 @@ def measure_bbox(
                 "sample_count": total,
                 "fraction_basis": f"wms_point_grid_{side}x{side}",
                 "coverage_state": coverage_state,
+                "acceptance_status": ACCEPTANCE_STATUS,
                 "qa_flags": qa,
                 "limitations": limitations(),
             }
@@ -305,11 +324,19 @@ def verify_artifact(root: Path) -> dict[str, Any]:
         for line in (root / "evidence.jsonl").read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
+    if manifest.get("acceptance", {}).get("status") != ACCEPTANCE_STATUS:
+        raise GscWorldError(
+            "artifact must be explicitly marked insufficient for area-fraction acceptance"
+        )
+    if manifest.get("acceptance", {}).get("polygon_extract") != POLYGON_EXTRACT_STATUS:
+        raise GscWorldError("artifact must record that no polygon extract was obtained")
     if len(records) != int(manifest["counts"]["observations"]):
         raise GscWorldError("observation count does not match evidence.jsonl")
     if len({record["area_id"] for record in records}) != int(manifest["counts"]["areas"]):
         raise GscWorldError("area count does not match evidence.jsonl")
     for record in records:
+        if record.get("acceptance_status") != ACCEPTANCE_STATUS:
+            raise GscWorldError("record is not marked insufficient for area-fraction acceptance")
         if record["state"] not in {"detected", "no_coverage"}:
             raise GscWorldError(f"unexpected state: {record['state']}")
         if record["state"] == "detected" and not record.get("raw"):
@@ -322,6 +349,7 @@ def verify_artifact(root: Path) -> dict[str, Any]:
         "areas": manifest["counts"]["areas"],
         "observations": manifest["counts"]["observations"],
         "by_category": manifest["counts"].get("by_category", {}),
+        "acceptance_status": manifest["acceptance"]["status"],
     }
 
 
@@ -395,6 +423,7 @@ def write_artifact(
             "sources_sha256": sha256_file(root / "sources.json"),
         },
         "method_version": METHOD_VERSION,
+        "acceptance": ACCEPTANCE,
         "limitations": limitations(),
         "non_claims": [
             "No mineral abundance.",

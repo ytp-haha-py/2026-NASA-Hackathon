@@ -103,6 +103,7 @@ def test_committed_artifact_verifies():
     summary = verify_artifact(ARTIFACT)
     assert summary["observations"] >= 1
     assert summary["areas"] >= 1
+    assert summary["acceptance_status"] == "evidence_only_insufficient_for_area_fraction_acceptance"
     rows = [
         json.loads(line)
         for line in (ARTIFACT / "evidence.jsonl").read_text(encoding="utf-8").splitlines()
@@ -111,7 +112,13 @@ def test_committed_artifact_verifies():
     assert {row["body"] for row in rows} == {"Earth"}
     assert all(row["license"].startswith("Open Government Licence") for row in rows)
     assert all(row["map_scale"] == "1:35,000,000" for row in rows)
+    assert all(
+        row["acceptance_status"] == "evidence_only_insufficient_for_area_fraction_acceptance"
+        for row in rows
+    )
     assert any(row["mapped_categories"] for row in rows)
+    manifest = json.loads((ARTIFACT / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["acceptance"]["polygon_extract"] == "not_obtained"
     assert all("abundance" not in row for row in rows)
 
 

@@ -1,10 +1,16 @@
 {
+  "acceptance": {
+    "polygon_extract": "not_obtained",
+    "reason": "The public USGS WFS endpoint for this dataset is unavailable, and WMS GetFeatureInfo returns attributes and a feature bbox but not polygon geometry. The original ~550 MB global GIS ZIP was not downloaded because the issue requires a bounded extract.",
+    "status": "evidence_only_insufficient_for_area_fraction_acceptance",
+    "what_is_valid": "Bounded WMS point-grid map-unit presence and sample fraction at approximately 1:35,000,000; not a polygon/raster classification or true area-fraction intersection."
+  },
   "aois": [
     "earth-atacama-desert",
     "earth-lanzarote"
   ],
   "checksums": {
-    "evidence_sha256": "a4af8c7a04d71bd0cdd5a36bdaa878fd6f7b5332aad3001590ada465ef0cf73f",
+    "evidence_sha256": "6587e08fc905ac18f52d7d054ee88a1a5f1ce91eae5d9e4c809c4e4109260d32",
     "registry_sha256": "86aba3e4d31528547ca35e3036f7e885733aa832c054018bbaeb17ee28ee1242",
     "sources_sha256": "8c2700fa0f6e7348cd06dba8a78a8606750512ba836d023542afc8b804a75715"
   },
