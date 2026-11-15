@@ -594,6 +594,7 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "search.filterCategoryNotRegistered": "尚未登錄類別篩選：沒有可用的類別請求欄位，因此此控制項停用。",
   "search.filterCategoryNoValues": "登錄資料沒有提供這項特徵的類別值，因此此控制項停用。",
   "search.filterCategoryEarthOnly": "類別篩選僅支援地球；請切換到自訂地球目標。",
+  "search.filterOnlyNote": "僅篩選：沒有權重或目標；只有範圍或下拉選單會縮小候選，且不計分。",
   "search.filterWeightAria": "{label} 的篩選權重（不計分）",
   "search.filterTargetAria": "{label} 的篩選目標（唯讀）",
   "search.featureNotScored": "未登錄為計分或篩選特徵；僅作為證據顯示。",

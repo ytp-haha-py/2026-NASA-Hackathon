@@ -1070,51 +1070,6 @@ export function SearchForm({
             </select>
           </div>
         ) : reason === null && slider && range ? (
-          <>
-            <div className="metric-row filter-row-weight">
-              <span className="metric-label" aria-hidden="true">
-                {t("search.weightShort")}
-              </span>
-              <SingleSlider
-                value={0}
-                min={0}
-                max={WEIGHT_SLIDER_MAX}
-                step={0.5}
-                disabled
-                label={t("search.filterWeightAria", { label: featureLabel })}
-                onChange={() => undefined}
-              />
-              <input
-                className="metric-number weight-pill"
-                type="number"
-                inputMode="decimal"
-                value={0}
-                disabled
-                aria-label={t("search.filterWeightAria", { label: featureLabel })}
-              />
-            </div>
-            <div className="metric-row filter-row-target">
-              <span className="metric-label" aria-hidden="true">
-                {t("search.targetShort")}
-              </span>
-              <SingleSlider
-                value={(range[0] + range[1]) / 2}
-                min={slider.lo}
-                max={slider.hi}
-                step={slider.step}
-                disabled
-                label={t("search.filterTargetAria", { label: featureLabel })}
-                onChange={() => undefined}
-              />
-              <input
-                className="metric-number"
-                type="number"
-                inputMode="decimal"
-                value={((range[0] + range[1]) / 2).toFixed(slider.dp)}
-                disabled
-                aria-label={t("search.filterTargetAria", { label: featureLabel })}
-              />
-            </div>
             <div className="metric-row">
               <span className="metric-label" aria-hidden="true">
                 {t("search.rangeLabel")}
@@ -1131,7 +1086,6 @@ export function SearchForm({
                 {rangeText(range, slider, unitSymbol)}
               </span>
             </div>
-          </>
         ) : null}
 
         {reason && (
@@ -1485,9 +1439,12 @@ export function SearchForm({
                     {hasControls && <p className="field-hint">{role}</p>}
                     {card.features.length > 0 && renderFeatureGroup(card.features)}
                     {card.filters.length > 0 && (
-                      <div className="metric-list filter-list">
-                        {card.filters.map(renderFilterControl)}
-                      </div>
+                      <>
+                        <p className="field-hint">{t("search.filterOnlyNote")}</p>
+                        <div className="metric-list filter-list">
+                          {card.filters.map(renderFilterControl)}
+                        </div>
+                      </>
                     )}
                     {evidenceFeatures.length > 0 && (
                       <ul className="observed-feature-list">
