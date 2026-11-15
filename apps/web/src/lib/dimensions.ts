@@ -1,4 +1,5 @@
 import type { ContextFeatureOut, FeatureOut } from "../api/client";
+import { DIMENSION_CODES, type DimensionCode } from "./six-dimensions";
 
 /** Number of similarity-dimension slots the board shows (D1…D6). */
 export const DIMENSION_SLOTS = 6;
@@ -113,4 +114,72 @@ export function rangeToFilter(
 
 export function clamp(value: number, lo: number, hi: number): number {
   return Math.min(hi, Math.max(lo, value));
+}
+
+export type TypedDimensionSummary = {
+  total: number;
+  by_body: Record<string, number>;
+  by_state: Record<string, number>;
+};
+
+export type FormalDimensionCard = {
+  code: DimensionCode;
+  name: string;
+  role: "similarity" | "evidence_only" | "context_only";
+  features: FeatureOut[];
+  total: number;
+  byBody: Record<string, number>;
+  byState: Record<string, number>;
+  valueKinds: string[];
+};
+
+const DIMENSION_ROLE: Record<DimensionCode, FormalDimensionCard["role"]> = {
+  D01: "similarity",
+  D02: "evidence_only",
+  D03: "context_only",
+  D04: "evidence_only",
+  D05: "context_only",
+  D06: "evidence_only",
+};
+
+const DIMENSION_NAME: Record<DimensionCode, string> = {
+  D01: "Terrain & Landforms",
+  D02: "Geology & Mineralogy",
+  D03: "Thermal Environment",
+  D04: "Water & Ice",
+  D05: "Solar Illumination & Radiation",
+  D06: "Regolith & Surface Properties",
+};
+
+/**
+ * Build fixed D01–D06 cards from the formal ontology codes.
+ *
+ * Similarity features are always D01. D02–D06 counts/kinds come from the typed API
+ * and are display/evidence only; they never become score controls here.
+ */
+export function dimensionCards(
+  features: FeatureOut[],
+  coverage: { by_dimension?: Record<string, TypedDimensionSummary> } | null,
+  observations: Array<{ dimension_code: string | null; value_kind: string }> = [],
+): FormalDimensionCard[] {
+  return DIMENSION_CODES.map((code) => {
+    const summary = coverage?.by_dimension?.[code];
+    const valueKinds = Array.from(
+      new Set(
+        observations
+          .filter((observation) => observation.dimension_code === code)
+          .map((observation) => observation.value_kind),
+      ),
+    ).sort();
+    return {
+      code,
+      name: DIMENSION_NAME[code],
+      role: DIMENSION_ROLE[code],
+      features: code === "D01" ? features : [],
+      total: summary?.total ?? (code === "D01" ? features.length : 0),
+      byBody: summary?.by_body ?? {},
+      byState: summary?.by_state ?? {},
+      valueKinds,
+    };
+  });
 }

@@ -1,19 +1,23 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
-import type {
-  ContextFeatureOut,
-  FeatureOut,
-  NumericTarget,
-  RangeFilterIn,
-  ReferenceOut,
-  SearchRequest,
-  TargetSpec,
+import {
+  getTypedCoverage,
+  getTypedObservations,
+  type ContextFeatureOut,
+  type FeatureOut,
+  type NumericTarget,
+  type RangeFilterIn,
+  type ReferenceOut,
+  type SearchRequest,
+  type TargetSpec,
+  type TypedCoverageOut,
+  type TypedObservationOut,
 } from "../api/client";
 import { SourceText, SourceTextNote, useI18n } from "../i18n/I18nProvider";
 import type { MessageVars } from "../i18n/translate";
 import type { MessageKey } from "../locales/en/messages";
 import {
   FRACTION_RANGE,
-  dimensionSlots,
+  dimensionCards,
   orderContextFeatures,
   rangeToFilter,
   sliderRange,
@@ -48,6 +52,8 @@ type SearchFormProps = {
   onSearch: (submission: SearchSubmission) => void;
   loading: boolean;
   preset?: SearchTargetPreset | null;
+  /** Opens the six-dimension workspace, preserving the current candidate/reference. */
+  onOpenDimensions?: () => void;
 };
 
 /** Weight slider upper bound; the number input still accepts any finite value ≥ 0. */
@@ -127,6 +133,7 @@ export function SearchForm({
   onSearch,
   loading,
   preset = null,
+  onOpenDimensions,
 }: SearchFormProps) {
   const { t, tp, rich, fmt, label } = useI18n();
   const [rows, setRows] = useState<Record<string, RowState>>(() => initialRows(features));
@@ -179,7 +186,43 @@ export function SearchForm({
     () => new Set(references.map((reference) => reference.body)),
     [references],
   );
-  const slots = useMemo(() => dimensionSlots(features), [features]);
+  const [typedCoverage, setTypedCoverage] = useState<TypedCoverageOut | null>(null);
+  const [typedObservations, setTypedObservations] = useState<TypedObservationOut[]>([]);
+  const [typedLoading, setTypedLoading] = useState(true);
+  const [typedError, setTypedError] = useState<string | null>(null);
+  const [typedRetry, setTypedRetry] = useState(0);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    setTypedLoading(true);
+    setTypedError(null);
+    getTypedCoverage(controller.signal)
+      .then((payload) => setTypedCoverage(payload))
+      .catch((caught: unknown) => {
+        if (!controller.signal.aborted) {
+          setTypedCoverage(null);
+          setTypedError(caught instanceof Error ? caught.message : String(caught));
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) {
+          setTypedLoading(false);
+        }
+      });
+    getTypedObservations({}, controller.signal)
+      .then((payload) => setTypedObservations(payload))
+      .catch(() => {
+        if (!controller.signal.aborted) {
+          setTypedObservations([]);
+        }
+      });
+    return () => controller.abort();
+  }, [typedRetry]);
+
+  const cards = useMemo(
+    () => dimensionCards(features, typedCoverage, typedObservations),
+    [features, typedCoverage, typedObservations],
+  );
   const { primary: primaryContext, more: moreContext } = useMemo(
     () => orderContextFeatures(contextFeatures),
     [contextFeatures],
@@ -868,6 +911,15 @@ export function SearchForm({
             <button type="button" className="link-button" onClick={resetAll}>
               {t("search.reset")}
             </button>
+            {onOpenDimensions && (
+              <button
+                type="button"
+                className="link-button"
+                onClick={onOpenDimensions}
+              >
+                {t("search.dimensionOpen")}
+              </button>
+            )}
             <button
               type="button"
               className="secondary-button"
@@ -889,57 +941,127 @@ export function SearchForm({
         </div>
 
         <div className="dimension-scroll" id="dimension-columns" hidden={!boardOpen}>
-          <div className="dimension-grid">
-            {slots.map((slot) => {
-              const activeCount = slot.features.filter((feature) => weightOf(feature.id) > 0).length;
-              const name = slot.dimensionId
-                ? label.dimension(slot.dimensionId)
-                : t("search.dimensionPending");
+          {typedError && (
+            <div className="alert alert-error dimension-data-alert" role="alert">
+              <p>
+                <strong>{t("search.dimensionDataFailed")}</strong>{" "}
+                <SourceText>{typedError}</SourceText>
+              </p>
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={() => setTypedRetry((value) => value + 1)}
+              >
+                {t("search.dimensionRetry")}
+              </button>
+            </div>
+          )}
+
+          <div className="dimension-grid dimension-board-grid">
+            {cards.map((card) => {
+              const activeCount = card.features.filter((feature) => weightOf(feature.id) > 0).length;
+              const name = label.dimension(card.code);
+              const role =
+                card.role === "similarity"
+                  ? t("search.dimensionRoleSimilarity")
+                  : card.role === "context_only"
+                    ? t("search.dimensionRoleContext")
+                    : t("search.dimensionRoleEvidence");
+              const bodies = Object.entries(card.byBody)
+                .map(([body, count]) => `${label.body(body)} ${count}`)
+                .join(" · ");
+              const states = Object.entries(card.byState)
+                .map(([state, count]) => `${label.status(state)} ${count}`)
+                .join(" · ");
               return (
                 <section
-                  className={`dimension-column${slot.dimensionId ? "" : " is-placeholder"}`}
-                  key={slot.slot}
-                  aria-label={name}
+                  className={`dimension-column dimension-card${card.code === "D01" ? " is-similarity" : ""}`}
+                  key={card.code}
+                  aria-label={`${card.code} ${name}`}
+                  data-testid={`dimension-card-${card.code}`}
                 >
                   <div className="dimension-head">
                     <h3>
-                      <span className="dimension-code mono">D{slot.slot}</span> {name}
+                      <span className="dimension-code mono">{card.code}</span> {name}
                     </h3>
-                    {slot.dimensionId && (
+                    {card.code === "D01" ? (
                       <span className={`dimension-tag${activeCount > 0 ? " is-active" : ""}`}>
                         {activeCount > 0
                           ? t("search.dimensionCount", {
                               active: activeCount,
-                              total: slot.features.length,
+                              total: card.features.length,
                             })
                           : t("search.dimensionNone")}
                       </span>
+                    ) : (
+                      <span className={`dimension-tag${card.role === "similarity" ? " is-active" : " is-context"}`}>
+                        {role}
+                      </span>
                     )}
                   </div>
-                  {slot.dimensionId ? (
-                    <div className="metric-list">{slot.features.map(renderMetric)}</div>
+
+                  {card.code === "D01" ? (
+                    <>
+                      <p className="field-hint">{role}</p>
+                      <div className="metric-list">{card.features.map(renderMetric)}</div>
+                    </>
+                  ) : typedLoading ? (
+                    <p className="field-hint" role="status">
+                      {t("search.dimensionLoading")}
+                    </p>
                   ) : (
-                    <p className="placeholder-note">{t("search.dimensionPendingBody")}</p>
+                    <>
+                      <p data-testid={`dimension-total-${card.code}`}>
+                        {card.total > 0
+                          ? t("search.dimensionObservations", { count: card.total })
+                          : t("search.dimensionNoObservations")}
+                      </p>
+                      {bodies && (
+                        <p className="field-hint">
+                          {t("search.dimensionBodies", { bodies })}
+                        </p>
+                      )}
+                      {states && (
+                        <p className="field-hint">
+                          {t("search.dimensionStates", { states })}
+                        </p>
+                      )}
+                      {card.valueKinds.length > 0 && (
+                        <p className="field-hint">
+                          {t("search.dimensionKinds", {
+                            kinds: card.valueKinds.join(", "),
+                          })}
+                        </p>
+                      )}
+                      <button
+                        type="button"
+                        className="secondary-button"
+                        disabled={!onOpenDimensions}
+                        onClick={() => onOpenDimensions?.()}
+                      >
+                        {t("search.dimensionView")}
+                      </button>
+                    </>
                   )}
                 </section>
               );
             })}
-
-            <section className="dimension-column context-column" aria-labelledby="context-heading">
-              <div className="dimension-head">
-                <h3 id="context-heading">{t("search.filtersLegend")}</h3>
-                <span className="dimension-tag is-context">{t("search.contextTag")}</span>
-              </div>
-              <p className="field-hint">{t("search.filtersHint")}</p>
-              <div className="metric-list">{primaryContext.map(renderContextFilter)}</div>
-              {moreContext.length > 0 && (
-                <details className="metric-more context-more">
-                  <summary>{t("search.moreContext", { count: moreContext.length })}</summary>
-                  <div className="metric-list">{moreContext.map(renderContextFilter)}</div>
-                </details>
-              )}
-            </section>
           </div>
+
+          <section className="context-filters" aria-labelledby="context-heading">
+            <div className="dimension-head">
+              <h3 id="context-heading">{t("search.filtersLegend")}</h3>
+              <span className="dimension-tag is-context">{t("search.contextTag")}</span>
+            </div>
+            <p className="field-hint">{t("search.filtersHint")}</p>
+            <div className="context-grid">{primaryContext.map(renderContextFilter)}</div>
+            {moreContext.length > 0 && (
+              <details className="metric-more context-more">
+                <summary>{t("search.moreContext", { count: moreContext.length })}</summary>
+                <div className="context-grid">{moreContext.map(renderContextFilter)}</div>
+              </details>
+            )}
+          </section>
         </div>
         <p className="board-foot field-hint">
           {referenceMode ? t("search.referenceWeightHint") : t("search.customWeightHint")}{" "}

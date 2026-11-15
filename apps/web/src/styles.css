@@ -3714,3 +3714,73 @@ input.metric-number::-webkit-outer-spin-button {
     min-width: 620px;
   }
 }
+
+/* Formal D01–D06 search board: responsive evidence cards instead of seven fixed columns. */
+.dimension-board-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+  padding: 12px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.dimension-board-grid .dimension-column {
+  min-height: 190px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-raised, var(--surface));
+}
+
+.dimension-board-grid .dimension-column.is-similarity {
+  grid-column: span 2;
+}
+
+.dimension-board-grid .dimension-head {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dimension-board-grid .dimension-head h3 {
+  overflow: visible;
+  white-space: normal;
+  line-height: 1.35;
+}
+
+.dimension-role {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.context-filters {
+  padding: 14px 16px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-muted);
+}
+
+.context-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 4px 16px;
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .dimension-board-grid .dimension-column.is-similarity {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 720px) {
+  .dimension-board-grid,
+  .context-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dimension-board-grid {
+    padding: 8px;
+  }
+}

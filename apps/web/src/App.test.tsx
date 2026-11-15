@@ -14,6 +14,7 @@ import {
   noCoverageCapabilitiesFixture,
   referenceFixture,
   searchResponseFixture,
+  typedCoverageFixture,
 } from "./test/fixtures";
 import {
   contextUrlFromCalls,
@@ -787,19 +788,58 @@ describe("dimension board", () => {
     });
   });
 
-  it("shows D1 with the API dimension and pads D2–D6 as placeholders without fake metrics", async () => {
+  it("shows fixed D01–D06 cards with real typed status and no evidence scoring controls", async () => {
     await renderReady();
     const board = screen.getByRole("region", { name: "Dimensions" });
-    expect(within(board).getByRole("region", { name: "Terrain shape" })).toBeInTheDocument();
-    const placeholders = within(board).getAllByRole("region", { name: "Data in preparation" });
-    expect(placeholders).toHaveLength(5);
-    for (const placeholder of placeholders) {
-      expect(within(placeholder).queryByRole("slider")).not.toBeInTheDocument();
-      expect(within(placeholder).queryByRole("spinbutton")).not.toBeInTheDocument();
+    const d01 = within(board).getByRole("region", { name: "D01 Terrain & Landforms" });
+    expect(within(d01).getByRole("slider", { name: /Mean slope weight slider/ })).toBeInTheDocument();
+
+    for (const code of ["D02", "D03", "D04", "D05", "D06"] as const) {
+      const card = within(board).getByTestId(`dimension-card-${code}`);
+      expect(await within(card).findByText(/typed observations/)).toBeInTheDocument();
+      expect(card).toHaveTextContent(/not scored/);
+      expect(within(card).queryByRole("slider")).not.toBeInTheDocument();
+      expect(within(card).queryByRole("spinbutton")).not.toBeInTheDocument();
+      expect(within(card).getByRole("button", { name: "View observations" })).toBeInTheDocument();
     }
-    // Land cover is a filter column, never a numbered similarity dimension or a weight.
+
+    // Land cover is a filter section, never a numbered similarity dimension or a weight.
     const context = within(board).getByRole("region", { name: /Land-cover filter/ });
     expect(within(context).queryByLabelText("Weight (≥ 0)")).not.toBeInTheDocument();
+  });
+
+  it("shows typed-data failure with retry and recovers without fake evidence", async () => {
+    let attempts = 0;
+    const user = userEvent.setup();
+    await renderReady({
+      typedCoverage: () => {
+        attempts += 1;
+        return attempts === 1
+          ? errorResponse(503, "service_unavailable", "typed coverage temporarily unavailable")
+          : jsonResponse(typedCoverageFixture);
+      },
+    });
+    const board = screen.getByRole("region", { name: "Dimensions" });
+    const alert = await within(board).findByRole("alert");
+    expect(alert).toHaveTextContent("Typed dimension data failed to load.");
+    expect(alert).toHaveTextContent("typed coverage temporarily unavailable");
+    await user.click(within(alert).getByRole("button", { name: "Retry typed data" }));
+    expect(
+      await within(board).findByTestId("dimension-total-D02"),
+    ).toHaveTextContent("typed observations");
+    expect(attempts).toBe(2);
+  });
+
+  it("opens the six-dimension workspace from the board without losing the selected reference", async () => {
+    const user = userEvent.setup();
+    await renderReady({ references: () => jsonResponse([referenceFixture]) });
+    await user.click(screen.getByRole("radio", { name: "Moon" }));
+    const select = screen.getByLabelText("Reference record") as HTMLSelectElement;
+    await user.selectOptions(select, referenceFixture.reference_id);
+    await user.click(screen.getByRole("button", { name: "Open six dimensions" }));
+    expect(await screen.findByRole("heading", { name: "D01–D06 observations for one area" }))
+      .toBeInTheDocument();
+
   });
 
   it("shows read-only reference values in Moon mode and editable targets in custom mode", async () => {
