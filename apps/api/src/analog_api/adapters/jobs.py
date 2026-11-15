@@ -136,7 +136,7 @@ class JobRunner:
                     and not str(status.get("status", "")).lower().startswith("verified")
                 ]
                 job.status = "partial" if failed_providers else "completed"
-                job.result_json = {
+                result_json = {
                     "area_id": result.area_id,
                     "location_id": result.area_id,
                     "body": result.body,
@@ -166,7 +166,31 @@ class JobRunner:
                     ],
                     "warnings": list(result.warnings),
                     "area_km2": result.area_km2,
+                    "bbox": result.bbox.as_dict()
+                    if hasattr(result.bbox, "as_dict")
+                    else result.bbox,
+                    "valid_fraction": getattr(result, "valid_fraction", None),
+                    "resolution_m": getattr(result, "resolution_m", None),
+                    "window_size_m": getattr(result, "window_size_m", None),
+                    "geometry": getattr(result, "geometry", None),
                 }
+                # Preserve explicit pixel/coverage accounting when analyzers provide it.
+                for extra_key in (
+                    "analysis_bbox",
+                    "analysis_area_km2",
+                    "requested_bbox",
+                    "cell_results",
+                    "cells",
+                    "source_resolution_m",
+                ):
+                    extra = getattr(result, extra_key, None)
+                    if extra is not None:
+                        result_json[extra_key] = extra
+                # Fall back to dimension_support-embedded accounting hints.
+                d01_support = (result.dimension_support or {}).get("D01") or {}
+                if d01_support.get("pixel_accounting") and "pixel_accounting" not in result_json:
+                    result_json["pixel_accounting"] = d01_support["pixel_accounting"]
+                job.result_json = result_json
                 job.error_code = None
                 job.error_message = None
             except AppError as exc:

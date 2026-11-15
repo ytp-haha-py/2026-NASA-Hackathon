@@ -186,12 +186,48 @@ class PlanetaryAoiProvider:
         coverage_note = payload.get("coverage_note")
         if requested != analysis_bbox and coverage_note:
             warnings = (*warnings, str(coverage_note))
+
+        dimension_support = dict(payload.get("dimension_support") or {})
+        # Preserve real pixel/validity accounting for full-bbox/tiling evidence.
+        cell_results = list(payload.get("cell_results") or [])
+        valid_pixels_total = missing_pixels_total = total_pixels = None
+        if cell_results:
+            valid_pixels_total = sum(
+                int(cr.get("valid_slope_pixels") or 0)
+                for cr in cell_results
+                if isinstance(cr, dict)
+            )
+            missing_pixels_total = sum(
+                int(cr.get("missing_slope_pixels") or 0)
+                for cr in cell_results
+                if isinstance(cr, dict)
+            )
+            total_pixels = valid_pixels_total + missing_pixels_total
+        pixel_accounting = {
+            "valid_fraction": payload.get("valid_fraction"),
+            "resolution_m": payload.get("resolution_m"),
+            "source_resolution_m": payload.get("source_resolution_m"),
+            "window_size_m": payload.get("window_size_m"),
+            "cell_count": len(payload.get("cells") or [])
+            or (len(cell_results) if cell_results else None),
+            "total_pixels": total_pixels,
+            "valid_pixels": valid_pixels_total,
+            "invalid_or_missing_pixels": missing_pixels_total,
+        }
+        d01_support = dict(dimension_support.get("D01") or {})
+        d01_support.setdefault("pixel_accounting", pixel_accounting)
+        if analysis_bbox:
+            d01_support.setdefault("analysis_bbox", analysis_bbox)
+        if requested:
+            d01_support.setdefault("requested_bbox", requested)
+        dimension_support["D01"] = d01_support
+
         return AoiResult(
             area_id=request.area_id,
             bbox=BBox(
                 **{key: float(analysis_bbox[key]) for key in ("west", "south", "east", "north")}
             ),
-            geometry=None,
+            geometry=payload.get("geometry"),
             area_km2=float(payload.get("area_km2") or request.area_km2),
             center_lon=(float(analysis_bbox["west"]) + float(analysis_bbox["east"])) / 2.0,
             center_lat=(float(analysis_bbox["south"]) + float(analysis_bbox["north"])) / 2.0,
@@ -217,7 +253,7 @@ class PlanetaryAoiProvider:
             body=body,
             coordinate_frame=str(payload.get("coordinate_frame") or frame),
             method_version=str(payload.get("method_version") or PLANETARY_AOI_METHOD_VERSION),
-            dimension_support=dict(payload.get("dimension_support") or {}),
+            dimension_support=dimension_support,
             source_assets=source_assets,
             coverage_note=str(coverage_note) if coverage_note else None,
             analysis_kind=payload.get("analysis_kind"),

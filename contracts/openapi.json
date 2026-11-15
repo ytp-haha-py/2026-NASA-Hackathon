@@ -4340,6 +4340,18 @@
             ],
             "title": "Idempotency Key"
           },
+          "latitude_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional explicit latitude contract. Moon/Mars accept planetocentric only; planetographic/geocentric are rejected instead of silently converted.",
+            "title": "Latitude Kind"
+          },
           "requested_features": {
             "anyOf": [
               {

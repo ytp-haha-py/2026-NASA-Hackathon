@@ -387,14 +387,11 @@ def _analysis_scope_and_full_aoi(
         return "failed", None, "no_coverage" if job_status == "failed" else "unknown"
     kind = str(result.get("analysis_kind") or "").lower()
     equal = _bboxes_equal(requested_bbox, analysis_bbox)
-    # Explicit full coverage from analyzer/provider.
-    if (
-        equal
-        and (result.get("full_aoi") is True or "full" in kind)
-        and "union" not in kind
-        and "cell" not in kind
-        and kind not in {"committed_reference_fixture"}
-    ):
+    # Explicit provider declaration or exact bbox coverage: the requested AOI was
+    # fully analyzed (including tiling over all intersecting available cells/data).
+    if equal and (result.get("full_aoi") is not False):
+        if "live" in kind and "bounded" in kind and result.get("full_aoi") is not True:
+            return "live_bounded_read", False, "partial_aoi"
         return "full_requested_aoi", True, "full_aoi"
     # Heuristic/contracted scopes.
     if "live" in kind and "bounded" in kind:
@@ -406,8 +403,6 @@ def _analysis_scope_and_full_aoi(
         or (analysis_bbox and requested_bbox and not equal)
     ):
         return "selected_cell_union", False, "partial_aoi"
-    if equal:
-        return "full_requested_aoi", True, "full_aoi"
     return "partial_aoi", False, "partial_aoi"
 
 
@@ -738,6 +733,71 @@ def build_engine_report(
         k: {"status": v["status"], "reason": v.get("reason")} for k, v in dimensions.items()
     }
 
+    # Real pixel/validity accounting from analysis (partial/invalid pixels explicit; never zero-filled).
+    d01_dim_support = (
+        (result or {}).get("dimension_support", {}).get("D01", {})
+        if isinstance(result, Mapping)
+        and isinstance((result or {}).get("dimension_support"), Mapping)
+        else {}
+    )
+    embedded_accounting = {}
+    if isinstance(d01_dim_support, Mapping):
+        embedded_accounting = d01_dim_support.get("pixel_accounting") or {}
+        if not isinstance(embedded_accounting, Mapping):
+            embedded_accounting = {}
+    cell_results = (
+        list((result or {}).get("cell_results") or []) if isinstance(result, Mapping) else []
+    )
+    valid_pixels_total = missing_pixels_total = total_pixels = None
+    if cell_results:
+        valid_pixels_total = sum(
+            int(cr.get("valid_slope_pixels") or 0) for cr in cell_results if isinstance(cr, Mapping)
+        )
+        missing_pixels_total = sum(
+            int(cr.get("missing_slope_pixels") or 0)
+            for cr in cell_results
+            if isinstance(cr, Mapping)
+        )
+        total_pixels = valid_pixels_total + missing_pixels_total
+    cell_count = len((result or {}).get("cells") or []) if isinstance(result, Mapping) else 0
+    if not cell_count and cell_results:
+        cell_count = len(cell_results)
+    if not cell_count and embedded_accounting.get("cell_count"):
+        cell_count = embedded_accounting.get("cell_count")
+    if total_pixels is None and embedded_accounting.get("total_pixels") is not None:
+        total_pixels = embedded_accounting.get("total_pixels")
+    if valid_pixels_total is None and embedded_accounting.get("valid_pixels") is not None:
+        valid_pixels_total = embedded_accounting.get("valid_pixels")
+    if (
+        missing_pixels_total is None
+        and embedded_accounting.get("invalid_or_missing_pixels") is not None
+    ):
+        missing_pixels_total = embedded_accounting.get("invalid_or_missing_pixels")
+    pixel_accounting = {
+        "valid_fraction": (result or {}).get("valid_fraction")
+        if isinstance(result, Mapping) and (result or {}).get("valid_fraction") is not None
+        else embedded_accounting.get("valid_fraction"),
+        "resolution_m": (result or {}).get("resolution_m")
+        if isinstance(result, Mapping) and (result or {}).get("resolution_m") is not None
+        else embedded_accounting.get("resolution_m"),
+        "source_resolution_m": (result or {}).get("source_resolution_m")
+        if isinstance(result, Mapping) and (result or {}).get("source_resolution_m") is not None
+        else embedded_accounting.get("source_resolution_m"),
+        "window_size_m": (result or {}).get("window_size_m")
+        if isinstance(result, Mapping) and (result or {}).get("window_size_m") is not None
+        else embedded_accounting.get("window_size_m"),
+        "cell_count": cell_count or None,
+        "total_pixels": total_pixels,
+        "valid_pixels": valid_pixels_total,
+        "invalid_or_missing_pixels": missing_pixels_total,
+    }
+    # Enrich D01 support with actual pixel accounting when available.
+    if isinstance(dimensions.get("D01"), dict):
+        d01_support = dimensions["D01"].setdefault("support", {})
+        d01_support.setdefault("pixel_accounting", pixel_accounting)
+        if d01_support.get("cell_count") in (None, 0) and pixel_accounting.get("cell_count"):
+            d01_support["cell_count"] = pixel_accounting["cell_count"]
+
     provenance = {
         "contract_version": CONTRACT_VERSION,
         "engine_version": ENGINE_VERSION,
@@ -753,18 +813,35 @@ def build_engine_report(
         "error_code": error_code,
         "error_message": error_message,
         "body_frame": frame,
+        "pixel_accounting": pixel_accounting,
         "no_zero_fill": True,
         "no_silent_shrink": True,
     }
 
+    aoi_geometry = (
+        request.get("aoi_geometry") if isinstance(request.get("aoi_geometry"), Mapping) else {}
+    )
+    analysis_extent = str(request.get("analysis_extent") or analysis_scope)
     support = {
         "kind": "requested_aoi" if full_aoi else analysis_scope,
+        "analysis_extent": analysis_extent,
         "full_aoi": bool(full_aoi) if full_aoi is not None else None,
+        "shrink_applied": bool(request.get("shrink_applied", False)),
         "requested_bbox": requested_bbox,
         "analysis_bbox": analysis_bbox,
-        "crosses_antimeridian": bool(request.get("bbox", {}).get("crosses_antimeridian"))
-        if isinstance(request.get("bbox"), Mapping)
+        "crosses_antimeridian": bool(request.get("crosses_antimeridian"))
+        if request.get("crosses_antimeridian") is not None
+        else (
+            bool(request.get("bbox", {}).get("crosses_antimeridian"))
+            if isinstance(request.get("bbox"), Mapping)
+            else None
+        ),
+        "bbox_pieces": request.get("bbox_pieces"),
+        "metric_envelope": aoi_geometry.get("metric_envelope")
+        if isinstance(aoi_geometry, Mapping)
         else None,
+        "limits": aoi_geometry.get("limits") if isinstance(aoi_geometry, Mapping) else None,
+        "pixel_accounting": pixel_accounting,
     }
 
     coverage = {
@@ -776,6 +853,10 @@ def build_engine_report(
         "area_km2": (result or {}).get("area_km2")
         if isinstance(result, Mapping)
         else request.get("area_km2"),
+        "analysis_area_km2": (result or {}).get("analysis_area_km2")
+        if isinstance(result, Mapping)
+        else None,
+        "pixel_accounting": pixel_accounting,
     }
 
     return {
@@ -888,16 +969,20 @@ __all__ = [
     "BODY_DEFAULT_PIXEL_SIZE_M",
     "CONTRACT_VERSION",
     "DIMENSION_CODES",
+    "DIMENSION_LABELS",
     "ENGINE_VERSION",
     "EARTH_BBOX_CRS",
-    "EngineFootprint",
-    "D01Analysis",
-    "D01Analyzer",
     "SUPPORTED_AOI_BODIES",
+    "SUPPORTED_BODIES",
+    "BODY_FRAMES",
+    "BODY_CRS",
     "AoiGeometry",
     "AoiLimits",
     "BodyGeometry",
+    "EngineFootprint",
     "MetricEnvelope",
+    "D01Analysis",
+    "D01Analyzer",
     "bbox_area_km2",
     "bbox_geometry",
     "bbox_side_lengths_m",

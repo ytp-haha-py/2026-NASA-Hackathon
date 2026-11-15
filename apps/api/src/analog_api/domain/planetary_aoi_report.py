@@ -27,6 +27,7 @@ from functools import lru_cache
 from typing import Any
 
 from analog_pipelines.coarse_features import COARSE_FEATURE_BY_ID
+from analog_pipelines.planetary_aoi import ANALYSIS_WINDOW_PIXELS
 
 from analog_api.domain.coverage_status import (
     DIMENSION_CODES,
@@ -126,6 +127,53 @@ def _float_or_none(value: Any) -> float | None:
 def _int_or_none(value: Any) -> int | None:
     number = _float_or_none(value)
     return int(number) if number is not None else None
+
+
+def _pixel_accounting(
+    *,
+    result: Mapping[str, Any] | None,
+    d01_result: Mapping[str, Any] | None,
+    support: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Return real pixel/validity accounting, or explicit nulls when unavailable."""
+    result = result or {}
+    d01_result = d01_result or {}
+    for raw in (result.get("pixel_accounting"), d01_result.get("pixel_accounting")):
+        if isinstance(raw, Mapping):
+            return dict(raw)
+    cell_count = _int_or_none(d01_result.get("cell_count"))
+    valid_fraction = _float_or_none(support.get("valid_fraction"))
+    if valid_fraction is None:
+        valid_fraction = _float_or_none(result.get("valid_fraction"))
+    total_pixels = (
+        cell_count * (ANALYSIS_WINDOW_PIXELS * ANALYSIS_WINDOW_PIXELS)
+        if cell_count is not None
+        else None
+    )
+    valid_pixels = (
+        int(round(total_pixels * valid_fraction))
+        if total_pixels is not None and valid_fraction is not None
+        else None
+    )
+    missing_pixels = (
+        total_pixels - valid_pixels
+        if total_pixels is not None and valid_pixels is not None
+        else None
+    )
+    return {
+        "valid_fraction": valid_fraction,
+        "resolution_m": _float_or_none(support.get("resolution_m") or result.get("resolution_m")),
+        "source_resolution_m": _float_or_none(
+            support.get("source_resolution_m") or result.get("source_resolution_m")
+        ),
+        "window_size_m": _float_or_none(
+            support.get("window_size_m") or result.get("window_size_m")
+        ),
+        "cell_count": cell_count,
+        "total_pixels": total_pixels,
+        "valid_pixels": valid_pixels,
+        "invalid_or_missing_pixels": missing_pixels,
+    }
 
 
 def _observation_feature(row: Mapping[str, Any]) -> dict[str, Any]:
@@ -231,7 +279,16 @@ def _dimension_from_observations(
     body: str,
 ) -> dict[str, Any]:
     detected = [row for row in rows if str(row.get("state")) == "detected"]
-    if detected:
+    if detected and all(
+        str(row.get("score_role")) in {"evidence_only", "context_only"} for row in detected
+    ):
+        status = "evidence"
+        value_origin = "stored_evidence"
+        reason = (
+            "Stored typed evidence exists for this exact AOI, but its score_role is "
+            "evidence/context only and it is not a scored similarity measurement."
+        )
+    elif detected:
         status = "available"
         value_origin = "observed_derived"
         reason = None
@@ -246,6 +303,9 @@ def _dimension_from_observations(
     first = rows[0]
     provenance = {
         "status": "stored_typed_observation",
+        "observation_ids": sorted(
+            str(row.get("observation_id")) for row in rows if row.get("observation_id")
+        ),
         "dataset_ids": sorted(
             {str(dataset_id) for row in rows for dataset_id in (row.get("dataset_ids") or [])}
         ),
@@ -496,6 +556,34 @@ def build_engine_report(
         area=area,
         observations=observations,
     )
+    geometry_payload = request.get("aoi_geometry")
+    if isinstance(geometry_payload, Mapping):
+        d01_support.update(
+            {
+                "geometry_version": geometry_payload.get("geometry_version"),
+                "normalized_bbox": geometry_payload.get("normalized_bbox"),
+                "bbox_pieces": geometry_payload.get("bbox_pieces") or [],
+                "metric_envelope": geometry_payload.get("metric_envelope"),
+                "requested_area_km2": geometry_payload.get("area_km2"),
+                "envelope_area_km2": geometry_payload.get("envelope_area_km2"),
+                "pixel_size_m": geometry_payload.get("pixel_size_m"),
+                "pixels_x": geometry_payload.get("pixels_x"),
+                "pixels_y": geometry_payload.get("pixels_y"),
+                "total_pixels": geometry_payload.get("total_pixels"),
+                "limits": geometry_payload.get("limits"),
+                "crosses_antimeridian": geometry_payload.get("crosses_antimeridian"),
+                "is_full_longitude": geometry_payload.get("is_full_longitude"),
+                "includes_north_pole": geometry_payload.get("includes_north_pole"),
+                "includes_south_pole": geometry_payload.get("includes_south_pole"),
+                "longitude_span_deg": geometry_payload.get("longitude_span_deg"),
+                "latitude_kind": geometry_payload.get("latitude_kind"),
+                "analysis_extent": geometry_payload.get("analysis_extent"),
+                "shrink_applied": geometry_payload.get("shrink_applied"),
+            }
+        )
+    d01_result = (result.get("dimension_support") or {}).get(D01) or {}
+    pixel_accounting = _pixel_accounting(result=result, d01_result=d01_result, support=d01_support)
+    d01_support["pixel_accounting"] = pixel_accounting
     dimensions: dict[str, Any] = {
         D01: _d01_dimension(
             job_status=job_status,
@@ -542,6 +630,16 @@ def build_engine_report(
             "No persisted analysed envelope is available, so full-AOI coverage cannot be "
             "claimed for this job."
         )
+    coverage = _coverage_payload(
+        job_status=job_status,
+        error_code=error_code,
+        requested_bbox=requested_bbox,
+        analysis_bbox=analysis_bbox,
+        full_aoi=full_aoi,
+        analysis_scope=analysis_scope,
+        result=result,
+    )
+    coverage["pixel_accounting"] = pixel_accounting
     return {
         "body": body,
         "coordinate_frame": (
@@ -553,15 +651,7 @@ def build_engine_report(
         "analysis_bbox": analysis_bbox,
         "full_aoi": full_aoi,
         "analysis_scope": analysis_scope,
-        "coverage": _coverage_payload(
-            job_status=job_status,
-            error_code=error_code,
-            requested_bbox=requested_bbox,
-            analysis_bbox=analysis_bbox,
-            full_aoi=full_aoi,
-            analysis_scope=analysis_scope,
-            result=result,
-        ),
+        "coverage": coverage,
         "method_version": result.get("method_version"),
         "coverage_note": result.get("coverage_note"),
         "data_version": result.get("data_version"),

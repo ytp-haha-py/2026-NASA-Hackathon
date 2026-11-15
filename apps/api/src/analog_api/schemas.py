@@ -414,6 +414,13 @@ class PlanetaryAoiEngineRequest(BaseModel):
     body: Literal["Moon", "Mars"]
     bbox: GeoBBoxIn
     bbox_lon_convention: Literal["signed", "360"] = "signed"
+    latitude_kind: str | None = Field(
+        default=None,
+        description=(
+            "Optional explicit latitude contract. Moon/Mars accept planetocentric only; "
+            "planetographic/geocentric are rejected instead of silently converted."
+        ),
+    )
     requested_features: list[str] | None = None
     idempotency_key: str | None = Field(default=None, max_length=128)
 
