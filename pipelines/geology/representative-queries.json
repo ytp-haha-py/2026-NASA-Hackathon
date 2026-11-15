@@ -321,6 +321,96 @@
       ]
     },
     {
+      "query_id": "Q-EARTH-macrostrat-units",
+      "body": "Earth",
+      "description": "Representative query: Macrostrat point-query map units for three Earth fine candidates (evidence-only, no crosswalk).",
+      "filters": {
+        "body": "Earth",
+        "feature_id": "geologic_unit"
+      },
+      "results": [
+        {
+          "observation_id": "macrostrat:earth-grand-canyon-r2c2:geologic_unit",
+          "area_id": "earth-grand-canyon-r2c2",
+          "body": "Earth",
+          "feature_id": "geologic_unit",
+          "state": "detected",
+          "value_kind": "category",
+          "unit": null,
+          "dataset_ids": [
+            "macrostrat-api"
+          ],
+          "score_role": "evidence_only",
+          "quality_flags": [
+            "third_party_map_compilation",
+            "partial_global_coverage",
+            "no_taxonomy_crosswalk",
+            "point_query_not_area_fraction",
+            "evidence_only"
+          ],
+          "notes": "Macrostrat API v2 point query. Map units are a third-party compilation with partial global coverage; unit names/codes are not crosswalked and cannot be used for similarity or a category filter.",
+          "value_summary": {
+            "code": "macrostrat_point_query_units",
+            "scheme": "macrostrat-geologic-units-v2"
+          }
+        },
+        {
+          "observation_id": "macrostrat:earth-namib-r2c2:geologic_unit",
+          "area_id": "earth-namib-r2c2",
+          "body": "Earth",
+          "feature_id": "geologic_unit",
+          "state": "detected",
+          "value_kind": "category",
+          "unit": null,
+          "dataset_ids": [
+            "macrostrat-api"
+          ],
+          "score_role": "evidence_only",
+          "quality_flags": [
+            "third_party_map_compilation",
+            "partial_global_coverage",
+            "no_taxonomy_crosswalk",
+            "point_query_not_area_fraction",
+            "evidence_only"
+          ],
+          "notes": "Macrostrat API v2 point query. Map units are a third-party compilation with partial global coverage; unit names/codes are not crosswalked and cannot be used for similarity or a category filter.",
+          "value_summary": {
+            "code": "macrostrat_point_query_units",
+            "scheme": "macrostrat-geologic-units-v2"
+          }
+        },
+        {
+          "observation_id": "macrostrat:earth-iceland-r2c2:geologic_unit",
+          "area_id": "earth-iceland-r2c2",
+          "body": "Earth",
+          "feature_id": "geologic_unit",
+          "state": "detected",
+          "value_kind": "category",
+          "unit": null,
+          "dataset_ids": [
+            "macrostrat-api"
+          ],
+          "score_role": "evidence_only",
+          "quality_flags": [
+            "third_party_map_compilation",
+            "partial_global_coverage",
+            "no_taxonomy_crosswalk",
+            "point_query_not_area_fraction",
+            "evidence_only"
+          ],
+          "notes": "Macrostrat API v2 point query. Map units are a third-party compilation with partial global coverage; unit names/codes are not crosswalked and cannot be used for similarity or a category filter.",
+          "value_summary": {
+            "code": "macrostrat_point_query_units",
+            "scheme": "macrostrat-geologic-units-v2"
+          }
+        }
+      ],
+      "result_count": 3,
+      "states": [
+        "detected"
+      ]
+    },
+    {
       "query_id": "Q-MOON-mapped-units",
       "body": "Moon",
       "description": "Representative query: Moon mapped geologic unit/process evidence in indexed Shackleton ROI.",

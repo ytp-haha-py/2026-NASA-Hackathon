@@ -1,14 +1,14 @@
 {
   "artifacts": [
     {
-      "bytes": 25556,
+      "bytes": 25830,
       "kind": "index_summary",
       "path": "samples/snapshot/analog-demo.index-summary.json",
-      "sha256": "f7a3b791b25e39dbe66a6387f3aaf76307816af6fd258e0755a6b5f7171d937d"
+      "sha256": "11ff083f1a3cc8b2d564bf472ea829c7ec7ec066281b6cb37d24da8e380f3b0f"
     }
   ],
-  "created_at": "2026-11-14T10:22:01Z",
-  "data_version": "dv-b46f3bad38ea",
+  "created_at": "2026-11-15T12:40:58Z",
+  "data_version": "dv-6fefaf3a7974",
   "datasets": [
     {
       "candidate_count": 113,
@@ -60,7 +60,8 @@
       "license": "public domain",
       "license_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
       "manifest_paths": [
-        "pipelines/planetary/manifests/ctx_mars_references.json"
+        "pipelines/planetary/manifests/ctx_mars_references.json",
+        "pipelines/planetary/manifests/ctx_mars_references_expansion_01.json"
       ],
       "native_resolution_m": 20.0,
       "observation_qualities": [
@@ -68,7 +69,7 @@
       ],
       "product_id": "M20_JezeroCrater_CTXDEM_20m",
       "provider": "USGS Astrogeology Science Center / NASA Mars Missions",
-      "reference_count": 5,
+      "reference_count": 7,
       "source_crs": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
       "source_kind": "martian_dem",
       "status": "verified",
@@ -226,6 +227,13 @@
       "sha256": "6168256e3a03502a48a0aa812ae00365337dc819cd6a161a9f4a75ee2b158153"
     },
     {
+      "bytes": 8699,
+      "data_kind": "observed",
+      "path": "pipelines/planetary/manifests/ctx_mars_references_expansion_01.json",
+      "seedable": true,
+      "sha256": "d64e7c7ffc2db3bdd8070f83acfa18f8c22f73cb0f00954f84a020e442b07333"
+    },
+    {
       "bytes": 19414,
       "data_kind": "observed",
       "path": "pipelines/planetary/manifests/lola_moon_reference.json",
@@ -275,8 +283,8 @@
       "sha256": "8d3cc46c86abcf0836a9827c802a7c78e39f373eff0f3fcbf326d56edddccaf0"
     }
   ],
-  "notes": "Bounded terrain expansion: 113 Earth, 18 Moon, 5 Mars windows; five production metrics. Curvature and landform composition remain research-only.",
-  "snapshot_id": "snap-0cef4d75b147866a",
+  "notes": "Pins committed JSON manifests by SHA-256. Raw rasters and caches are not included. Indexed windows are a local subset, not a global survey.",
+  "snapshot_id": "snap-0faad9cee4386729",
   "snapshot_version": "1.0.0",
   "source_commit": null
 }

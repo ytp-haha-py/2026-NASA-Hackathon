@@ -1,0 +1,65 @@
+{
+  "asset_count": 3,
+  "generated_at": "2026-11-15T12:36:48.023349+00:00",
+  "notes": [
+    "Portable release of a bounded pilot, not a global survey.",
+    "Context-only and evidence-only observations are not scored similarity features.",
+    "NASA POWER values are coarse model/reanalysis context, not local 1.98 km measurements."
+  ],
+  "observation_count": 6,
+  "observations_sha256": "7e985de8006fd1e50db93402d9841bda8e31fe2cd44fda58117f30c8102a178b",
+  "plan_sha256": "b1c01c6c5d47e42822083e09f6186897adfa9b7036de347c7a0acdcac42f39ce",
+  "raw": [],
+  "release_version": "acquisition-release-1.0.0",
+  "report": {
+    "areas": [
+      "earth-grand-canyon-r2c2",
+      "earth-iceland-r2c2",
+      "earth-namib-r2c2"
+    ],
+    "by_body": {
+      "Earth": 6
+    },
+    "by_dimension": {
+      "D05": 6
+    },
+    "by_feature": {
+      "surface_longwave_irradiance_kwh_m2_day": 3,
+      "surface_shortwave_irradiance_kwh_m2_day": 3
+    },
+    "by_state": {
+      "detected": 6
+    },
+    "total": 6
+  },
+  "scope": "phase2-D05-earth-expansion",
+  "tasks": [
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D05",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN%2CALLSKY_SFC_LW_DWN&community=RE&longitude=-112.200001&latitude=36.200000&start=20240101&end=20240107&format=JSON",
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D05-earth-earth-grand-canyon-r2c2-2024-01-01-2024-01-07"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D05",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN%2CALLSKY_SFC_LW_DWN&community=RE&longitude=-16.800007&latitude=65.699999&start=20240101&end=20240107&format=JSON",
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D05-earth-earth-iceland-r2c2-2024-01-01-2024-01-07"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D05",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN%2CALLSKY_SFC_LW_DWN&community=RE&longitude=15.300001&latitude=-24.700000&start=20240101&end=20240107&format=JSON",
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D05-earth-earth-namib-r2c2-2024-01-01-2024-01-07"
+    }
+  ]
+}

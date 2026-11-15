@@ -66,6 +66,7 @@ export type FetchHandlers = {
   globalSearch?: ResponseFactory<[GlobalSearchRequest]>;
   globalCandidate?: ResponseFactory<[string]>;
   refinePlan?: ResponseFactory<[RefinePlanRequest]>;
+  refine?: ResponseFactory<[string]>;
 };
 
 function urlOf(input: string | URL | Request): string {
@@ -206,6 +207,13 @@ export function installMockFetch(handlers: FetchHandlers = {}) {
       return handlers.refinePlan
         ? await handlers.refinePlan(body)
         : jsonResponse({ ...refinePlanFixture, candidate_id: body.candidate_id });
+    }
+
+    if (url.endsWith("/api/v1/global/refine")) {
+      const body = JSON.parse(String(init?.body ?? "{}")) as { candidate_id: string };
+      return handlers.refine
+        ? await handlers.refine(body.candidate_id)
+        : errorResponse(503, "service_unavailable", "No refinement fixture configured.");
     }
 
     if (url.includes("/context")) {

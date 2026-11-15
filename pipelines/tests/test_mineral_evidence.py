@@ -225,7 +225,7 @@ def test_report_counts_are_actual_and_bounded():
 
     assert counts["areas"] == {"Earth": 5, "Moon": 1, "Mars": 2}
     assert counts["analyses"]["total"] == 21
-    assert counts["exported_observations"]["total"] == 56
+    assert counts["exported_observations"]["total"] == 59
     assert counts["mineral_observations"]["total"] == 10
     assert counts["mineral_observations"]["by_state"]["unknown"] == 10
     assert counts["mineral_observations"]["detected"] == 0

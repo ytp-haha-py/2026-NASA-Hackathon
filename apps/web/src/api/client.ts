@@ -18,6 +18,7 @@ export type MultiDimSearchRequest = components["schemas"]["MultiDimSearchRequest
 export type MultiDimSearchResponse = components["schemas"]["MultiDimSearchResponse"];
 export type GeoBBoxIn = components["schemas"]["GeoBBoxIn"];
 export type GlobalCoverageOut = components["schemas"]["GlobalCoverageOut"];
+export type GlobalRefineResponse = components["schemas"]["GlobalRefineResponse"];
 export type GlobalSearchRequest = components["schemas"]["GlobalSearchRequest"];
 export type GlobalSearchResponse = components["schemas"]["GlobalSearchResponse"];
 export type GlobalSearchResultOut = components["schemas"]["GlobalSearchResultOut"];
@@ -463,6 +464,21 @@ export function createRefinePlan(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
+    },
+    signal,
+  );
+}
+
+export function refineGlobalCandidate(
+  candidateId: string,
+  signal?: AbortSignal,
+): Promise<GlobalRefineResponse> {
+  return request<GlobalRefineResponse>(
+    "/global/refine",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ candidate_id: candidateId }),
     },
     signal,
   );

@@ -1505,6 +1505,131 @@ body {
   padding-block: 8px 28px;
 }
 
+.search-scope {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+
+.has-search-scope .ranking-overlay.is-idle {
+  display: flex;
+  bottom: auto;
+  padding: 0;
+}
+
+.has-search-scope .ranking-overlay-empty {
+  padding: 8px 12px;
+}
+
+.search-scope-toggle {
+  display: flex;
+  gap: 4px;
+}
+
+.search-scope-toggle button {
+  padding: 5px 8px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-scope-toggle button[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.search-scope-toggle button:disabled {
+  opacity: 0.68;
+  cursor: default;
+}
+
+.search-scope p,
+.search-scope details {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.coarse-ranking-body {
+  min-height: 0;
+  padding: 10px 12px;
+  overflow: auto;
+  overflow-wrap: anywhere;
+}
+
+.coarse-ranking-body .section-heading {
+  margin-block: 10px;
+}
+
+.coarse-ranking-body .coarse-advanced > summary {
+  cursor: pointer;
+}
+
+.coarse-ranking-body .global-search-controls {
+  flex-wrap: wrap;
+}
+
+.map-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 10px 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+
+.map-key li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.map-key i {
+  width: 16px;
+  border-top: 3px solid #1d4ed8;
+}
+
+.map-key .source-key { border-top: 3px dashed #8247a5; }
+.map-key .coarse-key { border-top: 3px dashed #a34a11; }
+.map-key .refine-key { border-color: #087d72; }
+.rank-pin.is-coarse { background: #a34a11; }
+.rank-pin.is-coarse.is-selected { background: #763100; }
+
+@media (max-width: 720px) {
+  .map-stage.has-search-scope {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .has-search-scope .ranking-overlay {
+    position: static;
+    width: 100%;
+    max-width: none;
+    max-height: 340px;
+    border-right: 0;
+  }
+
+  .has-search-scope .map-canvas {
+    order: 1;
+    height: 380px;
+  }
+
+  .has-search-scope .map-toggle,
+  .has-search-scope .map-draw,
+  .has-search-scope .map-show-all {
+    top: auto;
+    bottom: 40px;
+  }
+
+  .has-search-scope .map-draw { bottom: 84px; }
+  .has-search-scope .map-show-all { bottom: 128px; }
+}
+
 @media (max-width: 720px) {
   /* styles.css pins the controls to the bottom here; keep them stacked at the
      top-left instead and clear `bottom`, or top+bottom stretch them full height. */
