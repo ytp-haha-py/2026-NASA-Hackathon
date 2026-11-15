@@ -59,22 +59,16 @@ type SearchFormProps = {
 /** Weight slider upper bound; the number input still accepts any finite value ≥ 0. */
 const WEIGHT_SLIDER_MAX = 3;
 
-/**
- * Hypothetical starting point for custom mode (not a NASA measurement). A metric is compared
- * only when its weight is above 0.
- */
-const EXAMPLE_VALUES: Record<string, RowState> = {
-  slope_mean_deg: { value: "12", weight: "1" },
-  slope_p90_deg: { value: "25", weight: "0" },
-  terrain_relief_p95_p05_m: { value: "80", weight: "0.5" },
-  roughness_std_m: { value: "4", weight: "0" },
-};
-
+/** Custom mode starts neutral: every target at 0 (clamped into the metric's range) and every
+ * weight at 0, so nothing is compared until the user raises a weight. */
 function initialRows(features: FeatureOut[]): Record<string, RowState> {
   return Object.fromEntries(
     features.map((feature) => [
       feature.id,
-      EXAMPLE_VALUES[feature.id] ? { ...EXAMPLE_VALUES[feature.id] } : { value: "", weight: "0" },
+      {
+        value: String(Math.min(Math.max(0, feature.min_value), feature.max_value)),
+        weight: "0",
+      },
     ]),
   );
 }
@@ -148,6 +142,7 @@ export function SearchForm({
   const [referenceId, setReferenceId] = useState("");
   const [limit, setLimit] = useState("10");
   const [boardOpen, setBoardOpen] = useState(true);
+  const [activeDimension, setActiveDimension] = useState("D01");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [errors, setErrors] = useState<UiMessage[]>([]);
   const lastAppliedPreset = useRef<number | null>(null);
@@ -630,7 +625,7 @@ export function SearchForm({
           </span>
         </div>
 
-        <div className="metric-row">
+        <div className="metric-row metric-row-weight">
           <span className="metric-label" aria-hidden="true">
             {t("search.weightShort")}
           </span>
@@ -957,6 +952,25 @@ export function SearchForm({
             </div>
           )}
 
+          <div className="dimension-layout">
+          <div className="dimension-nav" role="group" aria-label={t("search.boardTitle")}>
+            {cards.map((card) => {
+              const count = card.features.filter((feature) => weightOf(feature.id) > 0).length;
+              const active = card.code === activeDimension;
+              return (
+                <button
+                  type="button"
+                  key={card.code}
+                  className={`dimension-nav-item${active ? " is-active" : ""}`}
+                  aria-pressed={active}
+                  onClick={() => setActiveDimension(card.code)}
+                >
+                  <span>{label.dimension(card.code)}</span>
+                  {count > 0 && <span className="dimension-nav-count mono">{count}</span>}
+                </button>
+              );
+            })}
+          </div>
           <div className="dimension-grid dimension-board-grid">
             {cards.map((card) => {
               const activeCount = card.features.filter((feature) => weightOf(feature.id) > 0).length;
@@ -975,7 +989,7 @@ export function SearchForm({
                 .join(" · ");
               return (
                 <section
-                  className={`dimension-column dimension-card${card.code === "D01" ? " is-similarity" : ""}`}
+                  className={`dimension-column dimension-card${card.code === "D01" ? " is-similarity" : ""}${card.code === activeDimension ? " is-active" : ""}`}
                   key={card.code}
                   aria-label={`${card.code} ${name}`}
                   data-testid={`dimension-card-${card.code}`}
@@ -1046,6 +1060,7 @@ export function SearchForm({
                 </section>
               );
             })}
+          </div>
           </div>
 
           <section className="context-filters" aria-labelledby="context-heading">

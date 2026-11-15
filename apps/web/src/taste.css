@@ -1,0 +1,989 @@
+/* ==========================================================================
+   Taste layer: design-taste-frontend 2.5.1, dealt for kind "software" (trade devtool).
+   Deal: palette white-link-blue (white sheet, one blue action colour: a measuring tool
+   reads best as ink on paper with a single pointer colour), type urbanist
+   (Urbanist + DM Mono), radius sharp (developer tool).
+   Loaded after styles.css, so it only re-tokens and adds the hover/press/focus layer;
+   layout and the data colours (Moon/Mars rust, observed green, error, synthetic) stay.
+   ========================================================================== */
+
+:root {
+  --bg: #f4f4f4;
+  --surface: #ffffff;
+  --surface-muted: #f7f7f7;
+  --surface-sunken: #efefef;
+  --ink: #111111;
+  --ink-soft: #333333;
+  --muted: #5c5c5c;
+  --faint: #666666;
+  --line: #e0e0e0;
+  --line-soft: #ebebeb;
+  --line-strong: #b0b0b0;
+  --track: #e0e0e0;
+  --accent: #1a4be0;
+  --accent-dark: #1438b0;
+  --accent-soft: #edf1fd;
+  --accent-ink: #ffffff;
+  --focus: #1a4be0;
+  --header-bg: #111111;
+  --header-ink: #ffffff;
+  --header-muted: #b8b8b8;
+  --header-line: #333333;
+
+  /* one radius scale (sharp) */
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-lg: 8px;
+  --r-btn: 4px;
+  --radius: var(--r-lg);
+
+  --shadow: none;
+  --shadow-float: 0 12px 32px rgb(17 17 17 / 14%);
+  --shadow-lift: 0 8px 24px rgb(17 17 17 / 8%);
+
+  /* motion tokens */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --m-in: 150ms;
+  --m-out: 120ms;
+  --m-press: 90ms;
+  --m-card-in: 180ms;
+  --m-field: 140ms;
+
+  /* type: Latin faces first, Traditional Chinese falls back to Noto Sans TC / system CJK */
+  --font-display: "Urbanist", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui,
+    sans-serif;
+  --font-text: var(--font-display);
+  --font-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Noto Sans TC",
+    monospace;
+  --font-serif: var(--font-display);
+  font-family: var(--font-text);
+  font-feature-settings: "tnum" 1;
+}
+
+:root[data-theme="dark"] {
+  --bg: #111111;
+  --surface: #1a1a1a;
+  --surface-muted: #1f1f1f;
+  --surface-sunken: #161616;
+  --ink: #ffffff;
+  --ink-soft: #d9d9d9;
+  --muted: #a6a6a6;
+  --faint: #949494;
+  --line: #2e2e2e;
+  --line-soft: #262626;
+  --line-strong: #4d4d4d;
+  --track: #2e2e2e;
+  --accent: #7c9cff;
+  --accent-dark: #b4c6ff;
+  --accent-soft: #18203a;
+  --accent-ink: #111111;
+  --focus: #7c9cff;
+  --header-bg: #0a0a0a;
+  --header-line: #2a2a2a;
+  --shadow-float: 0 12px 32px rgb(0 0 0 / 55%);
+  --shadow-lift: 0 8px 24px rgb(0 0 0 / 40%);
+}
+
+/* ---------- Type ---------- */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+code,
+pre,
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* "Target" / "Weight" were cut to "Targ…" / "Weig." in English at 34px. */
+.metric-row {
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+}
+
+/* ---------- Header ---------- */
+
+.header-tabs [role="tab"],
+.language-switcher,
+.coverage-badge,
+.icon-button {
+  border-radius: var(--r-btn);
+}
+
+.header-tabs [role="tab"][aria-selected="true"],
+.language-switcher button[aria-pressed="true"] {
+  color: var(--header-bg);
+}
+
+/* ---------- One button pair ---------- */
+
+.primary-button {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: 1px solid transparent;
+  border-radius: var(--r-btn);
+}
+
+:root[data-theme="dark"] .primary-button {
+  color: var(--accent-ink);
+}
+
+.primary-button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 86%, var(--ink));
+}
+
+.secondary-button,
+.overlay-toggle,
+.map-show-all {
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-btn);
+}
+
+.secondary-button:hover:not(:disabled),
+.overlay-toggle:hover,
+.map-show-all:hover {
+  background: var(--surface-sunken);
+  border-color: var(--ink-soft);
+}
+
+.segment,
+.panel-tabs [role="tab"],
+.map-toggle,
+select,
+select.reference-select,
+input.metric-number,
+.global-target-table input {
+  border-radius: var(--r-sm);
+}
+
+.chip,
+.badge,
+.comparison-chip {
+  border-radius: var(--r-sm);
+}
+
+/* ---------- Hover and press layer (fine pointers only; keyboard focus gets the ring) ---------- */
+
+:is(
+    .primary-button,
+    .secondary-button,
+    .overlay-toggle,
+    .map-show-all,
+    .segment,
+    .icon-button,
+    .header-tabs [role="tab"],
+    .language-switcher button,
+    .map-toggle button,
+    .panel-tabs [role="tab"],
+    .link-button
+  ) {
+  transition:
+    background-color var(--m-out) var(--ease),
+    border-color var(--m-out) var(--ease),
+    color var(--m-out) var(--ease),
+    transform var(--m-out) var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is(.primary-button, .secondary-button, .overlay-toggle, .map-show-all, .segment, .icon-button):hover:not(
+      :disabled
+    ) {
+    transform: translateY(-1px);
+    transition-duration: var(--m-in);
+  }
+
+  .header-tabs [role="tab"]:hover:not([aria-selected="true"]),
+  .language-switcher button:hover:not([aria-pressed="true"]),
+  .icon-button:hover {
+    color: var(--header-ink);
+    border-color: #5a5a5a;
+    transition-duration: var(--m-in);
+  }
+
+  .segment:hover:not(:disabled):not(.is-active) {
+    border-color: var(--ink-soft);
+  }
+
+  .link-button:hover {
+    color: var(--accent-dark);
+  }
+}
+
+:is(.primary-button, .secondary-button, .overlay-toggle, .map-show-all, .segment, .icon-button):active:not(
+    :disabled
+  ) {
+  transform: translateY(1px) scale(0.985);
+  transition-duration: var(--m-press);
+}
+
+/* Linked cards lift 2px; list rows step their ground only. */
+
+.result-select,
+.reference-table tbody tr,
+.ranking-row {
+  transition:
+    background-color var(--m-out) var(--ease),
+    border-color var(--m-out) var(--ease),
+    box-shadow var(--m-out) var(--ease),
+    transform var(--m-out) var(--ease);
+}
+
+.result-select {
+  border-radius: var(--radius);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .result-select:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-2px);
+    transition-duration: var(--m-card-in);
+  }
+
+  .ranking-row:hover {
+    background: var(--surface-sunken);
+    transition-duration: var(--m-in);
+  }
+}
+
+.ranking-row {
+  border-radius: var(--r-sm);
+}
+
+/* ---------- Links: one look, a drawn underline ---------- */
+
+:where(.app-main, .site-footer) a:not(.leaflet-container a) {
+  color: var(--accent-dark);
+  text-decoration: none;
+  background-image:
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(
+      color-mix(in srgb, currentColor 28%, transparent),
+      color-mix(in srgb, currentColor 28%, transparent)
+    );
+  background-repeat: no-repeat;
+  background-position:
+    100% 100%,
+    0 100%;
+  background-size:
+    0% 1px,
+    100% 1px;
+  transition:
+    background-size var(--m-out) var(--ease),
+    color var(--m-out) var(--ease);
+}
+
+:where(.app-main, .site-footer) a:not(.leaflet-container a):is(:hover, :focus-visible) {
+  color: var(--ink);
+  background-position:
+    0 100%,
+    0 100%;
+  background-size:
+    100% 1px,
+    100% 1px;
+  transition-duration: var(--m-in);
+}
+
+/* ---------- Focus and fields ---------- */
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  transition: none;
+}
+
+:is(
+    input:not([type="range"], [type="checkbox"], [type="radio"]),
+    select,
+    textarea
+  ) {
+  transition:
+    border-color var(--m-field) var(--ease),
+    box-shadow var(--m-field) var(--ease);
+}
+
+:is(
+    input:not([type="range"], [type="checkbox"], [type="radio"]),
+    select,
+    textarea
+  ):focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+/* ---------- Reduced motion: everything rests ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  :is(
+      .primary-button,
+      .secondary-button,
+      .overlay-toggle,
+      .map-show-all,
+      .segment,
+      .icon-button,
+      .result-select
+    ):is(:hover, :active) {
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   Quiet pass: fewer words, no small print.
+   Everything hidden here stays in the DOM (tests and screen readers still find
+   it); the about panel at the bottom keeps the full method and limits text.
+   Floor for visible text is 14px; body is 16px.
+   ========================================================================== */
+
+:root {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* --- removed from view --- */
+.coverage-badge,
+.target-summary .muted,
+.target-details,
+.dimension-code,
+.dimension-tag,
+.dimension-column.is-placeholder,
+.context-column > .field-hint,
+.metric-more:not(.context-more),
+.board-foot,
+.map-note,
+.site-footer {
+  display: none;
+}
+
+/* --- header --- */
+.header-inner {
+  padding: 14px 32px;
+}
+
+.site-header h1.brand {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.brand-mark {
+  display: none;
+}
+
+.header-tabs {
+  gap: 2px;
+}
+
+.header-tabs [role="tab"] {
+  padding: 8px 14px;
+  font-size: 15px;
+  border-color: transparent;
+}
+
+.language-switcher button {
+  padding: 7px 12px;
+  font-size: 14px;
+}
+
+.icon-button {
+  width: 36px;
+  height: 36px;
+}
+
+/* --- page rhythm --- */
+.app-main {
+  gap: 24px;
+  padding: 28px 32px 48px;
+}
+
+.panel-stack,
+.search-form {
+  gap: 24px;
+}
+
+/* --- target bar --- */
+.target-bar {
+  gap: 16px 28px;
+  padding: 16px 24px;
+}
+
+.segment {
+  padding: 8px 18px;
+  font-size: 15px;
+}
+
+.target-summary {
+  font-size: 18px;
+}
+
+select.reference-select {
+  font-size: 18px;
+}
+
+.chips {
+  font-size: 14px;
+}
+
+/* --- dimension board --- */
+.board-head {
+  padding: 18px 24px;
+}
+
+.board-head h2 {
+  font-size: 20px;
+}
+
+.limit-control,
+.link-button {
+  font-size: 15px;
+}
+
+.limit-control input {
+  min-height: 40px;
+  font-size: 15px;
+}
+
+.primary-button,
+.secondary-button,
+.overlay-toggle,
+.map-show-all {
+  min-height: 40px;
+  padding: 8px 20px;
+  font-size: 15px;
+}
+
+.dimension-grid {
+  grid-template-columns: minmax(0, 2.6fr) minmax(280px, 1fr);
+}
+
+.dimension-column {
+  gap: 20px;
+  padding: 22px 24px 28px;
+}
+
+.dimension-head h3 {
+  font-size: 17px;
+}
+
+.metric-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px 44px;
+}
+
+.context-column .metric-list,
+.context-column .metric-more .metric-list {
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.metric {
+  gap: 8px;
+}
+
+.metric-head {
+  font-size: 16px;
+}
+
+.metric-name,
+.context-metric .metric-name {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.metric.is-weighted .metric-name {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.metric-row {
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  gap: 12px;
+}
+
+.metric-label,
+.metric-range,
+.metric-target {
+  font-size: 14px;
+}
+
+input.metric-number {
+  min-height: 30px;
+  font-size: 14px;
+}
+
+.metric-more.context-more > summary {
+  font-size: 15px;
+}
+
+/* --- map and ranking --- */
+.map-toggle button {
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+.ranking-overlay.is-idle {
+  display: none;
+}
+
+.ranking-overlay {
+  width: 360px;
+}
+
+.ranking-overlay-title strong {
+  font-size: 18px;
+}
+
+.ranking-overlay-title span {
+  display: none;
+}
+
+/* --- about --- */
+.about-panel > summary {
+  padding: 16px 24px;
+  font-size: 16px;
+}
+
+/* --- results: one headline, the list, the numbers --- */
+.eyebrow,
+.field-hint,
+.source-text-note,
+.coverage-panel > p:not(.coverage-headline),
+.excluded-panel,
+.limitations-note,
+.result-caveats,
+.dimension-distances,
+.result-datasets,
+.distance-label,
+.badge-observed,
+.metric-table caption,
+.record-note,
+.detail-section > p.muted,
+.metric-meta,
+.feature-description,
+.context-warning,
+.not-simulated,
+.context-export .section-heading p,
+.export-meta,
+.export-note {
+  display: none;
+}
+
+.section-heading h2,
+.detail-section h3 {
+  font-size: 20px;
+}
+
+.coverage-panel {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.coverage-headline {
+  margin: 0;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.result-location,
+.ranking-name span,
+.map-popup-coords {
+  font-size: 14px;
+}
+
+.ranking-rank,
+.ranking-name strong,
+.ranking-distance,
+.leaflet-popup-content,
+.map-popup,
+.map-popup-head strong,
+.map-popup-head span {
+  font-size: 15px;
+}
+
+.ranking-row {
+  min-height: 52px;
+  padding: 8px 12px;
+}
+
+.distance-value {
+  font-size: 18px;
+}
+
+table,
+.metric-table,
+.feature-table,
+.context-table,
+.ranking-table,
+.reference-table {
+  font-size: 15px;
+}
+
+th,
+thead th {
+  font-size: 14px;
+}
+
+.facts-grid dt,
+dl dt {
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.facts-grid dd,
+dl dd {
+  font-size: 16px;
+}
+
+.badge,
+.chip,
+.status-chip,
+.typed-badge,
+.unit-tag {
+  font-size: 14px;
+}
+
+.json-preview,
+.json-preview summary {
+  font-size: 15px;
+}
+
+.json-preview pre,
+code {
+  font-size: 14px;
+}
+
+label,
+input,
+select,
+textarea,
+summary {
+  font-size: 15px;
+}
+
+td,
+tbody th,
+.metric-table td,
+.metric-table th,
+.feature-table td,
+.feature-table th,
+.context-table td,
+.context-table th {
+  padding-block: 10px;
+  font-size: 15px;
+}
+
+thead th,
+.metric-table thead th,
+.feature-table thead th,
+.context-table thead th {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* --- other tabs: headings and controls only --- */
+.section-heading > p,
+.example-note,
+.aoi-limits,
+.provider-readiness,
+.idle-panel,
+.six-legend {
+  display: none;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+fieldset legend,
+.coverage-panel h3,
+.global-search h3 {
+  font-size: 17px;
+}
+
+.aoi-measurement,
+.typed-coverage-list {
+  font-size: 15px;
+}
+
+/* --- dials: variance 4 (orderly), motion 4 (hover/press only), density 5 (roomier) --- */
+.app-main {
+  gap: 32px;
+  padding: 36px 40px 64px;
+}
+
+.header-inner {
+  padding-inline: 40px;
+}
+
+.panel-stack,
+.search-form,
+.aoi-form,
+.six-dimension-panel,
+.global-panel {
+  gap: 32px;
+}
+
+.target-bar {
+  padding: 20px 28px;
+}
+
+.board-head {
+  padding: 22px 28px;
+}
+
+.dimension-column {
+  gap: 24px;
+  padding: 28px 28px 36px;
+}
+
+.metric-list {
+  gap: 36px 56px;
+}
+
+.metric {
+  gap: 10px;
+}
+
+.results-grid {
+  gap: 32px;
+}
+
+.results-list {
+  gap: 12px;
+}
+
+.result-select {
+  padding: 16px 20px;
+}
+
+.detail-panel,
+.aoi-form,
+.aoi-workspace,
+.six-controls,
+.global-search {
+  padding: 28px;
+}
+
+.detail-section {
+  margin-top: 28px;
+}
+
+.facts-grid {
+  gap: 18px 28px;
+}
+
+/* --- D01–D06 evidence board (#113): similarity on top, five evidence cards in one row --- */
+.dimension-role {
+  display: none;
+}
+
+.dimension-board-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  padding: 28px;
+  border: 0;
+}
+
+.dimension-board-grid .dimension-column {
+  gap: 12px;
+  min-height: 0;
+  padding: 20px;
+  border-radius: var(--r-lg);
+}
+
+.dimension-board-grid .dimension-column.is-similarity {
+  grid-column: 1 / -1;
+  gap: 24px;
+  padding: 0 0 20px;
+  border: 0;
+}
+
+.dimension-board-grid .dimension-column > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.dimension-board-grid .dimension-column > .secondary-button {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.context-filters {
+  padding: 24px 28px 28px;
+}
+
+.context-filters h3 {
+  font-size: 17px;
+}
+
+.context-grid {
+  gap: 20px 44px;
+  margin-top: 16px;
+}
+
+@media (max-width: 1100px) {
+  .dimension-board-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .dimension-board-grid {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+}
+
+/* ==========================================================================
+   Dimension board as master-detail: six dimensions listed on the left, one
+   dimension's metrics on the right. A metric shows only its weight until the
+   weight is above 0; then target and range open below it.
+   ========================================================================== */
+
+.dimension-layout {
+  display: grid;
+  grid-template-columns: 248px minmax(0, 1fr);
+  align-items: start;
+}
+
+.dimension-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 24px 16px;
+}
+
+.dimension-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 14px;
+  color: var(--ink-soft);
+  font-size: 16px;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: var(--r-md);
+  transition:
+    background-color var(--m-out) var(--ease),
+    color var(--m-out) var(--ease);
+}
+
+.dimension-nav-item:hover {
+  background: var(--surface-sunken);
+  transition-duration: var(--m-in);
+}
+
+.dimension-nav-item.is-active {
+  color: var(--ink);
+  font-weight: 600;
+  background: var(--surface-sunken);
+}
+
+.dimension-nav-count {
+  min-width: 24px;
+  padding: 1px 7px;
+  color: var(--accent-ink);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.dimension-board-grid {
+  grid-template-columns: 1fr;
+  min-height: 340px;
+  padding: 28px 32px 36px;
+  border-left: 1px solid var(--line-soft);
+}
+
+.dimension-board-grid .dimension-column,
+.dimension-board-grid .dimension-column.is-similarity {
+  grid-column: auto;
+  gap: 24px;
+  padding: 0;
+  border: 0;
+}
+
+.dimension-board-grid .dimension-column:not(.is-active) {
+  display: none;
+}
+
+.dimension-board-grid .dimension-head h3 {
+  font-size: 20px;
+}
+
+.dimension-board-grid .dimension-column > p {
+  font-size: 16px;
+}
+
+/* a metric is one line until it is weighted */
+.metric:not(.is-weighted) .metric-row:not(.metric-row-weight) {
+  display: none;
+}
+
+.metric:not(.is-weighted) .metric-target {
+  display: none;
+}
+
+.metric-list {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  align-items: start;
+  gap: 28px 56px;
+}
+
+@media (max-width: 900px) {
+  .dimension-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .dimension-nav {
+    flex-direction: row;
+    padding: 12px 16px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .dimension-nav-item {
+    flex: 0 0 auto;
+  }
+
+  .dimension-board-grid {
+    padding: 20px 16px 28px;
+    border-left: 0;
+  }
+}
+
+.dimension-board-grid .dimension-column > .secondary-button {
+  margin-top: 0;
+}
+
+/* Weight stays where it is when a metric opens: it comes first, target and range unfold below. */
+.metric > * {
+  order: 2;
+}
+
+.metric > .metric-head {
+  order: 0;
+}
+
+.metric > .metric-row-weight {
+  order: 1;
+}
