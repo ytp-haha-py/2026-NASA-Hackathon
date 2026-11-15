@@ -103,6 +103,10 @@ jobs:
         working-directory: apps/web
         run: npm run build
 
+      - name: Development server and map modules
+        working-directory: apps/web
+        run: npm run check:dev
+
       - name: Check generated API types
         working-directory: apps/web
         run: npm run check:api
