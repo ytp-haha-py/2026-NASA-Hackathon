@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ThemeToggle } from "./components/ThemeToggle";
 import {
   ApiError,
@@ -17,27 +17,17 @@ import {
   type SearchResponse,
   type SearchResultOut,
 } from "./api/client";
-import { useAoiAnalysis } from "./hooks/useAoiAnalysis";
 import { adaptMultiDimResponse } from "./lib/multidim";
 import { readAoiLimits } from "./lib/aoi";
 import { I18nProvider, SourceText, useI18n } from "./i18n/I18nProvider";
 import type { Locale } from "./i18n/translate";
-import type { SearchSubmission, SearchTargetPreset } from "./lib/search-types";
-import { AoiForm, type AoiBbox } from "./components/AoiForm";
-import { AoiWorkspace } from "./components/AoiWorkspace";
+import type { SearchSubmission } from "./lib/search-types";
 import { DetailPanel } from "./components/DetailPanel";
 import { GlobalPanel } from "./components/GlobalPanel";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { ResultsPanel } from "./components/ResultsPanel";
 import { SearchForm } from "./components/SearchForm";
-import {
-  SixDimensionPanel,
-  fineValuesFromReference,
-  fineValuesFromSearchResult,
-  type SixDimensionTarget,
-} from "./components/SixDimensionPanel";
 import { SourcesAndMethods } from "./components/SourcesAndMethods";
-import { WorkflowSection } from "./components/WorkflowSection";
 
 const NO_RESULTS: SearchResultOut[] = [];
 
@@ -70,15 +60,9 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const [references, setReferences] = useState<ReferenceOut[]>([]);
   const [referencesError, setReferencesError] = useState<string | null>(null);
   const [datasets, setDatasets] = useState<DatasetOut[]>([]);
+  const [datasetsLoading, setDatasetsLoading] = useState(true);
   const [datasetsError, setDatasetsError] = useState<string | null>(null);
   const [bootstrapKey, setBootstrapKey] = useState(0);
-  const [aoiOpen, setAoiOpen] = useState(false);
-  const [dimensionsOpen, setDimensionsOpen] = useState(false);
-  const [aoiBbox, setAoiBbox] = useState<AoiBbox | null>(null);
-  const [aoiFormKey, setAoiFormKey] = useState(0);
-  const [searchPreset, setSearchPreset] = useState<SearchTargetPreset | null>(null);
-  const presetNonce = useRef(0);
-  const aoi = useAoiAnalysis(aoiPollIntervalMs);
 
   const [searching, setSearching] = useState(false);
   const [lastSubmission, setLastSubmission] = useState<SearchSubmission | null>(null);
@@ -86,25 +70,18 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const [searchError, setSearchError] = useState<SearchErrorState | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [activeTarget, setActiveTarget] = useState<NumericTarget>({});
-  const [selectedReference, setSelectedReference] = useState<ReferenceOut | null>(null);
   const searchController = useRef<AbortController | null>(null);
 
   useEffect(() => {
     return () => searchController.current?.abort();
   }, []);
 
-  const aoiLocationId = aoi.location?.location_id ?? null;
-  useEffect(() => {
-    if (aoiLocationId) {
-      setBootstrapKey((key) => key + 1);
-    }
-  }, [aoiLocationId]);
-
   useEffect(() => {
     const controller = new AbortController();
     setCapabilitiesLoading(true);
     setCapabilitiesError(null);
     setReferencesError(null);
+    setDatasetsLoading(true);
     setDatasetsError(null);
 
     getCapabilities(controller.signal)
@@ -138,6 +115,9 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
           setDatasets([]);
           setDatasetsError(errorMessage(caught));
         }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setDatasetsLoading(false);
       });
 
     return () => controller.abort();
@@ -194,61 +174,6 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
 
   const selectedResult: SearchResultOut | null =
     searchResponse?.results.find((result) => result.location_id === selectedId) ?? null;
-
-  const sixDimensionTargets = useMemo<SixDimensionTarget[]>(() => {
-    const targets: SixDimensionTarget[] = [];
-    if (selectedResult) {
-      targets.push({
-        id: selectedResult.location_id,
-        label: selectedResult.display_name,
-        kind: "candidate",
-        body: "Earth",
-        fineValues: fineValuesFromSearchResult(
-          selectedResult.metrics,
-          capabilities?.features ?? [],
-        ),
-      });
-    }
-    if (selectedReference) {
-      targets.push({
-        id: selectedReference.reference_id,
-        label: selectedReference.display_name,
-        kind: "reference",
-        body: selectedReference.body,
-        fineValues: fineValuesFromReference(selectedReference.features),
-      });
-    }
-    return targets;
-  }, [selectedResult, selectedReference, capabilities?.features]);
-
-  function scrollToSection(id: string) {
-    window.setTimeout(() => {
-      document.getElementById(id)?.scrollIntoView?.({ behavior: "smooth", block: "start" });
-    }, 0);
-  }
-
-  function openDimensions() {
-    setDimensionsOpen(true);
-    scrollToSection("section-dimensions");
-  }
-
-  /** An area drawn on the map seeds the analysis form and opens it. */
-  function handleDrawBbox(bbox: AoiBbox) {
-    setAoiBbox(bbox);
-    setAoiFormKey((key) => key + 1);
-    setAoiOpen(true);
-    scrollToSection("section-aoi");
-  }
-
-  function handleUseAoiAsTarget(values: NumericTarget) {
-    presetNonce.current += 1;
-    setSearchPreset({
-      nonce: presetNonce.current,
-      values,
-      sourceLabel: `on-demand AOI ${aoi.location?.location_id ?? ""}`.trim(),
-    });
-    scrollToSection("section-search");
-  }
 
   const coverageOrigins = capabilities?.coverage.origins;
   const indexedOriginCount = coverageOrigins?.indexed ?? 0;
@@ -340,11 +265,8 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 contextFeatures={capabilities.context_features}
                 references={references}
                 referencesError={referencesError}
-                onReferenceChange={setSelectedReference}
                 onSearch={handleSearch}
                 loading={searching}
-                preset={searchPreset}
-                onOpenDimensions={openDimensions}
               />
 
               {searching && (
@@ -400,33 +322,8 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                   features: capabilities.features,
                   target: activeTarget,
                   showIdle: !searchResponse && !searching,
-                  aoiBbox,
-                  onDrawBbox: handleDrawBbox,
                 }}
               />
-
-              <WorkflowSection
-                id="section-aoi"
-                title={t("flow.aoiTitle")}
-                open={aoiOpen}
-                onOpenChange={setAoiOpen}
-                keepMounted
-              >
-                <AoiForm
-                  key={aoiFormKey}
-                  capabilities={capabilities}
-                  onSubmit={aoi.submit}
-                  busy={aoi.busy}
-                  initialBbox={aoiBbox}
-                  onBboxChange={setAoiBbox}
-                />
-                <AoiWorkspace
-                  capabilities={capabilities}
-                  analysis={aoi}
-                  activeTarget={activeTarget}
-                  onUseAsTarget={handleUseAoiAsTarget}
-                />
-              </WorkflowSection>
 
               {searchResponse && !searching && (
                 <div className="results-grid">
@@ -443,7 +340,6 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                       selected={selectedResult}
                       activeTarget={activeTarget}
                       features={capabilities.features}
-                      onViewDimensions={openDimensions}
                     />
                   ) : (
                     searchResponse.results.length > 0 && (
@@ -456,70 +352,54 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 </div>
               )}
 
-              <WorkflowSection
-                id="section-dimensions"
-                title={t("flow.dimensionsTitle")}
-                open={dimensionsOpen}
-                onOpenChange={setDimensionsOpen}
-              >
-                <SixDimensionPanel
-                  features={capabilities.features}
-                  datasets={datasets}
-                  targets={sixDimensionTargets}
-                />
-              </WorkflowSection>
 
             </div>
 
             <details className="about-panel">
               <summary>{t("app.aboutSummary")}</summary>
-              <section className="coverage-strip" aria-labelledby="coverage-heading">
-                <p className="eyebrow">{t("app.coverageEyebrow")}</p>
-                <h2 id="coverage-heading">
-                  {tp("app.coverageHeading", capabilities.indexed_candidate_count)}
-                </h2>
-                <p className="coverage-origins">
-                  {rich("app.coverageOrigins", {
-                    indexed: (
-                      <strong>
-                        {t("coverage.indexedCount", { count: fmt.number(indexedOriginCount, 0) })}
-                      </strong>
-                    ),
-                    onDemand: (
-                      <strong>
-                        {t("coverage.onDemandCount", {
-                          count: fmt.number(onDemandOriginCount, 0),
-                        })}
-                      </strong>
-                    ),
-                  })}
-                </p>
-                <p>
-                  <SourceText>{capabilities.coverage.description}</SourceText>
-                </p>
-                <p className="coverage-extent">
-                  {capabilities.coverage.geographic_bbox
-                    ? t("app.coverageExtent", {
-                        bbox: fmt.bbox(capabilities.coverage.geographic_bbox),
-                      })
-                    : t("app.coverageExtentMissing")}
-                </p>
-              </section>
-              <section className="idle-panel" aria-labelledby="idle-heading">
-                <h2 id="idle-heading">{t("app.idleHeading")}</h2>
-                <p>{t("app.idleBody")}</p>
-                <ul>
-                  <li>{t("app.idleItemDistance")}</li>
-                  <li>{t("app.idleItemSynthetic")}</li>
-                  <li>{t("app.idleItemOnDemand")}</li>
-                  <li>{t("app.idleItemNotCompared")}</li>
-                </ul>
-              </section>
-              <SourcesAndMethods
-                capabilities={capabilities}
-                datasets={datasets}
-                datasetsError={datasetsError}
-              />
+              <div className="about-content">
+                <div className="about-overview">
+                  <section className="coverage-strip" aria-labelledby="coverage-heading">
+                    <h2 id="coverage-heading">
+                      {tp("app.coverageHeading", capabilities.indexed_candidate_count)}
+                    </h2>
+                    <p className="coverage-origins">
+                      {rich("app.coverageOrigins", {
+                        indexed: (
+                          <strong>
+                            {t("coverage.indexedCount", { count: fmt.number(indexedOriginCount, 0) })}
+                          </strong>
+                        ),
+                        onDemand: (
+                          <strong>
+                            {t("coverage.onDemandCount", {
+                              count: fmt.number(onDemandOriginCount, 0),
+                            })}
+                          </strong>
+                        ),
+                      })}
+                    </p>
+                    <p className="coverage-extent">
+                      {capabilities.coverage.geographic_bbox
+                        ? t("app.coverageExtent", {
+                            bbox: fmt.bbox(capabilities.coverage.geographic_bbox),
+                          })
+                        : t("app.coverageExtentMissing")}
+                    </p>
+                  </section>
+                  <section aria-labelledby="about-limits-heading">
+                    <h2 id="about-limits-heading">{t("app.aboutLimits")}</h2>
+                    <p className="about-coverage-note">{t("sources.closestOnly")}</p>
+                    <p>{t("app.idleItemNotCompared")}</p>
+                  </section>
+                </div>
+                <SourcesAndMethods
+                  capabilities={capabilities}
+                  datasets={datasets}
+                  datasetsLoading={datasetsLoading}
+                  datasetsError={datasetsError}
+                />
+              </div>
             </details>
 
             {capabilities.indexed_candidate_count === 0 && (

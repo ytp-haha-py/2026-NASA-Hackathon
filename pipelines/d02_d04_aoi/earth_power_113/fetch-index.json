@@ -1,0 +1,2049 @@
+{
+  "completed_at": "2026-11-15T14:40:47.222040+00:00",
+  "counts": {
+    "failed": 0,
+    "planned": 339,
+    "succeeded": 339
+  },
+  "end": "2024-01-07",
+  "fetch_index_version": "1.0.0",
+  "provider_id": "nasa-power",
+  "release_version": "earth-power-113-1.0.0",
+  "start": "2024-01-01",
+  "tasks": {
+    "nasa-power-D03-earth-earth-alps-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1176,
+      "fetched_at": "2026-11-15T14:37:58.443968+00:00",
+      "sha256": "a3ab616b46b4f1a6df66eaaa7cabcdcd6953a501d85250f97111dd23bf0378f4",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-alps-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1177,
+      "fetched_at": "2026-11-15T14:37:58.671002+00:00",
+      "sha256": "9ddae441a8f2d8614fc50afe44c04011b11fca1562b1f9ce3fac06db45870b3a",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-alps-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1177,
+      "fetched_at": "2026-11-15T14:37:59.150041+00:00",
+      "sha256": "109916d352d510e8c8bdd3c370d4404e12cb183100c57be4a23ad5add95f9c61",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-alps-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1177,
+      "fetched_at": "2026-11-15T14:37:59.906534+00:00",
+      "sha256": "0bf085688f3ea6cbfd87a9a35dda3a500259d4adde88f72a102b337e5563ca2f",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-alps-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1173,
+      "fetched_at": "2026-11-15T14:38:00.384868+00:00",
+      "sha256": "1dd0e8cd31f2935b4205d0c98a09d8b912ee283e34f3829cf06156d0c4c49749",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-alps-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1177,
+      "fetched_at": "2026-11-15T14:38:00.910512+00:00",
+      "sha256": "5016a39691568956469dbc102e13d68398418da6da69458d65645a165546aa97",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-alps-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1176,
+      "fetched_at": "2026-11-15T14:38:01.150894+00:00",
+      "sha256": "64564f821a93e948cfbe04d5dba6d0a8559f92e01f3ace01c252f2c2bfa21ac0",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-alps-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1177,
+      "fetched_at": "2026-11-15T14:38:01.640150+00:00",
+      "sha256": "db77a3c8f82346596b0d5bcafdaa025d1622e90145f4c7c8974302e559819c48",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-alps-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1176,
+      "fetched_at": "2026-11-15T14:38:02.129308+00:00",
+      "sha256": "4aef95403cf3c6e20d80425f18d6cfe7071a224ca79978d93196993db9646e97",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-altiplano-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1163,
+      "fetched_at": "2026-11-15T14:38:03.036249+00:00",
+      "sha256": "a4ade805f4f5d60738753aeeb2ec542a0d2127b76cf6862def9246efbe9aaf8d",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-altiplano-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1161,
+      "fetched_at": "2026-11-15T14:38:03.450333+00:00",
+      "sha256": "708285e9cbc47c1be75262d889af55dc90443a01a15efbc02da117aa524ec691",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-altiplano-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1163,
+      "fetched_at": "2026-11-15T14:38:03.648324+00:00",
+      "sha256": "6ca5375a19745dbfa09eef0a8d4b576a1d4201382bb7167ab1cbc8e392162d92",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-altiplano-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1161,
+      "fetched_at": "2026-11-15T14:38:04.162116+00:00",
+      "sha256": "8e3c5e3e05111301b3a55a6d8b924d5d4dafd12b36ffd71be4c920841b259e11",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-altiplano-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1159,
+      "fetched_at": "2026-11-15T14:38:04.635641+00:00",
+      "sha256": "cecd640e5db3244e67c684ba35f6395cb4217b66978bfe963aea2178f68c6684",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-altiplano-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1161,
+      "fetched_at": "2026-11-15T14:38:05.117732+00:00",
+      "sha256": "d8bb87a500f61009feeec083c2ea5184766e9071d4ee8e6e14b1b9f4ba8d5470",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-altiplano-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1163,
+      "fetched_at": "2026-11-15T14:38:05.894880+00:00",
+      "sha256": "03e472e651163b706ac71cf1ef1e70b8461527e58fec0243a156475cdf7f5e61",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-altiplano-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1161,
+      "fetched_at": "2026-11-15T14:38:06.187322+00:00",
+      "sha256": "de523d3a99b9c88b64867137eee64b3bb8d2c7448b6325d6edde6192f1e5368a",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-altiplano-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1163,
+      "fetched_at": "2026-11-15T14:38:06.895432+00:00",
+      "sha256": "57f6c32d0f6ed43d92ab130e113c87f4580cea642095a4b9d098ac526a60f8e7",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-atacama-desert-2024-01-01-2024-01-07": {
+      "bytes": 1167,
+      "fetched_at": "2026-11-15T14:38:07.773088+00:00",
+      "sha256": "75a3b798cf1f7a3d0fae9b6186b5decbe157a822c7fa52bb5dc4bbd0458cfd1b",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-death-valley-2024-01-01-2024-01-07": {
+      "bytes": 1145,
+      "fetched_at": "2026-11-15T14:38:07.918519+00:00",
+      "sha256": "cf94a5f8a06a653fc6fde18f4c193c73e8abf85df594718f34c3775b3a69d96e",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-devon-island-2024-01-01-2024-01-07": {
+      "bytes": 1195,
+      "fetched_at": "2026-11-15T14:38:08.461398+00:00",
+      "sha256": "5c45922f22e77e9dc2081968ec192758a314f57d4b385c6003d72a6ad4ab18ef",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-devon-polar-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1200,
+      "fetched_at": "2026-11-15T14:38:08.909094+00:00",
+      "sha256": "a8e548ab92d7688ba12e8f7c0df4f34d41df7cf225137648855c736d2ed7b81b",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-devon-polar-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1200,
+      "fetched_at": "2026-11-15T14:38:09.425205+00:00",
+      "sha256": "10b76b00c47d4b4cf827b7eaecd77a0e748c2ed19fe8ed3fb1df07790886a475",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-devon-polar-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1200,
+      "fetched_at": "2026-11-15T14:38:09.908498+00:00",
+      "sha256": "aaeeebbb97875872a1e19d0eb153a834ef1eb65c9aa1768657d94abcec80c7b2",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-devon-polar-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1200,
+      "fetched_at": "2026-11-15T14:38:10.425000+00:00",
+      "sha256": "2f77cabe750b9dd41fb155b1b57b2dd70389eff1f4bff755c32fe912994cba6f",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-devon-polar-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1196,
+      "fetched_at": "2026-11-15T14:38:10.614671+00:00",
+      "sha256": "6795d6e5596df97353b5d0a711c529c45313f67c26abbf166f2602afefc8f65a",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-devon-polar-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1200,
+      "fetched_at": "2026-11-15T14:38:11.375234+00:00",
+      "sha256": "76429b153ab55169761d3b0dbcff69952f8f4af1281af4e14f26f17f0c8d15b2",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-devon-polar-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1200,
+      "fetched_at": "2026-11-15T14:38:11.878508+00:00",
+      "sha256": "55989fab860dafee28e1b8e888b9a4fe678a16362b317ccffe3e34a8a2144b80",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-devon-polar-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1200,
+      "fetched_at": "2026-11-15T14:38:12.106075+00:00",
+      "sha256": "cb44f554adcb717e80daa5531589fd2bc6630c26f58f7bbbb55e4be3df5f88af",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-devon-polar-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1200,
+      "fetched_at": "2026-11-15T14:38:12.884552+00:00",
+      "sha256": "35cfbde0eb53228a770dab9a2bfe8118a1d18072e0e046d921719a87948a3c1f",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-grand-canyon-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1163,
+      "fetched_at": "2026-11-15T14:38:13.416792+00:00",
+      "sha256": "da69727cf051b37ce799e972353b3676bc5ebc9e2ff6822a808ee189622cea57",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-grand-canyon-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1161,
+      "fetched_at": "2026-11-15T14:38:13.649035+00:00",
+      "sha256": "bd03a92a80259d7e3937158763c5e02f279caca47f4081a2be66774664a14af9",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-grand-canyon-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1165,
+      "fetched_at": "2026-11-15T14:38:14.375198+00:00",
+      "sha256": "0d2fe7a701d37b8cd10186ea988d97be6d71a102c868f67e376fb555a5b41ebd",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-grand-canyon-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1161,
+      "fetched_at": "2026-11-15T14:38:14.892852+00:00",
+      "sha256": "822fc3212dde1f607f63e2c0aba88be4035111996c715e9f69cfdf08dd3d3355",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-grand-canyon-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1159,
+      "fetched_at": "2026-11-15T14:38:15.127590+00:00",
+      "sha256": "b59250ef611d29cb8f49561676af43f02a72f6d447884ed75d829a9734ed420e",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-grand-canyon-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1163,
+      "fetched_at": "2026-11-15T14:38:15.881875+00:00",
+      "sha256": "6480104b89cd531c8eb5d2f2441cdaf5a63192aab894de0eebe27725a6a4c521",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-grand-canyon-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1163,
+      "fetched_at": "2026-11-15T14:38:16.382918+00:00",
+      "sha256": "2ee364633169d37109ea845d8fc6297c23c85fd41ad28685956d828e4859d723",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-grand-canyon-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1161,
+      "fetched_at": "2026-11-15T14:38:16.898672+00:00",
+      "sha256": "c407d12ab52693662c59b652dfbb5716c796afd9b50a3af6467718851f45a7f7",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-grand-canyon-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1165,
+      "fetched_at": "2026-11-15T14:38:17.518676+00:00",
+      "sha256": "8eb6e8a55f5407e5383354de7c49fd92ed9ed3cea3afc5af12af2734f3aee5d9",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-haughton-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1198,
+      "fetched_at": "2026-11-15T14:38:17.871862+00:00",
+      "sha256": "1ab71e59fe584059a00b91a473bd2be3cd072cae07366c7ba94e2edfa4c70304",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-haughton-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1200,
+      "fetched_at": "2026-11-15T14:38:18.372379+00:00",
+      "sha256": "003a1e3e596a7f95978b6bd30cb24525a18d1af8cf39f73538fad4f4e8ed8177",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-haughton-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1199,
+      "fetched_at": "2026-11-15T14:38:18.873964+00:00",
+      "sha256": "3864709ba90a6ab9f91ea062c562f670dae1aa7ca08f8c4b9f3e4d9d5549fd9f",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-haughton-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1198,
+      "fetched_at": "2026-11-15T14:38:19.139151+00:00",
+      "sha256": "ffca2cd7e9be82c61fc4c3ec308791f60fc6126a4594c8d63efd85b57dc0dc47",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-haughton-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1198,
+      "fetched_at": "2026-11-15T14:38:19.942346+00:00",
+      "sha256": "68c7f48b315005505c4928609e99481c04df3417fef504c61c72049bafd60aa7",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-haughton-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1200,
+      "fetched_at": "2026-11-15T14:38:20.444872+00:00",
+      "sha256": "fe02098c35a0331d91ad42cf40d0b581239f036aae09e5b27a283744471392aa",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-haughton-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1198,
+      "fetched_at": "2026-11-15T14:38:21.325445+00:00",
+      "sha256": "b0df88ae3503590245572bc8febd1cdce258a96661174513c79eaa7a0210a23c",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-haughton-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1200,
+      "fetched_at": "2026-11-15T14:38:21.439908+00:00",
+      "sha256": "085ac814ade24384f6984adf13598940d391d87fe9bd6d8f4b923ac7b3ebefcb",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-haughton-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1200,
+      "fetched_at": "2026-11-15T14:38:21.618380+00:00",
+      "sha256": "c93d437bcc36e717c2cc78c1324fe6e7a85c1e036128e00d4f8bacec0832dbf9",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-iceland-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1173,
+      "fetched_at": "2026-11-15T14:38:22.625523+00:00",
+      "sha256": "4ca186fbc2f3ed51eaf919f80fe00bf93eaee16169d8c06e36deabc6fabb24d7",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-iceland-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1173,
+      "fetched_at": "2026-11-15T14:38:22.923662+00:00",
+      "sha256": "fe452391f41fb4e653bd45863205d14a69a389d986d3f183db4a942e525dbe16",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-iceland-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1172,
+      "fetched_at": "2026-11-15T14:38:23.389545+00:00",
+      "sha256": "78c584cd53a4d183264f6b30ebf5ba9652928f10039c1ab9f125122e316e4d58",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-iceland-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1173,
+      "fetched_at": "2026-11-15T14:38:23.904340+00:00",
+      "sha256": "432b0061141fbec03196b2b5014d43e7cd5b4f36e57650805257d905cc93cecf",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-iceland-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1169,
+      "fetched_at": "2026-11-15T14:38:24.389629+00:00",
+      "sha256": "4feb96da12d2b4ef79dbc78c024ca9fb69e1668335383b3e8b1d1ae1fbe60e7a",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-iceland-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1173,
+      "fetched_at": "2026-11-15T14:38:24.841088+00:00",
+      "sha256": "472328350573bb61ad679b46b0abcf4da571a3a37e1fb168dcf282f35c40ab72",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-iceland-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1173,
+      "fetched_at": "2026-11-15T14:38:25.393860+00:00",
+      "sha256": "e66c4c33aa966720878ba3a1642b4bef6b6cc4c47b443c487af87bdbfe2e76a2",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-iceland-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1173,
+      "fetched_at": "2026-11-15T14:38:25.625572+00:00",
+      "sha256": "726502b6e7816e2a1ba354326267678af76e9e54117982ed5a499eed7952a6ea",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-iceland-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1173,
+      "fetched_at": "2026-11-15T14:38:26.366565+00:00",
+      "sha256": "ddd60016c2c6fd466b2e845e69ce31ce981f3b96a956fb77187bc2bd86750d33",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-lanzarote-2024-01-01-2024-01-07": {
+      "bytes": 1164,
+      "fetched_at": "2026-11-15T14:38:27.016608+00:00",
+      "sha256": "126cd1e3ea754bc7a218046a4bcd449a71158e9e5d99c2efa237f7f739a48956",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-namib-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1168,
+      "fetched_at": "2026-11-15T14:38:27.761453+00:00",
+      "sha256": "73ba0938c9006b289a1ea8705228728c7065fbdeefb276e801eef9c3ba4283ad",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-namib-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1167,
+      "fetched_at": "2026-11-15T14:38:27.808696+00:00",
+      "sha256": "278d68ffa9e80b7bf6bf13cd9b1a0190c72d4c9c3d27898bf2c155b0a60f2cc9",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-namib-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1170,
+      "fetched_at": "2026-11-15T14:38:28.383207+00:00",
+      "sha256": "34f3d22f59dacb203b36840457de4cbf783194f63e82a5729e513dd90d107a43",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-namib-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1165,
+      "fetched_at": "2026-11-15T14:38:28.873555+00:00",
+      "sha256": "f2a97312fa0a0b4f6c92ddfff3d35e00944257d0dbc157a802c4494a2ab52afc",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-namib-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1165,
+      "fetched_at": "2026-11-15T14:38:29.108047+00:00",
+      "sha256": "7db181d9c462dfe35d4842ff7c7ab019f95c05bbf3c6469d86bb23b30e12d7e4",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-namib-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1169,
+      "fetched_at": "2026-11-15T14:38:29.861143+00:00",
+      "sha256": "9710d71979944e99ac64e223da4c3d0a02b6492070d47630e6a8ee4081616522",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-namib-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1168,
+      "fetched_at": "2026-11-15T14:38:30.370135+00:00",
+      "sha256": "63ce6f73dc6be7abb0ba81e45889c5a7c0c336c09e89a0461c0e03adb3e63740",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-namib-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1167,
+      "fetched_at": "2026-11-15T14:38:30.980752+00:00",
+      "sha256": "98dd51e11acd66ce9f6df62209dffaca5f30c7504cbeb0c4bce00b5d251988c6",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-namib-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1171,
+      "fetched_at": "2026-11-15T14:38:31.382908+00:00",
+      "sha256": "ff54c6c8819b69bac8496f49fe154f59dfc705e846fca76f6abdf3b97d4fcbce",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pampas-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1171,
+      "fetched_at": "2026-11-15T14:38:31.687471+00:00",
+      "sha256": "cb1a01e303377dc3ff4b2d87929ab6d96e6f4ad1b6ca4d66be56e7ef24aeb6e2",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pampas-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1169,
+      "fetched_at": "2026-11-15T14:38:32.403627+00:00",
+      "sha256": "c1eb5110b1412306e0f90c220a6f6a781772335e2276c06e1066af09b4d08e94",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pampas-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1171,
+      "fetched_at": "2026-11-15T14:38:32.586083+00:00",
+      "sha256": "c17aa259e98bb04b7b503b6af7ee12418cac7ba62f4394056aefcbd33cb6936b",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pampas-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1169,
+      "fetched_at": "2026-11-15T14:38:33.137326+00:00",
+      "sha256": "66be211c8eae6a07cd0f3f9b9f34516c34c37432e4c19f3618208c0a01f7a674",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pampas-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1167,
+      "fetched_at": "2026-11-15T14:38:33.888323+00:00",
+      "sha256": "b699fd76f5a00a63f66153a64363af50262beb6868b247ecd520250755e5f68f",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pampas-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1169,
+      "fetched_at": "2026-11-15T14:38:34.369262+00:00",
+      "sha256": "2c127a80c361063f4ea6f5d09779fb3675de7f683037af59870a66749b1ef321",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pampas-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1171,
+      "fetched_at": "2026-11-15T14:38:34.887505+00:00",
+      "sha256": "93b037574e8ef58492a66bb34c8f154749955abe806e9f928825be4f8e42ae81",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pampas-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1169,
+      "fetched_at": "2026-11-15T14:38:35.380632+00:00",
+      "sha256": "fe53730560d4434823c19319951ffe9b8525481464e2efbe98e20fd1e3e684ba",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pampas-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1171,
+      "fetched_at": "2026-11-15T14:38:35.883070+00:00",
+      "sha256": "355f3547c3b495109d78af68c8a28ac6e4b0fd026c6a0596defe972f3cc35f1e",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pingualuit-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1197,
+      "fetched_at": "2026-11-15T14:38:36.717881+00:00",
+      "sha256": "c59f26cef995cd4ad2a7118a38501a2fc9d424f694cd0f18c00aa5866dc776bc",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pingualuit-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1197,
+      "fetched_at": "2026-11-15T14:38:36.910097+00:00",
+      "sha256": "6089b342ff6542883db5076a4368de8a3fcf4b4b82c155b34dcfcecc096ab4e9",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pingualuit-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1198,
+      "fetched_at": "2026-11-15T14:38:37.377517+00:00",
+      "sha256": "3698f3f0a75f1f4a5178d7eb622a558530ac4837b46e02e5ee0c59b767e1c3fc",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pingualuit-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1199,
+      "fetched_at": "2026-11-15T14:38:37.893836+00:00",
+      "sha256": "a9d61d2b4045c561be57e40e128c43212b6d1c87646ac5c3fc67982a846bd70e",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pingualuit-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1197,
+      "fetched_at": "2026-11-15T14:38:38.554161+00:00",
+      "sha256": "3e352429989862085082fdc0d7616e7239edbea904322f89d6c47ceee6259540",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pingualuit-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1199,
+      "fetched_at": "2026-11-15T14:38:38.880822+00:00",
+      "sha256": "16af24c2769ec57027ea3a0a2db44c9ad3be3f978a751f125f5e8acac21081ae",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pingualuit-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1199,
+      "fetched_at": "2026-11-15T14:38:39.376292+00:00",
+      "sha256": "9c4092c1f5152938ebeda5754d7f2b97f6801833b8f283ced0b67d2dbda90703",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pingualuit-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1199,
+      "fetched_at": "2026-11-15T14:38:39.867448+00:00",
+      "sha256": "1e99ae14f237af478f4caa77e7ca3e2dea5802379923b379b46eee5a50d96821",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-pingualuit-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1199,
+      "fetched_at": "2026-11-15T14:38:40.394657+00:00",
+      "sha256": "6974e1307b6a0b22e3d926f919b6a54024e08fb7a978cda2151a733322ef6154",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-rio-tinto-2024-01-01-2024-01-07": {
+      "bytes": 1155,
+      "fetched_at": "2026-11-15T14:38:40.912379+00:00",
+      "sha256": "fda0ab896a369510074fcbe09abd2677944628058d6f595c7165c470bbc7b087",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-sahara-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1162,
+      "fetched_at": "2026-11-15T14:38:41.643373+00:00",
+      "sha256": "8130ee31778ca44de4aa10765b4aad9293acde33a0f5c4041e57ec4aae391326",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-sahara-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1161,
+      "fetched_at": "2026-11-15T14:38:42.093977+00:00",
+      "sha256": "f1abbc9c9dbf5b765a0237fb8382f6a42ac13fb05fca14c8ed26c210fed99198",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-sahara-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1163,
+      "fetched_at": "2026-11-15T14:38:42.555447+00:00",
+      "sha256": "aac63673191967fe640b9565049484099e50ae0c96ae3517f73f6838c5566d73",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-sahara-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1160,
+      "fetched_at": "2026-11-15T14:38:42.918039+00:00",
+      "sha256": "990a2ba8d4833781abc48d7cec9070728e777997b6a853d7f283ce81e46051a9",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-sahara-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1159,
+      "fetched_at": "2026-11-15T14:38:43.383515+00:00",
+      "sha256": "8b5801086439a182ec9bf751c3cd7a8e503a9fec52d141e8b90b7686e252421a",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-sahara-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1160,
+      "fetched_at": "2026-11-15T14:38:43.759644+00:00",
+      "sha256": "c051be636378feb5c47ca0df5c636fcb4ef6381f0d10e7e629e17dc76679d595",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-sahara-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1163,
+      "fetched_at": "2026-11-15T14:38:44.378976+00:00",
+      "sha256": "4e1872c4b2c65852d335045cc1a407fe9dfa17790a260965e8be1413b3c2cbb7",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-sahara-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1161,
+      "fetched_at": "2026-11-15T14:38:44.887741+00:00",
+      "sha256": "f014bafdfc798a77099ec3220d7c158c80fd5c0c10fb8d34183acaa699348dab",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-sahara-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1162,
+      "fetched_at": "2026-11-15T14:38:45.357236+00:00",
+      "sha256": "60353af35c3b5c95f8451c2e34061aa4f9244704c99184450d5d381cfe950a41",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-snake-river-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1166,
+      "fetched_at": "2026-11-15T14:38:45.712626+00:00",
+      "sha256": "c23ccab3dec7a66553997feea1a78a55a4ae6ad212e3365663490b46f63fbabe",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-snake-river-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1166,
+      "fetched_at": "2026-11-15T14:38:46.406717+00:00",
+      "sha256": "6e4138515960e48b39998c2cf61dfe9f5fea766a66993726f7f195b0bfed9e65",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-snake-river-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1166,
+      "fetched_at": "2026-11-15T14:38:46.919512+00:00",
+      "sha256": "34e2e37d84787721241ce5aad754ab4c4b3f33e466aaf7ad3c557bdf7ce19501",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-snake-river-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1166,
+      "fetched_at": "2026-11-15T14:38:47.394758+00:00",
+      "sha256": "f4fed235528e86327a16b703a0fe7c165ffd5e1d6d7258a1b5fa4ae6880b5522",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-snake-river-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1161,
+      "fetched_at": "2026-11-15T14:38:47.883838+00:00",
+      "sha256": "afb9116bb9e10bca1d43e5fdef3ecd16a8fe59aacf6dc7542607d0f45a44b04f",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-snake-river-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1166,
+      "fetched_at": "2026-11-15T14:38:48.265449+00:00",
+      "sha256": "08b0a1f8515112c309e6513619c4a103be089f4a67a8d038ff134368b713c05f",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-snake-river-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1166,
+      "fetched_at": "2026-11-15T14:38:48.880573+00:00",
+      "sha256": "a3ee541671dadb936707bf2d697b18219f92bbd10b4ef1d0e559253d8eb1c02a",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-snake-river-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1166,
+      "fetched_at": "2026-11-15T14:38:49.411721+00:00",
+      "sha256": "eb9797d4cae1373fc3add2c0ede79399de81e5968d65a7f7b624a736e8a9896a",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-snake-river-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1166,
+      "fetched_at": "2026-11-15T14:38:49.634776+00:00",
+      "sha256": "b2d9aee80fda2c2ab13fdabc6d0ef80173b3fc95d51fbbf16718663fca0de243",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-wupatki-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1157,
+      "fetched_at": "2026-11-15T14:38:50.474800+00:00",
+      "sha256": "0b9c1da95025d74b866f46a01f8d6c2ccba6a0caeeca93e609cec9d278197d44",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-wupatki-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1155,
+      "fetched_at": "2026-11-15T14:38:51.022470+00:00",
+      "sha256": "dc9f3931b1302d0e988fccc30398f2b2faeef2c883eecf5e06a5b22750fb89a2",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-wupatki-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1157,
+      "fetched_at": "2026-11-15T14:38:51.439249+00:00",
+      "sha256": "5c321b39b2d6cbef5fa25f0eef841b3f6c9896239f0b2be6a0c2ae6946c699e8",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-wupatki-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1156,
+      "fetched_at": "2026-11-15T14:38:51.885790+00:00",
+      "sha256": "a48e5fb83e79748d863a20a6e484aca0b80af98d50f135a0d2365d8e83d34f06",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-wupatki-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1153,
+      "fetched_at": "2026-11-15T14:38:52.408967+00:00",
+      "sha256": "d04fca2473cf1f3881746271910fe3cd593720083b97f2b1c10e4677c23b765c",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-wupatki-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1156,
+      "fetched_at": "2026-11-15T14:38:52.888037+00:00",
+      "sha256": "5beffdde7593879a73726e0e8cb63582790cc0e8c0455aa6c5c3361dc86299f6",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-wupatki-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1157,
+      "fetched_at": "2026-11-15T14:38:53.591831+00:00",
+      "sha256": "9c943c3f40d5df401d9fbe8b63e19148617d1600e993b8f3c69977ca82d07597",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-wupatki-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1155,
+      "fetched_at": "2026-11-15T14:38:53.933558+00:00",
+      "sha256": "cab94f8a52e35346cca9a54a0570e1d621ecbc3bd082b6085b8070eca3d0e0b4",
+      "status": "succeeded"
+    },
+    "nasa-power-D03-earth-earth-wupatki-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1157,
+      "fetched_at": "2026-11-15T14:38:54.110913+00:00",
+      "sha256": "d1ee737c193cd31f6ddc21b0b6bc43e53b59f9029259ef7a944c6e0f6f80e299",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-alps-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1135,
+      "fetched_at": "2026-11-15T14:38:54.877951+00:00",
+      "sha256": "4d07ccd8428b7eed26b23ff496cdb1b9b22461d49310813458f4fd14b503c25f",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-alps-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1136,
+      "fetched_at": "2026-11-15T14:38:55.365730+00:00",
+      "sha256": "5a5afc812a0d57a88389720203b59568787b2f4a2025f13a80616eea2d829313",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-alps-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1136,
+      "fetched_at": "2026-11-15T14:38:55.835271+00:00",
+      "sha256": "b105cc192e9f8c84eda90b91559fc6d7016197645b578291d0435f4e0ffc6e10",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-alps-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1136,
+      "fetched_at": "2026-11-15T14:38:56.362598+00:00",
+      "sha256": "55e8cc042705096c9d150e6027ff15dcff74c2b4810ce3f54a959627a5beecdc",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-alps-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1132,
+      "fetched_at": "2026-11-15T14:38:56.896713+00:00",
+      "sha256": "647014ca41a2f8fae1af83eaa0276212e47a4c3bbeaf0ea5066ba3b5141fe9f6",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-alps-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1135,
+      "fetched_at": "2026-11-15T14:38:57.445664+00:00",
+      "sha256": "b45b1bba12b9bb00cee0e72cf475dfb1ae653916772ec31e461a71351a179746",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-alps-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1136,
+      "fetched_at": "2026-11-15T14:38:57.843591+00:00",
+      "sha256": "f4ae1d4e803fe14dcc42be5a616289ca12e732823a7589733cd74e5e78b4310c",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-alps-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1136,
+      "fetched_at": "2026-11-15T14:38:58.368974+00:00",
+      "sha256": "9e256469837ad36c4388994d74201cd158bdb3002886a1b5db827e1a6af9d906",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-alps-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1135,
+      "fetched_at": "2026-11-15T14:38:58.865747+00:00",
+      "sha256": "afa2209655650eafa30e8f13bceb2afba6f77d8dc9af6f52f51f5eab469d68be",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-altiplano-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1134,
+      "fetched_at": "2026-11-15T14:38:59.500574+00:00",
+      "sha256": "b0546b9c58b997be93af99b9d94980e23ee63e5841b373bfa60d5673c1412798",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-altiplano-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1132,
+      "fetched_at": "2026-11-15T14:38:59.892822+00:00",
+      "sha256": "0580643f80ffecd55353ce34077b2d1abe5904b3a91e0d3b40c2f291082ffab0",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-altiplano-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1134,
+      "fetched_at": "2026-11-15T14:39:00.363300+00:00",
+      "sha256": "fb3726fd569e07b6e94a162f0cb584e6f3709cc4dba555e38051cd0ad415ab05",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-altiplano-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1131,
+      "fetched_at": "2026-11-15T14:39:00.894407+00:00",
+      "sha256": "922a09377a88e76e30eb78938290c098240dddbbcc4b732140e3a055c2d9e21f",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-altiplano-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1130,
+      "fetched_at": "2026-11-15T14:39:01.374724+00:00",
+      "sha256": "9416edbc3b23de3ef94b819afb341acfdac6c123549524de47946daa4909a01a",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-altiplano-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1132,
+      "fetched_at": "2026-11-15T14:39:01.609632+00:00",
+      "sha256": "636695e2a5d7025afe37760f534af7f9e786622615aecf98d03a22c7cdc77492",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-altiplano-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1134,
+      "fetched_at": "2026-11-15T14:39:02.400066+00:00",
+      "sha256": "a7bfab0201600be915003a1fa9f34a0478411fb197cb266adff0982d083f3853",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-altiplano-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1132,
+      "fetched_at": "2026-11-15T14:39:02.889548+00:00",
+      "sha256": "95d57f16969a78c0a896da523e13a2820d39fc10684bcac6b6395d0ccad00fa7",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-altiplano-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1133,
+      "fetched_at": "2026-11-15T14:39:03.102970+00:00",
+      "sha256": "5a78c6822b57504c300a426bf6a50838347eebaef9065bb1580b0ecde3762abc",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-atacama-desert-2024-01-01-2024-01-07": {
+      "bytes": 1122,
+      "fetched_at": "2026-11-15T14:39:03.859756+00:00",
+      "sha256": "b8db4df3929f4e6e1e1718b3917c36c4347bd6767f3dfd466694df0dc50b1186",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-death-valley-2024-01-01-2024-01-07": {
+      "bytes": 1120,
+      "fetched_at": "2026-11-15T14:39:04.150794+00:00",
+      "sha256": "b2b48b236c3b89040d9238c466cfc7335d0449bde4336a6651542312ab22b242",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-devon-island-2024-01-01-2024-01-07": {
+      "bytes": 1138,
+      "fetched_at": "2026-11-15T14:39:05.204429+00:00",
+      "sha256": "15035402bee1f70360b269ed3c6f9989d9b4f374e3765ca98f7bc706cbd05d11",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-devon-polar-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:05.391062+00:00",
+      "sha256": "76529bd8301a6193ed56ec3ab0392e834c4d7f2807020e569b8a4240f5424be1",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-devon-polar-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:05.871783+00:00",
+      "sha256": "de2efa2011cea1645bd52e0b760f47e91a346a689b5203768376dbaf15c1ad42",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-devon-polar-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:06.367999+00:00",
+      "sha256": "6878bd1622a9859ae5f75dc1a23cb5e58de3feddbd36e1f7670ae45e6373ee93",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-devon-polar-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:06.839736+00:00",
+      "sha256": "8272b48308be34355eaf7d18c5d2f0a85c2994c1c801e7aae9c4f2377b3b2464",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-devon-polar-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1138,
+      "fetched_at": "2026-11-15T14:39:07.350225+00:00",
+      "sha256": "6f1b5e234c790a689c62a29d7fe447b85a4de097b034b7cae28ea0c7cc378e26",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-devon-polar-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:07.868264+00:00",
+      "sha256": "4a33b11308d242fa9da68ea1d3051a32a7458da235b71449818776a64cfab677",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-devon-polar-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:08.338884+00:00",
+      "sha256": "a9a6f5103c0bd77f94a6e98bf6d1a6487d7eb5f39662141dd2d534444ba303dd",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-devon-polar-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:08.875699+00:00",
+      "sha256": "6f52fe590311ed2ce10e8226dfeb223c64d6d453e2e945c3881bb9baf367517d",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-devon-polar-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1140,
+      "fetched_at": "2026-11-15T14:39:09.094882+00:00",
+      "sha256": "56251368579c973b25e1d0fa38ea18061a455ac7fd93af52c8d450d403fa9c06",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-grand-canyon-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1136,
+      "fetched_at": "2026-11-15T14:39:09.945535+00:00",
+      "sha256": "226e27d3551a4ee8a40147d984c419f63e5f7266a961587d55ee4014ab190308",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-grand-canyon-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1135,
+      "fetched_at": "2026-11-15T14:39:10.348402+00:00",
+      "sha256": "421f6195247863d62055c5fed90fef1f9b74ee6774b30c9e51473e72c19e4577",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-grand-canyon-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1127,
+      "fetched_at": "2026-11-15T14:39:10.902867+00:00",
+      "sha256": "10d32336b5365b8828052f037d4a5c34714124c0b120883489980b3402dfc9c4",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-grand-canyon-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1135,
+      "fetched_at": "2026-11-15T14:39:11.345758+00:00",
+      "sha256": "c5746f8facb773abe76a375a5a6c380cdf5d4f393404ae73f05b0230c9b94369",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-grand-canyon-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1133,
+      "fetched_at": "2026-11-15T14:39:11.850822+00:00",
+      "sha256": "9e98911ad99fc22dee1ca065cc884b4407b3ef08c960dcbbb374ffe7cba30607",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-grand-canyon-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1125,
+      "fetched_at": "2026-11-15T14:39:12.344997+00:00",
+      "sha256": "d084f01e87ceaf0fad000fe3d9ae69da6aece67a195994075f5d01dc1bb36366",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-grand-canyon-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1137,
+      "fetched_at": "2026-11-15T14:39:12.900852+00:00",
+      "sha256": "ee160bd77a258c4ffcf6753e0af8b76254d6d419afd2320fbea281c8904e29f7",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-grand-canyon-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1135,
+      "fetched_at": "2026-11-15T14:39:13.348700+00:00",
+      "sha256": "c94475dd386925bc0778869716dcbc70f4b520878ccc407e47f78adf164cfa53",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-grand-canyon-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1127,
+      "fetched_at": "2026-11-15T14:39:13.844498+00:00",
+      "sha256": "f9e731a11ff1460f1bbfd72ff443c00617f8236f59e5c8c46d9c18a15599ac72",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-haughton-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:14.363997+00:00",
+      "sha256": "80330c91b7b48605361602b90d9ae34c0cf58b93db1fb7eb7c932e02be246695",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-haughton-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:14.860935+00:00",
+      "sha256": "8c3f93cfc101229e57d89aa0b4566493a217037e9997f92709e994fff85a488c",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-haughton-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:15.099059+00:00",
+      "sha256": "1b847c04019859eeeb56b70e3c71354ca5dbd0f1c8bb4cb546c6165ad2d0b95e",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-haughton-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1140,
+      "fetched_at": "2026-11-15T14:39:15.864789+00:00",
+      "sha256": "caa29fce3fb7ddaa47db017e3fc87274ef60dd4490bd0ae06fecb8097a21b5a4",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-haughton-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1140,
+      "fetched_at": "2026-11-15T14:39:16.362254+00:00",
+      "sha256": "a1b715030126fe6948d71239c7d84319b16eb13d7dcb24b8df6232ce556031fb",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-haughton-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:16.869690+00:00",
+      "sha256": "7dfb7eaa0e6f458b7aff8d6e80066b11a99d281b07f4631de716308bab758a76",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-haughton-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:17.359956+00:00",
+      "sha256": "76208cd6260e6bf9b713418d9f554dca84e6c1f051afd36e736107027ab3629f",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-haughton-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:17.851068+00:00",
+      "sha256": "accda111b146fedee41d4568d19b25d2866e89afdf5d5859037346e83126a343",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-haughton-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:18.346177+00:00",
+      "sha256": "625d2d408fd773ae20748362dc46ff70aae3bbdf0a36429b3eb4f5a3e68e7798",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-iceland-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:19.058894+00:00",
+      "sha256": "14a9806727836fe93c1339d572787b09429c2afb201c3079430f58984d3fecf1",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-iceland-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:19.383999+00:00",
+      "sha256": "b2962cb7d3070813b52d27761468e8513d20fcbe973e3ddb3bfb0af59ef4a944",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-iceland-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:19.848889+00:00",
+      "sha256": "665c2cc8cc6fcb2fd99a016c8d89dce922998bb8fc1b0f4c47ddec41b9f5b226",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-iceland-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:20.355174+00:00",
+      "sha256": "c54f4c7a04440a1a957242b47fa45af30fa7abef14732fcbd998f26f433f090b",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-iceland-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1137,
+      "fetched_at": "2026-11-15T14:39:20.837042+00:00",
+      "sha256": "8bc1a9f0723df05cace090f997fd5325b6dcf3e6c69cff0b13b6faf45cc06c94",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-iceland-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:21.338373+00:00",
+      "sha256": "60929d1451f906b5f01ef882bf5a13693f9f9bb3996ef341dbfc5793faa5067b",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-iceland-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:21.878573+00:00",
+      "sha256": "74290ac7a70d12088a85db4bc5e761114cf520e1af136bca72fbed374ab5fb99",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-iceland-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:22.117993+00:00",
+      "sha256": "2fdbb4292a5d21ec8c2ac134bda385d01c417c055209077eb1eb522fc125448a",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-iceland-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:22.857406+00:00",
+      "sha256": "dbdb8b0df9a39cf9026789697fde2ab5355eef43ef828d9458562e641179f8d4",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-lanzarote-2024-01-01-2024-01-07": {
+      "bytes": 1118,
+      "fetched_at": "2026-11-15T14:39:23.390046+00:00",
+      "sha256": "e464b9951d6a740f6df16ecf7c3cceb262f676201d571b7ad6483821c2349fdc",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-namib-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1125,
+      "fetched_at": "2026-11-15T14:39:23.968100+00:00",
+      "sha256": "3154cbe179986801ba634fde82ce4a2f3168d8944da87945745e59f272a5b447",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-namib-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1124,
+      "fetched_at": "2026-11-15T14:39:24.310764+00:00",
+      "sha256": "e81b0e3ae966070a7388c53d8cab5340ca0593aaeeca6ea53646d08ab14e9096",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-namib-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1124,
+      "fetched_at": "2026-11-15T14:39:24.583942+00:00",
+      "sha256": "2270ade7e07ea05227aef67c4ee99e99d86fc149437017d06ff43837bff95ddd",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-namib-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1123,
+      "fetched_at": "2026-11-15T14:39:25.337070+00:00",
+      "sha256": "0bd96b26c27b116e365e3da340969f4277b8ab9cbe90bb76f635b44e9c51620e",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-namib-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1122,
+      "fetched_at": "2026-11-15T14:39:25.852667+00:00",
+      "sha256": "d21523cb707d1d799aa3ac2999a27286f0ca026633abd904c5e0214f6f4131af",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-namib-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1122,
+      "fetched_at": "2026-11-15T14:39:26.416297+00:00",
+      "sha256": "a390f4052c779a1292448a63a42efbe4998bad0ee71f3ddf9c9a0fb3e65f094e",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-namib-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1125,
+      "fetched_at": "2026-11-15T14:39:26.599684+00:00",
+      "sha256": "e17da3d9c6b9698b6d92abd563baae75795a99631b26b8a970cabadc6b3c25cb",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-namib-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1124,
+      "fetched_at": "2026-11-15T14:39:27.334822+00:00",
+      "sha256": "462c3fb76ec7ab0dac539f4ca135838515b76c38d540fb16630328d2c669af4b",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-namib-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1124,
+      "fetched_at": "2026-11-15T14:39:27.862624+00:00",
+      "sha256": "4560191951a92e4b8103e10f852f24f3135736891592a3f7a75e7fea05bd1139",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pampas-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1125,
+      "fetched_at": "2026-11-15T14:39:28.406773+00:00",
+      "sha256": "c8406c86d661f7620b17df0173f0c65f761deb4a712941cabc41b69ebcc44791",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pampas-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1123,
+      "fetched_at": "2026-11-15T14:39:28.838206+00:00",
+      "sha256": "0f6d4e456edc7bea4c6f61e14b8120ee61cf41f8f2b20be46b09a6ce9caa6e16",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pampas-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1125,
+      "fetched_at": "2026-11-15T14:39:29.110752+00:00",
+      "sha256": "c98bc3de27227ebac1bbaff91b8239bd5eb5e8f7451131ef22beaaaa437cabe5",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pampas-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1123,
+      "fetched_at": "2026-11-15T14:39:29.601717+00:00",
+      "sha256": "056724ca8e71bc50904ef9961236df339da6814e239519044605ed9aae351e53",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pampas-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1121,
+      "fetched_at": "2026-11-15T14:39:30.093657+00:00",
+      "sha256": "4d5195346e3a3cdea5de3fa1406450a6e00754a05c60f882aecc42e833d290ba",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pampas-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1123,
+      "fetched_at": "2026-11-15T14:39:30.842817+00:00",
+      "sha256": "b92a34fd8fa4040d1d1861d0a0ca26f6e76118e89763aa75f646ebf915288995",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pampas-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1125,
+      "fetched_at": "2026-11-15T14:39:31.330322+00:00",
+      "sha256": "4f0169d674e7993b982100f529d63c43178df12f876316d0b28448a60c6204af",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pampas-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1123,
+      "fetched_at": "2026-11-15T14:39:31.834975+00:00",
+      "sha256": "2830e4116175c48b62baaa578d820e892389bddd9186a4cab16355e0a835e5c8",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pampas-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1124,
+      "fetched_at": "2026-11-15T14:39:32.332559+00:00",
+      "sha256": "8d988fec20b85e104b36cbe6c9a202998490917371f41d3804ecdc135d54c87a",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pingualuit-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1140,
+      "fetched_at": "2026-11-15T14:39:32.732218+00:00",
+      "sha256": "eb7e27ca4242b1352b7e8011ce699b094ce60dda0f5038cdb01d699450980498",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pingualuit-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:33.113324+00:00",
+      "sha256": "3f46d9e2069bff8e1e06b6b90bd0acd1bc64df0bff99c523f6be71aad104535b",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pingualuit-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:33.843177+00:00",
+      "sha256": "97f5a7f564b5039a9046cbe8b71c02df4f2f266c730392ea3aed8675ec09fd94",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pingualuit-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:34.369216+00:00",
+      "sha256": "268546e2105c71172763c843b089856ae16ea48ebb13edc812f7346aa9f63f4e",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pingualuit-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:34.859925+00:00",
+      "sha256": "6c9cde5d212948d087632adc45412b80e64ad8573b4da79dbc1fb6f5c87aaa4d",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pingualuit-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:35.351365+00:00",
+      "sha256": "0a5eea479b2ce771ba6a3ae361db2a2cb7799dedf87fa42510e73bcb65c2544b",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pingualuit-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:35.853778+00:00",
+      "sha256": "9d45a663593372dfe3b6ea1e16f249f5c6fae984319fcb11071f1b7ac0f9c97c",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pingualuit-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:36.334913+00:00",
+      "sha256": "a3bda9df00cd35b2a70c8624e8c01b4d57da7431f0e679ba405d15f3c8bcb044",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-pingualuit-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1142,
+      "fetched_at": "2026-11-15T14:39:36.831786+00:00",
+      "sha256": "a9b379d118ff9249afe16f208f850e6e014435f499bf81d1d402c393f3518c32",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-rio-tinto-2024-01-01-2024-01-07": {
+      "bytes": 1122,
+      "fetched_at": "2026-11-15T14:39:37.396646+00:00",
+      "sha256": "f206bfa692b2c8cf20de3cafc24d9b45954940160ec420b5c336802c15607b1c",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-sahara-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1119,
+      "fetched_at": "2026-11-15T14:39:37.892119+00:00",
+      "sha256": "2be0cee1c0fd1fa16d2a6fcbc8c24e86326b3907f9b3f2761fd552fe3b9f0302",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-sahara-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1118,
+      "fetched_at": "2026-11-15T14:39:38.345733+00:00",
+      "sha256": "172696628f07eddffcc7765254ad0df4b2d7752f111f1a5ce708be4f6def5bf4",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-sahara-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1120,
+      "fetched_at": "2026-11-15T14:39:38.835073+00:00",
+      "sha256": "e21274b8a2ed7d8496d3f06d5f6a6b2fa21b24b93ec21a4e94202ed4ca5678e8",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-sahara-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1117,
+      "fetched_at": "2026-11-15T14:39:39.095774+00:00",
+      "sha256": "aaec2ca2fecbc3ad649c6fc7369c27947ac8e43f928254df7b8c254d611a67a2",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-sahara-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1116,
+      "fetched_at": "2026-11-15T14:39:39.562322+00:00",
+      "sha256": "08adc5360e58495f7e6408cf631e5deb1321a9e5497a2e930f06fb737ed1be9e",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-sahara-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1117,
+      "fetched_at": "2026-11-15T14:39:40.363830+00:00",
+      "sha256": "78cf8e02a9dc6ecd51e9f161cf2ffc179fba646661fd93909c50a8382ab91eb1",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-sahara-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1120,
+      "fetched_at": "2026-11-15T14:39:40.553018+00:00",
+      "sha256": "2e3b0c00bedcf95709bd9e9a5fa5573eab988c2ff633ee8c6228a926dc2fa56b",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-sahara-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1118,
+      "fetched_at": "2026-11-15T14:39:41.323746+00:00",
+      "sha256": "0967e2531143e2c5d1b5ac977f02e4b88ad38afb7520423a82f9f37ee248f8f9",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-sahara-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1119,
+      "fetched_at": "2026-11-15T14:39:41.818374+00:00",
+      "sha256": "7fab2908382f8914117f96ecc307a2865684acf62256785abef9eeb4f356a6d8",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-snake-river-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:42.402036+00:00",
+      "sha256": "b8f620ff157dee6797a38f3d0ae64f970fceb7357b437013ecb3bfd87690e2a1",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-snake-river-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:42.920091+00:00",
+      "sha256": "96408fa59f4ee35af0e6b514b12260b90fa2429c4c3f143bf9e1b8c49429f1cd",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-snake-river-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:43.401934+00:00",
+      "sha256": "5a496b1a939038dc112dd3af36b2f74ec4e5761e2d11a36fe09eb78df7b7b9e0",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-snake-river-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:43.858947+00:00",
+      "sha256": "d3e8d3223dfbe762ed3b6a02cca68e02f7c4d925be84185dad0e18f9d729214f",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-snake-river-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1137,
+      "fetched_at": "2026-11-15T14:39:44.643746+00:00",
+      "sha256": "9d55181c245e31d76eec25e39fe683874d7c1ca4715fa228969df2cbe9a61771",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-snake-river-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:44.932318+00:00",
+      "sha256": "5357687ab7491a91d4b13e148cf7ff5fb6cf33da87ef67c77d86a23b463d8a34",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-snake-river-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:45.410293+00:00",
+      "sha256": "c04ba6180e4f488b422a47c695dddb39ce8d4882143518a57c6762c9700b49c4",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-snake-river-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:45.853012+00:00",
+      "sha256": "1a2df4828477307348e08ec4b1a6115a3d3457f49c5b2d837f3807b588256320",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-snake-river-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1141,
+      "fetched_at": "2026-11-15T14:39:46.145423+00:00",
+      "sha256": "2bdf24459ec41ccc6451fc2c4dbb40fa91141783e9e04613c293ef3f0d8d6169",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-wupatki-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 1136,
+      "fetched_at": "2026-11-15T14:39:46.857168+00:00",
+      "sha256": "f97a58eefa2fdb238baf2d4a4d8e6114345e191f75212fb37cbd94c496883cca",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-wupatki-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 1134,
+      "fetched_at": "2026-11-15T14:39:47.325229+00:00",
+      "sha256": "a5609617b31a11b55c726778819870e8416a07ef77de5bc79486300f4cd5cea4",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-wupatki-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 1136,
+      "fetched_at": "2026-11-15T14:39:47.856415+00:00",
+      "sha256": "5461edc2a315b008ba69cd6536a166bc6da5bebaedb62479cf2e1f9e5274c60d",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-wupatki-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 1135,
+      "fetched_at": "2026-11-15T14:39:48.074331+00:00",
+      "sha256": "5983700e5f8bccb4ff5d9fbd1c15678916e9a1a9810e559101dea63a1316390c",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-wupatki-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 1133,
+      "fetched_at": "2026-11-15T14:39:48.845044+00:00",
+      "sha256": "2ee9d9a6f07b5e9aac99febeb2823c6128e7b803efa20cd0ab732a50efaa08cd",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-wupatki-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 1135,
+      "fetched_at": "2026-11-15T14:39:49.073342+00:00",
+      "sha256": "8320582d8703b39e4500c7cf8c86b4d50ee2cd3c5b97d98e1e3e093d4de9f3fb",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-wupatki-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 1136,
+      "fetched_at": "2026-11-15T14:39:49.852241+00:00",
+      "sha256": "95b5dd14f801990213a4131cf18d3397f9bcf19203472279632d8f6bbc359d72",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-wupatki-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 1134,
+      "fetched_at": "2026-11-15T14:39:50.326503+00:00",
+      "sha256": "b17d396ff0e62bb01e97a10b89772cf6d3751c4633aa0e957c3cf52c6e5f9d26",
+      "status": "succeeded"
+    },
+    "nasa-power-D04-earth-earth-wupatki-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 1136,
+      "fetched_at": "2026-11-15T14:39:50.895099+00:00",
+      "sha256": "655f2e91d3097e74db50b0ad02b02258308e43818db724b952e8f4181b17a554",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-alps-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 905,
+      "fetched_at": "2026-11-15T14:39:51.264752+00:00",
+      "sha256": "89e83d1267ed898f30823e632c7558c3bfd7839c641ea7e8bf1e676e8a1690b6",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-alps-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:39:51.712277+00:00",
+      "sha256": "52d2138652dfb2acc058bb37c0741c25b7f848d8be4e1996a8d25594e8ad4a15",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-alps-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:39:52.225407+00:00",
+      "sha256": "296401a4c7f5cfce24e8f3ab48da09447835396f35173d5c497c1118ded68597",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-alps-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:39:52.483074+00:00",
+      "sha256": "804bb0d54febd1211b393812f1453a0d2b55b8de07a69a3143afde09b55ca940",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-alps-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 902,
+      "fetched_at": "2026-11-15T14:39:53.221301+00:00",
+      "sha256": "2fe6e859404b222455b7c3948db8aaf2cb39bf245664cbceb2ed10fda1628c81",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-alps-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:39:53.742794+00:00",
+      "sha256": "20adfa3b690f453062b76e28ed8ed179391ec9b3b9d0cbdcd2e9c53d4fe19abf",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-alps-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:39:54.222964+00:00",
+      "sha256": "7952aae293c5aa1d0112e4b6473aca521b875f4afa4de6484867b00463a38649",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-alps-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:39:54.481880+00:00",
+      "sha256": "886c518b87b229c79e331068b7b75aad1c9333d8dc783bb70f33d752afd62fd5",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-alps-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 905,
+      "fetched_at": "2026-11-15T14:39:55.237116+00:00",
+      "sha256": "c52cefa605b073ec79047eb8a8db2efb7ff59d8625fe568ef6c19e5621632899",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-altiplano-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 908,
+      "fetched_at": "2026-11-15T14:39:55.756565+00:00",
+      "sha256": "4d6205370f4205e05ba35886dcb95ffb534cbb7ebfc0311a3817b52ed2a52378",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-altiplano-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:39:56.235444+00:00",
+      "sha256": "cbe7cf21aada56618f1dffb2583161cb9f9dd2f9ec1e012b5c55317f517e2443",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-altiplano-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 907,
+      "fetched_at": "2026-11-15T14:39:56.757524+00:00",
+      "sha256": "1adbeb7eae3e2505e88dc92e2e3c034773b8278fd1d9e267f4bc3dd2836d43ff",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-altiplano-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:39:56.973187+00:00",
+      "sha256": "2dacec547102eae99b760c9e93521c5b5f2f8918179a97676b0be86bea83954d",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-altiplano-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:39:57.751045+00:00",
+      "sha256": "7ffe2458b521272ad6b076210b3d031f2fb49aae29bdcc9067b5dad30c2c27e0",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-altiplano-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:39:57.998970+00:00",
+      "sha256": "b99547f70a7cc229fa9618b8e94aee20cca5ca36348eed48b6f9cd9fc1089fe5",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-altiplano-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 908,
+      "fetched_at": "2026-11-15T14:39:58.752929+00:00",
+      "sha256": "916bd2317a51776278a6934faa1abdf769f7128338d6b521dfb52f622e745918",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-altiplano-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:39:58.967101+00:00",
+      "sha256": "524291aca0e02f9196df50c610bdb086fdc3edc18ac5cc2275cfb5fa2ca04506",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-altiplano-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 908,
+      "fetched_at": "2026-11-15T14:39:59.721888+00:00",
+      "sha256": "8976f5b09ac77563681cd16f3096783827b1083410d2e5fdbcb087b7b00cb1c7",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-atacama-desert-2024-01-01-2024-01-07": {
+      "bytes": 902,
+      "fetched_at": "2026-11-15T14:40:00.248387+00:00",
+      "sha256": "3144e75ea8b8817dafae264d821fd9ed3baa77918d673ca547660465d2937114",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-death-valley-2024-01-01-2024-01-07": {
+      "bytes": 900,
+      "fetched_at": "2026-11-15T14:40:00.506982+00:00",
+      "sha256": "530aaadb66a181826b2589450b45a49ac1dd1bf1876cb5cd4a91e5161fd0a026",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-devon-island-2024-01-01-2024-01-07": {
+      "bytes": 881,
+      "fetched_at": "2026-11-15T14:40:01.276253+00:00",
+      "sha256": "c956547b348c4877f9f3f7bc682735ded7d26aa666d03887c3a390471fb62cb7",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-devon-polar-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 883,
+      "fetched_at": "2026-11-15T14:40:01.764293+00:00",
+      "sha256": "8f6e62f2f39a88b9c0e724a72b2ecb0bb0bfaf178568142de92d61f60dfbcfc6",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-devon-polar-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:02.230836+00:00",
+      "sha256": "75c137aa042292f1a3141eebad77ece86342620500429d1ef9551d2e959ab13f",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-devon-polar-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:02.520305+00:00",
+      "sha256": "305983882040e43575a9f1b0d7748b3bf4ff100498f3089ff94ad93f6899b960",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-devon-polar-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:03.238903+00:00",
+      "sha256": "108dfde388245027f73d0a576e5f11f5893e1b117ac086468cf2631e155c33c5",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-devon-polar-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 880,
+      "fetched_at": "2026-11-15T14:40:03.733093+00:00",
+      "sha256": "9435d9a467f2006157c92f9ea65a950cd4eb4f0a1ff37e5a70d61842936abb60",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-devon-polar-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:04.213370+00:00",
+      "sha256": "dc963b07425b687abc87b65d39c20dc6b57737a7c45d1536c13efcfc7bc7801e",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-devon-polar-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:04.724389+00:00",
+      "sha256": "5aef74f0492fd4e4fb1b70e6c62d65a438f1746a84836f605f27ed7f1e0e834e",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-devon-polar-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:05.233936+00:00",
+      "sha256": "01f5a6b68f9fd5f58557e965101fd03763ada73cac57bf5b8b5b756f7d7e7836",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-devon-polar-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:05.733965+00:00",
+      "sha256": "08274870b81e638cc7151f86d7d9f93fa7f8fc8b20e298b38064d31ac66d2b52",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-grand-canyon-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:06.236154+00:00",
+      "sha256": "910a7f2c589689762e3a302a54f0ec67b83fac5797d86355bb5584af97cb5807",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-grand-canyon-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 901,
+      "fetched_at": "2026-11-15T14:40:06.477958+00:00",
+      "sha256": "4db1de08bf6c382584331471db4592bcbaf1b41708feccad43f1ba1166a3470a",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-grand-canyon-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:07.230146+00:00",
+      "sha256": "ccad94a5aad42228229d7772ba9dcf47d15d4c8c97e35e998cd3ce7de41a9e15",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-grand-canyon-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 901,
+      "fetched_at": "2026-11-15T14:40:07.461515+00:00",
+      "sha256": "3c5019cbab312377aa01ed566b95e73f5e0e68904a0ffb11253ac7daaa01517d",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-grand-canyon-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 899,
+      "fetched_at": "2026-11-15T14:40:07.970281+00:00",
+      "sha256": "5adf4251b8a3358735289cdebfca1f48ac239b09ddbbc29310b398c376edf6b8",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-grand-canyon-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 901,
+      "fetched_at": "2026-11-15T14:40:08.460629+00:00",
+      "sha256": "6ab954465699fd68d8345a7fd288fef316ce32b5d82c043f7c54f3f103871685",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-grand-canyon-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:09.016509+00:00",
+      "sha256": "f5290a6eac96839edc0ea9ed853a62e23ab77b9bd51c22da534bdcc8ef294027",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-grand-canyon-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 901,
+      "fetched_at": "2026-11-15T14:40:09.754179+00:00",
+      "sha256": "785b6387f1b121f5b8c269223d9f52849c7b58a6b0ccdc530ca8599f8b624f02",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-grand-canyon-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:10.238676+00:00",
+      "sha256": "0eca2fbb84d2128a18f83a250f9850463e82bf21c5d3f6961b3d0754809bd1ad",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-haughton-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:10.464157+00:00",
+      "sha256": "3059d619e2904d521e61125084866f509a6ac4ae44876f7e2c25d7f19bfe3275",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-haughton-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:11.230258+00:00",
+      "sha256": "9b0a50460958421de3d72adbd8df0c2f860476b82cbe75ae22d35478f1755e4f",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-haughton-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:11.770193+00:00",
+      "sha256": "cf4958af0c7c042a0bd16cc9795c42356b7698e5c04bd9f770db61389a74d89e",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-haughton-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:12.213622+00:00",
+      "sha256": "9ce07f56a0f190e42f4a0d4b06af68b6a1ab54c53ae5c324f214a2562414f3ba",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-haughton-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 882,
+      "fetched_at": "2026-11-15T14:40:12.465516+00:00",
+      "sha256": "0ab04395955ec33914d22d77f295c835111551a79598cb349f0feb85c69d8a1e",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-haughton-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:13.223135+00:00",
+      "sha256": "77399417a8b4d537ea98014a678a2004e7371f2a24423d2b1280cdcea9a4f025",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-haughton-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:13.749652+00:00",
+      "sha256": "bf30524907ad56c39103e31e5f9785e6ba9c871f80717153df5a01593de94a65",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-haughton-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:14.234149+00:00",
+      "sha256": "0eefd43a3f4649dd60aeee2864af9082c9afa7594b09bac3f82c5f715c3cc3d0",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-haughton-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 884,
+      "fetched_at": "2026-11-15T14:40:14.718868+00:00",
+      "sha256": "8b140c13f26e7edce4797dc984388cf291337825288c45d2f2ae17cd4af1d731",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-iceland-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:15.299798+00:00",
+      "sha256": "78aa6e0342aee1d3ecb44a8bb57648abc39066e4dbb78071ae8c4694025f20a5",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-iceland-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:15.746038+00:00",
+      "sha256": "a4e6bdf7d8789f2114b0d2006079fd0f5a687773ee0a715f77676998874f1624",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-iceland-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:16.226050+00:00",
+      "sha256": "66e4962fbd2f34151e9e452540f15e9d71407fc03486f8967b8cbd4d250d3790",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-iceland-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:16.732308+00:00",
+      "sha256": "b6776d1c8c9e0fe4cb89641a2a3a866b01164d3e3e3a73788158d58707e534b5",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-iceland-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 902,
+      "fetched_at": "2026-11-15T14:40:17.227925+00:00",
+      "sha256": "b3696616df696f7287200c126bb6aba007359eac6c68e5cd630c4155527f4254",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-iceland-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:17.729153+00:00",
+      "sha256": "176c50fdd7db392abf2b57f1eaa6d60e800a753c1dded30279c885a3aabe57ef",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-iceland-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:18.222968+00:00",
+      "sha256": "c818373f67d0d50fddcd4484d261811d7516752aae409caebd8f3d362994a6e4",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-iceland-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:18.475707+00:00",
+      "sha256": "a1ed4e00f94351f497268053132b188d7f118c586d20d8541bc9bed2f9bb633c",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-iceland-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:19.227352+00:00",
+      "sha256": "14005e0b904f6dc6cac9a5545918224dfd35ee712321637ca79639114062ac8c",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-lanzarote-2024-01-01-2024-01-07": {
+      "bytes": 902,
+      "fetched_at": "2026-11-15T14:40:19.501577+00:00",
+      "sha256": "c676314e4f4c639a70ab826e99be88d75cd9b1a2e5d66633240b67d3ecbec3cf",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-namib-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:20.283598+00:00",
+      "sha256": "4ccbb853d84069f2e40952b3f5b3ca1190d9050e30e8b9fd11a57d089875916e",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-namib-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:20.747406+00:00",
+      "sha256": "b3c2dd2345e486f2d5eac64fec833636beb43d133925e940855937ac4b0280ef",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-namib-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:20.964119+00:00",
+      "sha256": "c4215eeed11984be795b1a31a6010597ace6b4aed5c9c9429239eda513434c5f",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-namib-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 902,
+      "fetched_at": "2026-11-15T14:40:21.466114+00:00",
+      "sha256": "e92b8a91018bebc8fccfae3b60737c280ffdc12bb13349127261e4542b320d20",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-namib-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 900,
+      "fetched_at": "2026-11-15T14:40:22.257963+00:00",
+      "sha256": "73dc7dfe87cef800805a455f39be4bc391ba74297561f3f6822ae44e73ae7e40",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-namib-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 901,
+      "fetched_at": "2026-11-15T14:40:22.737348+00:00",
+      "sha256": "53a7dd2d1e45865e559c58969c55de7361a1af46bef778e07a2534b2a429656c",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-namib-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:22.979380+00:00",
+      "sha256": "0fdc06192de12c2cbdbb01ff92263e8cfaeb307de7f4f7cbd559a3f8a88b6839",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-namib-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:23.467964+00:00",
+      "sha256": "27b7df123556c1d105752fee7915c6ccf29a039933bb278e1cb21a6bcaa66f17",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-namib-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:24.229729+00:00",
+      "sha256": "c78602c14536cda9b4f3cd66e8fd3db0593a10243d0e76bc9a7cc7f63e9f426d",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pampas-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 905,
+      "fetched_at": "2026-11-15T14:40:24.738947+00:00",
+      "sha256": "6681c8b034f04befca5a923b8c8cb1ce00291479be2cbb00c90bd74a0917bbd6",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pampas-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:24.966131+00:00",
+      "sha256": "4523ae53c270fa8ee1365ebb48446d008c6246d6bd0f702340f275057d81a366",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pampas-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 905,
+      "fetched_at": "2026-11-15T14:40:25.796059+00:00",
+      "sha256": "76d14851a38bf1a2dc1788463ccdb998af65b8c0775e4fffbab422791ca22aec",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pampas-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:26.228709+00:00",
+      "sha256": "eafc4602505522b745525e6f911094aea3ee360aea8c802d775d89494154dae3",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pampas-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 901,
+      "fetched_at": "2026-11-15T14:40:26.736217+00:00",
+      "sha256": "7c6a82f67804ad1cd43d5bec1ee677a92b9e7c4a9dacc3eb2fe8da4cf3b748bf",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pampas-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:27.221995+00:00",
+      "sha256": "47f51a3d7a744bd00e61b9467d26e47affada24ee58706b2f7fc324b35138ef0",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pampas-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 905,
+      "fetched_at": "2026-11-15T14:40:27.733588+00:00",
+      "sha256": "4f3f6c12f35145eaebe3eff1626b6a9c58b9b79ff739c7fb1ac0f8438229b5c0",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pampas-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:28.220198+00:00",
+      "sha256": "43ccce668531227005f8af0cb58592dd1da4f93c451a6c54a7fa2efcadc7af5b",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pampas-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 905,
+      "fetched_at": "2026-11-15T14:40:28.451814+00:00",
+      "sha256": "d36cc531d066a9b0460f282d15685eba8c8793b68fd7c409abb0940e59544de1",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pingualuit-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:29.343703+00:00",
+      "sha256": "6e39214208886d3bc8bcbf7786b47c761b67ea54eaf3aeb24e9285195f379ce9",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pingualuit-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:29.761861+00:00",
+      "sha256": "47ae838a2cac293681cda46175db5b8ddc42d7417591557b417eddb2ea035249",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pingualuit-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:30.014951+00:00",
+      "sha256": "8b56cfb116254ac2c7a8071ae6a89875fbda4750a1a89b6515dc44be02f9b4e3",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pingualuit-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:30.735323+00:00",
+      "sha256": "f1a436d1b042bde02a12e4733d2a3ff73f9e5236b49f13c8194369e5a0c3614d",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pingualuit-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:31.232888+00:00",
+      "sha256": "3eec441411620eb5f87614d12e5a74da35302614bbafe0e09019782a77d34c26",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pingualuit-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:31.723551+00:00",
+      "sha256": "a877333dfb5ff938997956ef20deda6367369bc51d10ba03096193546304b10f",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pingualuit-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 902,
+      "fetched_at": "2026-11-15T14:40:31.956459+00:00",
+      "sha256": "8742a57f6a72bde06e5f96ced08dce6f12a30b2cb648b22e5e7cc6a1092b316a",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pingualuit-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:32.753827+00:00",
+      "sha256": "128d2d037d0791e45144b1837a3a771206ca2c03b4d3c3131cb4a69c84488d9a",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-pingualuit-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:33.218554+00:00",
+      "sha256": "ab04ecaf3bc3637da7b00a999a7c66f9084eda54d81e57c0b3b39188e3555ffa",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-rio-tinto-2024-01-01-2024-01-07": {
+      "bytes": 898,
+      "fetched_at": "2026-11-15T14:40:33.770022+00:00",
+      "sha256": "049ca5e77c21c89e3d5d55f1b05ba3cf50c78d66e111a75605fd5c58f7e7d447",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-sahara-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:34.299289+00:00",
+      "sha256": "34f114215c301033290671ea28ad1f5ce13366174ca04f8b196e6bff029fe205",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-sahara-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:34.724697+00:00",
+      "sha256": "bad254258b3c971c643c9cda55de14e082505b2a9e933ddde2b70f15b2e15401",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-sahara-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 905,
+      "fetched_at": "2026-11-15T14:40:34.978287+00:00",
+      "sha256": "08dc1057bd4460e363898c676ba5024851bb3bad68245b7ec73658157bf802c9",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-sahara-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 902,
+      "fetched_at": "2026-11-15T14:40:35.487788+00:00",
+      "sha256": "03f0ff71781289145973ce00bc75e8540f81cbcd4b52bab5865faff2cea83f7c",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-sahara-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 901,
+      "fetched_at": "2026-11-15T14:40:36.230801+00:00",
+      "sha256": "fe3d8cebc5a10ef2ffdd1220f2482a72c8a61fb1584331b61139e5bef55d7128",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-sahara-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 902,
+      "fetched_at": "2026-11-15T14:40:36.722687+00:00",
+      "sha256": "f202c4c8ec22bef9534a686e4cd43bcc99618f75801bd9edd794e308bf98b0b3",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-sahara-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 905,
+      "fetched_at": "2026-11-15T14:40:37.241384+00:00",
+      "sha256": "b1d97e2006d2c80eb576949971226f88cb134f74b6b52776ab622c57e14ce07a",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-sahara-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:37.476913+00:00",
+      "sha256": "33d5449dd023ab4023eb56941fa3c74a73399993903c19742ab1f5ea0e5ba6cd",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-sahara-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:37.984369+00:00",
+      "sha256": "313ccfe4094a2dfc9d3882abb9a4d9390229760808283e38064cfd0b029ee906",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-snake-river-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 905,
+      "fetched_at": "2026-11-15T14:40:38.743681+00:00",
+      "sha256": "5dd6714f72a7fcd4d552628562344bdd492327dd5fd9d32157374ebbbb467d16",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-snake-river-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 905,
+      "fetched_at": "2026-11-15T14:40:38.972645+00:00",
+      "sha256": "85ba87c87bd011486c6decd45495fc337079f76279f03b92e63b944da8c534c4",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-snake-river-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 905,
+      "fetched_at": "2026-11-15T14:40:39.752041+00:00",
+      "sha256": "04e701512c28794fe466c34a3fcb419a92232687ccc158881799228ad6baf11a",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-snake-river-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:40.249401+00:00",
+      "sha256": "514916288a3c4f902f4c99adda00f0f4bbda4600b98ef9651a7945f95176b076",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-snake-river-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 902,
+      "fetched_at": "2026-11-15T14:40:40.770012+00:00",
+      "sha256": "f353111c86bed7daeb8b36cc1a7b88fc95c9ca0a112bba9a7bb3104a88d8d087",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-snake-river-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:41.023996+00:00",
+      "sha256": "0d0ed4fdf698858d311550c0f98627a643daf723b95962f27119f4ff6bbb29c1",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-snake-river-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:41.808460+00:00",
+      "sha256": "64d60cd382c7090a46039462c529dcd02433157e288790fdc7e849f80ce64af3",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-snake-river-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:42.211609+00:00",
+      "sha256": "b9e3df6dff32676aba07671d084d9a20214ffddbee1d6d512e67e35526ff812c",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-snake-river-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:42.718433+00:00",
+      "sha256": "b2d340ac30edd3accd42a24b1e1155393160c83900c1f47bbd122050e4a6dfb7",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-wupatki-r1c1-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:42.990387+00:00",
+      "sha256": "2cff9a60fc8453f958f149ef3d4b6a5512b0ee9f68249ca7e7f7bc0dd630a8a9",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-wupatki-r1c2-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:43.756369+00:00",
+      "sha256": "ed38dd569f08e3676e41b3565c0deea1f7ca24ec8bf2f6c242f4e8a7492f237f",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-wupatki-r1c3-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:44.298134+00:00",
+      "sha256": "9da4adc379fd502b164865fe7da8fd125214e388dfe1bad1b1c4124b03c18972",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-wupatki-r2c1-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:44.807747+00:00",
+      "sha256": "8dcddb429cefc1667d1ed30455933d92ffc70642f9aa99d693bae1c173216a63",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-wupatki-r2c2-2024-01-01-2024-01-07": {
+      "bytes": 903,
+      "fetched_at": "2026-11-15T14:40:44.977919+00:00",
+      "sha256": "123cd8cab92724b01209fec04a6c2a58a1009f4bd6c1a92d0977e81e49f13fdc",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-wupatki-r2c3-2024-01-01-2024-01-07": {
+      "bytes": 905,
+      "fetched_at": "2026-11-15T14:40:45.725625+00:00",
+      "sha256": "43f8fa99e331dadac01fea7118dbf4b6f27d666e368998e889851a0107af370d",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-wupatki-r3c1-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:46.229293+00:00",
+      "sha256": "d03058cf50750533946466bcdde1e514d05c173c02374c7cc1bd428c1f7a6993",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-wupatki-r3c2-2024-01-01-2024-01-07": {
+      "bytes": 904,
+      "fetched_at": "2026-11-15T14:40:46.756508+00:00",
+      "sha256": "458e9411e0503cd3c1212894bb60e8a0af13c1570a78e5ab70325f893f20d3eb",
+      "status": "succeeded"
+    },
+    "nasa-power-D05-earth-earth-wupatki-r3c3-2024-01-01-2024-01-07": {
+      "bytes": 906,
+      "fetched_at": "2026-11-15T14:40:47.222040+00:00",
+      "sha256": "ff916e56cf97ed7f67c6e8763a7c362c97dcd882acfd96c34f9dcc5fb99d4ecb",
+      "status": "succeeded"
+    }
+  }
+}

@@ -10,7 +10,7 @@ Choose **Moon** or **Mars** to open its compact map, then select a plotted refer
 
 - Node.js 22+ (This aligns with the repository quality gate; developed with Node 26.)
 - npm (this app uses npm and commits `package-lock.json`)
-- The API running at `http://127.0.0.1:8000` for local development
+- For local data, the API running at `http://127.0.0.1:8000`; otherwise development uses the public API
 
 ## Development
 
@@ -19,6 +19,10 @@ cd apps/web
 npm ci
 npm run dev
 ```
+
+Alternatively, run `make web` from the repository root after installing dependencies in
+`apps/web`. If port 5173 is occupied, Vite selects another port (for example 5174);
+keep other development processes running.
 
 Open the URL Vite prints (normally `http://localhost:5173`). The browser always calls
 same-origin `/api/v1/...`; the Vite dev proxy decides once, at startup:
@@ -57,6 +61,48 @@ ANALOG_DATABASE_URL=sqlite+pysqlite:////tmp/analog-webdev.db \
 uv run uvicorn analog_api.main:create_app --factory --port 8000
 ```
 
+## Startup troubleshooting
+
+Run diagnostics in the same checkout and terminal used for development:
+
+```bash
+cd apps/web
+node -v
+npm -v
+npm ls maplibre-gl @maplibre/maplibre-gl-leaflet vite
+test -f node_modules/maplibre-gl/dist/maplibre-gl.css
+```
+
+If the MapLibre stylesheet cannot be resolved, stop this checkout's Vite server,
+run `npm ci` in `apps/web`, and restart it. This restores the committed lockfile's
+packages without changing the lockfile; do not remove the stylesheet import or
+install packages globally. `npm run check:dev` checks native configuration loading,
+port fallback, and development HTTP responses for Earth map modules and styles.
+
+`ECONNREFUSED 127.0.0.1:8000` means the selected local API is not accepting
+connections. Start `make api` from the repository root in another terminal and
+check `curl -fsS http://127.0.0.1:8000/api/v1/health`. To use automatic selection,
+stop Vite, run `unset VITE_API_PROXY_TARGET`, and remove that override from any
+`.env`, `.env.local`, `.env.development`, or `.env.development.local` in both the
+repository root and `apps/web`, then restart. An explicit override skips health
+detection and does not start the API for you.
+
+Dependency audit is separate from startup validation. The 2026-11-15 lockfile audit
+reports one production MapLibre issue and seven development-tool findings:
+[MapLibre attribution sanitization](https://github.com/advisories/GHSA-jrc7-96c5-q579)
+and [minimatch pattern expansion](https://github.com/advisories/GHSA-g3hv-75wg-m249).
+The map consumes third-party styles, so the production finding needs a separate
+MapLibre upgrade and adapter compatibility review. The reported MapLibre fix is
+outside the current major version; do not use `npm audit fix --force` as a startup
+repair. Development-tool findings concern processing untrusted file patterns,
+not browser requests.
+
+On macOS, npm may report blocked install scripts for optional `fsevents` (native
+file watching). This does not explain a missing stylesheet or an API connection
+refusal. Verify that saving a source file updates the browser; investigate watcher
+installation separately if it does not. Do not enable all dependency scripts to
+resolve a CSS import error.
+
 ## API types
 
 The OpenAPI snapshot is the source of truth at `../../contracts/openapi.json`.
@@ -77,6 +123,7 @@ npm run typecheck
 npm run lint
 npm run test -- --run
 npm run build
+npm run check:dev
 ```
 
 Tests use Vitest, Testing Library, and jsdom. Every network call is mocked with

@@ -1,0 +1,3 @@
+# Optional build/test dependency for equal-area footprint/AOI intersections.
+# Same pin as pipelines/geology/requirements-ingest.txt; not added to pyproject.toml.
+shapely==2.2.0

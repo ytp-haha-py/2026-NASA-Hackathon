@@ -1,0 +1,124 @@
+{
+  "labels": [
+    {
+      "bytes": 14988,
+      "dataset_id": "mars-crism-mtrdr",
+      "file": "queries/labels/hrl000040ff_07_if183j_mtr3.xml",
+      "line_endings": "unchanged",
+      "product_id": "hrl000040ff_07_if183j_mtr3",
+      "raw_source_bytes": 14988,
+      "raw_source_sha256": "sha256:b215954770f594b6596342db34c7b234b0bc7c614d0e062bf5eb3cf1ffb9d7a8",
+      "sha256": "sha256:b215954770f594b6596342db34c7b234b0bc7c614d0e062bf5eb3cf1ffb9d7a8",
+      "status": "stored",
+      "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_if183j_mtr3.xml"
+    },
+    {
+      "bytes": 14989,
+      "dataset_id": "mars-crism-mtrdr",
+      "file": "queries/labels/frt000047a3_07_if166j_mtr3.xml",
+      "line_endings": "unchanged",
+      "product_id": "frt000047a3_07_if166j_mtr3",
+      "raw_source_bytes": 14989,
+      "raw_source_sha256": "sha256:39c995a64b34b9d231413e176edb1267a97844d9a5124a3a78a637d56768bb85",
+      "sha256": "sha256:39c995a64b34b9d231413e176edb1267a97844d9a5124a3a78a637d56768bb85",
+      "status": "stored",
+      "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_057/frt000047a3/frt000047a3_07_if166j_mtr3.xml"
+    },
+    {
+      "bytes": 14992,
+      "dataset_id": "mars-crism-mtrdr",
+      "file": "queries/labels/frt00005850_07_if167j_mtr3.xml",
+      "line_endings": "unchanged",
+      "product_id": "frt00005850_07_if167j_mtr3",
+      "raw_source_bytes": 14992,
+      "raw_source_sha256": "sha256:ab2b0d0b0e8d78c59af26320dfd55cdf84fc4e78818c6e136a23911fa128942c",
+      "sha256": "sha256:ab2b0d0b0e8d78c59af26320dfd55cdf84fc4e78818c6e136a23911fa128942c",
+      "status": "stored",
+      "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_111/frt00005850/frt00005850_07_if167j_mtr3.xml"
+    },
+    {
+      "bytes": 14989,
+      "dataset_id": "mars-crism-mtrdr",
+      "file": "queries/labels/frt00005c5e_07_if166j_mtr3.xml",
+      "line_endings": "unchanged",
+      "product_id": "frt00005c5e_07_if166j_mtr3",
+      "raw_source_bytes": 14989,
+      "raw_source_sha256": "sha256:61320f3cf57e69f5ad2ff5098cb7201c0bcbec8d2b333f171210878174e67706",
+      "sha256": "sha256:61320f3cf57e69f5ad2ff5098cb7201c0bcbec8d2b333f171210878174e67706",
+      "status": "stored",
+      "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_139/frt00005c5e/frt00005c5e_07_if166j_mtr3.xml"
+    },
+    {
+      "bytes": 14992,
+      "dataset_id": "mars-crism-mtrdr",
+      "file": "queries/labels/frt0001fb74_07_if166j_mtr3.xml",
+      "line_endings": "unchanged",
+      "product_id": "frt0001fb74_07_if166j_mtr3",
+      "raw_source_bytes": 14992,
+      "raw_source_sha256": "sha256:047e6c143e2dcabc9f7c47a6485924e05e7245eada6d2b1d83f15b66721f5d62",
+      "sha256": "sha256:047e6c143e2dcabc9f7c47a6485924e05e7245eada6d2b1d83f15b66721f5d62",
+      "status": "stored",
+      "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2011/2011_226/frt0001fb74/frt0001fb74_07_if166j_mtr3.xml"
+    },
+    {
+      "bytes": 7229,
+      "dataset_id": "moon-m3-l2-reflectance",
+      "file": "queries/labels/M3G20090717T124352_V01_RFL.lbl",
+      "line_endings": "LF normalized from CRLF",
+      "product_id": "M3G20090717T124352_V01_RFL",
+      "raw_source_bytes": 7376,
+      "raw_source_sha256": "sha256:b0db362def0d337a5fd430fcc2a5a28517571a64ae3eb5e357b10505597d44bf",
+      "sha256": "sha256:a82ad5e50c8e2c2bfc10545a0ea2f1e88b4829b0bc6aeb3f37b19310896fab05",
+      "status": "stored",
+      "url": "https://planetarydata.jpl.nasa.gov/img/data/m3/CH1M3_0004/DATA/20090415_20090816/200907/L2/M3G20090717T124352_V01_L2.LBL"
+    },
+    {
+      "bytes": 7229,
+      "dataset_id": "moon-m3-l2-reflectance",
+      "file": "queries/labels/M3G20090717T211502_V01_RFL.lbl",
+      "line_endings": "LF normalized from CRLF",
+      "product_id": "M3G20090717T211502_V01_RFL",
+      "raw_source_bytes": 7376,
+      "raw_source_sha256": "sha256:39bfa041887572b0c0696ba2b7a9de4fc0eade1b3af19581e539911ed8175078",
+      "sha256": "sha256:2b1a93f7b91f3bb5ae8e50001b5c0d97ddaa9423ac3f5da361bd49abfa290ec7",
+      "status": "stored",
+      "url": "https://planetarydata.jpl.nasa.gov/img/data/m3/CH1M3_0004/DATA/20090415_20090816/200907/L2/M3G20090717T211502_V01_L2.LBL"
+    },
+    {
+      "bytes": 7226,
+      "dataset_id": "moon-m3-l2-reflectance",
+      "file": "queries/labels/M3G20090620T051312_V01_RFL.lbl",
+      "line_endings": "LF normalized from CRLF",
+      "product_id": "M3G20090620T051312_V01_RFL",
+      "raw_source_bytes": 7373,
+      "raw_source_sha256": "sha256:1015701f06b36cd35ae3c1665f8bb49152477edcd4bce05bd4776f102d9028b1",
+      "sha256": "sha256:018f47ac2cb8b34063c453cda68e233c35be1062c4bbb40d700c1e69b352beed",
+      "status": "stored",
+      "url": "https://planetarydata.jpl.nasa.gov/img/data/m3/CH1M3_0004/DATA/20090415_20090816/200906/L2/M3G20090620T051312_V01_L2.LBL"
+    },
+    {
+      "bytes": 7176,
+      "dataset_id": "moon-m3-l2-reflectance",
+      "file": "queries/labels/M3G20090131T112714_V01_RFL.lbl",
+      "line_endings": "LF normalized from CRLF",
+      "product_id": "M3G20090131T112714_V01_RFL",
+      "raw_source_bytes": 7323,
+      "raw_source_sha256": "sha256:9d6d596bdd273b38e504cadbc6df88eecb81e17cb9368e348fec754173e664d0",
+      "sha256": "sha256:a0c1f7308c37300254c3c5ff3756eb4a3d3ac47bb0c3ae486c6daa4d89fa92ab",
+      "status": "stored",
+      "url": "https://planetarydata.jpl.nasa.gov/img/data/m3/CH1M3_0004/DATA/20081118_20090214/200901/L2/M3G20090131T112714_V01_L2.LBL"
+    },
+    {
+      "bytes": 13455,
+      "dataset_id": "moon-lroc-wac-tio2",
+      "file": "queries/labels/lroc_wac_tio2_sample.xml",
+      "line_endings": "unchanged",
+      "product_id": "sdp.wac_tio2.wac_tio2_e350n0450",
+      "raw_source_bytes": 13455,
+      "raw_source_sha256": "sha256:b57bb10305ae852c044e7f8b46586a3fbe5cb6c697040b30d5a7aaf3d495106d",
+      "sha256": "sha256:b57bb10305ae852c044e7f8b46586a3fbe5cb6c697040b30d5a7aaf3d495106d",
+      "status": "stored",
+      "url": "https://pds.lroc.im-ldi.com/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/WAC_TIO2/WAC_TIO2_E350N0450.xml"
+    }
+  ]
+}
