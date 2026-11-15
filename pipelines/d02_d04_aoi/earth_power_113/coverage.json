@@ -1,0 +1,3983 @@
+{
+  "by_dimension": {
+    "D03": {
+      "detected": 452
+    },
+    "D04": {
+      "detected": 452
+    },
+    "D05": {
+      "detected": 226
+    }
+  },
+  "by_state": {
+    "detected": 1130
+  },
+  "candidate_count": 113,
+  "candidates": [
+    {
+      "area_id": "earth-alps-r1c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 46.47351604,
+        "lon": 10.46019318
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+92:+16",
+      "request_point": {
+        "lat": 46.473515355,
+        "lon": 10.46019528
+      }
+    },
+    {
+      "area_id": "earth-alps-r1c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 46.47301054,
+        "lon": 10.49925815
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+92:+16",
+      "request_point": {
+        "lat": 46.473009855,
+        "lon": 10.49926025
+      }
+    },
+    {
+      "area_id": "earth-alps-r1c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 46.47249169,
+        "lon": 10.53832206
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+92:+16",
+      "request_point": {
+        "lat": 46.472491015,
+        "lon": 10.53832416
+      }
+    },
+    {
+      "area_id": "earth-alps-r2c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 46.50050598,
+        "lon": 10.46091572
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+93:+16",
+      "request_point": {
+        "lat": 46.500505294999996,
+        "lon": 10.460917815
+      }
+    },
+    {
+      "area_id": "earth-alps-r2c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 46.5,
+        "lon": 10.5
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+93:+16",
+      "request_point": {
+        "lat": 46.499999315,
+        "lon": 10.500002105
+      }
+    },
+    {
+      "area_id": "earth-alps-r2c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 46.49948067,
+        "lon": 10.53908322
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+92:+16",
+      "request_point": {
+        "lat": 46.49947999,
+        "lon": 10.539085324999999
+      }
+    },
+    {
+      "area_id": "earth-alps-r3c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 46.52749578,
+        "lon": 10.46163929
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+93:+16",
+      "request_point": {
+        "lat": 46.527495095000006,
+        "lon": 10.461641400000001
+      }
+    },
+    {
+      "area_id": "earth-alps-r3c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 46.52698933,
+        "lon": 10.50074291
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+93:+16",
+      "request_point": {
+        "lat": 46.526988645,
+        "lon": 10.50074502
+      }
+    },
+    {
+      "area_id": "earth-alps-r3c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 46.52646951,
+        "lon": 10.53984547
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+93:+16",
+      "request_point": {
+        "lat": 46.52646883,
+        "lon": 10.53984758
+      }
+    },
+    {
+      "area_id": "earth-altiplano-r1c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -22.52736187,
+        "lon": -67.5288707
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-46:-109",
+      "request_point": {
+        "lat": -22.52736162,
+        "lon": -67.52887007999999
+      }
+    },
+    {
+      "area_id": "earth-altiplano-r1c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -22.52709266,
+        "lon": -67.49970759
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-46:-108",
+      "request_point": {
+        "lat": -22.527092404999998,
+        "lon": -67.49970697
+      }
+    },
+    {
+      "area_id": "earth-altiplano-r1c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -22.52681816,
+        "lon": -67.47054494
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-46:-108",
+      "request_point": {
+        "lat": -22.526817905,
+        "lon": -67.470544315
+      }
+    },
+    {
+      "area_id": "earth-altiplano-r2c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -22.50026886,
+        "lon": -67.52915743
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-46:-109",
+      "request_point": {
+        "lat": -22.500268605000002,
+        "lon": -67.52915680999999
+      }
+    },
+    {
+      "area_id": "earth-altiplano-r2c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -22.5,
+        "lon": -67.5
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-45:-108",
+      "request_point": {
+        "lat": -22.499999745,
+        "lon": -67.49999937999999
+      }
+    },
+    {
+      "area_id": "earth-altiplano-r2c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -22.49972587,
+        "lon": -67.47084302
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-45:-108",
+      "request_point": {
+        "lat": -22.499725615,
+        "lon": -67.47084240000001
+      }
+    },
+    {
+      "area_id": "earth-altiplano-r3c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -22.47317575,
+        "lon": -67.52944372
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-45:-109",
+      "request_point": {
+        "lat": -22.473175495,
+        "lon": -67.529443095
+      }
+    },
+    {
+      "area_id": "earth-altiplano-r3c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -22.47290725,
+        "lon": -67.50029196
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-45:-109",
+      "request_point": {
+        "lat": -22.472906995,
+        "lon": -67.50029133999999
+      }
+    },
+    {
+      "area_id": "earth-altiplano-r3c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -22.47263348,
+        "lon": -67.47114065
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-45:-108",
+      "request_point": {
+        "lat": -22.472633235,
+        "lon": -67.47114002999999
+      }
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -23.5,
+        "lon": -68.4
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-47:-110",
+      "request_point": {
+        "lat": -23.49999971,
+        "lon": -68.399999345
+      }
+    },
+    {
+      "area_id": "earth-death-valley",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 36.25,
+        "lon": -117.1
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+72:-188",
+      "request_point": {
+        "lat": 36.24999949,
+        "lon": -117.100001255
+      }
+    },
+    {
+      "area_id": "earth-devon-island",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.4,
+        "lon": -89.85
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+150:-144",
+      "request_point": {
+        "lat": 75.39999763,
+        "lon": -89.850020805
+      }
+    },
+    {
+      "area_id": "earth-devon-polar-r1c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.57198067,
+        "lon": -89.60320309
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+151:-144",
+      "request_point": {
+        "lat": 75.57197825,
+        "lon": -89.60322442500001
+      }
+    },
+    {
+      "area_id": "earth-devon-polar-r1c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.57313886,
+        "lon": -89.49544282
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+151:-144",
+      "request_point": {
+        "lat": 75.57313643,
+        "lon": -89.49546416
+      }
+    },
+    {
+      "area_id": "earth-devon-polar-r1c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.57424813,
+        "lon": -89.38766543
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+151:-144",
+      "request_point": {
+        "lat": 75.574245685,
+        "lon": -89.38768677499999
+      }
+    },
+    {
+      "area_id": "earth-devon-polar-r2c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.59883956,
+        "lon": -89.60795653
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+151:-144",
+      "request_point": {
+        "lat": 75.59883712999999,
+        "lon": -89.60797794000001
+      }
+    },
+    {
+      "area_id": "earth-devon-polar-r2c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.6,
+        "lon": -89.5
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+151:-144",
+      "request_point": {
+        "lat": 75.599997565,
+        "lon": -89.50002142
+      }
+    },
+    {
+      "area_id": "earth-devon-polar-r2c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.60111142,
+        "lon": -89.39202625
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+151:-144",
+      "request_point": {
+        "lat": 75.601108975,
+        "lon": -89.39204767999999
+      }
+    },
+    {
+      "area_id": "earth-devon-polar-r3c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.62569828,
+        "lon": -89.61272793
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+151:-144",
+      "request_point": {
+        "lat": 75.625695855,
+        "lon": -89.612749415
+      }
+    },
+    {
+      "area_id": "earth-devon-polar-r3c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.62686098,
+        "lon": -89.50457439
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+151:-144",
+      "request_point": {
+        "lat": 75.626858545,
+        "lon": -89.504595895
+      }
+    },
+    {
+      "area_id": "earth-devon-polar-r3c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.62797457,
+        "lon": -89.39640355
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+151:-144",
+      "request_point": {
+        "lat": 75.62797212,
+        "lon": -89.39642506
+      }
+    },
+    {
+      "area_id": "earth-grand-canyon-r1c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 36.17262011,
+        "lon": -112.23293904
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+72:-180",
+      "request_point": {
+        "lat": 36.17261963,
+        "lon": -112.232940285
+      }
+    },
+    {
+      "area_id": "earth-grand-canyon-r1c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 36.17295896,
+        "lon": -112.19958752
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+72:-180",
+      "request_point": {
+        "lat": 36.17295848,
+        "lon": -112.19958876999999
+      }
+    },
+    {
+      "area_id": "earth-grand-canyon-r1c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 36.17328852,
+        "lon": -112.16623546
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+72:-180",
+      "request_point": {
+        "lat": 36.173288045,
+        "lon": -112.166236705
+      }
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 36.19966082,
+        "lon": -112.23336298
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+72:-180",
+      "request_point": {
+        "lat": 36.199660339999994,
+        "lon": -112.233364225
+      }
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 36.2,
+        "lon": -112.2
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+72:-180",
+      "request_point": {
+        "lat": 36.19999952,
+        "lon": -112.20000125
+      }
+    },
+    {
+      "area_id": "earth-grand-canyon-r2c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 36.20032989,
+        "lon": -112.16663647
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+72:-180",
+      "request_point": {
+        "lat": 36.200329409999995,
+        "lon": -112.16663772
+      }
+    },
+    {
+      "area_id": "earth-grand-canyon-r3c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 36.2267014,
+        "lon": -112.23378748
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+72:-180",
+      "request_point": {
+        "lat": 36.22670092,
+        "lon": -112.233788735
+      }
+    },
+    {
+      "area_id": "earth-grand-canyon-r3c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 36.22704092,
+        "lon": -112.20041303
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+72:-180",
+      "request_point": {
+        "lat": 36.227040435,
+        "lon": -112.20041428
+      }
+    },
+    {
+      "area_id": "earth-grand-canyon-r3c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 36.22737113,
+        "lon": -112.16703802
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+72:-180",
+      "request_point": {
+        "lat": 36.22737065,
+        "lon": -112.16703927
+      }
+    },
+    {
+      "area_id": "earth-haughton-r1c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.35190825,
+        "lon": -89.77137181
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+150:-144",
+      "request_point": {
+        "lat": 75.35190588500001,
+        "lon": -89.771392485
+      }
+    },
+    {
+      "area_id": "earth-haughton-r1c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.35314195,
+        "lon": -89.66520942
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+150:-144",
+      "request_point": {
+        "lat": 75.35313957,
+        "lon": -89.66523011
+      }
+    },
+    {
+      "area_id": "earth-haughton-r1c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.3543275,
+        "lon": -89.55902931
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+150:-144",
+      "request_point": {
+        "lat": 75.35432510999999,
+        "lon": -89.55905
+      }
+    },
+    {
+      "area_id": "earth-haughton-r2c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.37876394,
+        "lon": -89.77635262
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+150:-144",
+      "request_point": {
+        "lat": 75.37876157,
+        "lon": -89.77637337499999
+      }
+    },
+    {
+      "area_id": "earth-haughton-r2c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.38,
+        "lon": -89.67
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+150:-144",
+      "request_point": {
+        "lat": 75.37999762,
+        "lon": -89.67002076
+      }
+    },
+    {
+      "area_id": "earth-haughton-r2c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.38118782,
+        "lon": -89.56362955
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+150:-144",
+      "request_point": {
+        "lat": 75.38118542999999,
+        "lon": -89.56365032
+      }
+    },
+    {
+      "area_id": "earth-haughton-r3c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.40561945,
+        "lon": -89.78135197
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+150:-144",
+      "request_point": {
+        "lat": 75.40561707500001,
+        "lon": -89.781372795
+      }
+    },
+    {
+      "area_id": "earth-haughton-r3c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.40685788,
+        "lon": -89.6748084
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+150:-144",
+      "request_point": {
+        "lat": 75.4068555,
+        "lon": -89.674829245
+      }
+    },
+    {
+      "area_id": "earth-haughton-r3c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 75.40804799,
+        "lon": -89.56824691
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+150:-144",
+      "request_point": {
+        "lat": 75.408045585,
+        "lon": -89.56826776
+      }
+    },
+    {
+      "area_id": "earth-iceland-r1c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 65.67231382,
+        "lon": -16.86336202
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+131:-27",
+      "request_point": {
+        "lat": 65.67231240999999,
+        "lon": -16.863369385
+      }
+    },
+    {
+      "area_id": "earth-iceland-r1c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 65.67309736,
+        "lon": -16.79813181
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+131:-27",
+      "request_point": {
+        "lat": 65.67309593499999,
+        "lon": -16.79813918
+      }
+    },
+    {
+      "area_id": "earth-iceland-r1c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 65.67385299,
+        "lon": -16.73289734
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+131:-27",
+      "request_point": {
+        "lat": 65.673851565,
+        "lon": -16.7329047
+      }
+    },
+    {
+      "area_id": "earth-iceland-r2c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 65.69921549,
+        "lon": -16.86529789
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+131:-27",
+      "request_point": {
+        "lat": 65.699214065,
+        "lon": -16.865305265
+      }
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 65.7,
+        "lon": -16.8
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+131:-27",
+      "request_point": {
+        "lat": 65.69999858,
+        "lon": -16.80000738
+      }
+    },
+    {
+      "area_id": "earth-iceland-r2c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 65.70075657,
+        "lon": -16.73469783
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+131:-27",
+      "request_point": {
+        "lat": 65.70075514999999,
+        "lon": -16.73470521
+      }
+    },
+    {
+      "area_id": "earth-iceland-r3c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 65.72611702,
+        "lon": -16.86723819
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+131:-27",
+      "request_point": {
+        "lat": 65.72611560499999,
+        "lon": -16.867245585
+      }
+    },
+    {
+      "area_id": "earth-iceland-r3c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 65.72690252,
+        "lon": -16.80187247
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+131:-27",
+      "request_point": {
+        "lat": 65.726901095,
+        "lon": -16.80187986
+      }
+    },
+    {
+      "area_id": "earth-iceland-r3c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 65.72766004,
+        "lon": -16.73650245
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+131:-27",
+      "request_point": {
+        "lat": 65.727658605,
+        "lon": -16.736509849999997
+      }
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 29.04,
+        "lon": -13.63
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+58:-22",
+      "request_point": {
+        "lat": 29.039999645,
+        "lon": -13.629999125
+      }
+    },
+    {
+      "area_id": "earth-namib-r1c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -24.72715036,
+        "lon": 15.27040094
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-50:+24",
+      "request_point": {
+        "lat": -24.727150045000002,
+        "lon": 15.27040164
+      }
+    },
+    {
+      "area_id": "earth-namib-r1c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -24.72709394,
+        "lon": 15.30006494
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-50:+24",
+      "request_point": {
+        "lat": -24.727093625000002,
+        "lon": 15.30006564
+      }
+    },
+    {
+      "area_id": "earth-namib-r1c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -24.72703165,
+        "lon": 15.32972884
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-50:+24",
+      "request_point": {
+        "lat": -24.72703134,
+        "lon": 15.329729535
+      }
+    },
+    {
+      "area_id": "earth-namib-r2c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -24.70005635,
+        "lon": 15.27034242
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-50:+24",
+      "request_point": {
+        "lat": -24.70005603,
+        "lon": 15.27034312
+      }
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -24.7,
+        "lon": 15.3
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-50:+24",
+      "request_point": {
+        "lat": -24.69999968,
+        "lon": 15.3000007
+      }
+    },
+    {
+      "area_id": "earth-namib-r2c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -24.69993779,
+        "lon": 15.32965748
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-50:+24",
+      "request_point": {
+        "lat": -24.699937475,
+        "lon": 15.32965818
+      }
+    },
+    {
+      "area_id": "earth-namib-r3c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -24.67296224,
+        "lon": 15.27028399
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-50:+24",
+      "request_point": {
+        "lat": -24.67296192,
+        "lon": 15.27028469
+      }
+    },
+    {
+      "area_id": "earth-namib-r3c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -24.67290596,
+        "lon": 15.29993516
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-50:+24",
+      "request_point": {
+        "lat": -24.672905645,
+        "lon": 15.299935855000001
+      }
+    },
+    {
+      "area_id": "earth-namib-r3c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -24.67284383,
+        "lon": 15.32958623
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-50:+24",
+      "request_point": {
+        "lat": -24.67284351,
+        "lon": 15.329586925000001
+      }
+    },
+    {
+      "area_id": "earth-pampas-r1c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -34.52744235,
+        "lon": -61.53219338
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-70:-99",
+      "request_point": {
+        "lat": -34.527441915,
+        "lon": -61.53219223
+      }
+    },
+    {
+      "area_id": "earth-pampas-r1c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -34.52704519,
+        "lon": -61.49951516
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-70:-99",
+      "request_point": {
+        "lat": -34.52704475,
+        "lon": -61.49951401
+      }
+    },
+    {
+      "area_id": "earth-pampas-r1c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -34.52663928,
+        "lon": -61.46683758
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-70:-99",
+      "request_point": {
+        "lat": -34.526638845,
+        "lon": -61.466836435000005
+      }
+    },
+    {
+      "area_id": "earth-pampas-r2c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -34.50039677,
+        "lon": -61.53266767
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-70:-99",
+      "request_point": {
+        "lat": -34.50039633,
+        "lon": -61.53266652
+      }
+    },
+    {
+      "area_id": "earth-pampas-r2c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -34.5,
+        "lon": -61.5
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-69:-99",
+      "request_point": {
+        "lat": -34.499999564999996,
+        "lon": -61.49999885
+      }
+    },
+    {
+      "area_id": "earth-pampas-r2c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -34.4995945,
+        "lon": -61.46733297
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-69:-99",
+      "request_point": {
+        "lat": -34.499594065,
+        "lon": -61.46733183
+      }
+    },
+    {
+      "area_id": "earth-pampas-r3c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -34.47335106,
+        "lon": -61.53314133
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-69:-99",
+      "request_point": {
+        "lat": -34.473350615,
+        "lon": -61.533140185
+      }
+    },
+    {
+      "area_id": "earth-pampas-r3c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -34.47295469,
+        "lon": -61.5004842
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-69:-99",
+      "request_point": {
+        "lat": -34.472954245,
+        "lon": -61.50048305
+      }
+    },
+    {
+      "area_id": "earth-pampas-r3c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": -34.4725496,
+        "lon": -61.46782771
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "-69:-99",
+      "request_point": {
+        "lat": -34.47254916,
+        "lon": -61.46782656
+      }
+    },
+    {
+      "area_id": "earth-pingualuit-r1c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 61.24961489,
+        "lon": -73.71703786
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+122:-118",
+      "request_point": {
+        "lat": 61.249613695,
+        "lon": -73.717032655
+      }
+    },
+    {
+      "area_id": "earth-pingualuit-r1c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 61.24907469,
+        "lon": -73.66114634
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+122:-118",
+      "request_point": {
+        "lat": 61.249073505,
+        "lon": -73.661141145
+      }
+    },
+    {
+      "area_id": "earth-pingualuit-r1c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 61.24851147,
+        "lon": -73.60525709
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+122:-118",
+      "request_point": {
+        "lat": 61.248510285,
+        "lon": -73.60525188
+      }
+    },
+    {
+      "area_id": "earth-pingualuit-r2c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 61.2765408,
+        "lon": -73.71593933
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+122:-118",
+      "request_point": {
+        "lat": 61.2765396,
+        "lon": -73.71593412
+      }
+    },
+    {
+      "area_id": "earth-pingualuit-r2c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 61.276,
+        "lon": -73.66
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+122:-118",
+      "request_point": {
+        "lat": 61.275998805,
+        "lon": -73.65999479
+      }
+    },
+    {
+      "area_id": "earth-pingualuit-r2c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 61.27543615,
+        "lon": -73.60406293
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+122:-118",
+      "request_point": {
+        "lat": 61.27543496,
+        "lon": -73.604057715
+      }
+    },
+    {
+      "area_id": "earth-pingualuit-r3c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 61.30346658,
+        "lon": -73.71483865
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+122:-118",
+      "request_point": {
+        "lat": 61.303465384999996,
+        "lon": -73.714833425
+      }
+    },
+    {
+      "area_id": "earth-pingualuit-r3c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 61.30292518,
+        "lon": -73.6588514
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+122:-118",
+      "request_point": {
+        "lat": 61.30292399,
+        "lon": -73.65884617
+      }
+    },
+    {
+      "area_id": "earth-pingualuit-r3c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 61.30236071,
+        "lon": -73.60286641
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+122:-118",
+      "request_point": {
+        "lat": 61.302359519999996,
+        "lon": -73.60286119
+      }
+    },
+    {
+      "area_id": "earth-rio-tinto",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 37.69,
+        "lon": -6.55
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+75:-11",
+      "request_point": {
+        "lat": 37.689999535,
+        "lon": -6.54999866
+      }
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 24.47320506,
+        "lon": 10.47008425
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+48:+16",
+      "request_point": {
+        "lat": 24.473204775,
+        "lon": 10.47008494
+      }
+    },
+    {
+      "area_id": "earth-sahara-r1c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 24.47291419,
+        "lon": 10.4996788
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+48:+16",
+      "request_point": {
+        "lat": 24.472913915,
+        "lon": 10.499679485
+      }
+    },
+    {
+      "area_id": "earth-sahara-r1c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 24.47261754,
+        "lon": 10.52927288
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+48:+16",
+      "request_point": {
+        "lat": 24.472617255,
+        "lon": 10.529273565
+      }
+    },
+    {
+      "area_id": "earth-sahara-r2c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 24.50029123,
+        "lon": 10.47039912
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+49:+16",
+      "request_point": {
+        "lat": 24.500290945,
+        "lon": 10.47039981
+      }
+    },
+    {
+      "area_id": "earth-sahara-r2c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 24.5,
+        "lon": 10.5
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+49:+16",
+      "request_point": {
+        "lat": 24.499999719999998,
+        "lon": 10.50000069
+      }
+    },
+    {
+      "area_id": "earth-sahara-r2c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 24.49970297,
+        "lon": 10.52960041
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+48:+16",
+      "request_point": {
+        "lat": 24.49970269,
+        "lon": 10.5296011
+      }
+    },
+    {
+      "area_id": "earth-sahara-r3c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 24.5273773,
+        "lon": 10.47071445
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+49:+16",
+      "request_point": {
+        "lat": 24.527377015,
+        "lon": 10.47071514
+      }
+    },
+    {
+      "area_id": "earth-sahara-r3c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 24.52708571,
+        "lon": 10.50032167
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+49:+16",
+      "request_point": {
+        "lat": 24.52708542,
+        "lon": 10.500322365
+      }
+    },
+    {
+      "area_id": "earth-sahara-r3c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 24.52678831,
+        "lon": 10.52992843
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+49:+16",
+      "request_point": {
+        "lat": 24.526788025000002,
+        "lon": 10.529929115
+      }
+    },
+    {
+      "area_id": "earth-snake-river-r1c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 43.37219749,
+        "lon": -113.53588523
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+86:-182",
+      "request_point": {
+        "lat": 43.372196915,
+        "lon": -113.535887015
+      }
+    },
+    {
+      "area_id": "earth-snake-river-r1c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 43.37301231,
+        "lon": -113.49889045
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+86:-182",
+      "request_point": {
+        "lat": 43.37301173,
+        "lon": -113.49889223
+      }
+    },
+    {
+      "area_id": "earth-snake-river-r1c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 43.37381517,
+        "lon": -113.46189413
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+86:-182",
+      "request_point": {
+        "lat": 43.373814595,
+        "lon": -113.46189591000001
+      }
+    },
+    {
+      "area_id": "earth-snake-river-r2c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 43.39918442,
+        "lon": -113.53701117
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+86:-182",
+      "request_point": {
+        "lat": 43.399183840000006,
+        "lon": -113.537012955
+      }
+    },
+    {
+      "area_id": "earth-snake-river-r2c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 43.4,
+        "lon": -113.5
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+86:-182",
+      "request_point": {
+        "lat": 43.39999942,
+        "lon": -113.500001785
+      }
+    },
+    {
+      "area_id": "earth-snake-river-r2c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 43.40080362,
+        "lon": -113.46298729
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+86:-182",
+      "request_point": {
+        "lat": 43.40080304,
+        "lon": -113.46298908
+      }
+    },
+    {
+      "area_id": "earth-snake-river-r3c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 43.42617119,
+        "lon": -113.53813867
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+86:-182",
+      "request_point": {
+        "lat": 43.426170615000004,
+        "lon": -113.538140455
+      }
+    },
+    {
+      "area_id": "earth-snake-river-r3c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 43.42698754,
+        "lon": -113.50111109
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+86:-182",
+      "request_point": {
+        "lat": 43.426986965,
+        "lon": -113.50111288
+      }
+    },
+    {
+      "area_id": "earth-snake-river-r3c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 43.42779191,
+        "lon": -113.46408197
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+86:-182",
+      "request_point": {
+        "lat": 43.427791335,
+        "lon": -113.464083765
+      }
+    },
+    {
+      "area_id": "earth-wupatki-r1c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 35.53283653,
+        "lon": -111.4329569
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+71:-179",
+      "request_point": {
+        "lat": 35.532836044999996,
+        "lon": -111.43295811499999
+      }
+    },
+    {
+      "area_id": "earth-wupatki-r1c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 35.53295078,
+        "lon": -111.39986569
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+71:-179",
+      "request_point": {
+        "lat": 35.532950295000006,
+        "lon": -111.3998669
+      }
+    },
+    {
+      "area_id": "earth-wupatki-r1c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 35.53305596,
+        "lon": -111.3667743
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+71:-179",
+      "request_point": {
+        "lat": 35.533055465,
+        "lon": -111.36677551
+      }
+    },
+    {
+      "area_id": "earth-wupatki-r2c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 35.55988563,
+        "lon": -111.43310233
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+71:-179",
+      "request_point": {
+        "lat": 35.559885145,
+        "lon": -111.433103535
+      }
+    },
+    {
+      "area_id": "earth-wupatki-r2c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 35.56,
+        "lon": -111.4
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+71:-179",
+      "request_point": {
+        "lat": 35.55999951,
+        "lon": -111.40000121
+      }
+    },
+    {
+      "area_id": "earth-wupatki-r2c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 35.56010528,
+        "lon": -111.3668975
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+71:-179",
+      "request_point": {
+        "lat": 35.560104785,
+        "lon": -111.366898705
+      }
+    },
+    {
+      "area_id": "earth-wupatki-r3c1",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 35.58693461,
+        "lon": -111.43324794
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+71:-179",
+      "request_point": {
+        "lat": 35.586934125,
+        "lon": -111.433249155
+      }
+    },
+    {
+      "area_id": "earth-wupatki-r3c2",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 35.58704909,
+        "lon": -111.40013449
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+71:-179",
+      "request_point": {
+        "lat": 35.587048605,
+        "lon": -111.40013569999999
+      }
+    },
+    {
+      "area_id": "earth-wupatki-r3c3",
+      "dimensions": {
+        "D03": {
+          "surface_air_temperature_2m_c": "detected",
+          "surface_air_temperature_2m_max_c": "detected",
+          "surface_air_temperature_2m_min_c": "detected",
+          "surface_skin_temperature_c": "detected"
+        },
+        "D04": {
+          "precipitation_mm_day": "detected",
+          "root_zone_soil_wetness_fraction": "detected",
+          "snow_depth_cm": "detected",
+          "surface_soil_wetness_fraction": "detected"
+        },
+        "D05": {
+          "surface_longwave_irradiance_kwh_m2_day": "detected",
+          "surface_shortwave_irradiance_kwh_m2_day": "detected"
+        }
+      },
+      "manifest_point": {
+        "lat": 35.58715448,
+        "lon": -111.36702085
+      },
+      "observation_states": {
+        "detected": 10,
+        "no_coverage": 0,
+        "not_fetched": 0
+      },
+      "power_cell_approx": "+71:-179",
+      "request_point": {
+        "lat": 35.587153985,
+        "lon": -111.367022065
+      }
+    }
+  ],
+  "detected": 1130,
+  "distinct_power_cells_approx": 22,
+  "expected_observations": 1130,
+  "feature_count_per_candidate": 10,
+  "no_coverage": 0,
+  "not_fetched": 0,
+  "observation_count": 1130,
+  "power_grid": "approximately 0.5 degree latitude x 0.625 degree longitude (POWER)",
+  "request_point_max_offset_m": 0.653
+}
