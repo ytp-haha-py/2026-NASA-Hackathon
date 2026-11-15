@@ -27,6 +27,7 @@ from analog_api.adapters.db import (
     PlanetaryReference,
     ReferenceFeatureObservation,
 )
+from analog_api.adapters.schema import SchemaVersionError
 from analog_api.adapters.seed import (
     DATA_VERSION_KEY,
     ManifestError,
@@ -205,7 +206,7 @@ def main(argv: list[str] | None = None) -> int:
             dry_run=args.dry_run,
             root=Path(args.root),
         )
-    except (SnapshotError, ManifestError) as exc:
+    except (SnapshotError, ManifestError, SchemaVersionError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
 
