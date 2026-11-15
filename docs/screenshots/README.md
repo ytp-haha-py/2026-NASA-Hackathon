@@ -9,6 +9,7 @@ Captured 2026-11-15 against the Docker + Cloudflare Tunnel deployment using head
 | `02-six-dimensions-earth.png` | Six-dimension panel, `earth-sahara-r1c1` (D03–D06) |
 | `03-six-dimensions-mars.png` | Six-dimension panel, `mars-test-jezero-western-delta` (D02 evidence/context) |
 | `04-global-discovery.png` | Global discovery, real 168-cell Geomorpho pilot index |
+| `05-six-dimensions-moon.png` | D02 Moon geology + D05 SPICE solar geometry |
 
 The screenshots are evidence of the live public UI, not a claim of global data coverage. The
 six-dimension panel shows missing states rather than zero-filling, and no combined six-dimension
