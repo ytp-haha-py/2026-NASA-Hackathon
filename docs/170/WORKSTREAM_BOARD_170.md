@@ -1,6 +1,6 @@
 # #170 Planetary AOI — eight primary Goals (live board)
 
-Status snapshot: **2026-11-15 22:15 local**, coordinator session
+Status snapshot: **2026-11-15 22:35 local**, coordinator session
 `ses_e253e85e9ffeLjB1ipw0gIVen0` (native goal `a1caf80d-100c-4491-a301-cdf5020f0a69`).
 This board records what is actually running, not what is planned.
 
@@ -8,7 +8,7 @@ This board records what is actually running, not what is planned.
 
 | Goal | Worktree | Branch | Session ID | Native Goal ID | Subagents active | Current work | PR | Blocker |
 |---|---|---|---|---|---|---|---|---|
-| A Moon Global D01 | `/home/panda/.local/share/opencode/worktree/204e7a/phase2-170-a-moon-d01` | `feat/170-a-moon-d01` | `ses_e2083965affePyD1DFcE7D4XDk` | `e80e773e-4a7b-4b9e-8df7-1eed2f6e35d6` | A1 **done** (`a35337e`, 10 offline + 3 online tests; GDAL confirms GCS_Moon_2000, 46,080×23,040, 236.901 m, 0..360°, nodata NaN), A2 AOI terrain (`ses_e20825450ffecElFXhLRDCEJ0F`) | A2 fixing source/analysis resolution labels, SVS km→m fallback and 5 tests; 3 Moon AOI values already produced | none yet | A2 test/label repair |
+| A Moon Global D01 | `/home/panda/.local/share/opencode/worktree/204e7a/phase2-170-a-moon-d01` | `feat/170-a-moon-d01` | `ses_e2083965affePyD1DFcE7D4XDk` | `e80e773e-4a7b-4b9e-8df7-1eed2f6e35d6` | A1 **done** (`a35337e`, 10 offline + 3 online tests; GDAL confirms GCS_Moon_2000, 46,080×23,040, 236.901 m, 0..360°, nodata NaN), A2 AOI terrain (`ses_e20825450ffecElFXhLRDCEJ0F`) | 3 Moon AOI values produced; A2 fixing resolution labels, SVS km→m and 5 tests; PR #177 backend currently failing | #177 | A2 test/label repair |
 | B Mars Global D01 | `/home/panda/.local/share/opencode/worktree/204e7a/phase2-170-b-mars-d01` | `feat/170-b-mars-d01` | `ses_e20839605ffeYMRl7a8idjZOnS` | `3f3af04c-4cd8-4fed-b5f2-d8a6f6405823` | B1 MOLA PDS4/tiles (`ses_e20825440ffe7mJj2MBkVAMU7p`), B2 AOI terrain (`ses_e20825440ffd8xlaQU83TUsW45`) | verify PDS4 MEGDR; bounded tile/range; 3 dispersed Mars AOIs | none yet | PDS4/range + tile cache |
 | C Raster Infrastructure | `/home/panda/.local/share/opencode/worktree/204e7a/phase2-170-c-raster-infra` | `feat/170-c-raster-infra` | `ses_e208395a6ffenIr8q3tsnZ7Z57` | `e66337ce-30dd-44d9-a68e-8ddf61210cfa` | C1 **done** (`4af1e09`/`e4f617f`, 20 tests), C2 cache/resume/budget (`ses_e20825434ffeJiZXUOHLaz36gx`) | C2 reconciling to C1 `RasterSource`; no more overwrite | none yet | C2 reconciliation |
 | D Planetary AOI Engine/API | `/home/panda/.local/share/opencode/worktree/204e7a/phase2-170-d-aoi-engine` | `feat/170-d-aoi-engine` | `ses_e2083954fffeW90CHIYNuibl2D` | `88bfc6ce-1906-4eb6-9f76-88e853a40f65` | D1 bbox/projection (`ses_e20825434ffdMR8qfdeLXJ3Fh1`), D2 jobs/API (`ses_e20825433ffelm7NxOsYfDYyzU`) | full-bbox geometry, antimeridian/pole, job lifecycle, six-dim contract | none yet | depends on A/B engines for real values |
@@ -102,3 +102,20 @@ Observed tile URLs (PDS4 Product 1.1):
 
 B1 must verify byte-range/label semantics and use bounded reads or a small staged tile cache.
 MEGDR is global but coarse; it is not replaced by Jezero CTX and not treated as 90 m data.
+
+
+## Open PRs (all eight Goals, none merged)
+
+| PR | Goal | State |
+|---:|---|---|
+| #177 | A Moon D01 | open; backend checks currently fail until A2 finishes |
+| #179 | B Mars D01 | open; all checks pass; 3 dispersed AOIs |
+| #173 | C Raster infra | open; backend checks fail until C2 reconciliation |
+| #178 | D AOI engine/API | open; frontend check fails until geometry/API wiring settles |
+| #172 | E D02–D04 | open; checks pass |
+| #175 | F D05–D06 | open; backend checks fail pending F fixes |
+| #176 | G Cross-body | open; G2 pushed; checks settling |
+| #174 | H Integration | open; H1 HTTP E2E files being integrated |
+
+M0 status: **Mars 3 dispersed AOIs green (#179)**; Moon 3 AOIs computed but #177 is red until A2's
+resolution/SVS/test repair lands. No PR is merged.
