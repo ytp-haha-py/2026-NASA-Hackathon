@@ -24,6 +24,7 @@ import type { SearchSubmission } from "./lib/search-types";
 import { DetailPanel } from "./components/DetailPanel";
 import { MapPanel } from "./components/MapPanel";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
+import { ResultsPanel } from "./components/ResultsPanel";
 import { SearchForm } from "./components/SearchForm";
 import { SourcesAndMethods } from "./components/SourcesAndMethods";
 
@@ -308,12 +309,24 @@ function AppContent() {
                 showIdle={!searchResponse && !searching}
               />
 
-              {selectedResult && !searching && (
-                <DetailPanel
-                  selected={selectedResult}
-                  activeTarget={activeTarget}
-                  features={capabilities.features}
-                />
+              {searchResponse && !searching && (
+                <div className="results-grid">
+                  <ResultsPanel
+                    response={searchResponse}
+                    features={capabilities.features}
+                    contextFeatures={capabilities.context_features}
+                    selectedId={selectedId}
+                    onSelect={setSelectedId}
+                    selectedOnly
+                  />
+                  {selectedResult && (
+                    <DetailPanel
+                      selected={selectedResult}
+                      activeTarget={activeTarget}
+                      features={capabilities.features}
+                    />
+                  )}
+                </div>
               )}
 
 

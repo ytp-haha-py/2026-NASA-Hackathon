@@ -189,7 +189,9 @@ describe("Traditional Chinese workflows", () => {
       limit: 10,
     });
     expect(screen.getByText("示範／合成（DEMO / SYNTHETIC）")).toBeInTheDocument();
-    expect(screen.queryByTestId("coverage-headline")).not.toBeInTheDocument();
+    expect(screen.getByTestId("coverage-headline")).toHaveTextContent(
+      "在 4 個已索引區域中的前 2 名",
+    );
 
     await user.click(screen.getByRole("button", { name: "在地圖上顯示第 1 名：Observed test window" }));
     const detail = await screen.findByRole("region", { name: "已選取的地球候選區域" });

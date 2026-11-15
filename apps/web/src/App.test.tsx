@@ -220,7 +220,7 @@ describe("search form", () => {
 });
 
 describe("search states and results", () => {
-  it("shows results in the map without expanded search or duplicate result panels", async () => {
+  it("shows the map ranking and the restored results section with linked selection", async () => {
     let resolveSearch: ((response: Response) => void) | undefined;
     const pending = new Promise<Response>((resolve) => {
       resolveSearch = resolve;
@@ -241,11 +241,14 @@ describe("search states and results", () => {
     expect(ranking.getByText("Top 2")).toBeInTheDocument();
     expect(ranking.getByText("DEMO / SYNTHETIC")).toBeInTheDocument();
     expect(screen.queryByRole("group", { name: "Search scope" })).not.toBeInTheDocument();
-    expect(screen.queryByTestId("coverage-headline")).not.toBeInTheDocument();
+    expect(await screen.findByTestId("coverage-headline")).toHaveTextContent(
+      "Top 2 among 4 indexed regions",
+    );
     expect(screen.queryByRole("heading", { name: "Inspect a candidate" })).not.toBeInTheDocument();
     expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/global/"))).toBe(false);
 
     await user.click(ranking.getByRole("button", { name: "Show rank 1 on the map: Observed test window" }));
+    expect(screen.getByTestId("result-earth-observed-1")).toHaveAttribute("data-selected", "true");
     const detail = await screen.findByRole("region", { name: "Selected Earth candidate" });
     expect(await within(detail).findByText("Observed terrain-shape features")).toBeInTheDocument();
     const comparison = within(detail).getByRole("table", { name: "Requested target versus candidate for Observed test window" });
@@ -254,6 +257,7 @@ describe("search states and results", () => {
 
     await user.click(ranking.getByRole("button", { name: /^Show rank 2 on the map:/ }));
     expect(within(detail).getByText("DEMO / SYNTHETIC")).toBeInTheDocument();
+    expect(screen.getByTestId("result-earth-synthetic-2")).toHaveAttribute("data-selected", "true");
     expect(fetchMock).toHaveBeenCalled();
   });
 

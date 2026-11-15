@@ -234,3 +234,11 @@ PR #183 合併至 main，提交為 `2d35515`，Issue #163 關閉。[PR #183](htt
 完成畫面為 [桌機搜尋結果](screenshots/39-simplified-results-desktop.jpg) 與 [手機搜尋結果](screenshots/40-simplified-results-mobile.jpg)。
 
 提交期間 main 另合併 PR #186 的篩選功能，本分支同步後沿用新版的測試輔助函式，118 項前端測試通過。UI 刪除與這份文件由 PR #189 一併交付。[PR #189](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/189)
+
+## 12. 復原地圖下方的排名結果
+
+使用者後續要求將刪除的排名紀錄復原。本次重新接回既有 ResultsPanel，搜尋後顯示地圖下方的排名摘要、覆蓋資訊、排除原因與限制，選點後顯示對應的結果卡與候選詳情。
+
+排名區沿用原本的中英文文案與選取狀態，測試確認地圖選點後結果卡與詳情同步更新。這項復原以 Issue #192 記錄，並將更新內容隨 PR 一併提交。[Issue #192](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/192)
+
+118 項前端測試、lint、typecheck/build 與 API types 檢查通過。另以真實本機 API 驗證桌機繁中與手機英文畫面，確認排名摘要、選取連動與切換語言後的狀態。完成畫面為 [桌機排名結果](screenshots/41-restored-ranking-desktop.jpg) 與 [手機排名結果](screenshots/42-restored-ranking-mobile.jpg)。
