@@ -66,3 +66,39 @@ bash scripts/verify.sh --ci   # per Goal before PR
 ```
 
 Do not claim completion for a Goal until its own commands/tests and a PR exist.
+
+
+## Verified M0 source evidence (Coordinator, 2026-11-15)
+
+### Moon — LOLA128 global GeoTIFF
+
+`https://pgda.gsfc.nasa.gov/data/LOLA_PA/LDEM128_PA_pixel_202405.tif`
+
+```text
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Content-Type: image/tiff
+Content-Length: 2705286892
+Last-Modified: Fri, 03 May 2024 14:05:13 GMT
+range bytes=0-511 -> HTTP 206, 512 bytes, TIFF magic II+\x00
+```
+
+The global product is range-readable; A2 should use bounded `/vsicurl/` windows, not a 2.7 GB
+download. 128 ppd ≈ 236.9 m at the equator; CRS/nodata must be verified from the file by A1.
+
+### Mars — MOLA MEGDR PDS4 tiles
+
+Index: `https://pds-geosciences.wustl.edu/missions/mgs/megdr.html`
+
+Observed tile URLs (PDS4 Product 1.1):
+
+```text
+.../meg004/megr90n000cb.img   (4 ppd)
+.../meg016/megr90n000eb.img   (16 ppd)
+.../meg032/megr90n000fb.img   (32 ppd)
+.../meg064/megr90n000gb.img   (64 ppd north)
+.../meg064/megr90n180gb.img   (64 ppd south)
+```
+
+B1 must verify byte-range/label semantics and use bounded reads or a small staged tile cache.
+MEGDR is global but coarse; it is not replaced by Jezero CTX and not treated as 90 m data.
