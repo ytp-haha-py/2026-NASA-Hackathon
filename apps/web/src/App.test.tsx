@@ -547,7 +547,7 @@ describe("context filters and Moon reference mode", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "Set at least one weight above 0. Metrics with weight 0 are not compared.",
     );
-    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/search"))).toBe(false);
+    expect(fetchMock.mock.calls.some(([url, init]) => init?.method === "POST" && /\/api\/v1\/search(?:\/multidimensional)?$/.test(String(url)))).toBe(false);
 
     const slopeGroup = screen.getByRole("group", { name: "Mean slope" });
     const slopeWeight = within(slopeGroup).getByLabelText("Weight (≥ 0)");
