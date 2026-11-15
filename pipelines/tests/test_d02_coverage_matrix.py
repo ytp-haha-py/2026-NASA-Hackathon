@@ -90,6 +90,7 @@ def test_d02_representative_queries_match_typed_export_counts():
         if line.strip()
     ]
     q = _load_json("pipelines/geology/representative-queries.json")
+
     # selected queries should be subsets consistent with typed export
     def count(body=None, fid=None, prefix=None, area=None):
         n = 0
@@ -106,6 +107,12 @@ def test_d02_representative_queries_match_typed_export_counts():
         return n
 
     by_id = {item["query_id"]: item for item in q["queries"]}
-    assert by_id["Q-EARTH-availability"]["result_count"] == count(body="Earth", fid="geology_analysis_availability")
-    assert by_id["Q-MOON-mapped-units"]["result_count"] == count(body="Moon", fid="geologic_unit") + count(body="Moon", fid="geologic_process")
-    assert by_id["Q-MARS-crism-mineral-detections"]["result_count"] == count(body="Mars", prefix="mineral_")
+    assert by_id["Q-EARTH-availability"]["result_count"] == count(
+        body="Earth", fid="geology_analysis_availability"
+    )
+    assert by_id["Q-MOON-mapped-units"]["result_count"] == count(
+        body="Moon", fid="geologic_unit"
+    ) + count(body="Moon", fid="geologic_process")
+    assert by_id["Q-MARS-crism-mineral-detections"]["result_count"] == count(
+        body="Mars", prefix="mineral_"
+    )

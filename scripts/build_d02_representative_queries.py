@@ -49,7 +49,14 @@ def main() -> int:
             if isinstance(v, dict):
                 item["value_summary"] = {
                     k: v.get(k)
-                    for k in ["code", "name", "overlap_fraction", "scheme", "process_code", "description"]
+                    for k in [
+                        "code",
+                        "name",
+                        "overlap_fraction",
+                        "scheme",
+                        "process_code",
+                        "description",
+                    ]
                     if k in v
                 }
                 if "unified_rocks" in v:
@@ -72,7 +79,8 @@ def main() -> int:
             "body": "Moon",
             "description": "Representative query: Moon mapped geologic unit/process evidence in indexed Shackleton ROI.",
             "filters": {"body": "Moon", "feature_id_in": ["geologic_unit", "geologic_process"]},
-            "results": find(body="Moon", feature_id="geologic_unit") + find(body="Moon", feature_id="geologic_process"),
+            "results": find(body="Moon", feature_id="geologic_unit")
+            + find(body="Moon", feature_id="geologic_process"),
         },
         {
             "query_id": "Q-MOON-mineral-availability-blocker",
@@ -85,9 +93,17 @@ def main() -> int:
             "query_id": "Q-MARS-jezero-mapped-units",
             "body": "Mars",
             "description": "Representative query: Mars mapped geologic units/processes for bounded Jezero test AOI (floor).",
-            "filters": {"body": "Mars", "feature_id_in": ["geologic_unit", "geologic_process"], "area_id": "mars-test-jezero-floor"},
+            "filters": {
+                "body": "Mars",
+                "feature_id_in": ["geologic_unit", "geologic_process"],
+                "area_id": "mars-test-jezero-floor",
+            },
             "results": [
-                r for r in (find(body="Mars", feature_id="geologic_unit") + find(body="Mars", feature_id="geologic_process"))
+                r
+                for r in (
+                    find(body="Mars", feature_id="geologic_unit")
+                    + find(body="Mars", feature_id="geologic_process")
+                )
                 if r["area_id"] == "mars-test-jezero-floor"
             ],
         },
@@ -102,8 +118,14 @@ def main() -> int:
             "query_id": "Q-MARS-crism-spectral-context",
             "body": "Mars",
             "description": "Representative query: Mars CRISM spectral parameter context values (dimensionless, evidence-only context).",
-            "filters": {"body": "Mars", "feature_id_prefix": "context_", "area_id": "mars-test-jezero-western-delta"},
-            "results": find(body="Mars", prefix="context_", area_id="mars-test-jezero-western-delta"),
+            "filters": {
+                "body": "Mars",
+                "feature_id_prefix": "context_",
+                "area_id": "mars-test-jezero-western-delta",
+            },
+            "results": find(
+                body="Mars", prefix="context_", area_id="mars-test-jezero-western-delta"
+            ),
         },
     ]
     for q in queries:
@@ -129,7 +151,10 @@ def main() -> int:
     }
     path = ROOT / "pipelines/geology/representative-queries.json"
     path.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
-    print(f"wrote {path} queries={len(queries)} " + " ".join(f"{q['query_id']}={q['result_count']}" for q in queries))
+    print(
+        f"wrote {path} queries={len(queries)} "
+        + " ".join(f"{q['query_id']}={q['result_count']}" for q in queries)
+    )
     return 0
 
 

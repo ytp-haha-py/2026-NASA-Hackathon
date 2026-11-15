@@ -32,21 +32,111 @@ def main() -> int:
     source_audit = json.loads((ROOT / "docs/data-sources/d02-geology.json").read_text())
 
     features = [
-        ("geologic_unit", "lithology", "category", "Map unit/category from geologic map overlay; categorical, no interpolation.", ["Earth", "Moon", "Mars"]),
-        ("geologic_process", "geological_process", "process_evidence", "Process interpretation evidence tied to mapped units/source descriptions.", ["Earth", "Moon", "Mars"]),
-        ("mineral_olivine", "mineral_spectral_detection", "detection", "Mineral/spectral detection state (no abundance).", ["Earth", "Moon", "Mars"]),
-        ("mineral_pyroxene", "mineral_spectral_detection", "detection", "Mineral/spectral detection state (no abundance).", ["Earth", "Moon", "Mars"]),
-        ("mineral_clay_minerals", "mineral_spectral_detection", "detection", "Mineral/spectral detection state (no abundance).", ["Earth", "Moon", "Mars"]),
-        ("mineral_hydrated_sulfates", "mineral_spectral_detection", "detection", "Mineral/spectral detection state (no abundance).", ["Earth", "Moon", "Mars"]),
-        ("mineral_carbonates", "mineral_spectral_detection", "detection", "Mineral/spectral detection state (no abundance).", ["Earth", "Moon", "Mars"]),
-        ("context_olindex3", "mineral_spectral_detection", "context_numeric", "CRISM spectral parameter (context only, not abundance/detection).", ["Mars"]),
-        ("context_lcpindex2", "mineral_spectral_detection", "context_numeric", "CRISM spectral parameter (context only, not abundance/detection).", ["Mars"]),
-        ("context_hcpindex2", "mineral_spectral_detection", "context_numeric", "CRISM spectral parameter (context only, not abundance/detection).", ["Mars"]),
-        ("context_d2300", "mineral_spectral_detection", "context_numeric", "CRISM spectral parameter (context only, not abundance/detection).", ["Mars"]),
-        ("context_bd1900_2", "mineral_spectral_detection", "context_numeric", "CRISM spectral parameter (context only, not abundance/detection).", ["Mars"]),
-        ("context_sindex2", "mineral_spectral_detection", "context_numeric", "CRISM spectral parameter (context only, not abundance/detection).", ["Mars"]),
-        ("context_cindex2", "mineral_spectral_detection", "context_numeric", "CRISM spectral parameter (context only, not abundance/detection).", ["Mars"]),
-        ("geology_analysis_availability", "quality", "availability", "Source/analysis availability and blockers (quality/evidence record).", ["Earth", "Moon", "Mars"]),
+        (
+            "geologic_unit",
+            "lithology",
+            "category",
+            "Map unit/category from geologic map overlay; categorical, no interpolation.",
+            ["Earth", "Moon", "Mars"],
+        ),
+        (
+            "geologic_process",
+            "geological_process",
+            "process_evidence",
+            "Process interpretation evidence tied to mapped units/source descriptions.",
+            ["Earth", "Moon", "Mars"],
+        ),
+        (
+            "mineral_olivine",
+            "mineral_spectral_detection",
+            "detection",
+            "Mineral/spectral detection state (no abundance).",
+            ["Earth", "Moon", "Mars"],
+        ),
+        (
+            "mineral_pyroxene",
+            "mineral_spectral_detection",
+            "detection",
+            "Mineral/spectral detection state (no abundance).",
+            ["Earth", "Moon", "Mars"],
+        ),
+        (
+            "mineral_clay_minerals",
+            "mineral_spectral_detection",
+            "detection",
+            "Mineral/spectral detection state (no abundance).",
+            ["Earth", "Moon", "Mars"],
+        ),
+        (
+            "mineral_hydrated_sulfates",
+            "mineral_spectral_detection",
+            "detection",
+            "Mineral/spectral detection state (no abundance).",
+            ["Earth", "Moon", "Mars"],
+        ),
+        (
+            "mineral_carbonates",
+            "mineral_spectral_detection",
+            "detection",
+            "Mineral/spectral detection state (no abundance).",
+            ["Earth", "Moon", "Mars"],
+        ),
+        (
+            "context_olindex3",
+            "mineral_spectral_detection",
+            "context_numeric",
+            "CRISM spectral parameter (context only, not abundance/detection).",
+            ["Mars"],
+        ),
+        (
+            "context_lcpindex2",
+            "mineral_spectral_detection",
+            "context_numeric",
+            "CRISM spectral parameter (context only, not abundance/detection).",
+            ["Mars"],
+        ),
+        (
+            "context_hcpindex2",
+            "mineral_spectral_detection",
+            "context_numeric",
+            "CRISM spectral parameter (context only, not abundance/detection).",
+            ["Mars"],
+        ),
+        (
+            "context_d2300",
+            "mineral_spectral_detection",
+            "context_numeric",
+            "CRISM spectral parameter (context only, not abundance/detection).",
+            ["Mars"],
+        ),
+        (
+            "context_bd1900_2",
+            "mineral_spectral_detection",
+            "context_numeric",
+            "CRISM spectral parameter (context only, not abundance/detection).",
+            ["Mars"],
+        ),
+        (
+            "context_sindex2",
+            "mineral_spectral_detection",
+            "context_numeric",
+            "CRISM spectral parameter (context only, not abundance/detection).",
+            ["Mars"],
+        ),
+        (
+            "context_cindex2",
+            "mineral_spectral_detection",
+            "context_numeric",
+            "CRISM spectral parameter (context only, not abundance/detection).",
+            ["Mars"],
+        ),
+        (
+            "geology_analysis_availability",
+            "quality",
+            "availability",
+            "Source/analysis availability and blockers (quality/evidence record).",
+            ["Earth", "Moon", "Mars"],
+        ),
     ]
 
     idx = collections.defaultdict(list)
@@ -56,7 +146,11 @@ def main() -> int:
     body_feature_datasets = {
         ("Earth", "geologic_unit"): ["glim-niveau-i-mirror"],
         ("Earth", "geologic_process"): ["glim-niveau-i-mirror"],
-        ("Earth", "geology_analysis_availability"): ["emit-l2bmin-002", "emit-l2bmin-001", "glim-niveau-i-mirror"],
+        ("Earth", "geology_analysis_availability"): [
+            "emit-l2bmin-002",
+            "emit-l2bmin-001",
+            "glim-niveau-i-mirror",
+        ],
         ("Earth", "mineral_olivine"): ["emit-l2bmin-002", "emit-l2bmin-001"],
         ("Earth", "mineral_pyroxene"): ["emit-l2bmin-002", "emit-l2bmin-001"],
         ("Earth", "mineral_clay_minerals"): ["emit-l2bmin-002", "emit-l2bmin-001"],
@@ -64,7 +158,10 @@ def main() -> int:
         ("Earth", "mineral_carbonates"): ["emit-l2bmin-002", "emit-l2bmin-001"],
         ("Moon", "geologic_unit"): ["usgs-moon-geology-v2"],
         ("Moon", "geologic_process"): ["usgs-moon-geology-v2"],
-        ("Moon", "geology_analysis_availability"): ["lunar-polar-minerals-zenodo-v4", "usgs-moon-geology-v2"],
+        ("Moon", "geology_analysis_availability"): [
+            "lunar-polar-minerals-zenodo-v4",
+            "usgs-moon-geology-v2",
+        ],
         ("Moon", "mineral_olivine"): ["lunar-polar-minerals-zenodo-v4"],
         ("Moon", "mineral_pyroxene"): ["lunar-polar-minerals-zenodo-v4"],
         ("Moon", "mineral_clay_minerals"): ["lunar-polar-minerals-zenodo-v4"],
@@ -79,10 +176,22 @@ def main() -> int:
         ("Mars", "mineral_hydrated_sulfates"): ["crism-mtrdr-context"],
         ("Mars", "mineral_carbonates"): ["crism-mtrdr-context"],
     }
-    for c in ["context_olindex3", "context_lcpindex2", "context_hcpindex2", "context_d2300", "context_bd1900_2", "context_sindex2", "context_cindex2"]:
+    for c in [
+        "context_olindex3",
+        "context_lcpindex2",
+        "context_hcpindex2",
+        "context_d2300",
+        "context_bd1900_2",
+        "context_sindex2",
+        "context_cindex2",
+    ]:
         body_feature_datasets[("Mars", c)] = ["crism-mtrdr-context"]
 
-    sa = {s.get("source_id") or s.get("id"): s for s in source_audit.get("sources", []) if s.get("source_id") or s.get("id")}
+    sa = {
+        s.get("source_id") or s.get("id"): s
+        for s in source_audit.get("sources", [])
+        if s.get("source_id") or s.get("id")
+    }
     ds_to_sa = {
         "glim-niveau-i-mirror": "arcgis-glim-vector-mirror",
         "usgs-moon-geology-v2": "usgs-moon-unified-geologic-map-v2",
@@ -118,33 +227,49 @@ def main() -> int:
                 lic = d.get("license")
                 if isinstance(sad.get("license"), dict):
                     lic = sad["license"].get("name") or lic
-                sources.append({
-                    "source_id": did,
-                    "source_audit_id": ds_to_sa.get(did, did),
-                    "provider": d.get("provider"),
-                    "product": d.get("product_id"),
-                    "version": d.get("version"),
-                    "licence": lic,
-                    "licence_url": d.get("license_url"),
-                    "url": d.get("url"),
-                    "verification_status": d.get("verification_status"),
-                    "redistribution_allowed": d.get("redistribution_allowed"),
-                    "crs_or_frame": d.get("native_crs"),
-                    "native_resolution_m": d.get("native_resolution_m"),
-                    "product_spatial_support": (sad.get("coverage") or {}).get("extent"),
-                    "product_scope": (sad.get("coverage") or {}).get("scope"),
-                    "temporal_support": d.get("temporal_support"),
-                    "depth_support": d.get("depth_support"),
-                    "qa": ((sad.get("qa") or {}).get("notes") if isinstance(sad.get("qa"), dict) else sad.get("qa")),
-                    "uncertainty": ((sad.get("uncertainty") or {}).get("notes") if isinstance(sad.get("uncertainty"), dict) else sad.get("uncertainty")),
-                    "source_gaps_blockers": sad.get("blockers") or [],
-                    "source_audit_status": sad.get("status"),
-                })
+                sources.append(
+                    {
+                        "source_id": did,
+                        "source_audit_id": ds_to_sa.get(did, did),
+                        "provider": d.get("provider"),
+                        "product": d.get("product_id"),
+                        "version": d.get("version"),
+                        "licence": lic,
+                        "licence_url": d.get("license_url"),
+                        "url": d.get("url"),
+                        "verification_status": d.get("verification_status"),
+                        "redistribution_allowed": d.get("redistribution_allowed"),
+                        "crs_or_frame": d.get("native_crs"),
+                        "native_resolution_m": d.get("native_resolution_m"),
+                        "product_spatial_support": (sad.get("coverage") or {}).get("extent"),
+                        "product_scope": (sad.get("coverage") or {}).get("scope"),
+                        "temporal_support": d.get("temporal_support"),
+                        "depth_support": d.get("depth_support"),
+                        "qa": (
+                            (sad.get("qa") or {}).get("notes")
+                            if isinstance(sad.get("qa"), dict)
+                            else sad.get("qa")
+                        ),
+                        "uncertainty": (
+                            (sad.get("uncertainty") or {}).get("notes")
+                            if isinstance(sad.get("uncertainty"), dict)
+                            else sad.get("uncertainty")
+                        ),
+                        "source_gaps_blockers": sad.get("blockers") or [],
+                        "source_audit_status": sad.get("status"),
+                    }
+                )
 
             qflags = sorted({f for o in olist for f in (o.get("quality_flags") or [])})
             notes = sorted({n for o in olist for n in [o.get("notes")] if n})
-            unc = [o.get("uncertainty") for o in olist if o.get("uncertainty") not in (None, {}, [])]
-            valid_fracs = [o.get("spatial_support", {}).get("valid_fraction") for o in olist if o.get("spatial_support", {}).get("valid_fraction") is not None]
+            unc = [
+                o.get("uncertainty") for o in olist if o.get("uncertainty") not in (None, {}, [])
+            ]
+            valid_fracs = [
+                o.get("spatial_support", {}).get("valid_fraction")
+                for o in olist
+                if o.get("spatial_support", {}).get("valid_fraction") is not None
+            ]
             areas = sorted({o["area_id"] for o in olist})
             if fid.startswith("context_"):
                 legal_role = "evidence_context_only_not_filter_not_similarity"
@@ -167,8 +292,12 @@ def main() -> int:
                 obs_class = "evidence_unknown_or_blocked"
 
             row = {
-                "dimension": "D02", "dimension_name": "Geology & Mineralogy", "body": body,
-                "feature_id": fid, "subgroup": subgroup, "feature_kind": kind,
+                "dimension": "D02",
+                "dimension_name": "Geology & Mineralogy",
+                "body": body,
+                "feature_id": fid,
+                "subgroup": subgroup,
+                "feature_kind": kind,
                 "feature_description": desc,
                 "observation_class": obs_class,
                 "actual_indexed_queryable_coverage": actual,
@@ -178,13 +307,44 @@ def main() -> int:
                 "state_counts": dict(collections.Counter(o.get("state") for o in olist)),
                 "sources": sources,
                 "spatial_support_summary": {
-                    "representative_bbox_crs": sorted({(o.get("spatial_support") or {}).get("bbox_crs") for o in olist if (o.get("spatial_support") or {}).get("bbox_crs")}),
-                    "native_resolution_m_values": sorted({(o.get("spatial_support") or {}).get("native_resolution_m") for o in olist if (o.get("spatial_support") or {}).get("native_resolution_m") is not None}),
+                    "representative_bbox_crs": sorted(
+                        {
+                            (o.get("spatial_support") or {}).get("bbox_crs")
+                            for o in olist
+                            if (o.get("spatial_support") or {}).get("bbox_crs")
+                        }
+                    ),
+                    "native_resolution_m_values": sorted(
+                        {
+                            (o.get("spatial_support") or {}).get("native_resolution_m")
+                            for o in olist
+                            if (o.get("spatial_support") or {}).get("native_resolution_m")
+                            is not None
+                        }
+                    ),
                     "valid_fraction_values": valid_fracs,
-                    "notes": sorted({(o.get("spatial_support") or {}).get("notes") for o in olist if (o.get("spatial_support") or {}).get("notes")}),
+                    "notes": sorted(
+                        {
+                            (o.get("spatial_support") or {}).get("notes")
+                            for o in olist
+                            if (o.get("spatial_support") or {}).get("notes")
+                        }
+                    ),
                 },
-                "temporal_support_summary": sorted({(o.get("temporal_support") or {}).get("kind") for o in olist if (o.get("temporal_support") or {}).get("kind")}),
-                "depth_support_summary": sorted({(o.get("depth_support") or {}).get("kind") for o in olist if (o.get("depth_support") or {}).get("kind")}),
+                "temporal_support_summary": sorted(
+                    {
+                        (o.get("temporal_support") or {}).get("kind")
+                        for o in olist
+                        if (o.get("temporal_support") or {}).get("kind")
+                    }
+                ),
+                "depth_support_summary": sorted(
+                    {
+                        (o.get("depth_support") or {}).get("kind")
+                        for o in olist
+                        if (o.get("depth_support") or {}).get("kind")
+                    }
+                ),
                 "qa_flags": qflags,
                 "qa_notes": notes,
                 "uncertainty": unc if unc else None,
@@ -207,28 +367,46 @@ def main() -> int:
 
             gaps = []
             if row["observation_class"] in ("unsupported", "not_applicable"):
-                gaps.append("No indexed observation for this body/feature in the bounded D02 export.")
+                gaps.append(
+                    "No indexed observation for this body/feature in the bounded D02 export."
+                )
             if row["observation_class"] == "no_coverage":
-                gaps.append("Source query indicates no coverage for indexed AOIs; this is not zero and not absence.")
+                gaps.append(
+                    "Source query indicates no coverage for indexed AOIs; this is not zero and not absence."
+                )
             if row["observation_class"] == "evidence_unknown_or_blocked":
-                gaps.append("Records exist but state is unknown/blocked/unverified; no reliable detection/value claim.")
+                gaps.append(
+                    "Records exist but state is unknown/blocked/unverified; no reliable detection/value claim."
+                )
             for s in sources:
                 if s.get("redistribution_allowed") in ("no", "unknown"):
-                    gaps.append(f"Redistribution/licence constraint for {s['source_id']}: {s.get('licence')} ({s.get('redistribution_allowed')}).")
-                for b in (s.get("source_gaps_blockers") or []):
+                    gaps.append(
+                        f"Redistribution/licence constraint for {s['source_id']}: {s.get('licence')} ({s.get('redistribution_allowed')})."
+                    )
+                for b in s.get("source_gaps_blockers") or []:
                     bid = b.get("blocker_id") if isinstance(b, dict) else b
                     detail = b.get("detail") if isinstance(b, dict) else ""
                     gaps.append(f"{s['source_id']} blocker {bid}: {detail}".strip())
             if body == "Earth" and fid in ("geologic_unit", "geologic_process"):
-                gaps.append("No shareable Earth map-unit/process values exported; GLiM mirror licence/equivalence unverified and values withheld.")
+                gaps.append(
+                    "No shareable Earth map-unit/process values exported; GLiM mirror licence/equivalence unverified and values withheld."
+                )
             if body == "Moon" and fid.startswith("mineral_"):
-                gaps.append("M3 registration/threshold validation missing; lunar research mineral matrix not spatially/quantitatively usable.")
+                gaps.append(
+                    "M3 registration/threshold validation missing; lunar research mineral matrix not spatially/quantitatively usable."
+                )
             if body == "Mars" and fid.startswith("mineral_"):
-                gaps.append("CRISM mineral detection not validated; all mineral states remain unknown (not not_detected, not abundance).")
+                gaps.append(
+                    "CRISM mineral detection not validated; all mineral states remain unknown (not not_detected, not abundance)."
+                )
             if body == "Mars" and fid in ("geologic_unit", "geologic_process"):
-                gaps.append("Mapped only for two explicitly marked Jezero test AOIs (1:75,000); not a Mars reference and not global.")
+                gaps.append(
+                    "Mapped only for two explicitly marked Jezero test AOIs (1:75,000); not a Mars reference and not global."
+                )
             if body == "Moon" and fid in ("geologic_unit", "geologic_process"):
-                gaps.append("Mapped for one Shackleton ROI at 1:5,000,000; local lithology/composition not resolved.")
+                gaps.append(
+                    "Mapped for one Shackleton ROI at 1:5,000,000; local lithology/composition not resolved."
+                )
             row["gaps"] = sorted({g for g in gaps if g})
             rows.append(row)
 
