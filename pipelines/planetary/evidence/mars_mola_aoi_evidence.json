@@ -1,0 +1,710 @@
+{
+  "aois": [
+    {
+      "analysis_bbox_lonlat": {
+        "east": 77.5529980333005,
+        "north": 18.533735296734616,
+        "south": 18.346235417784396,
+        "west": 77.34700196669951
+      },
+      "analysis_bbox_metric": {
+        "east": 5788.220839999642,
+        "north": 5557.468860428111,
+        "south": -5555.91515237189,
+        "west": -5788.220840000358
+      },
+      "area_km2": 119.977805,
+      "body": "Mars",
+      "center_lonlat": [
+        77.44999999999999,
+        18.44
+      ],
+      "checksum": "sha256:d63afb6a1bc4582ea34a8d2645e38515a5e41cd21d8aa2814d4ee9ac4eb715fb",
+      "coordinate_frame": "mars_planetocentric",
+      "crs": {
+        "analysis": {
+          "frame": "Mars body-fixed, planetocentric, local azimuthal equidistant",
+          "is_projected": true,
+          "name": "unknown",
+          "proj": "+proj=aeqd +lat_0=18.440000000000 +lon_0=77.450000000000 +R=3396000.0 +units=m +no_defs +type=crs",
+          "unit": "metre",
+          "wkt": "PROJCRS[\"unknown\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",18.44,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",77.45,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
+        },
+        "source": {
+          "map_scale_resolution_m": 463.0,
+          "name": "SIMPLE_CYLINDRICAL MARS",
+          "verified_product_resolution_m": 463.0576672,
+          "wkt": "PROJCRS[\"SIMPLE_CYLINDRICAL MARS\",BASEGEOGCRS[\"GCS_MARS\",DATUM[\"D_MARS\",ELLIPSOID[\"MARS\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",180,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
+        }
+      },
+      "data_kind": "observed",
+      "dimension": "D01",
+      "elevation_stats": {
+        "max_m": -2280.73084,
+        "mean_m": -2541.184602,
+        "min_m": -2657.47897,
+        "relief_p95_p05_m": 239.427439
+      },
+      "features": {
+        "flat_terrain_fraction": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "flat-terrain-fraction-1.0.0",
+          "unit": "fraction",
+          "valid_fraction": 1.0,
+          "value": 0.970356
+        },
+        "roughness_std_m": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "terrain-metrics-1.0.0",
+          "unit": "meter",
+          "valid_fraction": 1.0,
+          "value": 32.390331
+        },
+        "slope_mean_deg": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "terrain-metrics-1.0.0",
+          "unit": "degree",
+          "valid_fraction": 1.0,
+          "value": 1.574908
+        },
+        "slope_p90_deg": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "terrain-metrics-1.0.0",
+          "unit": "degree",
+          "valid_fraction": 1.0,
+          "value": 2.89554
+        },
+        "terrain_relief_p95_p05_m": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "terrain-metrics-1.0.0",
+          "unit": "meter",
+          "valid_fraction": 1.0,
+          "value": 239.427439
+        }
+      },
+      "grid_shape": [
+        24,
+        25
+      ],
+      "height_m": 10668.848652,
+      "invalid_pixels": 0,
+      "invalid_slope_pixels": 0,
+      "label": "Jezero west low-latitude plain",
+      "latitude_band": "low",
+      "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+      "partial": false,
+      "pixel_count": 600,
+      "qa_flags": [
+        "global_median_binned_grid",
+        "interpolated_bins_where_no_shot",
+        "planetocentric",
+        "native_support_463m",
+        "not_same_support_as_earth_coarse",
+        "bounded_vsicurl_window",
+        "full_requested_bbox",
+        "analysis_463m_square_grid",
+        "body_fixed_local_aeqd",
+        "not_90m_d01_comparable",
+        "no_zero_fill",
+        "bounded_vsicurl_window"
+      ],
+      "read_bytes_upper_bound": 710656,
+      "requested_bbox_lonlat": {
+        "east": 77.55,
+        "north": 18.53,
+        "south": 18.35,
+        "west": 77.35
+      },
+      "resolution": {
+        "analysis_resolution_m": 463.0576672,
+        "source_ground_east_west_m": 439.2821638012852,
+        "source_ground_north_south_m": 463.05766716974557,
+        "source_nominal_resolution_m": 463.0576672,
+        "support_note": "The 463.0576672 m square analysis grid is never finer than the native north-south ground spacing. At this latitude the native east-west spacing is finer, so the square grid is conservative and does not add detail. These are not 90 m terrain-metrics-1.0.0 D01 values."
+      },
+      "resolution_m": 463.0576672,
+      "schema_version": "mars-mola-aoi-result-1.0.0",
+      "scope": "bounded_full_bbox_aoi",
+      "slope_pixel_count": 506,
+      "source": {
+        "citation": "Smith, D. E., et al. (2001), Mars Orbiter Laser Altimeter: Experiment summary after the first year of global mapping of Mars, J. Geophys. Res. 106(E10), 23689-23722. PDS bundle urn:nasa:pds:mgs_mola_topography_derived (1.0), collection data_meg128 (2.0), DOI 10.17189/1z1b-kv84.",
+        "coordinate_system": "equirectangular, east-positive, planetocentric latitude",
+        "dataset_id": "pds-mgs-mola-megdr-meg128",
+        "doi": "10.17189/1z1b-kv84",
+        "frame": "IAU2000 Mars body-fixed, planetocentric",
+        "label_urls": [
+          "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n000hb.lbl"
+        ],
+        "license": "not stated in the PDS4 bundle, collection or product labels",
+        "license_url": null,
+        "native_ppd": 128.0,
+        "native_resolution_m": 463.0576672,
+        "product_ids": [
+          "megt44n000hb"
+        ],
+        "provider": "NASA PDS Geosciences Node / MGS MOLA",
+        "quality_flags": [
+          "global_median_binned_grid",
+          "interpolated_bins_where_no_shot",
+          "planetocentric",
+          "native_support_463m",
+          "not_same_support_as_earth_coarse",
+          "bounded_vsicurl_window"
+        ],
+        "read_product_ids": [
+          "megt44n000hb"
+        ],
+        "source_id": "mars-mola-megdr-meg128-t44n000",
+        "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
+        "vertical_reference": "planetary radius minus the GMM3 (mgm1025) areoid, evaluated to degree and order 50"
+      },
+      "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
+      "source_windows": [
+        {
+          "label_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n000hb.lbl",
+          "product_id": "megt44n000hb",
+          "read_bytes_upper_bound": 710656,
+          "source_window_offsets": [
+            9897,
+            3258
+          ],
+          "source_window_pixels": 840,
+          "source_window_shape": [
+            28,
+            30
+          ],
+          "tile_id": "megt44n000hb"
+        }
+      ],
+      "status": "complete",
+      "support_quality": {
+        "d01_90m_comparable": false,
+        "grid": "MOLA MEGDR median binned, 128 pixels/degree",
+        "interpolated_bins_present": true,
+        "per_pixel_uncertainty": null,
+        "raw_altimetry": false
+      },
+      "synthetic": false,
+      "valid_fraction": 1.0,
+      "valid_pixels": 600,
+      "valid_slope_fraction": 1.0,
+      "valid_slope_pixels": 506,
+      "warnings": [
+        "Bounded full-bbox read over MOLA MEGDR 128 ppd; this is not global Mars coverage and not a Jezero-only case.",
+        "MEGDR is a global median-binned grid with interpolated values where no MOLA shot falls in a bin; it is not raw high-resolution altimetry.",
+        "The five D01 registry operators are evaluated at 463.0576672 m support. These values are not interchangeable with the 90 m terrain-metrics-1.0.0 D01 references and are not used for cross-body scoring.",
+        "The 463 m analysis grid is snapped outward to whole cells around the requested bbox so the requested footprint is never shrunk."
+      ],
+      "width_m": 11245.623393
+    },
+    {
+      "analysis_bbox_lonlat": {
+        "east": 70.55066843658165,
+        "north": -42.29841541124274,
+        "south": -42.501540212355046,
+        "west": 70.34933156341836
+      },
+      "analysis_bbox_metric": {
+        "east": 4399.047838399721,
+        "north": 6018.463128989155,
+        "south": -6021.036218210846,
+        "west": -4399.047838400279
+      },
+      "area_km2": 103.770547,
+      "body": "Mars",
+      "center_lonlat": [
+        70.44999999999999,
+        -42.4
+      ],
+      "checksum": "sha256:47252143925f608bafe64ddbdb6166380733c6bece3bc7551723d96a14093c57",
+      "coordinate_frame": "mars_planetocentric",
+      "crs": {
+        "analysis": {
+          "frame": "Mars body-fixed, planetocentric, local azimuthal equidistant",
+          "is_projected": true,
+          "name": "unknown",
+          "proj": "+proj=aeqd +lat_0=-42.400000000000 +lon_0=70.450000000000 +R=3396000.0 +units=m +no_defs +type=crs",
+          "unit": "metre",
+          "wkt": "PROJCRS[\"unknown\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",-42.4,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",70.45,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
+        },
+        "source": {
+          "map_scale_resolution_m": 463.0,
+          "name": "SIMPLE_CYLINDRICAL MARS",
+          "verified_product_resolution_m": 463.0576672,
+          "wkt": "PROJCRS[\"SIMPLE_CYLINDRICAL MARS\",BASEGEOGCRS[\"GCS_MARS\",DATUM[\"D_MARS\",ELLIPSOID[\"MARS\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",180,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
+        }
+      },
+      "data_kind": "observed",
+      "dimension": "D01",
+      "elevation_stats": {
+        "max_m": -5859.106164,
+        "mean_m": -6047.64315,
+        "min_m": -6342.543275,
+        "relief_p95_p05_m": 305.534292
+      },
+      "features": {
+        "flat_terrain_fraction": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "flat-terrain-fraction-1.0.0",
+          "unit": "fraction",
+          "valid_fraction": 1.0,
+          "value": 0.990196
+        },
+        "roughness_std_m": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "terrain-metrics-1.0.0",
+          "unit": "meter",
+          "valid_fraction": 1.0,
+          "value": 75.004919
+        },
+        "slope_mean_deg": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "terrain-metrics-1.0.0",
+          "unit": "degree",
+          "valid_fraction": 1.0,
+          "value": 2.062752
+        },
+        "slope_p90_deg": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "terrain-metrics-1.0.0",
+          "unit": "degree",
+          "valid_fraction": 1.0,
+          "value": 3.597776
+        },
+        "terrain_relief_p95_p05_m": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "terrain-metrics-1.0.0",
+          "unit": "meter",
+          "valid_fraction": 1.0,
+          "value": 305.534292
+        }
+      },
+      "grid_shape": [
+        26,
+        19
+      ],
+      "height_m": 11854.27628,
+      "invalid_pixels": 0,
+      "invalid_slope_pixels": 0,
+      "label": "Hellas Planitia mid-latitude floor",
+      "latitude_band": "mid",
+      "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+      "partial": false,
+      "pixel_count": 494,
+      "qa_flags": [
+        "global_median_binned_grid",
+        "interpolated_bins_where_no_shot",
+        "planetocentric",
+        "native_support_463m",
+        "not_same_support_as_earth_coarse",
+        "bounded_vsicurl_window",
+        "full_requested_bbox",
+        "analysis_463m_square_grid",
+        "body_fixed_local_aeqd",
+        "not_90m_d01_comparable",
+        "no_zero_fill",
+        "bounded_vsicurl_window"
+      ],
+      "read_bytes_upper_bound": 756736,
+      "requested_bbox_lonlat": {
+        "east": 70.55,
+        "north": -42.3,
+        "south": -42.5,
+        "west": 70.35
+      },
+      "resolution": {
+        "analysis_resolution_m": 463.0576672,
+        "source_ground_east_west_m": 341.94740733926153,
+        "source_ground_north_south_m": 463.05766716974557,
+        "source_nominal_resolution_m": 463.0576672,
+        "support_note": "The 463.0576672 m square analysis grid is never finer than the native north-south ground spacing. At this latitude the native east-west spacing is finer, so the square grid is conservative and does not add detail. These are not 90 m terrain-metrics-1.0.0 D01 values."
+      },
+      "resolution_m": 463.0576672,
+      "schema_version": "mars-mola-aoi-result-1.0.0",
+      "scope": "bounded_full_bbox_aoi",
+      "slope_pixel_count": 408,
+      "source": {
+        "citation": "Smith, D. E., et al. (2001), Mars Orbiter Laser Altimeter: Experiment summary after the first year of global mapping of Mars, J. Geophys. Res. 106(E10), 23689-23722. PDS bundle urn:nasa:pds:mgs_mola_topography_derived (1.0), collection data_meg128 (2.0), DOI 10.17189/1z1b-kv84.",
+        "coordinate_system": "equirectangular, east-positive, planetocentric latitude",
+        "dataset_id": "pds-mgs-mola-megdr-meg128",
+        "doi": "10.17189/1z1b-kv84",
+        "frame": "IAU2000 Mars body-fixed, planetocentric",
+        "label_urls": [
+          "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt00n000hb.lbl"
+        ],
+        "license": "not stated in the PDS4 bundle, collection or product labels",
+        "license_url": null,
+        "native_ppd": 128.0,
+        "native_resolution_m": 463.0576672,
+        "product_ids": [
+          "megt00n000hb"
+        ],
+        "provider": "NASA PDS Geosciences Node / MGS MOLA",
+        "quality_flags": [
+          "global_median_binned_grid",
+          "interpolated_bins_where_no_shot",
+          "planetocentric",
+          "native_support_463m",
+          "not_same_support_as_earth_coarse",
+          "bounded_vsicurl_window"
+        ],
+        "read_product_ids": [
+          "megt00n000hb"
+        ],
+        "source_id": "mars-mola-megdr-meg128-t44n000",
+        "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
+        "vertical_reference": "planetary radius minus the GMM3 (mgm1025) areoid, evaluated to degree and order 50"
+      },
+      "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
+      "source_windows": [
+        {
+          "label_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt00n000hb.lbl",
+          "product_id": "megt00n000hb",
+          "read_bytes_upper_bound": 756736,
+          "source_window_offsets": [
+            9002,
+            5413
+          ],
+          "source_window_pixels": 900,
+          "source_window_shape": [
+            30,
+            30
+          ],
+          "tile_id": "megt00n000hb"
+        }
+      ],
+      "status": "complete",
+      "support_quality": {
+        "d01_90m_comparable": false,
+        "grid": "MOLA MEGDR median binned, 128 pixels/degree",
+        "interpolated_bins_present": true,
+        "per_pixel_uncertainty": null,
+        "raw_altimetry": false
+      },
+      "synthetic": false,
+      "valid_fraction": 1.0,
+      "valid_pixels": 494,
+      "valid_slope_fraction": 1.0,
+      "valid_slope_pixels": 408,
+      "warnings": [
+        "Bounded full-bbox read over MOLA MEGDR 128 ppd; this is not global Mars coverage and not a Jezero-only case.",
+        "MEGDR is a global median-binned grid with interpolated values where no MOLA shot falls in a bin; it is not raw high-resolution altimetry.",
+        "The five D01 registry operators are evaluated at 463.0576672 m support. These values are not interchangeable with the 90 m terrain-metrics-1.0.0 D01 references and are not used for cross-body scoring.",
+        "The 463 m analysis grid is snapped outward to whole cells around the requested bbox so the requested footprint is never shrunk."
+      ],
+      "width_m": 8753.853628
+    },
+    {
+      "analysis_bbox_lonlat": {
+        "east": 240.4762630752267,
+        "north": 80.08184537773484,
+        "south": 79.91778834226245,
+        "west": 239.52373692477332
+      },
+      "analysis_bbox_metric": {
+        "east": 4862.105505600264,
+        "north": 4870.991165857944,
+        "south": -4853.219845342057,
+        "west": -4862.105505599737
+      },
+      "area_km2": 87.846139,
+      "body": "Mars",
+      "center_lonlat": [
+        240.0,
+        80.0
+      ],
+      "checksum": "sha256:676dd84bdd410f8c50a4ed6153422598928547e8b2d1624901776c37ee80a0d2",
+      "coordinate_frame": "mars_planetocentric",
+      "crs": {
+        "analysis": {
+          "frame": "Mars body-fixed, planetocentric, local azimuthal equidistant",
+          "is_projected": true,
+          "name": "unknown",
+          "proj": "+proj=aeqd +lat_0=80.000000000000 +lon_0=240.000000000000 +R=3396000.0 +units=m +no_defs +type=crs",
+          "unit": "metre",
+          "wkt": "PROJCRS[\"unknown\",BASEGEOGCRS[\"unknown\",DATUM[\"unknown\",ELLIPSOID[\"unknown\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unknown\",METHOD[\"Azimuthal Equidistant\",ID[\"EPSG\",1125]],PARAMETER[\"Latitude of natural origin\",80,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",240,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
+        },
+        "source": {
+          "map_scale_resolution_m": 463.0,
+          "name": "SIMPLE_CYLINDRICAL MARS",
+          "verified_product_resolution_m": 463.0576672,
+          "wkt": "PROJCRS[\"SIMPLE_CYLINDRICAL MARS\",BASEGEOGCRS[\"GCS_MARS\",DATUM[\"D_MARS\",ELLIPSOID[\"MARS\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",180,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
+        }
+      },
+      "data_kind": "observed",
+      "dimension": "D01",
+      "elevation_stats": {
+        "max_m": -4733.778861,
+        "mean_m": -4746.145999,
+        "min_m": -4757.178275,
+        "relief_p95_p05_m": 16.964091
+      },
+      "features": {
+        "flat_terrain_fraction": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "flat-terrain-fraction-1.0.0",
+          "unit": "fraction",
+          "valid_fraction": 1.0,
+          "value": 1.0
+        },
+        "roughness_std_m": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "terrain-metrics-1.0.0",
+          "unit": "meter",
+          "valid_fraction": 1.0,
+          "value": 2.349769
+        },
+        "slope_mean_deg": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "terrain-metrics-1.0.0",
+          "unit": "degree",
+          "valid_fraction": 1.0,
+          "value": 0.206667
+        },
+        "slope_p90_deg": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "terrain-metrics-1.0.0",
+          "unit": "degree",
+          "valid_fraction": 1.0,
+          "value": 0.355936
+        },
+        "terrain_relief_p95_p05_m": {
+          "comparability": "not_comparable_to_90m_d01",
+          "extraction_scale_m": 463.0576672,
+          "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+          "quality": "observed",
+          "registry_feature_method_version": "terrain-metrics-1.0.0",
+          "unit": "meter",
+          "valid_fraction": 1.0,
+          "value": 16.964091
+        }
+      },
+      "grid_shape": [
+        21,
+        21
+      ],
+      "height_m": 9483.421024,
+      "invalid_pixels": 0,
+      "invalid_slope_pixels": 0,
+      "label": "Olympia Undae high-latitude dune field",
+      "latitude_band": "high",
+      "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+      "partial": false,
+      "pixel_count": 441,
+      "qa_flags": [
+        "global_median_binned_grid",
+        "interpolated_bins_where_no_shot",
+        "planetocentric",
+        "native_support_463m",
+        "not_same_support_as_earth_coarse",
+        "bounded_vsicurl_window",
+        "full_requested_bbox",
+        "analysis_463m_square_grid",
+        "body_fixed_local_aeqd",
+        "not_90m_d01_comparable",
+        "no_zero_fill",
+        "bounded_vsicurl_window"
+      ],
+      "read_bytes_upper_bound": 641536,
+      "requested_bbox_lonlat": {
+        "east": 240.45,
+        "north": 80.08,
+        "south": 79.92,
+        "west": 239.55
+      },
+      "resolution": {
+        "analysis_resolution_m": 463.0576672,
+        "source_ground_east_west_m": 80.40912005872632,
+        "source_ground_north_south_m": 463.05766716974557,
+        "source_nominal_resolution_m": 463.0576672,
+        "support_note": "The 463.0576672 m square analysis grid is never finer than the native north-south ground spacing. At this latitude the native east-west spacing is finer, so the square grid is conservative and does not add detail. These are not 90 m terrain-metrics-1.0.0 D01 values."
+      },
+      "resolution_m": 463.0576672,
+      "schema_version": "mars-mola-aoi-result-1.0.0",
+      "scope": "bounded_full_bbox_aoi",
+      "slope_pixel_count": 361,
+      "source": {
+        "citation": "Smith, D. E., et al. (2001), Mars Orbiter Laser Altimeter: Experiment summary after the first year of global mapping of Mars, J. Geophys. Res. 106(E10), 23689-23722. PDS bundle urn:nasa:pds:mgs_mola_topography_derived (1.0), collection data_meg128 (2.0), DOI 10.17189/1z1b-kv84.",
+        "coordinate_system": "equirectangular, east-positive, planetocentric latitude",
+        "dataset_id": "pds-mgs-mola-megdr-meg128",
+        "doi": "10.17189/1z1b-kv84",
+        "frame": "IAU2000 Mars body-fixed, planetocentric",
+        "label_urls": [
+          "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt88n180hb.lbl"
+        ],
+        "license": "not stated in the PDS4 bundle, collection or product labels",
+        "license_url": null,
+        "native_ppd": 128.0,
+        "native_resolution_m": 463.0576672,
+        "product_ids": [
+          "megt88n180hb"
+        ],
+        "provider": "NASA PDS Geosciences Node / MGS MOLA",
+        "quality_flags": [
+          "global_median_binned_grid",
+          "interpolated_bins_where_no_shot",
+          "planetocentric",
+          "native_support_463m",
+          "not_same_support_as_earth_coarse",
+          "bounded_vsicurl_window"
+        ],
+        "read_product_ids": [
+          "megt88n180hb"
+        ],
+        "source_id": "mars-mola-megdr-meg128-t44n000",
+        "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
+        "vertical_reference": "planetary radius minus the GMM3 (mgm1025) areoid, evaluated to degree and order 50"
+      },
+      "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
+      "source_windows": [
+        {
+          "label_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt88n180hb.lbl",
+          "product_id": "megt88n180hb",
+          "read_bytes_upper_bound": 641536,
+          "source_window_offsets": [
+            7619,
+            1011
+          ],
+          "source_window_pixels": 3150,
+          "source_window_shape": [
+            25,
+            126
+          ],
+          "tile_id": "megt88n180hb"
+        }
+      ],
+      "status": "complete",
+      "support_quality": {
+        "d01_90m_comparable": false,
+        "grid": "MOLA MEGDR median binned, 128 pixels/degree",
+        "interpolated_bins_present": true,
+        "per_pixel_uncertainty": null,
+        "raw_altimetry": false
+      },
+      "synthetic": false,
+      "valid_fraction": 1.0,
+      "valid_pixels": 441,
+      "valid_slope_fraction": 1.0,
+      "valid_slope_pixels": 361,
+      "warnings": [
+        "Bounded full-bbox read over MOLA MEGDR 128 ppd; this is not global Mars coverage and not a Jezero-only case.",
+        "MEGDR is a global median-binned grid with interpolated values where no MOLA shot falls in a bin; it is not raw high-resolution altimetry.",
+        "The five D01 registry operators are evaluated at 463.0576672 m support. These values are not interchangeable with the 90 m terrain-metrics-1.0.0 D01 references and are not used for cross-body scoring.",
+        "The 463 m analysis grid is snapped outward to whole cells around the requested bbox so the requested footprint is never shrunk.",
+        "At this high latitude the native east-west ground spacing is finer than the 463 m analysis cell; the square grid is deliberately conservative."
+      ],
+      "width_m": 9263.130631
+    }
+  ],
+  "body": "Mars",
+  "command": "uv run python pipelines/planetary/mola_aoi.py --all-presets --allow-remote --output pipelines/planetary/evidence/mars_mola_aoi_evidence.json",
+  "d01_feature_ids": [
+    "slope_mean_deg",
+    "slope_p90_deg",
+    "terrain_relief_p95_p05_m",
+    "roughness_std_m",
+    "flat_terrain_fraction"
+  ],
+  "data_kind": "observed",
+  "dimension": "D01",
+  "generated_at": "2026-11-15T14:12:05+00:00",
+  "limitations": [
+    "MEGDR native support is 0.4630576672 km/pixel; a 90 m D01 comparison is invalid.",
+    "MEGDR is a median-binned grid with interpolated bins where no MOLA shot exists.",
+    "No MOLA raw altimetry, no per-pixel uncertainty layer and no 90 m texture is claimed.",
+    "Only the requested bounding boxes are read; no global tile was downloaded.",
+    "The AOIs are terrain examples, not landing-site or resource recommendations."
+  ],
+  "limits": {
+    "analysis_resolution_m": 463.0576672,
+    "max_abs_latitude_deg": 88.0,
+    "max_area_km2": 160.0,
+    "max_side_m": 12500.0,
+    "min_side_m": 2500.0
+  },
+  "method_version": "mars-mola-aoi-horn-463m-1.0.0",
+  "presets": [
+    {
+      "bbox": {
+        "east": 77.55,
+        "north": 18.53,
+        "south": 18.35,
+        "west": 77.35
+      },
+      "label": "Jezero west low-latitude plain",
+      "latitude_band": "low",
+      "note": "Low-latitude western Jezero terrain; 18.44 N, 77.45 E.",
+      "preset_id": "jezero-west-low-lat"
+    },
+    {
+      "bbox": {
+        "east": 70.55,
+        "north": -42.3,
+        "south": -42.5,
+        "west": 70.35
+      },
+      "label": "Hellas Planitia mid-latitude floor",
+      "latitude_band": "mid",
+      "note": "Mid-latitude southern Hellas basin floor; 42.4 S, 70.5 E.",
+      "preset_id": "hellas-mid-lat"
+    },
+    {
+      "bbox": {
+        "east": 240.45,
+        "north": 80.08,
+        "south": 79.92,
+        "west": 239.55
+      },
+      "label": "Olympia Undae high-latitude dune field",
+      "latitude_band": "high",
+      "note": "High-latitude northern circumpolar dune terrain; 80.0 N, 240.0 E.",
+      "preset_id": "olympia-undae-high-lat"
+    }
+  ],
+  "schema_version": "mars-mola-aoi-evidence-1.0.0",
+  "scope": "Three dispersed bounded Mars AOIs (low, mid and high latitude) computed from the real public MOLA MEGDR 128 ppd tiles. This is not global coverage, not a Jezero-only claim, and not a 90 m same-support D01 reference.",
+  "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
+  "synthetic": false
+}
