@@ -12,7 +12,7 @@ say "health"
 "${CURL[@]}" "$API_BASE/api/v1/health" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["status"]=="ok"; print("ok", d["data_version"])'
 
 say "capabilities + dimensions"
-"${CURL[@]}" "$API_BASE/api/v1/capabilities" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["indexed_candidate_count"]>=113, d["indexed_candidate_count"]; assert len(d["features"])==5; print(f"ok features=5 indexed>={d[\"indexed_candidate_count\"]}")'
+"${CURL[@]}" "$API_BASE/api/v1/capabilities" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["indexed_candidate_count"]>=113, d["indexed_candidate_count"]; assert len(d["features"])==5; print("ok features=5 indexed=", d["indexed_candidate_count"])'
 "${CURL[@]}" "$API_BASE/api/v1/dimensions" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert len(d["dimensions"])==2; print("ok dimensions=2")'
 
 say "typed six-dimension coverage"
