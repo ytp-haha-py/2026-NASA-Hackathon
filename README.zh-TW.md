@@ -8,6 +8,8 @@ AnalogX 是開源的行星環境探索工具。它整合 NASA、USGS、ESA 等�
 
 [**開啟 AnalogX**](https://2026-nasa-hackathon.貓熊.台灣/) · [API 文件](https://api.貓熊.台灣/docs) · [English](README.md)
 
+AI 輔助開發與內容使用記錄見 [AI／SI 使用揭露](docs/AI_DISCLOSURE.md)，其中列有提交前仍待完成的標示檢查。
+
 ## 可以用 AnalogX 做什麼？
 
 1. **尋找地球類比地點**：選擇月球、火星的參考地點，或自行設定坡度、起伏等地形條件，搜尋已建立索引的地球區域。

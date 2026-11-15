@@ -3,7 +3,7 @@
 **Record date:** 15 November 2026 (Asia/Taipei)  
 **Scope:** Human–AI collaboration on the AnalogX project for the NASA Space Apps Challenge 2026.
 
-This document describes how AI assistants contributed to project planning, implementation, debugging, data processing, scientific review, testing, documentation, and GitHub coordination. It covers the work recorded in the original Codex collaboration log and adds an anonymized account of work involving **ChatGPT (OpenAI)** and **OpenCode**.
+This document describes how AI assistants contributed to project planning, implementation, debugging, data processing, scientific review, testing, documentation, and GitHub coordination. It retains the existing Codex, ChatGPT, OpenCode, and Claude collaboration records and adds a source-based Codex self-audit and a submission-content audit. Here, **SI** follows the challenge's disclosure terminology; the tools are also called AI assistants throughout this document.
 
 The account is **de-identified at the narrative level**: human participants are described by project roles rather than personal names, and private conversation transcripts, account information, machine-specific paths, and OpenCode session identifiers are omitted. Links to public GitHub issues, commits, pull requests, and screenshots remain because they are useful for independent verification; those public records may still identify their authors.
 
@@ -14,7 +14,8 @@ The account is **de-identified at the narrative level**: human participants are 
 | Project team / human maintainer | Define the product, choose research priorities, correct misunderstandings, decide what to accept or reject, and authorize repository changes | Humans retain responsibility for scientific claims, licenses, review, and release decisions |
 | **ChatGPT (OpenAI)** | Translate product goals into technical requirements; critique UI, API, and data assumptions; inspect GitHub code/CI; draft issues and agent instructions; review and, when explicitly authorized, merge PRs | Recommendations and conversational analysis are not themselves code execution or scientific verification |
 | **OpenCode** | Coordinate multiple coding sessions, native Goals, specialized agents, Git worktrees, and implementation/validation of backend, data, and integration work | Agent completion claims require source, test, CI, and integration evidence |
-| **Codex** | Local project setup, frontend implementation, debugging, testing, browser verification, PR preparation, and version synchronization in the collaboration recorded below | Only the tasks and test outcomes documented for that work are attributed to Codex |
+| **Codex (OpenAI)** | Local setup; architecture review; the independent Geology pilot; Research Presets and other frontend work; debugging, tests, documentation, PR preparation, and version synchronization | The separate contributions and historical test outcomes below do not establish authorship of every backend module or scientific validity of all data |
+| **Claude / Claude Code (Anthropic)** | UI/UX, branding/favicon iterations, frontend and related code/documentation changes recorded in section 15 and public commit trailers | Preserve the contributor's reported execution limits; a model label in a commit trailer is not independent verification of the model used |
 | Other human/AI collaborators | Independent frontend and backend contributions through repository issues and PRs | Authorship of a PR does not imply every design decision was made by an AI |
 
 The team used a **human-directed, AI-assisted development process**, not an autonomous scientific discovery process. AI-generated suggestions, code, reports, and test fixtures were subject to repository checks and human decisions. A green CI result, an agent's statement of completion, a merged PR, and a deployed public service are distinct states.
@@ -22,6 +23,19 @@ The team used a **human-directed, AI-assisted development process**, not an auto
 ### Evidence and interpretation
 
 The original Codex log is a first-party record of its local actions, browser checks, and reported tests. The ChatGPT account below reflects the human–assistant collaboration and GitHub operations; the OpenCode account reflects its reported coordination plus artifacts available in the repository. Public PRs and source code provide stronger evidence of committed changes than conversational status messages alone. Not every locally reported test was independently rerun in this disclosure revision.
+
+### SI disclosure requirements and current status
+
+This audit applies the 2026 requirements supplied by the maintainer:
+
+- **Generated images and videos:** a visible **SI-generated** watermark.
+- **Generated audio:** acknowledgment in descriptive text **and metadata**.
+- **AI-generated or AI-assisted code and data artifacts:** acknowledge the tool and its actual role in descriptive text and metadata, without relabelling source observations as generated data.
+- **Generated content:** must not use, contain, or modify NASA branding or design elements.
+
+The [NASA Space Apps GO team response](https://github.com/nasa/spaceapps/discussions/1849) confirms that AI assistance is permitted and states the NASA branding restriction. A [2026 challenge Navigator response](https://github.com/nasa/spaceapps/discussions/1947) also discusses visible image/video watermarks and project disclosure. The [participant FAQs](https://www.spaceappschallenge.org/resources/participant-faqs/) returned HTTP 502 during this audit; the full audio/code/data metadata requirements above come from the maintainer's supplied rules, rather than a successfully retrieved FAQ. The team should retain the applicable official submission guidance when completing its final check.
+
+**Disclosure is not a certification of complete compliance.** This document and the README links provide descriptive acknowledgment. Artifact-level metadata, visible graphic labels, and final presentation/media assets still require the checks in sections 17–18. Authentic NASA/other-provider observations are not AI-generated merely because AI helped write the software that processes them.
 
 ---
 
@@ -161,13 +175,15 @@ Browser work covered locale changes, map styles, site selection, AOI drawing, se
 
 | Issue or delivery | PR | Merged commit | Main contribution |
 | --- | --- | --- | --- |
+| #41 / #42 independent Geology pilot | [#57](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/57) | `47505f2` | Evidence models, map overlays, matching, checksummed snapshot, tests, and OpenCode handoff |
+| #130 Research Presets | [#134](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/134) | `1056f0f` | D01 research weights, capability checks, bilingual controls, tests, and methodology |
 | Earth label localization | [#129](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/129) | `c404c07` | Locale-aware basemap text and fallback |
 | #153 | [#155](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/155) | `864ef69` | Moon/Mars preview, selection and state |
 | #168 | [#169](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/169) | `90d69ea` | Removed redundant toolbar shortcut |
 | #165 | [#180](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/180) | `b56174f` | Coarse/fine presentation in one results area |
 | #163 | [#183](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/183) | `2d35515` | Responsive coverage and limitations layout |
 
-These are traceable implementation records. A commit's author, reviewer, and merger may be different participants; this table describes the work covered by the original Codex log, not exclusive code authorship.
+These are traceable implementation records. A commit's author, reviewer, and merger may be different participants; this table combines the original Codex log with the additional self-audit in section 16, not exclusive code authorship.
 
 ## 10. Why the original collaboration log was published
 
@@ -193,46 +209,20 @@ The original development record reports 114 frontend tests passing, then 118 aft
 
 提交期間 main 另合併 PR #186 的篩選功能，本分支同步後沿用新版的測試輔助函式，118 項前端測試通過。UI 刪除與這份文件由 PR #189 一併交付。[PR #189](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/189)
 
-## 15. Claude（claude.ai 上的 Claude Code 工作階段）參與的工作
-
-以下記錄同一天另一段由 Claude 協助的工作。Claude 在 claude.ai 的雲端工作階段執行，透過 Claude 桌面 app 連到使用者電腦上的 repo 資料夾修改程式，並用內建瀏覽器操作本機 `http://localhost:5173` 與公開 API（`api.貓熊.台灣`）確認畫面。提交時作者為使用者帳號，提交訊息附 `Co-Authored-By: Claude`。
-
-### 工作方式與限制
-
-- Claude 無法從這個環境推送到 GitHub：使用者電腦端的 shell 連 GitHub 回 HTTP 403，雲端端則因 repo 未安裝 Claude GitHub App 而被拒。每個分支都由使用者在本機 `git push` 後開 PR 與合併。
-- 該環境無法安裝 npm 套件，vitest 因缺少原生套件無法執行。Claude 每次修改只跑過 `tsc --noEmit` 與 `eslint`，前端測試請使用者以 `make test-frontend` 確認；本節不記錄任何測試通過數。
-- 套用 `design-taste-frontend`（taste-skill）作為介面設計準則，該 skill 檔案沒有提交進 repo。
-- 測試精篩介面時，曾在公開 API 實際執行一次 90 m 分析（Sahara 一個窗格），伺服器上因此多一筆隨選 AOI 紀錄。
-
-### 交付並合併的項目
-
-| 請求 | PR | 內容 |
-| --- | --- | --- |
-| 依 taste-skill 重做介面 | #120 | 移除多數小字、比較維度改成左側清單＋右側細項、權重預設 0、權重列位置固定、去除卡片框改用細分隔線、新增月球／火星地圖檢視 |
-| 網站更名與 favicon | #124 | 網站名稱改為 AnalogX；依使用者回饋多次重畫標誌，最後為線條風格的行星與環、不含字母的 favicon，並放在標題前 |
-| #123 單一地圖工作流程 | #126 | 移除四個頂層頁籤，改為以地圖為中心的單頁；地球地圖可框選區域並帶入 AOI 分析；月球／火星標示僅供瀏覽 |
-| 比對目標與研究情境的編排 | #171 | 「比對目標」與「研究情境」分成兩行；研究情境改成一顆按鈕＋分組選單；放大月球／火星選點地圖並把分隔線移到地圖下方 |
-| D02–D06 放進比較維度 | #181 | 讀取 `/search/features` 特徵登錄表；登錄表允許比對的 D06 SoilGrids 20 項提供與 D01 相同的權重／目標／範圍，使用時改走 `/search/multidimensional`；表土依深度切換顯示；D02–D05 列出觀測特徵、天體、筆數與數值範圍 |
-| 移除兩個區塊 | #184 | 移除「分析新區域」與「六維比較與觀測」區塊及其專用的框選工具、AOI 目標帶入與六維捷徑，並刪除只測這兩個區塊的整合測試 |
-
-#181 與 #184 合併時的衝突解決提交（`01a8d12`、`234dbc4`）不是 Claude 做的。
-
-### 做了但沒有合併的項目
-
-- 「更多分析工具」區塊的分區、刪小字、結果視覺化、全球粗篩候選畫到主地圖等一系列修改，放在分支 `feat/ui-section-clarity`，使用者後來要求整個刪除該分支，沒有進入 main。
-- 介面說明與設計提案（例如研究情境編排的示意圖、D02–D05 為何無法比對的說明）只在對話中提供。
-
-### 已知界線
-
-- D02–D05 目前沒有比對控制項，是因為後端登錄表把這些特徵標為只能當證據；前端沒有替它們虛構可計分的控制。
-- 多維搜尋不接受土地覆蓋篩選，介面在兩者同時使用時會拒絕送出並說明，不會靜默忽略篩選。
-- 結果詳細資料的逐項比較表當時只列 D01 指標，表土的比對數值未加入。
-
----
-
 ## 12. ChatGPT: product definition, critique, GitHub coordination, and review
 
 ChatGPT was used as a conversational technical collaborator alongside the coding environments. The human maintainer repeatedly challenged its recommendations, refined product requirements, and asked it to make concrete GitHub changes. Important examples include the following.
+
+### Additional ChatGPT web usage reported by the maintainer
+
+The following is the maintainer's account of ChatGPT use in the **web application**, supplemented where possible by committed artifacts. It is not an assertion that private conversations were independently recovered from Git history.
+
+- **Challenge analysis and ideation:** reading, translating, and interpreting challenge and evaluation requirements; discussing planetary analog science, research value and limitations; proposing product directions, user scenarios, interactions, six environmental dimensions, candidate indicators and sources, and cross-body feasibility. Name brainstorming included the adopted name **AnalogX**; the maintainer reports this discussion, while Claude's later branding implementation is separately recorded in section 15.
+- **Research and matching methodology:** finding and organizing NASA research programs, scientific sources, and field-testing examples; mapping research needs to environmental indicators; discussing weighted normalized Euclidean distance, feature/dimension weights, interpretation, source compatibility, resolution, missing observations, and validation. These discussions are design assistance, not evidence of a validated scientific model.
+- **Research-informed Weighting:** helping design three initial presets—**Rover Mobility & Autonomous Navigation**, **Precision Landing & Hazard Avoidance**, and **Geological Fieldwork & Sampling**—using NASA ERNEST, SPLICE, and Artemis JETT / D-RATS as research-context references. Importance ratings are project-designed heuristics, **not NASA official weights or experimentally validated optima**. Ratings are divided by two for the existing sliders; normalization in the existing distance formula preserves their relative proportions. [Methodology and NASA references](SEARCH_METHOD.md#research-informed-weight-presets-custom-mode) and [PR #134](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/134) document the implemented D01 feature. The preset does not certify mobility/landing safety or full geological similarity; it does not create scores for D02–D06. Later separately eligible multidimensional search features are not a result of these preset weights.
+- **Development assistance:** reading repository material and code to explain architecture, APIs, frontend behavior, and data flow; writing/refining prompts for Codex; discussing preset interactions, state, and tests; offering Git, local environment, and troubleshooting advice. Advice and prompts are distinguished from the coding agent's execution.
+- **External interpretation of exported results:** using AnalogX structured JSON outside the product to interpret terrain, land cover, distances, provenance, and limitations; rechecking the weighted distance and feature contributions; identifying all-zero search targets and discussing possible input/export mistakes and corrections. The existing [ContextExport component](../apps/web/src/components/ContextExport.tsx) copies/downloads structured context. The reported ChatGPT interpretation was AI-assisted analysis of existing values, **not generation of raw observations**, and does not establish the cause of a bug without reproduction. It is not evidence of an integrated runtime AI analyst.
+- **UI/UX, presentation, and submission:** proposing interactive maps, visualization, research-led search, and site comparison; planning a seven-page demo narrative, demonstration order, and cases; drafting/revising English titles, subtitles, slogans, and presentation copy; discussing research applications, limitations, future development, submission requirements, SI disclosure, and source attribution. These include both adopted designs and unimplemented ideas. No completed presentation deck is established by this planning account; the final team-owned deck and wording require confirmation.
 
 ### From a point-oriented demo to an area-oriented product
 
@@ -335,4 +325,112 @@ A disclosed AI contribution does not transfer accountability from the project te
 
 ### Scope of this revision
 
-This is a translated and expanded account of the collaboration **through 15 November 2026**, not a live status dashboard. The original Codex portions retain their point-in-time test evidence; the ChatGPT/OpenCode additions describe observed collaboration and link to independently inspectable repository artifacts. This document update itself was prepared using ChatGPT and submitted through the connected GitHub workflow at the maintainer's request.
+This is a translated and expanded account of the collaboration **through 15 November 2026**, not a live status dashboard. The original Codex portions retain their point-in-time test evidence; the ChatGPT/OpenCode additions describe observed collaboration and link to independently inspectable repository artifacts. The earlier English disclosure revision was prepared using ChatGPT and submitted through the connected GitHub workflow at the maintainer's request. The subsequent SI audit in sections 16–18 was prepared using Codex from repository/history evidence, its confirmable prior work, and the maintainer's ChatGPT account. Preparing this audit does not imply it has been committed, published, approved, or that outstanding compliance work has been completed.
+
+---
+
+## 15. Claude（claude.ai 上的 Claude Code 工作階段）參與的工作
+
+以下記錄同一天另一段由 Claude 協助的工作。Claude 在 claude.ai 的雲端工作階段執行，透過 Claude 桌面 app 連到使用者電腦上的 repo 資料夾修改程式，並用內建瀏覽器操作本機 `http://localhost:5173` 與公開 API（`api.貓熊.台灣`）確認畫面。提交時作者為使用者帳號，提交訊息附 `Co-Authored-By: Claude`。
+
+### 工作方式與限制
+
+- Claude 無法從這個環境推送到 GitHub：使用者電腦端的 shell 連 GitHub 回 HTTP 403，雲端端則因 repo 未安裝 Claude GitHub App 而被拒。每個分支都由使用者在本機 `git push` 後開 PR 與合併。
+- 該環境無法安裝 npm 套件，vitest 因缺少原生套件無法執行。Claude 每次修改只跑過 `tsc --noEmit` 與 `eslint`，前端測試請使用者以 `make test-frontend` 確認；本節不記錄任何測試通過數。
+- 套用 `design-taste-frontend`（taste-skill）作為介面設計準則，該 skill 檔案沒有提交進 repo。
+- 測試精篩介面時，曾在公開 API 實際執行一次 90 m 分析（Sahara 一個窗格），伺服器上因此多一筆隨選 AOI 紀錄。
+
+### 交付並合併的項目
+
+| 請求 | PR | 內容 |
+| --- | --- | --- |
+| 依 taste-skill 重做介面 | #120 | 移除多數小字、比較維度改成左側清單＋右側細項、權重預設 0、權重列位置固定、去除卡片框改用細分隔線、新增月球／火星地圖檢視 |
+| 網站更名與 favicon | #124 | 網站名稱改為 AnalogX；依使用者回饋多次重畫標誌，最後為線條風格的行星與環、不含字母的 favicon，並放在標題前 |
+| #123 單一地圖工作流程 | #126 | 移除四個頂層頁籤，改為以地圖為中心的單頁；地球地圖可框選區域並帶入 AOI 分析；月球／火星標示僅供瀏覽 |
+| 比對目標與研究情境的編排 | #171 | 「比對目標」與「研究情境」分成兩行；研究情境改成一顆按鈕＋分組選單；放大月球／火星選點地圖並把分隔線移到地圖下方 |
+| D02–D06 放進比較維度 | #181 | 讀取 `/search/features` 特徵登錄表；登錄表允許比對的 D06 SoilGrids 20 項提供與 D01 相同的權重／目標／範圍，使用時改走 `/search/multidimensional`；表土依深度切換顯示；D02–D05 列出觀測特徵、天體、筆數與數值範圍 |
+| 移除兩個區塊 | #184 | 移除「分析新區域」與「六維比較與觀測」區塊及其專用的框選工具、AOI 目標帶入與六維捷徑，並刪除只測這兩個區塊的整合測試 |
+
+#181 與 #184 合併時的衝突解決提交（`01a8d12`、`234dbc4`）不是 Claude 做的。
+
+### 做了但沒有合併的項目
+
+- 「更多分析工具」區塊的分區、刪小字、結果視覺化、全球粗篩候選畫到主地圖等一系列修改，放在分支 `feat/ui-section-clarity`，使用者後來要求整個刪除該分支，沒有進入 main。
+- 介面說明與設計提案（例如研究情境編排的示意圖、D02–D05 為何無法比對的說明）只在對話中提供。
+
+### 已知界線
+
+- D02–D05 目前沒有比對控制項，是因為後端登錄表把這些特徵標為只能當證據；前端沒有替它們虛構可計分的控制。
+- 多維搜尋不接受土地覆蓋篩選，介面在兩者同時使用時會拒絕送出並說明，不會靜默忽略篩選。
+- 結果詳細資料的逐項比較表當時只列 D01 指標，表土的比對數值未加入。
+
+---
+
+## 16. Additional Codex self-audit: architecture, Geology, and Research Presets
+
+This section adds a separate, confirmable Codex work history to the original frontend log. Evidence includes the merged PRs, the files they introduced, retained review/handoff documents, and Codex's execution record. Current files may contain later changes by other agents; the cited PRs delimit the contribution.
+
+| Work area | How Codex participated | Evidence and attribution boundary |
+| --- | --- | --- |
+| Architecture and technical planning | Inspected actual branches, dirty/untracked files, contracts, scientific modules and issues; reviewed the proposed canonical-observation / derived-search-index separation, SQLite/DuckDB responsibilities, spatial support, and snapshot design; prepared integration and handoff recommendations | [PR #54 review](PR54_REVIEW.md), [OpenCode handoff](OPENCODE_HANDOFF.md), [Geology integration plan](../pipelines/geology/INTEGRATION_PLAN.md). Reviewing the backend foundation in [PR #54](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/54) is not a claim that this Codex session authored that implementation |
+| Scientific acquisition and processing | Wrote and ran bounded source checks, download/cache handling, planetary-CRS map overlays, evidence classification, and provenance/quality reporting during the earlier authorized Geology task; documented unavailable sources rather than inventing observations | [PR #57](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/57), [Geology module](../pipelines/src/analog_pipelines/geology/), [pilot README](../pipelines/geology/README.md). Source maps and spectra were produced by their providers; AI assisted the code and interpretation. The later handoff and this disclosure audit did not download scientific datasets |
+| Data management and reproducibility | Developed independent schemas, taxonomy, catalog/manifests, geometry fingerprints, checksummed immutable snapshot validation, and a local raw/cache artifact inventory; preserved existing local work and documented which files were not remotely backed up | [Geology models](../pipelines/src/analog_pipelines/geology/models.py), [snapshot/catalog documentation](../pipelines/geology/README.md), [handoff](OPENCODE_HANDOFF.md). The initial pilot did not replace the shared registry, application SQLite schema, API contract, or terrain snapshot |
+| Matching and feature interpretation | Implemented category/evidence matching and mineral comparison gates that respect units, detection states, uncertainty and compatible semantics; tested null/invalid values and planetary spatial support | [Geology matching](../pipelines/src/analog_pipelines/geology/matching.py), [mineral processing](../pipelines/src/analog_pipelines/geology/mineralogy.py), [validation record](../pipelines/geology/VALIDATION.md). Band depth/spectral indices were not converted into mineral weight percent, and terrain Euclidean distance was not substituted for geological evidence |
+| Backend/API and database review | Checked API/schema compatibility, v1-to-v2 conversion, stable spatial identifiers, coverage labels, and SQLite rebuild safeguards; recorded findings for the backend owner | [PR54_REVIEW.md](PR54_REVIEW.md). The broader backend, API, typed database, Parquet/DuckDB and six-dimensional integration work has separate PRs and OpenCode/contributor records; it is not all attributed to Codex here |
+| Research Presets and frontend | Turned the supplied research ratings into centrally managed configuration; added bilingual, capability-aware controls; preserved targets, filters and limits; handled manual edits/reset and the independent AOI target workflow; adjusted responsive placement after human feedback | [PR #134](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/134), [preset definitions](../apps/web/src/lib/research-presets.ts), [SearchForm](../apps/web/src/components/SearchForm.tsx), [methodology](SEARCH_METHOD.md), [feature documentation](FEATURE_REGISTRY.md). NASA references motivate the research scenarios, not the numerical importance ratings. Later UI changes are separately attributed in section 15 |
+| Testing, debugging and validation | Wrote small software fixtures and regression tests, ran the project gate and focused checks, investigated failures, reconciled main-branch changes, and captured real browser UI screenshots | PR #57 records 51 focused Geology/GIS tests and a 14-step full-gate pass; PR #134 records 15 preset tests, 128 frontend tests in its full gate, and an isolated API smoke pass. These are historical outcomes at the PR revisions, not claims about every later revision or scientific validation. [Screenshot capture and reproduction notes](screenshots/research-presets/README.md) distinguish browser captures from generated imagery |
+| Delivery, CI/CD and documentation | Prepared separate reviewable branches/PRs, inspected CI, documented reproduction/source limitations and integration tasks, and performed explicitly authorized GitHub actions; helped write English/Traditional Chinese UI text and technical documentation | PR #57 and PR #134 plus the original frontend log above. This Geology/Presets work did not upload R2 objects, configure Cloudflare Tunnel, or deploy production services; infrastructure instructions were handoff material. Earlier local server/browser checks are recorded separately |
+
+### Historical scientific outcome of the independent Geology milestone
+
+At PR #57, the shareable geological-map pilot covered **one Moon ROI and two explicitly marked Mars test AOIs**. Earth GLiM results were withheld from redistribution because the mirror's licensing was unresolved. There were **no validated mineral detections** in that milestone: EMIT remained `auth_required` at the maintainer's instruction, the lunar research product lacked sufficiently verified georeferencing/units/quality, and CRISM indices remained context only. A zero count of verified mineral observations meant **data were not yet usable**, not that the minerals were absent. Later ingest work and observations must be assessed using their own versioned provenance, not this historical count.
+
+### Other agents and evidence strength
+
+The existing Claude account is retained in section 15. [PR #196](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/196) explicitly identifies Claude Code assistance for that disclosure contribution. Git history also contains `Co-Authored-By: Claude` trailers for branding/UI work and earlier contributions such as [PR #12](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/12) (i18n) and [PR #23](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/23) (terrain range filters). Those are evidence of disclosed assistance, not proof of which portions of each file were generated or of the exact model runtime.
+
+OpenCode's orchestration and implementation record remains in section 13 and the linked acceptance/workstream documents. OpenCode is an agent environment, not a uniquely identified underlying language model. The team still needs to confirm provider/model names and any additional LLMs or generative tools; configuration, interoperability discussions, and an agent's completion message alone do not establish actual use. No claim is made here that every repository file was AI-authored or that all generated output received a completed independent human review.
+
+---
+
+## 17. Content and scientific-data classification audit
+
+The inspected baseline is `main` commit `bac0eaa` (including the existing disclosure from PR #196). This is a tracked-repository audit plus the maintainer's reported external ChatGPT use. It does not inspect private design tools, untracked assets on other machines, or the final submission portal.
+
+| Classification | Examples in AnalogX | What the SI disclosure means |
+| --- | --- | --- |
+| **Original provider scientific observations and source products** | NASA/USGS/ESA and other cited source rasters, spectra, geological maps, and associated metadata; see [data sources](DATA_SOURCES.md) and [source inventory](../catalog/dimension-source-inventory.yaml) | Retain provider, version, license, methods and uncertainty. Some source products already involve expert interpretation or retrieval algorithms; do not call every map a direct sensor measurement. No evidence here establishes that the team generated the original scientific observations with an LLM |
+| **Deterministically processed scientific data** | Raster-window terrain statistics, map-overlap fractions, validated typed exports, search distances, derived indexes and checksummed manifests produced from documented inputs | AI-assisted processing code is disclosed as code assistance. Its output remains a reproducible transformation of its sources, not an invented LLM observation. Determinism and checksums alone do not prove a scientifically appropriate method |
+| **External model-derived scientific products** | ISRIC SoilGrids 2.0 predictions and uncertainty summaries; provider-classified land cover; modeled geometry/proxies where documented | Preserve model/prediction/proxy labels and provider provenance, separately from this team's generative-AI use. [SoilGrids pilot documentation](D06_SOILGRIDS_DEPTH_PILOT.md) explicitly calls its values predictions, not measurements; its historical eligibility is not a statement of the current feature registry |
+| **Synthetic test fixtures** | Small mocked rasters/observations, known-value examples, offline test records, and synthetic performance benchmarks; the [search-method worked example](SEARCH_METHOD.md#worked-example-synthetic-test-fixture-not-a-scientific-observation) is explicitly synthetic | AI may assist fixture/test authoring. Synthetic means constructed for software verification; it does not automatically mean an LLM generated the values. Never promote these fixtures to real observed records or use them to establish scientific comparability/coverage |
+| **AI-assisted code, documentation and analysis** | The contributions above, this disclosure, translations, test/capture scripts, and external ChatGPT analysis of exported JSON | Disclose tool, role and artifact scope. Human-authored requirements, generated drafts, accepted code, deterministic results, and conversational interpretations are distinct. Rechecking a distance is analysis, not generation of the source data |
+| **AI-generated content and AI-assisted presentation/design** | Generated code/documentation drafts; AI-assisted product copy and branding work; user-reported titles, slogans and demo planning; the favicon discussed below | Inventory the final accepted text/visual assets, confirm tools and extent of generation, and apply the appropriate descriptive, metadata and visible-media acknowledgment. Ideas or draft storyboards are not delivered features or a completed deck |
+
+### Tracked visual and audiovisual assets
+
+The baseline contains 46 tracked PNG/JPEG/WebP/SVG/GIF image assets. A simple scan for C2PA or literal `SI-generated` markers identified the favicon only; absence of those markers does not establish human authorship, absence of generation, or absence of a watermark rendered as pixels/paths.
+
+- **Favicon:** [apps/web/public/favicon.svg](../apps/web/public/favicon.svg) is a code-drawn planet/ring mark with Claude-assisted revision history, most recently commit `276aea8`. Its embedded C2PA payload contains an Anthropic/Claude provision action and an **unknown origin-confidence** assertion. This indicates declared tool involvement, not proof of exclusively AI-generated artwork or a validated signature/complete editing history. No visible **SI-generated** label was identified in the inspected SVG. Metadata does not substitute for a visible watermark. Treat this as an unresolved AI-assisted/generated graphic-labeling item, not evidence that the media audit is complete.
+- **Architecture diagrams:** [English](diagrams/architecture.en.svg) and [Traditional Chinese](diagrams/architecture.zh-TW.svg) vector diagrams entered through commit `77dd7f6` / PR #8. This audit does not establish which tool generated their graphics; confirm with the contributor before classifying them. An SVG extension alone does not prove or exclude AI generation.
+- **Screenshots:** tracked PNG/JPEG assets include browser captures in [docs/screenshots](screenshots/). The [Research Presets capture source and notes](screenshots/research-presets/README.md) establish automated Chromium capture, rather than text-to-image synthesis. A screen capture is not automatically a generative image; embedded AI-assisted artwork/copy and any synthetic test data still need their own truthful attribution. Other screenshots require contributor confirmation where capture provenance is absent.
+- **Video, audio, and presentation files:** no tracked MP4/WebM/MOV, MP3/WAV/OGG/FLAC, PPTX/Keynote, or PDF files were found at the inspected baseline. This does **not** establish that external demo materials, narration, music, slides, or unpublished assets do not use AI. The maintainer reports ChatGPT-assisted demo planning and copy, not a repository-hosted final deck.
+
+No branding clearance is claimed. The final generated visuals and any composites must be reviewed for NASA logos, flags, mission identifiers and design elements. Authentic provider imagery and proper source credits must remain distinguishable from generated artwork; attribution does not itself grant permission or cure a prohibited generated use.
+
+---
+
+## 18. Submission labeling and remaining team checks
+
+| Requirement | Observed evidence | Remaining action / status |
+| --- | --- | --- |
+| Descriptive disclosure for code, documentation, analysis and data processing | This document identifies tools, uses, artifacts, scientific-data classes and limitations; both README languages link here. Some commits/PRs also disclose AI co-authorship | **Present at project level.** Include the relevant acknowledgment/link in the submitted project description and distributed artifact descriptions; confirm actual published copies |
+| Code/data metadata acknowledgment | Scientific manifests already carry source/method/checksum provenance; some commits have AI trailers. The favicon has separate C2PA metadata | **Incomplete / not established consistently.** Scientific provenance or Git trailers alone do not demonstrate SI metadata coverage for every distributed code/data bundle. Add release/artifact metadata identifying the AI-assisted role without replacing provider provenance |
+| Visible SI-generated label on generated images/video | Claude-assisted favicon and diagrams/screenshots inventoried above; a visible favicon label was not identified | **Open.** Confirm asset classification and add a visible SI-generated watermark wherever required, including final generated imagery/video. Embedded C2PA is insufficient on its own. Image modifications are outside this documentation-only update |
+| Audio acknowledgment in descriptive text and metadata | No tracked audio found; external narration/music/tool use unconfirmed | **Awaiting team confirmation.** If AI audio is used, disclose the tool and role in both places and verify the exported file's actual metadata |
+| Generated text/product/presentation content | ChatGPT copy/translation/planning and AI-assisted UI/documentation work are disclosed; final deck and submission text are not available here | **Partially inventoried.** Confirm which drafts were adopted and carry the disclosure into final presentation/project materials and applicable file metadata. Do not label proposed features as delivered |
+| NASA branding/design restriction | Rule recorded; an original planet/ring mark is documented, but final media/composites are not comprehensively reviewed | **Open final review.** Check generated assets and submission materials against the applicable NASA guidance; do not claim clearance from this audit |
+| Other tools and human accountability | Claude contributor statement, Codex execution/PR history, ChatGPT maintainer account, OpenCode workstream artifacts | **Confirm gaps.** Record the underlying OpenCode model/provider, additional tools, final asset owners, license checks, and actual human acceptance/review; do not infer these from CI alone |
+
+For a future release, a small versioned sidecar or existing extensible release metadata could record **artifact path/glob and checksum, tool/provider (model when confirmed), assistance task, data classification, original dataset/version and method references, review status, and this disclosure's version/link**. This is a recommendation, not an implemented schema or a claim that metadata has already been embedded. Preserve immutable scientific manifests and checksums; publish a new version or separate acknowledgment rather than silently editing pinned artifacts. Do not mark NASA observations as LLM-generated to satisfy an acknowledgment requirement.
+
+Before submission, the team should check off the open items above against the actual exported media, downloadable code/data, final demo and project-page text, retain the applicable official rules, and confirm that visible labels and metadata survive export. This documentation revision changes no scientific observations, algorithms, asset watermarks, API contracts, deployment, or production data.
