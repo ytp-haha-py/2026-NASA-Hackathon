@@ -106,3 +106,15 @@ data-fetch: data-sync ## Alias for data-sync (requires SNAPSHOT_ID)
 
 data-rebuild-index: data-validate ## Rebuild SQLite from the pinned snapshot after checksum verification
 	uv run python pipelines/build_index.py --snapshot $(SNAPSHOT) --database-url sqlite+pysqlite:///./var/analog.db --reset
+
+public-up: ## Build and start api + web + Cloudflare Tunnel (one command)
+	docker compose -f compose.public.yaml up -d --build
+
+public-down: ## Stop the public demo stack
+	docker compose -f compose.public.yaml down
+
+public-logs: ## Follow public demo stack logs
+	docker compose -f compose.public.yaml logs -f --tail=100
+
+public-smoke: ## Verify the public API/web endpoint
+	bash scripts/public_smoke.sh

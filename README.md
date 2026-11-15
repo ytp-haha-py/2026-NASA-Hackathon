@@ -37,8 +37,19 @@ https://api.貓熊.台灣/docs
 
 Production frontend builds default to `https://api.貓熊.台灣/api/v1`; override with
 `VITE_API_BASE`. Local development remains `http://127.0.0.1:8000`, with the Vite `/api` proxy and
-the relative `/api/v1` base. Verified on 2026-11-15: `api` health and typed coverage return HTTP 200, and the web routes return HTTP 200. The tunnel is managed outside the repository; see
-[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for the exact routes and operator commands.
+the relative `/api/v1` base. Verified on 2026-11-15: `api` health and typed coverage return HTTP 200,
+and the web routes return HTTP 200.
+
+The public demo stack is Dockerized (`api`, `web`, `cloudflared`) with restart policies,
+healthchecks and persistent SQLite. One command starts it:
+
+```bash
+make public-up      # docker compose -f compose.public.yaml up -d --build
+make public-smoke   # public health/coverage/web check
+make public-down    # stop it
+```
+
+See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for the tunnel credentials layout and routes.
 
 ## Architecture at a glance
 

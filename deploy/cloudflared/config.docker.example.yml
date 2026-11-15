@@ -1,0 +1,13 @@
+# Docker Compose tunnel config. Mount the host ~/.cloudflared directory read-only.
+# Replace <TUNNEL_ID>; never commit credentials or tokens.
+tunnel: <TUNNEL_ID>
+credentials-file: /etc/cloudflared/<TUNNEL_ID>.json
+
+ingress:
+  - hostname: api.貓熊.台灣
+    service: http://api:8000
+  - hostname: 貓熊.台灣
+    service: http://web:80
+  - hostname: www.貓熊.台灣
+    service: http://web:80
+  - service: http_status:404
