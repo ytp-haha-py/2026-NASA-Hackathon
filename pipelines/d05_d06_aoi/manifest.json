@@ -1,0 +1,96 @@
+{
+  "counts": {
+    "by_body": {
+      "Mars": 9,
+      "Moon": 9
+    },
+    "by_dimension": {
+      "D05": 6,
+      "D06": 12
+    },
+    "by_feature": {
+      "absorbed_dose_gy": 2,
+      "bearing_strength_kpa": 2,
+      "bulk_density_kg_m3": 2,
+      "cohesion_kpa": 2,
+      "friction_angle_deg": 2,
+      "particle_size_distribution": 2,
+      "porosity_fraction": 2,
+      "solar_elevation_deg": 2,
+      "solar_incidence_deg": 2
+    },
+    "by_state": {
+      "detected": 4,
+      "no_coverage": 14
+    },
+    "observations": 18
+  },
+  "files": {
+    "REPORT.json": {
+      "sha256": "b1e7c0cb46cec09f065c5dddf6339400110debd02c64e23645a9cc41533f3e29"
+    },
+    "assets.json": {
+      "sha256": "de4db89df2cd06ce90307290203b214e50e35a3d2405b8c2053e786f8465d5df"
+    },
+    "observations.jsonl": {
+      "sha256": "30667431da517530fced949d49e5b372d4a09670464d4c80f56cc0774c1e00e1"
+    },
+    "plan.json": {
+      "sha256": "742f3865d6c1abbce2c8eb07a1b29740d6b6d3072cdc09e7ddf846a8d7befc85"
+    },
+    "qa.json": {
+      "sha256": "ffddbd4edd17098e3b4f248d2dcf2f64640a49f65a7f64542a1a179ab7ee886f"
+    },
+    "requests.jsonl": {
+      "sha256": "7c02d1fd4e9ed25fcb75ecfe563345b08e62a65254175ffab13ded5e0affb640"
+    }
+  },
+  "generated_at": "2026-11-15T12:00:00+00:00",
+  "limitations": [
+    "Bounded AOIs only; not global or exhaustive six-dimension coverage.",
+    "D05 illumination is model-derived SPICE geometry at one instant (flat ellipsoid tangent plane).",
+    "D05 ionizing radiation: explicit no_coverage for selected AOIs (no fabrication, no Gy/Sv conversion without physics).",
+    "D06 regolith: no defensible direct measured value with required footprint/depth/support for selected AOIs; explicit no_coverage records only."
+  ],
+  "non_claims": [
+    "No observed irradiance/radiance or shadow fraction.",
+    "No ionizing absorbed/equivalent dose fabricated for AOIs without direct supported measurement/physics.",
+    "No regolith proxy from DEM roughness; no Earth transfer.",
+    "No global six-dimension completeness claim."
+  ],
+  "observations_sha256": "30667431da517530fced949d49e5b372d4a09670464d4c80f56cc0774c1e00e1",
+  "release_version": "d05-d06-aoi-evidence-1.0.0",
+  "scope": "d05-d06-aoi-170",
+  "source_provenance": {
+    "d05_ionizing_radiation": {
+      "method_version": "ionizing-radiation-source-audit-0.1.0",
+      "sources": [
+        "https://pds.nasa.gov/ds-view/pds/viewDataset.jsp?dsid=LRO-L-CRAT-3-CDR-CALIBRATED-V1.0",
+        "https://pds.nasa.gov/ds-view/pds/viewDataset.jsp?dsid=LRO-L-CRAT-3/4-DDR-PROCESSED-V1.0",
+        "https://pds.nasa.gov/ds-view/pds/viewDataset.jsp?dsid=MSL-M-RAD-3-RDR-V1.0",
+        "https://mars.nasa.gov/mars2020/spacecraft/instruments/meda/"
+      ],
+      "status": "no_coverage_for_selected_aois"
+    },
+    "d05_solar_illumination": {
+      "dataset": "naif-spice-generic-kernels",
+      "epoch_utc": "2026-11-15T12:00:00Z",
+      "method_version": "spice-solar-geometry-1.0.0",
+      "notes": "Model-derived geometry only (not irradiance/shadow).",
+      "source_pilot": "pipelines/pilots/d05_spice_illumination"
+    },
+    "d06_regolith": {
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "notes": "Official PDS/literature audited; no defensible direct detected value with required footprint/depth/support for Shackleton/Jezero AOIs. No DEM/proxy inference.",
+      "sources": [
+        "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+        "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a16lsrp_soil_mechanics/",
+        "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15_17_hfe_concatenated/",
+        "https://pds-geosciences.wustl.edu/insight/urn-nasa-pds-insight_hp3_tem/",
+        "https://pds-geosciences.wustl.edu/insight/urn-nasa-pds-insight_rad/",
+        "https://doi.org/10.1007/s11214-022-00941-z"
+      ],
+      "status": "no_coverage_for_selected_aois"
+    }
+  }
+}
