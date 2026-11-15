@@ -294,9 +294,63 @@ FEATURES_V2: tuple[DimensionFeatureV2, ...] = (
         "Geotechnical experiment with gravity/moisture/load conditions",
         "not comparable without experiment conditions",
     ),
+    DimensionFeatureV2(
+        "porosity_fraction",
+        "D06",
+        "Porosity",
+        "numeric",
+        "fraction",
+        "evidence_only",
+        _D06,
+        ("Earth", "Moon", "Mars"),
+        "Sample/experiment measurement with depth, sample state, pore definition and uncertainty",
+        "not comparable across bodies without matching sample state and measurement method",
+        "A fraction in [0, 1]; never inferred from bulk density without a stated grain density.",
+    ),
+    DimensionFeatureV2(
+        "friction_angle_deg",
+        "D06",
+        "Friction angle",
+        "numeric",
+        "degree",
+        "evidence_only",
+        _D06,
+        ("Earth", "Moon", "Mars"),
+        "Geotechnical experiment with gravity/moisture/load conditions and failure criterion",
+        "not comparable without experiment conditions",
+        "Internal friction angle from a stated test; not a slope angle from a DEM.",
+    ),
+    DimensionFeatureV2(
+        "bearing_strength_kpa",
+        "D06",
+        "Bearing strength",
+        "numeric",
+        "kPa",
+        "evidence_only",
+        _D06,
+        ("Earth", "Moon", "Mars"),
+        "Penetrometer/plate test with gravity, load geometry, depth and moisture state",
+        "not comparable without experiment conditions",
+        "Bearing capacity or penetration resistance as measured; never a DEM-derived proxy.",
+    ),
 )
 
 FEATURE_V2_BY_ID = {feature.feature_id: feature for feature in FEATURES_V2}
+
+# SoilGrids texture predictions use the USDA particle-size classes. These edges
+# are lower bin edges in micrometres for a distribution with a terminal +inf bin.
+D06_PARTICLE_SIZE_BINS_UM: tuple[float, ...] = (0.0, 2.0, 50.0, 2000.0)
+D06_PARTICLE_SIZE_LABELS: tuple[str, ...] = ("clay", "silt", "sand")
+D06_DEPTH_EXPLICIT_FEATURES: frozenset[str] = frozenset(
+    {
+        "particle_size_distribution",
+        "bulk_density_kg_m3",
+        "porosity_fraction",
+        "cohesion_kpa",
+        "friction_angle_deg",
+        "bearing_strength_kpa",
+    }
+)
 
 
 class DimensionProvider(Protocol):
@@ -345,6 +399,30 @@ def validate_dimension_observation(observation: TypedObservation) -> list[str]:
         and observation.value_kind != "distribution"
     ):
         errors.append("particle size must be a distribution with bin edges")
+    if feature.dimension_code == "D06":
+        if observation.state == "detected" and observation.depth_support.kind == "unknown":
+            errors.append("D06 regolith observations require an explicit depth support")
+        if observation.state == "detected":
+            value = observation.value
+            if (
+                observation.feature_id == "porosity_fraction"
+                and isinstance(value, (int, float))
+                and not 0 <= float(value) <= 1
+            ):
+                errors.append("porosity_fraction must be within [0, 1]")
+            if (
+                observation.feature_id
+                in {"cohesion_kpa", "friction_angle_deg", "bearing_strength_kpa"}
+                and isinstance(value, (int, float))
+                and float(value) < 0
+            ):
+                errors.append(f"{observation.feature_id} cannot be negative")
+            if (
+                observation.feature_id == "friction_angle_deg"
+                and isinstance(value, (int, float))
+                and not 0 <= float(value) <= 90
+            ):
+                errors.append("friction_angle_deg must be within [0, 90] degrees")
     return errors
 
 

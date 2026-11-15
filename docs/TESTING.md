@@ -325,7 +325,9 @@ network ingestion scripts documented in the `Makefile`; they are never invoked b
    (`earth_dem`, `lunar_dem`), provenance fields, and non-empty limitations.
 4. Run any tests marked `network` explicitly and only when the environment permits network data:
    `uv run pytest -m network`. The marker is declared in `pyproject.toml`; network tests are not
-   part of the P0 gate, CI, or the smoke script.
+   part of the P0 gate, CI, or the smoke script. The live SoilGrids depth check additionally
+   requires `ANALOG_LIVE_NETWORK=1`:
+   `ANALOG_LIVE_NETWORK=1 uv run pytest pipelines/tests/test_soilgrids_live.py -q -m network`.
 5. Confirm no DEM tiles or caches were added to git. Large raster binaries are gitignored by design.
 
 If real data is unavailable, report the blocker and keep the fixture classification honest rather

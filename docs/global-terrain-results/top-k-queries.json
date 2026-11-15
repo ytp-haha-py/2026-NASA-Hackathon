@@ -1,0 +1,315 @@
+{
+  "global_claim": false,
+  "grid_version": "coarse-grid-1.0.0",
+  "index_version": "coarse-index-1.0.0",
+  "label": "local_coarse_index_not_global_exhaustive",
+  "method_version": "coarse-terrain-250m-1.0.0",
+  "queries": [
+    {
+      "distance_definition": "sqrt(sum(w_i * ((value_i - target_i) / scale_i)^2) / sum(w_i)) over positive-weight coarse features; lower is closer and the value is an engineering shortlist score, not a physical similarity percentage",
+      "eligible_candidate_count": 168,
+      "excluded_candidate_count": 0,
+      "exclusion_reason": "none: every indexed cell has all three coarse features",
+      "indexed_candidate_count": 168,
+      "label": "Flat, low-relief target",
+      "query_id": "Q1-flat-low-relief",
+      "results": [
+        {
+          "bbox": {
+            "east": 10.390550248,
+            "north": 24.042546267,
+            "south": 23.99695969,
+            "west": 10.340920912
+          },
+          "candidate_id": "coarse-v1:f9fc0a3e5badb6f9",
+          "coarse_flat_fraction_lt5deg": 0.895,
+          "coarse_slope_mean_deg": 2.37742,
+          "coarse_slope_p90_deg": 5.300035,
+          "distance": 0.036524028,
+          "rank": 1,
+          "region_id": "pilot-sahara",
+          "valid_fraction": 1.0
+        },
+        {
+          "bbox": {
+            "east": -112.033974438,
+            "north": 35.843289094,
+            "south": 35.797726819,
+            "west": -112.089917016
+          },
+          "candidate_id": "coarse-v1:8e0040978e4feda7",
+          "coarse_flat_fraction_lt5deg": 0.895,
+          "coarse_slope_mean_deg": 2.560233,
+          "coarse_slope_p90_deg": 5.043519,
+          "distance": 0.050347577,
+          "rank": 2,
+          "region_id": "pilot-grand-canyon",
+          "valid_fraction": 1.0
+        },
+        {
+          "bbox": {
+            "east": 10.048612845,
+            "north": 24.31609565,
+            "south": 24.270611226,
+            "west": 9.998987367
+          },
+          "candidate_id": "coarse-v1:0402db9e349f4645",
+          "coarse_flat_fraction_lt5deg": 0.9,
+          "coarse_slope_mean_deg": 2.651637,
+          "coarse_slope_p90_deg": 4.930497,
+          "distance": 0.055767469,
+          "rank": 3,
+          "region_id": "pilot-sahara",
+          "valid_fraction": 1.0
+        },
+        {
+          "bbox": {
+            "east": -112.089301004,
+            "north": 35.842799717,
+            "south": 35.797212795,
+            "west": -112.145273487
+          },
+          "candidate_id": "coarse-v1:1ca0124b27d8c80a",
+          "coarse_flat_fraction_lt5deg": 0.9,
+          "coarse_slope_mean_deg": 2.500843,
+          "coarse_slope_p90_deg": 4.743571,
+          "distance": 0.05634567,
+          "rank": 4,
+          "region_id": "pilot-grand-canyon",
+          "valid_fraction": 1.0
+        },
+        {
+          "bbox": {
+            "east": 10.048241947,
+            "north": 24.270942844,
+            "south": 24.225458841,
+            "west": 9.998634755
+          },
+          "candidate_id": "coarse-v1:92bc057dc8f0253f",
+          "coarse_flat_fraction_lt5deg": 0.9075,
+          "coarse_slope_mean_deg": 2.563133,
+          "coarse_slope_p90_deg": 4.792428,
+          "distance": 0.05930771,
+          "rank": 5,
+          "region_id": "pilot-sahara",
+          "valid_fraction": 1.0
+        }
+      ],
+      "target": {
+        "coarse_flat_fraction_lt5deg": 0.9,
+        "coarse_slope_mean_deg": 2.0,
+        "coarse_slope_p90_deg": 6.0
+      },
+      "weights": {
+        "coarse_flat_fraction_lt5deg": 1.0,
+        "coarse_slope_mean_deg": 1.0,
+        "coarse_slope_p90_deg": 1.0
+      }
+    },
+    {
+      "distance_definition": "sqrt(sum(w_i * ((value_i - target_i) / scale_i)^2) / sum(w_i)) over positive-weight coarse features; lower is closer and the value is an engineering shortlist score, not a physical similarity percentage",
+      "eligible_candidate_count": 168,
+      "excluded_candidate_count": 0,
+      "exclusion_reason": "none: every indexed cell has all three coarse features",
+      "indexed_candidate_count": 168,
+      "label": "Moderate mixed terrain target",
+      "query_id": "Q2-moderate-terrain",
+      "results": [
+        {
+          "bbox": {
+            "east": 10.145939848,
+            "north": 24.179960071,
+            "south": 24.134446633,
+            "west": 10.096336371
+          },
+          "candidate_id": "coarse-v1:d558cc84b2550c64",
+          "coarse_flat_fraction_lt5deg": 0.465,
+          "coarse_slope_mean_deg": 7.181239,
+          "coarse_slope_p90_deg": 13.674603,
+          "distance": 0.191010543,
+          "rank": 1,
+          "region_id": "pilot-sahara",
+          "valid_fraction": 1.0
+        },
+        {
+          "bbox": {
+            "east": 10.047502876,
+            "north": 24.180636413,
+            "south": 24.135153253,
+            "west": 9.997932127
+          },
+          "candidate_id": "coarse-v1:e4908106d255d86a",
+          "coarse_flat_fraction_lt5deg": 0.595,
+          "coarse_slope_mean_deg": 6.827839,
+          "coarse_slope_p90_deg": 17.34119,
+          "distance": 0.230989645,
+          "rank": 2,
+          "region_id": "pilot-sahara",
+          "valid_fraction": 1.0
+        },
+        {
+          "bbox": {
+            "east": 10.096336371,
+            "north": 24.135153253,
+            "south": 24.089655392,
+            "west": 10.046767431
+          },
+          "candidate_id": "coarse-v1:95046a41aeb31ca9",
+          "coarse_flat_fraction_lt5deg": 0.3875,
+          "coarse_slope_mean_deg": 8.135486,
+          "coarse_slope_p90_deg": 16.653602,
+          "distance": 0.265041127,
+          "rank": 3,
+          "region_id": "pilot-sahara",
+          "valid_fraction": 1.0
+        },
+        {
+          "bbox": {
+            "east": 10.145537093,
+            "north": 24.134807868,
+            "south": 24.089294917,
+            "west": 10.095951852
+          },
+          "candidate_id": "coarse-v1:8a22847e3ba19343",
+          "coarse_flat_fraction_lt5deg": 0.565,
+          "coarse_slope_mean_deg": 5.716662,
+          "coarse_slope_p90_deg": 13.445666,
+          "distance": 0.265783639,
+          "rank": 4,
+          "region_id": "pilot-sahara",
+          "valid_fraction": 1.0
+        },
+        {
+          "bbox": {
+            "east": 10.393982962,
+            "north": 24.358580808,
+            "south": 24.312989674,
+            "west": 10.344224226
+          },
+          "candidate_id": "coarse-v1:9f9259c073308f23",
+          "coarse_flat_fraction_lt5deg": 0.4325,
+          "coarse_slope_mean_deg": 6.335143,
+          "coarse_slope_p90_deg": 12.507492,
+          "distance": 0.279699785,
+          "rank": 5,
+          "region_id": "pilot-sahara",
+          "valid_fraction": 1.0
+        }
+      ],
+      "target": {
+        "coarse_flat_fraction_lt5deg": 0.5,
+        "coarse_slope_mean_deg": 8.0,
+        "coarse_slope_p90_deg": 18.0
+      },
+      "weights": {
+        "coarse_flat_fraction_lt5deg": 1.0,
+        "coarse_slope_mean_deg": 1.0,
+        "coarse_slope_p90_deg": 1.0
+      }
+    },
+    {
+      "distance_definition": "sqrt(sum(w_i * ((value_i - target_i) / scale_i)^2) / sum(w_i)) over positive-weight coarse features; lower is closer and the value is an engineering shortlist score, not a physical similarity percentage",
+      "eligible_candidate_count": 168,
+      "excluded_candidate_count": 0,
+      "exclusion_reason": "none: every indexed cell has all three coarse features",
+      "indexed_candidate_count": 168,
+      "label": "Steep canyon/edge target",
+      "query_id": "Q3-steep-canyon",
+      "results": [
+        {
+          "bbox": {
+            "east": -111.926997229,
+            "north": 36.159707999,
+            "south": 36.114192501,
+            "west": -111.983108874
+          },
+          "candidate_id": "coarse-v1:edacef7813b9cba6",
+          "coarse_flat_fraction_lt5deg": 0.225,
+          "coarse_slope_mean_deg": 25.183971,
+          "coarse_slope_p90_deg": 44.601516,
+          "distance": 0.250873434,
+          "rank": 1,
+          "region_id": "pilot-grand-canyon",
+          "valid_fraction": 1.0
+        },
+        {
+          "bbox": {
+            "east": -111.925413188,
+            "north": 36.024488659,
+            "south": 35.978974299,
+            "west": -111.981426215
+          },
+          "candidate_id": "coarse-v1:11f514665fd67999",
+          "coarse_flat_fraction_lt5deg": 0.1025,
+          "coarse_slope_mean_deg": 27.719419,
+          "coarse_slope_p90_deg": 40.429229,
+          "distance": 0.254832602,
+          "rank": 2,
+          "region_id": "pilot-grand-canyon",
+          "valid_fraction": 1.0
+        },
+        {
+          "bbox": {
+            "east": -111.814964215,
+            "north": 36.070368995,
+            "south": 36.024904269,
+            "west": -111.870949054
+          },
+          "candidate_id": "coarse-v1:9aab6c0550efce07",
+          "coarse_flat_fraction_lt5deg": 0.17,
+          "coarse_slope_mean_deg": 24.092405,
+          "coarse_slope_p90_deg": 40.296946,
+          "distance": 0.26610528,
+          "rank": 3,
+          "region_id": "pilot-grand-canyon",
+          "valid_fraction": 1.0
+        },
+        {
+          "bbox": {
+            "east": -112.14853155,
+            "north": 36.112709813,
+            "south": 36.067095033,
+            "west": -112.204731617
+          },
+          "candidate_id": "coarse-v1:8c44310a7bd61bb1",
+          "coarse_flat_fraction_lt5deg": 0.0125,
+          "coarse_slope_mean_deg": 29.073632,
+          "coarse_slope_p90_deg": 45.55098,
+          "distance": 0.269788445,
+          "rank": 4,
+          "region_id": "pilot-grand-canyon",
+          "valid_fraction": 1.0
+        },
+        {
+          "bbox": {
+            "east": -111.871446539,
+            "north": 36.160125663,
+            "south": 36.114635232,
+            "west": -111.927527592
+          },
+          "candidate_id": "coarse-v1:4c3c9c0578be8ed0",
+          "coarse_flat_fraction_lt5deg": 0.03,
+          "coarse_slope_mean_deg": 27.768559,
+          "coarse_slope_p90_deg": 40.825664,
+          "distance": 0.278360742,
+          "rank": 5,
+          "region_id": "pilot-grand-canyon",
+          "valid_fraction": 1.0
+        }
+      ],
+      "target": {
+        "coarse_flat_fraction_lt5deg": 0.1,
+        "coarse_slope_mean_deg": 25.0,
+        "coarse_slope_p90_deg": 45.0
+      },
+      "weights": {
+        "coarse_flat_fraction_lt5deg": 1.0,
+        "coarse_slope_mean_deg": 1.0,
+        "coarse_slope_p90_deg": 2.0
+      }
+    }
+  ],
+  "report_version": "global-terrain-results-1.0.0",
+  "snapshot_id": "geomorpho250-real-pilot-20261115",
+  "weights_note": "Weights are explicit engineering weights chosen to demonstrate the documented distance definition; they are not calibrated scientific weights."
+}

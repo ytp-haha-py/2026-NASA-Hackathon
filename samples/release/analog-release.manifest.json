@@ -1,0 +1,3937 @@
+{
+  "absent_dimensions": [
+    {
+      "body": "Moon",
+      "dimension_code": "D03",
+      "reason": "no validated observation in this release; inventory sources lro-diviner report identified/not_fetched"
+    },
+    {
+      "body": "Mars",
+      "dimension_code": "D03",
+      "reason": "no validated observation in this release; inventory sources usgs-mars-themis-global-thermal-inertia report accessible/not_fetched"
+    },
+    {
+      "body": "Moon",
+      "dimension_code": "D04",
+      "reason": "no validated observation in this release; inventory sources lunar-water-ice-source-not-selected report planned/not_fetched"
+    },
+    {
+      "body": "Mars",
+      "dimension_code": "D04",
+      "reason": "no validated observation in this release; inventory sources mars-water-ice-source-not-selected report planned/not_fetched"
+    },
+    {
+      "body": "Moon",
+      "dimension_code": "D06",
+      "reason": "no validated observation in this release; inventory sources lunar-regolith-source-not-selected report planned/not_fetched"
+    },
+    {
+      "body": "Mars",
+      "dimension_code": "D06",
+      "reason": "no validated observation in this release; inventory sources mars-regolith-source-not-selected report planned/not_fetched"
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "fine-terrain-snapshot",
+      "bodies": [
+        "Earth",
+        "Moon",
+        "Mars"
+      ],
+      "bytes": 1176833,
+      "context_value_origins": {
+        "Earth": {
+          "mapped_classification": 1243
+        }
+      },
+      "counts": {
+        "by_body": {
+          "Earth": {
+            "candidates": 113,
+            "context_observations": 1243,
+            "feature_observations": 565,
+            "reference_feature_observations": 0,
+            "references": 0
+          },
+          "Mars": {
+            "candidates": 0,
+            "context_observations": 0,
+            "feature_observations": 0,
+            "reference_feature_observations": 25,
+            "references": 5
+          },
+          "Moon": {
+            "candidates": 0,
+            "context_observations": 0,
+            "feature_observations": 0,
+            "reference_feature_observations": 90,
+            "references": 18
+          }
+        },
+        "candidate_records_shared_across_manifests": 113,
+        "candidates": 113,
+        "context_observations": 1243,
+        "datasets": 9,
+        "feature_observations": 565,
+        "manifests": 9,
+        "reference_feature_observations": 115,
+        "reference_records_shared_across_manifests": 0,
+        "references": 23
+      },
+      "datasets": [
+        {
+          "candidate_count": 113,
+          "dataset_id": "copernicus-dem-glo90",
+          "license": "Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry), under the Copernicus Contributing Mission Data Access Licence terms",
+          "license_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+          "product_id": "COP-DEM_GLO-90-DGED",
+          "provider": "European Space Agency (ESA) / Airbus Defence and Space; AWS Open Data mirror",
+          "reference_count": 0,
+          "status": "verified",
+          "url": "https://registry.opendata.aws/copernicus-dem/"
+        },
+        {
+          "candidate_count": 113,
+          "dataset_id": "esa-worldcover-2021-v200",
+          "license": "CC BY 4.0 (Creative Commons Attribution 4.0 International)",
+          "license_url": "https://creativecommons.org/licenses/by/4.0/",
+          "product_id": "ESA WorldCover 2021 v200",
+          "provider": "European Space Agency (ESA) WorldCover",
+          "reference_count": 0,
+          "status": "verified",
+          "url": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "candidate_count": 0,
+          "dataset_id": "mars2020-jezero-ctx-dem-20m",
+          "license": "public domain",
+          "license_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+          "product_id": "M20_JezeroCrater_CTXDEM_20m",
+          "provider": "USGS Astrogeology Science Center / NASA Mars Missions",
+          "reference_count": 5,
+          "status": "verified",
+          "url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif"
+        },
+        {
+          "candidate_count": 0,
+          "dataset_id": "nasa-lola-site01-5mpp-surf",
+          "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+          "license_url": "https://science.data.nasa.gov/about/license",
+          "product_id": "Site01_final_adj_5mpp_surf",
+          "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+          "reference_count": 7,
+          "status": "verified",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_final_adj_5mpp_surf.tif"
+        },
+        {
+          "candidate_count": 0,
+          "dataset_id": "nasa-lola-site04-5mpp-surf",
+          "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+          "license_url": "https://science.data.nasa.gov/about/license",
+          "product_id": "Site04_final_adj_5mpp_surf",
+          "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+          "reference_count": 4,
+          "status": "verified",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_final_adj_5mpp_surf.tif"
+        },
+        {
+          "candidate_count": 0,
+          "dataset_id": "nasa-lola-site07-5mpp-surf",
+          "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+          "license_url": "https://science.data.nasa.gov/about/license",
+          "product_id": "Site07_final_adj_5mpp_surf",
+          "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+          "reference_count": 1,
+          "status": "verified",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site07/Site07_final_adj_5mpp_surf.tif"
+        },
+        {
+          "candidate_count": 0,
+          "dataset_id": "nasa-lola-site11-5mpp-surf",
+          "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+          "license_url": "https://science.data.nasa.gov/about/license",
+          "product_id": "Site11_final_adj_5mpp_surf",
+          "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+          "reference_count": 4,
+          "status": "verified",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site11/Site11_final_adj_5mpp_surf.tif"
+        },
+        {
+          "candidate_count": 0,
+          "dataset_id": "nasa-lola-site20-5mpp-surf",
+          "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+          "license_url": "https://science.data.nasa.gov/about/license",
+          "product_id": "Site20_final_adj_5mpp_surf",
+          "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+          "reference_count": 1,
+          "status": "verified",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site20/Site20_final_adj_5mpp_surf.tif"
+        },
+        {
+          "candidate_count": 0,
+          "dataset_id": "nasa-lola-site23-5mpp-surf",
+          "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+          "license_url": "https://science.data.nasa.gov/about/license",
+          "product_id": "Site23_final_adj_5mpp_surf",
+          "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+          "reference_count": 1,
+          "status": "verified",
+          "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site23/Site23_final_adj_5mpp_surf.tif"
+        }
+      ],
+      "dimensions": [
+        "D01"
+      ],
+      "duplicates": {
+        "note": "Context overlays repeat candidate ids on purpose; the index stores one row.",
+        "shared_candidate_records": 113,
+        "shared_reference_records": 0
+      },
+      "file_count": 11,
+      "files": [
+        {
+          "bytes": 261973,
+          "path": "pipelines/earth/manifests/copernicus_glo90_earth.json",
+          "sha256": "dda333e0752816a083fae68e87ac624371cff6dddfb68b1e9b28f0b1777d55e8"
+        },
+        {
+          "bytes": 18312,
+          "path": "pipelines/planetary/manifests/ctx_mars_references.json",
+          "sha256": "6168256e3a03502a48a0aa812ae00365337dc819cd6a161a9f4a75ee2b158153"
+        },
+        {
+          "bytes": 19414,
+          "path": "pipelines/planetary/manifests/lola_moon_reference.json",
+          "sha256": "80c91cb5992d395791e0835ce5952a99e51f52f6933643a414749ffdcb9eafcd"
+        },
+        {
+          "bytes": 31515,
+          "path": "pipelines/planetary/manifests/lola_site01_references.json",
+          "sha256": "c8180b128cf7e49135f2fae242922eca3542ab4f1395a52986c7daf4dfabb22a"
+        },
+        {
+          "bytes": 7339,
+          "path": "pipelines/planetary/manifests/lola_site07_references.json",
+          "sha256": "96912b540e51bbbff6cd906bd12e2c5da94c1c825d692dbdd7853e26afc5ed41"
+        },
+        {
+          "bytes": 19404,
+          "path": "pipelines/planetary/manifests/lola_site11_references.json",
+          "sha256": "81a78d93c2c574a952a3e529e5a41c1031e1a7a2790637609a43374c86649bf8"
+        },
+        {
+          "bytes": 7307,
+          "path": "pipelines/planetary/manifests/lola_site20_references.json",
+          "sha256": "f5b4e27bdef8db8b64ce8e7f3f8243dfb9fdc176b311689bad7a3a1a1e3200b3"
+        },
+        {
+          "bytes": 7290,
+          "path": "pipelines/planetary/manifests/lola_site23_references.json",
+          "sha256": "450ea23631034d595ab0a708dea21d1c8f3130916fffaf23f149e2e229d5e8c5"
+        },
+        {
+          "bytes": 761741,
+          "path": "pipelines/worldcover/manifests/worldcover_earth_context.json",
+          "sha256": "8d3cc46c86abcf0836a9827c802a7c78e39f373eff0f3fcbf326d56edddccaf0"
+        },
+        {
+          "bytes": 25556,
+          "path": "samples/snapshot/analog-demo.index-summary.json",
+          "sha256": "f7a3b791b25e39dbe66a6387f3aaf76307816af6fd258e0755a6b5f7171d937d"
+        },
+        {
+          "bytes": 16982,
+          "path": "samples/snapshot/analog-demo.snapshot.json",
+          "sha256": "7e25fe1c2490cc6ebe1d2321eeea2b8baf072a051efabe30c654b79e5a9e8309"
+        }
+      ],
+      "hash_method": "sha256(canonical-json(files[]))",
+      "kind": "pinned_snapshot",
+      "limitations": [
+        "113 Earth candidate windows and 18 Moon / 5 Mars reference windows only.",
+        "WorldCover context observations are context-only and never enter the similarity score."
+      ],
+      "method_versions": [
+        "flat-terrain-fraction-1.0.0",
+        "terrain-metrics-1.0.0",
+        "worldcover-2021-v200-1.0.0"
+      ],
+      "overlaps": {
+        "candidate_window_examples": [
+          [
+            "earth-devon-island",
+            "earth-haughton-r3c1"
+          ]
+        ],
+        "candidate_window_pairs": 1,
+        "note": "Reference windows have no WGS84 bbox claim; overlap is not evaluated.",
+        "reference_window_pairs": 0
+      },
+      "path": "samples/snapshot/analog-demo.snapshot.json",
+      "primary_sha256": "7e25fe1c2490cc6ebe1d2321eeea2b8baf072a051efabe30c654b79e5a9e8309",
+      "schema_versions": {
+        "manifest": "1.0.0",
+        "snapshot": "1.0.0"
+      },
+      "sha256": "43733cf5986822ed06b416f2a1d6f10f624b35413812773c24495d560e9bf0b6",
+      "source_references": [
+        {
+          "availability": "verified",
+          "body": "Earth",
+          "comparability": "comparable",
+          "data_status": "existing_observed",
+          "dimension_code": "D01",
+          "license": "Copernicus DEM GLO-90 free basis, Copernicus Contributing Mission Data Access Licence",
+          "license_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+          "product": "COP-DEM_GLO-90-DGED",
+          "provider": "European Space Agency / Airbus Defence and Space (AWS Open Data mirror)",
+          "source_id": "copernicus-dem-glo90",
+          "unknown_fields": [],
+          "url": "https://registry.opendata.aws/copernicus-dem/"
+        },
+        {
+          "availability": "verified",
+          "body": "Earth",
+          "comparability": "context_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D01",
+          "license": "CC BY 4.0",
+          "license_url": "https://creativecommons.org/licenses/by/4.0/",
+          "product": "ESA WorldCover 2021 v200",
+          "provider": "ESA WorldCover / VITO",
+          "source_id": "esa-worldcover-2021-v200",
+          "unknown_fields": [],
+          "url": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "availability": "verified",
+          "body": "Moon",
+          "comparability": "comparable",
+          "data_status": "existing_observed",
+          "dimension_code": "D01",
+          "license": "NASA-led mission data (CC0-1.0 per NASA Science Data Portal); PGDA citation requested",
+          "license_url": "https://science.data.nasa.gov/about/license",
+          "product": "LOLA 5 m/pix south-pole surface DEM products (six sites)",
+          "provider": "NASA GSFC PGDA / LRO-LOLA",
+          "source_id": "nasa-lola-south-pole",
+          "unknown_fields": [],
+          "url": "https://pgda.gsfc.nasa.gov/products/78"
+        },
+        {
+          "availability": "verified",
+          "body": "Mars",
+          "comparability": "comparable",
+          "data_status": "existing_observed",
+          "dimension_code": "D01",
+          "license": "Public domain (US Government work), verify product page",
+          "license_url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+          "product": "Mars 2020 Science Investigation CTX DEM Mosaic (Jezero)",
+          "provider": "USGS Astrogeology / NASA Mars 2020",
+          "source_id": "usgs-jezero-ctx-dem",
+          "unknown_fields": [],
+          "url": "https://astrogeology.usgs.gov/search/map/mars_2020_jezero_crater_dem"
+        }
+      ],
+      "support": [
+        {
+          "analysis_resolution_m": 90.0,
+          "crs": "EPSG:4326",
+          "kind": "window",
+          "window_size_m": 1980.0
+        }
+      ],
+      "units": [
+        "degree",
+        "fraction",
+        "meter"
+      ],
+      "value_origin": "derived_from_measured_dem",
+      "value_origins": {
+        "Earth": {
+          "derived_from_measured_dem": 565
+        },
+        "Mars": {
+          "derived_from_measured_dem": 25
+        },
+        "Moon": {
+          "derived_from_measured_dem": 90
+        }
+      }
+    },
+    {
+      "artifact_id": "coarse-terrain-index",
+      "bodies": [
+        "Earth"
+      ],
+      "bytes": 29519,
+      "counts": {
+        "by_body": {
+          "Earth": {
+            "cells": 168
+          }
+        },
+        "cells": 168,
+        "cells_with_complete_features": 168,
+        "distinct_candidates": 168,
+        "duplicate_candidate_ids": 0,
+        "feature_stats": {
+          "coarse_flat_fraction_lt5deg": {
+            "max": 1.0,
+            "mean": 0.7972470238095238,
+            "method_version": "coarse-terrain-250m-1.0.0",
+            "min": 0.0,
+            "non_null": 168,
+            "null": 0,
+            "score_role": "similarity",
+            "source_resolution_m": 250.0,
+            "unit": "fraction"
+          },
+          "coarse_slope_mean_deg": {
+            "max": 31.8547520328063,
+            "mean": 5.183552629715628,
+            "method_version": "coarse-terrain-250m-1.0.0",
+            "min": 0.09313335245794524,
+            "non_null": 168,
+            "null": 0,
+            "score_role": "similarity",
+            "source_resolution_m": 250.0,
+            "unit": "degree"
+          },
+          "coarse_slope_p90_deg": {
+            "max": 45.55097982977406,
+            "mean": 8.92642728103938,
+            "method_version": "coarse-terrain-250m-1.0.0",
+            "min": 0.12818742657674978,
+            "non_null": 168,
+            "null": 0,
+            "score_role": "similarity",
+            "source_resolution_m": 250.0,
+            "unit": "degree"
+          }
+        },
+        "features": 3,
+        "null_feature_values": 0,
+        "partitions": 3,
+        "regions": 3
+      },
+      "coverage": {
+        "bbox": {
+          "east": 10.393982962376148,
+          "north": 45.36007210182725,
+          "south": 23.996959690126204,
+          "west": -112.20542079733367
+        },
+        "global_claim": false,
+        "label": "local_coarse_index_not_global_exhaustive",
+        "regions": [
+          "pilot-alps",
+          "pilot-grand-canyon",
+          "pilot-sahara"
+        ]
+      },
+      "datasets": [],
+      "dimensions": [
+        "D01"
+      ],
+      "duplicates": {
+        "duplicate_candidate_ids": 0,
+        "note": "Content-addressed partitions are verified row-by-row."
+      },
+      "file_count": 4,
+      "files": [
+        {
+          "bytes": 8151,
+          "path": "pipelines/coarse/real-pilot/index/partitions/pilot-alps/49a22a65f8e827a7f72a5552e224a3edac0bba8892e941896a69664f5bf87a3a.parquet",
+          "sha256": "49a22a65f8e827a7f72a5552e224a3edac0bba8892e941896a69664f5bf87a3a"
+        },
+        {
+          "bytes": 8767,
+          "path": "pipelines/coarse/real-pilot/index/partitions/pilot-grand-canyon/b6d5a2d923d67c65619ac1f07c982fab498ada0706c97fdb7e6f4afa8b65ae40.parquet",
+          "sha256": "b6d5a2d923d67c65619ac1f07c982fab498ada0706c97fdb7e6f4afa8b65ae40"
+        },
+        {
+          "bytes": 9255,
+          "path": "pipelines/coarse/real-pilot/index/partitions/pilot-sahara/c38a11e353011d3d22d00d07d5291f03aaf3a0ef6a431fdd64afda2a833f7eb6.parquet",
+          "sha256": "c38a11e353011d3d22d00d07d5291f03aaf3a0ef6a431fdd64afda2a833f7eb6"
+        },
+        {
+          "bytes": 3346,
+          "path": "pipelines/coarse/real-pilot/index/snapshots/geomorpho250-real-pilot-20261115/manifest.json",
+          "sha256": "f6ac5cc33c10f57d6ea2e5016b7612dfa3702a805cc037c1d44120e16716e301"
+        }
+      ],
+      "hash_method": "sha256(canonical-json(files[]))",
+      "kind": "coarse_parquet_index",
+      "limitations": [
+        "168 cells in three bounded pilot regions; the bbox envelope is not a coverage claim.",
+        "250 m-derived coarse metrics are not the fine 90 m terrain method."
+      ],
+      "method_versions": [
+        "coarse-terrain-250m-1.0.0"
+      ],
+      "overlaps": {
+        "note": "Candidate ids are unique and projected stride_m == window_size_m. Adjacent WGS84 bbox envelopes can overlap by a sub-cell margin because each cell envelope is rounded independently after projection.",
+        "overlapping_window_examples": [
+          [
+            "coarse-v1:0221d17242a0ad9c",
+            "coarse-v1:8b21f4ada24b2749"
+          ],
+          [
+            "coarse-v1:0221d17242a0ad9c",
+            "coarse-v1:8ce03afe52a9bba9"
+          ],
+          [
+            "coarse-v1:0221d17242a0ad9c",
+            "coarse-v1:be4a267059d10853"
+          ],
+          [
+            "coarse-v1:023afd417a6b14c3",
+            "coarse-v1:409803495e059d60"
+          ],
+          [
+            "coarse-v1:023afd417a6b14c3",
+            "coarse-v1:dcd369f7dde18ebe"
+          ]
+        ],
+        "overlapping_window_pairs": 291
+      },
+      "path": "pipelines/coarse/real-pilot/index/snapshots/geomorpho250-real-pilot-20261115/manifest.json",
+      "primary_sha256": "f6ac5cc33c10f57d6ea2e5016b7612dfa3702a805cc037c1d44120e16716e301",
+      "schema_versions": {
+        "grid": "coarse-grid-1.0.0",
+        "index": "coarse-index-1.0.0",
+        "method": "coarse-terrain-250m-1.0.0",
+        "parquet": "coarse-parquet-1.0.0"
+      },
+      "sha256": "00af31fe5b0abd434d27aba622c037c31bb85995ff704c5b242f9f5bd9bbdecd",
+      "source_references": [
+        {
+          "availability": "verified",
+          "body": "Earth",
+          "comparability": "comparable",
+          "data_status": "existing_observed",
+          "dimension_code": "D01",
+          "license": "CC BY 4.0",
+          "license_url": "https://creativecommons.org/licenses/by/4.0/",
+          "product": "dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif",
+          "provider": "PANGAEA / Amatulli et al. Geomorpho90m",
+          "source_id": "geomorpho250-slope",
+          "unknown_fields": [],
+          "url": "https://doi.pangaea.de/10.1594/PANGAEA.899135"
+        }
+      ],
+      "support": [
+        {
+          "crs": [
+            "EPSG:32612",
+            "EPSG:32632"
+          ],
+          "kind": "window",
+          "source_resolution_m": 250.0,
+          "stride_m": 5000.0,
+          "valid_fraction_max": 1.0,
+          "valid_fraction_min": 1.0,
+          "window_size_m": 5000.0
+        }
+      ],
+      "units": [
+        "degree",
+        "fraction"
+      ],
+      "value_origin": "derived_from_measured_dem",
+      "value_origins": {
+        "Earth": {
+          "derived_from_measured_dem": 168
+        }
+      }
+    },
+    {
+      "artifact_id": "typed-d02-geology",
+      "bodies": [
+        "Earth",
+        "Moon",
+        "Mars"
+      ],
+      "bytes": 177955,
+      "counts": {
+        "areas": 8,
+        "assets": 33,
+        "by_body": {
+          "Earth": {
+            "by_state": {
+              "no_coverage": 2,
+              "unknown": 13
+            },
+            "detected": 0,
+            "observations": 15,
+            "unavailable": 15,
+            "value_origins": {
+              "mapped_evidence": 15
+            }
+          },
+          "Mars": {
+            "by_state": {
+              "detected": 28,
+              "unknown": 10
+            },
+            "detected": 28,
+            "observations": 38,
+            "unavailable": 10,
+            "value_origins": {
+              "mapped_evidence": 14,
+              "spectral_context_not_abundance": 24
+            }
+          },
+          "Moon": {
+            "by_state": {
+              "detected": 2,
+              "unknown": 1
+            },
+            "detected": 2,
+            "observations": 3,
+            "unavailable": 1,
+            "value_origins": {
+              "mapped_evidence": 3
+            }
+          }
+        },
+        "by_dimension": {
+          "D02": 56
+        },
+        "datasets": 7,
+        "observations": 56
+      },
+      "datasets": [
+        {
+          "body": "Earth",
+          "dataset_id": "glim-niveau-i-mirror",
+          "license": "not_verified",
+          "license_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+          "native_resolution_m": null,
+          "product_id": "GLiM_Niveau_I",
+          "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+          "redistribution_allowed": "unknown",
+          "url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1",
+          "verification_status": "identified"
+        },
+        {
+          "body": "Moon",
+          "dataset_id": "usgs-moon-geology-v2",
+          "license": "CC0, but please cite authors",
+          "license_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+          "native_resolution_m": null,
+          "product_id": "Unified Geologic Map of the Moon",
+          "provider": "USGS Astrogeology Science Center",
+          "redistribution_allowed": "yes",
+          "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+          "verification_status": "verified"
+        },
+        {
+          "body": "Mars",
+          "dataset_id": "usgs-jezero-sim3464",
+          "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+          "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+          "native_resolution_m": null,
+          "product_id": "SIM 3464 Jezero and Nili Planum",
+          "provider": "U.S. Geological Survey",
+          "redistribution_allowed": "yes",
+          "url": "https://pubs.usgs.gov/publication/sim3464",
+          "verification_status": "verified"
+        },
+        {
+          "body": "Moon",
+          "dataset_id": "lunar-polar-minerals-zenodo-v4",
+          "license": "cc-by-4.0",
+          "license_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "native_resolution_m": 193.0,
+          "product_id": "M3/LOLA research-derived polar mineral maps",
+          "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+          "redistribution_allowed": "yes",
+          "url": "https://zenodo.org/records/20725024",
+          "verification_status": "verified"
+        },
+        {
+          "body": "Mars",
+          "dataset_id": "crism-mtrdr-context",
+          "license": "Data sets archived in the PDS are in the public domain.",
+          "license_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "native_resolution_m": 36.0,
+          "product_id": "MTRDR refined spectral summary parameters",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "redistribution_allowed": "yes",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified"
+        },
+        {
+          "body": "Earth",
+          "dataset_id": "emit-l2bmin-002",
+          "license": "NASA Earth science data and information policy",
+          "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "native_resolution_m": 60.0,
+          "product_id": "EMITL2BMIN",
+          "provider": "NASA JPL / LP DAAC",
+          "redistribution_allowed": "yes",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002",
+          "verification_status": "verified"
+        },
+        {
+          "body": "Earth",
+          "dataset_id": "emit-l2bmin-001",
+          "license": "NASA Earth science data and information policy",
+          "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "native_resolution_m": 60.0,
+          "product_id": "EMITL2BMIN",
+          "provider": "NASA JPL / LP DAAC",
+          "redistribution_allowed": "yes",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
+          "verification_status": "verified"
+        }
+      ],
+      "dimensions": [
+        "D02"
+      ],
+      "duplicates": {
+        "duplicate_area_ids": [],
+        "duplicate_asset_ids": [],
+        "duplicate_observation_ids": [],
+        "overlapping_area_examples": [
+          [
+            "earth-atacama-desert",
+            "mars-test-jezero-western-delta"
+          ],
+          [
+            "earth-atacama-desert",
+            "mars-test-jezero-floor"
+          ],
+          [
+            "earth-death-valley",
+            "mars-test-jezero-western-delta"
+          ],
+          [
+            "earth-death-valley",
+            "mars-test-jezero-floor"
+          ],
+          [
+            "earth-lanzarote",
+            "mars-test-jezero-western-delta"
+          ]
+        ],
+        "overlapping_area_pairs": 11
+      },
+      "file_count": 5,
+      "files": [
+        {
+          "bytes": 19202,
+          "path": "pipelines/geology/typed/areas.json",
+          "sha256": "2ce73cc91c1c040dbe46103aadfb009438e26f2164bf040eaea997b13185ae5a"
+        },
+        {
+          "bytes": 29125,
+          "path": "pipelines/geology/typed/assets.json",
+          "sha256": "92558be87367a908c38c647c37a8dbb42c7e23eb15a62df2899571ee6870864c"
+        },
+        {
+          "bytes": 6369,
+          "path": "pipelines/geology/typed/datasets.json",
+          "sha256": "7b1b5f42beda8d00d59590391846daae62fbc9882d3520010bd0e8d98a7ff274"
+        },
+        {
+          "bytes": 1006,
+          "path": "pipelines/geology/typed/manifest.json",
+          "sha256": "57519e5d35175a6a739d51277ee70e3bcb99946f941dba5c3e181aca2a6c986a"
+        },
+        {
+          "bytes": 122253,
+          "path": "pipelines/geology/typed/observations.jsonl",
+          "sha256": "9f8dd0ca82b0ba4b0cb0972643fbdf8eb3c3726db3855a34c76d16e482344eef"
+        }
+      ],
+      "hash_method": "sha256(canonical-json(files[]))",
+      "kind": "typed_bundle_export",
+      "limitations": [
+        "Map units and spectral indices are evidence, not mineral abundance.",
+        "Unknown/mineral states are preserved; no quantitative mineral is fabricated."
+      ],
+      "method_versions": [
+        "geology-1.0.0"
+      ],
+      "path": "pipelines/geology/typed/manifest.json",
+      "primary_sha256": "57519e5d35175a6a739d51277ee70e3bcb99946f941dba5c3e181aca2a6c986a",
+      "schema_versions": {
+        "export": "geology-typed-export-1.0.0",
+        "observations": "2.0.0"
+      },
+      "sha256": "e1a87596202357f6771a742dec529a6ebf3ff52d607001045bbed2dcbc6cd1f9",
+      "source_references": [
+        {
+          "availability": "identified",
+          "body": "Earth",
+          "comparability": "unknown",
+          "data_status": "not_fetched",
+          "dimension_code": "D02",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "Global Lithological Map (GLiM)",
+          "provider": "University of Bonn / GLiM",
+          "source_id": "glim-global-lithology",
+          "unknown_fields": [
+            "url",
+            "license",
+            "license_url",
+            "version",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "not_verified"
+        },
+        {
+          "availability": "identified",
+          "body": "Earth",
+          "comparability": "evidence_only",
+          "data_status": "not_fetched",
+          "dimension_code": "D02",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "EMIT mineral identification products",
+          "provider": "NASA JPL EMIT",
+          "source_id": "nasa-emit-mineral",
+          "unknown_fields": [
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "https://earth.jpl.nasa.gov/emit/data/data-products/"
+        },
+        {
+          "availability": "verified",
+          "body": "Moon",
+          "comparability": "evidence_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D02",
+          "license": "CC0; cite Fortezzo, Spudis and Harrel (2020)",
+          "license_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+          "product": "Unified Geologic Map of the Moon GIS v2",
+          "provider": "USGS Astrogeology",
+          "source_id": "usgs-moon-unified-geologic-map",
+          "unknown_fields": [],
+          "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/"
+        },
+        {
+          "availability": "identified",
+          "body": "Moon",
+          "comparability": "evidence_only",
+          "data_status": "not_fetched",
+          "dimension_code": "D02",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "Moon Mineralogy Mapper (M3) spectral products",
+          "provider": "NASA / PDS",
+          "source_id": "nasa-m3",
+          "unknown_fields": [
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "https://pds-imaging.jpl.nasa.gov/volumes/m3.html"
+        },
+        {
+          "availability": "verified",
+          "body": "Mars",
+          "comparability": "evidence_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D02",
+          "license": "USGS-authored GIS public domain; third-party material excluded",
+          "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+          "product": "Geologic Map of Jezero Crater and Nili Planum, SIM 3464",
+          "provider": "U.S. Geological Survey",
+          "source_id": "usgs-jezero-geologic-map",
+          "unknown_fields": [],
+          "url": "https://pubs.usgs.gov/publication/sim3464"
+        },
+        {
+          "availability": "identified",
+          "body": "Mars",
+          "comparability": "evidence_only",
+          "data_status": "not_fetched",
+          "dimension_code": "D02",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "MRO CRISM spectral products",
+          "provider": "NASA / PDS",
+          "source_id": "nasa-crism",
+          "unknown_fields": [
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm"
+        }
+      ],
+      "support": [
+        {
+          "crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "depth_support": "surface",
+          "kind": "geometry",
+          "native_resolution_m": 36.0,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "unknown",
+          "window_size_m": null
+        },
+        {
+          "crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "depth_support": "surface",
+          "kind": "geometry",
+          "native_resolution_m": null,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "unknown",
+          "window_size_m": null
+        },
+        {
+          "crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+          "depth_support": "surface",
+          "kind": "geometry",
+          "native_resolution_m": 36.0,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "unknown",
+          "window_size_m": null
+        },
+        {
+          "crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+          "depth_support": "surface",
+          "kind": "geometry",
+          "native_resolution_m": null,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "unknown",
+          "window_size_m": null
+        },
+        {
+          "crs": "EPSG:4326",
+          "depth_support": "surface",
+          "kind": "geometry",
+          "native_resolution_m": 60.0,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "unknown",
+          "window_size_m": null
+        },
+        {
+          "crs": "EPSG:4326",
+          "depth_support": "surface",
+          "kind": "geometry",
+          "native_resolution_m": null,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "unknown",
+          "window_size_m": null
+        },
+        {
+          "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+          "depth_support": "surface",
+          "kind": "geometry",
+          "native_resolution_m": 193.0,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "unknown",
+          "window_size_m": null
+        },
+        {
+          "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+          "depth_support": "surface",
+          "kind": "geometry",
+          "native_resolution_m": null,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "unknown",
+          "window_size_m": null
+        }
+      ],
+      "units": [
+        "dimensionless_spectral_parameter"
+      ],
+      "value_origin": "mixed_mapped_evidence_and_spectral_context",
+      "value_origins": {
+        "Earth": {
+          "mapped_evidence": 15
+        },
+        "Mars": {
+          "mapped_evidence": 14,
+          "spectral_context_not_abundance": 24
+        },
+        "Moon": {
+          "mapped_evidence": 3
+        }
+      }
+    },
+    {
+      "artifact_id": "typed-d03-thermal",
+      "bodies": [
+        "Earth"
+      ],
+      "bytes": 59098,
+      "counts": {
+        "areas": 5,
+        "assets": 5,
+        "by_body": {
+          "Earth": {
+            "by_state": {
+              "detected": 20
+            },
+            "detected": 20,
+            "observations": 20,
+            "unavailable": 0,
+            "value_origins": {
+              "model_estimate": 20
+            }
+          }
+        },
+        "by_dimension": {
+          "D03": 20
+        },
+        "observations": 20,
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 5,
+        "raw_files_not_bundled_examples": [
+          "raw/nasa-power-D03-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D03-earth-earth-death-valley-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D03-earth-earth-devon-island-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D03-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D03-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json"
+        ],
+        "raw_files_referenced": 5,
+        "tasks_attempted": 5,
+        "tasks_failed": 0,
+        "tasks_succeeded": 5
+      },
+      "datasets": [
+        {
+          "dataset_id": "nasa-power-daily-point",
+          "license": "NASA POWER data are free and open; cite NASA POWER",
+          "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+          "verification_status": "accessible"
+        }
+      ],
+      "dimensions": [
+        "D03"
+      ],
+      "duplicates": {
+        "duplicate_asset_ids": [],
+        "duplicate_observation_ids": [],
+        "overlapping_area_examples": [],
+        "overlapping_area_pairs": 0
+      },
+      "file_count": 6,
+      "files": [
+        {
+          "bytes": 1978,
+          "path": "pipelines/pilots/d03_earth_power/README.md",
+          "sha256": "b028d85d1f543dad2b0c370c2fa081eedfcbe7efe7278b50bbfd696a10e5604e"
+        },
+        {
+          "bytes": 484,
+          "path": "pipelines/pilots/d03_earth_power/REPORT.md",
+          "sha256": "1c6ff0f6dc8ffbaacc7477760402e607215e409e7ffe83feba22e30a5e8a99b3"
+        },
+        {
+          "bytes": 3628,
+          "path": "pipelines/pilots/d03_earth_power/assets.json",
+          "sha256": "641ae5ec8745fcbbd8de66cff62d2209d41835b2e6ec786654dfaf0ca941b301"
+        },
+        {
+          "bytes": 4953,
+          "path": "pipelines/pilots/d03_earth_power/manifest.json",
+          "sha256": "832c028aaf23e4a075de533af2b94f17971f9de497682edf4f450592e4b00eef"
+        },
+        {
+          "bytes": 39724,
+          "path": "pipelines/pilots/d03_earth_power/observations.jsonl",
+          "sha256": "91415982a9ba2d97800a66a2cf18db915d61071e7bbe89061624970d312a773e"
+        },
+        {
+          "bytes": 8331,
+          "path": "pipelines/pilots/d03_earth_power/plan.json",
+          "sha256": "e783793d05e71a0e9bbc2417ea340d919cd314c3f3d874c9c3d9af304e6bbec2"
+        }
+      ],
+      "hash_method": "sha256(canonical-json(files[]))",
+      "kind": "typed_bundle_acquisition",
+      "limitations": [
+        "NASA POWER coarse model/reanalysis context, not a local temperature measurement.",
+        "No thermal inertia is derived.",
+        "5 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
+      ],
+      "method_versions": [
+        "nasa-power-daily-1.0.0"
+      ],
+      "path": "pipelines/pilots/d03_earth_power/manifest.json",
+      "primary_sha256": "832c028aaf23e4a075de533af2b94f17971f9de497682edf4f450592e4b00eef",
+      "schema_versions": {
+        "observations": "2.0.0",
+        "plan": "acquisition-plan-1.0.0",
+        "release": "acquisition-release-1.0.0"
+      },
+      "sha256": "39dcfd68507f7b8c27a7200f8c3ed5fb3b4f0eb13c1ff389aa3ba7e6a500205f",
+      "source_references": [
+        {
+          "availability": "accessible",
+          "body": "Earth",
+          "comparability": "context_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D03",
+          "license": "NASA POWER data are free and open; cite NASA POWER",
+          "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+          "product": "NASA POWER Daily Point API thermal parameters",
+          "provider": "NASA Langley Research Center / NASA POWER",
+          "source_id": "nasa-power-thermal-daily",
+          "unknown_fields": [],
+          "url": "https://power.larc.nasa.gov/api/temporal/daily/point"
+        }
+      ],
+      "support": [
+        {
+          "crs": "EPSG:4326",
+          "depth_support": "surface",
+          "kind": "point",
+          "native_resolution_m": 50000.0,
+          "resolution_m": null,
+          "source_resolution_m": 50000.0,
+          "temporal_support": "interval",
+          "window_size_m": null
+        }
+      ],
+      "units": [
+        "degree_Celsius"
+      ],
+      "value_origin": "model_estimate",
+      "value_origins": {
+        "Earth": {
+          "model_estimate": 20
+        }
+      }
+    },
+    {
+      "artifact_id": "typed-d04-water-ice",
+      "bodies": [
+        "Earth"
+      ],
+      "bytes": 59813,
+      "counts": {
+        "areas": 5,
+        "assets": 5,
+        "by_body": {
+          "Earth": {
+            "by_state": {
+              "detected": 20
+            },
+            "detected": 20,
+            "observations": 20,
+            "unavailable": 0,
+            "value_origins": {
+              "model_estimate": 20
+            }
+          }
+        },
+        "by_dimension": {
+          "D04": 20
+        },
+        "observations": 20,
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 5,
+        "raw_files_not_bundled_examples": [
+          "raw/nasa-power-D04-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D04-earth-earth-death-valley-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D04-earth-earth-devon-island-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D04-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D04-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json"
+        ],
+        "raw_files_referenced": 5,
+        "tasks_attempted": 5,
+        "tasks_failed": 0,
+        "tasks_succeeded": 5
+      },
+      "datasets": [
+        {
+          "dataset_id": "nasa-power-daily-point",
+          "license": "NASA POWER data are free and open; cite NASA POWER",
+          "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+          "verification_status": "accessible"
+        }
+      ],
+      "dimensions": [
+        "D04"
+      ],
+      "duplicates": {
+        "duplicate_asset_ids": [],
+        "duplicate_observation_ids": [],
+        "overlapping_area_examples": [],
+        "overlapping_area_pairs": 0
+      },
+      "file_count": 6,
+      "files": [
+        {
+          "bytes": 2004,
+          "path": "pipelines/pilots/d04_earth_power/README.md",
+          "sha256": "32acb40ce6bf3cd1a51d1bcacbd00225fc01cdd1b770b3ddf9a43494c3711285"
+        },
+        {
+          "bytes": 484,
+          "path": "pipelines/pilots/d04_earth_power/REPORT.md",
+          "sha256": "934947dfeac58203db3d4c3717838fc142344575617bcc1cb3c73bd6d8fcb929"
+        },
+        {
+          "bytes": 3688,
+          "path": "pipelines/pilots/d04_earth_power/assets.json",
+          "sha256": "541c9103fc4ea87f8d4731f2917f9bc638051371788d35440d09f1efacceab14"
+        },
+        {
+          "bytes": 4988,
+          "path": "pipelines/pilots/d04_earth_power/manifest.json",
+          "sha256": "ae6fed06bd4a2f71d83bbbb0ed21719cfb7a8a74a748ab3de99f42ac737fc3f4"
+        },
+        {
+          "bytes": 40208,
+          "path": "pipelines/pilots/d04_earth_power/observations.jsonl",
+          "sha256": "6d42daff339896949edcab1e278d8eba6ccee1b3b1a0787bb9af67d4402a3835"
+        },
+        {
+          "bytes": 8441,
+          "path": "pipelines/pilots/d04_earth_power/plan.json",
+          "sha256": "312d0585f8ce9ce584946f9bb9ce2404e537d8e7c5a91a0f7bb9c1c32356cd2b"
+        }
+      ],
+      "hash_method": "sha256(canonical-json(files[]))",
+      "kind": "typed_bundle_acquisition",
+      "limitations": [
+        "NASA POWER wetness/snow/precipitation context only; no confirmed ice.",
+        "5 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
+      ],
+      "method_versions": [
+        "nasa-power-daily-1.0.0"
+      ],
+      "path": "pipelines/pilots/d04_earth_power/manifest.json",
+      "primary_sha256": "ae6fed06bd4a2f71d83bbbb0ed21719cfb7a8a74a748ab3de99f42ac737fc3f4",
+      "schema_versions": {
+        "observations": "2.0.0",
+        "plan": "acquisition-plan-1.0.0",
+        "release": "acquisition-release-1.0.0"
+      },
+      "sha256": "5e4b40648301b52399e802d5d0b8a1c01f1fd416f20fe98d4ff6e49db2bdaf7c",
+      "source_references": [
+        {
+          "availability": "accessible",
+          "body": "Earth",
+          "comparability": "context_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D04",
+          "license": "NASA POWER data are free and open; cite NASA POWER",
+          "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+          "product": "NASA POWER Daily Point API water-context parameters",
+          "provider": "NASA Langley Research Center / NASA POWER",
+          "source_id": "nasa-power-water-daily",
+          "unknown_fields": [],
+          "url": "https://power.larc.nasa.gov/api/temporal/daily/point"
+        }
+      ],
+      "support": [
+        {
+          "crs": "EPSG:4326",
+          "depth_support": "surface",
+          "kind": "point",
+          "native_resolution_m": 50000.0,
+          "resolution_m": null,
+          "source_resolution_m": 50000.0,
+          "temporal_support": "interval",
+          "window_size_m": null
+        }
+      ],
+      "units": [
+        "1",
+        "cm",
+        "mm day-1"
+      ],
+      "value_origin": "model_estimate",
+      "value_origins": {
+        "Earth": {
+          "model_estimate": 20
+        }
+      }
+    },
+    {
+      "artifact_id": "typed-d05-illumination",
+      "bodies": [
+        "Earth"
+      ],
+      "bytes": 40619,
+      "counts": {
+        "areas": 5,
+        "assets": 5,
+        "by_body": {
+          "Earth": {
+            "by_state": {
+              "detected": 10
+            },
+            "detected": 10,
+            "observations": 10,
+            "unavailable": 0,
+            "value_origins": {
+              "model_estimate": 10
+            }
+          }
+        },
+        "by_dimension": {
+          "D05": 10
+        },
+        "observations": 10,
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 5,
+        "raw_files_not_bundled_examples": [
+          "raw/nasa-power-D05-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D05-earth-earth-death-valley-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D05-earth-earth-devon-island-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D05-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D05-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json"
+        ],
+        "raw_files_referenced": 5,
+        "tasks_attempted": 5,
+        "tasks_failed": 0,
+        "tasks_succeeded": 5
+      },
+      "datasets": [
+        {
+          "dataset_id": "nasa-power-daily-point",
+          "license": "NASA POWER data are free and open; cite NASA POWER",
+          "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+          "verification_status": "accessible"
+        }
+      ],
+      "dimensions": [
+        "D05"
+      ],
+      "duplicates": {
+        "duplicate_asset_ids": [],
+        "duplicate_observation_ids": [],
+        "overlapping_area_examples": [],
+        "overlapping_area_pairs": 0
+      },
+      "file_count": 6,
+      "files": [
+        {
+          "bytes": 2835,
+          "path": "pipelines/pilots/d05_earth_power/README.md",
+          "sha256": "fbe4670022aa32fe525017da58808addc31016077fb7c3daa88f6f62e99d6b4c"
+        },
+        {
+          "bytes": 484,
+          "path": "pipelines/pilots/d05_earth_power/REPORT.md",
+          "sha256": "cafefe145505ebb70cb12145f741459880df0b5de29b7a27ae81f7df9220f89b"
+        },
+        {
+          "bytes": 3668,
+          "path": "pipelines/pilots/d05_earth_power/assets.json",
+          "sha256": "814d28a5bc3783b869ebceaf0ac20fe1a1404a17c51ab815d76a53e09bf6e054"
+        },
+        {
+          "bytes": 4926,
+          "path": "pipelines/pilots/d05_earth_power/manifest.json",
+          "sha256": "466074b3da081a157cb0a7ed3c5b5122158da89bf7d980baf6349dab1d935f79"
+        },
+        {
+          "bytes": 20305,
+          "path": "pipelines/pilots/d05_earth_power/observations.jsonl",
+          "sha256": "9568cfbce841dd0de8083fb915a1b2e77af23fa2d357a601f30b622dbb29890d"
+        },
+        {
+          "bytes": 8401,
+          "path": "pipelines/pilots/d05_earth_power/plan.json",
+          "sha256": "6a3f9b9cf5efa6f12ecc9633c6704f3d1ce441a38ebda2a7e975fb089737d6a4"
+        }
+      ],
+      "hash_method": "sha256(canonical-json(files[]))",
+      "kind": "typed_bundle_acquisition",
+      "limitations": [
+        "NASA POWER coarse irradiance context, not local illuminance and not ionizing radiation.",
+        "5 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
+      ],
+      "method_versions": [
+        "nasa-power-daily-1.0.0"
+      ],
+      "path": "pipelines/pilots/d05_earth_power/manifest.json",
+      "primary_sha256": "466074b3da081a157cb0a7ed3c5b5122158da89bf7d980baf6349dab1d935f79",
+      "schema_versions": {
+        "observations": "2.0.0",
+        "plan": "acquisition-plan-1.0.0",
+        "release": "acquisition-release-1.0.0"
+      },
+      "sha256": "1249206fe81f0589d86a5ef924805f58f0cd5ffea0f97800d3810ca2eb2aa5e7",
+      "source_references": [
+        {
+          "availability": "accessible",
+          "body": "Earth",
+          "comparability": "context_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D05",
+          "license": "NASA POWER data are free and open; cite NASA POWER",
+          "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+          "product": "NASA POWER Daily Point API (solar and longwave irradiance)",
+          "provider": "NASA Langley Research Center / NASA POWER",
+          "source_id": "nasa-power-daily-point",
+          "unknown_fields": [],
+          "url": "https://power.larc.nasa.gov/api/temporal/daily/point"
+        }
+      ],
+      "support": [
+        {
+          "crs": "EPSG:4326",
+          "depth_support": "surface",
+          "kind": "point",
+          "native_resolution_m": 50000.0,
+          "resolution_m": null,
+          "source_resolution_m": 50000.0,
+          "temporal_support": "interval",
+          "window_size_m": null
+        }
+      ],
+      "units": [
+        "kWh m-2 day-1"
+      ],
+      "value_origin": "model_estimate",
+      "value_origins": {
+        "Earth": {
+          "model_estimate": 10
+        }
+      }
+    },
+    {
+      "artifact_id": "typed-d05-spice-geometry",
+      "bodies": [
+        "Moon",
+        "Mars"
+      ],
+      "bytes": 96755,
+      "counts": {
+        "areas": 9,
+        "assets": 5,
+        "by_body": {
+          "Mars": {
+            "by_state": {
+              "detected": 10
+            },
+            "detected": 10,
+            "observations": 10,
+            "unavailable": 0,
+            "value_origins": {
+              "unclassified": 10
+            }
+          },
+          "Moon": {
+            "by_state": {
+              "detected": 8
+            },
+            "detected": 8,
+            "observations": 8,
+            "unavailable": 0,
+            "value_origins": {
+              "unclassified": 8
+            }
+          }
+        },
+        "by_dimension": {
+          "D05": 18
+        },
+        "observations": 18,
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 0,
+        "raw_files_not_bundled_examples": [],
+        "raw_files_referenced": 0,
+        "tasks_attempted": 9,
+        "tasks_failed": 9,
+        "tasks_succeeded": 0
+      },
+      "datasets": [
+        {
+          "dataset_id": "naif-spice-generic-kernels",
+          "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+          "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+          "verification_status": "accessible"
+        }
+      ],
+      "dimensions": [
+        "D05"
+      ],
+      "duplicates": {
+        "duplicate_asset_ids": [],
+        "duplicate_observation_ids": [],
+        "overlapping_area_examples": [],
+        "overlapping_area_pairs": 0
+      },
+      "file_count": 6,
+      "files": [
+        {
+          "bytes": 2185,
+          "path": "pipelines/pilots/d05_spice_illumination/README.md",
+          "sha256": "1f47bf30783dfd4e1439e3ee577096304421c47ea6b3aeb86110faf880983afe"
+        },
+        {
+          "bytes": 1669,
+          "path": "pipelines/pilots/d05_spice_illumination/REPORT.md",
+          "sha256": "fcbe2a0b7559b014c0fcbfc7b4b22d1a5f3abde0b8cd311d77c919060b1b1d96"
+        },
+        {
+          "bytes": 3250,
+          "path": "pipelines/pilots/d05_spice_illumination/assets.json",
+          "sha256": "da3692abbcf5f1a7c0a726c984868d7632f1fdefe1a14c79a2573d93ffdb95fa"
+        },
+        {
+          "bytes": 11767,
+          "path": "pipelines/pilots/d05_spice_illumination/manifest.json",
+          "sha256": "3943902e40d97275e5ac73b6862c5bba148f987184d9b8d115e8cea97236f989"
+        },
+        {
+          "bytes": 57969,
+          "path": "pipelines/pilots/d05_spice_illumination/observations.jsonl",
+          "sha256": "1c642d6c23582761fe01facebbaf5779bd7be5b1a7aef55588cf3d20d041eb45"
+        },
+        {
+          "bytes": 19915,
+          "path": "pipelines/pilots/d05_spice_illumination/plan.json",
+          "sha256": "f7f32afb793606f9765ff09afdc9ecad1bc646c3afcbdb041535ff0026736d9b"
+        }
+      ],
+      "hash_method": "sha256(canonical-json(files[]))",
+      "kind": "typed_bundle_acquisition",
+      "limitations": [
+        "NAIF SPICE model geometry (incidence/elevation), not observed irradiance or shadow.",
+        "No ionizing radiation, absorbed dose (Gy) or equivalent dose (Sv) is included."
+      ],
+      "method_versions": [
+        "spice-solar-geometry-1.0.0"
+      ],
+      "path": "pipelines/pilots/d05_spice_illumination/manifest.json",
+      "primary_sha256": "3943902e40d97275e5ac73b6862c5bba148f987184d9b8d115e8cea97236f989",
+      "schema_versions": {
+        "observations": "2.0.0",
+        "plan": "acquisition-plan-1.0.0",
+        "release": "spice-geometry-pilot-1.0.0"
+      },
+      "sha256": "371141664f87e69d66033294a43dbdb1b80420796be30ff745454b9a36d17211",
+      "source_references": [
+        {
+          "availability": "accessible",
+          "body": "Moon",
+          "comparability": "context_only",
+          "data_status": "existing_modeled",
+          "dimension_code": "D05",
+          "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+          "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+          "product": "SPICE DE421 ephemeris + MOON_ME lunar frame + pck00011 radii",
+          "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+          "source_id": "naif-spice-solar-geometry-moon",
+          "unknown_fields": [],
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/"
+        },
+        {
+          "availability": "accessible",
+          "body": "Mars",
+          "comparability": "context_only",
+          "data_status": "existing_modeled",
+          "dimension_code": "D05",
+          "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+          "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+          "product": "SPICE DE421 ephemeris + IAU_MARS orientation from pck00011",
+          "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+          "source_id": "naif-spice-solar-geometry-mars",
+          "unknown_fields": [],
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/"
+        }
+      ],
+      "support": [
+        {
+          "crs": "IAU_MARS",
+          "depth_support": "surface",
+          "kind": "point",
+          "native_resolution_m": null,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "instant",
+          "window_size_m": null
+        },
+        {
+          "crs": "MOON_ME",
+          "depth_support": "surface",
+          "kind": "point",
+          "native_resolution_m": null,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "instant",
+          "window_size_m": null
+        }
+      ],
+      "units": [
+        "degree"
+      ],
+      "value_origin": "model_derived_geometry",
+      "value_origins": {
+        "Mars": {
+          "unclassified": 10
+        },
+        "Moon": {
+          "unclassified": 8
+        }
+      }
+    },
+    {
+      "artifact_id": "typed-d06-regolith",
+      "bodies": [
+        "Earth"
+      ],
+      "bytes": 363211,
+      "counts": {
+        "areas": 5,
+        "assets": 75,
+        "by_body": {
+          "Earth": {
+            "by_state": {
+              "detected": 75
+            },
+            "detected": 75,
+            "observations": 75,
+            "unavailable": 0,
+            "value_origins": {
+              "model_estimate": 75
+            }
+          }
+        },
+        "by_dimension": {
+          "D06": 75
+        },
+        "observations": 75,
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 75,
+        "raw_files_not_bundled_examples": [
+          "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.05.tif",
+          "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.95.tif",
+          "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-mean.tif",
+          "raw/soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-Q0.05.tif",
+          "raw/soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-Q0.95.tif"
+        ],
+        "raw_files_referenced": 75,
+        "tasks_attempted": 75,
+        "tasks_failed": 0,
+        "tasks_succeeded": 75
+      },
+      "datasets": [
+        {
+          "dataset_id": "soilgrids-250m-v2",
+          "license": "CC BY 4.0; cite ISRIC SoilGrids 2.0",
+          "license_url": "https://docs.isric.org/globaldata/soilgrids/",
+          "verification_status": "accessible"
+        }
+      ],
+      "dimensions": [
+        "D06"
+      ],
+      "duplicates": {
+        "duplicate_asset_ids": [],
+        "duplicate_observation_ids": [],
+        "overlapping_area_examples": [],
+        "overlapping_area_pairs": 0
+      },
+      "file_count": 5,
+      "files": [
+        {
+          "bytes": 486,
+          "path": "pipelines/pilots/d06_earth_soilgrids/REPORT.md",
+          "sha256": "1a8ccbb84d72ce18bc1265a7b4249b12e7c9cd093ccdbbe82df6994c1edac2fd"
+        },
+        {
+          "bytes": 62103,
+          "path": "pipelines/pilots/d06_earth_soilgrids/assets.json",
+          "sha256": "503656559df15a596eea310f244c388c795d5571779d25ac66558456fe1d2fa6"
+        },
+        {
+          "bytes": 65323,
+          "path": "pipelines/pilots/d06_earth_soilgrids/manifest.json",
+          "sha256": "49c0aed43eefdd8736d91fe0a5bde93dba5e7b6faf4e98067bab23ccc8bd2542"
+        },
+        {
+          "bytes": 113073,
+          "path": "pipelines/pilots/d06_earth_soilgrids/observations.jsonl",
+          "sha256": "103aa97cdbe1ced114421c144a523a167390c82604b9b6b39b53330e34d8b1aa"
+        },
+        {
+          "bytes": 122226,
+          "path": "pipelines/pilots/d06_earth_soilgrids/plan.json",
+          "sha256": "1299cbe2c7a070f6ac83bd3f95d7afb388f79b49855680f35d1d61396c435982"
+        }
+      ],
+      "hash_method": "sha256(canonical-json(files[]))",
+      "kind": "typed_bundle_acquisition",
+      "limitations": [
+        "SoilGrids 250 m model prediction at 0-5 cm, not a local sample.",
+        "75 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
+      ],
+      "method_versions": [
+        "soilgrids-wcs-2.0.0"
+      ],
+      "path": "pipelines/pilots/d06_earth_soilgrids/manifest.json",
+      "primary_sha256": "49c0aed43eefdd8736d91fe0a5bde93dba5e7b6faf4e98067bab23ccc8bd2542",
+      "schema_versions": {
+        "observations": "2.0.0",
+        "plan": "acquisition-plan-1.0.0",
+        "release": "acquisition-release-1.0.0"
+      },
+      "sha256": "4c982e30c2ad0a6f162bfb9bce5292c009bceaabca3263dce321bfd40ed6c469",
+      "source_references": [
+        {
+          "availability": "accessible",
+          "body": "Earth",
+          "comparability": "evidence_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D06",
+          "license": "CC BY 4.0; cite ISRIC SoilGrids 2.0",
+          "license_url": "https://docs.isric.org/globaldata/soilgrids/",
+          "product": "SoilGrids 2.0 250 m WCS",
+          "provider": "ISRIC World Soil Information",
+          "source_id": "soilgrids-250m-v2",
+          "unknown_fields": [],
+          "url": "https://maps.isric.org/mapserv"
+        }
+      ],
+      "support": [
+        {
+          "crs": "EPSG:4326",
+          "depth_support": "depth_interval",
+          "kind": "bbox",
+          "native_resolution_m": 250.0,
+          "resolution_m": 250.0,
+          "source_resolution_m": 250.0,
+          "temporal_support": "unknown",
+          "window_size_m": null
+        }
+      ],
+      "units": [
+        "cg cm-3",
+        "dg kg-1",
+        "g kg-1"
+      ],
+      "value_origin": "model_estimate",
+      "value_origins": {
+        "Earth": {
+          "model_estimate": 75
+        }
+      }
+    },
+    {
+      "artifact_id": "source-inventory",
+      "bodies": [
+        "Earth",
+        "Moon",
+        "Mars"
+      ],
+      "bytes": 32633,
+      "counts": {
+        "by_dimension": {
+          "D01": {
+            "availability": {
+              "identified": 1,
+              "verified": 5
+            },
+            "by_body": {
+              "Earth": 3,
+              "Mars": 2,
+              "Moon": 1
+            },
+            "sources": 6
+          },
+          "D02": {
+            "availability": {
+              "identified": 4,
+              "verified": 2
+            },
+            "by_body": {
+              "Earth": 2,
+              "Mars": 2,
+              "Moon": 2
+            },
+            "sources": 6
+          },
+          "D03": {
+            "availability": {
+              "accessible": 2,
+              "identified": 2
+            },
+            "by_body": {
+              "Earth": 2,
+              "Mars": 1,
+              "Moon": 1
+            },
+            "sources": 4
+          },
+          "D04": {
+            "availability": {
+              "accessible": 1,
+              "planned": 2
+            },
+            "by_body": {
+              "Earth": 1,
+              "Mars": 1,
+              "Moon": 1
+            },
+            "sources": 3
+          },
+          "D05": {
+            "availability": {
+              "accessible": 3,
+              "planned": 4
+            },
+            "by_body": {
+              "Earth": 2,
+              "Mars": 2,
+              "Moon": 3
+            },
+            "sources": 7
+          },
+          "D06": {
+            "availability": {
+              "accessible": 1,
+              "planned": 2
+            },
+            "by_body": {
+              "Earth": 1,
+              "Mars": 1,
+              "Moon": 1
+            },
+            "sources": 3
+          }
+        },
+        "dimensions": 6,
+        "sources": 29
+      },
+      "datasets": [],
+      "dimensions": [
+        "D01",
+        "D02",
+        "D03",
+        "D04",
+        "D05",
+        "D06"
+      ],
+      "duplicates": {},
+      "file_count": 1,
+      "files": [
+        {
+          "bytes": 32633,
+          "path": "catalog/dimension-source-inventory.yaml",
+          "sha256": "8904ea7e800dc03ea7318c4c30cdb3a2b1cd3a2d008691a79b7da0040124b010"
+        }
+      ],
+      "hash_method": "sha256(canonical-json(files[]))",
+      "kind": "source_inventory",
+      "limitations": [
+        "Inventory statuses describe sources, not observations."
+      ],
+      "method_versions": [],
+      "overlaps": {},
+      "path": "catalog/dimension-source-inventory.yaml",
+      "primary_sha256": "8904ea7e800dc03ea7318c4c30cdb3a2b1cd3a2d008691a79b7da0040124b010",
+      "schema_versions": {
+        "inventory": "1.0.0"
+      },
+      "sha256": "1b0b90f19f8fafc3704d6364d044175297c973b92f714168fc3a359964733318",
+      "source_references": [],
+      "support": [],
+      "units": [],
+      "value_origin": "not_applicable",
+      "value_origins": {}
+    }
+  ],
+  "counts": {
+    "absent_body_dimension_cells": 6,
+    "artifacts": 9,
+    "coarse_cells": 168,
+    "coarse_partitions": 3,
+    "coarse_regions": 3,
+    "dataset_references": 19,
+    "files": 50,
+    "fine_candidates": 113,
+    "fine_context_observations": 1243,
+    "fine_data_version": "dv-b46f3bad38ea",
+    "fine_datasets": 9,
+    "fine_feature_observations": 565,
+    "fine_references": 23,
+    "fine_snapshot_id": "snap-0cef4d75b147866a",
+    "source_references": 17,
+    "typed_by_dimension": {
+      "typed-d02-geology": 56,
+      "typed-d03-thermal": 20,
+      "typed-d04-water-ice": 20,
+      "typed-d05-illumination": 10,
+      "typed-d05-spice-geometry": 18,
+      "typed-d06-regolith": 75
+    },
+    "typed_observations": 199
+  },
+  "dataset_references": [
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry), under the Copernicus Contributing Mission Data Access Licence terms",
+      "license_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "product": "COP-DEM_GLO-90-DGED",
+      "provider": "European Space Agency (ESA) / Airbus Defence and Space; AWS Open Data mirror",
+      "source_id": "copernicus-dem-glo90",
+      "unknown_fields": [],
+      "url": "https://registry.opendata.aws/copernicus-dem/"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "Data sets archived in the PDS are in the public domain.",
+      "license_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+      "product": "MTRDR refined spectral summary parameters",
+      "provider": "NASA PDS Geosciences Node / MRO CRISM",
+      "source_id": "crism-mtrdr-context",
+      "unknown_fields": [],
+      "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "NASA Earth science data and information policy",
+      "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+      "product": "EMITL2BMIN",
+      "provider": "NASA JPL / LP DAAC",
+      "source_id": "emit-l2bmin-001",
+      "unknown_fields": [],
+      "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "NASA Earth science data and information policy",
+      "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+      "product": "EMITL2BMIN",
+      "provider": "NASA JPL / LP DAAC",
+      "source_id": "emit-l2bmin-002",
+      "unknown_fields": [],
+      "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "CC BY 4.0 (Creative Commons Attribution 4.0 International)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "product": "ESA WorldCover 2021 v200",
+      "provider": "European Space Agency (ESA) WorldCover",
+      "source_id": "esa-worldcover-2021-v200",
+      "unknown_fields": [],
+      "url": "https://esa-worldcover.org/en/data-access"
+    },
+    {
+      "availability": "identified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "not_verified",
+      "license_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+      "product": "GLiM_Niveau_I",
+      "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+      "source_id": "glim-niveau-i-mirror",
+      "unknown_fields": [],
+      "url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "cc-by-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+      "product": "M3/LOLA research-derived polar mineral maps",
+      "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+      "source_id": "lunar-polar-minerals-zenodo-v4",
+      "unknown_fields": [],
+      "url": "https://zenodo.org/records/20725024"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "public domain",
+      "license_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+      "product": "M20_JezeroCrater_CTXDEM_20m",
+      "provider": "USGS Astrogeology Science Center / NASA Mars Missions",
+      "source_id": "mars2020-jezero-ctx-dem-20m",
+      "unknown_fields": [],
+      "url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif"
+    },
+    {
+      "availability": "accessible",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+      "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+      "product": null,
+      "provider": null,
+      "source_id": "naif-spice-generic-kernels",
+      "unknown_fields": [],
+      "url": null
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "product": "Site01_final_adj_5mpp_surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "source_id": "nasa-lola-site01-5mpp-surf",
+      "unknown_fields": [],
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site01/Site01_final_adj_5mpp_surf.tif"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "product": "Site04_final_adj_5mpp_surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "source_id": "nasa-lola-site04-5mpp-surf",
+      "unknown_fields": [],
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site04/Site04_final_adj_5mpp_surf.tif"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "product": "Site07_final_adj_5mpp_surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "source_id": "nasa-lola-site07-5mpp-surf",
+      "unknown_fields": [],
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site07/Site07_final_adj_5mpp_surf.tif"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "product": "Site11_final_adj_5mpp_surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "source_id": "nasa-lola-site11-5mpp-surf",
+      "unknown_fields": [],
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site11/Site11_final_adj_5mpp_surf.tif"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "product": "Site20_final_adj_5mpp_surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "source_id": "nasa-lola-site20-5mpp-surf",
+      "unknown_fields": [],
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site20/Site20_final_adj_5mpp_surf.tif"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "CC0-1.0 (NASA-led mission data per the NASA Science Data Portal; the PGDA page requests citation and carries no restrictive notice)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "product": "Site23_final_adj_5mpp_surf",
+      "provider": "NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
+      "source_id": "nasa-lola-site23-5mpp-surf",
+      "unknown_fields": [],
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/Site23/Site23_final_adj_5mpp_surf.tif"
+    },
+    {
+      "availability": "accessible",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "NASA POWER data are free and open; cite NASA POWER",
+      "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+      "product": null,
+      "provider": null,
+      "source_id": "nasa-power-daily-point",
+      "unknown_fields": [],
+      "url": null
+    },
+    {
+      "availability": "accessible",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "CC BY 4.0; cite ISRIC SoilGrids 2.0",
+      "license_url": "https://docs.isric.org/globaldata/soilgrids/",
+      "product": null,
+      "provider": null,
+      "source_id": "soilgrids-250m-v2",
+      "unknown_fields": [],
+      "url": null
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+      "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+      "product": "SIM 3464 Jezero and Nili Planum",
+      "provider": "U.S. Geological Survey",
+      "source_id": "usgs-jezero-sim3464",
+      "unknown_fields": [],
+      "url": "https://pubs.usgs.gov/publication/sim3464"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "CC0, but please cite authors",
+      "license_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+      "product": "Unified Geologic Map of the Moon",
+      "provider": "USGS Astrogeology Science Center",
+      "source_id": "usgs-moon-geology-v2",
+      "unknown_fields": [],
+      "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/"
+    }
+  ],
+  "dimensions": [
+    {
+      "bodies": {
+        "Earth": {
+          "artifacts": [
+            "fine-terrain-snapshot",
+            "coarse-terrain-index"
+          ],
+          "attempted": 113,
+          "attempted_unit": "candidate_windows",
+          "body": "Earth",
+          "breakdown": [
+            {
+              "artifact_id": "fine-terrain-snapshot",
+              "attempted": 113,
+              "attempted_unit": "candidate_windows",
+              "observations": 0,
+              "valid": 565,
+              "valid_unit": "feature_observations"
+            },
+            {
+              "artifact_id": "coarse-terrain-index",
+              "attempted": 168,
+              "attempted_unit": "indexed_cells",
+              "observations": 0,
+              "valid": 168,
+              "valid_unit": "cells_with_complete_features"
+            }
+          ],
+          "coarse_cells": 168,
+          "context_observations": 1243,
+          "dimension_code": "D01",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 565,
+          "observations": 565,
+          "status": "present",
+          "support": [
+            {
+              "analysis_resolution_m": 90.0,
+              "crs": "EPSG:4326",
+              "kind": "window",
+              "window_size_m": 1980.0
+            },
+            {
+              "crs": [
+                "EPSG:32612",
+                "EPSG:32632"
+              ],
+              "kind": "window",
+              "source_resolution_m": 250.0,
+              "stride_m": 5000.0,
+              "valid_fraction_max": 1.0,
+              "valid_fraction_min": 1.0,
+              "window_size_m": 5000.0
+            }
+          ],
+          "unavailable": null,
+          "unavailable_unit": null,
+          "units": [
+            "degree",
+            "fraction",
+            "meter"
+          ],
+          "valid": 565,
+          "valid_unit": "feature_observations",
+          "value_origins": {
+            "derived_from_measured_dem": 733,
+            "mapped_classification": 1243
+          }
+        },
+        "Mars": {
+          "artifacts": [
+            "fine-terrain-snapshot"
+          ],
+          "attempted": 5,
+          "attempted_unit": "reference_windows",
+          "body": "Mars",
+          "breakdown": [
+            {
+              "artifact_id": "fine-terrain-snapshot",
+              "attempted": 5,
+              "attempted_unit": "reference_windows",
+              "observations": 0,
+              "valid": 25,
+              "valid_unit": "feature_observations"
+            }
+          ],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D01",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 25,
+          "status": "present",
+          "support": [
+            {
+              "analysis_resolution_m": 90.0,
+              "crs": "EPSG:4326",
+              "kind": "window",
+              "window_size_m": 1980.0
+            }
+          ],
+          "unavailable": null,
+          "unavailable_unit": null,
+          "units": [
+            "degree",
+            "fraction",
+            "meter"
+          ],
+          "valid": 25,
+          "valid_unit": "feature_observations",
+          "value_origins": {
+            "derived_from_measured_dem": 25
+          }
+        },
+        "Moon": {
+          "artifacts": [
+            "fine-terrain-snapshot"
+          ],
+          "attempted": 18,
+          "attempted_unit": "reference_windows",
+          "body": "Moon",
+          "breakdown": [
+            {
+              "artifact_id": "fine-terrain-snapshot",
+              "attempted": 18,
+              "attempted_unit": "reference_windows",
+              "observations": 0,
+              "valid": 90,
+              "valid_unit": "feature_observations"
+            }
+          ],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D01",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 90,
+          "status": "present",
+          "support": [
+            {
+              "analysis_resolution_m": 90.0,
+              "crs": "EPSG:4326",
+              "kind": "window",
+              "window_size_m": 1980.0
+            }
+          ],
+          "unavailable": null,
+          "unavailable_unit": null,
+          "units": [
+            "degree",
+            "fraction",
+            "meter"
+          ],
+          "valid": 90,
+          "valid_unit": "feature_observations",
+          "value_origins": {
+            "derived_from_measured_dem": 90
+          }
+        }
+      },
+      "dimension_code": "D01",
+      "name": "Terrain & Landforms",
+      "sources": [
+        {
+          "availability": "verified",
+          "body": "Earth",
+          "comparability": "comparable",
+          "data_status": "existing_observed",
+          "dimension_code": "D01",
+          "license": "Copernicus DEM GLO-90 free basis, Copernicus Contributing Mission Data Access Licence",
+          "license_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+          "product": "COP-DEM_GLO-90-DGED",
+          "provider": "European Space Agency / Airbus Defence and Space (AWS Open Data mirror)",
+          "source_id": "copernicus-dem-glo90",
+          "unknown_fields": [],
+          "url": "https://registry.opendata.aws/copernicus-dem/"
+        },
+        {
+          "availability": "verified",
+          "body": "Earth",
+          "comparability": "context_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D01",
+          "license": "CC BY 4.0",
+          "license_url": "https://creativecommons.org/licenses/by/4.0/",
+          "product": "ESA WorldCover 2021 v200",
+          "provider": "ESA WorldCover / VITO",
+          "source_id": "esa-worldcover-2021-v200",
+          "unknown_fields": [],
+          "url": "https://esa-worldcover.org/en/data-access"
+        },
+        {
+          "availability": "verified",
+          "body": "Earth",
+          "comparability": "comparable",
+          "data_status": "existing_observed",
+          "dimension_code": "D01",
+          "license": "CC BY 4.0",
+          "license_url": "https://creativecommons.org/licenses/by/4.0/",
+          "product": "dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif",
+          "provider": "PANGAEA / Amatulli et al. Geomorpho90m",
+          "source_id": "geomorpho250-slope",
+          "unknown_fields": [],
+          "url": "https://doi.pangaea.de/10.1594/PANGAEA.899135"
+        },
+        {
+          "availability": "verified",
+          "body": "Moon",
+          "comparability": "comparable",
+          "data_status": "existing_observed",
+          "dimension_code": "D01",
+          "license": "NASA-led mission data (CC0-1.0 per NASA Science Data Portal); PGDA citation requested",
+          "license_url": "https://science.data.nasa.gov/about/license",
+          "product": "LOLA 5 m/pix south-pole surface DEM products (six sites)",
+          "provider": "NASA GSFC PGDA / LRO-LOLA",
+          "source_id": "nasa-lola-south-pole",
+          "unknown_fields": [],
+          "url": "https://pgda.gsfc.nasa.gov/products/78"
+        },
+        {
+          "availability": "verified",
+          "body": "Mars",
+          "comparability": "comparable",
+          "data_status": "existing_observed",
+          "dimension_code": "D01",
+          "license": "Public domain (US Government work), verify product page",
+          "license_url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+          "product": "Mars 2020 Science Investigation CTX DEM Mosaic (Jezero)",
+          "provider": "USGS Astrogeology / NASA Mars 2020",
+          "source_id": "usgs-jezero-ctx-dem",
+          "unknown_fields": [],
+          "url": "https://astrogeology.usgs.gov/search/map/mars_2020_jezero_crater_dem"
+        },
+        {
+          "availability": "identified",
+          "body": "Mars",
+          "comparability": "not_comparable",
+          "data_status": "not_fetched",
+          "dimension_code": "D01",
+          "license": "not_verified",
+          "license_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/mgs_mola_topography_derived_bundle.xml",
+          "product": "MGS MOLA Topography Derived bundle, MEGDR topography (PDS4 product 1.1)",
+          "provider": "NASA PDS Geosciences Node / MGS MOLA",
+          "source_id": "pds4-mgs-mola-megdr",
+          "unknown_fields": [
+            "license",
+            "qa",
+            "vertical_uncertainty"
+          ],
+          "url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg016/megt90n000eb.xml"
+        }
+      ]
+    },
+    {
+      "bodies": {
+        "Earth": {
+          "artifacts": [
+            "typed-d02-geology"
+          ],
+          "attempted": null,
+          "attempted_unit": null,
+          "body": "Earth",
+          "breakdown": [
+            {
+              "artifact_id": "typed-d02-geology",
+              "observations": 15
+            }
+          ],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D02",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 15,
+          "status": "present",
+          "support": [
+            {
+              "crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": 36.0,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": 36.0,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": 60.0,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": 193.0,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 15,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "dimensionless_spectral_parameter"
+          ],
+          "valid": 0,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "mapped_evidence": 15
+          }
+        },
+        "Mars": {
+          "artifacts": [
+            "typed-d02-geology"
+          ],
+          "attempted": null,
+          "attempted_unit": null,
+          "body": "Mars",
+          "breakdown": [
+            {
+              "artifact_id": "typed-d02-geology",
+              "observations": 38
+            }
+          ],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D02",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 38,
+          "status": "present",
+          "support": [
+            {
+              "crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": 36.0,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": 36.0,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": 60.0,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": 193.0,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 10,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "dimensionless_spectral_parameter"
+          ],
+          "valid": 28,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "mapped_evidence": 14,
+            "spectral_context_not_abundance": 24
+          }
+        },
+        "Moon": {
+          "artifacts": [
+            "typed-d02-geology"
+          ],
+          "attempted": null,
+          "attempted_unit": null,
+          "body": "Moon",
+          "breakdown": [
+            {
+              "artifact_id": "typed-d02-geology",
+              "observations": 3
+            }
+          ],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D02",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 3,
+          "status": "present",
+          "support": [
+            {
+              "crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": 36.0,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": 36.0,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": 60.0,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": 193.0,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+              "depth_support": "surface",
+              "kind": "geometry",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 1,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "dimensionless_spectral_parameter"
+          ],
+          "valid": 2,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "mapped_evidence": 3
+          }
+        }
+      },
+      "dimension_code": "D02",
+      "name": "Geology & Mineralogy",
+      "sources": [
+        {
+          "availability": "identified",
+          "body": "Earth",
+          "comparability": "unknown",
+          "data_status": "not_fetched",
+          "dimension_code": "D02",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "Global Lithological Map (GLiM)",
+          "provider": "University of Bonn / GLiM",
+          "source_id": "glim-global-lithology",
+          "unknown_fields": [
+            "url",
+            "license",
+            "license_url",
+            "version",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "not_verified"
+        },
+        {
+          "availability": "identified",
+          "body": "Earth",
+          "comparability": "evidence_only",
+          "data_status": "not_fetched",
+          "dimension_code": "D02",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "EMIT mineral identification products",
+          "provider": "NASA JPL EMIT",
+          "source_id": "nasa-emit-mineral",
+          "unknown_fields": [
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "https://earth.jpl.nasa.gov/emit/data/data-products/"
+        },
+        {
+          "availability": "verified",
+          "body": "Moon",
+          "comparability": "evidence_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D02",
+          "license": "CC0; cite Fortezzo, Spudis and Harrel (2020)",
+          "license_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+          "product": "Unified Geologic Map of the Moon GIS v2",
+          "provider": "USGS Astrogeology",
+          "source_id": "usgs-moon-unified-geologic-map",
+          "unknown_fields": [],
+          "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/"
+        },
+        {
+          "availability": "identified",
+          "body": "Moon",
+          "comparability": "evidence_only",
+          "data_status": "not_fetched",
+          "dimension_code": "D02",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "Moon Mineralogy Mapper (M3) spectral products",
+          "provider": "NASA / PDS",
+          "source_id": "nasa-m3",
+          "unknown_fields": [
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "https://pds-imaging.jpl.nasa.gov/volumes/m3.html"
+        },
+        {
+          "availability": "verified",
+          "body": "Mars",
+          "comparability": "evidence_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D02",
+          "license": "USGS-authored GIS public domain; third-party material excluded",
+          "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+          "product": "Geologic Map of Jezero Crater and Nili Planum, SIM 3464",
+          "provider": "U.S. Geological Survey",
+          "source_id": "usgs-jezero-geologic-map",
+          "unknown_fields": [],
+          "url": "https://pubs.usgs.gov/publication/sim3464"
+        },
+        {
+          "availability": "identified",
+          "body": "Mars",
+          "comparability": "evidence_only",
+          "data_status": "not_fetched",
+          "dimension_code": "D02",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "MRO CRISM spectral products",
+          "provider": "NASA / PDS",
+          "source_id": "nasa-crism",
+          "unknown_fields": [
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm"
+        }
+      ]
+    },
+    {
+      "bodies": {
+        "Earth": {
+          "artifacts": [
+            "typed-d03-thermal"
+          ],
+          "attempted": 5,
+          "attempted_unit": "acquisition_tasks",
+          "body": "Earth",
+          "breakdown": [
+            {
+              "artifact_id": "typed-d03-thermal",
+              "attempted": 5,
+              "attempted_unit": "acquisition_tasks",
+              "failed": 0,
+              "failed_unit": "acquisition_tasks",
+              "observations": 20,
+              "valid": 20,
+              "valid_unit": "detected_observations"
+            }
+          ],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D03",
+          "failed": 0,
+          "failed_unit": "acquisition_tasks",
+          "feature_observations": 0,
+          "observations": 20,
+          "status": "present",
+          "support": [
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": 50000.0,
+              "resolution_m": null,
+              "source_resolution_m": 50000.0,
+              "temporal_support": "interval",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 0,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "degree_Celsius"
+          ],
+          "valid": 20,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "model_estimate": 20
+          }
+        },
+        "Mars": {
+          "artifacts": [],
+          "attempted": null,
+          "attempted_unit": null,
+          "body": "Mars",
+          "breakdown": [],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D03",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 0,
+          "status": "absent",
+          "support": [],
+          "unavailable": null,
+          "unavailable_unit": null,
+          "units": [],
+          "valid": null,
+          "valid_unit": null,
+          "value_origins": {}
+        },
+        "Moon": {
+          "artifacts": [],
+          "attempted": null,
+          "attempted_unit": null,
+          "body": "Moon",
+          "breakdown": [],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D03",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 0,
+          "status": "absent",
+          "support": [],
+          "unavailable": null,
+          "unavailable_unit": null,
+          "units": [],
+          "valid": null,
+          "valid_unit": null,
+          "value_origins": {}
+        }
+      },
+      "dimension_code": "D03",
+      "name": "Thermal Environment",
+      "sources": [
+        {
+          "availability": "accessible",
+          "body": "Earth",
+          "comparability": "context_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D03",
+          "license": "NASA POWER data are free and open; cite NASA POWER",
+          "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+          "product": "NASA POWER Daily Point API thermal parameters",
+          "provider": "NASA Langley Research Center / NASA POWER",
+          "source_id": "nasa-power-thermal-daily",
+          "unknown_fields": [],
+          "url": "https://power.larc.nasa.gov/api/temporal/daily/point"
+        },
+        {
+          "availability": "identified",
+          "body": "Earth",
+          "comparability": "unknown",
+          "data_status": "not_fetched",
+          "dimension_code": "D03",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "MOD11A2 Version 6.1 (8-day LST)",
+          "provider": "NASA LP DAAC",
+          "source_id": "nasa-mod11a2",
+          "unknown_fields": [
+            "license",
+            "spatial_support",
+            "qa"
+          ],
+          "url": "https://ladsweb.modaps.eosdis.nasa.gov/missions-and-measurements/products/MOD11A2/"
+        },
+        {
+          "availability": "identified",
+          "body": "Moon",
+          "comparability": "unknown",
+          "data_status": "not_fetched",
+          "dimension_code": "D03",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "Diviner lunar surface temperature products",
+          "provider": "NASA PDS / Diviner",
+          "source_id": "lro-diviner",
+          "unknown_fields": [
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm"
+        },
+        {
+          "availability": "accessible",
+          "body": "Mars",
+          "comparability": "evidence_only",
+          "data_status": "not_fetched",
+          "dimension_code": "D03",
+          "license": "Public domain (USGS Astrogeology access constraints); please cite authors",
+          "license_url": "https://astrogeology.usgs.gov/search/map/mars-themis-derived-global-thermal-inertia-mosaic",
+          "product": "THEMIS-derived global thermal inertia mosaic, quantitative 32-bit",
+          "provider": "USGS Astrogeology Science Center / Arizona State University / NASA MDAP",
+          "source_id": "usgs-mars-themis-global-thermal-inertia",
+          "unknown_fields": [],
+          "url": "https://astrogeology.usgs.gov/search/map/mars-themis-derived-global-thermal-inertia-mosaic"
+        }
+      ]
+    },
+    {
+      "bodies": {
+        "Earth": {
+          "artifacts": [
+            "typed-d04-water-ice"
+          ],
+          "attempted": 5,
+          "attempted_unit": "acquisition_tasks",
+          "body": "Earth",
+          "breakdown": [
+            {
+              "artifact_id": "typed-d04-water-ice",
+              "attempted": 5,
+              "attempted_unit": "acquisition_tasks",
+              "failed": 0,
+              "failed_unit": "acquisition_tasks",
+              "observations": 20,
+              "valid": 20,
+              "valid_unit": "detected_observations"
+            }
+          ],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D04",
+          "failed": 0,
+          "failed_unit": "acquisition_tasks",
+          "feature_observations": 0,
+          "observations": 20,
+          "status": "present",
+          "support": [
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": 50000.0,
+              "resolution_m": null,
+              "source_resolution_m": 50000.0,
+              "temporal_support": "interval",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 0,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "1",
+            "cm",
+            "mm day-1"
+          ],
+          "valid": 20,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "model_estimate": 20
+          }
+        },
+        "Mars": {
+          "artifacts": [],
+          "attempted": null,
+          "attempted_unit": null,
+          "body": "Mars",
+          "breakdown": [],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D04",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 0,
+          "status": "absent",
+          "support": [],
+          "unavailable": null,
+          "unavailable_unit": null,
+          "units": [],
+          "valid": null,
+          "valid_unit": null,
+          "value_origins": {}
+        },
+        "Moon": {
+          "artifacts": [],
+          "attempted": null,
+          "attempted_unit": null,
+          "body": "Moon",
+          "breakdown": [],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D04",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 0,
+          "status": "absent",
+          "support": [],
+          "unavailable": null,
+          "unavailable_unit": null,
+          "units": [],
+          "valid": null,
+          "valid_unit": null,
+          "value_origins": {}
+        }
+      },
+      "dimension_code": "D04",
+      "name": "Water & Ice",
+      "sources": [
+        {
+          "availability": "accessible",
+          "body": "Earth",
+          "comparability": "context_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D04",
+          "license": "NASA POWER data are free and open; cite NASA POWER",
+          "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+          "product": "NASA POWER Daily Point API water-context parameters",
+          "provider": "NASA Langley Research Center / NASA POWER",
+          "source_id": "nasa-power-water-daily",
+          "unknown_fields": [],
+          "url": "https://power.larc.nasa.gov/api/temporal/daily/point"
+        },
+        {
+          "availability": "planned",
+          "body": "Moon",
+          "comparability": "unknown",
+          "data_status": "not_fetched",
+          "dimension_code": "D04",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "not_selected",
+          "provider": "not_selected",
+          "source_id": "lunar-water-ice-source-not-selected",
+          "unknown_fields": [
+            "provider",
+            "product",
+            "url",
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "not_verified"
+        },
+        {
+          "availability": "planned",
+          "body": "Mars",
+          "comparability": "unknown",
+          "data_status": "not_fetched",
+          "dimension_code": "D04",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "not_selected",
+          "provider": "not_selected",
+          "source_id": "mars-water-ice-source-not-selected",
+          "unknown_fields": [
+            "provider",
+            "product",
+            "url",
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "not_verified"
+        }
+      ]
+    },
+    {
+      "bodies": {
+        "Earth": {
+          "artifacts": [
+            "typed-d05-illumination"
+          ],
+          "attempted": 5,
+          "attempted_unit": "acquisition_tasks",
+          "body": "Earth",
+          "breakdown": [
+            {
+              "artifact_id": "typed-d05-illumination",
+              "attempted": 5,
+              "attempted_unit": "acquisition_tasks",
+              "failed": 0,
+              "failed_unit": "acquisition_tasks",
+              "observations": 10,
+              "valid": 10,
+              "valid_unit": "detected_observations"
+            }
+          ],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D05",
+          "failed": 0,
+          "failed_unit": "acquisition_tasks",
+          "feature_observations": 0,
+          "observations": 10,
+          "status": "present",
+          "support": [
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": 50000.0,
+              "resolution_m": null,
+              "source_resolution_m": 50000.0,
+              "temporal_support": "interval",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 0,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "kWh m-2 day-1"
+          ],
+          "valid": 10,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "model_estimate": 10
+          }
+        },
+        "Mars": {
+          "artifacts": [
+            "typed-d05-spice-geometry"
+          ],
+          "attempted": null,
+          "attempted_unit": null,
+          "body": "Mars",
+          "breakdown": [
+            {
+              "artifact_id": "typed-d05-spice-geometry",
+              "attempted": 9,
+              "attempted_unit": "acquisition_tasks",
+              "failed": 9,
+              "failed_unit": "acquisition_tasks",
+              "observations": 10,
+              "valid": 10,
+              "valid_unit": "detected_observations"
+            }
+          ],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D05",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 10,
+          "status": "present",
+          "support": [
+            {
+              "crs": "IAU_MARS",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "instant",
+              "window_size_m": null
+            },
+            {
+              "crs": "MOON_ME",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "instant",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 0,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "degree"
+          ],
+          "valid": 10,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "unclassified": 10
+          }
+        },
+        "Moon": {
+          "artifacts": [
+            "typed-d05-spice-geometry"
+          ],
+          "attempted": null,
+          "attempted_unit": null,
+          "body": "Moon",
+          "breakdown": [
+            {
+              "artifact_id": "typed-d05-spice-geometry",
+              "attempted": 9,
+              "attempted_unit": "acquisition_tasks",
+              "failed": 9,
+              "failed_unit": "acquisition_tasks",
+              "observations": 8,
+              "valid": 8,
+              "valid_unit": "detected_observations"
+            }
+          ],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D05",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 8,
+          "status": "present",
+          "support": [
+            {
+              "crs": "IAU_MARS",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "instant",
+              "window_size_m": null
+            },
+            {
+              "crs": "MOON_ME",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "instant",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 0,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "degree"
+          ],
+          "valid": 8,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "unclassified": 8
+          }
+        }
+      },
+      "dimension_code": "D05",
+      "name": "Solar Illumination & Radiation",
+      "sources": [
+        {
+          "availability": "accessible",
+          "body": "Earth",
+          "comparability": "context_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D05",
+          "license": "NASA POWER data are free and open; cite NASA POWER",
+          "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+          "product": "NASA POWER Daily Point API (solar and longwave irradiance)",
+          "provider": "NASA Langley Research Center / NASA POWER",
+          "source_id": "nasa-power-daily-point",
+          "unknown_fields": [],
+          "url": "https://power.larc.nasa.gov/api/temporal/daily/point"
+        },
+        {
+          "availability": "planned",
+          "body": "Earth",
+          "comparability": "unknown",
+          "data_status": "not_fetched",
+          "dimension_code": "D05",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "not_selected",
+          "provider": "not_selected",
+          "source_id": "earth-ionizing-radiation-not-selected",
+          "unknown_fields": [
+            "provider",
+            "product",
+            "url",
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "not_verified"
+        },
+        {
+          "availability": "accessible",
+          "body": "Moon",
+          "comparability": "context_only",
+          "data_status": "existing_modeled",
+          "dimension_code": "D05",
+          "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+          "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+          "product": "SPICE DE421 ephemeris + MOON_ME lunar frame + pck00011 radii",
+          "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+          "source_id": "naif-spice-solar-geometry-moon",
+          "unknown_fields": [],
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/"
+        },
+        {
+          "availability": "planned",
+          "body": "Moon",
+          "comparability": "unknown",
+          "data_status": "not_fetched",
+          "dimension_code": "D05",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "not_selected",
+          "provider": "not_selected",
+          "source_id": "lunar-illumination-source-not-selected",
+          "unknown_fields": [
+            "provider",
+            "product",
+            "url",
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "not_verified"
+        },
+        {
+          "availability": "planned",
+          "body": "Moon",
+          "comparability": "unknown",
+          "data_status": "not_fetched",
+          "dimension_code": "D05",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "not_selected",
+          "provider": "not_selected",
+          "source_id": "lunar-ionizing-radiation-not-selected",
+          "unknown_fields": [
+            "provider",
+            "product",
+            "url",
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "not_verified"
+        },
+        {
+          "availability": "accessible",
+          "body": "Mars",
+          "comparability": "context_only",
+          "data_status": "existing_modeled",
+          "dimension_code": "D05",
+          "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+          "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+          "product": "SPICE DE421 ephemeris + IAU_MARS orientation from pck00011",
+          "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+          "source_id": "naif-spice-solar-geometry-mars",
+          "unknown_fields": [],
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/"
+        },
+        {
+          "availability": "planned",
+          "body": "Mars",
+          "comparability": "unknown",
+          "data_status": "not_fetched",
+          "dimension_code": "D05",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "not_selected",
+          "provider": "not_selected",
+          "source_id": "mars-illumination-radiation-not-selected",
+          "unknown_fields": [
+            "provider",
+            "product",
+            "url",
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "not_verified"
+        }
+      ]
+    },
+    {
+      "bodies": {
+        "Earth": {
+          "artifacts": [
+            "typed-d06-regolith"
+          ],
+          "attempted": 75,
+          "attempted_unit": "acquisition_tasks",
+          "body": "Earth",
+          "breakdown": [
+            {
+              "artifact_id": "typed-d06-regolith",
+              "attempted": 75,
+              "attempted_unit": "acquisition_tasks",
+              "failed": 0,
+              "failed_unit": "acquisition_tasks",
+              "observations": 75,
+              "valid": 75,
+              "valid_unit": "detected_observations"
+            }
+          ],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D06",
+          "failed": 0,
+          "failed_unit": "acquisition_tasks",
+          "feature_observations": 0,
+          "observations": 75,
+          "status": "present",
+          "support": [
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "depth_interval",
+              "kind": "bbox",
+              "native_resolution_m": 250.0,
+              "resolution_m": 250.0,
+              "source_resolution_m": 250.0,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 0,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "cg cm-3",
+            "dg kg-1",
+            "g kg-1"
+          ],
+          "valid": 75,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "model_estimate": 75
+          }
+        },
+        "Mars": {
+          "artifacts": [],
+          "attempted": null,
+          "attempted_unit": null,
+          "body": "Mars",
+          "breakdown": [],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D06",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 0,
+          "status": "absent",
+          "support": [],
+          "unavailable": null,
+          "unavailable_unit": null,
+          "units": [],
+          "valid": null,
+          "valid_unit": null,
+          "value_origins": {}
+        },
+        "Moon": {
+          "artifacts": [],
+          "attempted": null,
+          "attempted_unit": null,
+          "body": "Moon",
+          "breakdown": [],
+          "coarse_cells": 0,
+          "context_observations": 0,
+          "dimension_code": "D06",
+          "failed": null,
+          "failed_unit": null,
+          "feature_observations": 0,
+          "observations": 0,
+          "status": "absent",
+          "support": [],
+          "unavailable": null,
+          "unavailable_unit": null,
+          "units": [],
+          "valid": null,
+          "valid_unit": null,
+          "value_origins": {}
+        }
+      },
+      "dimension_code": "D06",
+      "name": "Regolith & Surface Properties",
+      "sources": [
+        {
+          "availability": "accessible",
+          "body": "Earth",
+          "comparability": "evidence_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D06",
+          "license": "CC BY 4.0; cite ISRIC SoilGrids 2.0",
+          "license_url": "https://docs.isric.org/globaldata/soilgrids/",
+          "product": "SoilGrids 2.0 250 m WCS",
+          "provider": "ISRIC World Soil Information",
+          "source_id": "soilgrids-250m-v2",
+          "unknown_fields": [],
+          "url": "https://maps.isric.org/mapserv"
+        },
+        {
+          "availability": "planned",
+          "body": "Moon",
+          "comparability": "unknown",
+          "data_status": "not_fetched",
+          "dimension_code": "D06",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "not_selected",
+          "provider": "not_selected",
+          "source_id": "lunar-regolith-source-not-selected",
+          "unknown_fields": [
+            "provider",
+            "product",
+            "url",
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "not_verified"
+        },
+        {
+          "availability": "planned",
+          "body": "Mars",
+          "comparability": "unknown",
+          "data_status": "not_fetched",
+          "dimension_code": "D06",
+          "license": "not_verified",
+          "license_url": "not_verified",
+          "product": "not_selected",
+          "provider": "not_selected",
+          "source_id": "mars-regolith-source-not-selected",
+          "unknown_fields": [
+            "provider",
+            "product",
+            "url",
+            "license",
+            "native_resolution",
+            "spatial_support",
+            "temporal_support",
+            "qa"
+          ],
+          "url": "not_verified"
+        }
+      ]
+    }
+  ],
+  "generated_at": "2026-11-15T05:45:52Z",
+  "generated_by": "pipelines/src/analog_pipelines/release.py",
+  "notes": "Bounded local multi-dimension release assembled from committed artifacts only. This is not global coverage; missing bodies/dimensions are listed explicitly and no value is zero-filled.",
+  "release_id": "rel-5d6f8cf123055379",
+  "release_version": "multi-dimension-release-1.0.0",
+  "scope": {
+    "bodies": [
+      "Earth",
+      "Moon",
+      "Mars"
+    ],
+    "coarse_regions": [
+      "pilot-alps",
+      "pilot-grand-canyon",
+      "pilot-sahara"
+    ],
+    "coverage_label": "bounded_local_subset_not_global",
+    "dimensions": [
+      "D01",
+      "D02",
+      "D03",
+      "D04",
+      "D05",
+      "D06"
+    ],
+    "global_claim": false,
+    "notes": [
+      "Only committed artifacts are combined; no download or remote write occurs.",
+      "Counts describe the bounded committed subset, not global coverage."
+    ]
+  },
+  "source_commit": null,
+  "source_references": [
+    {
+      "availability": "verified",
+      "body": "Earth",
+      "comparability": "comparable",
+      "data_status": "existing_observed",
+      "dimension_code": "D01",
+      "license": "Copernicus DEM GLO-90 free basis, Copernicus Contributing Mission Data Access Licence",
+      "license_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "product": "COP-DEM_GLO-90-DGED",
+      "provider": "European Space Agency / Airbus Defence and Space (AWS Open Data mirror)",
+      "source_id": "copernicus-dem-glo90",
+      "unknown_fields": [],
+      "url": "https://registry.opendata.aws/copernicus-dem/"
+    },
+    {
+      "availability": "verified",
+      "body": "Earth",
+      "comparability": "context_only",
+      "data_status": "existing_observed",
+      "dimension_code": "D01",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "product": "ESA WorldCover 2021 v200",
+      "provider": "ESA WorldCover / VITO",
+      "source_id": "esa-worldcover-2021-v200",
+      "unknown_fields": [],
+      "url": "https://esa-worldcover.org/en/data-access"
+    },
+    {
+      "availability": "verified",
+      "body": "Earth",
+      "comparability": "comparable",
+      "data_status": "existing_observed",
+      "dimension_code": "D01",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "product": "dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif",
+      "provider": "PANGAEA / Amatulli et al. Geomorpho90m",
+      "source_id": "geomorpho250-slope",
+      "unknown_fields": [],
+      "url": "https://doi.pangaea.de/10.1594/PANGAEA.899135"
+    },
+    {
+      "availability": "identified",
+      "body": "Earth",
+      "comparability": "unknown",
+      "data_status": "not_fetched",
+      "dimension_code": "D02",
+      "license": "not_verified",
+      "license_url": "not_verified",
+      "product": "Global Lithological Map (GLiM)",
+      "provider": "University of Bonn / GLiM",
+      "source_id": "glim-global-lithology",
+      "unknown_fields": [
+        "url",
+        "license",
+        "license_url",
+        "version",
+        "temporal_support",
+        "qa"
+      ],
+      "url": "not_verified"
+    },
+    {
+      "availability": "accessible",
+      "body": "Mars",
+      "comparability": "context_only",
+      "data_status": "existing_modeled",
+      "dimension_code": "D05",
+      "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+      "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+      "product": "SPICE DE421 ephemeris + IAU_MARS orientation from pck00011",
+      "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+      "source_id": "naif-spice-solar-geometry-mars",
+      "unknown_fields": [],
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/"
+    },
+    {
+      "availability": "accessible",
+      "body": "Moon",
+      "comparability": "context_only",
+      "data_status": "existing_modeled",
+      "dimension_code": "D05",
+      "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+      "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+      "product": "SPICE DE421 ephemeris + MOON_ME lunar frame + pck00011 radii",
+      "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+      "source_id": "naif-spice-solar-geometry-moon",
+      "unknown_fields": [],
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/"
+    },
+    {
+      "availability": "identified",
+      "body": "Mars",
+      "comparability": "evidence_only",
+      "data_status": "not_fetched",
+      "dimension_code": "D02",
+      "license": "not_verified",
+      "license_url": "not_verified",
+      "product": "MRO CRISM spectral products",
+      "provider": "NASA / PDS",
+      "source_id": "nasa-crism",
+      "unknown_fields": [
+        "license",
+        "native_resolution",
+        "spatial_support",
+        "temporal_support",
+        "qa"
+      ],
+      "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm"
+    },
+    {
+      "availability": "identified",
+      "body": "Earth",
+      "comparability": "evidence_only",
+      "data_status": "not_fetched",
+      "dimension_code": "D02",
+      "license": "not_verified",
+      "license_url": "not_verified",
+      "product": "EMIT mineral identification products",
+      "provider": "NASA JPL EMIT",
+      "source_id": "nasa-emit-mineral",
+      "unknown_fields": [
+        "license",
+        "native_resolution",
+        "spatial_support",
+        "temporal_support",
+        "qa"
+      ],
+      "url": "https://earth.jpl.nasa.gov/emit/data/data-products/"
+    },
+    {
+      "availability": "verified",
+      "body": "Moon",
+      "comparability": "comparable",
+      "data_status": "existing_observed",
+      "dimension_code": "D01",
+      "license": "NASA-led mission data (CC0-1.0 per NASA Science Data Portal); PGDA citation requested",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "product": "LOLA 5 m/pix south-pole surface DEM products (six sites)",
+      "provider": "NASA GSFC PGDA / LRO-LOLA",
+      "source_id": "nasa-lola-south-pole",
+      "unknown_fields": [],
+      "url": "https://pgda.gsfc.nasa.gov/products/78"
+    },
+    {
+      "availability": "identified",
+      "body": "Moon",
+      "comparability": "evidence_only",
+      "data_status": "not_fetched",
+      "dimension_code": "D02",
+      "license": "not_verified",
+      "license_url": "not_verified",
+      "product": "Moon Mineralogy Mapper (M3) spectral products",
+      "provider": "NASA / PDS",
+      "source_id": "nasa-m3",
+      "unknown_fields": [
+        "license",
+        "native_resolution",
+        "spatial_support",
+        "temporal_support",
+        "qa"
+      ],
+      "url": "https://pds-imaging.jpl.nasa.gov/volumes/m3.html"
+    },
+    {
+      "availability": "accessible",
+      "body": "Earth",
+      "comparability": "context_only",
+      "data_status": "existing_observed",
+      "dimension_code": "D05",
+      "license": "NASA POWER data are free and open; cite NASA POWER",
+      "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+      "product": "NASA POWER Daily Point API (solar and longwave irradiance)",
+      "provider": "NASA Langley Research Center / NASA POWER",
+      "source_id": "nasa-power-daily-point",
+      "unknown_fields": [],
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point"
+    },
+    {
+      "availability": "accessible",
+      "body": "Earth",
+      "comparability": "context_only",
+      "data_status": "existing_observed",
+      "dimension_code": "D03",
+      "license": "NASA POWER data are free and open; cite NASA POWER",
+      "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+      "product": "NASA POWER Daily Point API thermal parameters",
+      "provider": "NASA Langley Research Center / NASA POWER",
+      "source_id": "nasa-power-thermal-daily",
+      "unknown_fields": [],
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point"
+    },
+    {
+      "availability": "accessible",
+      "body": "Earth",
+      "comparability": "context_only",
+      "data_status": "existing_observed",
+      "dimension_code": "D04",
+      "license": "NASA POWER data are free and open; cite NASA POWER",
+      "license_url": "https://power.larc.nasa.gov/docs/services/api/",
+      "product": "NASA POWER Daily Point API water-context parameters",
+      "provider": "NASA Langley Research Center / NASA POWER",
+      "source_id": "nasa-power-water-daily",
+      "unknown_fields": [],
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point"
+    },
+    {
+      "availability": "accessible",
+      "body": "Earth",
+      "comparability": "evidence_only",
+      "data_status": "existing_observed",
+      "dimension_code": "D06",
+      "license": "CC BY 4.0; cite ISRIC SoilGrids 2.0",
+      "license_url": "https://docs.isric.org/globaldata/soilgrids/",
+      "product": "SoilGrids 2.0 250 m WCS",
+      "provider": "ISRIC World Soil Information",
+      "source_id": "soilgrids-250m-v2",
+      "unknown_fields": [],
+      "url": "https://maps.isric.org/mapserv"
+    },
+    {
+      "availability": "verified",
+      "body": "Mars",
+      "comparability": "comparable",
+      "data_status": "existing_observed",
+      "dimension_code": "D01",
+      "license": "Public domain (US Government work), verify product page",
+      "license_url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+      "product": "Mars 2020 Science Investigation CTX DEM Mosaic (Jezero)",
+      "provider": "USGS Astrogeology / NASA Mars 2020",
+      "source_id": "usgs-jezero-ctx-dem",
+      "unknown_fields": [],
+      "url": "https://astrogeology.usgs.gov/search/map/mars_2020_jezero_crater_dem"
+    },
+    {
+      "availability": "verified",
+      "body": "Mars",
+      "comparability": "evidence_only",
+      "data_status": "existing_observed",
+      "dimension_code": "D02",
+      "license": "USGS-authored GIS public domain; third-party material excluded",
+      "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+      "product": "Geologic Map of Jezero Crater and Nili Planum, SIM 3464",
+      "provider": "U.S. Geological Survey",
+      "source_id": "usgs-jezero-geologic-map",
+      "unknown_fields": [],
+      "url": "https://pubs.usgs.gov/publication/sim3464"
+    },
+    {
+      "availability": "verified",
+      "body": "Moon",
+      "comparability": "evidence_only",
+      "data_status": "existing_observed",
+      "dimension_code": "D02",
+      "license": "CC0; cite Fortezzo, Spudis and Harrel (2020)",
+      "license_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+      "product": "Unified Geologic Map of the Moon GIS v2",
+      "provider": "USGS Astrogeology",
+      "source_id": "usgs-moon-unified-geologic-map",
+      "unknown_fields": [],
+      "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/"
+    }
+  ]
+}

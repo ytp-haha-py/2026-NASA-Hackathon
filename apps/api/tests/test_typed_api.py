@@ -274,6 +274,47 @@ def test_committed_d06_soilgrids_release_imports_and_queries(tmp_path: Path):
         assert coverage["by_dimension"]["D06"]["total"] == 75
 
 
+def test_committed_d06_soilgrids_depth_release_preserves_depths(tmp_path: Path):
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'd06-depths.db'}",
+        manifest_dir=str(tmp_path / "none"),
+        manifest_dir_planetary=str(tmp_path / "none"),
+        manifest_dir_context=str(tmp_path / "none"),
+        seed_include_synthetic=False,
+    )
+    app = create_app(settings)
+    with TestClient(app) as client:
+        with app.state.session_factory() as session:
+            result = import_release(session, ROOT / "pipelines/pilots/d06_earth_soilgrids_depths")
+            session.commit()
+        assert result["observations"] == 300
+        assert result["integrity"]["observations"] == 300
+        response = client.get(
+            "/api/v1/typed/observations", params={"dimension": "D06", "body": "Earth"}
+        )
+        assert response.status_code == 200, response.text
+        rows = response.json()
+        assert len(rows) == 300
+        assert {row["state"] for row in rows} == {"detected"}
+        assert {row["score_role"] for row in rows} == {"evidence_only"}
+        depth_counts: dict[tuple[float, float], int] = {}
+        for row in rows:
+            key = (
+                row["depth_support"]["min_m"],
+                row["depth_support"]["max_m"],
+            )
+            depth_counts[key] = depth_counts.get(key, 0) + 1
+        assert depth_counts == {
+            (0.0, 0.05): 75,
+            (0.05, 0.15): 75,
+            (0.15, 0.3): 75,
+            (0.3, 0.6): 75,
+        }
+        assert all("model_prediction_not_measurement" in row["quality_flags"] for row in rows)
+        coverage = client.get("/api/v1/typed/coverage").json()
+        assert coverage["by_dimension"]["D06"]["total"] == 300
+
+
 def test_committed_d03_power_thermal_release_imports_and_queries(tmp_path: Path):
     settings = Settings(
         database_url=f"sqlite+pysqlite:///{tmp_path / 'd03.db'}",
