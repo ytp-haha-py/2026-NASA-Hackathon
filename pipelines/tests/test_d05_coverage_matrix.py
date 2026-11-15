@@ -56,7 +56,9 @@ def test_d05_coverage_matrix_exists_and_has_required_shape():
     assert subgroups == {"illumination", "ionizing_radiation"}
     for entry in data["entries"]:
         missing = required_entry_keys - set(entry)
-        assert not missing, f"entry {entry.get('body')}:{entry.get('feature_id')} missing {sorted(missing)}"
+        assert not missing, (
+            f"entry {entry.get('body')}:{entry.get('feature_id')} missing {sorted(missing)}"
+        )
         assert isinstance(entry["gaps"], list)
         assert isinstance(entry["status_support"], list) and entry["status_support"]
         assert entry["rebuild_instructions"]
@@ -73,9 +75,22 @@ def test_d05_matrix_separates_illumination_and_radiation_and_no_fabricated_dose(
     assert rad_by_body == {"Earth", "Moon", "Mars"}
     for entry in radiation:
         text = json.dumps(entry).lower()
-        assert "unsupported" in entry["data_kind"] or "no_committed" in entry["data_kind"] or "evidence" in entry["data_kind"]
-        assert "0 indexed/queryable" in entry["actual_indexed_queryable_coverage"] or "0 committed" in entry["actual_indexed_queryable_coverage"]
-        assert "gy<->sv" in text or "no gy" in text or "no sv" in text or "without physics" in text or "conversion" in text
+        assert (
+            "unsupported" in entry["data_kind"]
+            or "no_committed" in entry["data_kind"]
+            or "evidence" in entry["data_kind"]
+        )
+        assert (
+            "0 indexed/queryable" in entry["actual_indexed_queryable_coverage"]
+            or "0 committed" in entry["actual_indexed_queryable_coverage"]
+        )
+        assert (
+            "gy<->sv" in text
+            or "no gy" in text
+            or "no sv" in text
+            or "without physics" in text
+            or "conversion" in text
+        )
 
     # Committed pilot observations must not contain ionizing dose/flux products.
     for path in (EARTH_OBS, SPICE_OBS):
@@ -111,7 +126,10 @@ def test_d05_matrix_matches_committed_pilot_counts_and_bodies():
 
     doc_text = DOC.read_text(encoding="utf-8")
     assert "28" in doc_text
-    assert "committed ionizing radiation dose/flux observations:** 0" in doc_text.lower() or "committed ionizing observations 0" in doc_text.lower()
+    assert (
+        "committed ionizing radiation dose/flux observations:** 0" in doc_text.lower()
+        or "committed ionizing observations 0" in doc_text.lower()
+    )
     assert "illumination and ionizing radiation" in doc_text.lower()
 
 
@@ -122,7 +140,10 @@ def test_d05_representative_queries_cover_all_bodies():
     assert "Earth" in bodies
     assert "Moon" in bodies
     assert "Mars" in bodies
-    assert any("ionizing" in c.get("purpose", "").lower() or "ionizing" in c.get("command", "") for c in cmds)
+    assert any(
+        "ionizing" in c.get("purpose", "").lower() or "ionizing" in c.get("command", "")
+        for c in cmds
+    )
     for cmd in cmds:
         assert "command" in cmd and cmd["command"].strip()
         assert "purpose" in cmd and cmd["purpose"].strip()
