@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from analog_api.config import Settings
@@ -204,3 +205,107 @@ def test_real_geomorpho_pilot_index_is_served_by_global_api(tmp_path: Path):
         assert result["eligible_candidate_count"] == 168
         assert len(result["results"]) == 3
         assert result["coverage_label"] == "local_coarse_index_not_global_exhaustive"
+
+
+def test_real_pilot_search_exposes_region_scope_versions_and_never_claims_global(tmp_path: Path):
+    """The committed 168-cell pilot must publish its own scope, versions and regions.
+
+    This is the API-level counterpart of ``pipelines/tests/test_real_coarse_pilot.py``:
+    nothing here may be relabelled global, exhaustive, or fine (90 m) support.
+    """
+    index_root = ROOT / "pipelines/coarse/real-pilot/index"
+    snapshot_id = "geomorpho250-real-pilot-20261115"
+    manifest = json.loads(
+        (index_root / "snapshots" / snapshot_id / "manifest.json").read_text(encoding="utf-8")
+    )
+    region_rows = {
+        partition["region_id"]: partition["rows"] for partition in manifest["partitions"]
+    }
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'real-coarse-scope.db'}",
+        manifest_dir=str(tmp_path / "none"),
+        manifest_dir_planetary=str(tmp_path / "none"),
+        manifest_dir_context=str(tmp_path / "none"),
+        global_index_dir=str(index_root),
+        seed_include_synthetic=False,
+    )
+    target = {"coarse_slope_mean_deg": {"value": 8.0, "weight": 1.0}}
+    with TestClient(create_app(settings)) as client:
+        coverage = client.get("/api/v1/global/coverage")
+        assert coverage.status_code == 200, coverage.text
+        body = coverage.json()
+        assert body["snapshot_id"] == snapshot_id
+        assert body["method_version"] == COARSE_METHOD_VERSION
+        assert body["label"] == "local_coarse_index_not_global_exhaustive"
+        assert "global" not in body["label"].split("_")[0]
+        assert "not_global" in body["label"]
+        assert body["row_count"] == manifest["row_count"] == 168
+        assert body["regions"] == manifest["coverage"]["regions"]
+        assert sorted(region_rows) == body["regions"]
+        assert sum(region_rows.values()) == body["row_count"]
+        # Coverage bbox is the union of the three pilot windows, not a world extent.
+        assert body["bbox"] == manifest["coverage"]["bbox"]
+        assert body["bbox"]["west"] > -180 and body["bbox"]["east"] < 180
+        assert body["bbox"]["east"] - body["bbox"]["west"] < 180
+        assert "not an exhaustive global claim" in body["note"]
+
+        search = client.post("/api/v1/global/search", json={"target": target, "limit": 10})
+        assert search.status_code == 200, search.text
+        first = search.json()
+        assert first["snapshot_id"] == snapshot_id
+        assert first["method_version"] == COARSE_METHOD_VERSION
+        assert first["index_version"] == "coarse-index-1.0.0"
+        assert first["coverage_label"] == body["label"]
+        assert first["indexed_candidate_count"] == 168
+        assert first["eligible_candidate_count"] == 168
+        assert first["excluded_candidate_count"] == 0
+        assert "not the fine 90 m terrain result" in first["note"]
+        assert len(first["results"]) == 10
+        assert {item["region_id"] for item in first["results"]} <= set(body["regions"])
+        distances = [item["distance"] for item in first["results"]]
+        assert distances == sorted(distances)
+        for item in first["results"]:
+            assert item["method_version"] == COARSE_METHOD_VERSION
+            assert item["source_resolution_m"] == 250.0
+            assert item["window_size_m"] == 5000.0
+            assert "real_geomorpho250" in item["qa_flags"]
+            assert "synthetic_fixture" not in item["qa_flags"]
+            assert item["body"] == "Earth"
+        # Grid/dataset provenance is exposed by the candidate detail endpoint (the
+        # search list intentionally carries only the fields the UI needs).
+        detail = client.get(f"/api/v1/global/candidates/{first['results'][0]['candidate_id']}")
+        assert detail.status_code == 200, detail.text
+        detail_body = detail.json()
+        assert detail_body["grid_version"] == "coarse-grid-1.0.0"
+        assert detail_body["method_version"] == COARSE_METHOD_VERSION
+        assert detail_body["dataset_id"] == "geomorpho250-slope-v1.0"
+        assert detail_body["region_id"] in body["regions"]
+        assert detail_body["source_resolution_m"] == 250.0
+        # Same request, same rows, same order: no reliance on index scan order.
+        again = client.post("/api/v1/global/search", json={"target": target, "limit": 10})
+        assert [item["candidate_id"] for item in again.json()["results"]] == [
+            item["candidate_id"] for item in first["results"]
+        ]
+
+        # A region filter reports that region's coverage, not the pilot total.
+        for region_id, rows in sorted(region_rows.items()):
+            scoped = client.post(
+                "/api/v1/global/search",
+                json={"target": target, "limit": 10, "region_id": region_id},
+            )
+            assert scoped.status_code == 200, scoped.text
+            scoped_body = scoped.json()
+            assert {item["region_id"] for item in scoped_body["results"]} == {region_id}
+            assert scoped_body["indexed_candidate_count"] == 168
+            assert scoped_body["eligible_candidate_count"] == rows
+            assert scoped_body["coverage_label"] == body["label"]
+
+        unknown = client.post(
+            "/api/v1/global/search",
+            json={"target": target, "limit": 10, "region_id": "not-a-pilot-region"},
+        )
+        assert unknown.status_code == 200, unknown.text
+        assert unknown.json()["results"] == []
+        assert unknown.json()["eligible_candidate_count"] == 0
+        assert unknown.json()["excluded_candidate_count"] == 168
+        assert unknown.json()["coverage_label"] == body["label"]

@@ -359,6 +359,15 @@ Returns deterministic top-K over the pinned snapshot, eligible/excluded counts a
 the coverage label. Coarse feature IDs are separate from the 90 m IDs. Missing
 metrics are excluded, never zero-filled. No index -> `409 no_indexed_data`.
 
+`region_id` restricts ranking to one indexed region (for example `pilot-alps`).
+`indexed_candidate_count` still reports the whole snapshot, while
+`eligible_candidate_count` becomes that region's row count and
+`excluded_candidate_count` grows by the other regions — an unknown `region_id`
+returns zero results with every indexed row counted as excluded, never a silent
+fallback to all regions. The response carries `snapshot_id`, `method_version`,
+`index_version` and `coverage_label`; the pilot label is
+`local_coarse_index_not_global_exhaustive` and must never be rendered as global.
+
 ### GET /global/candidates/{id}
 
 Returns the coarse candidate record, including bbox, CRS, method version, source
