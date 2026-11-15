@@ -1953,3 +1953,8 @@ body {
 .six-dimension-panel .coverage-panel {
   display: none;
 }
+
+/* #170: only adjustable controls belong in the dimension cards; hide read-only evidence rows. */
+.dimension-card .observed-feature-list {
+  display: none;
+}

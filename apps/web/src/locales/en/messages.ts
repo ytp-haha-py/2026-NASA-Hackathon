@@ -644,6 +644,7 @@ export const en = {
     "Category filter not registered: no category request field is available, so this control is disabled.",
   "search.filterCategoryNoValues":
     "The registry does not publish category values for this feature, so this control is disabled.",
+  "search.filterCategoryEarthOnly": "Category filters are Earth-only; switch to a custom Earth target.",
   "search.featureNotScored":
     "Not registered for scoring or filtering; shown as evidence only.",
   "search.dimensionLoading": "Loading typed coverage…",
