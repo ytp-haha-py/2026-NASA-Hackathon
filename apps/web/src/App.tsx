@@ -68,6 +68,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const [references, setReferences] = useState<ReferenceOut[]>([]);
   const [referencesError, setReferencesError] = useState<string | null>(null);
   const [datasets, setDatasets] = useState<DatasetOut[]>([]);
+  const [datasetsLoading, setDatasetsLoading] = useState(true);
   const [datasetsError, setDatasetsError] = useState<string | null>(null);
   const [bootstrapKey, setBootstrapKey] = useState(0);
   const [aoiOpen, setAoiOpen] = useState(false);
@@ -103,6 +104,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
     setCapabilitiesLoading(true);
     setCapabilitiesError(null);
     setReferencesError(null);
+    setDatasetsLoading(true);
     setDatasetsError(null);
 
     getCapabilities(controller.signal)
@@ -136,6 +138,9 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
           setDatasets([]);
           setDatasetsError(errorMessage(caught));
         }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setDatasetsLoading(false);
       });
 
     return () => controller.abort();
@@ -467,53 +472,49 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
 
             <details className="about-panel">
               <summary>{t("app.aboutSummary")}</summary>
-              <section className="coverage-strip" aria-labelledby="coverage-heading">
-                <p className="eyebrow">{t("app.coverageEyebrow")}</p>
-                <h2 id="coverage-heading">
-                  {tp("app.coverageHeading", capabilities.indexed_candidate_count)}
-                </h2>
-                <p className="coverage-origins">
-                  {rich("app.coverageOrigins", {
-                    indexed: (
-                      <strong>
-                        {t("coverage.indexedCount", { count: fmt.number(indexedOriginCount, 0) })}
-                      </strong>
-                    ),
-                    onDemand: (
-                      <strong>
-                        {t("coverage.onDemandCount", {
-                          count: fmt.number(onDemandOriginCount, 0),
-                        })}
-                      </strong>
-                    ),
-                  })}
-                </p>
-                <p>
-                  <SourceText>{capabilities.coverage.description}</SourceText>
-                </p>
-                <p className="coverage-extent">
-                  {capabilities.coverage.geographic_bbox
-                    ? t("app.coverageExtent", {
-                        bbox: fmt.bbox(capabilities.coverage.geographic_bbox),
-                      })
-                    : t("app.coverageExtentMissing")}
-                </p>
-              </section>
-              <section className="idle-panel" aria-labelledby="idle-heading">
-                <h2 id="idle-heading">{t("app.idleHeading")}</h2>
-                <p>{t("app.idleBody")}</p>
-                <ul>
-                  <li>{t("app.idleItemDistance")}</li>
-                  <li>{t("app.idleItemSynthetic")}</li>
-                  <li>{t("app.idleItemOnDemand")}</li>
-                  <li>{t("app.idleItemNotCompared")}</li>
-                </ul>
-              </section>
-              <SourcesAndMethods
-                capabilities={capabilities}
-                datasets={datasets}
-                datasetsError={datasetsError}
-              />
+              <div className="about-content">
+                <div className="about-overview">
+                  <section className="coverage-strip" aria-labelledby="coverage-heading">
+                    <h2 id="coverage-heading">
+                      {tp("app.coverageHeading", capabilities.indexed_candidate_count)}
+                    </h2>
+                    <p className="coverage-origins">
+                      {rich("app.coverageOrigins", {
+                        indexed: (
+                          <strong>
+                            {t("coverage.indexedCount", { count: fmt.number(indexedOriginCount, 0) })}
+                          </strong>
+                        ),
+                        onDemand: (
+                          <strong>
+                            {t("coverage.onDemandCount", {
+                              count: fmt.number(onDemandOriginCount, 0),
+                            })}
+                          </strong>
+                        ),
+                      })}
+                    </p>
+                    <p className="coverage-extent">
+                      {capabilities.coverage.geographic_bbox
+                        ? t("app.coverageExtent", {
+                            bbox: fmt.bbox(capabilities.coverage.geographic_bbox),
+                          })
+                        : t("app.coverageExtentMissing")}
+                    </p>
+                  </section>
+                  <section aria-labelledby="about-limits-heading">
+                    <h2 id="about-limits-heading">{t("app.aboutLimits")}</h2>
+                    <p className="about-coverage-note">{t("sources.closestOnly")}</p>
+                    <p>{t("app.idleItemNotCompared")}</p>
+                  </section>
+                </div>
+                <SourcesAndMethods
+                  capabilities={capabilities}
+                  datasets={datasets}
+                  datasetsLoading={datasetsLoading}
+                  datasetsError={datasetsError}
+                />
+              </div>
             </details>
 
             {capabilities.indexed_candidate_count === 0 && (

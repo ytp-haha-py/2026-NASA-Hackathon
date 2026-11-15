@@ -6,6 +6,7 @@ import {
   analyzeQueuedFixture,
   capabilitiesFixture,
   aoiLocationFixture,
+  datasetFixture,
   emptySearchResponseFixture,
   jobCompletedFixture,
   jobFailedFixture,
@@ -338,6 +339,33 @@ describe("search states and results", () => {
       screen.getByText(/No searchable Earth candidates are available/),
     ).toBeInTheDocument();
     expect(screen.getByText(/No geographic coverage extent is available/)).toBeInTheDocument();
+  });
+});
+
+describe("about panel", () => {
+  it("shows the coverage summary first and loads provenance inside its disclosure", async () => {
+    const pending = deferredResponse();
+    const user = userEvent.setup();
+    await renderReady({ datasets: () => pending.promise });
+
+    const toggle = screen.getByText("About this tool, coverage and limits");
+    await user.click(toggle);
+    const about = within(toggle.closest("details")!);
+    expect(about.getByText(/^Results are the closest matches/)).toBeVisible();
+    expect(about.getByText("On-demand AOI limits")).not.toBeVisible();
+    expect(about.getByText("Loading dataset provenance…")).not.toBeVisible();
+
+    await user.click(about.getByText("Dataset provenance"));
+    expect(about.getByRole("status")).toHaveTextContent("Loading dataset provenance…");
+    await act(async () => pending.resolve(jsonResponse([datasetFixture])));
+    expect(await about.findByRole("link", { name: datasetFixture.license }))
+      .toHaveAttribute("href", datasetFixture.license_url);
+    expect(about.queryByText("Loading dataset provenance…")).not.toBeInTheDocument();
+    expect(about.getByText("On-demand AOI limits")).not.toBeVisible();
+
+    await user.click(about.getByText("Analysis method"));
+    expect(about.getByText("On-demand AOI limits")).toBeVisible();
+    expect(about.getByText("Coarse and fine are separate methods")).toBeVisible();
   });
 });
 

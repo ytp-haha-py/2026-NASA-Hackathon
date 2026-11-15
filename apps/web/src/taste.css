@@ -1256,6 +1256,116 @@ fieldset {
   padding: 0;
 }
 
+.about-panel[open] > summary {
+  padding-bottom: 14px;
+}
+
+.about-content {
+  overflow-wrap: anywhere;
+}
+
+.about-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: clamp(24px, 5vw, 72px);
+  padding-block: 24px;
+}
+
+.about-overview .coverage-strip {
+  padding: 0;
+  border: 0;
+}
+
+.about-overview h2 {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+}
+
+.about-overview p,
+.about-detail p {
+  max-width: 66ch;
+}
+
+.about-overview .coverage-origins {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.about-coverage-note {
+  padding-inline-start: 12px;
+  color: var(--ink-soft);
+  border-inline-start: 2px solid var(--accent);
+}
+
+.about-panel .sources-methods {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.about-panel .about-disclosure {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.about-panel .about-disclosure:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.about-disclosure > summary,
+.method-feature > summary {
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.about-panel summary::marker {
+  color: var(--accent);
+}
+
+.about-panel summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.about-detail,
+.method-feature-content {
+  padding: 8px 12px 18px;
+}
+
+.about-detail > .facts-grid {
+  margin: 0;
+}
+
+.about-comparison,
+.about-detail .aoi-provider-readiness,
+.about-detail .context-methods {
+  margin-top: 20px;
+  padding: 16px 0 0;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+
+.about-detail .facts-grid,
+.about-detail .context-feature-list {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr));
+}
+
+@media (max-width: 680px) {
+  .about-overview {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-detail .facts-grid,
+  .about-detail .dataset-provenance-card dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 table {
   border: 0;
 }

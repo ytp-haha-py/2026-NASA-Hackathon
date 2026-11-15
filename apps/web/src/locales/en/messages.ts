@@ -76,7 +76,6 @@ export const en = {
   "research.groupMobility": "Mobility and landing",
   "research.groupScience": "Science fieldwork",
   "research.manualLong": "Manual (set weights yourself)",
-  "app.coverageEyebrow": "Searchable coverage",
   "app.coverageHeading_one": "{count} searchable Earth region",
   "app.coverageHeading_other": "{count} searchable Earth regions",
   "app.coverageOrigins":
@@ -96,7 +95,6 @@ export const en = {
   "app.idleHeading": "How this MVP answers",
   "app.idleBody":
     "The prefilled target is a hypothetical example, not a NASA measurement. A search returns the closest windows within the searchable coverage using a weighted normalized Euclidean distance on terrain shape.",
-  "app.idleItemDistance": "Lower distance means more similar. It is never a percentage.",
   "app.idleItemSynthetic":
     "Observed and DEMO / SYNTHETIC records are labeled explicitly; synthetic fixtures are not evidence.",
   "app.idleItemOnDemand":
@@ -426,18 +424,13 @@ export const en = {
   "export.copyUnknown": "unknown clipboard error",
 
   // Sources and methods
-  "sources.eyebrow": "Provenance",
   "sources.heading": "Sources, coverage and methods",
-  "sources.disclaimerHeading": "Indexing and coverage disclaimer",
-  "sources.candidateRegions": "Searchable candidate regions: {count} (coverage label {label}).",
-  "sources.originSplit":
-    "Origin split: {indexed} + {onDemand}. On-demand AOIs are user-created windows and are never global coverage.",
-  "sources.extent": "Geographic extent: {extent}",
-  "sources.extentMissing": "not available — there may be no searchable windows.",
-  "sources.dataKinds": "Data kinds present: {kinds}.",
+  "sources.coverageLabel": "Coverage label",
+  "sources.dataKindsLabel": "Data kinds present",
   "sources.closestOnly":
     "Results are the closest matches among the searchable coverage only. This is not a global survey, not an exhaustive top-10, and not a base-site recommendation. Absence from results does not mean a location is a poor analog.",
   "sources.methodHeading": "Analysis method",
+  "sources.featureSpecs": "Feature specifications",
   "sources.contractVersion": "Contract version",
   "sources.methodVersion": "Method version",
   "sources.analysisWindow": "Analysis window",
@@ -471,6 +464,7 @@ export const en = {
   "sources.datasetsIntro":
     "Records below come directly from GET /datasets. They identify the source, license, access time, and processing version; they are not decorative imagery.",
   "sources.datasetsFailed": "Dataset provenance could not be loaded.",
+  "sources.datasetsLoading": "Loading dataset provenance…",
   "sources.noDatasets": "No dataset provenance records were returned by the API.",
 
   // AOI form
@@ -584,6 +578,7 @@ export const en = {
   "app.themeToDark": "Switch to dark theme",
   "app.themeToLight": "Switch to light theme",
   "app.aboutSummary": "About this tool, coverage and limits",
+  "app.aboutLimits": "Search limits",
   "app.footerNotCompared":
     "Not compared: gravity · atmosphere · radiation · regolith · mineralogy · temperature · illumination · geological history",
   "map.collapsePlanetPreview": "Collapse map",
