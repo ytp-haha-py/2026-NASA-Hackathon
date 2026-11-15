@@ -54,3 +54,12 @@ Captured 2026-11-15 against `https://2026-nasa-hackathon.貓熊.台灣/` (Pages)
 | `20-pages-home-mobile.png` | Mobile home |
 | `21-pages-six-dimensions-mobile.png` | Mobile six dimensions |
 | `22-pages-global-mobile.png` | Mobile global discovery |
+
+## Comparison-dimension integration (Issue #113)
+
+| File | Flow |
+|---|---|
+| `14-pages-home-desktop.png` | Before: only D01 had controls; D02–D06 showed "Data in preparation" |
+| `23-comparison-board-desktop.png` | After: fixed D01–D06 cards with real typed counts, roles and observation entry |
+| `24-comparison-board-mobile.png` | After: one-column mobile cards and separate land-cover filter |
+| `25-comparison-sixdim-reference.png` | Selected Moon reference opens the six-dimension workspace with the selection preserved |

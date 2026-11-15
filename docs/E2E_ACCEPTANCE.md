@@ -147,3 +147,28 @@ active, HTTPS active. `.github/workflows/pages.yml` builds `apps/web` with
 `VITE_API_BASE=https://api.貓熊.台灣/api/v1` and deploys on every `main` push affecting the web app
 or OpenAPI contract. `ANALOG_CORS_ORIGINS` includes the new Pages origin and retains the existing
 apex/www/API/local origins.
+
+## Comparison-dimension integration (Issue #113)
+
+Before: the search board rendered only D01 controls and five identical "Data in preparation"
+placeholders. After: it renders fixed D01–D06 cards in ontology order using live
+`GET /typed/coverage` and `/typed/observations` data, while D02–D06 remain explicitly
+evidence/context-only and expose no weight controls.
+
+Verified on localhost and public Pages:
+
+```text
+D01  5 similarity metrics (weighted controls)
+D02  56 typed observations · Earth 15 / Moon 3 / Mars 38 · evidence only
+D03  61 · Earth 20 / Moon 36 / Mars 5 · context only
+D04  75 · Earth 20 / Moon 53 / Mars 2 · evidence only
+D05  28 · Earth 10 / Moon 8 / Mars 10 · context only
+D06 300 · Earth 300 · evidence only
+```
+
+The board exposes "View observations" / "Open six dimensions"; a selected Moon/Mars reference or
+Earth candidate is carried into `SixDimensionPanel` without an area-ID prompt. Typed-data
+failure shows an alert with retry. No D02–D06 weight, filter or combined score was added.
+
+Screenshots: `docs/screenshots/14` (before), `23`–`25` (after, local), plus the public
+Pages captures `26`–`27`.

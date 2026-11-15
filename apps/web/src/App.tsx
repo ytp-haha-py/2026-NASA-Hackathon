@@ -365,6 +365,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 onSearch={handleSearch}
                 loading={searching}
                 preset={searchPreset}
+                onOpenDimensions={() => setActivePanel("dimensions")}
               />
 
               {searching && (
@@ -430,6 +431,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                       selected={selectedResult}
                       activeTarget={activeTarget}
                       features={capabilities.features}
+                      onViewDimensions={() => setActivePanel("dimensions")}
                     />
                   ) : (
                     searchResponse.results.length > 0 && (

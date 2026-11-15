@@ -17,9 +17,10 @@ type DetailPanelProps = {
   selected: SearchResultOut;
   activeTarget: NumericTarget;
   features: FeatureOut[];
+  onViewDimensions?: () => void;
 };
 
-export function DetailPanel({ selected, activeTarget, features }: DetailPanelProps) {
+export function DetailPanel({ selected, activeTarget, features, onViewDimensions }: DetailPanelProps) {
   const { t, fmt } = useI18n();
   const [location, setLocation] = useState<LocationOut | null>(null);
   const [loading, setLoading] = useState(false);
@@ -66,6 +67,11 @@ export function DetailPanel({ selected, activeTarget, features }: DetailPanelPro
             distance: fmt.number(selected.distance, 4),
           })}
         </p>
+        {onViewDimensions && (
+          <button type="button" className="secondary-button" onClick={onViewDimensions}>
+            {t("search.dimensionOpen")}
+          </button>
+        )}
       </div>
 
       {loading && <p role="status">{t("detail.loading")}</p>}
