@@ -540,6 +540,12 @@ def _checked_pixel_size(body: str, pixel_size_m: float | None) -> float:
 def _latitude_kind(body: str, latitude_kind: str | None) -> str:
     if latitude_kind is None:
         return body_geometry(body).latitude_kind
+    if not isinstance(latitude_kind, str):
+        raise AppError(
+            "invalid_latitude_convention",
+            "latitude_kind must be a string declaration or omitted.",
+            status_code=422,
+        )
     normalised = latitude_kind.strip().lower().replace("-", "_")
     if body == EARTH_BODY:
         if normalised in _EARTH_LATITUDE_KINDS:
@@ -567,6 +573,12 @@ def _latitude_kind(body: str, latitude_kind: str | None) -> str:
 
 
 def _longitude_direction(longitude_direction: str) -> str:
+    if not isinstance(longitude_direction, str):
+        raise AppError(
+            "invalid_longitude_direction",
+            "longitude_direction must be a string ('positive_east') or omitted.",
+            status_code=422,
+        )
     normalised = longitude_direction.strip().lower().replace("-", "_")
     if normalised != "positive_east":
         raise AppError(
