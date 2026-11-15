@@ -53,9 +53,9 @@ release_id=rel-c30a25fab81d2b7f
 artifacts=8 files=59
 fine snapshot snap-0cef4d75b147866a data_version dv-b46f3bad38ea
 candidates=113 references=23 feature_observations=565 context_observations=1243
-typed_observations=199 (D02 56, D03 20, D04 20, D05 10 + 18 SPICE, D06 75)
+typed_observations=520 (D02 56, D03 20 + 41 planetary, D04 20 + 55 planetary, D05 10 + 18 SPICE, D06 300)
 coarse_cells=168 regions=3
-absent body×dimension cells=6 (D03, D04, D06 × Moon/Mars)
+absent body×dimension cells=2 (D06 × Moon/Mars)
 ```
 
 - [ ] Two clean builds are byte-identical (manifest and EDA) and keep the same

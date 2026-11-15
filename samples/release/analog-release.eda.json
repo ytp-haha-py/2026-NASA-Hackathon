@@ -2,26 +2,6 @@
   "absent_dimensions": [
     {
       "body": "Moon",
-      "dimension_code": "D03",
-      "reason": "no validated observation in this release; inventory sources lro-diviner report identified/not_fetched"
-    },
-    {
-      "body": "Mars",
-      "dimension_code": "D03",
-      "reason": "no validated observation in this release; inventory sources usgs-mars-themis-global-thermal-inertia report accessible/not_fetched"
-    },
-    {
-      "body": "Moon",
-      "dimension_code": "D04",
-      "reason": "no validated observation in this release; inventory sources lunar-water-ice-source-not-selected report planned/not_fetched"
-    },
-    {
-      "body": "Mars",
-      "dimension_code": "D04",
-      "reason": "no validated observation in this release; inventory sources mars-water-ice-source-not-selected report planned/not_fetched"
-    },
-    {
-      "body": "Moon",
       "dimension_code": "D06",
       "reason": "no validated observation in this release; inventory sources lunar-regolith-source-not-selected report planned/not_fetched"
     },
@@ -536,6 +516,127 @@
       }
     },
     {
+      "artifact_id": "typed-d03-planetary-thermal",
+      "bodies": [
+        "Moon",
+        "Mars"
+      ],
+      "context_value_origins": null,
+      "counts": {
+        "areas": 23,
+        "assets": 3,
+        "by_body": {
+          "Mars": {
+            "by_state": {
+              "detected": 5
+            },
+            "detected": 5,
+            "observations": 5,
+            "unavailable": 0,
+            "value_origins": {
+              "unclassified": 5
+            }
+          },
+          "Moon": {
+            "by_state": {
+              "detected": 26,
+              "no_coverage": 7,
+              "unknown": 3
+            },
+            "detected": 26,
+            "observations": 36,
+            "unavailable": 10,
+            "value_origins": {
+              "unclassified": 36
+            }
+          }
+        },
+        "by_dimension": {
+          "D03": 41
+        },
+        "observations": 41,
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 0,
+        "raw_files_not_bundled_examples": [],
+        "raw_files_referenced": 0,
+        "tasks_attempted": 0,
+        "tasks_failed": 0,
+        "tasks_succeeded": 0
+      },
+      "coverage": null,
+      "dimensions": [
+        "D03"
+      ],
+      "duplicates": {
+        "duplicate_asset_ids": [],
+        "duplicate_observation_ids": [],
+        "overlapping_area_examples": [
+          [
+            "thermal-moon-shackleton-rim-site04-roi1",
+            "thermal-moon-shackleton-rim-site04-roi2"
+          ],
+          [
+            "thermal-moon-shackleton-rim-site04-roi1",
+            "thermal-moon-shackleton-rim-site04-roi3"
+          ],
+          [
+            "thermal-moon-shackleton-rim-site04-roi1",
+            "thermal-moon-shackleton-rim-site04-roi4"
+          ],
+          [
+            "thermal-moon-shackleton-rim-site04-roi2",
+            "thermal-moon-shackleton-rim-site04-roi3"
+          ],
+          [
+            "thermal-moon-shackleton-rim-site04-roi2",
+            "thermal-moon-shackleton-rim-site04-roi4"
+          ]
+        ],
+        "overlapping_area_pairs": 33
+      },
+      "kind": "typed_bundle_acquisition",
+      "limitations": [
+        "Diviner brightness temperature is not kinetic temperature and has no per-bin uncertainty.",
+        "THEMIS apparent thermal inertia has ~20% absolute accuracy and no per-pixel uncertainty."
+      ],
+      "overlaps": null,
+      "path": "pipelines/pilots/d03_planetary_thermal/manifest.json",
+      "support": [
+        {
+          "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+          "depth_support": "unknown",
+          "kind": "window",
+          "native_resolution_m": 100.0,
+          "resolution_m": 100.0,
+          "source_resolution_m": 100.0,
+          "temporal_support": "static",
+          "window_size_m": 1980.0
+        },
+        {
+          "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+          "depth_support": "surface",
+          "kind": "window",
+          "native_resolution_m": 240.0,
+          "resolution_m": 240.0,
+          "source_resolution_m": 240.0,
+          "temporal_support": "composite",
+          "window_size_m": 1980.0
+        }
+      ],
+      "units": [
+        "J m^-2 K^-1 s^-1/2",
+        "K"
+      ],
+      "value_origins": {
+        "Mars": {
+          "unclassified": 5
+        },
+        "Moon": {
+          "unclassified": 36
+        }
+      }
+    },
+    {
       "artifact_id": "typed-d04-water-ice",
       "bodies": [
         "Earth"
@@ -612,6 +713,150 @@
       "value_origins": {
         "Earth": {
           "model_estimate": 20
+        }
+      }
+    },
+    {
+      "artifact_id": "typed-d04-water-ice-planetary",
+      "bodies": [
+        "Moon",
+        "Mars"
+      ],
+      "context_value_origins": null,
+      "counts": {
+        "areas": 30,
+        "assets": 19,
+        "by_body": {
+          "Mars": {
+            "by_state": {
+              "detected": 1,
+              "unknown": 1
+            },
+            "detected": 1,
+            "observations": 2,
+            "unavailable": 1,
+            "value_origins": {
+              "unclassified": 2
+            }
+          },
+          "Moon": {
+            "by_state": {
+              "detected": 24,
+              "no_coverage": 5,
+              "not_detected": 1,
+              "unknown": 23
+            },
+            "detected": 24,
+            "observations": 53,
+            "unavailable": 29,
+            "value_origins": {
+              "unclassified": 53
+            }
+          }
+        },
+        "by_dimension": {
+          "D04": 55
+        },
+        "observations": 55,
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 0,
+        "raw_files_not_bundled_examples": [],
+        "raw_files_referenced": 0,
+        "tasks_attempted": 30,
+        "tasks_failed": 0,
+        "tasks_succeeded": 30
+      },
+      "coverage": null,
+      "dimensions": [
+        "D04"
+      ],
+      "duplicates": {
+        "duplicate_asset_ids": [],
+        "duplicate_observation_ids": [],
+        "overlapping_area_examples": [
+          [
+            "moon-minirf-cpr-l22451-s27100",
+            "moon-lp-h2-cell-s85p25-e31p75"
+          ],
+          [
+            "moon-minirf-cpr-l22524-s23006",
+            "moon-lp-h2-cell-s85p75-w0p25"
+          ],
+          [
+            "moon-minirf-cpr-l22866-s14284",
+            "moon-lp-h2-cell-s88p75-w68p25"
+          ],
+          [
+            "moon-minirf-cpr-l22867-s14274",
+            "moon-lp-h2-cell-s88p75-w68p25"
+          ],
+          [
+            "moon-minirf-cpr-l22871-s14265",
+            "moon-lp-h2-cell-s88p75-w68p75"
+          ]
+        ],
+        "overlapping_area_pairs": 20
+      },
+      "kind": "typed_bundle_acquisition",
+      "limitations": [
+        "WEH/CPR/epithermal flux are evidence, not confirmed ice or abundance.",
+        "Neutron/radar cells are coarser than the 1.98 km AOI windows."
+      ],
+      "overlaps": null,
+      "path": "pipelines/pilots/d04_water_ice_planetary/manifest.json",
+      "support": [
+        {
+          "crs": "IAU_MARS planetocentric longitude/latitude (4 degree cell grid)",
+          "depth_support": "depth_interval",
+          "kind": "window",
+          "native_resolution_m": 237000.0,
+          "resolution_m": null,
+          "source_resolution_m": 237000.0,
+          "temporal_support": "unknown",
+          "window_size_m": null
+        },
+        {
+          "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+          "depth_support": "depth_interval",
+          "kind": "window",
+          "native_resolution_m": 15100.0,
+          "resolution_m": null,
+          "source_resolution_m": 15100.0,
+          "temporal_support": "interval",
+          "window_size_m": null
+        },
+        {
+          "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+          "depth_support": "surface",
+          "kind": "window",
+          "native_resolution_m": 236.90117518867,
+          "resolution_m": null,
+          "source_resolution_m": 236.90117518867,
+          "temporal_support": "interval",
+          "window_size_m": 1895.20940150936
+        },
+        {
+          "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+          "depth_support": "surface",
+          "kind": "window",
+          "native_resolution_m": 236.90117518867,
+          "resolution_m": null,
+          "source_resolution_m": 236.90117518867,
+          "temporal_support": "interval",
+          "window_size_m": null
+        }
+      ],
+      "units": [
+        "1",
+        "detection",
+        "percent"
+      ],
+      "value_origins": {
+        "Mars": {
+          "unclassified": 2
+        },
+        "Moon": {
+          "unclassified": 53
         }
       }
     },
@@ -798,37 +1043,31 @@
       "context_value_origins": null,
       "counts": {
         "areas": 5,
-        "assets": 75,
+        "assets": 300,
         "by_body": {
           "Earth": {
             "by_state": {
-              "detected": 75
+              "detected": 300
             },
-            "detected": 75,
-            "observations": 75,
+            "detected": 300,
+            "observations": 300,
             "unavailable": 0,
             "value_origins": {
-              "model_estimate": 75
+              "model_estimate": 300
             }
           }
         },
         "by_dimension": {
-          "D06": 75
+          "D06": 300
         },
-        "observations": 75,
+        "observations": 300,
         "raw_files_bundled": 0,
-        "raw_files_not_bundled": 75,
-        "raw_files_not_bundled_examples": [
-          "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.05.tif",
-          "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.95.tif",
-          "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-mean.tif",
-          "raw/soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-Q0.05.tif",
-          "raw/soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-Q0.95.tif"
-        ],
-        "raw_files_referenced": 75,
-        "tasks_attempted": 75,
-        "tasks_failed": 0,
-        "tasks_succeeded": 75
+        "raw_files_not_bundled": 0,
+        "raw_files_not_bundled_examples": [],
+        "raw_files_referenced": 0,
+        "tasks_attempted": 300,
+        "tasks_failed": 300,
+        "tasks_succeeded": 0
       },
       "coverage": null,
       "dimensions": [
@@ -842,11 +1081,10 @@
       },
       "kind": "typed_bundle_acquisition",
       "limitations": [
-        "SoilGrids 250 m model prediction at 0-5 cm, not a local sample.",
-        "75 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
+        "SoilGrids 250 m model predictions at 0-5/5-15/15-30/30-60 cm, not local samples."
       ],
       "overlaps": null,
-      "path": "pipelines/pilots/d06_earth_soilgrids/manifest.json",
+      "path": "pipelines/pilots/d06_earth_soilgrids_depths/manifest.json",
       "support": [
         {
           "crs": "EPSG:4326",
@@ -866,7 +1104,7 @@
       ],
       "value_origins": {
         "Earth": {
-          "model_estimate": 75
+          "model_estimate": 300
         }
       }
     },
@@ -906,8 +1144,8 @@
           },
           "D03": {
             "availability": {
-              "accessible": 2,
-              "identified": 2
+              "accessible": 3,
+              "identified": 1
             },
             "by_body": {
               "Earth": 2,
@@ -918,15 +1156,14 @@
           },
           "D04": {
             "availability": {
-              "accessible": 1,
-              "planned": 2
+              "accessible": 4
             },
             "by_body": {
               "Earth": 1,
               "Mars": 1,
-              "Moon": 1
+              "Moon": 2
             },
-            "sources": 3
+            "sources": 4
           },
           "D05": {
             "availability": {
@@ -954,7 +1191,7 @@
           }
         },
         "dimensions": 6,
-        "sources": 29
+        "sources": 30
       },
       "coverage": null,
       "dimensions": [
@@ -978,13 +1215,13 @@
     }
   ],
   "counts": {
-    "absent_body_dimension_cells": 6,
-    "artifacts": 9,
+    "absent_body_dimension_cells": 2,
+    "artifacts": 11,
     "coarse_cells": 168,
     "coarse_partitions": 3,
     "coarse_regions": 3,
-    "dataset_references": 19,
-    "files": 50,
+    "dataset_references": 24,
+    "files": 68,
     "fine_candidates": 113,
     "fine_context_observations": 1243,
     "fine_data_version": "dv-b46f3bad38ea",
@@ -992,16 +1229,18 @@
     "fine_feature_observations": 565,
     "fine_references": 23,
     "fine_snapshot_id": "snap-0cef4d75b147866a",
-    "source_references": 17,
+    "source_references": 22,
     "typed_by_dimension": {
       "typed-d02-geology": 56,
+      "typed-d03-planetary-thermal": 41,
       "typed-d03-thermal": 20,
       "typed-d04-water-ice": 20,
+      "typed-d04-water-ice-planetary": 55,
       "typed-d05-illumination": 10,
       "typed-d05-spice-geometry": 18,
-      "typed-d06-regolith": 75
+      "typed-d06-regolith": 300
     },
-    "typed_observations": 199
+    "typed_observations": 520
   },
   "coverage_label": "bounded_local_subset_not_global",
   "dimensions": [
@@ -1774,48 +2013,126 @@
           }
         },
         "Mars": {
-          "artifacts": [],
+          "artifacts": [
+            "typed-d03-planetary-thermal"
+          ],
           "attempted": null,
           "attempted_unit": null,
           "body": "Mars",
-          "breakdown": [],
+          "breakdown": [
+            {
+              "artifact_id": "typed-d03-planetary-thermal",
+              "attempted": 0,
+              "attempted_unit": "acquisition_tasks",
+              "failed": 0,
+              "failed_unit": "acquisition_tasks",
+              "observations": 5,
+              "valid": 5,
+              "valid_unit": "detected_observations"
+            }
+          ],
           "coarse_cells": 0,
           "context_observations": 0,
           "dimension_code": "D03",
           "failed": null,
           "failed_unit": null,
           "feature_observations": 0,
-          "observations": 0,
-          "status": "absent",
-          "support": [],
-          "unavailable": null,
-          "unavailable_unit": null,
-          "units": [],
-          "valid": null,
-          "valid_unit": null,
-          "value_origins": {}
+          "observations": 5,
+          "status": "present",
+          "support": [
+            {
+              "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+              "depth_support": "unknown",
+              "kind": "window",
+              "native_resolution_m": 100.0,
+              "resolution_m": 100.0,
+              "source_resolution_m": 100.0,
+              "temporal_support": "static",
+              "window_size_m": 1980.0
+            },
+            {
+              "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+              "depth_support": "surface",
+              "kind": "window",
+              "native_resolution_m": 240.0,
+              "resolution_m": 240.0,
+              "source_resolution_m": 240.0,
+              "temporal_support": "composite",
+              "window_size_m": 1980.0
+            }
+          ],
+          "unavailable": 0,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "J m^-2 K^-1 s^-1/2",
+            "K"
+          ],
+          "valid": 5,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "unclassified": 5
+          }
         },
         "Moon": {
-          "artifacts": [],
+          "artifacts": [
+            "typed-d03-planetary-thermal"
+          ],
           "attempted": null,
           "attempted_unit": null,
           "body": "Moon",
-          "breakdown": [],
+          "breakdown": [
+            {
+              "artifact_id": "typed-d03-planetary-thermal",
+              "attempted": 0,
+              "attempted_unit": "acquisition_tasks",
+              "failed": 0,
+              "failed_unit": "acquisition_tasks",
+              "observations": 36,
+              "valid": 26,
+              "valid_unit": "detected_observations"
+            }
+          ],
           "coarse_cells": 0,
           "context_observations": 0,
           "dimension_code": "D03",
           "failed": null,
           "failed_unit": null,
           "feature_observations": 0,
-          "observations": 0,
-          "status": "absent",
-          "support": [],
-          "unavailable": null,
-          "unavailable_unit": null,
-          "units": [],
-          "valid": null,
-          "valid_unit": null,
-          "value_origins": {}
+          "observations": 36,
+          "status": "present",
+          "support": [
+            {
+              "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+              "depth_support": "unknown",
+              "kind": "window",
+              "native_resolution_m": 100.0,
+              "resolution_m": 100.0,
+              "source_resolution_m": 100.0,
+              "temporal_support": "static",
+              "window_size_m": 1980.0
+            },
+            {
+              "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+              "depth_support": "surface",
+              "kind": "window",
+              "native_resolution_m": 240.0,
+              "resolution_m": 240.0,
+              "source_resolution_m": 240.0,
+              "temporal_support": "composite",
+              "window_size_m": 1980.0
+            }
+          ],
+          "unavailable": 10,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "J m^-2 K^-1 s^-1/2",
+            "K"
+          ],
+          "valid": 26,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "unclassified": 36
+          }
         }
       },
       "dimension_code": "D03",
@@ -1854,30 +2171,24 @@
           "url": "https://ladsweb.modaps.eosdis.nasa.gov/missions-and-measurements/products/MOD11A2/"
         },
         {
-          "availability": "identified",
+          "availability": "accessible",
           "body": "Moon",
-          "comparability": "unknown",
-          "data_status": "not_fetched",
+          "comparability": "evidence_only",
+          "data_status": "existing_observed",
           "dimension_code": "D03",
-          "license": "not_verified",
-          "license_url": "not_verified",
-          "product": "Diviner lunar surface temperature products",
-          "provider": "NASA PDS / Diviner",
+          "license": "CC0-1.0 (NASA-led PDS data; no restrictive notice on the product page)",
+          "license_url": "https://science.data.nasa.gov/about/license",
+          "product": "Diviner PCP average bolometric brightness temperature (240 m)",
+          "provider": "NASA PDS Geosciences / LRO Diviner",
           "source_id": "lro-diviner",
-          "unknown_fields": [
-            "license",
-            "native_resolution",
-            "spatial_support",
-            "temporal_support",
-            "qa"
-          ],
-          "url": "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm"
+          "unknown_fields": [],
+          "url": "https://pds-geosciences.wustl.edu/lro/lro-l-diviner-3-rdr-v1/lrodv_1001/data/derived_pcp/"
         },
         {
           "availability": "accessible",
           "body": "Mars",
           "comparability": "evidence_only",
-          "data_status": "not_fetched",
+          "data_status": "existing_observed",
           "dimension_code": "D03",
           "license": "Public domain (USGS Astrogeology access constraints); please cite authors",
           "license_url": "https://astrogeology.usgs.gov/search/map/mars-themis-derived-global-thermal-inertia-mosaic",
@@ -1944,48 +2255,168 @@
           }
         },
         "Mars": {
-          "artifacts": [],
+          "artifacts": [
+            "typed-d04-water-ice-planetary"
+          ],
           "attempted": null,
           "attempted_unit": null,
           "body": "Mars",
-          "breakdown": [],
+          "breakdown": [
+            {
+              "artifact_id": "typed-d04-water-ice-planetary",
+              "attempted": 30,
+              "attempted_unit": "acquisition_tasks",
+              "failed": 0,
+              "failed_unit": "acquisition_tasks",
+              "observations": 2,
+              "valid": 1,
+              "valid_unit": "detected_observations"
+            }
+          ],
           "coarse_cells": 0,
           "context_observations": 0,
           "dimension_code": "D04",
           "failed": null,
           "failed_unit": null,
           "feature_observations": 0,
-          "observations": 0,
-          "status": "absent",
-          "support": [],
-          "unavailable": null,
-          "unavailable_unit": null,
-          "units": [],
-          "valid": null,
-          "valid_unit": null,
-          "value_origins": {}
+          "observations": 2,
+          "status": "present",
+          "support": [
+            {
+              "crs": "IAU_MARS planetocentric longitude/latitude (4 degree cell grid)",
+              "depth_support": "depth_interval",
+              "kind": "window",
+              "native_resolution_m": 237000.0,
+              "resolution_m": null,
+              "source_resolution_m": 237000.0,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+              "depth_support": "depth_interval",
+              "kind": "window",
+              "native_resolution_m": 15100.0,
+              "resolution_m": null,
+              "source_resolution_m": 15100.0,
+              "temporal_support": "interval",
+              "window_size_m": null
+            },
+            {
+              "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+              "depth_support": "surface",
+              "kind": "window",
+              "native_resolution_m": 236.90117518867,
+              "resolution_m": null,
+              "source_resolution_m": 236.90117518867,
+              "temporal_support": "interval",
+              "window_size_m": 1895.20940150936
+            },
+            {
+              "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+              "depth_support": "surface",
+              "kind": "window",
+              "native_resolution_m": 236.90117518867,
+              "resolution_m": null,
+              "source_resolution_m": 236.90117518867,
+              "temporal_support": "interval",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 1,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "1",
+            "detection",
+            "percent"
+          ],
+          "valid": 1,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "unclassified": 2
+          }
         },
         "Moon": {
-          "artifacts": [],
+          "artifacts": [
+            "typed-d04-water-ice-planetary"
+          ],
           "attempted": null,
           "attempted_unit": null,
           "body": "Moon",
-          "breakdown": [],
+          "breakdown": [
+            {
+              "artifact_id": "typed-d04-water-ice-planetary",
+              "attempted": 30,
+              "attempted_unit": "acquisition_tasks",
+              "failed": 0,
+              "failed_unit": "acquisition_tasks",
+              "observations": 53,
+              "valid": 24,
+              "valid_unit": "detected_observations"
+            }
+          ],
           "coarse_cells": 0,
           "context_observations": 0,
           "dimension_code": "D04",
           "failed": null,
           "failed_unit": null,
           "feature_observations": 0,
-          "observations": 0,
-          "status": "absent",
-          "support": [],
-          "unavailable": null,
-          "unavailable_unit": null,
-          "units": [],
-          "valid": null,
-          "valid_unit": null,
-          "value_origins": {}
+          "observations": 53,
+          "status": "present",
+          "support": [
+            {
+              "crs": "IAU_MARS planetocentric longitude/latitude (4 degree cell grid)",
+              "depth_support": "depth_interval",
+              "kind": "window",
+              "native_resolution_m": 237000.0,
+              "resolution_m": null,
+              "source_resolution_m": 237000.0,
+              "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 0.5 degree)",
+              "depth_support": "depth_interval",
+              "kind": "window",
+              "native_resolution_m": 15100.0,
+              "resolution_m": null,
+              "source_resolution_m": 15100.0,
+              "temporal_support": "interval",
+              "window_size_m": null
+            },
+            {
+              "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+              "depth_support": "surface",
+              "kind": "window",
+              "native_resolution_m": 236.90117518867,
+              "resolution_m": null,
+              "source_resolution_m": 236.90117518867,
+              "temporal_support": "interval",
+              "window_size_m": 1895.20940150936
+            },
+            {
+              "crs": "IAU_MOON planetocentric longitude/latitude (simple cylindrical, 128 ppd)",
+              "depth_support": "surface",
+              "kind": "window",
+              "native_resolution_m": 236.90117518867,
+              "resolution_m": null,
+              "source_resolution_m": 236.90117518867,
+              "temporal_support": "interval",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 29,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "1",
+            "detection",
+            "percent"
+          ],
+          "valid": 24,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "unclassified": 53
+          }
         }
       },
       "dimension_code": "D04",
@@ -2006,50 +2437,46 @@
           "url": "https://power.larc.nasa.gov/api/temporal/daily/point"
         },
         {
-          "availability": "planned",
+          "availability": "accessible",
           "body": "Moon",
-          "comparability": "unknown",
-          "data_status": "not_fetched",
+          "comparability": "evidence_only",
+          "data_status": "existing_observed",
           "dimension_code": "D04",
-          "license": "not_verified",
-          "license_url": "not_verified",
-          "product": "not_selected",
-          "provider": "not_selected",
-          "source_id": "lunar-water-ice-source-not-selected",
-          "unknown_fields": [
-            "provider",
-            "product",
-            "url",
-            "license",
-            "native_resolution",
-            "spatial_support",
-            "temporal_support",
-            "qa"
-          ],
-          "url": "not_verified"
+          "license": "CC0-1.0 (NASA-led PDS data; no restrictive notice on the product page)",
+          "license_url": "https://science.data.nasa.gov/about/license",
+          "product": "Reduced hydrogen abundance (hydrogenhd) special product",
+          "provider": "NASA Lunar Prospector Neutron Spectrometer (PDS Geosciences Node)",
+          "source_id": "lunar-prospector-neutron-hydrogenhd",
+          "unknown_fields": [],
+          "url": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt"
         },
         {
-          "availability": "planned",
-          "body": "Mars",
-          "comparability": "unknown",
-          "data_status": "not_fetched",
+          "availability": "accessible",
+          "body": "Moon",
+          "comparability": "evidence_only",
+          "data_status": "existing_observed",
           "dimension_code": "D04",
-          "license": "not_verified",
-          "license_url": "not_verified",
-          "product": "not_selected",
-          "provider": "not_selected",
-          "source_id": "mars-water-ice-source-not-selected",
-          "unknown_fields": [
-            "provider",
-            "product",
-            "url",
-            "license",
-            "native_resolution",
-            "spatial_support",
-            "temporal_support",
-            "qa"
-          ],
-          "url": "not_verified"
+          "license": "CC0-1.0 (NASA-led PDS data; no restrictive notice on the product page)",
+          "license_url": "https://science.data.nasa.gov/about/license",
+          "product": "Global CPR mosaic 128 ppd (LRO-L-MRFLRO-5-GLOBAL-MOSAIC-V1.0)",
+          "provider": "NASA LRO Mini-RF (PDS Geosciences Node)",
+          "source_id": "lro-minirf-global-cpr",
+          "unknown_fields": [],
+          "url": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img"
+        },
+        {
+          "availability": "accessible",
+          "body": "Mars",
+          "comparability": "evidence_only",
+          "data_status": "existing_observed",
+          "dimension_code": "D04",
+          "license": "CC0-1.0 (NASA-led PDS data; no restrictive notice on the product page)",
+          "license_url": "https://science.data.nasa.gov/about/license",
+          "product": "HEND epithermal neutron flux ratio (hend_epithermal_020917)",
+          "provider": "NASA 2001 Mars Odyssey HEND (PDS Geosciences Node GRS special products)",
+          "source_id": "mars-odyssey-hend-epithermal",
+          "unknown_fields": [],
+          "url": "https://pds-geosciences.wustl.edu/ody/urn-nasa-pds-odyssey_grs_special/data/hend_epithermal_020917.tab"
         }
       ]
     },
@@ -2371,28 +2798,28 @@
           "artifacts": [
             "typed-d06-regolith"
           ],
-          "attempted": 75,
+          "attempted": 300,
           "attempted_unit": "acquisition_tasks",
           "body": "Earth",
           "breakdown": [
             {
               "artifact_id": "typed-d06-regolith",
-              "attempted": 75,
+              "attempted": 300,
               "attempted_unit": "acquisition_tasks",
-              "failed": 0,
+              "failed": 300,
               "failed_unit": "acquisition_tasks",
-              "observations": 75,
-              "valid": 75,
+              "observations": 300,
+              "valid": 300,
               "valid_unit": "detected_observations"
             }
           ],
           "coarse_cells": 0,
           "context_observations": 0,
           "dimension_code": "D06",
-          "failed": 0,
+          "failed": 300,
           "failed_unit": "acquisition_tasks",
           "feature_observations": 0,
-          "observations": 75,
+          "observations": 300,
           "status": "present",
           "support": [
             {
@@ -2413,10 +2840,10 @@
             "dg kg-1",
             "g kg-1"
           ],
-          "valid": 75,
+          "valid": 300,
           "valid_unit": "detected_observations",
           "value_origins": {
-            "model_estimate": 75
+            "model_estimate": 300
           }
         },
         "Mars": {
@@ -2531,7 +2958,7 @@
     }
   ],
   "eda_version": "multi-dimension-eda-1.0.0",
-  "generated_at": "2026-11-15T05:45:52Z",
+  "generated_at": "2026-11-15T06:27:26Z",
   "global_claim": false,
   "limitations": [
     "This release is a bounded local subset; it is not a global or exhaustive survey.",
@@ -2549,7 +2976,7 @@
     "overlapping_fine_candidate_pairs": 1,
     "shared_candidate_records": 113
   },
-  "release_id": "rel-5d6f8cf123055379",
+  "release_id": "rel-627b049fd4da8f6b",
   "scope": {
     "bodies": [
       "Earth",
