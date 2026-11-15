@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-15T13:58:28.558450+00:00",
+  "generated_at_utc": "2026-11-15T14:07:14.130107+00:00",
   "aoi": {
     "body": "Mars",
     "reference_id": "mars-jezero-ctx-window-02",
@@ -20,8 +20,8 @@
     "query_url": "https://oderest.rsl.wustl.edu/live2/?query=product&results=fp&output=JSON&limit=10&target=mars&ihid=MRO&iid=CRISM&pt=MTRDR&minlat=18.338959295345585&maxlat=18.438959295345587&westernlon=77.49881625963637&easternlon=77.59881625963637",
     "query_provenance": {
       "url": "https://oderest.rsl.wustl.edu/live2/?query=product&results=fp&output=JSON&limit=10&target=mars&ihid=MRO&iid=CRISM&pt=MTRDR&minlat=18.338959295345585&maxlat=18.438959295345587&westernlon=77.49881625963637&easternlon=77.59881625963637",
-      "fetched_at_utc": "2026-11-15T13:58:28.558138+00:00",
-      "sha256": "f49648d9f34eeeee203ee73ddd6d991b62249d9d5048a0201fbc0ac5d02b37b4",
+      "fetched_at_utc": "2026-11-15T14:07:14.129939+00:00",
+      "sha256": "cb18d608f11b48ce18a798f7fb17ed3c93747ec7a743728292b9097e47918682",
       "bytes": 167853
     },
     "product_type": "MRO/CRISM MTRDR (context footprint discovery)",
@@ -33,44 +33,68 @@
         "ihid": "MRO",
         "iid": "CRISM",
         "pt": "MTRDR",
+        "product_version": null,
+        "creation_date": null,
         "start_time": null,
         "stop_time": null,
         "center_latitude": null,
         "center_longitude": null,
-        "footprint_wkt": null
+        "footprint_wkt": null,
+        "emission_angle": null,
+        "incidence_angle": null,
+        "phase_angle": null,
+        "scale": null
       },
       {
         "pdsid": "frt000066a4_07_if166j_mtr3",
         "ihid": "MRO",
         "iid": "CRISM",
         "pt": "MTRDR",
+        "product_version": null,
+        "creation_date": null,
         "start_time": null,
         "stop_time": null,
         "center_latitude": null,
         "center_longitude": null,
-        "footprint_wkt": null
+        "footprint_wkt": null,
+        "emission_angle": null,
+        "incidence_angle": null,
+        "phase_angle": null,
+        "scale": null
       },
       {
         "pdsid": "frt0001fb74_07_if166j_mtr3",
         "ihid": "MRO",
         "iid": "CRISM",
         "pt": "MTRDR",
+        "product_version": null,
+        "creation_date": null,
         "start_time": null,
         "stop_time": null,
         "center_latitude": null,
         "center_longitude": null,
-        "footprint_wkt": null
+        "footprint_wkt": null,
+        "emission_angle": null,
+        "incidence_angle": null,
+        "phase_angle": null,
+        "scale": null
       },
       {
         "pdsid": "frt00021da6_07_if166j_mtr3",
         "ihid": "MRO",
         "iid": "CRISM",
         "pt": "MTRDR",
+        "product_version": null,
+        "creation_date": null,
         "start_time": null,
         "stop_time": null,
         "center_latitude": null,
         "center_longitude": null,
-        "footprint_wkt": null
+        "footprint_wkt": null,
+        "emission_angle": null,
+        "incidence_angle": null,
+        "phase_angle": null,
+        "scale": null
       }
     ],
     "outcome": "locatable_observation_candidates",

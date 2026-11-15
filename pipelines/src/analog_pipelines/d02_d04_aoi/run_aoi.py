@@ -93,11 +93,21 @@ def discover_d02_mars_crism_ode(bbox: dict[str, float]) -> dict[str, Any]:
                     "ihid": p.get("ihid"),
                     "iid": p.get("iid"),
                     "pt": p.get("pt"),
-                    "start_time": p.get("StartTime") or p.get("start_time"),
-                    "stop_time": p.get("StopTime") or p.get("stop_time"),
-                    "center_latitude": p.get("Center_latitude"),
-                    "center_longitude": p.get("Center_longitude"),
+                    "product_version": p.get("Product_version")
+                    or p.get("product_version")
+                    or p.get("Version"),
+                    "creation_date": p.get("Creation_date") or p.get("creation_date"),
+                    "start_time": p.get("StartTime")
+                    or p.get("start_time")
+                    or p.get("UTC_start_time"),
+                    "stop_time": p.get("StopTime") or p.get("stop_time") or p.get("UTC_stop_time"),
+                    "center_latitude": p.get("Center_latitude") or p.get("Center_latitude"),
+                    "center_longitude": p.get("Center_longitude") or p.get("Center_longitude"),
                     "footprint_wkt": p.get("Footprint_geometry") or p.get("footprint_geometry"),
+                    "emission_angle": p.get("Emission_angle"),
+                    "incidence_angle": p.get("Incidence_angle"),
+                    "phase_angle": p.get("Phase_angle"),
+                    "scale": p.get("Scale"),
                 }
             )
         return {
