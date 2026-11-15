@@ -6,8 +6,14 @@
 uv sync
 cd apps/web && npm ci && cd ..
 make api        # terminal 1: http://127.0.0.1:8000
-make web        # terminal 2: http://localhost:5173 (proxies /api)
+make web        # terminal 2: http://localhost:5173
 ```
+
+The Vite dev server is local-first: it probes `http://127.0.0.1:8000/api/v1/health` once at
+startup with a 750 ms timeout and proxies `/api` there only when the FastAPI health schema is
+valid. Otherwise it uses `https://api.貓熊.台灣`. The choice is fixed for the Vite process; a
+later local failure is shown as an error and never switches to the remote database. Set
+`VITE_API_PROXY_TARGET` to an origin to skip detection. Production builds do not probe localhost.
 
 The API auto-seeds from committed manifests on first start (`./var/analog.db`). To reset:
 
@@ -208,7 +214,7 @@ persist data outside Compose, replace the volume with a host bind mount and keep
 | `ANALOG_AOI_WORKERS` | `2` | bounded local AOI worker pool |
 | `ANALOG_AOI_RUNTIME_DIR` | `var/aoi-catalog` (Compose: `/data/aoi-catalog`) | durable runtime AOI manifests |
 | `ANALOG_AOI_INLINE` | `false` | run AOI jobs synchronously (tests only) |
-| `VITE_API_PROXY_TARGET` | `http://127.0.0.1:8000` | Vite dev proxy target |
+| `VITE_API_PROXY_TARGET` | auto: local if healthy, else public | Explicit dev proxy origin; skips local-first detection |
 
 Copy `.env.example` to `.env` for local overrides. Never commit `.env`.
 
