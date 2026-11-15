@@ -99,55 +99,16 @@ class LolaSource:
     size_bytes: int | None
     notes: str
     quality_flags: tuple[str, ...] = ()
+    frame: str | None = None
+    vertical_unit: str | None = None
+    vertical_scale_to_m: float = 1.0
+    vertical_offset_m: float = 0.0
 
     def to_payload(self) -> dict[str, Any]:
         payload = asdict(self)
         payload["quality_flags"] = list(self.quality_flags)
         return payload
 
-
-MOON_LOLA128_GLOBAL = LolaSource(
-    source_id="moon-lola128-pa-pixel-202405",
-    provider="NASA GSFC Planetary Geodesy Data Archive (PGDA) / LRO-LOLA",
-    title="LOLA MOON_PA global shape model, 128 pixels/degree, pixel-registered",
-    url="https://pgda.gsfc.nasa.gov/data/LOLA_PA/LDEM128_PA_pixel_202405.tif",
-    raster_url="https://pgda.gsfc.nasa.gov/data/LOLA_PA/LDEM128_PA_pixel_202405.tif",
-    product_page="https://pgda.gsfc.nasa.gov/products/95",
-    license=(
-        "not stated on the PGDA product page; public NASA archive with a citation "
-        "requirement (Data Usage Policy)"
-    ),
-    license_url="https://science.data.nasa.gov/about/license",
-    citation=(
-        "Neumann, G. (2024). LOLA MOON_PA gridded dataset [Data set]. NASA Goddard "
-        "Space Flight Center Planetary Geodesy Data Archive. doi:10.60903/LOLA_PA"
-    ),
-    version="202405",
-    checksum=None,  # not published/found on product page
-    crs_wkt=None,
-    crs_proj4=f"+proj=longlat +R={LUNAR_RADIUS_M} +no_defs",
-    native_resolution_m=2.0 * math.pi * LUNAR_RADIUS_M / (360.0 * 128.0),
-    native_ppd=128.0,
-    nodata=float("nan"),
-    extent={"west": 0.0, "south": -90.0, "east": 360.0, "north": 90.0},
-    lon_convention="0_360",
-    coverage_kind="global",
-    is_cog=False,
-    tiled=True,
-    size_bytes=2_705_286_892,
-    notes=(
-        "Pixel-registered global GeoTIFF (46080x23040, float32, deflate, 256x256 tiles). "
-        "Derived in MOON_PA (DE421). Vertical unit not explicitly tagged; treated as metres "
-        "(inferred from magnitude). Bounded /vsicurl range reads recommended."
-    ),
-    quality_flags=(
-        "global_shape_model",
-        "derived_interpolated_in_part",
-        "moon_pa_de421",
-        "pixel_registered",
-        "vertical_unit_inferred",
-    ),
-)
 
 MOON_LOLA_SOUTH_80S_20MPP = LolaSource(
     source_id="moon-lola-80s-20mpp-adj",
@@ -180,6 +141,10 @@ MOON_LOLA_SOUTH_80S_20MPP = LolaSource(
         "supported. Covers 80-90S. Nodata/dtype/checksum verify from file."
     ),
     quality_flags=("polar_stereographic", "moon_me_de421", "cog_stated"),
+    frame="MOON_ME (DE421), body-fixed polar stereographic",
+    vertical_unit="metre (verify from file)",
+    vertical_scale_to_m=1.0,
+    vertical_offset_m=0.0,
 )
 
 MOON_LOLA_NORTH_80N_20MPP = LolaSource(
@@ -213,43 +178,67 @@ MOON_LOLA_NORTH_80N_20MPP = LolaSource(
         "supported. Covers 80-90N. Nodata/dtype/checksum verify from file."
     ),
     quality_flags=("polar_stereographic", "moon_me_de421", "cog_stated"),
+    frame="MOON_ME (DE421), body-fixed polar stereographic",
+    vertical_unit="metre (verify from file)",
+    vertical_scale_to_m=1.0,
+    vertical_offset_m=0.0,
 )
 
-MOON_SVS_LDEM_16 = LolaSource(
-    source_id="nasa-svs-4720-ldem-16ppd",
-    provider="NASA Scientific Visualization Studio / LRO-LOLA",
-    title="SVS CGI Moon Kit LOLA global displacement map, 16 pixels/degree",
-    url="https://svs.gsfc.nasa.gov/4720",
-    raster_url="https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/ldem_16.tif",
-    product_page="https://svs.gsfc.nasa.gov/4720",
-    license="NASA SVS asset; underlying LOLA/LROC data public. Explicit SPDX license not stated.",
-    license_url="https://svs.gsfc.nasa.gov/4720",
-    citation="NASA SVS, CGI Moon Kit (SVS 4720), LRO/LOLA DEM.",
-    version="SVS 4720 (2019-09-06, updated 2026-01-09)",
-    checksum=None,
-    crs_wkt=None,
-    crs_proj4=f"+proj=longlat +R={LUNAR_RADIUS_M} +no_defs",
-    native_resolution_m=2.0 * math.pi * LUNAR_RADIUS_M / (360.0 * 16.0),
-    native_ppd=16.0,
-    nodata=None,
-    extent={"west": -180.0, "south": -90.0, "east": 180.0, "north": 90.0},
-    lon_convention="-180_180",
-    coverage_kind="fallback_global",
-    is_cog=False,
-    tiled=None,
-    size_bytes=63_300_000,
-    notes=(
-        "Global cylindrical low-resolution fallback (5760x2880). Exact CRS/nodata/tiling "
-        "verify from file; HTTP Range supported."
-    ),
-    quality_flags=("global_fallback", "low_resolution", "svs_reformat"),
-)
 
+def _from_adapter_source(adapter: Any) -> LolaSource:
+    """Use A1's verified source adapter as the single source of PGDA facts.
+
+    Only the fields the AOI engine needs for bounded reading/selection are mapped.
+    The adapter remains the owner of URL, licence, native support, nodata, vertical
+    unit and product notes; this module does not re-declare them.
+    """
+    return LolaSource(
+        source_id=adapter.source_id,
+        provider=adapter.provider,
+        title=adapter.title,
+        url=adapter.url,
+        raster_url=adapter.url,
+        product_page=adapter.product_page,
+        license=adapter.license,
+        license_url=adapter.license_url,
+        citation=adapter.citation,
+        version="202405" if "202405" in adapter.url else adapter.source_id,
+        checksum=None,
+        crs_wkt=None,
+        crs_proj4=f"+proj=longlat +R={LUNAR_RADIUS_M} +no_defs",
+        native_resolution_m=adapter.native_resolution_m,
+        native_ppd=adapter.native_ppd,
+        nodata=adapter.nodata,
+        extent={"west": 0.0, "south": -90.0, "east": 360.0, "north": 90.0},
+        lon_convention="0_360",
+        coverage_kind="global",
+        is_cog=False,
+        tiled=True,
+        size_bytes=adapter.expected_size_bytes,
+        notes=adapter.notes,
+        quality_flags=tuple(adapter.quality_flags),
+        frame=adapter.frame,
+        vertical_unit=adapter.vertical_unit,
+        vertical_scale_to_m=adapter.vertical_scale_to_m,
+        vertical_offset_m=adapter.vertical_offset_m,
+    )
+
+
+# A1's source adapter is the authority for global PGDA/SVS facts.
+from lola_global_source import PGDA_LDEM128 as _ADAPTER_LDEM128  # noqa: E402
+from lola_global_source import SVS_LDEM_16 as MOON_SVS_LDEM_16  # noqa: E402, F401
+
+MOON_LOLA128_GLOBAL = _from_adapter_source(_ADAPTER_LDEM128)
+
+# SVS fallback is intentionally not enabled. A1's adapter documents that the SVS
+# TIFFs are bare arrays (no CRS/geotransform/nodata) and store kilometres; enabling
+# them requires the explicit -180..180 mapping plus km->m conversion to be wired and
+# tested end to end. Until then the verified PGDA128 and polar COG sources are the
+# only selectable sources. No fallback silently changes vertical units.
 DEFAULT_SOURCES: tuple[LolaSource, ...] = (
     MOON_LOLA_NORTH_80N_20MPP,
     MOON_LOLA_SOUTH_80S_20MPP,
     MOON_LOLA128_GLOBAL,
-    MOON_SVS_LDEM_16,
 )
 SOURCE_BY_ID = {source.source_id: source for source in DEFAULT_SOURCES}
 
@@ -276,6 +265,10 @@ class AoiResult:
     source: dict[str, Any] | None
     features: dict[str, float] | None
     analysis_resolution_m: float
+    source_resolution_m: float | None
+    resolution_class: str
+    cross_body_comparable: bool
+    comparability_reason: str
     analysis_crs: str | None
     pixel_count: int
     valid_pixel_count: int
@@ -302,6 +295,10 @@ class AoiResult:
             "source": self.source,
             "features": self.features,
             "analysis_resolution_m": self.analysis_resolution_m,
+            "source_resolution_m": self.source_resolution_m,
+            "resolution_class": self.resolution_class,
+            "cross_body_comparable": self.cross_body_comparable,
+            "comparability_reason": self.comparability_reason,
             "analysis_crs": self.analysis_crs,
             "pixel_count": self.pixel_count,
             "valid_pixel_count": self.valid_pixel_count,
@@ -340,7 +337,9 @@ def _bbox_values(bbox: Mapping[str, float] | Sequence[float]) -> dict[str, float
                 "north": float(bbox["north"]),
             }
         except (KeyError, TypeError, ValueError) as exc:
-            raise LolaGlobalError("invalid_bbox", "bbox must contain west/south/east/north") from exc
+            raise LolaGlobalError(
+                "invalid_bbox", "bbox must contain west/south/east/north"
+            ) from exc
     elif isinstance(bbox, Sequence) and not isinstance(bbox, (str, bytes)) and len(bbox) == 4:
         west, south, east, north = (float(v) for v in bbox)
         values = {"west": west, "south": south, "east": east, "north": north}
@@ -380,9 +379,7 @@ def validate_aoi(
     center_lat = (south + north) / 2.0
     center_lon = normalize_lon(w + span / 2.0)
     east_unwrapped = e + 360.0 if crossing else e
-    width_m = abs(
-        float(MOON_SPHERE_GEOD.inv(w, center_lat, east_unwrapped, center_lat)[2])
-    )
+    width_m = abs(float(MOON_SPHERE_GEOD.inv(w, center_lat, east_unwrapped, center_lat)[2]))
     height_m = abs(float(MOON_SPHERE_GEOD.inv(center_lon, south, center_lon, north)[2]))
     if max(width_m, height_m) > max_side_m:
         raise LolaGlobalError(
@@ -434,7 +431,9 @@ def _analysis_crs_for_bbox(bbox: Mapping[str, float]) -> CRS:
     )
 
 
-def _bbox_to_metric_bounds(bbox: Mapping[str, float], dst_crs: CRS) -> tuple[float, float, float, float]:
+def _bbox_to_metric_bounds(
+    bbox: Mapping[str, float], dst_crs: CRS
+) -> tuple[float, float, float, float]:
     transformer = Transformer.from_crs(MOON_GEODETIC_CRS, dst_crs, always_xy=True)
     corners_lon = [bbox["west"], bbox["east"], bbox["west"], bbox["east"]]
     corners_lat = [bbox["south"], bbox["south"], bbox["north"], bbox["north"]]
@@ -575,7 +574,7 @@ def _read_piece_continuous(
     if nx * ny > max_pixels:
         raise LolaGlobalError(
             "aoi_too_large",
-            f"analysis grid {nx}x{ny} ({nx*ny} pixels) exceeds max_pixels={max_pixels}",
+            f"analysis grid {nx}x{ny} ({nx * ny} pixels) exceeds max_pixels={max_pixels}",
             details={"nx": nx, "ny": ny, "max_pixels": max_pixels},
         )
     dst_transform = from_origin(minx, maxy, width_m / nx, height_m / ny)
@@ -583,7 +582,9 @@ def _read_piece_continuous(
 
     env, src = _open_source_dataset(source, timeout=timeout)
     try:
-        src_crs = CRS.from_user_input(src.crs) if src.crs else CRS.from_proj4(source.crs_proj4 or "")
+        src_crs = (
+            CRS.from_user_input(src.crs) if src.crs else CRS.from_proj4(source.crs_proj4 or "")
+        )
         # Compute source window bounds by transforming analysis grid corners to source CRS.
         to_src = Transformer.from_crs(dst_crs, src_crs, always_xy=True)
         corners_x = [minx, maxx, minx, maxx]
@@ -620,7 +621,11 @@ def _read_piece_continuous(
         nodata = src.nodata
         if nodata is None and source.nodata is not None:
             nodata = source.nodata
-        fill = np.nan if nodata is None or (isinstance(nodata, float) and math.isnan(nodata)) else nodata
+        fill = (
+            np.nan
+            if nodata is None or (isinstance(nodata, float) and math.isnan(nodata))
+            else nodata
+        )
         data = src.read(
             1,
             window=window,
@@ -706,6 +711,42 @@ def _features_from_single_array(array: np.ndarray, cell_size_m: float) -> dict[s
     }
 
 
+def _resolution_assessment(
+    source_resolution_m: float | None,
+    analysis_resolution_m: float,
+    *,
+    frame: str | None = None,
+) -> tuple[str, bool, str]:
+    """Record source-vs-grid support without presenting interpolation as native detail."""
+    if source_resolution_m is None:
+        resolution_class = "unknown_source_resolution"
+        reason = "the source does not publish a verified native resolution"
+    elif source_resolution_m > analysis_resolution_m * (1.0 + 1e-9):
+        resolution_class = "upsampled_from_coarse_source"
+        reason = (
+            f"source support {source_resolution_m:.2f} m is coarser than the "
+            f"{analysis_resolution_m:.0f} m analysis grid; the grid is interpolation, "
+            "not native fine-resolution lunar measurement"
+        )
+    else:
+        resolution_class = "native_or_downsampled"
+        reason = (
+            f"source support {source_resolution_m:.2f} m is at or finer than the "
+            f"{analysis_resolution_m:.0f} m analysis grid; the grid is downsampled"
+        )
+    comparable = False
+    reason = (
+        reason + "; cross-body comparison is disabled because this planetary path does not "
+        "match the Earth D01 90 m grid / 1.98 km window support and method gate"
+    )
+    if frame and "MOON_PA" in frame:
+        reason = (
+            reason + "; source frame is MOON_PA; MOON_PA and MOON_ME differ by about 875 m, so "
+            "mixing with 5 m MOON_ME site windows requires an explicit frame conversion"
+        )
+    return resolution_class, comparable, reason
+
+
 def analyze_lola_aoi(
     bbox: Mapping[str, float] | Sequence[float],
     *,
@@ -721,10 +762,17 @@ def analyze_lola_aoi(
         max_pixels=max_pixels,
         max_side_m=max_side_m,
     )
-    source = SOURCE_BY_ID.get(source_id) if source_id else _choose_source_for_bbox(request.normalized_bbox)
+    source = (
+        SOURCE_BY_ID.get(source_id)
+        if source_id
+        else _choose_source_for_bbox(request.normalized_bbox)
+    )
     if source is None:
         raise LolaGlobalError("unknown_source", f"unknown source_id {source_id!r}")
 
+    resolution_class, cross_body_comparable, comparability_reason = _resolution_assessment(
+        source.native_resolution_m, request.analysis_resolution_m, frame=source.frame
+    )
     warnings: list[str] = []
     if request.crossing_antimeridian:
         warnings.append(
@@ -772,6 +820,10 @@ def analyze_lola_aoi(
             source=source.to_payload(),
             features=None,
             analysis_resolution_m=request.analysis_resolution_m,
+            source_resolution_m=source.native_resolution_m,
+            resolution_class=resolution_class,
+            cross_body_comparable=cross_body_comparable,
+            comparability_reason=comparability_reason,
             analysis_crs=None,
             pixel_count=0,
             valid_pixel_count=0,
@@ -802,6 +854,10 @@ def analyze_lola_aoi(
             source=source.to_payload(),
             features=None,
             analysis_resolution_m=request.analysis_resolution_m,
+            source_resolution_m=source.native_resolution_m,
+            resolution_class=resolution_class,
+            cross_body_comparable=cross_body_comparable,
+            comparability_reason=comparability_reason,
             analysis_crs=None,
             pixel_count=total_pixels,
             valid_pixel_count=0,
@@ -848,6 +904,10 @@ def analyze_lola_aoi(
             source=source.to_payload(),
             features=None,
             analysis_resolution_m=request.analysis_resolution_m,
+            source_resolution_m=source.native_resolution_m,
+            resolution_class=resolution_class,
+            cross_body_comparable=cross_body_comparable,
+            comparability_reason=comparability_reason,
             analysis_crs=None,
             pixel_count=total_pixels,
             valid_pixel_count=total_valid,
@@ -892,6 +952,10 @@ def analyze_lola_aoi(
         source=source.to_payload(),
         features=features,
         analysis_resolution_m=request.analysis_resolution_m,
+        source_resolution_m=source.native_resolution_m,
+        resolution_class=resolution_class,
+        cross_body_comparable=cross_body_comparable,
+        comparability_reason=comparability_reason,
         analysis_crs="mixed_per_piece" if len(all_arrays) > 1 else all_arrays[0][1].to_proj4(),
         pixel_count=total_pixels,
         valid_pixel_count=total_valid,
