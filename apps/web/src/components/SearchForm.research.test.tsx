@@ -29,13 +29,32 @@ function setup(extra: Partial<React.ComponentProps<typeof SearchForm>> = {}, loc
 }
 
 function metric(label: string) { return within(screen.getByRole("group", { name: label })); }
-function selector() { return screen.getByRole("combobox", { name: "Research preset" }); }
+const TITLES: Record<string, string> = {
+  manual: "Manual",
+  "rover-mobility": "Rover Mobility & Autonomous Navigation",
+  "precision-landing": "Precision Landing & Hazard Avoidance",
+  "geological-fieldwork": "Geological Fieldwork & Sampling",
+};
+function scenarioRadios() {
+  return screen.queryAllByRole("radio").filter(
+    (radio): radio is HTMLInputElement => radio instanceof HTMLInputElement && radio.name === "research-scenario",
+  );
+}
+function trigger() { return document.querySelector<HTMLButtonElement>(".scenario-trigger")!; }
+function current() { return trigger().dataset.scenario; }
+async function openMenu(user: ReturnType<typeof userEvent.setup>) {
+  if (trigger().getAttribute("aria-expanded") !== "true") await user.click(trigger());
+}
+async function choose(user: ReturnType<typeof userEvent.setup>, id: string) {
+  await openMenu(user);
+  await user.click(screen.getByRole("radio", { name: id === "manual" ? "Manual (set weights yourself)" : TITLES[id] }));
+}
 const labels = features.map((feature) => feature.label);
 
 describe("Research presets", () => {
   it("starts Manual and switches all five weights without automatically submitting", async () => {
     const { user, onSearch } = setup();
-    expect(selector()).toHaveValue("manual");
+    expect(current()).toBe("manual");
     for (const label of labels) expect(metric(label).getByRole("spinbutton", { name: "Weight (≥ 0)" })).toHaveValue(0);
     const cases = [
       ["rover-mobility", [2, 2.5, 1, 2, 1]],
@@ -43,7 +62,7 @@ describe("Research presets", () => {
       ["geological-fieldwork", [1.5, 1, 2.5, 2, 0.5]],
     ] as const;
     for (const [id, weights] of cases) {
-      await user.selectOptions(selector(), id);
+      await choose(user, id);
       labels.forEach((label, index) => {
         expect(metric(label).getByRole("spinbutton", { name: "Weight (≥ 0)" })).toHaveValue(weights[index]);
         expect(metric(label).getByRole("slider", { name: `${label} weight slider` })).toHaveValue(String(weights[index]));
@@ -62,7 +81,7 @@ describe("Research presets", () => {
     fireEvent.change(metric("Mean slope").getByRole("slider", { name: "Mean slope lower bound" }), { target: { value: 5 } });
     fireEvent.change(screen.getByRole("slider", { name: "Built-up fraction upper bound" }), { target: { value: 0.2 } });
     fireEvent.change(screen.getByRole("spinbutton", { name: "Maximum results (1–10)" }), { target: { value: 3 } });
-    await user.selectOptions(selector(), "precision-landing");
+    await choose(user, "precision-landing");
     expect(onSearch).not.toHaveBeenCalled();
     await user.click(screen.getByRole("button", { name: "Search indexed Earth candidates" }));
     expect(onSearch).toHaveBeenCalledTimes(1);
@@ -79,14 +98,14 @@ describe("Research presets", () => {
 
   it.each(["slider", "number"])("returns to Manual after a %s weight edit, but keeps the preset on target edits", async (control) => {
     const { user } = setup();
-    await user.selectOptions(selector(), "rover-mobility");
+    await choose(user, "rover-mobility");
     fireEvent.change(metric("Mean slope").getByRole("spinbutton", { name: /Target value/ }), { target: { value: 13 } });
-    expect(selector()).toHaveValue("rover-mobility");
+    expect(current()).toBe("rover-mobility");
     const input = control === "slider"
       ? metric("Mean slope").getByRole("slider", { name: "Mean slope weight slider" })
       : metric("Mean slope").getByRole("spinbutton", { name: "Weight (≥ 0)" });
     fireEvent.change(input, { target: { value: 3 } });
-    expect(selector()).toHaveValue("manual");
+    expect(current()).toBe("manual");
     expect(metric("Mean slope").getByRole("spinbutton", { name: "Weight (≥ 0)" })).toHaveValue(3);
     expect(metric("Mean slope").getByRole("slider", { name: "Mean slope weight slider" })).toHaveValue("3");
     expect(metric("90th percentile slope").getByRole("spinbutton", { name: "Weight (≥ 0)" })).toHaveValue(2.5);
@@ -94,13 +113,13 @@ describe("Research presets", () => {
 
   it("keeps existing weights when Manual is selected and resets to neutral with Reset", async () => {
     const { user, onSearch } = setup();
-    await user.selectOptions(selector(), "rover-mobility");
-    await user.selectOptions(selector(), "manual");
+    await choose(user, "rover-mobility");
+    await choose(user, "manual");
     expect(metric("Mean slope").getByRole("spinbutton", { name: "Weight (≥ 0)" })).toHaveValue(2);
-    await user.selectOptions(selector(), "geological-fieldwork");
+    await choose(user, "geological-fieldwork");
     fireEvent.change(metric("Mean slope").getByRole("spinbutton", { name: /Target value/ }), { target: { value: 13 } });
     await user.click(screen.getByRole("button", { name: "Reset" }));
-    expect(selector()).toHaveValue("manual");
+    expect(current()).toBe("manual");
     for (const label of labels) expect(metric(label).getByRole("spinbutton", { name: "Weight (≥ 0)" })).toHaveValue(0);
     expect(metric("Mean slope").getByRole("spinbutton", { name: /Target value/ })).toHaveValue(0);
     await user.click(screen.getByRole("button", { name: "Search indexed Earth candidates" }));
@@ -109,61 +128,64 @@ describe("Research presets", () => {
 
   it("lets the existing AOI target preset replace weights and submit once without research weights leaking", async () => {
     const { user, rerender, onSearch } = setup();
-    await user.selectOptions(selector(), "rover-mobility");
+    await choose(user, "rover-mobility");
     const preset = { nonce: 71, values: { slope_mean_deg: 8, roughness_std_m: 5 }, sourceLabel: "TEST ONLY AOI" };
     const tree = <I18nProvider initialLocale="en"><SearchForm {...props} preset={preset} onSearch={onSearch} /></I18nProvider>;
     rerender(tree);
     await waitFor(() => expect(onSearch).toHaveBeenCalledTimes(1));
-    expect(selector()).toHaveValue("manual");
+    expect(current()).toBe("manual");
     expect(onSearch.mock.calls[0][0].request.target).toEqual({ slope_mean_deg: { value: 8, weight: 1 }, roughness_std_m: { value: 5, weight: 1 } });
     rerender(tree);
     expect(onSearch).toHaveBeenCalledTimes(1);
-    await user.selectOptions(selector(), "precision-landing");
+    await choose(user, "precision-landing");
     expect(onSearch).toHaveBeenCalledTimes(1);
     expect(metric("Mean slope").getByRole("spinbutton", { name: /Target value/ })).toHaveValue(8);
   });
 
   it("keeps Custom research weights separate from reference weights", async () => {
     const { user, onSearch } = setup();
-    await user.selectOptions(selector(), "rover-mobility");
+    await choose(user, "rover-mobility");
     await user.click(screen.getByRole("radio", { name: "Moon" }));
     await user.click(screen.getByRole("button", { name: referenceFixture.display_name }));
-    expect(screen.queryByRole("combobox", { name: "Research preset" })).not.toBeInTheDocument();
+    expect(document.querySelector(".scenario-trigger")).toBeNull();
     expect(metric("Mean slope").getByRole("spinbutton", { name: "Weight (≥ 0)" })).toHaveValue(0);
     fireEvent.change(metric("Mean slope").getByRole("spinbutton", { name: "Weight (≥ 0)" }), { target: { value: 1 } });
     await user.click(screen.getByRole("button", { name: "Search indexed Earth candidates" }));
     expect(onSearch.mock.calls[0][0].request).toMatchObject({ body: "Moon", reference_id: referenceFixture.reference_id, target: {}, weights: { slope_mean_deg: 1 } });
     await user.click(screen.getByRole("radio", { name: "Custom" }));
-    expect(selector()).toHaveValue("rover-mobility");
+    expect(current()).toBe("rover-mobility");
     expect(metric("Mean slope").getByRole("spinbutton", { name: "Weight (≥ 0)" })).toHaveValue(2);
   });
 
   it("disables research profiles when capabilities lack a metric, without inventing it", async () => {
-    setup({ features: featuresFixture });
-    expect(selector()).toHaveValue("manual");
-    for (const option of within(selector()).getAllByRole("option").slice(1)) expect(option).toBeDisabled();
-    expect(selector()).toHaveAttribute("title", expect.stringContaining("API capabilities do not offer: flat_terrain_fraction"));
+    const { user } = setup({ features: featuresFixture });
+    expect(current()).toBe("manual");
+    await openMenu(user);
+    for (const radio of scenarioRadios().filter((item) => item.value !== "manual")) expect(radio).toBeDisabled();
+    expect(trigger()).toHaveAttribute("title", expect.stringContaining("API capabilities do not offer: flat_terrain_fraction"));
     expect(screen.queryByRole("group", { name: "Flat terrain fraction" })).not.toBeInTheDocument();
   });
 
   it("returns to Manual if refreshed capabilities remove a required metric", async () => {
     const { user, rerender, onSearch } = setup();
-    await user.selectOptions(selector(), "rover-mobility");
+    await choose(user, "rover-mobility");
     rerender(<I18nProvider initialLocale="en"><SearchForm {...props} features={featuresFixture} onSearch={onSearch} /></I18nProvider>);
-    expect(selector()).toHaveValue("manual");
+    expect(current()).toBe("manual");
     expect(onSearch).not.toHaveBeenCalled();
   });
 
-  it("localizes the compact selector and accessible name into Traditional Chinese", async () => {
+  it("localizes the scenario picker into Traditional Chinese", async () => {
     const { user } = setup({}, "zh-TW");
-    const select = screen.getByRole("combobox", { name: "研究權重預設" });
-    expect(within(select).getByRole("option", { name: "手動設定" })).toBeInTheDocument();
-    await user.selectOptions(select, "precision-landing");
-    expect(within(select).getByRole("option", { name: "精準登陸與危險地形辨識" })).toBeInTheDocument();
-    expect(screen.queryByText("研究權重預設")).not.toBeInTheDocument();
+    expect(screen.getByText("研究情境")).toBeInTheDocument();
+    expect(screen.getByText("比對目標")).toBeInTheDocument();
+    expect(trigger()).toHaveTextContent("手動設定");
+    await user.click(trigger());
+    expect(screen.getByText("移動與登陸")).toBeInTheDocument();
+    await user.click(screen.getByRole("radio", { name: "精準登陸與危險地形辨識" }));
+    expect(current()).toBe("precision-landing");
+    expect(trigger()).toHaveAttribute("aria-expanded", "false");
+    expect(screen.getByText(/這組權重最重視/)).toBeInTheDocument();
     expect(screen.queryByText(/初始 0 值不是 NASA 建議的目標/)).not.toBeInTheDocument();
-    await user.selectOptions(select, "geological-fieldwork");
-    expect(select).toHaveValue("geological-fieldwork");
   });
 
   it.each([
@@ -181,14 +203,24 @@ describe("Research presets", () => {
     expect(researchWeights(RESEARCH_PRESETS[0], featuresFixture)).toEqual({});
   });
 
-  it("places the selector beside the dimension heading in the result-limit header", () => {
-    setup();
-    const heading = screen.getByRole("heading", { name: "Dimensions" });
-    const header = heading.closest(".board-head")!;
-    expect(header).toContainElement(selector());
-    expect(header).toContainElement(screen.getByRole("spinbutton", { name: "Maximum results (1–10)" }));
-    expect(heading.parentElement).toContainElement(selector());
-    expect(screen.queryByText("Research preset")).not.toBeInTheDocument();
-    expect(document.querySelector(".research-presets")).not.toBeInTheDocument();
+  it("puts the scenario under the target row as one button with a grouped menu", async () => {
+    const { user } = setup();
+    const bar = trigger().closest(".target-bar");
+    expect(bar).not.toBeNull();
+    expect(bar).toContainElement(screen.getByRole("radio", { name: "Custom" }));
+    expect(scenarioRadios()).toHaveLength(0);
+    await user.click(trigger());
+    expect(scenarioRadios().map((radio) => radio.value)).toEqual([
+      "rover-mobility", "precision-landing", "geological-fieldwork", "manual",
+    ]);
+    await user.keyboard("{Escape}");
+    expect(scenarioRadios()).toHaveLength(0);
+    expect(screen.queryByText(/Weights emphasize/)).not.toBeInTheDocument();
+    await choose(user, "precision-landing");
+    expect(screen.getByText(/Weights emphasize 90th percentile slope, Flat terrain fraction/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Based on NASA — SPLICE" })).toHaveAttribute(
+      "href",
+      RESEARCH_PRESETS[1].reference.url,
+    );
   });
 });

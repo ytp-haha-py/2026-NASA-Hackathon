@@ -14,6 +14,8 @@ type ResearchFeatureId = (typeof RESEARCH_FEATURE_IDS)[number];
 export type ResearchPreset = {
   id: string;
   titleKey: MessageKey;
+  /** Menu group; new scenarios join an existing group or add one. */
+  groupKey: MessageKey;
   descriptionKey: MessageKey;
   contextKey: MessageKey;
   limitationKey: MessageKey;
@@ -25,6 +27,7 @@ export const RESEARCH_PRESETS: readonly ResearchPreset[] = [
   {
     id: "rover-mobility",
     titleKey: "research.roverTitle",
+    groupKey: "research.groupMobility",
     descriptionKey: "research.roverDescription",
     contextKey: "research.roverContext",
     limitationKey: "research.roverLimitation",
@@ -43,6 +46,7 @@ export const RESEARCH_PRESETS: readonly ResearchPreset[] = [
   {
     id: "precision-landing",
     titleKey: "research.landingTitle",
+    groupKey: "research.groupMobility",
     descriptionKey: "research.landingDescription",
     contextKey: "research.landingContext",
     limitationKey: "research.landingLimitation",
@@ -61,6 +65,7 @@ export const RESEARCH_PRESETS: readonly ResearchPreset[] = [
   {
     id: "geological-fieldwork",
     titleKey: "research.fieldworkTitle",
+    groupKey: "research.groupScience",
     descriptionKey: "research.fieldworkDescription",
     contextKey: "research.fieldworkContext",
     limitationKey: "research.fieldworkLimitation",
