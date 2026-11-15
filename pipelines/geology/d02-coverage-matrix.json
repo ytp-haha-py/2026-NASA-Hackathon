@@ -1,0 +1,3821 @@
+{
+  "artifact": "d02-coverage-matrix",
+  "version": "1.0.0",
+  "dimension": "D02",
+  "dimension_name": "Geology & Mineralogy",
+  "generated_at": "2026-11-15T11:49:53.938845+00:00",
+  "scope_and_non_claims": {
+    "bounded_pilot": true,
+    "global_coverage_claimed": false,
+    "exhaustive_survey_claimed": false,
+    "similarity_score_claimed": false,
+    "notes": [
+      "Coverage is bounded to the indexed/queryable D02 typed export and cited audits in this repository/worktree.",
+      "Categorical map units are never bilinearly interpolated; no crosswalk is invented where unjustified (mapped categories kept as evidence with original codes/descriptions).",
+      "Detection/abundance/spectral index are separated: mineral_* are detection states (all unknown in this export), context_* are numeric spectral parameters (dimensionless_spectral_parameter, context-only), no abundance/wt% exported.",
+      "Missing stays missing; no_coverage/unsupported/unknown/not_applicable are explicit and never zero-filled.",
+      "All D02 records are evidence_only and excluded from similarity scoring and hard filters."
+    ]
+  },
+  "inputs": {
+    "typed_manifest": "pipelines/geology/typed/manifest.json",
+    "typed_manifest_sha256": "sha256:57519e5d35175a6a739d51277ee70e3bcb99946f941dba5c3e181aca2a6c986a",
+    "typed_observations_sha256": "9f8dd0ca82b0ba4b0cb0972643fbdf8eb3c3726db3855a34c76d16e482344eef",
+    "typed_observations_file_sha256": "sha256:9f8dd0ca82b0ba4b0cb0972643fbdf8eb3c3726db3855a34c76d16e482344eef",
+    "coverage_audit": "pipelines/geology/coverage-audit.json",
+    "coverage_audit_sha256": "sha256:a094cc7f44a6489defa3b7772db0474e03fee709691e3664f864751eb5e25ef5",
+    "source_audit": "docs/data-sources/d02-geology.json",
+    "source_audit_sha256": "sha256:b52faaf6fcea693317d684ee9d8c37abfc46797eb59d5a29f32fcce0c875b595",
+    "mineral_evidence": "pipelines/geology/mineral-evidence.json",
+    "mineral_evidence_sha256": "sha256:646bec0a27953ad306e5509c56ec8214ba2071857651488bbe0b9ec03ba8ec93",
+    "area_fraction_evidence": "pipelines/geology/area-fraction/evidence.json",
+    "area_fraction_evidence_sha256": "sha256:9c3aada23490c5f4148235fb96b9ad439f6018b4b3f5321dbaa8e1bb3c15e2f8"
+  },
+  "body_area_index": {
+    "Earth": [
+      "earth-atacama-desert",
+      "earth-death-valley",
+      "earth-devon-island",
+      "earth-lanzarote",
+      "earth-rio-tinto"
+    ],
+    "Moon": [
+      "moon-shackleton-rim-site04-roi2"
+    ],
+    "Mars": [
+      "mars-test-jezero-floor",
+      "mars-test-jezero-western-delta"
+    ]
+  },
+  "rows": [
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "geologic_unit",
+      "subgroup": "lithology",
+      "feature_kind": "category",
+      "feature_description": "Map unit/category from geologic map overlay; categorical, no interpolation.",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "glim-niveau-i-mirror",
+          "source_audit_id": "arcgis-glim-vector-mirror",
+          "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+          "product": "GLiM_Niveau_I",
+          "version": "1.1 (mirror description; upstream equivalence not_verified)",
+          "licence": "Unknown; the mirror publishes no licenseInfo",
+          "licence_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+          "url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1",
+          "verification_status": "identified",
+          "redistribution_allowed": "unknown",
+          "crs_or_frame": "EPSG:3857",
+          "native_resolution_m": null,
+          "product_spatial_support": "Global land polygons in Web Mercator",
+          "product_scope": "global_land",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "glim_mirror_license",
+              "resolution": "Use PANGAEA 0.5 degree CC BY 3.0 as the open alternative, or obtain the official vector licence.",
+              "summary": "Mirror has no licenseInfo and upstream equivalence is unverified"
+            }
+          ],
+          "source_audit_status": "identified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export.",
+        "No shareable Earth map-unit/process values exported; GLiM mirror licence/equivalence unverified and values withheld.",
+        "Redistribution/licence constraint for glim-niveau-i-mirror: Unknown; the mirror publishes no licenseInfo (unknown).",
+        "glim-niveau-i-mirror blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "geologic_unit",
+      "subgroup": "lithology",
+      "feature_kind": "category",
+      "feature_description": "Map unit/category from geologic map overlay; categorical, no interpolation.",
+      "observation_class": "evidence_mapped_or_detected_state",
+      "actual_indexed_queryable_coverage": "indexed_queryable_evidence_only_bounded",
+      "indexed_observation_count": 1,
+      "indexed_area_ids": [
+        "moon-shackleton-rim-site04-roi2"
+      ],
+      "states_present": [
+        "detected"
+      ],
+      "state_counts": {
+        "detected": 1
+      },
+      "sources": [
+        {
+          "source_id": "usgs-moon-geology-v2",
+          "source_audit_id": "usgs-moon-unified-geologic-map-v2",
+          "provider": "USGS Astrogeology Science Center",
+          "product": "Unified Geologic Map of the Moon",
+          "version": "2.0, March 3, 2020",
+          "licence": "CC0, but please cite Fortezzo, Spudis and Harrel (2020)",
+          "licence_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+          "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"Moon2000_EquidistantCylindrical_clon0\",GEOGCS[\"GCS_Moon_2000\",DATUM[\"D_Moon_2000\",SPHEROID[\"Moon_2000_IAU_IAG\",1737400,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": null,
+          "product_spatial_support": "Global Moon, 90S to 90N, 180W to 180E",
+          "product_scope": "global",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]"
+        ],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [
+          0.999998889958193
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale 5000000; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "excluded_invalid_source_geometries:1",
+        "frame_alignment_below_map_scale_unverified",
+        "map_scale_5000000"
+      ],
+      "qa_notes": [
+        "Morphology and material from a primary impact event."
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "Mapped for one Shackleton ROI at 1:5,000,000; local lithology/composition not resolved."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "geologic_unit",
+      "subgroup": "lithology",
+      "feature_kind": "category",
+      "feature_description": "Map unit/category from geologic map overlay; categorical, no interpolation.",
+      "observation_class": "evidence_mapped_or_detected_state",
+      "actual_indexed_queryable_coverage": "indexed_queryable_evidence_only_bounded",
+      "indexed_observation_count": 10,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "detected"
+      ],
+      "state_counts": {
+        "detected": 10
+      },
+      "sources": [
+        {
+          "source_id": "usgs-jezero-sim3464",
+          "source_audit_id": "usgs-mars-sim3464-jezero-geologic-map",
+          "provider": "U.S. Geological Survey",
+          "product": "SIM 3464 Jezero and Nili Planum",
+          "version": "2020; distributed GeoUnits_v1",
+          "licence": "USGS-authored work, U.S. public domain; cite Sun and Stack (2020)",
+          "licence_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+          "url": "https://pubs.usgs.gov/publication/sim3464",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": null,
+          "product_spatial_support": "76.8E to 77.8E, 17.7N to 18.7N (1 x 1 degree, about 60 x 60 km)",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.9999999999992588,
+          0.9999999999992588,
+          0.9999999999992588,
+          0.9999999999992588,
+          0.9999999999992588,
+          0.9999999999992588
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale 75000; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "excluded_invalid_source_geometries:2",
+        "map_scale_75000"
+      ],
+      "qa_notes": [
+        "Official geomorphological map unit; no inferred quantitative mineral abundance."
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "Mapped only for two explicitly marked Jezero test AOIs (1:75,000); not a Mars reference and not global."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "geologic_process",
+      "subgroup": "geological_process",
+      "feature_kind": "process_evidence",
+      "feature_description": "Process interpretation evidence tied to mapped units/source descriptions.",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "glim-niveau-i-mirror",
+          "source_audit_id": "arcgis-glim-vector-mirror",
+          "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+          "product": "GLiM_Niveau_I",
+          "version": "1.1 (mirror description; upstream equivalence not_verified)",
+          "licence": "Unknown; the mirror publishes no licenseInfo",
+          "licence_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+          "url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1",
+          "verification_status": "identified",
+          "redistribution_allowed": "unknown",
+          "crs_or_frame": "EPSG:3857",
+          "native_resolution_m": null,
+          "product_spatial_support": "Global land polygons in Web Mercator",
+          "product_scope": "global_land",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "glim_mirror_license",
+              "resolution": "Use PANGAEA 0.5 degree CC BY 3.0 as the open alternative, or obtain the official vector licence.",
+              "summary": "Mirror has no licenseInfo and upstream equivalence is unverified"
+            }
+          ],
+          "source_audit_status": "identified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export.",
+        "No shareable Earth map-unit/process values exported; GLiM mirror licence/equivalence unverified and values withheld.",
+        "Redistribution/licence constraint for glim-niveau-i-mirror: Unknown; the mirror publishes no licenseInfo (unknown).",
+        "glim-niveau-i-mirror blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "geologic_process",
+      "subgroup": "geological_process",
+      "feature_kind": "process_evidence",
+      "feature_description": "Process interpretation evidence tied to mapped units/source descriptions.",
+      "observation_class": "evidence_mapped_or_detected_state",
+      "actual_indexed_queryable_coverage": "indexed_queryable_evidence_only_bounded",
+      "indexed_observation_count": 1,
+      "indexed_area_ids": [
+        "moon-shackleton-rim-site04-roi2"
+      ],
+      "states_present": [
+        "detected"
+      ],
+      "state_counts": {
+        "detected": 1
+      },
+      "sources": [
+        {
+          "source_id": "usgs-moon-geology-v2",
+          "source_audit_id": "usgs-moon-unified-geologic-map-v2",
+          "provider": "USGS Astrogeology Science Center",
+          "product": "Unified Geologic Map of the Moon",
+          "version": "2.0, March 3, 2020",
+          "licence": "CC0, but please cite Fortezzo, Spudis and Harrel (2020)",
+          "licence_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+          "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"Moon2000_EquidistantCylindrical_clon0\",GEOGCS[\"GCS_Moon_2000\",DATUM[\"D_Moon_2000\",SPHEROID[\"Moon_2000_IAU_IAG\",1737400,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": null,
+          "product_spatial_support": "Global Moon, 90S to 90N, 180W to 180E",
+          "product_scope": "global",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]"
+        ],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [
+          0.999998889958193
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale 5000000; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "excluded_invalid_source_geometries:1",
+        "frame_alignment_below_map_scale_unverified",
+        "map_scale_5000000"
+      ],
+      "qa_notes": [
+        "impact (mapped)"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "Mapped for one Shackleton ROI at 1:5,000,000; local lithology/composition not resolved."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "geologic_process",
+      "subgroup": "geological_process",
+      "feature_kind": "process_evidence",
+      "feature_description": "Process interpretation evidence tied to mapped units/source descriptions.",
+      "observation_class": "evidence_mapped_or_detected_state",
+      "actual_indexed_queryable_coverage": "indexed_queryable_evidence_only_bounded",
+      "indexed_observation_count": 4,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "detected"
+      ],
+      "state_counts": {
+        "detected": 4
+      },
+      "sources": [
+        {
+          "source_id": "usgs-jezero-sim3464",
+          "source_audit_id": "usgs-mars-sim3464-jezero-geologic-map",
+          "provider": "U.S. Geological Survey",
+          "product": "SIM 3464 Jezero and Nili Planum",
+          "version": "2020; distributed GeoUnits_v1",
+          "licence": "USGS-authored work, U.S. public domain; cite Sun and Stack (2020)",
+          "licence_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+          "url": "https://pubs.usgs.gov/publication/sim3464",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": null,
+          "product_spatial_support": "76.8E to 77.8E, 17.7N to 18.7N (1 x 1 degree, about 60 x 60 km)",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [
+          1.0,
+          1.0,
+          0.9999999999992588,
+          0.9999999999992588
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale 75000; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "excluded_invalid_source_geometries:2",
+        "map_scale_75000"
+      ],
+      "qa_notes": [
+        "impact (mapped)",
+        "sedimentary (mapped)"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "Mapped only for two explicitly marked Jezero test AOIs (1:75,000); not a Mars reference and not global."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "mineral_olivine",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "emit-l2bmin-002",
+          "source_audit_id": "nasa-emit-l2b-mineral",
+          "provider": "NASA JPL / LP DAAC",
+          "product": "EMITL2BMIN",
+          "version": "002",
+          "licence": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+          "licence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "EPSG:4326",
+          "native_resolution_m": 60.0,
+          "product_spatial_support": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "emit_auth",
+              "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+              "summary": "Earthdata Login required for granule assets"
+            },
+            {
+              "id": "emit_decoder",
+              "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+              "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+            },
+            {
+              "id": "emit_native_swath",
+              "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+              "summary": "Native swath geolocation not validated for the AOIs"
+            }
+          ],
+          "source_audit_status": "accessible"
+        },
+        {
+          "source_id": "emit-l2bmin-001",
+          "source_audit_id": "nasa-emit-l2b-mineral",
+          "provider": "NASA JPL / LP DAAC",
+          "product": "EMITL2BMIN",
+          "version": "001",
+          "licence": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+          "licence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "EPSG:4326",
+          "native_resolution_m": 60.0,
+          "product_spatial_support": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "emit_auth",
+              "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+              "summary": "Earthdata Login required for granule assets"
+            },
+            {
+              "id": "emit_decoder",
+              "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+              "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+            },
+            {
+              "id": "emit_native_swath",
+              "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+              "summary": "Native swath geolocation not validated for the AOIs"
+            }
+          ],
+          "source_audit_status": "accessible"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export.",
+        "emit-l2bmin-001 blocker None: None",
+        "emit-l2bmin-002 blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "mineral_olivine",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "lunar-polar-minerals-zenodo-v4",
+          "source_audit_id": null,
+          "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+          "product": "M3/LOLA research-derived polar mineral maps",
+          "version": "Zenodo 20725024, v4, 2026-06-17",
+          "licence": "cc-by-4.0",
+          "licence_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "url": "https://zenodo.org/records/20725024",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": null,
+          "native_resolution_m": 193.0,
+          "product_spatial_support": null,
+          "product_scope": null,
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [],
+          "source_audit_status": null
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "M3 registration/threshold validation missing; lunar research mineral matrix not spatially/quantitatively usable.",
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "mineral_olivine",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "evidence_unknown_or_blocked",
+      "actual_indexed_queryable_coverage": "indexed_queryable_evidence_only_bounded",
+      "indexed_observation_count": 2,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "unknown"
+      ],
+      "state_counts": {
+        "unknown": 2
+      },
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [
+          36.0
+        ],
+        "valid_fraction_values": [
+          1.0,
+          1.0
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "context_only",
+        "mineral_detection_not_validated",
+        "spectral_indices_are_not_abundances",
+        "unverified"
+      ],
+      "qa_notes": [
+        "not_analyzed"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "CRISM mineral detection not validated; all mineral states remain unknown (not not_detected, not abundance).",
+        "Records exist but state is unknown/blocked/unverified; no reliable detection/value claim.",
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "mineral_pyroxene",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "emit-l2bmin-002",
+          "source_audit_id": "nasa-emit-l2b-mineral",
+          "provider": "NASA JPL / LP DAAC",
+          "product": "EMITL2BMIN",
+          "version": "002",
+          "licence": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+          "licence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "EPSG:4326",
+          "native_resolution_m": 60.0,
+          "product_spatial_support": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "emit_auth",
+              "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+              "summary": "Earthdata Login required for granule assets"
+            },
+            {
+              "id": "emit_decoder",
+              "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+              "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+            },
+            {
+              "id": "emit_native_swath",
+              "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+              "summary": "Native swath geolocation not validated for the AOIs"
+            }
+          ],
+          "source_audit_status": "accessible"
+        },
+        {
+          "source_id": "emit-l2bmin-001",
+          "source_audit_id": "nasa-emit-l2b-mineral",
+          "provider": "NASA JPL / LP DAAC",
+          "product": "EMITL2BMIN",
+          "version": "001",
+          "licence": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+          "licence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "EPSG:4326",
+          "native_resolution_m": 60.0,
+          "product_spatial_support": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "emit_auth",
+              "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+              "summary": "Earthdata Login required for granule assets"
+            },
+            {
+              "id": "emit_decoder",
+              "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+              "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+            },
+            {
+              "id": "emit_native_swath",
+              "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+              "summary": "Native swath geolocation not validated for the AOIs"
+            }
+          ],
+          "source_audit_status": "accessible"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export.",
+        "emit-l2bmin-001 blocker None: None",
+        "emit-l2bmin-002 blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "mineral_pyroxene",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "lunar-polar-minerals-zenodo-v4",
+          "source_audit_id": null,
+          "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+          "product": "M3/LOLA research-derived polar mineral maps",
+          "version": "Zenodo 20725024, v4, 2026-06-17",
+          "licence": "cc-by-4.0",
+          "licence_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "url": "https://zenodo.org/records/20725024",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": null,
+          "native_resolution_m": 193.0,
+          "product_spatial_support": null,
+          "product_scope": null,
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [],
+          "source_audit_status": null
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "M3 registration/threshold validation missing; lunar research mineral matrix not spatially/quantitatively usable.",
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "mineral_pyroxene",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "evidence_unknown_or_blocked",
+      "actual_indexed_queryable_coverage": "indexed_queryable_evidence_only_bounded",
+      "indexed_observation_count": 2,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "unknown"
+      ],
+      "state_counts": {
+        "unknown": 2
+      },
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [
+          36.0
+        ],
+        "valid_fraction_values": [
+          1.0,
+          1.0
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "context_only",
+        "mineral_detection_not_validated",
+        "spectral_indices_are_not_abundances",
+        "unverified"
+      ],
+      "qa_notes": [
+        "not_analyzed"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "CRISM mineral detection not validated; all mineral states remain unknown (not not_detected, not abundance).",
+        "Records exist but state is unknown/blocked/unverified; no reliable detection/value claim.",
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "mineral_clay_minerals",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "emit-l2bmin-002",
+          "source_audit_id": "nasa-emit-l2b-mineral",
+          "provider": "NASA JPL / LP DAAC",
+          "product": "EMITL2BMIN",
+          "version": "002",
+          "licence": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+          "licence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "EPSG:4326",
+          "native_resolution_m": 60.0,
+          "product_spatial_support": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "emit_auth",
+              "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+              "summary": "Earthdata Login required for granule assets"
+            },
+            {
+              "id": "emit_decoder",
+              "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+              "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+            },
+            {
+              "id": "emit_native_swath",
+              "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+              "summary": "Native swath geolocation not validated for the AOIs"
+            }
+          ],
+          "source_audit_status": "accessible"
+        },
+        {
+          "source_id": "emit-l2bmin-001",
+          "source_audit_id": "nasa-emit-l2b-mineral",
+          "provider": "NASA JPL / LP DAAC",
+          "product": "EMITL2BMIN",
+          "version": "001",
+          "licence": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+          "licence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "EPSG:4326",
+          "native_resolution_m": 60.0,
+          "product_spatial_support": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "emit_auth",
+              "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+              "summary": "Earthdata Login required for granule assets"
+            },
+            {
+              "id": "emit_decoder",
+              "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+              "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+            },
+            {
+              "id": "emit_native_swath",
+              "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+              "summary": "Native swath geolocation not validated for the AOIs"
+            }
+          ],
+          "source_audit_status": "accessible"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export.",
+        "emit-l2bmin-001 blocker None: None",
+        "emit-l2bmin-002 blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "mineral_clay_minerals",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "lunar-polar-minerals-zenodo-v4",
+          "source_audit_id": null,
+          "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+          "product": "M3/LOLA research-derived polar mineral maps",
+          "version": "Zenodo 20725024, v4, 2026-06-17",
+          "licence": "cc-by-4.0",
+          "licence_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "url": "https://zenodo.org/records/20725024",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": null,
+          "native_resolution_m": 193.0,
+          "product_spatial_support": null,
+          "product_scope": null,
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [],
+          "source_audit_status": null
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "M3 registration/threshold validation missing; lunar research mineral matrix not spatially/quantitatively usable.",
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "mineral_clay_minerals",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "evidence_unknown_or_blocked",
+      "actual_indexed_queryable_coverage": "indexed_queryable_evidence_only_bounded",
+      "indexed_observation_count": 2,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "unknown"
+      ],
+      "state_counts": {
+        "unknown": 2
+      },
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [
+          36.0
+        ],
+        "valid_fraction_values": [
+          1.0,
+          1.0
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "context_only",
+        "mineral_detection_not_validated",
+        "spectral_indices_are_not_abundances",
+        "unverified"
+      ],
+      "qa_notes": [
+        "not_analyzed"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "CRISM mineral detection not validated; all mineral states remain unknown (not not_detected, not abundance).",
+        "Records exist but state is unknown/blocked/unverified; no reliable detection/value claim.",
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "mineral_hydrated_sulfates",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "emit-l2bmin-002",
+          "source_audit_id": "nasa-emit-l2b-mineral",
+          "provider": "NASA JPL / LP DAAC",
+          "product": "EMITL2BMIN",
+          "version": "002",
+          "licence": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+          "licence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "EPSG:4326",
+          "native_resolution_m": 60.0,
+          "product_spatial_support": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "emit_auth",
+              "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+              "summary": "Earthdata Login required for granule assets"
+            },
+            {
+              "id": "emit_decoder",
+              "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+              "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+            },
+            {
+              "id": "emit_native_swath",
+              "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+              "summary": "Native swath geolocation not validated for the AOIs"
+            }
+          ],
+          "source_audit_status": "accessible"
+        },
+        {
+          "source_id": "emit-l2bmin-001",
+          "source_audit_id": "nasa-emit-l2b-mineral",
+          "provider": "NASA JPL / LP DAAC",
+          "product": "EMITL2BMIN",
+          "version": "001",
+          "licence": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+          "licence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "EPSG:4326",
+          "native_resolution_m": 60.0,
+          "product_spatial_support": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "emit_auth",
+              "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+              "summary": "Earthdata Login required for granule assets"
+            },
+            {
+              "id": "emit_decoder",
+              "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+              "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+            },
+            {
+              "id": "emit_native_swath",
+              "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+              "summary": "Native swath geolocation not validated for the AOIs"
+            }
+          ],
+          "source_audit_status": "accessible"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export.",
+        "emit-l2bmin-001 blocker None: None",
+        "emit-l2bmin-002 blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "mineral_hydrated_sulfates",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "lunar-polar-minerals-zenodo-v4",
+          "source_audit_id": null,
+          "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+          "product": "M3/LOLA research-derived polar mineral maps",
+          "version": "Zenodo 20725024, v4, 2026-06-17",
+          "licence": "cc-by-4.0",
+          "licence_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "url": "https://zenodo.org/records/20725024",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": null,
+          "native_resolution_m": 193.0,
+          "product_spatial_support": null,
+          "product_scope": null,
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [],
+          "source_audit_status": null
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "M3 registration/threshold validation missing; lunar research mineral matrix not spatially/quantitatively usable.",
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "mineral_hydrated_sulfates",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "evidence_unknown_or_blocked",
+      "actual_indexed_queryable_coverage": "indexed_queryable_evidence_only_bounded",
+      "indexed_observation_count": 2,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "unknown"
+      ],
+      "state_counts": {
+        "unknown": 2
+      },
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [
+          36.0
+        ],
+        "valid_fraction_values": [
+          1.0,
+          1.0
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "context_only",
+        "mineral_detection_not_validated",
+        "spectral_indices_are_not_abundances",
+        "unverified"
+      ],
+      "qa_notes": [
+        "not_analyzed"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "CRISM mineral detection not validated; all mineral states remain unknown (not not_detected, not abundance).",
+        "Records exist but state is unknown/blocked/unverified; no reliable detection/value claim.",
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "mineral_carbonates",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "emit-l2bmin-002",
+          "source_audit_id": "nasa-emit-l2b-mineral",
+          "provider": "NASA JPL / LP DAAC",
+          "product": "EMITL2BMIN",
+          "version": "002",
+          "licence": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+          "licence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "EPSG:4326",
+          "native_resolution_m": 60.0,
+          "product_spatial_support": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "emit_auth",
+              "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+              "summary": "Earthdata Login required for granule assets"
+            },
+            {
+              "id": "emit_decoder",
+              "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+              "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+            },
+            {
+              "id": "emit_native_swath",
+              "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+              "summary": "Native swath geolocation not validated for the AOIs"
+            }
+          ],
+          "source_audit_status": "accessible"
+        },
+        {
+          "source_id": "emit-l2bmin-001",
+          "source_audit_id": "nasa-emit-l2b-mineral",
+          "provider": "NASA JPL / LP DAAC",
+          "product": "EMITL2BMIN",
+          "version": "001",
+          "licence": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+          "licence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "EPSG:4326",
+          "native_resolution_m": 60.0,
+          "product_spatial_support": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "emit_auth",
+              "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+              "summary": "Earthdata Login required for granule assets"
+            },
+            {
+              "id": "emit_decoder",
+              "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+              "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+            },
+            {
+              "id": "emit_native_swath",
+              "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+              "summary": "Native swath geolocation not validated for the AOIs"
+            }
+          ],
+          "source_audit_status": "accessible"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export.",
+        "emit-l2bmin-001 blocker None: None",
+        "emit-l2bmin-002 blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "mineral_carbonates",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "lunar-polar-minerals-zenodo-v4",
+          "source_audit_id": null,
+          "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+          "product": "M3/LOLA research-derived polar mineral maps",
+          "version": "Zenodo 20725024, v4, 2026-06-17",
+          "licence": "cc-by-4.0",
+          "licence_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "url": "https://zenodo.org/records/20725024",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": null,
+          "native_resolution_m": 193.0,
+          "product_spatial_support": null,
+          "product_scope": null,
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [],
+          "source_audit_status": null
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "M3 registration/threshold validation missing; lunar research mineral matrix not spatially/quantitatively usable.",
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "mineral_carbonates",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "detection",
+      "feature_description": "Mineral/spectral detection state (no abundance).",
+      "observation_class": "evidence_unknown_or_blocked",
+      "actual_indexed_queryable_coverage": "indexed_queryable_evidence_only_bounded",
+      "indexed_observation_count": 2,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "unknown"
+      ],
+      "state_counts": {
+        "unknown": 2
+      },
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [
+          36.0
+        ],
+        "valid_fraction_values": [
+          1.0,
+          1.0
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "context_only",
+        "mineral_detection_not_validated",
+        "spectral_indices_are_not_abundances",
+        "unverified"
+      ],
+      "qa_notes": [
+        "not_analyzed"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "evidence_only_no_similarity_no_hard_filter"
+      },
+      "gaps": [
+        "CRISM mineral detection not validated; all mineral states remain unknown (not not_detected, not abundance).",
+        "Records exist but state is unknown/blocked/unverified; no reliable detection/value claim.",
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "context_olindex3",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "context_olindex3",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "context_olindex3",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "derived_context_evidence",
+      "actual_indexed_queryable_coverage": "indexed_queryable_context_only_bounded",
+      "indexed_observation_count": 2,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "detected"
+      ],
+      "state_counts": {
+        "detected": 2
+      },
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [
+          36.0
+        ],
+        "valid_fraction_values": [
+          1.0,
+          1.0
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "context_only",
+        "mineral_detection_not_validated",
+        "spectral_indices_are_not_abundances"
+      ],
+      "qa_notes": [
+        "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.. native_pixel_center_AOI_median_nonfill_finite"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "context_lcpindex2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "context_lcpindex2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "context_lcpindex2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "derived_context_evidence",
+      "actual_indexed_queryable_coverage": "indexed_queryable_context_only_bounded",
+      "indexed_observation_count": 2,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "detected"
+      ],
+      "state_counts": {
+        "detected": 2
+      },
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [
+          36.0
+        ],
+        "valid_fraction_values": [
+          1.0,
+          1.0
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "context_only",
+        "mineral_detection_not_validated",
+        "spectral_indices_are_not_abundances"
+      ],
+      "qa_notes": [
+        "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.. native_pixel_center_AOI_median_nonfill_finite"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "context_hcpindex2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "context_hcpindex2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "context_hcpindex2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "derived_context_evidence",
+      "actual_indexed_queryable_coverage": "indexed_queryable_context_only_bounded",
+      "indexed_observation_count": 2,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "detected"
+      ],
+      "state_counts": {
+        "detected": 2
+      },
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [
+          36.0
+        ],
+        "valid_fraction_values": [
+          1.0,
+          1.0
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "context_only",
+        "mineral_detection_not_validated",
+        "spectral_indices_are_not_abundances"
+      ],
+      "qa_notes": [
+        "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.. native_pixel_center_AOI_median_nonfill_finite"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "context_d2300",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "context_d2300",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "context_d2300",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "derived_context_evidence",
+      "actual_indexed_queryable_coverage": "indexed_queryable_context_only_bounded",
+      "indexed_observation_count": 2,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "detected"
+      ],
+      "state_counts": {
+        "detected": 2
+      },
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [
+          36.0
+        ],
+        "valid_fraction_values": [
+          1.0,
+          1.0
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "context_only",
+        "mineral_detection_not_validated",
+        "spectral_indices_are_not_abundances"
+      ],
+      "qa_notes": [
+        "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.. native_pixel_center_AOI_median_nonfill_finite"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "context_bd1900_2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "context_bd1900_2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "context_bd1900_2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "derived_context_evidence",
+      "actual_indexed_queryable_coverage": "indexed_queryable_context_only_bounded",
+      "indexed_observation_count": 2,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "detected"
+      ],
+      "state_counts": {
+        "detected": 2
+      },
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [
+          36.0
+        ],
+        "valid_fraction_values": [
+          1.0,
+          1.0
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "context_only",
+        "mineral_detection_not_validated",
+        "spectral_indices_are_not_abundances"
+      ],
+      "qa_notes": [
+        "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.. native_pixel_center_AOI_median_nonfill_finite"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "context_sindex2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "context_sindex2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "context_sindex2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "derived_context_evidence",
+      "actual_indexed_queryable_coverage": "indexed_queryable_context_only_bounded",
+      "indexed_observation_count": 2,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "detected"
+      ],
+      "state_counts": {
+        "detected": 2
+      },
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [
+          36.0
+        ],
+        "valid_fraction_values": [
+          1.0,
+          1.0
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "context_only",
+        "mineral_detection_not_validated",
+        "spectral_indices_are_not_abundances"
+      ],
+      "qa_notes": [
+        "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.. native_pixel_center_AOI_median_nonfill_finite"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "context_cindex2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "context_cindex2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "not_applicable",
+      "actual_indexed_queryable_coverage": "not_applicable",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "context_cindex2",
+      "subgroup": "mineral_spectral_detection",
+      "feature_kind": "context_numeric",
+      "feature_description": "CRISM spectral parameter (context only, not abundance/detection).",
+      "observation_class": "derived_context_evidence",
+      "actual_indexed_queryable_coverage": "indexed_queryable_context_only_bounded",
+      "indexed_observation_count": 2,
+      "indexed_area_ids": [
+        "mars-test-jezero-floor",
+        "mars-test-jezero-western-delta"
+      ],
+      "states_present": [
+        "detected"
+      ],
+      "state_counts": {
+        "detected": 2
+      },
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+          "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs"
+        ],
+        "native_resolution_m_values": [
+          36.0
+        ],
+        "valid_fraction_values": [
+          1.0,
+          1.0
+        ],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "context_only",
+        "mineral_detection_not_validated",
+        "spectral_indices_are_not_abundances"
+      ],
+      "qa_notes": [
+        "Published MTRDR refined spectral summary parameter; band name from ENVI/PDS label. No mineral identification threshold applied.. native_pixel_center_AOI_median_nonfill_finite"
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": true,
+        "role_note": "evidence_context_only_not_filter_not_similarity"
+      },
+      "gaps": [
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Earth",
+      "feature_id": "geology_analysis_availability",
+      "subgroup": "quality",
+      "feature_kind": "availability",
+      "feature_description": "Source/analysis availability and blockers (quality/evidence record).",
+      "observation_class": "evidence_unknown_or_blocked",
+      "actual_indexed_queryable_coverage": "indexed_queryable_evidence_only_bounded",
+      "indexed_observation_count": 15,
+      "indexed_area_ids": [
+        "earth-atacama-desert",
+        "earth-death-valley",
+        "earth-devon-island",
+        "earth-lanzarote",
+        "earth-rio-tinto"
+      ],
+      "states_present": [
+        "no_coverage",
+        "unknown"
+      ],
+      "state_counts": {
+        "unknown": 13,
+        "no_coverage": 2
+      },
+      "sources": [
+        {
+          "source_id": "emit-l2bmin-002",
+          "source_audit_id": "nasa-emit-l2b-mineral",
+          "provider": "NASA JPL / LP DAAC",
+          "product": "EMITL2BMIN",
+          "version": "002",
+          "licence": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+          "licence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "EPSG:4326",
+          "native_resolution_m": 60.0,
+          "product_spatial_support": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "emit_auth",
+              "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+              "summary": "Earthdata Login required for granule assets"
+            },
+            {
+              "id": "emit_decoder",
+              "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+              "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+            },
+            {
+              "id": "emit_native_swath",
+              "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+              "summary": "Native swath geolocation not validated for the AOIs"
+            }
+          ],
+          "source_audit_status": "accessible"
+        },
+        {
+          "source_id": "emit-l2bmin-001",
+          "source_audit_id": "nasa-emit-l2b-mineral",
+          "provider": "NASA JPL / LP DAAC",
+          "product": "EMITL2BMIN",
+          "version": "001",
+          "licence": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+          "licence_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+          "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "EPSG:4326",
+          "native_resolution_m": 60.0,
+          "product_spatial_support": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "emit_auth",
+              "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+              "summary": "Earthdata Login required for granule assets"
+            },
+            {
+              "id": "emit_decoder",
+              "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+              "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+            },
+            {
+              "id": "emit_native_swath",
+              "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+              "summary": "Native swath geolocation not validated for the AOIs"
+            }
+          ],
+          "source_audit_status": "accessible"
+        },
+        {
+          "source_id": "glim-niveau-i-mirror",
+          "source_audit_id": "arcgis-glim-vector-mirror",
+          "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+          "product": "GLiM_Niveau_I",
+          "version": "1.1 (mirror description; upstream equivalence not_verified)",
+          "licence": "Unknown; the mirror publishes no licenseInfo",
+          "licence_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+          "url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1",
+          "verification_status": "identified",
+          "redistribution_allowed": "unknown",
+          "crs_or_frame": "EPSG:3857",
+          "native_resolution_m": null,
+          "product_spatial_support": "Global land polygons in Web Mercator",
+          "product_scope": "global_land",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "glim_mirror_license",
+              "resolution": "Use PANGAEA 0.5 degree CC BY 3.0 as the open alternative, or obtain the official vector licence.",
+              "summary": "Mirror has no licenseInfo and upstream equivalence is unverified"
+            }
+          ],
+          "source_audit_status": "identified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "EPSG:4326"
+        ],
+        "native_resolution_m_values": [
+          60.0
+        ],
+        "valid_fraction_values": [],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale 3750000; not a 1.98 km terrain metric.",
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "cmr_bbox_hits_are_not_valid_pixel_coverage",
+        "local_overlay_completed",
+        "native_swath_not_orthorectified",
+        "redistribution_not_verified",
+        "third_party_mirror"
+      ],
+      "qa_notes": [
+        "CMR bbox query returned no granules",
+        "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+        "Spatial overlay completed locally; mirror licenseInfo is empty. Extracted values withheld from portable output."
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "quality_evidence_only"
+      },
+      "gaps": [
+        "Records exist but state is unknown/blocked/unverified; no reliable detection/value claim.",
+        "Redistribution/licence constraint for glim-niveau-i-mirror: Unknown; the mirror publishes no licenseInfo (unknown).",
+        "emit-l2bmin-001 blocker None: None",
+        "emit-l2bmin-002 blocker None: None",
+        "glim-niveau-i-mirror blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Moon",
+      "feature_id": "geology_analysis_availability",
+      "subgroup": "quality",
+      "feature_kind": "availability",
+      "feature_description": "Source/analysis availability and blockers (quality/evidence record).",
+      "observation_class": "evidence_unknown_or_blocked",
+      "actual_indexed_queryable_coverage": "indexed_queryable_evidence_only_bounded",
+      "indexed_observation_count": 1,
+      "indexed_area_ids": [
+        "moon-shackleton-rim-site04-roi2"
+      ],
+      "states_present": [
+        "unknown"
+      ],
+      "state_counts": {
+        "unknown": 1
+      },
+      "sources": [
+        {
+          "source_id": "lunar-polar-minerals-zenodo-v4",
+          "source_audit_id": null,
+          "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+          "product": "M3/LOLA research-derived polar mineral maps",
+          "version": "Zenodo 20725024, v4, 2026-06-17",
+          "licence": "cc-by-4.0",
+          "licence_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+          "url": "https://zenodo.org/records/20725024",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": null,
+          "native_resolution_m": 193.0,
+          "product_spatial_support": null,
+          "product_scope": null,
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [],
+          "source_audit_status": null
+        },
+        {
+          "source_id": "usgs-moon-geology-v2",
+          "source_audit_id": "usgs-moon-unified-geologic-map-v2",
+          "provider": "USGS Astrogeology Science Center",
+          "product": "Unified Geologic Map of the Moon",
+          "version": "2.0, March 3, 2020",
+          "licence": "CC0, but please cite Fortezzo, Spudis and Harrel (2020)",
+          "licence_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+          "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"Moon2000_EquidistantCylindrical_clon0\",GEOGCS[\"GCS_Moon_2000\",DATUM[\"D_Moon_2000\",SPHEROID[\"Moon_2000_IAU_IAG\",1737400,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": null,
+          "product_spatial_support": "Global Moon, 90S to 90N, 180W to 180E",
+          "product_scope": "global",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [
+          "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]"
+        ],
+        "native_resolution_m_values": [
+          193.0
+        ],
+        "valid_fraction_values": [],
+        "notes": [
+          "Geology overlay on the Area geometry; map scale unknown; not a 1.98 km terrain metric."
+        ]
+      },
+      "temporal_support_summary": [
+        "unknown"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "research_derived_product",
+        "rgb_abundance_rejected",
+        "spatial_registration_unverified",
+        "uncertainty_not_supplied",
+        "units_unverified"
+      ],
+      "qa_notes": [
+        "Research-derived MAT has no embedded CRS, pixel registration, unit, valid-range or QA/uncertainty metadata. Legacy TIFF is RGB; its colors cannot supply abundance or validate v4 matrix registration. No AOI mineral numbers or detection claims enabled."
+      ],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "quality_evidence_only"
+      },
+      "gaps": [
+        "Records exist but state is unknown/blocked/unverified; no reliable detection/value claim."
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    },
+    {
+      "dimension": "D02",
+      "dimension_name": "Geology & Mineralogy",
+      "body": "Mars",
+      "feature_id": "geology_analysis_availability",
+      "subgroup": "quality",
+      "feature_kind": "availability",
+      "feature_description": "Source/analysis availability and blockers (quality/evidence record).",
+      "observation_class": "unsupported",
+      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
+      "indexed_observation_count": 0,
+      "indexed_area_ids": [],
+      "states_present": [],
+      "state_counts": {},
+      "sources": [
+        {
+          "source_id": "crism-mtrdr-context",
+          "source_audit_id": "pds-crism-mtrdr",
+          "provider": "NASA PDS Geosciences Node / MRO CRISM",
+          "product": "MTRDR refined spectral summary parameters",
+          "version": "MTR3; selected product version recorded in provenance",
+          "licence": "PDS archived data, public domain",
+          "licence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+          "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": 36.0,
+          "product_spatial_support": "Targeted CRISM observations; the example product covers part of Jezero",
+          "product_scope": "targeted",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [
+            {
+              "id": "crism_thresholds",
+              "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+              "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+            },
+            {
+              "id": "crism_bounded_query",
+              "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+              "summary": "The bounded query is not exhaustive coverage"
+            }
+          ],
+          "source_audit_status": "verified"
+        },
+        {
+          "source_id": "usgs-jezero-sim3464",
+          "source_audit_id": "usgs-mars-sim3464-jezero-geologic-map",
+          "provider": "U.S. Geological Survey",
+          "product": "SIM 3464 Jezero and Nili Planum",
+          "version": "2020; distributed GeoUnits_v1",
+          "licence": "USGS-authored work, U.S. public domain; cite Sun and Stack (2020)",
+          "licence_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+          "url": "https://pubs.usgs.gov/publication/sim3464",
+          "verification_status": "verified",
+          "redistribution_allowed": "yes",
+          "crs_or_frame": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+          "native_resolution_m": null,
+          "product_spatial_support": "76.8E to 77.8E, 17.7N to 18.7N (1 x 1 degree, about 60 x 60 km)",
+          "product_scope": "regional",
+          "temporal_support": "unknown",
+          "depth_support": "surface",
+          "qa": null,
+          "uncertainty": null,
+          "source_gaps_blockers": [],
+          "source_audit_status": "verified"
+        }
+      ],
+      "spatial_support_summary": {
+        "representative_bbox_crs": [],
+        "native_resolution_m_values": [],
+        "valid_fraction_values": [],
+        "notes": []
+      },
+      "temporal_support_summary": [],
+      "depth_support_summary": [],
+      "qa_flags": [],
+      "qa_notes": [],
+      "uncertainty": null,
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_weighted": false,
+        "hard_filter": false,
+        "context_filter_candidate": false,
+        "role_note": "quality_evidence_only"
+      },
+      "gaps": [
+        "No indexed observation for this body/feature in the bounded D02 export.",
+        "crism-mtrdr-context blocker None: None"
+      ],
+      "rebuild_instructions": [
+        "Offline/read-only: uv run python -m analog_pipelines.geology verify",
+        "Offline/read-only: uv run python scripts/build_mineral_evidence.py",
+        "Offline/read-only (GIS env): uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology area-fraction --report-only",
+        "Typed export (from committed record): uv run python scripts/export_geology_typed.py --record pipelines/geology/records/geology-e920e7e3ae79e176.json --output pipelines/geology/typed",
+        "Re-ingest/recompute from source caches (bounded, external data root, no global download): export GEOLOGY_DATA_ROOT=/absolute/path/outside/repo && uv run --with-requirements pipelines/geology/requirements-ingest.txt python -m analog_pipelines.geology analyze --offline"
+      ]
+    }
+  ]
+}
