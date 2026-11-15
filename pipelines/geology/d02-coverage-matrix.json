@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dimension": "D02",
   "dimension_name": "Geology & Mineralogy",
-  "generated_at": "2026-11-15T11:49:53.938845+00:00",
+  "generated_at": "2026-11-15T12:50:05.882756+00:00",
   "scope_and_non_claims": {
     "bounded_pilot": true,
     "global_coverage_claimed": false,
@@ -19,15 +19,15 @@
   },
   "inputs": {
     "typed_manifest": "pipelines/geology/typed/manifest.json",
-    "typed_manifest_sha256": "sha256:57519e5d35175a6a739d51277ee70e3bcb99946f941dba5c3e181aca2a6c986a",
-    "typed_observations_sha256": "9f8dd0ca82b0ba4b0cb0972643fbdf8eb3c3726db3855a34c76d16e482344eef",
-    "typed_observations_file_sha256": "sha256:9f8dd0ca82b0ba4b0cb0972643fbdf8eb3c3726db3855a34c76d16e482344eef",
+    "typed_manifest_sha256": "sha256:8e0df469625d809cf3a05717f823dbd37004b22223237b9275bcc748ad7acc98",
+    "typed_observations_sha256": "72290f85695744b75d4bba87dccbdeafb938bb840d33873a11757f22e1c362e5",
+    "typed_observations_file_sha256": "sha256:72290f85695744b75d4bba87dccbdeafb938bb840d33873a11757f22e1c362e5",
     "coverage_audit": "pipelines/geology/coverage-audit.json",
     "coverage_audit_sha256": "sha256:a094cc7f44a6489defa3b7772db0474e03fee709691e3664f864751eb5e25ef5",
     "source_audit": "docs/data-sources/d02-geology.json",
     "source_audit_sha256": "sha256:b52faaf6fcea693317d684ee9d8c37abfc46797eb59d5a29f32fcce0c875b595",
     "mineral_evidence": "pipelines/geology/mineral-evidence.json",
-    "mineral_evidence_sha256": "sha256:646bec0a27953ad306e5509c56ec8214ba2071857651488bbe0b9ec03ba8ec93",
+    "mineral_evidence_sha256": "sha256:7808a93cfc45f8f535a33d18b58bcab9978b4876eb223be3dfb24228528e9bfd",
     "area_fraction_evidence": "pipelines/geology/area-fraction/evidence.json",
     "area_fraction_evidence_sha256": "sha256:9c3aada23490c5f4148235fb96b9ad439f6018b4b3f5321dbaa8e1bb3c15e2f8"
   },
@@ -36,7 +36,10 @@
       "earth-atacama-desert",
       "earth-death-valley",
       "earth-devon-island",
+      "earth-grand-canyon-r2c2",
+      "earth-iceland-r2c2",
       "earth-lanzarote",
+      "earth-namib-r2c2",
       "earth-rio-tinto"
     ],
     "Moon": [
@@ -56,12 +59,20 @@
       "subgroup": "lithology",
       "feature_kind": "category",
       "feature_description": "Map unit/category from geologic map overlay; categorical, no interpolation.",
-      "observation_class": "unsupported",
-      "actual_indexed_queryable_coverage": "unsupported_no_indexed_observation",
-      "indexed_observation_count": 0,
-      "indexed_area_ids": [],
-      "states_present": [],
-      "state_counts": {},
+      "observation_class": "evidence_mapped_or_detected_state",
+      "actual_indexed_queryable_coverage": "indexed_queryable_evidence_only_bounded",
+      "indexed_observation_count": 3,
+      "indexed_area_ids": [
+        "earth-grand-canyon-r2c2",
+        "earth-iceland-r2c2",
+        "earth-namib-r2c2"
+      ],
+      "states_present": [
+        "detected"
+      ],
+      "state_counts": {
+        "detected": 3
+      },
       "sources": [
         {
           "source_id": "glim-niveau-i-mirror",
@@ -93,15 +104,31 @@
         }
       ],
       "spatial_support_summary": {
-        "representative_bbox_crs": [],
+        "representative_bbox_crs": [
+          "EPSG:4326"
+        ],
         "native_resolution_m_values": [],
         "valid_fraction_values": [],
-        "notes": []
+        "notes": [
+          "Macrostrat point query at the AOI centre; not a 1.98 km area fraction."
+        ]
       },
-      "temporal_support_summary": [],
-      "depth_support_summary": [],
-      "qa_flags": [],
-      "qa_notes": [],
+      "temporal_support_summary": [
+        "static"
+      ],
+      "depth_support_summary": [
+        "surface"
+      ],
+      "qa_flags": [
+        "evidence_only",
+        "no_taxonomy_crosswalk",
+        "partial_global_coverage",
+        "point_query_not_area_fraction",
+        "third_party_map_compilation"
+      ],
+      "qa_notes": [
+        "Macrostrat API v2 point query. Map units are a third-party compilation with partial global coverage; unit names/codes are not crosswalked and cannot be used for similarity or a category filter."
+      ],
       "uncertainty": null,
       "legal_score_filter_roles": {
         "score_role": "evidence_only",
@@ -111,7 +138,6 @@
         "role_note": "evidence_only_no_similarity_no_hard_filter"
       },
       "gaps": [
-        "No indexed observation for this body/feature in the bounded D02 export.",
         "No shareable Earth map-unit/process values exported; GLiM mirror licence/equivalence unverified and values withheld.",
         "Redistribution/licence constraint for glim-niveau-i-mirror: Unknown; the mirror publishes no licenseInfo (unknown).",
         "glim-niveau-i-mirror blocker None: None"

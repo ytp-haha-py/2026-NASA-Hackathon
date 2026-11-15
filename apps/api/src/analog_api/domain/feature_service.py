@@ -785,6 +785,7 @@ def execute_multidimensional_search(
             registry=snapshot.registry,
             candidates=candidates,
             matches=outcome.matches,
+            dimension_weights=dim_controls,
         ),
         "excluded": all_excluded,
         "results": results,

@@ -19,7 +19,7 @@
         "Moon",
         "Mars"
       ],
-      "bytes": 1176833,
+      "bytes": 1186137,
       "context_value_origins": {
         "Earth": {
           "mapped_classification": 1243
@@ -38,8 +38,8 @@
             "candidates": 0,
             "context_observations": 0,
             "feature_observations": 0,
-            "reference_feature_observations": 25,
-            "references": 5
+            "reference_feature_observations": 35,
+            "references": 7
           },
           "Moon": {
             "candidates": 0,
@@ -54,10 +54,10 @@
         "context_observations": 1243,
         "datasets": 9,
         "feature_observations": 565,
-        "manifests": 9,
-        "reference_feature_observations": 115,
+        "manifests": 10,
+        "reference_feature_observations": 125,
         "reference_records_shared_across_manifests": 0,
-        "references": 23
+        "references": 25
       },
       "datasets": [
         {
@@ -89,7 +89,7 @@
           "license_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
           "product_id": "M20_JezeroCrater_CTXDEM_20m",
           "provider": "USGS Astrogeology Science Center / NASA Mars Missions",
-          "reference_count": 5,
+          "reference_count": 7,
           "status": "verified",
           "url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif"
         },
@@ -168,7 +168,7 @@
         "shared_candidate_records": 113,
         "shared_reference_records": 0
       },
-      "file_count": 11,
+      "file_count": 12,
       "files": [
         {
           "bytes": 261973,
@@ -179,6 +179,11 @@
           "bytes": 18312,
           "path": "pipelines/planetary/manifests/ctx_mars_references.json",
           "sha256": "6168256e3a03502a48a0aa812ae00365337dc819cd6a161a9f4a75ee2b158153"
+        },
+        {
+          "bytes": 8699,
+          "path": "pipelines/planetary/manifests/ctx_mars_references_expansion_01.json",
+          "sha256": "d64e7c7ffc2db3bdd8070f83acfa18f8c22f73cb0f00954f84a020e442b07333"
         },
         {
           "bytes": 19414,
@@ -216,14 +221,14 @@
           "sha256": "8d3cc46c86abcf0836a9827c802a7c78e39f373eff0f3fcbf326d56edddccaf0"
         },
         {
-          "bytes": 25556,
+          "bytes": 25830,
           "path": "samples/snapshot/analog-demo.index-summary.json",
-          "sha256": "f7a3b791b25e39dbe66a6387f3aaf76307816af6fd258e0755a6b5f7171d937d"
+          "sha256": "11ff083f1a3cc8b2d564bf472ea829c7ec7ec066281b6cb37d24da8e380f3b0f"
         },
         {
-          "bytes": 16982,
+          "bytes": 17313,
           "path": "samples/snapshot/analog-demo.snapshot.json",
-          "sha256": "7e25fe1c2490cc6ebe1d2321eeea2b8baf072a051efabe30c654b79e5a9e8309"
+          "sha256": "2c7791054b9ba48aedce158f03e148f589646f2f592908bcf668806ab92360d7"
         }
       ],
       "hash_method": "sha256(canonical-json(files[]))",
@@ -249,12 +254,12 @@
         "reference_window_pairs": 0
       },
       "path": "samples/snapshot/analog-demo.snapshot.json",
-      "primary_sha256": "7e25fe1c2490cc6ebe1d2321eeea2b8baf072a051efabe30c654b79e5a9e8309",
+      "primary_sha256": "2c7791054b9ba48aedce158f03e148f589646f2f592908bcf668806ab92360d7",
       "schema_versions": {
         "manifest": "1.0.0",
         "snapshot": "1.0.0"
       },
-      "sha256": "43733cf5986822ed06b416f2a1d6f10f624b35413812773c24495d560e9bf0b6",
+      "sha256": "67297a2fbcde5ff56a89ce148c2883833d4d9258a9c1d6f4ae4c37987e41e68e",
       "source_references": [
         {
           "availability": "verified",
@@ -332,7 +337,7 @@
           "derived_from_measured_dem": 565
         },
         "Mars": {
-          "derived_from_measured_dem": 25
+          "derived_from_measured_dem": 35
         },
         "Moon": {
           "derived_from_measured_dem": 90
@@ -533,21 +538,22 @@
         "Moon",
         "Mars"
       ],
-      "bytes": 177955,
+      "bytes": 194351,
       "counts": {
-        "areas": 8,
-        "assets": 33,
+        "areas": 11,
+        "assets": 36,
         "by_body": {
           "Earth": {
             "by_state": {
+              "detected": 3,
               "no_coverage": 2,
               "unknown": 13
             },
-            "detected": 0,
-            "observations": 15,
+            "detected": 3,
+            "observations": 18,
             "unavailable": 15,
             "value_origins": {
-              "mapped_evidence": 15
+              "mapped_evidence": 18
             }
           },
           "Mars": {
@@ -577,10 +583,10 @@
           }
         },
         "by_dimension": {
-          "D02": 56
+          "D02": 59
         },
-        "datasets": 7,
-        "observations": 56
+        "datasets": 8,
+        "observations": 59
       },
       "datasets": [
         {
@@ -666,6 +672,18 @@
           "redistribution_allowed": "yes",
           "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.001",
           "verification_status": "verified"
+        },
+        {
+          "body": "Earth",
+          "dataset_id": "macrostrat-api",
+          "license": "CC-BY 4.0",
+          "license_url": "https://macrostrat.org/api/v2",
+          "native_resolution_m": null,
+          "product_id": "Macrostrat geologic_units/map API",
+          "provider": "Macrostrat / University of Wisconsin-Madison",
+          "redistribution_allowed": "yes",
+          "url": "https://macrostrat.org/api/v2/geologic_units/map",
+          "verification_status": "verified"
         }
       ],
       "dimensions": [
@@ -697,34 +715,34 @@
             "mars-test-jezero-western-delta"
           ]
         ],
-        "overlapping_area_pairs": 11
+        "overlapping_area_pairs": 17
       },
       "file_count": 5,
       "files": [
         {
-          "bytes": 19202,
+          "bytes": 21571,
           "path": "pipelines/geology/typed/areas.json",
-          "sha256": "2ce73cc91c1c040dbe46103aadfb009438e26f2164bf040eaea997b13185ae5a"
+          "sha256": "0d81273aa09f73d3819c5c01a5012297820f8d6022ce1b79a08c1c65e2c7c0e2"
         },
         {
-          "bytes": 29125,
+          "bytes": 30920,
           "path": "pipelines/geology/typed/assets.json",
-          "sha256": "92558be87367a908c38c647c37a8dbb42c7e23eb15a62df2899571ee6870864c"
+          "sha256": "b0ae57ea6f1d5c569b5f1095a59aab4d0aec3fe1166e61cce4474cfb4888305d"
         },
         {
-          "bytes": 6369,
+          "bytes": 6984,
           "path": "pipelines/geology/typed/datasets.json",
-          "sha256": "7b1b5f42beda8d00d59590391846daae62fbc9882d3520010bd0e8d98a7ff274"
+          "sha256": "c00de9dd4f49582fe84752761a306846119d85746947e822727755b696273582"
         },
         {
-          "bytes": 1006,
+          "bytes": 1295,
           "path": "pipelines/geology/typed/manifest.json",
-          "sha256": "57519e5d35175a6a739d51277ee70e3bcb99946f941dba5c3e181aca2a6c986a"
+          "sha256": "8e0df469625d809cf3a05717f823dbd37004b22223237b9275bcc748ad7acc98"
         },
         {
-          "bytes": 122253,
+          "bytes": 133581,
           "path": "pipelines/geology/typed/observations.jsonl",
-          "sha256": "9f8dd0ca82b0ba4b0cb0972643fbdf8eb3c3726db3855a34c76d16e482344eef"
+          "sha256": "72290f85695744b75d4bba87dccbdeafb938bb840d33873a11757f22e1c362e5"
         }
       ],
       "hash_method": "sha256(canonical-json(files[]))",
@@ -734,15 +752,16 @@
         "Unknown/mineral states are preserved; no quantitative mineral is fabricated."
       ],
       "method_versions": [
-        "geology-1.0.0"
+        "geology-1.0.0",
+        "macrostrat-geologic-units-1.0.0"
       ],
       "path": "pipelines/geology/typed/manifest.json",
-      "primary_sha256": "57519e5d35175a6a739d51277ee70e3bcb99946f941dba5c3e181aca2a6c986a",
+      "primary_sha256": "8e0df469625d809cf3a05717f823dbd37004b22223237b9275bcc748ad7acc98",
       "schema_versions": {
         "export": "geology-typed-export-1.0.0",
         "observations": "2.0.0"
       },
-      "sha256": "e1a87596202357f6771a742dec529a6ebf3ff52d607001045bbed2dcbc6cd1f9",
+      "sha256": "67378fae005e0d7ec86697f876a7d8d6772f80e5dd13f77a8e174da24a461b72",
       "source_references": [
         {
           "availability": "identified",
@@ -934,6 +953,16 @@
           "source_resolution_m": null,
           "temporal_support": "unknown",
           "window_size_m": null
+        },
+        {
+          "crs": "EPSG:4326",
+          "depth_support": "surface",
+          "kind": "point",
+          "native_resolution_m": null,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "static",
+          "window_size_m": null
         }
       ],
       "units": [
@@ -942,7 +971,7 @@
       "value_origin": "mixed_mapped_evidence_and_spectral_context",
       "value_origins": {
         "Earth": {
-          "mapped_evidence": 15
+          "mapped_evidence": 18
         },
         "Mars": {
           "mapped_evidence": 14,
@@ -2323,18 +2352,18 @@
     "coarse_cells": 168,
     "coarse_partitions": 3,
     "coarse_regions": 3,
-    "dataset_references": 24,
-    "files": 68,
+    "dataset_references": 25,
+    "files": 69,
     "fine_candidates": 113,
     "fine_context_observations": 1243,
-    "fine_data_version": "dv-b46f3bad38ea",
+    "fine_data_version": "dv-6fefaf3a7974",
     "fine_datasets": 9,
     "fine_feature_observations": 565,
-    "fine_references": 23,
-    "fine_snapshot_id": "snap-0cef4d75b147866a",
+    "fine_references": 25,
+    "fine_snapshot_id": "snap-0faad9cee4386729",
     "source_references": 22,
     "typed_by_dimension": {
-      "typed-d02-geology": 56,
+      "typed-d02-geology": 59,
       "typed-d03-planetary-thermal": 41,
       "typed-d03-thermal": 20,
       "typed-d04-water-ice": 20,
@@ -2343,7 +2372,7 @@
       "typed-d05-spice-geometry": 18,
       "typed-d06-regolith": 300
     },
-    "typed_observations": 520
+    "typed_observations": 523
   },
   "dataset_references": [
     {
@@ -2465,6 +2494,18 @@
       "source_id": "lunar-polar-minerals-zenodo-v4",
       "unknown_fields": [],
       "url": "https://zenodo.org/records/20725024"
+    },
+    {
+      "availability": "verified",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "CC-BY 4.0",
+      "license_url": "https://macrostrat.org/api/v2",
+      "product": "Macrostrat geologic_units/map API",
+      "provider": "Macrostrat / University of Wisconsin-Madison",
+      "source_id": "macrostrat-api",
+      "unknown_fields": [],
+      "url": "https://macrostrat.org/api/v2/geologic_units/map"
     },
     {
       "availability": "verified",
@@ -2710,16 +2751,16 @@
           "artifacts": [
             "fine-terrain-snapshot"
           ],
-          "attempted": 5,
+          "attempted": 7,
           "attempted_unit": "reference_windows",
           "body": "Mars",
           "breakdown": [
             {
               "artifact_id": "fine-terrain-snapshot",
-              "attempted": 5,
+              "attempted": 7,
               "attempted_unit": "reference_windows",
               "observations": 0,
-              "valid": 25,
+              "valid": 35,
               "valid_unit": "feature_observations"
             }
           ],
@@ -2729,7 +2770,7 @@
           "failed": null,
           "failed_unit": null,
           "feature_observations": 0,
-          "observations": 25,
+          "observations": 35,
           "status": "present",
           "support": [
             {
@@ -2746,10 +2787,10 @@
             "fraction",
             "meter"
           ],
-          "valid": 25,
+          "valid": 35,
           "valid_unit": "feature_observations",
           "value_origins": {
-            "derived_from_measured_dem": 25
+            "derived_from_measured_dem": 35
           }
         },
         "Moon": {
@@ -2904,7 +2945,7 @@
           "breakdown": [
             {
               "artifact_id": "typed-d02-geology",
-              "observations": 15
+              "observations": 18
             }
           ],
           "coarse_cells": 0,
@@ -2913,7 +2954,7 @@
           "failed": null,
           "failed_unit": null,
           "feature_observations": 0,
-          "observations": 15,
+          "observations": 18,
           "status": "present",
           "support": [
             {
@@ -2977,6 +3018,16 @@
               "window_size_m": null
             },
             {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "static",
+              "window_size_m": null
+            },
+            {
               "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
               "depth_support": "surface",
               "kind": "geometry",
@@ -3002,10 +3053,10 @@
           "units": [
             "dimensionless_spectral_parameter"
           ],
-          "valid": 0,
+          "valid": 3,
           "valid_unit": "detected_observations",
           "value_origins": {
-            "mapped_evidence": 15
+            "mapped_evidence": 18
           }
         },
         "Mars": {
@@ -3088,6 +3139,16 @@
               "resolution_m": null,
               "source_resolution_m": null,
               "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "static",
               "window_size_m": null
             },
             {
@@ -3203,6 +3264,16 @@
               "resolution_m": null,
               "source_resolution_m": null,
               "temporal_support": "unknown",
+              "window_size_m": null
+            },
+            {
+              "crs": "EPSG:4326",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "static",
               "window_size_m": null
             },
             {
@@ -4349,10 +4420,10 @@
       ]
     }
   ],
-  "generated_at": "2026-11-15T06:27:26Z",
+  "generated_at": "2026-11-15T12:44:07Z",
   "generated_by": "pipelines/src/analog_pipelines/release.py",
   "notes": "Bounded local multi-dimension release assembled from committed artifacts only. This is not global coverage; missing bodies/dimensions are listed explicitly and no value is zero-filled.",
-  "release_id": "rel-627b049fd4da8f6b",
+  "release_id": "rel-c24a910fe1eeb0d4",
   "release_version": "multi-dimension-release-1.0.0",
   "scope": {
     "bodies": [

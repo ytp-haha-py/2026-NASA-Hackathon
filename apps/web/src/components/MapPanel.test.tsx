@@ -4,7 +4,7 @@ import L from "leaflet";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { SearchResultOut } from "../api/client";
 import { I18nProvider } from "../i18n/I18nProvider";
-import { searchResponseFixture } from "../test/fixtures";
+import { globalSearchResponseFixture, searchResponseFixture } from "../test/fixtures";
 import { MapPanel } from "./MapPanel";
 
 const results: SearchResultOut[] = searchResponseFixture.results;
@@ -65,6 +65,38 @@ describe("MapPanel", () => {
       </I18nProvider>,
     );
     expect(screen.queryByRole("button", { name: "Show all results" })).not.toBeInTheDocument();
+  });
+
+  it("fits valid Earth coarse candidates across the date line and selects a mapped result", () => {
+    const fit = vi.spyOn(L.Map.prototype, "fitBounds").mockReturnThis();
+    const added = vi.spyOn(L.LayerGroup.prototype, "addLayer");
+    const onSelect = vi.fn();
+    const [candidate] = globalSearchResponseFixture.results;
+    const coarse = {
+      results: [
+        { ...candidate, bbox: { west: 179.8, east: -179.9, south: 0, north: 0.1 } },
+        { ...candidate, candidate_id: "opposite", bbox: { west: -179.7, east: -179.5, south: 0, north: 0.1 } },
+        { ...candidate, candidate_id: "invalid", bbox: { west: 25, east: 26, south: 10, north: 5 } },
+        { ...candidate, body: "Mars", candidate_id: "mars", bbox: { west: 20, east: 21, south: 0, north: 1 } },
+      ],
+      selectedId: null,
+      onSelect,
+      content: "Coarse shortlist",
+    };
+    const view = render(
+      <I18nProvider initialLocale="en">
+        <MapPanel results={results} selectedId={null} onSelect={vi.fn()} coarse={coarse} />
+      </I18nProvider>,
+    );
+    const bounds = fit.mock.calls.at(-1)?.[0] as L.LatLngBounds;
+    expect(bounds.getEast() - bounds.getWest()).toBeCloseTo(0.7);
+    expect(screen.getByText("2 coarse candidates on the map.")).toBeInTheDocument();
+    const markers = view.container.querySelectorAll<HTMLElement>(".rank-pin.is-coarse");
+    expect(markers).toHaveLength(2);
+    const firstMarker = added.mock.calls.map(([layer]) => layer).find((layer) => layer instanceof L.Marker);
+    expect(firstMarker).toBeInstanceOf(L.Marker);
+    firstMarker?.fire("click");
+    expect(onSelect).toHaveBeenCalledWith(candidate.candidate_id);
   });
 
   it("keeps area selection and basemaps on the Earth results map", async () => {

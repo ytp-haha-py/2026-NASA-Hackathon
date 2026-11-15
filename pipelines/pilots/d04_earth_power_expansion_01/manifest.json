@@ -1,0 +1,67 @@
+{
+  "asset_count": 3,
+  "generated_at": "2026-11-15T12:36:47.875832+00:00",
+  "notes": [
+    "Portable release of a bounded pilot, not a global survey.",
+    "Context-only and evidence-only observations are not scored similarity features.",
+    "NASA POWER values are coarse model/reanalysis context, not local 1.98 km measurements."
+  ],
+  "observation_count": 12,
+  "observations_sha256": "c4fb114dc14fde99dc6c749296c49da0ac5dfe54680f0fd8468c38c77c9b669d",
+  "plan_sha256": "b796a5a4120c300d279a1d772df67397dd0d519659f76a16a6fe620d84f7035e",
+  "raw": [],
+  "release_version": "acquisition-release-1.0.0",
+  "report": {
+    "areas": [
+      "earth-grand-canyon-r2c2",
+      "earth-iceland-r2c2",
+      "earth-namib-r2c2"
+    ],
+    "by_body": {
+      "Earth": 12
+    },
+    "by_dimension": {
+      "D04": 12
+    },
+    "by_feature": {
+      "precipitation_mm_day": 3,
+      "root_zone_soil_wetness_fraction": 3,
+      "snow_depth_cm": 3,
+      "surface_soil_wetness_fraction": 3
+    },
+    "by_state": {
+      "detected": 12
+    },
+    "total": 12
+  },
+  "scope": "phase2-D04-earth-expansion",
+  "tasks": [
+    {
+      "area_id": "earth-grand-canyon-r2c2",
+      "body": "Earth",
+      "dimension": "D04",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=-112.200001&latitude=36.200000&start=20240101&end=20240107&format=JSON",
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D04-earth-earth-grand-canyon-r2c2-2024-01-01-2024-01-07"
+    },
+    {
+      "area_id": "earth-iceland-r2c2",
+      "body": "Earth",
+      "dimension": "D04",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=-16.800007&latitude=65.699999&start=20240101&end=20240107&format=JSON",
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D04-earth-earth-iceland-r2c2-2024-01-01-2024-01-07"
+    },
+    {
+      "area_id": "earth-namib-r2c2",
+      "body": "Earth",
+      "dimension": "D04",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=15.300001&latitude=-24.700000&start=20240101&end=20240107&format=JSON",
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D04-earth-earth-namib-r2c2-2024-01-01-2024-01-07"
+    }
+  ]
+}

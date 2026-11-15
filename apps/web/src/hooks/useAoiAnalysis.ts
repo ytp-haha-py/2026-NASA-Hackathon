@@ -20,9 +20,14 @@ export type AoiErrorState = {
   details: { [key: string]: unknown }[];
 };
 
+type JobStart = Pick<
+  AoiAnalyzeResponse,
+  "job_id" | "area_id" | "status" | "provider_status" | "cached"
+>;
+
 export type AoiAnalysis = {
   submitting: boolean;
-  analyzeResponse: AoiAnalyzeResponse | null;
+  analyzeResponse: JobStart | null;
   job: JobOut | null;
   location: LocationOut | null;
   requestError: AoiErrorState | null;
@@ -32,6 +37,7 @@ export type AoiAnalysis = {
   areaId: string | null;
   busy: boolean;
   submit: (request: AoiAnalyzeRequest) => void;
+  submitJob: (start: (signal: AbortSignal) => Promise<JobStart>) => void;
   retry: () => void;
 };
 
@@ -46,9 +52,7 @@ function toAoiError(error: unknown): AoiErrorState {
 
 export function useAoiAnalysis(pollIntervalMs = 1000): AoiAnalysis {
   const [submitting, setSubmitting] = useState(false);
-  const [analyzeResponse, setAnalyzeResponse] = useState<AoiAnalyzeResponse | null>(
-    null,
-  );
+  const [analyzeResponse, setAnalyzeResponse] = useState<JobStart | null>(null);
   const [job, setJob] = useState<JobOut | null>(null);
   const [location, setLocation] = useState<LocationOut | null>(null);
   const [requestError, setRequestError] = useState<AoiErrorState | null>(null);
@@ -62,7 +66,7 @@ export function useAoiAnalysis(pollIntervalMs = 1000): AoiAnalysis {
     return () => submitController.current?.abort();
   }, []);
 
-  const submit = useCallback((request: AoiAnalyzeRequest) => {
+  const submitJob = useCallback((start: (signal: AbortSignal) => Promise<JobStart>) => {
     submitController.current?.abort();
     const controller = new AbortController();
     submitController.current = controller;
@@ -76,7 +80,7 @@ export function useAoiAnalysis(pollIntervalMs = 1000): AoiAnalysis {
     setFeatureError(null);
     setJobId(null);
 
-    analyzeArea(request, controller.signal)
+    start(controller.signal)
       .then((response) => {
         if (controller.signal.aborted) {
           return;
@@ -93,6 +97,10 @@ export function useAoiAnalysis(pollIntervalMs = 1000): AoiAnalysis {
         setSubmitting(false);
       });
   }, []);
+
+  const submit = useCallback((request: AoiAnalyzeRequest) => {
+    submitJob((signal) => analyzeArea(request, signal));
+  }, [submitJob]);
 
   useEffect(() => {
     if (!jobId) {
@@ -188,6 +196,7 @@ export function useAoiAnalysis(pollIntervalMs = 1000): AoiAnalysis {
     areaId,
     busy,
     submit,
+    submitJob,
     retry,
   };
 }

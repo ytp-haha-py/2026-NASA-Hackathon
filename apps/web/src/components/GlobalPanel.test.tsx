@@ -1,5 +1,6 @@
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import type { ReactNode } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { I18nProvider } from "../i18n/I18nProvider";
 import {
@@ -11,31 +12,46 @@ import {
 } from "../test/fixtures";
 import { errorResponse, installMockFetch, jsonResponse } from "../test/mock-api";
 import { GlobalPanel } from "./GlobalPanel";
+import type { CoarseMapResults } from "./MapPanel";
 
-vi.mock("./GlobalMap", () => ({
-  GlobalMap: ({
-    results,
-    selectedId,
-  }: {
-    results: { candidate_id: string }[];
-    selectedId: string | null;
-  }) => (
-    <div data-testid="global-map-stub" data-selected={selectedId ?? ""}>
-      {results.length} coarse candidates plotted
-    </div>
+vi.mock("./MapPanel", () => ({
+  MapPanel: ({ searchScope, coarse }: { searchScope: ReactNode; coarse?: CoarseMapResults }) => (
+    <>
+      {searchScope}
+      {coarse?.content}
+      {coarse?.results.length ? (
+        <div data-testid="global-map-stub" data-selected={coarse.selectedId ?? ""}>
+          {coarse.results.length} coarse candidates plotted
+        </div>
+      ) : null}
+    </>
   ),
 }));
 
-function renderPanel() {
+function renderPanel(locale: "en" | "zh-TW" = "en", canRefine = true) {
   return render(
-    <I18nProvider initialLocale="en">
-      <GlobalPanel />
+    <I18nProvider initialLocale={locale}>
+      <GlobalPanel
+        indexedCount={4}
+        indexedSnapshot="fixture-indexed"
+        canRefine={canRefine}
+        pollIntervalMs={1}
+        map={{ results: [], selectedId: null, onSelect: vi.fn() }}
+      />
     </I18nProvider>,
   );
 }
 
+async function openCoarse(user = userEvent.setup()) {
+  const scope = await screen.findByRole("button", { name: "Expanded search" });
+  if (scope.getAttribute("aria-pressed") !== "true") await user.click(scope);
+  const options = screen.getByText("Coarse search settings and coverage");
+  if (!options.closest("details")?.open) await user.click(options);
+}
+
 async function searchCoarse() {
   const user = userEvent.setup();
+  await openCoarse(user);
   await user.type(
     await screen.findByLabelText("Coarse mean slope (250 m source) Target value"),
     "10",
@@ -47,7 +63,8 @@ async function searchCoarse() {
 describe("GlobalPanel", () => {
   it("shows coverage, coarse candidates, candidate detail and a plan-only refine result", async () => {
     const fetchMock = installMockFetch();
-    renderPanel();
+    renderPanel("en", false);
+    await openCoarse();
 
     expect(await screen.findByText("Verified coarse coverage")).toBeInTheDocument();
     expect(screen.getByText("fixture-coarse-2026-11")).toBeInTheDocument();
@@ -85,6 +102,8 @@ describe("GlobalPanel", () => {
     expect(within(detail).getByText("geomorpho250-fixture")).toBeInTheDocument();
     expect(within(detail).getByText("fixture_coarse_row")).toBeInTheDocument();
 
+    expect(screen.queryByRole("button", { name: "Execute 90 m analysis" })).not.toBeInTheDocument();
+    await user.click(screen.getByText("Refinement plan and window limits"));
     await user.click(screen.getByRole("button", { name: "Create refine plan" }));
 
     const plan = await screen.findByTestId("refine-plan");
@@ -92,11 +111,8 @@ describe("GlobalPanel", () => {
       .toBeInTheDocument();
     expect(within(plan).getByText("fixture-candidate-001:fine:0")).toBeInTheDocument();
     expect(
-      within(plan).getByText(/Execution uses POST \/areas\/analyze and GET \/jobs/),
-    ).toBeInTheDocument();
-    expect(
-      within(plan).getAllByRole("button", { name: "Execute 90 m analysis" }),
-    ).toHaveLength(2);
+      within(plan).queryByRole("button", { name: "Execute 90 m analysis" }),
+    ).not.toBeInTheDocument();
     expect(fetchMock).toHaveBeenCalled();
 
     // Selecting another candidate replaces the detail and clears the previous plan.
@@ -122,6 +138,7 @@ describe("GlobalPanel", () => {
         }),
     });
     renderPanel();
+    await openCoarse();
 
     expect(await screen.findByText("partial_coverage_not_global")).toBeInTheDocument();
     expect(screen.getByText("Only part of the requested region is indexed."))
@@ -134,6 +151,7 @@ describe("GlobalPanel", () => {
   it("rejects an empty target without calling the search endpoint", async () => {
     const fetchMock = installMockFetch();
     renderPanel();
+    await openCoarse();
     await screen.findByText("Verified coarse coverage");
 
     await userEvent.setup().click(
@@ -213,28 +231,28 @@ describe("GlobalPanel", () => {
 
   it("renders the coverage and fixture warning in Traditional Chinese", async () => {
     installMockFetch();
-    render(
-      <I18nProvider initialLocale="zh-TW">
-        <GlobalPanel />
-      </I18nProvider>,
-    );
+    renderPanel("zh-TW");
+    const user = userEvent.setup();
+    await user.click(await screen.findByRole("button", { name: "擴大搜尋" }));
+    await user.click(screen.getByText("粗篩設定與索引覆蓋"));
 
     expect(await screen.findByText("已驗證的粗篩覆蓋")).toBeInTheDocument();
     expect(
       screen.getByText("示範／測試索引 — 這不是真實全球普查。"),
     ).toBeInTheDocument();
-    expect(screen.getByText("250 m 粗篩索引 → 5 km 候選")).toBeInTheDocument();
+    expect(screen.getByText(/250 m 來源 → 5 km 粗篩候選/)).toBeInTheDocument();
   });
 
-  it("executes a planned 90 m window through the AOI job API and shows real features", async () => {
+  it("executes a bounded refinement via the coarse candidate API and shows real features", async () => {
     const fetchMock = installMockFetch({
-      analyze: () =>
+      refine: () =>
         jsonResponse(
           {
             job_id: "job-refine-1",
             status: "completed",
             area_id: "earth-aoi-test",
-            cache_key: "cache-refine-1",
+            fine_method_version: "terrain-metrics-1.0.0",
+            focus_window: { bbox_wgs84: { west: -69, south: -24, east: -68.98, north: -23.98 } },
             cached: false,
             provider_status: {},
             result: { area_id: "earth-aoi-test" },
@@ -252,21 +270,19 @@ describe("GlobalPanel", () => {
         name: "Inspect coarse candidate fixture-candidate-001",
       }),
     );
-    await user.click(await screen.findByRole("button", { name: "Create refine plan" }));
-    const plan = await screen.findByTestId("refine-plan");
     await user.click(
-      within(plan).getAllByRole("button", { name: "Execute 90 m analysis" })[0],
+      await screen.findByRole("button", { name: "Execute 90 m analysis" }),
     );
 
     const execution = await screen.findByTestId("refine-execution");
     expect(within(execution).getByText("Job status: completed")).toBeInTheDocument();
     expect(
-      within(execution).getByText("Actual 90 m feature observations"),
+      await within(execution).findByText("Actual 90 m feature observations"),
     ).toBeInTheDocument();
     expect(within(execution).getByText("earth-aoi-test")).toBeInTheDocument();
     expect(
       fetchMock.mock.calls.some(([input]) =>
-        String(input).endsWith("/api/v1/areas/analyze"),
+        String(input).endsWith("/api/v1/global/refine"),
       ),
     ).toBe(true);
     expect(

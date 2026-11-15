@@ -78,6 +78,36 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/coverage/aoi": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Aoi Query
+         * @description Unified AOI-first query (Issue #160): composes coverage/status and typed evidence.
+         *
+         *     Primary input is bbox (or point). Returns six-dimension statuses, intersecting records with
+         *     query/score/filter/evidence/context roles, source, resolution, time/depth, and missing reasons.
+         *     Coarse/context records keep their declared spatial support and are never presented as small-AOI
+         *     measurements. Typed joins are exact-ID only; no proximity join to fine Earth candidates.
+         *
+         *     Optional ``dimension``/``feature_id``/``state``/``dataset_id``/``source_asset_id``/
+         *     ``time_start``/``time_end``/``depth_min_m``/``depth_max_m`` filters select records; records
+         *     without declared time/depth support are excluded with an explicit reason rather than assumed
+         *     to match. ``no_data``/``no_coverage``/``unavailable`` are never zero-filled.
+         */
+        get: operations["aoi_query_api_v1_coverage_aoi_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/coverage/location": {
         parameters: {
             query?: never;
@@ -85,7 +115,23 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Location Coverage */
+        /**
+         * Location Coverage
+         * @description Body-aware D01-D06 coverage/status for a point or bbox AOI.
+         *
+         *     The endpoint accepts either ``lat``/``lon`` or ``west``/``south``/``east``/``north``.
+         *     Earth bboxes use EPSG:4326 signed lon/lat degrees; Moon/Mars bboxes use planetocentric
+         *     longitude/latitude in the declared IAU body frame (``bbox_lon_convention=360`` accepts
+         *     a 0..360 client convention). ``west > east`` is an explicit antimeridian crossing.
+         *
+         *     Set ``include_records=true`` and optional filters to receive the intersecting typed
+         *     observation records: observation/area ids, dimension/feature, state, value summary,
+         *     unit, dataset/source ids, resolution, temporal/depth support, score/query roles,
+         *     exact-join rankability and explicit missing/no_coverage reasons. Records are never
+         *     copied across AOIs and ``no_data``/``no_coverage``/``unavailable`` are never
+         *     zero-filled. Earth land-cover remains a separate Earth-only context/filter layer, not
+         *     a D01-D06 similarity dimension.
+         */
         get: operations["location_coverage_api_v1_coverage_location_get"];
         put?: never;
         post?: never;
@@ -2880,6 +2926,66 @@ export interface operations {
             };
         };
     };
+    aoi_query_api_v1_coverage_aoi_get: {
+        parameters: {
+            query: {
+                /** @description Earth, Moon or Mars */
+                body: string;
+                lat?: number | null;
+                lon?: number | null;
+                west?: number | null;
+                south?: number | null;
+                east?: number | null;
+                north?: number | null;
+                bbox_lon_convention?: string;
+                /** @description Comma-separated D01-D06 record filter, e.g. D01,D06. */
+                dimension?: string | null;
+                /** @description Comma-separated feature ids to include. */
+                feature_id?: string | null;
+                /** @description Comma-separated stored states, e.g. detected,no_coverage,unknown. */
+                state?: string | null;
+                /** @description Comma-separated dataset ids; exact membership match. */
+                dataset_id?: string | null;
+                /** @description Comma-separated source asset ids; exact membership match. */
+                source_asset_id?: string | null;
+                /** @description Inclusive ISO date/datetime lower bound for declared temporal support. */
+                time_start?: string | null;
+                /** @description Inclusive ISO date/datetime upper bound for declared temporal support. */
+                time_end?: string | null;
+                /** @description Inclusive minimum depth in metres below the surface. */
+                depth_min_m?: number | null;
+                /** @description Inclusive maximum depth in metres below the surface. */
+                depth_max_m?: number | null;
+                max_records?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     location_coverage_api_v1_coverage_location_get: {
         parameters: {
             query: {
@@ -2892,6 +2998,27 @@ export interface operations {
                 east?: number | null;
                 north?: number | null;
                 bbox_lon_convention?: string;
+                /** @description Opt in to the AOI observation-record view. Without it the pre-#160 response shape is preserved (plus additive metadata). */
+                include_records?: boolean;
+                /** @description Comma-separated D01-D06 record filter, e.g. D01,D06. */
+                dimension?: string | null;
+                /** @description Comma-separated feature ids to include. */
+                feature_id?: string | null;
+                /** @description Comma-separated stored states, e.g. detected,no_coverage,unknown. */
+                state?: string | null;
+                /** @description Comma-separated dataset ids; exact membership match. */
+                dataset_id?: string | null;
+                /** @description Comma-separated source asset ids; exact membership match. */
+                source_asset_id?: string | null;
+                /** @description Inclusive ISO date/datetime lower bound for declared temporal support. */
+                time_start?: string | null;
+                /** @description Inclusive ISO date/datetime upper bound for declared temporal support. */
+                time_end?: string | null;
+                /** @description Inclusive minimum depth in metres below the surface. */
+                depth_min_m?: number | null;
+                /** @description Inclusive maximum depth in metres below the surface. */
+                depth_max_m?: number | null;
+                max_records?: number;
             };
             header?: never;
             path?: never;
@@ -4023,6 +4150,22 @@ export interface operations {
                 dimension?: string | null;
                 body?: string | null;
                 feature_id?: string | null;
+                area_id?: string | null;
+                /** @description detected|not_detected|unknown|no_coverage|not_applicable */
+                state?: string | null;
+                dataset_id?: string | null;
+                source_asset_id?: string | null;
+                min_depth_m?: number | null;
+                max_depth_m?: number | null;
+                temporal_kind?: string | null;
+                west?: number | null;
+                south?: number | null;
+                east?: number | null;
+                north?: number | null;
+                lat?: number | null;
+                lon?: number | null;
+                /** @description Return an explicit query envelope with status/no_data metadata instead of a plain array. */
+                envelope?: boolean;
             };
             header?: never;
             path?: never;
@@ -4036,9 +4179,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        [key: string]: unknown;
-                    }[];
+                    "application/json": unknown;
                 };
             };
             /** @description Validation Error */

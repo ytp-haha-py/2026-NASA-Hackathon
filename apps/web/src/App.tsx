@@ -9,6 +9,7 @@ import {
   getReferences,
   isAbortError,
   searchCandidates,
+  searchMultidimensional,
   type CapabilitiesOut,
   type DatasetOut,
   type NumericTarget,
@@ -17,6 +18,8 @@ import {
   type SearchResultOut,
 } from "./api/client";
 import { useAoiAnalysis } from "./hooks/useAoiAnalysis";
+import { adaptMultiDimResponse } from "./lib/multidim";
+import { readAoiLimits } from "./lib/aoi";
 import { I18nProvider, SourceText, useI18n } from "./i18n/I18nProvider";
 import type { Locale } from "./i18n/translate";
 import type { SearchSubmission, SearchTargetPreset } from "./lib/search-types";
@@ -25,7 +28,6 @@ import { AoiWorkspace } from "./components/AoiWorkspace";
 import { DetailPanel } from "./components/DetailPanel";
 import { GlobalPanel } from "./components/GlobalPanel";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
-import { MapPanel } from "./components/MapPanel";
 import { ResultsPanel } from "./components/ResultsPanel";
 import { SearchForm } from "./components/SearchForm";
 import {
@@ -36,6 +38,8 @@ import {
 } from "./components/SixDimensionPanel";
 import { SourcesAndMethods } from "./components/SourcesAndMethods";
 import { WorkflowSection } from "./components/WorkflowSection";
+
+const NO_RESULTS: SearchResultOut[] = [];
 
 type SearchErrorState = {
   message: string;
@@ -70,7 +74,6 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const [bootstrapKey, setBootstrapKey] = useState(0);
   const [aoiOpen, setAoiOpen] = useState(false);
   const [dimensionsOpen, setDimensionsOpen] = useState(false);
-  const [globalOpen, setGlobalOpen] = useState(false);
   const [aoiBbox, setAoiBbox] = useState<AoiBbox | null>(null);
   const [aoiFormKey, setAoiFormKey] = useState(0);
   const [searchPreset, setSearchPreset] = useState<SearchTargetPreset | null>(null);
@@ -78,6 +81,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const aoi = useAoiAnalysis(aoiPollIntervalMs);
 
   const [searching, setSearching] = useState(false);
+  const [lastSubmission, setLastSubmission] = useState<SearchSubmission | null>(null);
   const [searchResponse, setSearchResponse] = useState<SearchResponse | null>(null);
   const [searchError, setSearchError] = useState<SearchErrorState | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -145,13 +149,18 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
     searchController.current = controller;
 
     setSearching(true);
+    setLastSubmission(submission);
     setSearchError(null);
     setSearchResponse(null);
     setSelectedId(null);
     setActiveTarget(submission.target);
 
     try {
-      const response = await searchCandidates(submission.request, controller.signal);
+      const response = submission.multidim
+        ? adaptMultiDimResponse(
+            await searchMultidimensional(submission.multidim, controller.signal),
+          )
+        : await searchCandidates(submission.request, controller.signal);
       if (!controller.signal.aborted) {
         setSearchResponse(response);
         if (response.results.length > 0) {
@@ -247,6 +256,10 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const searchErrorMeaning = label.errorCode(searchError?.code);
   const moonReferenceCount = references.filter((reference) => reference.body === "Moon").length;
   const marsReferenceCount = references.filter((reference) => reference.body === "Mars").length;
+  const aoiLimits = capabilities ? readAoiLimits(capabilities.aoi_analysis) : null;
+  const canRefine =
+    aoiLimits?.supportedBody === "Earth" &&
+    aoiLimits.providerStatus["copernicus-dem-glo90"]?.status === "verified";
 
   return (
     <div className="app">
@@ -371,16 +384,25 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 </div>
               )}
 
-              <MapPanel
-                results={searchResponse?.results ?? []}
-                selectedId={selectedId}
-                onSelect={setSelectedId}
-                response={searching ? undefined : (searchResponse ?? undefined)}
-                features={capabilities.features}
-                target={activeTarget}
-                showIdle={!searchResponse && !searching}
-                aoiBbox={aoiBbox}
-                onDrawBbox={handleDrawBbox}
+              <GlobalPanel
+                indexedCount={searchResponse?.eligible_candidate_count ?? capabilities.indexed_candidate_count}
+                indexedSnapshot={searchResponse?.data_snapshot_id ?? capabilities.data_snapshot_id}
+                indexedLoading={searching}
+                indexedSearched={searchResponse !== null}
+                canRefine={canRefine}
+                pollIntervalMs={aoiPollIntervalMs}
+                onRerank={lastSubmission ? () => void handleSearch(lastSubmission) : undefined}
+                map={{
+                  results: searchResponse?.results ?? NO_RESULTS,
+                  selectedId,
+                  onSelect: setSelectedId,
+                  response: searching ? undefined : (searchResponse ?? undefined),
+                  features: capabilities.features,
+                  target: activeTarget,
+                  showIdle: !searchResponse && !searching,
+                  aoiBbox,
+                  onDrawBbox: handleDrawBbox,
+                }}
               />
 
               <WorkflowSection
@@ -414,6 +436,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                     contextFeatures={capabilities.context_features}
                     selectedId={selectedId}
                     onSelect={setSelectedId}
+                    selectedOnly
                   />
                   {selectedResult ? (
                     <DetailPanel
@@ -446,14 +469,6 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 />
               </WorkflowSection>
 
-              <WorkflowSection
-                id="section-global"
-                title={t("flow.globalTitle")}
-                open={globalOpen}
-                onOpenChange={setGlobalOpen}
-              >
-                <GlobalPanel />
-              </WorkflowSection>
             </div>
 
             <details className="about-panel">

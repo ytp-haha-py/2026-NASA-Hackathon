@@ -1,0 +1,3454 @@
+{
+  "aois": [
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 6
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-shackleton-rim-site04-roi1:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 136.0290699361702
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-shackleton-rim-site04-roi1:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 153.1321441111111
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-shackleton-rim-site04-roi1:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 260.22830263251024
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-shackleton-rim-site04-roi1:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 67.8944
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-shackleton-rim-site04-roi1:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 166.701
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-shackleton-rim-site04-roi1:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 134.38172893036102
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 3,
+          "unknown": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l23006-s02932",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.6818152368068695
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p75-w157p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.13238999999999998
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p75-w157p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l23006-s02932",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-shackleton-rim-site04-roi1:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.1886344279218227
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-shackleton-rim-site04-roi1:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "Shackleton Rim (LOLA Site04 roi1)",
+      "latitude_deg": -89.76196621,
+      "longitude_deg": -157.06719662,
+      "reference_id": "moon-shackleton-rim-site04-roi1",
+      "source_manifest": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 6
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-shackleton-rim-site04-roi2:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 146.28422097826086
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-shackleton-rim-site04-roi2:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 149.74434623529413
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-shackleton-rim-site04-roi2:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 256.8726998775248
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-shackleton-rim-site04-roi2:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 65.7726
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-shackleton-rim-site04-roi2:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 165.0977
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-shackleton-rim-site04-roi2:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 135.2694387095077
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 3,
+          "unknown": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l23007-s03004",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.9457610249519348
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p75-w156p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.132381
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p75-w156p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l23007-s03004",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-shackleton-rim-site04-roi2:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.1332639653408357
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-shackleton-rim-site04-roi2:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "Shackleton Rim (LOLA Site04 ROI 2)",
+      "latitude_deg": -89.77192511,
+      "longitude_deg": -156.50226014,
+      "reference_id": "moon-shackleton-rim-site04-roi2",
+      "source_manifest": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 6
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-shackleton-rim-site04-roi3:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 159.48064724
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-shackleton-rim-site04-roi3:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 137.7632905142857
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-shackleton-rim-site04-roi3:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 257.3130222617346
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-shackleton-rim-site04-roi3:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 67.065
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-shackleton-rim-site04-roi3:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 163.2032
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-shackleton-rim-site04-roi3:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 138.1480094241054
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 3,
+          "unknown": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l23008-s03027",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 1.2420462369918823
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p75-w156p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.132381
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p75-w156p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l23008-s03027",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-shackleton-rim-site04-roi3:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.08854151718989102
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-shackleton-rim-site04-roi3:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "Shackleton Rim (LOLA Site04 roi3)",
+      "latitude_deg": -89.78008311,
+      "longitude_deg": -156.32757511,
+      "reference_id": "moon-shackleton-rim-site04-roi3",
+      "source_manifest": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 6
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-shackleton-rim-site04-roi4:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 166.2757754897959
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-shackleton-rim-site04-roi4:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 131.19340088571428
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-shackleton-rim-site04-roi4:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 256.1535578598069
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-shackleton-rim-site04-roi4:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 68.0589
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-shackleton-rim-site04-roi4:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 163.4299
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-shackleton-rim-site04-roi4:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 137.16397562583865
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 3,
+          "unknown": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l23009-s03074",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.6970263719558716
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p75-w155p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.13237200000000002
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p75-w155p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l23009-s03074",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-shackleton-rim-site04-roi4:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.12146302962503654
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-shackleton-rim-site04-roi4:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "Shackleton Rim (LOLA Site04 roi4)",
+      "latitude_deg": -89.78487392,
+      "longitude_deg": -155.95947877,
+      "reference_id": "moon-shackleton-rim-site04-roi4",
+      "source_manifest": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 5,
+          "unknown": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi1:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 120.57332509433962
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi1:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "K",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi1:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 234.3627184761393
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi1:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 162.8778
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi1:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 248.3026
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site01-roi1:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 133.94984704610533
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 2,
+          "no_coverage": 1,
+          "unknown": 2
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w137p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.129465
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w137p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22965-s05488",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "no_coverage",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi1:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.16517370313798596
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi1:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "Connecting Ridge (LOLA Site01 roi1)",
+      "latitude_deg": -89.43892646,
+      "longitude_deg": -137.09597807,
+      "reference_id": "moon-lola-site01-roi1",
+      "source_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 6
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi2:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 117.18128367307692
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi2:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 194.495471
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi2:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 230.07544454306952
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi2:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 160.4932
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi2:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 248.8916
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site01-roi2:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 131.69986328384732
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 2,
+          "no_coverage": 1,
+          "unknown": 2
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w137p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.129465
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w137p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22965-s05430",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "no_coverage",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi2:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.1806591982786917
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi2:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "Connecting Ridge (LOLA Site01 roi2)",
+      "latitude_deg": -89.43874696,
+      "longitude_deg": -137.54797525,
+      "reference_id": "moon-lola-site01-roi2",
+      "source_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 6
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi3:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 119.82526738888889
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi3:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 178.86234371428571
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi3:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 226.439697235173
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi3:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 160.4932
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi3:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 248.8916
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site01-roi3:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 127.61969070291688
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 2,
+          "no_coverage": 1,
+          "unknown": 2
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w137p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.129465
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w137p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22965-s05403",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "no_coverage",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi3:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.2366823654411627
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi3:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "Connecting Ridge (LOLA Site01 roi3)",
+      "latitude_deg": -89.44308632,
+      "longitude_deg": -137.75997378,
+      "reference_id": "moon-lola-site01-roi3",
+      "source_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 5,
+          "no_coverage": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi4:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 135.93916248148147
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi4:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "no_coverage",
+            "unit": "K",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi4:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 233.4737912797918
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi4:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 162.8778
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi4:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 248.3026
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site01-roi4:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 131.17637498827065
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 2,
+          "no_coverage": 1,
+          "unknown": 2
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w137p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.129465
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w137p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22966-s05481",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "no_coverage",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi4:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.24753961095248592
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi4:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "Connecting Ridge (LOLA Site01 roi4)",
+      "latitude_deg": -89.45267485,
+      "longitude_deg": -137.14865265,
+      "reference_id": "moon-lola-site01-roi4",
+      "source_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 5,
+          "unknown": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi5:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 152.07253796153847
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi5:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "K",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi5:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 234.93751579734246
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi5:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 162.8778
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi5:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 248.3026
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site01-roi5:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 131.19088159237498
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 2,
+          "no_coverage": 1,
+          "unknown": 2
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w137p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.129465
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w137p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22968-s05489",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "no_coverage",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi5:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.2472435317248677
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi5:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "Connecting Ridge (LOLA Site01 roi5)",
+      "latitude_deg": -89.46226332,
+      "longitude_deg": -137.08753121,
+      "reference_id": "moon-lola-site01-roi5",
+      "source_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 5,
+          "unknown": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi6:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 169.16687473584904
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi6:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "K",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi6:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 233.16069930159304
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi6:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 162.8778
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi6:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 248.3026
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site01-roi6:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 129.01623743847165
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 3,
+          "unknown": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l22969-s05452",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.5616234540939331
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w137p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.129465
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w137p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22969-s05452",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi6:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.22491584668523448
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi6:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "Connecting Ridge (LOLA Site01 roi6)",
+      "latitude_deg": -89.47394396,
+      "longitude_deg": -137.37537081,
+      "reference_id": "moon-lola-site01-roi6",
+      "source_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 6
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi7:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 177.92682972222224
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site01-roi7:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 177.9010460909091
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi7:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 232.54162716978897
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi7:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 166.4263
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site01-roi7:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 250.4703
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site01-roi7:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 128.49628365057592
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 3,
+          "unknown": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l22971-s05311",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.638444185256958
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w138p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.12947400000000003
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s89p25-w138p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22971-s05311",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi7:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.24737396428910838
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site01-roi7:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "Connecting Ridge (LOLA Site01 roi7)",
+      "latitude_deg": -89.49117902,
+      "longitude_deg": -138.48133424,
+      "reference_id": "moon-lola-site01-roi7",
+      "source_manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 6
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site07-roi1:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 117.93001155555557
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site07-roi1:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 175.39548807692307
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site07-roi1:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 210.99002698815727
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site07-roi1:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 144.6263
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site07-roi1:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 233.149
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site07-roi1:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 117.21331751366763
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 4,
+          "unknown": 2
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l22884-s38850",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.35865749418735504
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s88p75-e123p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.13536
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s88p75-e123p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22884-s38850",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site07-roi1:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.6352124269767947
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site07-roi1:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "detected",
+            "unit": "meter",
+            "value": 0.40336363688120513
+          }
+        ]
+      },
+      "display_name": "Peak near Shackleton (LOLA Site07 roi1)",
+      "latitude_deg": -88.80636301,
+      "longitude_deg": 123.54628783,
+      "reference_id": "moon-lola-site07-roi1",
+      "source_manifest": "pipelines/planetary/manifests/lola_site07_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 5,
+          "no_coverage": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site11-roi1:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 107.35045913793103
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site11-roi1:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "no_coverage",
+            "unit": "K",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site11-roi1:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 244.7316197440893
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site11-roi1:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 53.8257
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site11-roi1:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 161.1429
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site11-roi1:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 139.9878263000569
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 3,
+          "unknown": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l22866-s14284",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.46957172453403473
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s88p75-w68p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.13095
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s88p75-w68p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22866-s14284",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site11-roi1:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.19614087072507902
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site11-roi1:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "de Gerlache Rim (LOLA Site11 roi1)",
+      "latitude_deg": -88.66825624,
+      "longitude_deg": -68.37576419,
+      "reference_id": "moon-lola-site11-roi1",
+      "source_manifest": "pipelines/planetary/manifests/lola_site11_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 5,
+          "no_coverage": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site11-roi2:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 126.60498870833334
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site11-roi2:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "no_coverage",
+            "unit": "K",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site11-roi2:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 247.8405543716811
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site11-roi2:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 53.8257
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site11-roi2:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 161.1429
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site11-roi2:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 142.07729496335017
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 3,
+          "unknown": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l22867-s14274",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.5017199218273163
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s88p75-w68p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.13095
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s88p75-w68p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22867-s14274",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site11-roi2:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.16986946151999532
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site11-roi2:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "de Gerlache Rim (LOLA Site11 roi2)",
+      "latitude_deg": -88.67431101,
+      "longitude_deg": -68.45597152,
+      "reference_id": "moon-lola-site11-roi2",
+      "source_manifest": "pipelines/planetary/manifests/lola_site11_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 5,
+          "no_coverage": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site11-roi3:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 195.27083900000002
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site11-roi3:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "no_coverage",
+            "unit": "K",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site11-roi3:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 237.29888391170994
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site11-roi3:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 52.6182
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site11-roi3:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 144.9305
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site11-roi3:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 130.74055864212542
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 3,
+          "unknown": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l22871-s14265",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.46608564257621765
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s88p75-w68p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.130968
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s88p75-w68p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22871-s14265",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site11-roi3:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.3546204132646993
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site11-roi3:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "de Gerlache Rim (LOLA Site11 roi3)",
+      "latitude_deg": -88.70598947,
+      "longitude_deg": -68.53005841,
+      "reference_id": "moon-lola-site11-roi3",
+      "source_manifest": "pipelines/planetary/manifests/lola_site11_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 5,
+          "no_coverage": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site11-roi4:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 195.27083900000002
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site11-roi4:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "no_coverage",
+            "unit": "K",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site11-roi4:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 237.29888391170994
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site11-roi4:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 52.6182
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site11-roi4:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 144.9305
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site11-roi4:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 130.74055864212542
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 3,
+          "unknown": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l22871-s14265",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.46608564257621765
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s88p75-w68p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.130968
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s88p75-w68p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22871-s14265",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site11-roi4:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.3546204132646993
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site11-roi4:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "unknown",
+            "unit": "meter",
+            "value": null
+          }
+        ]
+      },
+      "display_name": "de Gerlache Rim (LOLA Site11 roi4)",
+      "latitude_deg": -88.70606618,
+      "longitude_deg": -68.52872227,
+      "reference_id": "moon-lola-site11-roi4",
+      "source_manifest": "pipelines/planetary/manifests/lola_site11_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 5,
+          "no_coverage": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site20-bounds-centre:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 86.18137590566037
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site20-bounds-centre:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "no_coverage",
+            "unit": "K",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site20-bounds-centre:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 202.23728065335396
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site20-bounds-centre:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 104.0857
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site20-bounds-centre:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 228.0411
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site20-bounds-centre:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 105.62240172011089
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 4,
+          "unknown": 2
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l22451-s27100",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.46904972195625305
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s85p25-e31p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.130806
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s85p25-e31p75",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22451-s27100",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site20-bounds-centre:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.8465983897097031
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site20-bounds-centre:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "detected",
+            "unit": "meter",
+            "value": 0.2486159347146146
+          }
+        ]
+      },
+      "display_name": "Leibnitz Beta Plateau (LOLA Site20 bounds-centre)",
+      "latitude_deg": -85.42657728,
+      "longitude_deg": 31.74276115,
+      "reference_id": "moon-lola-site20-bounds-centre",
+      "source_manifest": "pipelines/planetary/manifests/lola_site20_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Moon",
+      "d03": {
+        "counts": {
+          "detected": 5,
+          "no_coverage": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              0.0,
+              0.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site23-bounds-centre:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim01_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "K",
+            "value": 143.35790568000002
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "local_time_bin_hours": [
+              12.0,
+              12.25
+            ],
+            "method_version": "diviner-pcp-tbol-1.0.0",
+            "native_resolution_m": 240.0,
+            "observation_id": "diviner-pcp:thermal-moon-lola-site23-bounds-centre:surface_brightness_temperature_k:pcp_avg_tbol_pols_sum_ltim49_240",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "no_coverage",
+            "unit": "K",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "evidence_id": "diviner-prp:moon-lola-site23-bounds-centre:annual_max_surface_temperature",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "quantity_id": "diviner_prp_annual_max_surface_temperature_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 212.29773283093309
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site23-bounds-centre:surface_brightness_temperature_k:ltim00",
+            "state": "detected",
+            "unit": "K",
+            "value": 227.2226
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_brightness_temperature_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-gcp-tbol-0.5deg-1.0.0",
+            "observation_id": "diviner-gcp:moon-lola-site23-bounds-centre:surface_brightness_temperature_k:ltim48",
+            "state": "detected",
+            "unit": "K",
+            "value": 281.9997
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "surface_temperature_mean_k",
+            "kind": "typed_observation",
+            "method_version": "diviner-prp-annual-temperature-1.0.0",
+            "observation_id": "diviner-prp:moon-lola-site23-bounds-centre:surface_temperature_mean_k",
+            "state": "detected",
+            "unit": "K",
+            "value": 106.70513311230135
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 4,
+          "not_detected": 1,
+          "unknown": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "radar_circular_polarization_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lro-minirf-cpr:moon-minirf-cpr-l22524-s23006",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.5435280501842499
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_equivalent_hydrogen_wt_percent",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:lp-ns-hydrogenhd:moon-lp-h2-cell-s85p75-w0p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "percent",
+            "value": 0.11576700000000001
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lp-ns-hydrogenhd:moon-lp-h2-cell-s85p75-w0p25",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:lro-minirf-cpr-128ppd:moon-minirf-cpr-l22524-s23006",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "not_detected",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site23-bounds-centre:shallow_stability_area_fraction",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_shallow_stability_area_fraction",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.7506167213350806
+          },
+          {
+            "dimension_code": "D04",
+            "evidence_id": "diviner-prp:moon-lola-site23-bounds-centre:water_ice_stability_depth",
+            "kind": "modeled_evidence",
+            "method_version": "diviner-prp-ice-stability-depth-1.0.0",
+            "quantity_id": "diviner_prp_water_ice_stability_depth_m",
+            "state": "detected",
+            "unit": "meter",
+            "value": 0.22875744121663613
+          }
+        ]
+      },
+      "display_name": "Malapert Massif (LOLA Site23 bounds-centre)",
+      "latitude_deg": -85.99478468,
+      "longitude_deg": -0.23578377,
+      "reference_id": "moon-lola-site23-bounds-centre",
+      "source_manifest": "pipelines/planetary/manifests/lola_site23_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Mars",
+      "d03": {
+        "counts": {
+          "detected": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "local_time_bin_hours": null,
+            "method_version": "themis-apparent-thermal-inertia-1.0.0",
+            "native_resolution_m": 100.0,
+            "observation_id": "themis-ti:thermal-mars-jezero-ctx-window-01:thermal_inertia",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 213.63230462167778
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "kind": "typed_observation",
+            "method_version": "tes-timap-day-apparent-thermal-inertia-1.0.0",
+            "observation_id": "tes-timap:mars-jezero-ctx-window-01:thermal_inertia:day",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 265.0
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "kind": "typed_observation",
+            "method_version": "tes-timap-night-apparent-thermal-inertia-1.0.0",
+            "observation_id": "tes-timap:mars-jezero-ctx-window-01:thermal_inertia:night",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 296.0
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 2,
+          "unknown": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "epithermal_neutron_flux_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:mro-hend-epithermal:mars-hend-cell-n20p00-e78p00",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.732978
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:mro-hend-epithermal-020917:mars-hend-cell-n20p00-e78p00",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "odyssey-ns:mars-jezero-ctx-window-01:epithermal_neutron_counts_per_second",
+            "kind": "modeled_evidence",
+            "method_version": "odyssey-ns-epithermal-counts-0.5deg-1.0.0",
+            "quantity_id": "epithermal_neutron_counts_per_second",
+            "state": "detected",
+            "unit": "counts/second",
+            "value": 7.96
+          }
+        ]
+      },
+      "display_name": "Jezero CTX coordinate window 01",
+      "latitude_deg": 18.220253246764436,
+      "longitude_deg": 77.37095200216012,
+      "reference_id": "mars-jezero-ctx-window-01",
+      "source_manifest": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Mars",
+      "d03": {
+        "counts": {
+          "detected": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "local_time_bin_hours": null,
+            "method_version": "themis-apparent-thermal-inertia-1.0.0",
+            "native_resolution_m": 100.0,
+            "observation_id": "themis-ti:thermal-mars-jezero-ctx-window-02:thermal_inertia",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 357.58398673765123
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "kind": "typed_observation",
+            "method_version": "tes-timap-day-apparent-thermal-inertia-1.0.0",
+            "observation_id": "tes-timap:mars-jezero-ctx-window-02:thermal_inertia:day",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 272.0
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "kind": "typed_observation",
+            "method_version": "tes-timap-night-apparent-thermal-inertia-1.0.0",
+            "observation_id": "tes-timap:mars-jezero-ctx-window-02:thermal_inertia:night",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 294.0
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 2,
+          "unknown": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "epithermal_neutron_flux_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:mro-hend-epithermal:mars-hend-cell-n20p00-e78p00",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.732978
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:mro-hend-epithermal-020917:mars-hend-cell-n20p00-e78p00",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "odyssey-ns:mars-jezero-ctx-window-02:epithermal_neutron_counts_per_second",
+            "kind": "modeled_evidence",
+            "method_version": "odyssey-ns-epithermal-counts-0.5deg-1.0.0",
+            "quantity_id": "epithermal_neutron_counts_per_second",
+            "state": "detected",
+            "unit": "counts/second",
+            "value": 7.96
+          }
+        ]
+      },
+      "display_name": "Jezero CTX coordinate window 02",
+      "latitude_deg": 18.388959295345586,
+      "longitude_deg": 77.54881625963637,
+      "reference_id": "mars-jezero-ctx-window-02",
+      "source_manifest": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Mars",
+      "d03": {
+        "counts": {
+          "detected": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "local_time_bin_hours": null,
+            "method_version": "themis-apparent-thermal-inertia-1.0.0",
+            "native_resolution_m": 100.0,
+            "observation_id": "themis-ti:thermal-mars-jezero-ctx-window-03:thermal_inertia",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 358.7683845911271
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "kind": "typed_observation",
+            "method_version": "tes-timap-day-apparent-thermal-inertia-1.0.0",
+            "observation_id": "tes-timap:mars-jezero-ctx-window-03:thermal_inertia:day",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 347.0
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "kind": "typed_observation",
+            "method_version": "tes-timap-night-apparent-thermal-inertia-1.0.0",
+            "observation_id": "tes-timap:mars-jezero-ctx-window-03:thermal_inertia:night",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 321.0
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 2,
+          "unknown": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "epithermal_neutron_flux_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:mro-hend-epithermal:mars-hend-cell-n20p00-e78p00",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.732978
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:mro-hend-epithermal-020917:mars-hend-cell-n20p00-e78p00",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "odyssey-ns:mars-jezero-ctx-window-03:epithermal_neutron_counts_per_second",
+            "kind": "modeled_evidence",
+            "method_version": "odyssey-ns-epithermal-counts-0.5deg-1.0.0",
+            "quantity_id": "epithermal_neutron_counts_per_second",
+            "state": "detected",
+            "unit": "counts/second",
+            "value": 7.96
+          }
+        ]
+      },
+      "display_name": "Jezero CTX coordinate window 03",
+      "latitude_deg": 18.55766534392674,
+      "longitude_deg": 77.7266805171126,
+      "reference_id": "mars-jezero-ctx-window-03",
+      "source_manifest": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Mars",
+      "d03": {
+        "counts": {
+          "detected": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "local_time_bin_hours": null,
+            "method_version": "themis-apparent-thermal-inertia-1.0.0",
+            "native_resolution_m": 100.0,
+            "observation_id": "themis-ti:thermal-mars-jezero-ctx-window-04:thermal_inertia",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 460.18748257544735
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "kind": "typed_observation",
+            "method_version": "tes-timap-day-apparent-thermal-inertia-1.0.0",
+            "observation_id": "tes-timap:mars-jezero-ctx-window-04:thermal_inertia:day",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 305.0
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "kind": "typed_observation",
+            "method_version": "tes-timap-night-apparent-thermal-inertia-1.0.0",
+            "observation_id": "tes-timap:mars-jezero-ctx-window-04:thermal_inertia:night",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 354.0
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 2,
+          "unknown": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "epithermal_neutron_flux_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:mro-hend-epithermal:mars-hend-cell-n20p00-e78p00",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.732978
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:mro-hend-epithermal-020917:mars-hend-cell-n20p00-e78p00",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "odyssey-ns:mars-jezero-ctx-window-04:epithermal_neutron_counts_per_second",
+            "kind": "modeled_evidence",
+            "method_version": "odyssey-ns-epithermal-counts-0.5deg-1.0.0",
+            "quantity_id": "epithermal_neutron_counts_per_second",
+            "state": "detected",
+            "unit": "counts/second",
+            "value": 7.96
+          }
+        ]
+      },
+      "display_name": "Jezero CTX coordinate window 04",
+      "latitude_deg": 18.72637139250789,
+      "longitude_deg": 77.90454477458881,
+      "reference_id": "mars-jezero-ctx-window-04",
+      "source_manifest": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "window_size_m": 1980.0
+    },
+    {
+      "body": "Mars",
+      "d03": {
+        "counts": {
+          "detected": 3
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "local_time_bin_hours": null,
+            "method_version": "themis-apparent-thermal-inertia-1.0.0",
+            "native_resolution_m": 100.0,
+            "observation_id": "themis-ti:thermal-mars-jezero-ctx-window-05:thermal_inertia",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 619.6469373149257
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "kind": "typed_observation",
+            "method_version": "tes-timap-day-apparent-thermal-inertia-1.0.0",
+            "observation_id": "tes-timap:mars-jezero-ctx-window-05:thermal_inertia:day",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 285.0
+          },
+          {
+            "dimension_code": "D03",
+            "feature_id": "thermal_inertia",
+            "kind": "typed_observation",
+            "method_version": "tes-timap-night-apparent-thermal-inertia-1.0.0",
+            "observation_id": "tes-timap:mars-jezero-ctx-window-05:thermal_inertia:night",
+            "state": "detected",
+            "unit": "J m^-2 K^-1 s^-1/2",
+            "value": 397.0
+          }
+        ]
+      },
+      "d04": {
+        "counts": {
+          "detected": 2,
+          "unknown": 1
+        },
+        "existing_observations": [
+          {
+            "dimension_code": "D04",
+            "feature_id": "epithermal_neutron_flux_ratio",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:mro-hend-epithermal:mars-hend-cell-n20p00-e78p00",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "detected",
+            "unit": "1",
+            "value": 0.732978
+          },
+          {
+            "dimension_code": "D04",
+            "feature_id": "water_ice_detection",
+            "local_time_bin_hours": null,
+            "method_version": "water-ice-evidence-0.1.0",
+            "native_resolution_m": null,
+            "observation_id": "d04:claim:mro-hend-epithermal-020917:mars-hend-cell-n20p00-e78p00",
+            "reused_from": "committed #43/#44 pilot",
+            "state": "unknown",
+            "unit": "detection",
+            "value": null
+          }
+        ],
+        "new_evidence": [
+          {
+            "dimension_code": "D04",
+            "evidence_id": "odyssey-ns:mars-jezero-ctx-window-05:epithermal_neutron_counts_per_second",
+            "kind": "modeled_evidence",
+            "method_version": "odyssey-ns-epithermal-counts-0.5deg-1.0.0",
+            "quantity_id": "epithermal_neutron_counts_per_second",
+            "state": "detected",
+            "unit": "counts/second",
+            "value": 8.254
+          }
+        ]
+      },
+      "display_name": "Jezero CTX coordinate window 05",
+      "latitude_deg": 18.895077441089043,
+      "longitude_deg": 78.08240903206506,
+      "reference_id": "mars-jezero-ctx-window-05",
+      "source_manifest": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "window_size_m": 1980.0
+    }
+  ],
+  "non_claims": [
+    "No D03 or D04 similarity score or cross-body ranking.",
+    "GCP and TES are coarse context, not 240 m/100 m AOI measurements.",
+    "PRP values are model-derived, not observed ice detections or ice abundance.",
+    "Odyssey NS counts/second are not the normalized HEND flux ratio.",
+    "No value is zero-filled; missing states carry no numeric value.",
+    "Coverage is limited to the 23 committed Moon/Mars reference windows."
+  ],
+  "schema_version": "d03-d04-aoi-evidence-1.0.0",
+  "source_status": {
+    "diviner-gcp": {
+      "errors": [],
+      "rows": 36,
+      "source": "diviner-gcp",
+      "state": "ok"
+    },
+    "diviner-prp": {
+      "errors": [],
+      "source": "diviner-prp",
+      "state": "ok",
+      "triangles": 429
+    },
+    "odyssey-ns": {
+      "cells": 5,
+      "errors": [],
+      "source": "odyssey-ns",
+      "state": "ok"
+    },
+    "tes-timap": {
+      "errors": [],
+      "pixels": 10,
+      "source": "tes-timap",
+      "state": "ok"
+    }
+  },
+  "window_size_m": 1980.0
+}

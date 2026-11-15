@@ -41,7 +41,14 @@ package = true
 packages = ["apps/api/src/analog_api", "pipelines/src/analog_pipelines"]
 
 [tool.pytest.ini_options]
-testpaths = ["apps/api/tests", "pipelines/tests", "pipelines/earth/tests", "pipelines/worldcover/tests", "pipelines/planetary/tests"]
+testpaths = [
+  "apps/api/tests",
+  "pipelines/tests",
+  "pipelines/d02_d04_aoi/tests",
+  "pipelines/earth/tests",
+  "pipelines/worldcover/tests",
+  "pipelines/planetary/tests",
+]
 addopts = "-q"
 markers = [
   "network: tests that reach the public internet (deselected by default in CI)",

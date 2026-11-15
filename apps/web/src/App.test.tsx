@@ -31,12 +31,19 @@ vi.mock("./components/MapPanel", () => ({
   MapPanel: ({
     results,
     selectedId,
+    onSelect,
   }: {
-    results: { location_id: string }[];
+    results: typeof searchResponseFixture.results;
     selectedId: string | null;
+    onSelect: (id: string) => void;
   }) => (
     <div data-testid="map-stub" data-selected={selectedId ?? ""}>
       {results.length} windows plotted
+      {results.map((result) => (
+        <button key={result.location_id} onClick={() => onSelect(result.location_id)}>
+          Select rank {result.rank}: {result.display_name}
+        </button>
+      ))}
     </div>
   ),
 }));
@@ -232,7 +239,7 @@ describe("search states and results", () => {
     });
     const fetchMock = await renderReady({ search: () => pending });
 
-    await runSearch();
+    const user = await runSearch();
 
     expect(
       await screen.findByText("Searching searchable Earth regions…"),
@@ -250,6 +257,7 @@ describe("search states and results", () => {
       "1 of 2 returned record is DEMO / SYNTHETIC",
     );
 
+    await user.click(screen.getByRole("button", { name: "Select rank 1: Observed test window" }));
     const observedCard = screen.getByTestId("result-earth-observed-1");
     expect(within(observedCard).getByText("Observed")).toBeInTheDocument();
     expect(within(observedCard).getByText("0.037")).toBeInTheDocument();
@@ -257,6 +265,8 @@ describe("search states and results", () => {
     expect(within(observedCard).getByText("12 deg")).toBeInTheDocument();
     expect(within(observedCard).getByText("+0.4 deg")).toBeInTheDocument();
 
+    expect(screen.queryByTestId("result-earth-synthetic-2")).not.toBeInTheDocument();
+    await user.click(within(screen.getByTestId("map-stub")).getByRole("button", { name: /^Select rank 2:/ }));
     const syntheticCard = screen.getByTestId("result-earth-synthetic-2");
     expect(within(syntheticCard).getByText("DEMO / SYNTHETIC")).toBeInTheDocument();
 
@@ -842,7 +852,7 @@ describe("dimension board", () => {
     });
   });
 
-  it("shows fixed D01–D06 cards with real typed status and no evidence scoring controls", async () => {
+  it("shows fixed D01–D06 cards with real typed status and no scoring controls without a registry", async () => {
     await renderReady();
     const board = screen.getByRole("region", { name: "Dimensions" });
     const d01 = within(board).getByRole("region", { name: "D01 Terrain & Landforms" });
@@ -851,7 +861,6 @@ describe("dimension board", () => {
     for (const code of ["D02", "D03", "D04", "D05", "D06"] as const) {
       const card = within(board).getByTestId(`dimension-card-${code}`);
       expect(await within(card).findByText(/typed observations/)).toBeInTheDocument();
-      expect(card).toHaveTextContent(/not scored/);
       expect(within(card).queryByRole("slider")).not.toBeInTheDocument();
       expect(within(card).queryByRole("spinbutton")).not.toBeInTheDocument();
       expect(within(card).getByRole("button", { name: "View observations" })).toBeInTheDocument();

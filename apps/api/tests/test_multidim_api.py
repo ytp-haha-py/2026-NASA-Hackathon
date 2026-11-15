@@ -315,7 +315,7 @@ def test_existing_search_global_and_typed_endpoints_are_unchanged(client: TestCl
     assert "dimension_distances" in preserved.json()["results"][0]
     assert client.get("/api/v1/global/coverage").status_code == 200
     typed = client.get("/api/v1/typed/coverage").json()
-    assert typed["total"] == 2152
+    assert typed["total"] == 2185
     assert typed["by_dimension"]["D06"]["total"] == 1932
 
 

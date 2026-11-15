@@ -10,6 +10,7 @@ MATRIX = ROOT / "docs/data-sources/d03-thermal-coverage-matrix.json"
 DOC = ROOT / "docs/D03_THERMAL_COVERAGE.md"
 SCRIPT = ROOT / "scripts/d03_thermal_query_evidence.py"
 EARTH_PILOT = ROOT / "pipelines/pilots/d03_earth_power/observations.jsonl"
+EARTH_EXPANSION = ROOT / "pipelines/pilots/d03_earth_power_expansion_01/observations.jsonl"
 PLANETARY_PILOT = ROOT / "pipelines/pilots/d03_planetary_thermal/observations.jsonl"
 
 
@@ -26,7 +27,7 @@ def test_d03_coverage_matrix_exists_and_is_valid() -> None:
     assert matrix["survey_claim"] == "not_global_not_exhaustive"
     bodies = matrix["bodies"]
     assert set(bodies) == {"Earth", "Moon", "Mars"}
-    assert bodies["Earth"]["actual_indexed_queryable_coverage"]["observations"] == 20
+    assert bodies["Earth"]["actual_indexed_queryable_coverage"]["observations"] == 32
     assert bodies["Moon"]["actual_indexed_queryable_coverage"]["observations"] == 36
     assert bodies["Mars"]["actual_indexed_queryable_coverage"]["observations"] == 5
     assert (
@@ -37,7 +38,7 @@ def test_d03_coverage_matrix_exists_and_is_valid() -> None:
 
 def test_d03_coverage_matrix_matches_committed_pilots() -> None:
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
-    earth = load_jsonl(EARTH_PILOT)
+    earth = load_jsonl(EARTH_PILOT) + load_jsonl(EARTH_EXPANSION)
     planetary = load_jsonl(PLANETARY_PILOT)
     moon = [o for o in planetary if o.get("body") == "Moon"]
     mars = [o for o in planetary if o.get("body") == "Mars"]

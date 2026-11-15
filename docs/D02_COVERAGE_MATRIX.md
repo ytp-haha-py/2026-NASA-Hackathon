@@ -19,7 +19,7 @@ The full body × feature matrix with required fields (source, version, licence, 
 
 | Body | Indexed AOIs | Indexed/queryable D02 observations | Notes |
 |---|---:|---:|---|
-| Earth | 5 (`earth-atacama-desert`, `earth-death-valley`, `earth-devon-island`, `earth-lanzarote`, `earth-rio-tinto`) | 15 | EMIT L2B MIN V002/V001 availability records only (metadata/CML candidates; 4×`unknown`, 1×`no_coverage` per version). GLiM mirror map-unit/process values withheld (licence/equivalence unverified). No shareable mineral detection/abundance. |
+| Earth | 8 (`earth-atacama-desert`, `earth-death-valley`, `earth-devon-island`, `earth-grand-canyon-r2c2`, `earth-iceland-r2c2`, `earth-lanzarote`, `earth-namib-r2c2`, `earth-rio-tinto`) | 18 | EMIT L2B MIN V002/V001 availability records (15) plus 3 Macrostrat point-query `geologic_unit` evidence records (2026-11-15, CC-BY 4.0, no taxonomy crosswalk). GLiM mirror values withheld. No validated mineral detection/abundance. |
 | Moon | 1 (`moon-shackleton-rim-site04-roi2`) | 3 | USGS Unified Geologic Map v2: 1 map unit + 1 process record (evidence). Lunar mineral/analysis availability `unknown` (M3 registration/thresholds unvalidated; research matrix unusable for AOI values). 1:5M map; local composition not resolved. |
 | Mars | 2 (`mars-test-jezero-floor`, `mars-test-jezero-western-delta`, explicitly marked test AOIs) | 38 | USGS SIM 3464 Jezero/Nili (1:75,000): 10 map-unit + 4 process records. CRISM MTRDR: 14 context numeric spectral parameters (7×2 AOIs, context-only) + 10 mineral detection records all `unknown`. No validated mineral detection/abundance. Not a Mars reference, not global. |
 
@@ -29,7 +29,7 @@ The full body × feature matrix with required fields (source, version, licence, 
 
 | Body | Feature | Obs. count | States | Actual coverage / class |
 |---|---|---:|---|---|
-| Earth | `geologic_unit`, `geologic_process` | 0, 0 | — | `unsupported_no_indexed_observation` (GLiM mirror values withheld) |
+| Earth | `geologic_unit`, `geologic_process` | 3, 0 | `detected` | 3 Macrostrat point-query map units (evidence-only, no crosswalk); GLiM mirror values still withheld |
 | Earth | `mineral_*` (5) | 0 each | — | `unsupported_no_indexed_observation` (EMIT auth/decoder/native-swath blockers) |
 | Earth | `geology_analysis_availability` | 15 | `unknown`×13, `no_coverage`×2 | indexed/queryable evidence-only availability records |
 | Moon | `geologic_unit`, `geologic_process` | 1, 1 | `detected` | indexed/queryable mapped categorical evidence (1 ROI, 1:5M) |
@@ -47,6 +47,7 @@ Derived from the committed typed export (`pipelines/geology/representative-queri
 | Query | Body | Result count | States | What it demonstrates |
 |---|---|---:|---|---|
 | `Q-EARTH-availability` | Earth | 15 | `unknown`, `no_coverage` | Earth EMIT availability evidence/blockers per AOI/version (no mineral values). |
+| `Q-EARTH-macrostrat-units` | Earth | 3 | `detected` | Macrostrat point-query map units for 3 Earth fine candidates; evidence-only, no crosswalk. |
 | `Q-MOON-mapped-units` | Moon | 2 | `detected` | Moon mapped unit + process evidence for Shackleton ROI. |
 | `Q-MOON-mineral-availability-blocker` | Moon | 1 | `unknown` | Moon mineral/analysis availability blocked/unverified (no detection claim). |
 | `Q-MARS-jezero-mapped-units` | Mars | 8 | `detected` | Mars Jezero floor mapped units/processes (bounded test AOI). |
@@ -69,4 +70,4 @@ Reproduce queries (offline): `uv run python scripts/build_d02_representative_que
 
 ## Provenance and inputs
 
-Input checksums and pinned IDs are recorded in `pipelines/geology/d02-coverage-matrix.json` under `inputs` (typed manifest/observations, coverage audit, source audit, mineral evidence, area-fraction evidence). Typed export source record: `pipelines/geology/records/geology-e920e7e3ae79e176.json`; snapshot `geo-snap-d1235d5f9defe6cd`; observations SHA-256 `9f8dd0ca82b0ba4b0cb0972643fbdf8eb3c3726db3855a34c76d16e482344eef` (56 observations, 8 AOIs). Subset-based, bounded pilot — do not interpret as global scientific coverage.
+Input checksums and pinned IDs are recorded in `pipelines/geology/d02-coverage-matrix.json` under `inputs` (typed manifest/observations, coverage audit, source audit, mineral evidence, area-fraction evidence). Typed export source record: `pipelines/geology/records/geology-e920e7e3ae79e176.json`; snapshot `geo-snap-d1235d5f9defe6cd`; typed observations SHA-256 `72290f85695744b75d4bba87dccbdeafb938bb840d33873a11757f22e1c362e5` (59 observations, 11 AOIs). The Macrostrat expansion is a bounded third-party point query (`scripts/ingest_d02_macrostrat.py`), not a local measurement. Subset-based, bounded pilot — do not interpret as global scientific coverage.

@@ -358,7 +358,7 @@ def test_mola_support_comparison_is_measured_not_claimed():
             assert delta == pytest.approx(expected)
 
 
-def test_existing_18_moon_and_5_mars_fine_references_are_untouched():
+def test_existing_18_moon_and_7_mars_fine_references_are_untouched():
     moon_ids: set[str] = set()
     mars_ids: set[str] = set()
     for path in sorted((ROOT / "pipelines/planetary/manifests").glob("*.json")):
@@ -369,7 +369,7 @@ def test_existing_18_moon_and_5_mars_fine_references_are_untouched():
             elif reference["body"] == "Mars":
                 mars_ids.add(reference["reference_id"])
     assert len(moon_ids) == 18
-    assert len(mars_ids) == 5
+    assert len(mars_ids) == 7
     coarse_ids = {cell["candidate_id"] for name in MANIFESTS for cell in _load(name)["cells"]}
     assert coarse_ids.isdisjoint(moon_ids)
     assert coarse_ids.isdisjoint(mars_ids)
