@@ -43,6 +43,13 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "app.tabsLabel": "分析模式",
   "app.tabSearch": "搜尋目標",
   "app.tabAoi": "分析 AOI",
+  "flow.aoiTitle": "分析新區域",
+  "flow.dimensionsTitle": "六維比較與觀測",
+  "flow.globalTitle": "全球粗篩與精篩",
+  "map.drawStart": "框選區域",
+  "map.drawStop": "取消框選",
+  "map.drawHint": "在地圖上拖曳框出要分析的範圍；邊長與面積會依下方限制檢查。",
+  "map.planetAnalysisLimit": "月球與火星地圖目前僅供瀏覽：尚不支援任意選區的資料擷取與完整六維計算。",
   "app.coverageEyebrow": "可搜尋的覆蓋範圍",
   "app.coverageHeading_other": "{count} 個可搜尋的地球區域",
   "app.coverageOrigins":
@@ -440,7 +447,7 @@ export const zhTW: { [K in MessageKey]?: string } = {
     "有範圍限制的 Copernicus DEM 地形指標，加上 ESA WorldCover 土地覆蓋背景資訊。隨選 AOI 由使用者請求，絕不會呈現為全球覆蓋。",
   "aoi.idleHeading": "尚未送出任何 AOI",
   "aoi.idleBody":
-    "請使用「{tab}」分頁送出邊界框。GET /capabilities 提供的限制：邊長 {min}–{max} m、面積 ≤ {area} km²、緯度 −80° 至 84°、分析解析度 {resolution} m。",
+    "請在地球地圖上框選區域，或於「{tab}」輸入邊界框後送出。GET /capabilities 提供的限制：邊長 {min}–{max} m、面積 ≤ {area} km²、緯度 −80° 至 84°、分析解析度 {resolution} m。",
   "aoi.idleHint": "完成的 AOI 可作為搜尋目標；之後的搜尋也能找到它，並會在注意事項中標示其隨選來源。",
   "aoi.requestFailed": "AOI 請求失敗",
   "aoi.submittingStatus": "正在送出 AOI 分析…",

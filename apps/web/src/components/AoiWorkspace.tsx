@@ -300,7 +300,7 @@ export function AoiWorkspace({
           <h3>{t("aoi.idleHeading")}</h3>
           <p>
             {t("aoi.idleBody", {
-              tab: t("app.tabAoi"),
+              tab: t("flow.aoiTitle"),
               min: fmt.number(limits.minSideM, 0),
               max: fmt.number(limits.maxSideM, 0),
               area: fmt.number(limits.maxAreaKm2, 1),

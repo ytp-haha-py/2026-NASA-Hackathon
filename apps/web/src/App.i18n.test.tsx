@@ -281,7 +281,7 @@ describe("Traditional Chinese workflows", () => {
       },
       { initialLocale: "zh-TW" },
     );
-    await user.click(screen.getByRole("tab", { name: "分析 AOI" }));
+    await user.click(screen.getByRole("button", { name: "分析新區域" }));
 
     const east = screen.getByLabelText("東側經度（°）");
     await user.clear(east);
@@ -311,13 +311,13 @@ describe("Traditional Chinese workflows", () => {
       job: () => jsonResponse(jobPartialFixture),
       areaFeatures: () => jsonResponse(aoiLocationFixture),
     });
-    await user.click(screen.getByRole("tab", { name: "Analyze AOI" }));
+    await user.click(screen.getByRole("button", { name: "Analyze a new area" }));
     await user.click(screen.getByRole("button", { name: "Analyze this Earth AOI" }));
     await screen.findByTestId("aoi-record");
 
     await switchTo(user, "繁體中文");
 
-    expect(screen.getByRole("tab", { name: "分析 AOI" })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("button", { name: "分析新區域" })).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByText("部分結果")).toBeInTheDocument();
     await waitFor(() => expect(screen.getByTestId("aoi-record")).toBeInTheDocument());
   });

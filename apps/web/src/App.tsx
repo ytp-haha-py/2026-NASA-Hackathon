@@ -20,7 +20,7 @@ import { useAoiAnalysis } from "./hooks/useAoiAnalysis";
 import { I18nProvider, SourceText, useI18n } from "./i18n/I18nProvider";
 import type { Locale } from "./i18n/translate";
 import type { SearchSubmission, SearchTargetPreset } from "./lib/search-types";
-import { AoiForm } from "./components/AoiForm";
+import { AoiForm, type AoiBbox } from "./components/AoiForm";
 import { AoiWorkspace } from "./components/AoiWorkspace";
 import { DetailPanel } from "./components/DetailPanel";
 import { GlobalPanel } from "./components/GlobalPanel";
@@ -35,6 +35,7 @@ import {
   type SixDimensionTarget,
 } from "./components/SixDimensionPanel";
 import { SourcesAndMethods } from "./components/SourcesAndMethods";
+import { WorkflowSection } from "./components/WorkflowSection";
 
 type SearchErrorState = {
   message: string;
@@ -42,8 +43,6 @@ type SearchErrorState = {
   status: number | null;
   details: { [key: string]: unknown }[];
 };
-
-type AnalysisPanel = "search" | "aoi" | "dimensions" | "global";
 
 type AppProps = {
   aoiPollIntervalMs?: number;
@@ -69,7 +68,11 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const [datasets, setDatasets] = useState<DatasetOut[]>([]);
   const [datasetsError, setDatasetsError] = useState<string | null>(null);
   const [bootstrapKey, setBootstrapKey] = useState(0);
-  const [activePanel, setActivePanel] = useState<AnalysisPanel>("search");
+  const [aoiOpen, setAoiOpen] = useState(false);
+  const [dimensionsOpen, setDimensionsOpen] = useState(false);
+  const [globalOpen, setGlobalOpen] = useState(false);
+  const [aoiBbox, setAoiBbox] = useState<AoiBbox | null>(null);
+  const [aoiFormKey, setAoiFormKey] = useState(0);
   const [searchPreset, setSearchPreset] = useState<SearchTargetPreset | null>(null);
   const presetNonce = useRef(0);
   const aoi = useAoiAnalysis(aoiPollIntervalMs);
@@ -209,6 +212,25 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
     return targets;
   }, [selectedResult, selectedReference, capabilities?.features]);
 
+  function scrollToSection(id: string) {
+    window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView?.({ behavior: "smooth", block: "start" });
+    }, 0);
+  }
+
+  function openDimensions() {
+    setDimensionsOpen(true);
+    scrollToSection("section-dimensions");
+  }
+
+  /** An area drawn on the map seeds the analysis form and opens it. */
+  function handleDrawBbox(bbox: AoiBbox) {
+    setAoiBbox(bbox);
+    setAoiFormKey((key) => key + 1);
+    setAoiOpen(true);
+    scrollToSection("section-aoi");
+  }
+
   function handleUseAoiAsTarget(values: NumericTarget) {
     presetNonce.current += 1;
     setSearchPreset({
@@ -216,7 +238,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
       values,
       sourceLabel: `on-demand AOI ${aoi.location?.location_id ?? ""}`.trim(),
     });
-    setActivePanel("search");
+    scrollToSection("section-search");
   }
 
   const coverageOrigins = capabilities?.coverage.origins;
@@ -239,54 +261,6 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
               <img className="brand-mark" src="/favicon.svg" alt="" width="24" height="24" />
               <span className="brand-name">{t("app.title")}</span>
             </h1>
-            {capabilities && (
-              <div className="header-tabs" role="tablist" aria-label={t("app.tabsLabel")}>
-                <button
-                  type="button"
-                  role="tab"
-                  id="tab-search"
-                  aria-selected={activePanel === "search"}
-                  aria-controls="panel-search"
-                  className={activePanel === "search" ? "is-active" : ""}
-                  onClick={() => setActivePanel("search")}
-                >
-                  {t("app.tabSearch")}
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  id="tab-aoi"
-                  aria-selected={activePanel === "aoi"}
-                  aria-controls="panel-aoi"
-                  className={activePanel === "aoi" ? "is-active" : ""}
-                  onClick={() => setActivePanel("aoi")}
-                >
-                  {t("app.tabAoi")}
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  id="tab-dimensions"
-                  aria-selected={activePanel === "dimensions"}
-                  aria-controls="panel-dimensions"
-                  className={activePanel === "dimensions" ? "is-active" : ""}
-                  onClick={() => setActivePanel("dimensions")}
-                >
-                  {t("app.tabDimensions")}
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  id="tab-global"
-                  aria-selected={activePanel === "global"}
-                  aria-controls="panel-global"
-                  className={activePanel === "global" ? "is-active" : ""}
-                  onClick={() => setActivePanel("global")}
-                >
-                  {t("app.tabGlobal")}
-                </button>
-              </div>
-            )}
           </div>
           <div className="header-tools">
             {capabilities && (
@@ -347,13 +321,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
 
         {capabilities && (
           <>
-            <div
-              role="tabpanel"
-              id="panel-search"
-              aria-labelledby="tab-search"
-              className="panel-stack"
-              hidden={activePanel !== "search"}
-            >
+            <div className="panel-stack" id="section-search">
               <SearchForm
                 features={capabilities.features}
                 contextFeatures={capabilities.context_features}
@@ -363,7 +331,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 onSearch={handleSearch}
                 loading={searching}
                 preset={searchPreset}
-                onOpenDimensions={() => setActivePanel("dimensions")}
+                onOpenDimensions={openDimensions}
               />
 
               {searching && (
@@ -403,19 +371,42 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 </div>
               )}
 
-              {activePanel === "search" && (
-                <MapPanel
-                  results={searchResponse?.results ?? []}
-                  selectedId={selectedId}
-                  onSelect={setSelectedId}
-                  response={searching ? undefined : (searchResponse ?? undefined)}
-                  features={capabilities.features}
-                  target={activeTarget}
-                  showIdle={!searchResponse && !searching}
-                  references={references}
-                  selectedReferenceId={selectedReference?.reference_id ?? null}
+              <MapPanel
+                results={searchResponse?.results ?? []}
+                selectedId={selectedId}
+                onSelect={setSelectedId}
+                response={searching ? undefined : (searchResponse ?? undefined)}
+                features={capabilities.features}
+                target={activeTarget}
+                showIdle={!searchResponse && !searching}
+                references={references}
+                selectedReferenceId={selectedReference?.reference_id}
+                aoiBbox={aoiBbox}
+                onDrawBbox={handleDrawBbox}
+              />
+
+              <WorkflowSection
+                id="section-aoi"
+                title={t("flow.aoiTitle")}
+                open={aoiOpen}
+                onOpenChange={setAoiOpen}
+                keepMounted
+              >
+                <AoiForm
+                  key={aoiFormKey}
+                  capabilities={capabilities}
+                  onSubmit={aoi.submit}
+                  busy={aoi.busy}
+                  initialBbox={aoiBbox}
+                  onBboxChange={setAoiBbox}
                 />
-              )}
+                <AoiWorkspace
+                  capabilities={capabilities}
+                  analysis={aoi}
+                  activeTarget={activeTarget}
+                  onUseAsTarget={handleUseAoiAsTarget}
+                />
+              </WorkflowSection>
 
               {searchResponse && !searching && (
                 <div className="results-grid">
@@ -431,7 +422,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                       selected={selectedResult}
                       activeTarget={activeTarget}
                       features={capabilities.features}
-                      onViewDimensions={() => setActivePanel("dimensions")}
+                      onViewDimensions={openDimensions}
                     />
                   ) : (
                     searchResponse.results.length > 0 && (
@@ -443,50 +434,28 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                   )}
                 </div>
               )}
-            </div>
 
-            <div
-              role="tabpanel"
-              id="panel-aoi"
-              aria-labelledby="tab-aoi"
-              className="panel-stack"
-              hidden={activePanel !== "aoi"}
-            >
-              <AoiForm capabilities={capabilities} onSubmit={aoi.submit} busy={aoi.busy} />
-              {activePanel === "aoi" && (
-                <AoiWorkspace
-                  capabilities={capabilities}
-                  analysis={aoi}
-                  activeTarget={activeTarget}
-                  onUseAsTarget={handleUseAoiAsTarget}
-                />
-              )}
-            </div>
-
-            <div
-              role="tabpanel"
-              id="panel-dimensions"
-              aria-labelledby="tab-dimensions"
-              className="panel-stack"
-              hidden={activePanel !== "dimensions"}
-            >
-              {activePanel === "dimensions" && (
+              <WorkflowSection
+                id="section-dimensions"
+                title={t("flow.dimensionsTitle")}
+                open={dimensionsOpen}
+                onOpenChange={setDimensionsOpen}
+              >
                 <SixDimensionPanel
                   features={capabilities.features}
                   datasets={datasets}
                   targets={sixDimensionTargets}
                 />
-              )}
-            </div>
+              </WorkflowSection>
 
-            <div
-              role="tabpanel"
-              id="panel-global"
-              aria-labelledby="tab-global"
-              className="panel-stack"
-              hidden={activePanel !== "global"}
-            >
-              {activePanel === "global" && <GlobalPanel />}
+              <WorkflowSection
+                id="section-global"
+                title={t("flow.globalTitle")}
+                open={globalOpen}
+                onOpenChange={setGlobalOpen}
+              >
+                <GlobalPanel />
+              </WorkflowSection>
             </div>
 
             <details className="about-panel">

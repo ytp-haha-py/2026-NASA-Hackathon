@@ -66,4 +66,25 @@ describe("MapPanel", () => {
     );
     expect(screen.queryByRole("button", { name: "Show all results" })).not.toBeInTheDocument();
   });
+
+  it("offers an area-selection tool on Earth only, and says Moon/Mars are browse-only", async () => {
+    const user = userEvent.setup();
+    render(
+      <I18nProvider initialLocale="en">
+        <MapPanel results={[]} selectedId={null} onSelect={vi.fn()} onDrawBbox={vi.fn()} />
+      </I18nProvider>,
+    );
+    const draw = screen.getByRole("button", { name: "Select area" });
+    expect(draw).toHaveAttribute("aria-pressed", "false");
+    await user.click(draw);
+    expect(screen.getByRole("button", { name: "Cancel selection" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    expect(screen.getByText(/Drag on the map to draw the area to analyze/)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Moon" }));
+    expect(screen.queryByRole("button", { name: /Select area|Cancel selection/ })).not.toBeInTheDocument();
+    expect(screen.getByText(/Moon and Mars maps are browse-only/)).toBeInTheDocument();
+  });
 });

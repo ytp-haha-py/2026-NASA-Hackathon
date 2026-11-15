@@ -19,7 +19,13 @@ type AoiFormProps = {
   capabilities: CapabilitiesOut;
   onSubmit: (request: AoiAnalyzeRequest) => void;
   busy: boolean;
+  /** Seeds the fields, e.g. an area drawn on the map. Remount (key) to apply a new one. */
+  initialBbox?: AoiBbox | null;
+  /** Reports valid hand-typed edits so the map can outline them. */
+  onBboxChange?: (bbox: AoiBbox | null) => void;
 };
+
+export type AoiBbox = { west: number; south: number; east: number; north: number };
 
 type BboxForm = {
   west: string;
@@ -35,13 +41,31 @@ const EXAMPLE_BBOX: BboxForm = {
   north: "29.045",
 };
 
-export function AoiForm({ capabilities, onSubmit, busy }: AoiFormProps) {
+function bboxToForm(bbox: AoiBbox): BboxForm {
+  const text = (value: number) => String(Number(value.toFixed(5)));
+  return {
+    west: text(bbox.west),
+    south: text(bbox.south),
+    east: text(bbox.east),
+    north: text(bbox.north),
+  };
+}
+
+export function AoiForm({
+  capabilities,
+  onSubmit,
+  busy,
+  initialBbox = null,
+  onBboxChange,
+}: AoiFormProps) {
   const { t, fmt, label } = useI18n();
   const limits = useMemo(
     () => readAoiLimits(capabilities.aoi_analysis),
     [capabilities.aoi_analysis],
   );
-  const [bbox, setBbox] = useState<BboxForm>(EXAMPLE_BBOX);
+  const [bbox, setBbox] = useState<BboxForm>(() =>
+    initialBbox ? bboxToForm(initialBbox) : EXAMPLE_BBOX,
+  );
   const [errors, setErrors] = useState<UiMessage[]>([]);
 
   const parsed = useMemo(() => {
@@ -62,7 +86,19 @@ export function AoiForm({ capabilities, onSubmit, busy }: AoiFormProps) {
   }, [bbox]);
 
   function update(field: keyof BboxForm, value: string) {
-    setBbox((current) => ({ ...current, [field]: value }));
+    const next = { ...bbox, [field]: value };
+    setBbox(next);
+    const numbers = {
+      west: Number(next.west),
+      south: Number(next.south),
+      east: Number(next.east),
+      north: Number(next.north),
+    };
+    const valid =
+      Object.values(numbers).every((n) => Number.isFinite(n)) &&
+      numbers.west < numbers.east &&
+      numbers.south < numbers.north;
+    onBboxChange?.(valid ? numbers : null);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
