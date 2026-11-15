@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -25,20 +26,22 @@ BATCH_DIR = (
 )
 PILOT_DOC = REPO_ROOT / "docs" / "GEOMORPHO_REAL_PILOT.md"
 DB_REPORT = REPO_ROOT / "docs" / "DB_CAPACITY_REPORT.md"
+REFINE_JSON = REPO_ROOT / "pipelines" / "coarse" / "real-pilot" / "refine" / "refinement.json"
 COMMITTED_DOC = REPO_ROOT / "docs" / DOCUMENT_NAME
 COMMITTED_ARTIFACTS = REPO_ROOT / "docs" / "global-terrain-results"
 
 
-def _inputs(**overrides: Path) -> ReportInputs:
-    values = {
+def _inputs(**overrides: object) -> ReportInputs:
+    values: dict[str, object] = {
         "repo_root": REPO_ROOT,
         "index_root": INDEX_ROOT,
         "batch_dir": BATCH_DIR,
         "pilot_doc": PILOT_DOC,
         "db_report": DB_REPORT,
+        "refine_json": REFINE_JSON,
     }
     values.update(overrides)
-    return ReportInputs(**values)
+    return ReportInputs(**values)  # type: ignore[arg-type]
 
 
 def _sha256(path: Path) -> str:
@@ -87,6 +90,7 @@ def test_counts_and_checksums_track_committed_manifest_and_batch() -> None:
     rendered = build_global_terrain_report(_inputs())
     coverage = json.loads(rendered["coverage.json"])
     performance = json.loads(rendered["performance.json"])
+    refinement = json.loads(rendered["refinement.json"])
 
     assert coverage["counts"] == {
         "cells": 168,
@@ -115,6 +119,41 @@ def test_counts_and_checksums_track_committed_manifest_and_batch() -> None:
     }
     assert performance["batch"]["artifact_verification"]["verified_tasks"] == 11
     assert batch["outcomes"]["rows"] == 168
+
+    assert refinement["available"] is True
+    assert refinement["evidence"]["sha256"] == _sha256(REFINE_JSON)
+    assert refinement["counts"] == {
+        "coarse_indexed": 168,
+        "coarse_eligible": 168,
+        "coarse_selected": 3,
+        "links": 3,
+        "refined_succeeded": 3,
+        "refined_failed": 0,
+        "refined_no_coverage": 0,
+        "fine_feature_observations": 15,
+        "context_observations": 33,
+        "failures": 0,
+    }
+    assert refinement["provider_counts"] == {
+        "copernicus-dem-glo90": {"failed": 0, "no_coverage": 0, "unknown": 0, "verified": 3},
+        "esa-worldcover-2021-v200": {
+            "failed": 0,
+            "no_coverage": 0,
+            "unknown": 0,
+            "verified": 3,
+        },
+    }
+    assert [link["coarse_candidate_id"] for link in refinement["links"]] == [
+        "coarse-v1:249d33516a874855",
+        "coarse-v1:e0d4c209d928961c",
+        "coarse-v1:95046a41aeb31ca9",
+    ]
+    for link in refinement["links"]:
+        assert link["status"] == "succeeded"
+        assert link["refined_checksum"].startswith("sha256:")
+        assert link["fine_slope_mean_deg"] is not None
+        assert link["fine_valid_fraction"] == 1.0
+    assert refinement["run_metrics"] == {"elapsed_s": 26.708, "max_rss_mb": 201.2}
 
     assert coverage["checksums"]["manifest_sha256"] == _sha256(_manifest_path())
     manifest_partitions = {item["path"]: item for item in manifest["partitions"]}
@@ -167,17 +206,42 @@ def test_builder_refuses_synthetic_batch_evidence(tmp_path: Path) -> None:
         build_global_terrain_report(_inputs(batch_dir=copied))
 
 
-def test_document_separates_coarse_from_refined_and_reports_unavailable_evidence() -> None:
+def test_builder_refuses_mismatched_refinement_evidence(tmp_path: Path) -> None:
+    copied = tmp_path / "refinement.json"
+    payload = json.loads(REFINE_JSON.read_text(encoding="utf-8"))
+    payload["input_index"]["manifest_sha256"] = "0" * 64
+    copied.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(GlobalReportError, match="manifest_sha256"):
+        build_global_terrain_report(_inputs(refine_json=copied))
+
+
+def test_document_keeps_coarse_and_fine_evidence_separate() -> None:
     rendered = build_global_terrain_report(_inputs())
     document = rendered[DOCUMENT_NAME]
     coverage = json.loads(rendered["coverage.json"])
+    refinement = json.loads(rendered["refinement.json"])
     assert "global_claim = false" in document
     assert "not global coverage" in document
-    assert "No coarse-vs-refined comparison is available" in document
+    assert "bounded evidence, not a sensitivity study" in document
+    assert "What this does not establish" in document
+    assert "`coarse_and_fine_scores_interchangeable=false`" in document
+    assert "No recall, precision, overlap" in document
+    assert refinement["comparison_note"].startswith("Coarse 5 km")
     assert coverage["coverage"]["method_version"] == "coarse-terrain-250m-1.0.0"
     assert "coarse-terrain-250m-1.0.0" in document
     assert "terrain-metrics-1.0.0" in document
     assert "not a 90 m terrain product" in coverage["coverage"]["source_resolution_note"]
+
+
+def test_document_states_unavailable_when_no_refinement_is_configured() -> None:
+    rendered = build_global_terrain_report(replace(_inputs(), refine_json=None))
+    document = rendered[DOCUMENT_NAME]
+    refinement = json.loads(rendered["refinement.json"])
+    assert "evidence unavailable" in document
+    assert "**No coarse-vs-refined comparison is available, so none is reported.**" in document
+    assert refinement["available"] is False
+    assert refinement["comparison"] is None
 
 
 def test_check_detects_stale_committed_output(tmp_path: Path) -> None:

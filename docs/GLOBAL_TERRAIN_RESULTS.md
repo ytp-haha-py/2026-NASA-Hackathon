@@ -33,6 +33,7 @@ without machine-checkable completeness evidence.
 | Batch evidence | `pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115` report + checkpoint + 11 task sidecars | each file pinned in `coverage.json` → `checksums.batch_evidence` |
 | Pilot source record | `GEOMORPHO_REAL_PILOT.md` embedded JSON block | `d63e099bbc3badef35e0670ac4636ae61f564091b4d366e27a79098993fba581` |
 | DB capacity report | `docs/DB_CAPACITY_REPORT.md` | `5f344e1d4e1dc1b1eac9bc224db34fcd1e3fcd72f8f9e0f07f11c42a72b63f94` |
+| Refinement evidence | `pipelines/coarse/real-pilot/refine/refinement.json` (`coarse-refine-report-1.0.0`) | `b2fcd6d3f2796ca8330e61676b6e007b098509b70f760ad7636ca429cbcce77a` |
 
 Verified partition checksums (re-hashed by `verify_index` before this report renders):
 
@@ -168,18 +169,48 @@ production SLA. SQLite file bytes: 1,191,936;
 Synthetic values repeat and compress unusually well; real Geomorpho250 entropy will differ.
 The 168-cell pilot has no per-1000-window production timing.
 
-## 9. Coarse 250 m vs refined 90 m — evidence unavailable
+## 9. Coarse 250 m vs refined 90 m — bounded evidence, not a sensitivity study
 
-**No coarse-vs-refined comparison is available, so none is reported.** The committed pilot
-contains only coarse `coarse-terrain-250m-1.0.0` rows for ~250 m-derived 5 km windows. There
-are no paired refined rows produced with `terrain-metrics-1.0.0`, no refined similarity
-values, and no committed overlap/sensitivity measurement between the two supports.
+Evidence: `pipelines/coarse/real-pilot/refine/refinement.json` (`coarse-refine-report-1.0.0`, SHA-256
+`b2fcd6d3f2796ca8330e61676b6e007b098509b70f760ad7636ca429cbcce77a`), generated 2026-11-15T06:07:19Z by
+`pipelines/refine_coarse_hits.py`; human-readable report: `docs/COARSE_REFINE_PILOT.md`. The
+refinement was verified against the same snapshot, manifest digest, partition checksums,
+candidate ids, coarse values, and coarse distances as this report; it is not a separate or
+synthetic index.
 
-- Coarse and fine methods are deliberately disjoint; `assert_comparable` and
-  `reject_coarse_fine_comparison` fail closed.
-- `POST /api/v1/global/refine-plan` can only *plan* 1.98 km fine windows; it does not
-  fetch a DEM or measure them.
-- Any coarse/fine difference table must wait for an explicit, bounded 90 m refinement run.
+Selection: Top 1 hit per coarse region for the first 3 region(s) sorted by region_id; order inside each region is coarse distance then candidate_id.
+
+Target `{"coarse_slope_mean_deg": 8.0}`, weights
+`{"coarse_slope_mean_deg": 1.0}`; focus window 1980.0 m,
+placement `coarse_recorded_metric_bbox_centre_v1`, fine analysis 90 m.
+
+| Coarse candidate | Region | Coarse rank | Coarse distance | Coarse mean slope (°) | Refined area | Status | Fine mean slope (°) | Fine p90 (°) | Fine relief (m) | Fine valid fraction |
+|---|---|---:|---:|---:|---|---|---:|---:|---:|---:|
+| `coarse-v1:249d33516a874855` | `pilot-alps` | 1 | 0.727555 | 0.724 | `earth-refine-48a9e5a4fee2ca81` | succeeded | 0.785 | 1.791 | 17.07 | 1.000 |
+| `coarse-v1:e0d4c209d928961c` | `pilot-grand-canyon` | 1 | 0.095805 | 7.042 | `earth-refine-432552ef1e4bb863` | succeeded | 2.249 | 3.473 | 50.39 | 1.000 |
+| `coarse-v1:95046a41aeb31ca9` | `pilot-sahara` | 1 | 0.013549 | 8.135 | `earth-refine-01a341a9cef18971` | succeeded | 12.456 | 22.969 | 154.65 | 1.000 |
+
+Counts: 3 coarse hits selected from 168
+indexed cells; 3 refined, 0 failed,
+0 no coverage; 15 fine
+terrain observations and 33 WorldCover context observations.
+Provider status: `copernicus-dem-glo90` verified 3, failed 0, no coverage 0; `esa-worldcover-2021-v200` verified 3, failed 0, no coverage 0.
+
+Measured run: 26.708 s elapsed, 201.2 MiB max RSS (from
+the committed refinement report, not re-run by this report).
+
+- `copernicus-dem-glo90` — European Space Agency (ESA) / Airbus Defence and Space; AWS Open Data mirror, COP-DEM_GLO-90-DGED; licence: Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry), under the Copernicus Contributing Mission Data Access Licence terms
+- `esa-worldcover-2021-v200` — European Space Agency (ESA) WorldCover, ESA WorldCover 2021 v200; licence: CC BY 4.0 (Creative Commons Attribution 4.0 International)
+
+**What this does not establish.** The two blocks are shown side by side but are *not*
+interchangeable: coarse uses a 5 km window over ~250 m source pixels, fine uses a 1.98 km
+window over 90 m cells, and `coarse_and_fine_scores_interchangeable=false`. There is no fine
+target, so the fine block is unranked. Only 3 of
+168 cells were refined, selected per region (not the global top 3),
+and the focus window is placed at the coarse window centre. No recall, precision, overlap,
+or method-sensitivity estimate is available, and no result here is a global or exhaustive
+claim. Copernicus GLO-90 is a DSM that may include vegetation/buildings; ESA WorldCover is
+context only and never enters the similarity distance.
 
 ## 10. Source, licence, and attribution
 
@@ -198,7 +229,8 @@ values, and no committed overlap/sensitivity measurement between the two support
 ## 11. Reproduction
 
 All commands are offline; they read committed files only. No network, no source download,
-no synthetic global claim.
+no provider call, and no synthetic global claim. The committed refinement report is an input
+as well; it is not re-run here.
 
 ```bash
 uv sync
@@ -227,6 +259,7 @@ Committed artifact digests:
 |---|---:|---|
 | `docs/global-terrain-results/coverage.json` | 9239 | `134b84b7ab66d67f9e6e71c9cc0f978a46644351c348f7224821140956ea516e` |
 | `docs/global-terrain-results/performance.json` | 3330 | `3fe6551a4d3b44122bd2af6390d73844b0a39fa89b4c784eede7ef4275035ec2` |
+| `docs/global-terrain-results/refinement.json` | 5633 | `e243c77ba4624b44e12c0596349068c96d44157f9b6026f602f479352426c1a4` |
 | `docs/global-terrain-results/regions.csv` | 1185 | `77482a6d819274c03acb82a3908d4af1b3901abae6b5c2c756f505115ff31586` |
 | `docs/global-terrain-results/top-k-queries.json` | 10780 | `45c85fc53fb4d4dbd19bb024996167bd3b21145c29290743df1bb0319b45f4d6` |
 
@@ -237,8 +270,9 @@ Committed artifact digests:
 - 7.5 arc-second source pixels are ~250 m only near the equator; there is no fixed metric
   source grid.
 - 5 km aggregation and bilinear reprojection are method-specific, not 90 m terrain metrics.
-- No coarse-vs-refined overlap/sensitivity evidence exists in this checkout.
-- No real coarse Moon/Mars reference is validated; no refinement run is committed.
+- The refinement pilot covers only 3 of 168 coarse cells (region-stratified top hits) and yields no recall, precision, overlap, or sensitivity estimate.
+- No real coarse Moon/Mars reference is validated; any refined windows are not promoted into
+  the seedable index, snapshot, or user AOIs.
 - DB capacity numbers are synthetic and measured on one workstation; the pilot itself has
   no production-scale timing.
 - R2/remote object bytes remain unknown without credentials and are never zero-filled.

@@ -5,6 +5,7 @@ Inputs are limited to committed artefacts:
 * the verified real coarse Parquet index (manifest plus content-addressed partitions);
 * the committed three-region batch evidence (report, checkpoint, per-task sidecars);
 * the committed pilot source record inside ``docs/GEOMORPHO_REAL_PILOT.md``;
+* the committed coarse-to-90 m refinement report when present;
 * the committed DB capacity measurements in ``docs/DB_CAPACITY_REPORT.md``.
 
 The builder never downloads, stages, or synthesises a source raster, never runs a scan,
@@ -16,6 +17,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import re
 import statistics
 from collections import defaultdict
@@ -44,8 +46,15 @@ ARTIFACT_NAMES = (
     "top-k-queries.json",
     "regions.csv",
     "performance.json",
+    "refinement.json",
     "checksums.json",
 )
+
+FEATURE_COLUMNS = {
+    "coarse_slope_mean_deg": "slope_mean_deg",
+    "coarse_slope_p90_deg": "slope_p90_deg",
+    "coarse_flat_fraction_lt5deg": "flat_fraction",
+}
 
 #: Arithmetic denominator only. It is not a measured coverage denominator and the
 #: report must never present the resulting ratio as a survey percentage.
@@ -114,6 +123,7 @@ class ReportInputs:
     batch_dir: Path
     pilot_doc: Path
     db_report: Path
+    refine_json: Path | None = None
 
 
 def _sha256_bytes(payload: bytes) -> str:
@@ -147,6 +157,10 @@ def _fixed(value: Any, digits: int = 6) -> str:
     if value is None:
         return ""
     return f"{float(value):.{digits}f}"
+
+
+def _fmt(value: Any, spec: str, dash: str = "—") -> str:
+    return dash if value is None else format(float(value), spec)
 
 
 def _json_text(payload: Any) -> str:
@@ -337,6 +351,284 @@ def load_batch_evidence(
             for region, item in sorted(report["inputs"].items())
         },
         "checksums": checksums,
+    }
+
+
+def _coarse_distance(
+    candidate: dict[str, Any], target: dict[str, float], weights: dict[str, float]
+) -> float:
+    total = sum(
+        float(weights.get(feature_id, 1.0))
+        for feature_id in target
+        if float(weights.get(feature_id, 1.0)) > 0
+    )
+    if total <= 0:
+        raise GlobalReportError("refinement selection has no positive coarse weight")
+    squared = 0.0
+    for feature_id, target_value in target.items():
+        weight = float(weights.get(feature_id, 1.0))
+        if weight <= 0:
+            continue
+        scale = COARSE_FEATURE_BY_ID[feature_id].scale
+        value = candidate[FEATURE_COLUMNS[feature_id]]
+        squared += weight * ((float(value) - float(target_value)) / scale) ** 2
+    return math.sqrt(squared / total)
+
+
+def load_refinement_evidence(
+    path: Path,
+    manifest: dict[str, Any],
+    repository: CoarseIndexRepository,
+    *,
+    repo_root: Path,
+    manifest_sha256: str,
+) -> dict[str, Any]:
+    """Verify the committed coarse-to-90 m refinement pilot against the same index."""
+    report = _load_json(path)
+    if report.get("report_version") != "coarse-refine-report-1.0.0":
+        raise GlobalReportError(
+            f"unsupported refinement report version {report.get('report_version')!r}"
+        )
+    recorded_index = report.get("input_index") or {}
+    expected_index = {
+        "snapshot_id": manifest["snapshot_id"],
+        "method_version": manifest["method_version"],
+        "grid_version": manifest["grid_version"],
+        "index_version": manifest["index_version"],
+        "manifest_sha256": manifest_sha256,
+        "row_count": int(manifest["row_count"]),
+    }
+    for key, value in expected_index.items():
+        if recorded_index.get(key) != value:
+            raise GlobalReportError(
+                f"refinement input_index {key}={recorded_index.get(key)!r} does not match "
+                f"the committed index {value!r}"
+            )
+    expected_partitions = sorted(
+        (
+            {
+                "path": item["path"],
+                "sha256": item["sha256"],
+                "rows": int(item["rows"]),
+                "bytes": int(item["bytes"]),
+            }
+            for item in manifest["partitions"]
+        ),
+        key=lambda item: item["path"],
+    )
+    recorded_partitions = sorted(
+        (
+            {
+                "path": item["path"],
+                "sha256": item["sha256"],
+                "rows": int(item["rows"]),
+                "bytes": int(item["bytes"]),
+            }
+            for item in recorded_index.get("partitions", [])
+        ),
+        key=lambda item: item["path"],
+    )
+    if recorded_partitions != expected_partitions:
+        raise GlobalReportError("refinement partitions do not match the committed index")
+    if (report.get("method_versions") or {}).get("coarse") != manifest["method_version"]:
+        raise GlobalReportError("refinement coarse method version differs from the index")
+    versions = report.get("method_versions") or {}
+    if versions.get("fine") != FINE_METHOD_VERSION:
+        raise GlobalReportError(
+            f"refinement fine method version {versions.get('fine')!r} is not "
+            f"{FINE_METHOD_VERSION!r}"
+        )
+    if versions.get("link") != "coarse-refine-link-1.0.0":
+        raise GlobalReportError("unexpected refinement link method version")
+
+    selection = report.get("selection") or {}
+    target = {str(key): float(value) for key, value in (selection.get("target") or {}).items()}
+    weights = {str(key): float(value) for key, value in (selection.get("weights") or {}).items()}
+    if set(target) - set(COARSE_FEATURE_BY_ID):
+        raise GlobalReportError("refinement target contains an unknown coarse feature")
+    selected_ids = list(selection.get("selected_candidate_ids") or [])
+
+    links: list[dict[str, Any]] = []
+    succeeded = failed = no_coverage = 0
+    fine_observations = 0
+    context_observations = 0
+    for link in report.get("links", []):
+        coarse = link.get("coarse") or {}
+        candidate_id = coarse.get("candidate_id")
+        candidate = repository.get(candidate_id) if candidate_id else None
+        if candidate is None:
+            raise GlobalReportError(f"refinement link candidate {candidate_id!r} is not indexed")
+        if candidate["region_id"] != coarse.get("region_id"):
+            raise GlobalReportError(f"refinement link {candidate_id} region differs from the index")
+        for feature_id, column in FEATURE_COLUMNS.items():
+            recorded = (coarse.get("features") or {}).get(feature_id)
+            if recorded is None or abs(float(candidate[column]) - float(recorded)) > 1e-9:
+                raise GlobalReportError(
+                    f"refinement link {candidate_id} feature {feature_id} differs from the index"
+                )
+        distance = _coarse_distance(candidate, target, weights)
+        if abs(distance - float(coarse["distance"])) > 1e-6:
+            raise GlobalReportError(
+                f"refinement link {candidate_id} coarse distance is not reproducible"
+            )
+        scores = link.get("scores") or {}
+        if scores.get("coarse_and_fine_scores_interchangeable") is not False:
+            raise GlobalReportError(
+                "refinement report claims coarse and fine scores are interchangeable"
+            )
+        status = str(link.get("status"))
+        if status == "succeeded":
+            succeeded += 1
+        elif status == "failed":
+            failed += 1
+        elif status == "no_coverage":
+            no_coverage += 1
+        else:
+            raise GlobalReportError(f"refinement link {candidate_id} has status {status!r}")
+        refined = link.get("refined") or {}
+        features = refined.get("features") or {}
+        fine: dict[str, Any] = {}
+        if status == "succeeded":
+            for key in (
+                "slope_mean_deg",
+                "slope_p90_deg",
+                "terrain_relief_p95_p05_m",
+                "flat_terrain_fraction",
+            ):
+                feature = features.get(key)
+                if not feature:
+                    raise GlobalReportError(
+                        f"refinement link {candidate_id} is missing fine feature {key}"
+                    )
+                if feature.get("quality") != "verified":
+                    raise GlobalReportError(
+                        f"refinement link {candidate_id} fine feature {key} is not verified"
+                    )
+                if (
+                    key != "flat_terrain_fraction"
+                    and feature.get("method_version") != FINE_METHOD_VERSION
+                ):
+                    raise GlobalReportError(
+                        f"refinement link {candidate_id} fine feature {key} method differs"
+                    )
+                fine[key] = _f(feature.get("value"), 6)
+            fine_observations += len(features)
+            context_observations += int(refined.get("context_observation_count", 0))
+        links.append(
+            {
+                "coarse_candidate_id": candidate_id,
+                "region_id": coarse["region_id"],
+                "coarse_rank": int(coarse["coarse_rank"]),
+                "coarse_rank_scope": coarse.get("coarse_rank_scope"),
+                "coarse_distance": _f(coarse["distance"], 9),
+                "coarse_slope_mean_deg": _f(coarse["features"]["coarse_slope_mean_deg"]),
+                "coarse_slope_p90_deg": _f(coarse["features"]["coarse_slope_p90_deg"]),
+                "coarse_flat_fraction_lt5deg": _f(
+                    coarse["features"]["coarse_flat_fraction_lt5deg"]
+                ),
+                "status": status,
+                "refined_area_id": refined.get("area_id"),
+                "refined_checksum": refined.get("checksum"),
+                "fine_slope_mean_deg": fine.get("slope_mean_deg"),
+                "fine_slope_p90_deg": fine.get("slope_p90_deg"),
+                "fine_terrain_relief_p95_p05_m": fine.get("terrain_relief_p95_p05_m"),
+                "fine_flat_terrain_fraction": fine.get("flat_terrain_fraction"),
+                "fine_valid_fraction": _f(refined.get("valid_fraction")),
+                "error": link.get("error"),
+            }
+        )
+
+    if [link["coarse_candidate_id"] for link in links] != selected_ids:
+        raise GlobalReportError("refinement links do not match the selected candidate ids")
+    counts = report.get("counts") or {}
+    recorded_counts = {
+        "coarse_indexed": int(counts.get("coarse_indexed", -1)),
+        "coarse_eligible": int(counts.get("coarse_eligible", -1)),
+        "coarse_selected": int(counts.get("coarse_selected", -1)),
+        "links": int(counts.get("links", -1)),
+        "refined_succeeded": int(counts.get("refined_succeeded", -1)),
+        "refined_failed": int(counts.get("refined_failed", -1)),
+        "refined_no_coverage": int(counts.get("refined_no_coverage", -1)),
+        "fine_feature_observations": int(counts.get("fine_feature_observations", -1)),
+        "context_observations": int(counts.get("context_observations", -1)),
+        "failures": int(counts.get("failures", -1)),
+    }
+    actual_counts = {
+        "coarse_indexed": int(manifest["row_count"]),
+        "coarse_eligible": int(selection.get("eligible_candidate_count", -1)),
+        "coarse_selected": len(links),
+        "links": len(links),
+        "refined_succeeded": succeeded,
+        "refined_failed": failed,
+        "refined_no_coverage": no_coverage,
+        "fine_feature_observations": fine_observations,
+        "context_observations": context_observations,
+        "failures": len(report.get("failures") or []),
+    }
+    if recorded_counts != actual_counts:
+        raise GlobalReportError(
+            f"refinement counts {recorded_counts} do not match verified links {actual_counts}"
+        )
+
+    provider_counts = {
+        name: {key: int(value) for key, value in sorted(statuses.items())}
+        for name, statuses in sorted((report.get("provider_counts") or {}).items())
+    }
+    for name, statuses in provider_counts.items():
+        total = sum(
+            statuses.get(key, 0) for key in ("verified", "failed", "no_coverage", "unknown")
+        )
+        if total != len(links):
+            raise GlobalReportError(f"provider {name} status counts do not cover every link")
+
+    datasets = [
+        {
+            key: item.get(key)
+            for key in (
+                "dataset_id",
+                "title",
+                "provider",
+                "product_id",
+                "license",
+                "native_resolution_m",
+            )
+        }
+        for item in report.get("datasets", [])
+    ]
+    run_metrics = report.get("run_metrics") or {}
+    return {
+        "evidence": {
+            "path": path.relative_to(repo_root).as_posix(),
+            "sha256": _sha256_file(path),
+            "report_version": report["report_version"],
+            "generated_at": report.get("generated_at"),
+            "generated_by": report.get("generated_by"),
+        },
+        "coverage": report.get("coverage") or {},
+        "selection": {
+            "rule": selection.get("rule"),
+            "rule_description": selection.get("rule_description"),
+            "rank_scope": selection.get("rank_scope"),
+            "limit": selection.get("limit"),
+            "target": target,
+            "weights": weights,
+            "selected_candidate_ids": selected_ids,
+        },
+        "focus": report.get("focus") or {},
+        "counts": recorded_counts,
+        "provider_counts": provider_counts,
+        "datasets": datasets,
+        "run_metrics": {
+            "elapsed_s": _f(run_metrics.get("elapsed_s"), 3),
+            "max_rss_mb": _f(run_metrics.get("max_rss_mb"), 3),
+        },
+        "recall_estimate": report.get("recall_estimate") or {},
+        "links": links,
+        "comparison_note": (
+            "Coarse 5 km / ~250 m values and fine 1.98 km / 90 m values are shown side by side "
+            "but are not interchangeable. No fine rank, recall, precision, or sensitivity "
+            "estimate is computed; the coarse rank is not a fine rank."
+        ),
     }
 
 
@@ -590,6 +882,15 @@ def build_global_terrain_report(inputs: ReportInputs) -> dict[str, str]:
 
     resolved_root = resolve_index_root(inputs.index_root)
     manifest_sha256 = _sha256_file(resolved_root / "manifest.json")
+    refinement = None
+    if inputs.refine_json is not None:
+        refinement = load_refinement_evidence(
+            inputs.refine_json,
+            manifest,
+            repository,
+            repo_root=inputs.repo_root,
+            manifest_sha256=manifest_sha256,
+        )
 
     if pilot.get("snapshot") != manifest["snapshot_id"]:
         raise GlobalReportError("pilot source record and index manifest snapshot ids differ")
@@ -772,11 +1073,26 @@ def build_global_terrain_report(inputs: ReportInputs) -> dict[str, str]:
         "db": db,
     }
 
+    refinement_payload = (
+        {"report_version": REPORT_VERSION, "available": True, **refinement}
+        if refinement is not None
+        else {
+            "report_version": REPORT_VERSION,
+            "available": False,
+            "reason": (
+                "No committed coarse-to-90 m refinement report was configured for this "
+                "checkout, so no coarse-vs-refined comparison is reported."
+            ),
+            "comparison": None,
+        }
+    )
+
     artifact_text = {
         "coverage.json": _json_text(coverage_payload),
         "top-k-queries.json": _json_text(topk_payload),
         "regions.csv": _regions_csv(regions, batch, source_url=str(source.get("url"))),
         "performance.json": _json_text(performance_payload),
+        "refinement.json": _json_text(refinement_payload),
     }
     artifact_checksums = [
         {
@@ -800,6 +1116,7 @@ def build_global_terrain_report(inputs: ReportInputs) -> dict[str, str]:
         db=db,
         regions=regions,
         queries=queries,
+        refinement=refinement,
         artifact_checksums=artifact_checksums,
     )
     return {DOCUMENT_NAME: document, **artifact_text}
@@ -814,6 +1131,7 @@ def _render_document(
     db: dict[str, Any],
     regions: list[dict[str, Any]],
     queries: list[dict[str, Any]],
+    refinement: dict[str, Any] | None,
     artifact_checksums: list[dict[str, Any]],
 ) -> str:
     source = pilot["source"]
@@ -881,6 +1199,24 @@ Target/weights: {target}. Eligible {query["eligible_candidate_count"]} of {query
     db_rows = db["synthetic_coarse_benchmark"]["rows"]
     partition_footprint = sum(region["cell_footprint_km2"] for region in regions)
     bbox = manifest["coverage"]["bbox"]
+    refinement_section = _render_refinement_section(refinement)
+    if refinement is None:
+        refinement_limit = (
+            "- No coarse-vs-refined overlap/sensitivity evidence exists in this checkout."
+        )
+        refinement_input = "| Refinement evidence | not configured | — |"
+    else:
+        refinement_limit = (
+            "- The refinement pilot covers only "
+            f"{refinement['counts']['coarse_selected']} of "
+            f"{refinement['counts']['coarse_indexed']} coarse cells (region-stratified top "
+            "hits) and yields no recall, precision, overlap, or sensitivity estimate."
+        )
+        refinement_input = (
+            f"| Refinement evidence | `{refinement['evidence']['path']}` "
+            f"(`{refinement['evidence']['report_version']}`) | "
+            f"`{refinement['evidence']['sha256']}` |"
+        )
     return f"""# Global terrain evaluation — three-region pilot evidence, not global coverage
 
 Status: **source-grounded pilot evidence, generated offline from committed artefacts.**
@@ -916,6 +1252,7 @@ without machine-checkable completeness evidence.
 | Batch evidence | `{batch["evidence_path"]}` report + checkpoint + {batch["tasks"]} task sidecars | each file pinned in `coverage.json` → `checksums.batch_evidence` |
 | Pilot source record | `{pilot["_source_doc"]}` embedded JSON block | `{pilot["_source_sha256"]}` |
 | DB capacity report | `{db["source_doc"]}` | `{db["source_sha256"]}` |
+{refinement_input}
 
 Verified partition checksums (re-hashed by `verify_index` before this report renders):
 
@@ -1008,19 +1345,7 @@ production SLA. SQLite file bytes: {db["sqlite"]["file_bytes"]:,};
 Synthetic values repeat and compress unusually well; real Geomorpho250 entropy will differ.
 The 168-cell pilot has no per-1000-window production timing.
 
-## 9. Coarse 250 m vs refined 90 m — evidence unavailable
-
-**No coarse-vs-refined comparison is available, so none is reported.** The committed pilot
-contains only coarse `{COARSE_METHOD_VERSION}` rows for ~250 m-derived 5 km windows. There
-are no paired refined rows produced with `{FINE_METHOD_VERSION}`, no refined similarity
-values, and no committed overlap/sensitivity measurement between the two supports.
-
-- Coarse and fine methods are deliberately disjoint; `assert_comparable` and
-  `reject_coarse_fine_comparison` fail closed.
-- `POST /api/v1/global/refine-plan` can only *plan* 1.98 km fine windows; it does not
-  fetch a DEM or measure them.
-- Any coarse/fine difference table must wait for an explicit, bounded 90 m refinement run.
-
+{refinement_section}
 ## 10. Source, licence, and attribution
 
 - Dataset: Geomorpho90m slope, 7.5 arc-second (~250 m), PANGAEA object
@@ -1038,7 +1363,8 @@ values, and no committed overlap/sensitivity measurement between the two support
 ## 11. Reproduction
 
 All commands are offline; they read committed files only. No network, no source download,
-no synthetic global claim.
+no provider call, and no synthetic global claim. The committed refinement report is an input
+as well; it is not re-run here.
 
 ```bash
 uv sync
@@ -1074,11 +1400,95 @@ Committed artifact digests:
 - 7.5 arc-second source pixels are ~250 m only near the equator; there is no fixed metric
   source grid.
 - 5 km aggregation and bilinear reprojection are method-specific, not 90 m terrain metrics.
-- No coarse-vs-refined overlap/sensitivity evidence exists in this checkout.
-- No real coarse Moon/Mars reference is validated; no refinement run is committed.
+{refinement_limit}
+- No real coarse Moon/Mars reference is validated; any refined windows are not promoted into
+  the seedable index, snapshot, or user AOIs.
 - DB capacity numbers are synthetic and measured on one workstation; the pilot itself has
   no production-scale timing.
 - R2/remote object bytes remain unknown without credentials and are never zero-filled.
+"""
+
+
+def _render_refinement_section(refinement: dict[str, Any] | None) -> str:
+    if refinement is None:
+        return f"""## 9. Coarse 250 m vs refined 90 m — evidence unavailable
+
+**No coarse-vs-refined comparison is available, so none is reported.** No committed
+coarse-to-90 m refinement report was configured. The committed coarse pilot contains only
+`{COARSE_METHOD_VERSION}` rows for ~250 m-derived 5 km windows; there are no paired refined
+rows produced with `{FINE_METHOD_VERSION}`, no refined similarity values, and no committed
+overlap/sensitivity measurement between the two supports.
+
+- Coarse and fine methods are deliberately disjoint; `assert_comparable` and
+  `reject_coarse_fine_comparison` fail closed.
+- `POST /api/v1/global/refine-plan` can only *plan* 1.98 km fine windows; it does not
+  fetch a DEM or measure them.
+- Any coarse/fine difference table must wait for an explicit, bounded 90 m refinement run.
+"""
+    evidence = refinement["evidence"]
+    counts = refinement["counts"]
+    metrics = refinement["run_metrics"]
+    focus = refinement["focus"]
+    selection = refinement["selection"]
+    link_rows = "\n".join(
+        f"| `{link['coarse_candidate_id']}` | `{link['region_id']}` | {link['coarse_rank']} | "
+        f"{link['coarse_distance']:.6f} | {link['coarse_slope_mean_deg']:.3f} | "
+        f"`{link['refined_area_id']}` | {link['status']} | "
+        f"{_fmt(link['fine_slope_mean_deg'], '.3f')} | "
+        f"{_fmt(link['fine_slope_p90_deg'], '.3f')} | "
+        f"{_fmt(link['fine_terrain_relief_p95_p05_m'], '.2f')} | "
+        f"{_fmt(link['fine_valid_fraction'], '.3f')} |"
+        for link in refinement["links"]
+    )
+    provider_text = "; ".join(
+        f"`{name}` verified {statuses.get('verified', 0)}, failed {statuses.get('failed', 0)}, "
+        f"no coverage {statuses.get('no_coverage', 0)}"
+        for name, statuses in refinement["provider_counts"].items()
+    )
+    dataset_text = "\n".join(
+        f"- `{item['dataset_id']}` — {item.get('provider')}, {item.get('product_id')}; "
+        f"licence: {item.get('license')}"
+        for item in refinement["datasets"]
+    )
+    return f"""## 9. Coarse 250 m vs refined 90 m — bounded evidence, not a sensitivity study
+
+Evidence: `{evidence["path"]}` (`{evidence["report_version"]}`, SHA-256
+`{evidence["sha256"]}`), generated {evidence["generated_at"]} by
+`{evidence["generated_by"]}`; human-readable report: `docs/COARSE_REFINE_PILOT.md`. The
+refinement was verified against the same snapshot, manifest digest, partition checksums,
+candidate ids, coarse values, and coarse distances as this report; it is not a separate or
+synthetic index.
+
+Selection: {selection["rule_description"]}
+
+Target `{json.dumps(selection["target"], sort_keys=True)}`, weights
+`{json.dumps(selection["weights"], sort_keys=True)}`; focus window {focus.get("window_m")} m,
+placement `{focus.get("placement_rule")}`, fine analysis {focus.get("analysis_resolution_m")} m.
+
+| Coarse candidate | Region | Coarse rank | Coarse distance | Coarse mean slope (°) | Refined area | Status | Fine mean slope (°) | Fine p90 (°) | Fine relief (m) | Fine valid fraction |
+|---|---|---:|---:|---:|---|---|---:|---:|---:|---:|
+{link_rows}
+
+Counts: {counts["coarse_selected"]} coarse hits selected from {counts["coarse_indexed"]}
+indexed cells; {counts["refined_succeeded"]} refined, {counts["refined_failed"]} failed,
+{counts["refined_no_coverage"]} no coverage; {counts["fine_feature_observations"]} fine
+terrain observations and {counts["context_observations"]} WorldCover context observations.
+Provider status: {provider_text}.
+
+Measured run: {metrics["elapsed_s"]} s elapsed, {metrics["max_rss_mb"]} MiB max RSS (from
+the committed refinement report, not re-run by this report).
+
+{dataset_text}
+
+**What this does not establish.** The two blocks are shown side by side but are *not*
+interchangeable: coarse uses a 5 km window over ~250 m source pixels, fine uses a 1.98 km
+window over 90 m cells, and `coarse_and_fine_scores_interchangeable=false`. There is no fine
+target, so the fine block is unranked. Only {counts["coarse_selected"]} of
+{counts["coarse_indexed"]} cells were refined, selected per region (not the global top 3),
+and the focus window is placed at the coarse window centre. No recall, precision, overlap,
+or method-sensitivity estimate is available, and no result here is a global or exhaustive
+claim. Copernicus GLO-90 is a DSM that may include vegetation/buildings; ESA WorldCover is
+context only and never enters the similarity distance.
 """
 
 

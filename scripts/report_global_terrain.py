@@ -7,6 +7,7 @@ The report is built only from committed artefacts:
 * ``pipelines/coarse/real-pilot/batch/geomorpho-pilot-real-20261115`` — committed batch
   report, checkpoint, and per-task sidecars for the same run;
 * ``docs/GEOMORPHO_REAL_PILOT.md`` — committed pilot source/licence record;
+* ``pipelines/coarse/real-pilot/refine/refinement.json`` — committed coarse-to-90 m pilot;
 * ``docs/DB_CAPACITY_REPORT.md`` — committed DB capacity measurements.
 
 It never downloads, stages, scans, or synthesises a source, and it refuses to describe the
@@ -44,6 +45,9 @@ DEFAULT_BATCH = (
 )
 DEFAULT_PILOT_DOC = REPO_ROOT / "docs" / "GEOMORPHO_REAL_PILOT.md"
 DEFAULT_DB_REPORT = REPO_ROOT / "docs" / "DB_CAPACITY_REPORT.md"
+DEFAULT_REFINE_JSON = (
+    REPO_ROOT / "pipelines" / "coarse" / "real-pilot" / "refine" / "refinement.json"
+)
 DEFAULT_DOCUMENT = REPO_ROOT / "docs" / DOCUMENT_NAME
 DEFAULT_ARTIFACTS = REPO_ROOT / "docs" / "global-terrain-results"
 
@@ -55,6 +59,7 @@ def _inputs(args: argparse.Namespace) -> ReportInputs:
         batch_dir=args.batch,
         pilot_doc=args.pilot_doc,
         db_report=args.db_report,
+        refine_json=args.refine_json,
     )
 
 
@@ -64,6 +69,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--batch", type=Path, default=DEFAULT_BATCH, help="batch evidence dir")
     parser.add_argument("--pilot-doc", type=Path, default=DEFAULT_PILOT_DOC)
     parser.add_argument("--db-report", type=Path, default=DEFAULT_DB_REPORT)
+    parser.add_argument(
+        "--refine-json",
+        type=Path,
+        default=DEFAULT_REFINE_JSON,
+        help="committed coarse-to-90 m refinement report (omit for explicit unavailable)",
+    )
     parser.add_argument("--document", type=Path, default=DEFAULT_DOCUMENT)
     parser.add_argument("--artifacts-dir", type=Path, default=DEFAULT_ARTIFACTS)
     parser.add_argument(
