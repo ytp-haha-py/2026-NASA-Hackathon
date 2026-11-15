@@ -149,7 +149,8 @@ export type FilterDisabledReason =
   | "no_coverage"
   | "no_domain"
   | "category_filter_not_registered"
-  | "category_values_not_registered";
+  | "category_values_not_registered"
+  | "category_earth_only";
 
 export type FilterCategoryOption = {
   value: string;
@@ -248,13 +249,24 @@ function categoryField(feature: RegistryFeatureOut): string | null {
       return candidate;
     }
   }
-  return null;
+  // The committed API keys category_filters by feature_id.
+  return filterKind(feature) === "category" ? feature.feature_id : null;
 }
 
 function categoryOptions(feature: RegistryFeatureOut): FilterCategoryOption[] {
   const support = feature.support as Record<string, unknown>;
   const selector = feature.selector as Record<string, unknown>;
-  const raw = contract(feature).categories ?? support.categories ?? selector.categories;
+  const raw =
+    contract(feature).categories ??
+    support.categories ??
+    selector.categories ??
+    feature.coverage?.category_value_counts;
+  if (raw && !Array.isArray(raw) && typeof raw === "object") {
+    return Object.keys(raw as Record<string, unknown>).sort().map((value) => ({
+      value,
+      label: value,
+    }));
+  }
   if (!Array.isArray(raw)) {
     return [];
   }
@@ -295,7 +307,10 @@ function hasCoverage(feature: RegistryFeatureOut): boolean {
  * role. Missing coverage/domain/category registration is reported explicitly, never replaced by
  * a guess or a fake slider.
  */
-export function dimensionFilter(feature: RegistryFeatureOut): DimensionFilterControl | null {
+export function dimensionFilter(
+  feature: RegistryFeatureOut,
+  candidateBody: "Earth" | "Moon" | "Mars" = "Earth",
+): DimensionFilterControl | null {
   if (!filterSupported(feature)) {
     return null;
   }
@@ -309,6 +324,8 @@ export function dimensionFilter(feature: RegistryFeatureOut): DimensionFilterCon
     disabledReason = "no_coverage";
   } else if (kind === "range" && (minValue === null || maxValue === null || minValue > maxValue)) {
     disabledReason = "no_domain";
+  } else if (kind === "category" && candidateBody !== "Earth") {
+    disabledReason = "category_earth_only";
   } else if (kind === "category" && categoryFieldName === null) {
     disabledReason = "category_filter_not_registered";
   } else if (kind === "category" && categories.length === 0) {
@@ -358,6 +375,7 @@ export function dimensionCards(
   coverage: { by_dimension?: Record<string, TypedDimensionSummary> } | null,
   observations: Array<{ dimension_code: string | null; value_kind: string }> = [],
   registry: FeatureRegistryOut | null = null,
+  candidateBody: "Earth" | "Moon" | "Mars" = "Earth",
 ): FormalDimensionCard[] {
   const registryFeatures = registry?.features ?? [];
   return DIMENSION_CODES.map((code) => {
@@ -390,7 +408,7 @@ export function dimensionCards(
 
     const filters = dimensionRegistry
       .filter((entry) => !similaritySupported(entry))
-      .map(dimensionFilter)
+      .map((entry) => dimensionFilter(entry, candidateBody))
       .filter((control): control is DimensionFilterControl => control !== null);
 
     const role: DimensionRole = cardFeatures.length

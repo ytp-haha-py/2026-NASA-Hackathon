@@ -198,6 +198,7 @@ function registryPayload(overrides: Record<string, unknown> = {}) {
           numeric_observation_count: 0,
           observed_numeric_min: null,
           observed_numeric_max: null,
+          category_value_counts: { "Basalt, Holocene": 1 },
           area_ids: [],
           joined_candidate_count: 0,
           joined_candidate_ids: [],
@@ -313,7 +314,7 @@ describe("D02–D05 filter controls in each dimension card", () => {
     );
   });
 
-  it("renders a D02 category filter as a disabled select when no request field is registered", async () => {
+  it("disables the D02 category filter for a Moon/Mars reference (Earth-only)", async () => {
     const { user } = setup();
     await selectMarsReference(user);
 
@@ -323,7 +324,29 @@ describe("D02–D05 filter controls in each dimension card", () => {
     });
     expect(select).toBeDisabled();
     expect(within(d02).queryByRole("slider")).not.toBeInTheDocument();
-    expect(within(d02).getByText(/Category filter not registered/)).toBeInTheDocument();
+    expect(within(d02).getByText(/Category filters are Earth-only/)).toBeInTheDocument();
+  });
+
+  it("sends the selected D02 category for an Earth custom target", async () => {
+    const { onSearch, user } = setup();
+
+    const slope = screen.getByRole("group", { name: "Mean slope" });
+    fireEvent.change(within(slope).getByLabelText("Weight (≥ 0)"), {
+      target: { value: "1" },
+    });
+
+    const d02 = screen.getByTestId("dimension-card-D02");
+    const select = await within(d02).findByRole("combobox", {
+      name: "Geologic unit category filter",
+    });
+    expect(select).toBeEnabled();
+    await user.selectOptions(select, "Basalt, Holocene");
+    await user.click(screen.getByRole("button", { name: "Search indexed Earth candidates" }));
+
+    expect(onSearch).toHaveBeenCalledTimes(1);
+    expect(onSearch.mock.calls[0][0].multidim?.category_filters).toEqual({
+      geologic_unit: ["Basalt, Holocene"],
+    });
   });
 
   it("shows an evidence reason instead of a slider when the registry has no filter role", async () => {
