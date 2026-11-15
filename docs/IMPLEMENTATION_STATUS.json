@@ -1,5 +1,5 @@
 {
-  "base_commit": "60cf7a4319b912ef174b72c1e4ff98d7d05faade",
+  "base_commit": "e271e0cfe8785c63b983c6c649a7a1cd687171b6",
   "dimensions": {
     "D01": {
       "actual_observation_counts": {
@@ -141,7 +141,7 @@
       "scientific_data_status": "pilot_observations"
     }
   },
-  "generated_at": "2026-11-15T07:45:00+00:00",
+  "generated_at": "2026-11-15T08:25:00+00:00",
   "issues": [
     {
       "comparison_status": "not_comparable",
@@ -221,16 +221,18 @@
       ],
       "evidence": [
         "EMIT and CRISM remain metadata/context only",
-        "no verified quantitative mineral observation"
+        "no verified quantitative mineral observation",
+        "PR #100: CRISM IF/DP metadata, D2300/OLINDEX3 attempts and 4 unknown observations; no fabricated detections"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "merged",
       "number": 42,
       "remaining_blockers": [
+        "CRISM decoder failed 0.001 reproduction tolerance",
+        "M3 geolocation/SPICE not decoded",
         "EMIT auth",
-        "M3 registration",
-        "CRISM thresholds"
+        "validated detection thresholds"
       ],
-      "scientific_data_status": "none",
+      "scientific_data_status": "pilot_observations",
       "title": "D02 mineral detection"
     },
     {
@@ -495,12 +497,15 @@
         35
       ],
       "evidence": [
-        "not implemented"
+        "not implemented",
+        "PR #98: read-only gate returns ranked=false with 9 excluded metrics and explicit reasons"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "merged",
       "number": 36,
       "remaining_blockers": [
-        "same-support references"
+        "Earth and planetary coarse methods differ",
+        "no validated comparable planetary metric",
+        "MOLA support 463 m vs Earth 231.9 m"
       ],
       "scientific_data_status": "none",
       "title": "Cross-body coarse ranking"
@@ -713,6 +718,16 @@
       "merge_commit": "60cf7a4319b912ef174b72c1e4ff98d7d05faade",
       "number": 95,
       "title": "terrain buffer validation"
+    },
+    {
+      "merge_commit": "e271e0cfe8785c63b983c6c649a7a1cd687171b6",
+      "number": 98,
+      "title": "cross-body coarse ranking gate"
+    },
+    {
+      "merge_commit": "3b5848f43af047e3827ac8402ef96cf0fdba5941",
+      "number": 100,
+      "title": "D02 spectral-detection evidence"
     }
   ],
   "next_independent_tasks": [
