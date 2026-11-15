@@ -459,10 +459,13 @@ class CoarseIndexRepository:
         target: dict[str, float],
         weights: dict[str, float],
         limit: int = 10,
+        offset: int = 0,
         region_id: str | None = None,
     ) -> dict[str, Any]:
         if not 1 <= limit <= 10:
             raise CoarseExtractionError("invalid_limit", "limit must be within 1..10")
+        if offset < 0:
+            raise CoarseExtractionError("invalid_offset", "offset must be >= 0")
         if not target:
             raise CoarseExtractionError("empty_target", "at least one coarse target is required")
         unknown = sorted(set(target) - set(COARSE_FEATURE_BY_ID))
@@ -505,11 +508,11 @@ class CoarseIndexRepository:
             f"method_version, grid_version, dataset_id, source_asset_id, qa_flags, "
             f"sqrt(({distance_sql}) / {total_weight}) AS distance "
             f"FROM coarse WHERE {' AND '.join(where)} "
-            f"ORDER BY distance ASC, candidate_id ASC LIMIT ?"
+            f"ORDER BY distance ASC, candidate_id ASC LIMIT ? OFFSET ?"
         )
         con = self._conn()
         try:
-            rows = con.execute(sql, [*params, *where_params, limit]).fetchall()
+            rows = con.execute(sql, [*params, *where_params, limit, offset]).fetchall()
             columns = [item[0] for item in con.description]
             eligible = con.execute(
                 f"SELECT count(*) FROM coarse WHERE {' AND '.join(where)}", where_params
