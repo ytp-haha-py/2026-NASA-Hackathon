@@ -1,5 +1,0 @@
-services:
-  api:
-    volumes:
-      - /home/panda/workspace/2026-NASA-Hackathon/var:/data
-      - /home/panda/workspace/2026-NASA-Hackathon/pipelines/coarse/real-pilot/index:/data/global-index:ro
