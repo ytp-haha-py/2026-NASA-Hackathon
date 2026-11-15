@@ -37,3 +37,20 @@ npx playwright install chromium
 
 The capture requires the public stack to be running. Executed refine results come from the
 real AOI job API; the screenshot records the actual feature values and provider status.
+
+## Cloudflare Pages frontend
+
+Captured 2026-11-15 against `https://2026-nasa-hackathon.貓熊.台灣/` (Pages) with the existing
+`https://api.貓熊.台灣/api/v1` tunnel API.
+
+| File | Flow |
+|---|---|
+| `14-pages-home-desktop.png` | Pages home |
+| `15-pages-reference-search.png` | Moon reference → Earth candidate search |
+| `16-pages-six-dimensions.png` | Earth `earth-sahara-r1c1` with 70 typed observations |
+| `17-pages-global-search-map.png` | Global coarse search + Leaflet map |
+| `18-pages-refine-plan.png` | Refine plan with Execute 90 m buttons |
+| `19-pages-aoi-analysis.png` | Real AOI job completed with terrain/context values |
+| `20-pages-home-mobile.png` | Mobile home |
+| `21-pages-six-dimensions-mobile.png` | Mobile six dimensions |
+| `22-pages-global-mobile.png` | Mobile global discovery |

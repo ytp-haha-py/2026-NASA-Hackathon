@@ -113,3 +113,37 @@ The screenshots were captured with headless Chromium against the public tunnel; 
 - Executed refine covers one user-selected 1.98 km window at a time; no recall or
   global-best claim is made.
 - No combined six-dimension score exists.
+
+## Cloudflare Pages frontend
+
+Public Pages URL: `https://2026-nasa-hackathon.貓熊.台灣/`
+(`https://2026-nasa-hackathon.xn--2vxr09c.xn--kpry57d/`). The existing
+`https://api.貓熊.台灣/api/v1` tunnel API, apex/www tunnel apps and SQLite/Parquet data remain unchanged.
+
+Verified on 2026-11-15:
+
+```text
+bash scripts/pages_acceptance.sh
+→ home=200 asset=/assets/index-*.js=200
+→ deep-link=/global 200
+→ CORS preflight + POST from the Pages origin: access-control-allow-origin matches
+→ typed=520
+→ global rows=168 local_coarse_index_not_global_exhaustive
+→ existing-web=200 existing-api=200
+→ RESULT: PASS
+```
+
+Real browser E2E on the Pages origin (Playwright, no mocks):
+
+- six-dimension panel on `earth-sahara-r1c1`: 70 typed observations; D03/D06 values displayed;
+  typed coverage totals 520.
+- Moon reference → Earth candidate search.
+- global coarse coverage/search, Leaflet map, candidate detail and refine plan.
+- on-demand AOI job `completed` with real Copernicus GLO-90 terrain values and WorldCover context.
+- desktop and mobile screenshots `docs/screenshots/14`–`22`.
+
+The Cloudflare Pages project is `2026-nasa-hackathon`, production branch `main`, custom domain
+active, HTTPS active. `.github/workflows/pages.yml` builds `apps/web` with
+`VITE_API_BASE=https://api.貓熊.台灣/api/v1` and deploys on every `main` push affecting the web app
+or OpenAPI contract. `ANALOG_CORS_ORIGINS` includes the new Pages origin and retains the existing
+apex/www/API/local origins.
