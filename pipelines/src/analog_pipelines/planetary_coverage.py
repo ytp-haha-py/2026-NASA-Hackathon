@@ -1073,26 +1073,60 @@ def _dimension_support(
         return support
 
     if dimension == "D06":
+        if count == 0:
+            return {
+                "status": "absent",
+                "record_count": 0,
+                "observation_count": 0,
+                "dataset_ids": [],
+                "evidence": [],
+                "evidence_note": (
+                    "No committed Moon/Mars D06 observation exists. Earth SoilGrids 2.0 "
+                    "250 m records are Earth-only model predictions and are explicitly "
+                    "excluded from this body; see earth_only_exclusions."
+                ),
+                "comparability": "not_applicable",
+                "on_demand_analysis_supported": False,
+                "on_demand_analysis_reason": (
+                    "D06 has no committed Moon/Mars source and no on-demand regolith "
+                    "provider; Earth SoilGrids is never substituted for a planetary "
+                    "measurement."
+                ),
+                "reason": (
+                    "Zero committed Moon/Mars D06 typed observations. SoilGrids is a 250 m "
+                    "Earth model prediction, not a lunar or Martian regolith measurement."
+                ),
+            }
+        missing_states = {"no_coverage", "unknown", "not_detected", "not_applicable"}
+        all_missing = bool(states) and set(states) <= missing_states
         return {
-            "status": "absent",
-            "record_count": 0,
-            "observation_count": 0,
-            "dataset_ids": [],
-            "evidence": [],
+            "status": "evidence_no_coverage" if all_missing else "evidence_only",
+            "record_count": count,
+            "observation_count": count,
+            "area_count": int(typed_entry.get("area_count", 0)),
+            "dataset_ids": dataset_ids,
+            "states": states,
+            "features": features,
+            "role": typed_entry.get("role"),
+            "evidence": [
+                f"{feature_id}: {feature_count}"
+                for feature_id, feature_count in sorted(features.items())
+            ],
             "evidence_note": (
-                "No committed Moon/Mars D06 observation exists. Earth SoilGrids 2.0 "
-                "250 m records are Earth-only model predictions and are explicitly excluded "
-                "from this body; see earth_only_exclusions."
+                "Committed Moon/Mars D06 records are a sparse official-source audit. "
+                "They carry explicit no_coverage/evidence states and no numeric regolith "
+                "value; Earth SoilGrids is excluded from this body and never substituted."
             ),
-            "comparability": "not_applicable",
+            "comparability": "evidence_only",
             "on_demand_analysis_supported": False,
             "on_demand_analysis_reason": (
-                "D06 has no committed Moon/Mars source and no on-demand regolith provider; "
-                "Earth SoilGrids is never substituted for a planetary measurement."
+                "D06 has no on-demand planetary regolith provider; the committed records "
+                "are a bounded evidence audit, not a measurement of a new AOI."
             ),
             "reason": (
-                "Zero committed Moon/Mars D06 typed observations. SoilGrids is a 250 m "
-                "Earth model prediction, not a lunar or Martian regolith measurement."
+                "Committed Moon/Mars regolith D06 evidence audit records exist, but they "
+                "are no_coverage/evidence-only; SoilGrids remains a 250 m Earth model "
+                "prediction and is never substituted."
             ),
         }
 

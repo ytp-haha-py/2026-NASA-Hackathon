@@ -18,6 +18,7 @@ from analog_api.adapters.seed import ensure_seeded, make_engine
 from analog_api.adapters.typed_db import init_typed_db
 from analog_api.api.routes import router
 from analog_api.api.routes_aoi import router as aoi_router
+from analog_api.api.routes_coverage import router as coverage_router
 from analog_api.api.routes_earth_map import router as earth_map_router
 from analog_api.api.routes_features import router as features_router
 from analog_api.api.routes_global import router as global_router
@@ -115,6 +116,7 @@ def create_app(settings: Settings | None = None, aoi_processor=None) -> FastAPI:
     app.include_router(earth_map_router)
     app.include_router(global_router)
     app.include_router(typed_router)
+    app.include_router(coverage_router)
     app.include_router(features_router)
     app.include_router(planetary_router)
     app.include_router(planetary_aoi_router)

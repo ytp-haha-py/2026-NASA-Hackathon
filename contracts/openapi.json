@@ -1308,6 +1308,24 @@
         "title": "DimensionOut",
         "type": "object"
       },
+      "DimensionWeightIn": {
+        "additionalProperties": false,
+        "properties": {
+          "enabled": {
+            "default": true,
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "weight": {
+            "default": 1.0,
+            "minimum": 0.0,
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "title": "DimensionWeightIn",
+        "type": "object"
+      },
       "DimensionsOut": {
         "properties": {
           "context_features": {
@@ -3449,14 +3467,62 @@
         "type": "object"
       },
       "MultiDimDimensionContributionOut": {
+        "additionalProperties": true,
         "properties": {
           "contribution": {
             "title": "Contribution",
             "type": "number"
           },
+          "dimension_weight": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dimension Weight"
+          },
           "distance": {
             "title": "Distance",
             "type": "number"
+          },
+          "feature_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feature Count"
+          },
+          "feature_weight_sum": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feature Weight Sum"
+          },
+          "mean_squared_normalized_delta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Squared Normalized Delta"
           }
         },
         "required": [
@@ -3756,6 +3822,44 @@
         "title": "MultiDimResultOut",
         "type": "object"
       },
+      "MultiDimScoringOut": {
+        "properties": {
+          "active_dimensions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Active Dimensions",
+            "type": "array"
+          },
+          "dimension_controls": {
+            "additionalProperties": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Dimension Controls",
+            "type": "object"
+          },
+          "formula": {
+            "title": "Formula",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "version",
+          "formula",
+          "note"
+        ],
+        "title": "MultiDimScoringOut",
+        "type": "object"
+      },
       "MultiDimSearchRequest": {
         "additionalProperties": false,
         "properties": {
@@ -3768,6 +3872,13 @@
             ],
             "title": "Candidate Body",
             "type": "string"
+          },
+          "dimension_weights": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/DimensionWeightIn"
+            },
+            "title": "Dimension Weights",
+            "type": "object"
           },
           "evidence_limit": {
             "default": 12,
@@ -3811,6 +3922,21 @@
               }
             ],
             "title": "Reference Id"
+          },
+          "scoring_version": {
+            "anyOf": [
+              {
+                "enum": [
+                  "feature-weighted-euclidean-v1",
+                  "dimension-weighted-rms-v1"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scoring Version"
           },
           "targets": {
             "additionalProperties": {
@@ -3925,6 +4051,16 @@
           "returned": {
             "title": "Returned",
             "type": "integer"
+          },
+          "scoring": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MultiDimScoringOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "source_body": {
             "title": "Source Body",
@@ -5969,6 +6105,158 @@
           }
         },
         "summary": "Capabilities"
+      }
+    },
+    "/api/v1/coverage/location": {
+      "get": {
+        "operationId": "location_coverage_api_v1_coverage_location_get",
+        "parameters": [
+          {
+            "description": "Earth, Moon or Mars",
+            "in": "query",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "description": "Earth, Moon or Mars",
+              "title": "Body",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "lat",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lat"
+            }
+          },
+          {
+            "in": "query",
+            "name": "lon",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lon"
+            }
+          },
+          {
+            "in": "query",
+            "name": "west",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "West"
+            }
+          },
+          {
+            "in": "query",
+            "name": "south",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "South"
+            }
+          },
+          {
+            "in": "query",
+            "name": "east",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "East"
+            }
+          },
+          {
+            "in": "query",
+            "name": "north",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "North"
+            }
+          },
+          {
+            "in": "query",
+            "name": "bbox_lon_convention",
+            "required": false,
+            "schema": {
+              "default": "signed",
+              "title": "Bbox Lon Convention",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Location Coverage Api V1 Coverage Location Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Location Coverage",
+        "tags": [
+          "coverage"
+        ]
       }
     },
     "/api/v1/datasets": {

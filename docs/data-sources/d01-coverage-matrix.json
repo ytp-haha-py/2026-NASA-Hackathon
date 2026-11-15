@@ -1,0 +1,857 @@
+{
+  "matrix_version": "1.0.0",
+  "dimension_code": "D01",
+  "dimension_name": "Terrain & Landforms",
+  "generated_at": "2026-11-15T00:00:00Z",
+  "generated_by": "phase2/135-d01 manual audit from committed manifests, docs/data-sources/d01-terrain.json, pipelines/coarse manifests and repository tests",
+  "scope_statement": "Body x terrain-feature coverage matrix for D01. This is a measured inventory of committed/indexed/queryable support and verified blockers in this repository state; it is not a claim of global, exhaustive, or scientifically comparable cross-body terrain coverage.",
+  "canonical_fine_features": [
+    "slope_mean_deg",
+    "slope_p90_deg",
+    "terrain_relief_p95_p05_m",
+    "roughness_std_m",
+    "flat_terrain_fraction"
+  ],
+  "fine_method": {
+    "method_version_terrain": "terrain-metrics-1.0.0",
+    "method_version_flat": "flat-terrain-fraction-1.0.0",
+    "window_size_m": 1980.0,
+    "analysis_resolution_m": 90.0,
+    "grid_cells": [
+      22,
+      22
+    ],
+    "minimum_valid_fraction": 0.8,
+    "slope_method": "Horn 3x3 over complete neighbourhoods in a projected body-fixed metric CRS",
+    "relief_method": "p95-p05 elevation over valid cells",
+    "roughness_method": "standard deviation of plane-detrended residuals over valid cells",
+    "flat_method": "fraction of valid complete Horn-slope neighbourhoods with slope < 5 degrees",
+    "prohibited": [
+      "Earth WGS84 or geographic-degree derivatives for Moon/Mars",
+      "zero-fill for missing/no_coverage/unsupported",
+      "upsampling coarse global DEMs into 90 m index support",
+      "treating pilot/item counts as area/global coverage"
+    ]
+  },
+  "coarse_context_method": {
+    "earth_method_version": "coarse-terrain-250m-1.0.0",
+    "planetary_pilot_method_version": "coarse-planetary-dem-horn-1.0.0",
+    "grid_window_m": 5000,
+    "analysis_resolution_m": 250.0,
+    "status": "coarse_context_only_not_cross_body_comparable",
+    "notes": "Reuses merged #108/#97 coarse infrastructure. Earth coarse source is a preprocessed 250 m slope product; planetary coarse pilot uses Horn DEM derivatives at native/aggregated support and remains evidence_only/not_comparable. Cross-body ranking disabled."
+  },
+  "entries": [
+    {
+      "body": "Earth",
+      "feature_id": "slope_mean_deg",
+      "dimension_code": "D01",
+      "source_id": "copernicus-dem-glo90",
+      "provider": "European Space Agency / Airbus Defence and Space (AWS Open Data mirror)",
+      "product": "COP-DEM_GLO-90-DGED",
+      "version": "Copernicus DEM 2021 release (GLO-90 COG mirror)",
+      "licence": "Copernicus DEM GLO-90 free basis for the general public; Copernicus Contributing Mission Data Access Licence terms",
+      "licence_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 113,
+        "queryable_via": [
+          "pipelines/earth/manifests/copernicus_glo90_earth.json",
+          "seeded fine-terrain candidate/index flows"
+        ],
+        "geographic_scope": "113 bounded 1.98 km windows in committed Earth manifests; not contiguous global land coverage",
+        "exclusions": "Ocean/no-tile areas, nodata/invalid windows below 0.8 valid fraction, and all unindexed locations are no_coverage/missing"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_dem",
+      "time_support": "Static Copernicus DEM 2021 release; no seasonal/time series",
+      "depth_support": "Surface DSM only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m, bilinear resampling from 3 arc-second native grid",
+      "crs": "Source EPSG:4326; analysis in projected metric CRS per window extraction",
+      "qa": "Native nodata/valid-fraction checks; DSM includes vegetation/buildings; window checksums recorded in manifests",
+      "uncertainty": "No per-window vertical uncertainty provided by source manifest; DSM/building/vegetation bias possible",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_when_validated_same_support_fine_terrain",
+        "hard_filter": "allowed_when_validated_same_support_fine_terrain",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Not global exhaustive indexed coverage",
+        "Polar/sea/no-data behavior must be handled as missing/no_coverage",
+        "DSM not bare-earth DTM"
+      ],
+      "rebuild_instructions": "uv sync; inspect pipelines/earth/manifests/copernicus_glo90_earth.json and pipelines/recompute_terrain.py; regenerate/update manifests only through bounded, licensed, checkpointed workflows with recorded checksums. Do not bulk-download global rasters by default."
+    },
+    {
+      "body": "Earth",
+      "feature_id": "slope_p90_deg",
+      "dimension_code": "D01",
+      "source_id": "copernicus-dem-glo90",
+      "provider": "European Space Agency / Airbus Defence and Space (AWS Open Data mirror)",
+      "product": "COP-DEM_GLO-90-DGED",
+      "version": "Copernicus DEM 2021 release (GLO-90 COG mirror)",
+      "licence": "Copernicus DEM GLO-90 free basis for the general public; Copernicus Contributing Mission Data Access Licence terms",
+      "licence_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 113,
+        "queryable_via": [
+          "pipelines/earth/manifests/copernicus_glo90_earth.json",
+          "seeded fine-terrain candidate/index flows"
+        ],
+        "geographic_scope": "113 bounded 1.98 km windows in committed Earth manifests; not contiguous global land coverage",
+        "exclusions": "Ocean/no-tile areas, nodata/invalid windows below 0.8 valid fraction, and all unindexed locations are no_coverage/missing"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_dem",
+      "time_support": "Static Copernicus DEM 2021 release; no seasonal/time series",
+      "depth_support": "Surface DSM only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m, bilinear resampling from 3 arc-second native grid",
+      "crs": "Source EPSG:4326; analysis in projected metric CRS per window extraction",
+      "qa": "Native nodata/valid-fraction checks; DSM includes vegetation/buildings; window checksums recorded in manifests",
+      "uncertainty": "No per-window vertical uncertainty provided by source manifest; DSM/building/vegetation bias possible",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_when_validated_same_support_fine_terrain",
+        "hard_filter": "allowed_when_validated_same_support_fine_terrain",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Not global exhaustive indexed coverage",
+        "Polar/sea/no-data behavior must be handled as missing/no_coverage",
+        "DSM not bare-earth DTM"
+      ],
+      "rebuild_instructions": "uv sync; inspect pipelines/earth/manifests/copernicus_glo90_earth.json and pipelines/recompute_terrain.py; regenerate/update manifests only through bounded, licensed, checkpointed workflows with recorded checksums. Do not bulk-download global rasters by default."
+    },
+    {
+      "body": "Earth",
+      "feature_id": "terrain_relief_p95_p05_m",
+      "dimension_code": "D01",
+      "source_id": "copernicus-dem-glo90",
+      "provider": "European Space Agency / Airbus Defence and Space (AWS Open Data mirror)",
+      "product": "COP-DEM_GLO-90-DGED",
+      "version": "Copernicus DEM 2021 release (GLO-90 COG mirror)",
+      "licence": "Copernicus DEM GLO-90 free basis for the general public; Copernicus Contributing Mission Data Access Licence terms",
+      "licence_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 113,
+        "queryable_via": [
+          "pipelines/earth/manifests/copernicus_glo90_earth.json",
+          "seeded fine-terrain candidate/index flows"
+        ],
+        "geographic_scope": "113 bounded 1.98 km windows in committed Earth manifests; not contiguous global land coverage",
+        "exclusions": "Ocean/no-tile areas, nodata/invalid windows below 0.8 valid fraction, and all unindexed locations are no_coverage/missing"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_dem",
+      "time_support": "Static Copernicus DEM 2021 release; no seasonal/time series",
+      "depth_support": "Surface DSM only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m, bilinear resampling from 3 arc-second native grid",
+      "crs": "Source EPSG:4326; analysis in projected metric CRS per window extraction",
+      "qa": "Native nodata/valid-fraction checks; DSM includes vegetation/buildings; window checksums recorded in manifests",
+      "uncertainty": "No per-window vertical uncertainty provided by source manifest; DSM/building/vegetation bias possible",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_when_validated_same_support_fine_terrain",
+        "hard_filter": "allowed_when_validated_same_support_fine_terrain",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Not global exhaustive indexed coverage",
+        "Polar/sea/no-data behavior must be handled as missing/no_coverage",
+        "DSM not bare-earth DTM"
+      ],
+      "rebuild_instructions": "uv sync; inspect pipelines/earth/manifests/copernicus_glo90_earth.json and pipelines/recompute_terrain.py; regenerate/update manifests only through bounded, licensed, checkpointed workflows with recorded checksums. Do not bulk-download global rasters by default."
+    },
+    {
+      "body": "Earth",
+      "feature_id": "roughness_std_m",
+      "dimension_code": "D01",
+      "source_id": "copernicus-dem-glo90",
+      "provider": "European Space Agency / Airbus Defence and Space (AWS Open Data mirror)",
+      "product": "COP-DEM_GLO-90-DGED",
+      "version": "Copernicus DEM 2021 release (GLO-90 COG mirror)",
+      "licence": "Copernicus DEM GLO-90 free basis for the general public; Copernicus Contributing Mission Data Access Licence terms",
+      "licence_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 113,
+        "queryable_via": [
+          "pipelines/earth/manifests/copernicus_glo90_earth.json",
+          "seeded fine-terrain candidate/index flows"
+        ],
+        "geographic_scope": "113 bounded 1.98 km windows in committed Earth manifests; not contiguous global land coverage",
+        "exclusions": "Ocean/no-tile areas, nodata/invalid windows below 0.8 valid fraction, and all unindexed locations are no_coverage/missing"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_dem",
+      "time_support": "Static Copernicus DEM 2021 release; no seasonal/time series",
+      "depth_support": "Surface DSM only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m, bilinear resampling from 3 arc-second native grid",
+      "crs": "Source EPSG:4326; analysis in projected metric CRS per window extraction",
+      "qa": "Native nodata/valid-fraction checks; DSM includes vegetation/buildings; window checksums recorded in manifests",
+      "uncertainty": "No per-window vertical uncertainty provided by source manifest; DSM/building/vegetation bias possible",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_when_validated_same_support_fine_terrain",
+        "hard_filter": "allowed_when_validated_same_support_fine_terrain",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Not global exhaustive indexed coverage",
+        "Polar/sea/no-data behavior must be handled as missing/no_coverage",
+        "DSM not bare-earth DTM"
+      ],
+      "rebuild_instructions": "uv sync; inspect pipelines/earth/manifests/copernicus_glo90_earth.json and pipelines/recompute_terrain.py; regenerate/update manifests only through bounded, licensed, checkpointed workflows with recorded checksums. Do not bulk-download global rasters by default."
+    },
+    {
+      "body": "Earth",
+      "feature_id": "flat_terrain_fraction",
+      "dimension_code": "D01",
+      "source_id": "copernicus-dem-glo90",
+      "provider": "European Space Agency / Airbus Defence and Space (AWS Open Data mirror)",
+      "product": "COP-DEM_GLO-90-DGED",
+      "version": "Copernicus DEM 2021 release (GLO-90 COG mirror)",
+      "licence": "Copernicus DEM GLO-90 free basis for the general public; Copernicus Contributing Mission Data Access Licence terms",
+      "licence_url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 113,
+        "queryable_via": [
+          "pipelines/earth/manifests/copernicus_glo90_earth.json",
+          "seeded fine-terrain candidate/index flows"
+        ],
+        "geographic_scope": "113 bounded 1.98 km windows in committed Earth manifests; not contiguous global land coverage",
+        "exclusions": "Ocean/no-tile areas, nodata/invalid windows below 0.8 valid fraction, and all unindexed locations are no_coverage/missing"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_dem",
+      "time_support": "Static Copernicus DEM 2021 release; no seasonal/time series",
+      "depth_support": "Surface DSM only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m, bilinear resampling from 3 arc-second native grid",
+      "crs": "Source EPSG:4326; analysis in projected metric CRS per window extraction",
+      "qa": "Native nodata/valid-fraction checks; DSM includes vegetation/buildings; window checksums recorded in manifests",
+      "uncertainty": "No per-window vertical uncertainty provided by source manifest; DSM/building/vegetation bias possible",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_when_validated_same_support_fine_terrain",
+        "hard_filter": "allowed_when_validated_same_support_fine_terrain",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Not global exhaustive indexed coverage",
+        "Polar/sea/no-data behavior must be handled as missing/no_coverage",
+        "DSM not bare-earth DTM"
+      ],
+      "rebuild_instructions": "uv sync; inspect pipelines/earth/manifests/copernicus_glo90_earth.json and pipelines/recompute_terrain.py; regenerate/update manifests only through bounded, licensed, checkpointed workflows with recorded checksums. Do not bulk-download global rasters by default."
+    },
+    {
+      "body": "Earth",
+      "feature_id": "coarse_slope_mean_deg",
+      "dimension_code": "D01",
+      "source_id": "geomorpho250-slope",
+      "provider": "PANGAEA / Amatulli et al. Geomorpho90m",
+      "product": "dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif",
+      "version": "Geomorpho90m 2018/2019 MERIT-DEM derivative (250 m slope)",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "actual_indexed_queryable_coverage": {
+        "indexed_cells": 168,
+        "partitions": 3,
+        "regions": [
+          "pilot-alps",
+          "pilot-grand-canyon",
+          "pilot-sahara"
+        ],
+        "queryable_via": [
+          "docs/global-terrain-results/coverage.json",
+          "pipelines/coarse/real-pilot/index/snapshots/geomorpho250-real-pilot-20261115",
+          "coarse index/query flows"
+        ],
+        "geographic_scope": "Three bounded 0.4-degree pilot windows only (168 real 5 km cells). Bounding box spans disjoint pilots and is not contiguous/global coverage.",
+        "exclusions": "All Earth land outside the three committed pilot windows is unindexed; Antarctica excluded at source (~60°S–85°N coverage)"
+      },
+      "data_status": "measured_coarse_context",
+      "observation_kind": "derived_from_preprocessed_slope_product",
+      "time_support": "Static 2018/2019 MERIT-DEM derivative",
+      "depth_support": "Surface only",
+      "spatial_support": "5 km coarse cells, 250 m source pixels (7.5 arc-second, not fixed metric grid)",
+      "crs": "Source geographic; coarse cell accounting in coarse-grid workflow (metric 5 km windows)",
+      "qa": "Scale 0.01, nodata -32768, bounded /vsicurl range reads, no full download; per-region stats in coverage.json",
+      "uncertainty": "Not a 90 m DEM-derivative method; differences vs fine terrain method are expected and not a calibration",
+      "legal_score_filter_roles": {
+        "similarity": "coarse_only_not_fine_d01",
+        "hard_filter": "coarse_prefilter_only",
+        "evidence": "allowed",
+        "context_only": true
+      },
+      "gaps": [
+        "Not global exhaustive Earth coarse coverage",
+        "Not the same method/support as fine 90 m D01 metrics",
+        "No Moon/Mars comparable coarse reference"
+      ],
+      "rebuild_instructions": "Reuse merged #108/#97 artifacts; make data-demo / make data-rebuild-index as applicable; see docs/global-terrain-results/coverage.json and pipelines/coarse/real-pilot manifests. Do not redo #108/#97."
+    },
+    {
+      "body": "Earth",
+      "feature_id": "coarse_slope_p90_deg",
+      "dimension_code": "D01",
+      "source_id": "geomorpho250-slope",
+      "provider": "PANGAEA / Amatulli et al. Geomorpho90m",
+      "product": "dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif",
+      "version": "Geomorpho90m 2018/2019 MERIT-DEM derivative (250 m slope)",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "actual_indexed_queryable_coverage": {
+        "indexed_cells": 168,
+        "partitions": 3,
+        "regions": [
+          "pilot-alps",
+          "pilot-grand-canyon",
+          "pilot-sahara"
+        ],
+        "queryable_via": [
+          "docs/global-terrain-results/coverage.json",
+          "pipelines/coarse/real-pilot/index/snapshots/geomorpho250-real-pilot-20261115",
+          "coarse index/query flows"
+        ],
+        "geographic_scope": "Three bounded 0.4-degree pilot windows only (168 real 5 km cells). Bounding box spans disjoint pilots and is not contiguous/global coverage.",
+        "exclusions": "All Earth land outside the three committed pilot windows is unindexed; Antarctica excluded at source (~60°S–85°N coverage)"
+      },
+      "data_status": "measured_coarse_context",
+      "observation_kind": "derived_from_preprocessed_slope_product",
+      "time_support": "Static 2018/2019 MERIT-DEM derivative",
+      "depth_support": "Surface only",
+      "spatial_support": "5 km coarse cells, 250 m source pixels (7.5 arc-second, not fixed metric grid)",
+      "crs": "Source geographic; coarse cell accounting in coarse-grid workflow (metric 5 km windows)",
+      "qa": "Scale 0.01, nodata -32768, bounded /vsicurl range reads, no full download; per-region stats in coverage.json",
+      "uncertainty": "Not a 90 m DEM-derivative method; differences vs fine terrain method are expected and not a calibration",
+      "legal_score_filter_roles": {
+        "similarity": "coarse_only_not_fine_d01",
+        "hard_filter": "coarse_prefilter_only",
+        "evidence": "allowed",
+        "context_only": true
+      },
+      "gaps": [
+        "Not global exhaustive Earth coarse coverage",
+        "Not the same method/support as fine 90 m D01 metrics",
+        "No Moon/Mars comparable coarse reference"
+      ],
+      "rebuild_instructions": "Reuse merged #108/#97 artifacts; make data-demo / make data-rebuild-index as applicable; see docs/global-terrain-results/coverage.json and pipelines/coarse/real-pilot manifests. Do not redo #108/#97."
+    },
+    {
+      "body": "Earth",
+      "feature_id": "coarse_flat_fraction_lt5deg",
+      "dimension_code": "D01",
+      "source_id": "geomorpho250-slope",
+      "provider": "PANGAEA / Amatulli et al. Geomorpho90m",
+      "product": "dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif",
+      "version": "Geomorpho90m 2018/2019 MERIT-DEM derivative (250 m slope)",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "actual_indexed_queryable_coverage": {
+        "indexed_cells": 168,
+        "partitions": 3,
+        "regions": [
+          "pilot-alps",
+          "pilot-grand-canyon",
+          "pilot-sahara"
+        ],
+        "queryable_via": [
+          "docs/global-terrain-results/coverage.json",
+          "pipelines/coarse/real-pilot/index/snapshots/geomorpho250-real-pilot-20261115",
+          "coarse index/query flows"
+        ],
+        "geographic_scope": "Three bounded 0.4-degree pilot windows only (168 real 5 km cells). Bounding box spans disjoint pilots and is not contiguous/global coverage.",
+        "exclusions": "All Earth land outside the three committed pilot windows is unindexed; Antarctica excluded at source (~60°S–85°N coverage)"
+      },
+      "data_status": "measured_coarse_context",
+      "observation_kind": "derived_from_preprocessed_slope_product",
+      "time_support": "Static 2018/2019 MERIT-DEM derivative",
+      "depth_support": "Surface only",
+      "spatial_support": "5 km coarse cells, 250 m source pixels (7.5 arc-second, not fixed metric grid)",
+      "crs": "Source geographic; coarse cell accounting in coarse-grid workflow (metric 5 km windows)",
+      "qa": "Scale 0.01, nodata -32768, bounded /vsicurl range reads, no full download; per-region stats in coverage.json",
+      "uncertainty": "Not a 90 m DEM-derivative method; differences vs fine terrain method are expected and not a calibration",
+      "legal_score_filter_roles": {
+        "similarity": "coarse_only_not_fine_d01",
+        "hard_filter": "coarse_prefilter_only",
+        "evidence": "allowed",
+        "context_only": true
+      },
+      "gaps": [
+        "Not global exhaustive Earth coarse coverage",
+        "Not the same method/support as fine 90 m D01 metrics",
+        "No Moon/Mars comparable coarse reference"
+      ],
+      "rebuild_instructions": "Reuse merged #108/#97 artifacts; make data-demo / make data-rebuild-index as applicable; see docs/global-terrain-results/coverage.json and pipelines/coarse/real-pilot manifests. Do not redo #108/#97."
+    },
+    {
+      "body": "Moon",
+      "feature_id": "slope_mean_deg",
+      "dimension_code": "D01",
+      "source_id": "nasa-lola-south-pole-sites-5m",
+      "provider": "NASA GSFC PGDA / LRO-LOLA",
+      "product": "LOLA 5 m/pix south-pole surface DEM site products",
+      "version": "As referenced in pipelines/planetary/manifests/lola_*_references.json (accessed 2026-11-14/15 repository state)",
+      "licence": "NASA-led mission data (NASA Science Data Portal states CC0-1.0 for NASA science data); PGDA citation requested. Licence status treated as public-domain-like with attribution requirement per source audit.",
+      "licence_url": "https://science.data.nasa.gov/about/license",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 18,
+        "queryable_via": [
+          "pipelines/planetary/manifests/lola_moon_reference.json",
+          "pipelines/planetary/manifests/lola_site01_references.json",
+          "pipelines/planetary/manifests/lola_site07_references.json",
+          "pipelines/planetary/manifests/lola_site11_references.json",
+          "pipelines/planetary/manifests/lola_site20_references.json",
+          "pipelines/planetary/manifests/lola_site23_references.json"
+        ],
+        "geographic_scope": "Six south-pole/local LOLA 5 m sites, 18 ROI windows total (ROI-centred windows may overlap). Not global Moon coverage.",
+        "exclusions": "All locations outside these processed ROIs are no_coverage for fine Moon D01 references"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_dem",
+      "time_support": "Static topography",
+      "depth_support": "Surface only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m derived from 5 m native DEM in projected body-fixed metric CRS",
+      "crs": "Projected lunar body-fixed metric CRS per manifest/source; never Earth WGS84",
+      "qa": "~90% of 5 m pixels interpolated in source products (published); per-window valid fractions/checksums recorded in manifests; no per-window uncertainty",
+      "uncertainty": "Published source interpolation and RMS error ranges exist but are not per-window; cross-body scientific equivalence not claimed",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_only_for_validated_same_support_moon_fine_comparisons",
+        "hard_filter": "allowed_only_for_validated_same_support_moon_fine_comparisons",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Sparse local reference coverage only",
+        "No global Moon fine D01 index",
+        "Mid-latitude/polar gaps beyond committed sources/manifests"
+      ],
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and committed planetary manifests for reference recomputation/verification. Any expansion must follow bounded CP1-CP3 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance; do not bulk-download."
+    },
+    {
+      "body": "Moon",
+      "feature_id": "slope_p90_deg",
+      "dimension_code": "D01",
+      "source_id": "nasa-lola-south-pole-sites-5m",
+      "provider": "NASA GSFC PGDA / LRO-LOLA",
+      "product": "LOLA 5 m/pix south-pole surface DEM site products",
+      "version": "As referenced in pipelines/planetary/manifests/lola_*_references.json (accessed 2026-11-14/15 repository state)",
+      "licence": "NASA-led mission data (NASA Science Data Portal states CC0-1.0 for NASA science data); PGDA citation requested. Licence status treated as public-domain-like with attribution requirement per source audit.",
+      "licence_url": "https://science.data.nasa.gov/about/license",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 18,
+        "queryable_via": [
+          "pipelines/planetary/manifests/lola_moon_reference.json",
+          "pipelines/planetary/manifests/lola_site01_references.json",
+          "pipelines/planetary/manifests/lola_site07_references.json",
+          "pipelines/planetary/manifests/lola_site11_references.json",
+          "pipelines/planetary/manifests/lola_site20_references.json",
+          "pipelines/planetary/manifests/lola_site23_references.json"
+        ],
+        "geographic_scope": "Six south-pole/local LOLA 5 m sites, 18 ROI windows total (ROI-centred windows may overlap). Not global Moon coverage.",
+        "exclusions": "All locations outside these processed ROIs are no_coverage for fine Moon D01 references"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_dem",
+      "time_support": "Static topography",
+      "depth_support": "Surface only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m derived from 5 m native DEM in projected body-fixed metric CRS",
+      "crs": "Projected lunar body-fixed metric CRS per manifest/source; never Earth WGS84",
+      "qa": "~90% of 5 m pixels interpolated in source products (published); per-window valid fractions/checksums recorded in manifests; no per-window uncertainty",
+      "uncertainty": "Published source interpolation and RMS error ranges exist but are not per-window; cross-body scientific equivalence not claimed",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_only_for_validated_same_support_moon_fine_comparisons",
+        "hard_filter": "allowed_only_for_validated_same_support_moon_fine_comparisons",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Sparse local reference coverage only",
+        "No global Moon fine D01 index",
+        "Mid-latitude/polar gaps beyond committed sources/manifests"
+      ],
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and committed planetary manifests for reference recomputation/verification. Any expansion must follow bounded CP1-CP3 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance; do not bulk-download."
+    },
+    {
+      "body": "Moon",
+      "feature_id": "terrain_relief_p95_p05_m",
+      "dimension_code": "D01",
+      "source_id": "nasa-lola-south-pole-sites-5m",
+      "provider": "NASA GSFC PGDA / LRO-LOLA",
+      "product": "LOLA 5 m/pix south-pole surface DEM site products",
+      "version": "As referenced in pipelines/planetary/manifests/lola_*_references.json (accessed 2026-11-14/15 repository state)",
+      "licence": "NASA-led mission data (NASA Science Data Portal states CC0-1.0 for NASA science data); PGDA citation requested. Licence status treated as public-domain-like with attribution requirement per source audit.",
+      "licence_url": "https://science.data.nasa.gov/about/license",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 18,
+        "queryable_via": [
+          "pipelines/planetary/manifests/lola_moon_reference.json",
+          "pipelines/planetary/manifests/lola_site01_references.json",
+          "pipelines/planetary/manifests/lola_site07_references.json",
+          "pipelines/planetary/manifests/lola_site11_references.json",
+          "pipelines/planetary/manifests/lola_site20_references.json",
+          "pipelines/planetary/manifests/lola_site23_references.json"
+        ],
+        "geographic_scope": "Six south-pole/local LOLA 5 m sites, 18 ROI windows total (ROI-centred windows may overlap). Not global Moon coverage.",
+        "exclusions": "All locations outside these processed ROIs are no_coverage for fine Moon D01 references"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_dem",
+      "time_support": "Static topography",
+      "depth_support": "Surface only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m derived from 5 m native DEM in projected body-fixed metric CRS",
+      "crs": "Projected lunar body-fixed metric CRS per manifest/source; never Earth WGS84",
+      "qa": "~90% of 5 m pixels interpolated in source products (published); per-window valid fractions/checksums recorded in manifests; no per-window uncertainty",
+      "uncertainty": "Published source interpolation and RMS error ranges exist but are not per-window; cross-body scientific equivalence not claimed",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_only_for_validated_same_support_moon_fine_comparisons",
+        "hard_filter": "allowed_only_for_validated_same_support_moon_fine_comparisons",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Sparse local reference coverage only",
+        "No global Moon fine D01 index",
+        "Mid-latitude/polar gaps beyond committed sources/manifests"
+      ],
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and committed planetary manifests for reference recomputation/verification. Any expansion must follow bounded CP1-CP3 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance; do not bulk-download."
+    },
+    {
+      "body": "Moon",
+      "feature_id": "roughness_std_m",
+      "dimension_code": "D01",
+      "source_id": "nasa-lola-south-pole-sites-5m",
+      "provider": "NASA GSFC PGDA / LRO-LOLA",
+      "product": "LOLA 5 m/pix south-pole surface DEM site products",
+      "version": "As referenced in pipelines/planetary/manifests/lola_*_references.json (accessed 2026-11-14/15 repository state)",
+      "licence": "NASA-led mission data (NASA Science Data Portal states CC0-1.0 for NASA science data); PGDA citation requested. Licence status treated as public-domain-like with attribution requirement per source audit.",
+      "licence_url": "https://science.data.nasa.gov/about/license",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 18,
+        "queryable_via": [
+          "pipelines/planetary/manifests/lola_moon_reference.json",
+          "pipelines/planetary/manifests/lola_site01_references.json",
+          "pipelines/planetary/manifests/lola_site07_references.json",
+          "pipelines/planetary/manifests/lola_site11_references.json",
+          "pipelines/planetary/manifests/lola_site20_references.json",
+          "pipelines/planetary/manifests/lola_site23_references.json"
+        ],
+        "geographic_scope": "Six south-pole/local LOLA 5 m sites, 18 ROI windows total (ROI-centred windows may overlap). Not global Moon coverage.",
+        "exclusions": "All locations outside these processed ROIs are no_coverage for fine Moon D01 references"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_dem",
+      "time_support": "Static topography",
+      "depth_support": "Surface only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m derived from 5 m native DEM in projected body-fixed metric CRS",
+      "crs": "Projected lunar body-fixed metric CRS per manifest/source; never Earth WGS84",
+      "qa": "~90% of 5 m pixels interpolated in source products (published); per-window valid fractions/checksums recorded in manifests; no per-window uncertainty",
+      "uncertainty": "Published source interpolation and RMS error ranges exist but are not per-window; cross-body scientific equivalence not claimed",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_only_for_validated_same_support_moon_fine_comparisons",
+        "hard_filter": "allowed_only_for_validated_same_support_moon_fine_comparisons",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Sparse local reference coverage only",
+        "No global Moon fine D01 index",
+        "Mid-latitude/polar gaps beyond committed sources/manifests"
+      ],
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and committed planetary manifests for reference recomputation/verification. Any expansion must follow bounded CP1-CP3 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance; do not bulk-download."
+    },
+    {
+      "body": "Moon",
+      "feature_id": "flat_terrain_fraction",
+      "dimension_code": "D01",
+      "source_id": "nasa-lola-south-pole-sites-5m",
+      "provider": "NASA GSFC PGDA / LRO-LOLA",
+      "product": "LOLA 5 m/pix south-pole surface DEM site products",
+      "version": "As referenced in pipelines/planetary/manifests/lola_*_references.json (accessed 2026-11-14/15 repository state)",
+      "licence": "NASA-led mission data (NASA Science Data Portal states CC0-1.0 for NASA science data); PGDA citation requested. Licence status treated as public-domain-like with attribution requirement per source audit.",
+      "licence_url": "https://science.data.nasa.gov/about/license",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 18,
+        "queryable_via": [
+          "pipelines/planetary/manifests/lola_moon_reference.json",
+          "pipelines/planetary/manifests/lola_site01_references.json",
+          "pipelines/planetary/manifests/lola_site07_references.json",
+          "pipelines/planetary/manifests/lola_site11_references.json",
+          "pipelines/planetary/manifests/lola_site20_references.json",
+          "pipelines/planetary/manifests/lola_site23_references.json"
+        ],
+        "geographic_scope": "Six south-pole/local LOLA 5 m sites, 18 ROI windows total (ROI-centred windows may overlap). Not global Moon coverage.",
+        "exclusions": "All locations outside these processed ROIs are no_coverage for fine Moon D01 references"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_dem",
+      "time_support": "Static topography",
+      "depth_support": "Surface only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m derived from 5 m native DEM in projected body-fixed metric CRS",
+      "crs": "Projected lunar body-fixed metric CRS per manifest/source; never Earth WGS84",
+      "qa": "~90% of 5 m pixels interpolated in source products (published); per-window valid fractions/checksums recorded in manifests; no per-window uncertainty",
+      "uncertainty": "Published source interpolation and RMS error ranges exist but are not per-window; cross-body scientific equivalence not claimed",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_only_for_validated_same_support_moon_fine_comparisons",
+        "hard_filter": "allowed_only_for_validated_same_support_moon_fine_comparisons",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Sparse local reference coverage only",
+        "No global Moon fine D01 index",
+        "Mid-latitude/polar gaps beyond committed sources/manifests"
+      ],
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and committed planetary manifests for reference recomputation/verification. Any expansion must follow bounded CP1-CP3 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance; do not bulk-download."
+    },
+    {
+      "body": "Mars",
+      "feature_id": "slope_mean_deg",
+      "dimension_code": "D01",
+      "source_id": "usgs-m20-jezero-ctx-dem-20m",
+      "provider": "USGS Astrogeology / NASA Mars 2020",
+      "product": "Mars 2020 Science Investigation CTX DEM Mosaic (Jezero)",
+      "version": "M20_JezeroCrater_CTXDEM_20m (USGS mosaic, accessed 2026-11-14/15 repository state)",
+      "licence": "Public domain (USGS product page states public domain); cite authors",
+      "licence_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 5,
+        "queryable_via": [
+          "pipelines/planetary/manifests/ctx_mars_references.json"
+        ],
+        "geographic_scope": "Jezero crater only, five 1.98 km windows; not global Mars coverage",
+        "exclusions": "All Mars locations outside these five Jezero windows are no_coverage for fine Mars D01 references"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_stereo_dem",
+      "time_support": "Static topography (CTX stereo-derived mosaic)",
+      "depth_support": "Surface only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m derived from 20 m native DEM",
+      "crs": "Jezero_Crater_Projection / Mars 2000 sphere (projected body-fixed metric CRS); never Earth WGS84",
+      "qa": "Stereo DEM mosaic flags; vertical uncertainty not per-window verified; CRS radius discrepancy disclosed in manifest notes; window checksums recorded",
+      "uncertainty": "Per-window vertical uncertainty not verified; mosaic seams/stereo artifacts may affect metrics",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_only_for_validated_same_support_mars_fine_comparisons",
+        "hard_filter": "allowed_only_for_validated_same_support_mars_fine_comparisons",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Single-region (Jezero) sparse coverage only",
+        "No global Mars fine D01 index",
+        "No verified HiRISE/CTX expansion beyond committed references in this state"
+      ],
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
+    },
+    {
+      "body": "Mars",
+      "feature_id": "slope_p90_deg",
+      "dimension_code": "D01",
+      "source_id": "usgs-m20-jezero-ctx-dem-20m",
+      "provider": "USGS Astrogeology / NASA Mars 2020",
+      "product": "Mars 2020 Science Investigation CTX DEM Mosaic (Jezero)",
+      "version": "M20_JezeroCrater_CTXDEM_20m (USGS mosaic, accessed 2026-11-14/15 repository state)",
+      "licence": "Public domain (USGS product page states public domain); cite authors",
+      "licence_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 5,
+        "queryable_via": [
+          "pipelines/planetary/manifests/ctx_mars_references.json"
+        ],
+        "geographic_scope": "Jezero crater only, five 1.98 km windows; not global Mars coverage",
+        "exclusions": "All Mars locations outside these five Jezero windows are no_coverage for fine Mars D01 references"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_stereo_dem",
+      "time_support": "Static topography (CTX stereo-derived mosaic)",
+      "depth_support": "Surface only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m derived from 20 m native DEM",
+      "crs": "Jezero_Crater_Projection / Mars 2000 sphere (projected body-fixed metric CRS); never Earth WGS84",
+      "qa": "Stereo DEM mosaic flags; vertical uncertainty not per-window verified; CRS radius discrepancy disclosed in manifest notes; window checksums recorded",
+      "uncertainty": "Per-window vertical uncertainty not verified; mosaic seams/stereo artifacts may affect metrics",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_only_for_validated_same_support_mars_fine_comparisons",
+        "hard_filter": "allowed_only_for_validated_same_support_mars_fine_comparisons",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Single-region (Jezero) sparse coverage only",
+        "No global Mars fine D01 index",
+        "No verified HiRISE/CTX expansion beyond committed references in this state"
+      ],
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
+    },
+    {
+      "body": "Mars",
+      "feature_id": "terrain_relief_p95_p05_m",
+      "dimension_code": "D01",
+      "source_id": "usgs-m20-jezero-ctx-dem-20m",
+      "provider": "USGS Astrogeology / NASA Mars 2020",
+      "product": "Mars 2020 Science Investigation CTX DEM Mosaic (Jezero)",
+      "version": "M20_JezeroCrater_CTXDEM_20m (USGS mosaic, accessed 2026-11-14/15 repository state)",
+      "licence": "Public domain (USGS product page states public domain); cite authors",
+      "licence_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 5,
+        "queryable_via": [
+          "pipelines/planetary/manifests/ctx_mars_references.json"
+        ],
+        "geographic_scope": "Jezero crater only, five 1.98 km windows; not global Mars coverage",
+        "exclusions": "All Mars locations outside these five Jezero windows are no_coverage for fine Mars D01 references"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_stereo_dem",
+      "time_support": "Static topography (CTX stereo-derived mosaic)",
+      "depth_support": "Surface only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m derived from 20 m native DEM",
+      "crs": "Jezero_Crater_Projection / Mars 2000 sphere (projected body-fixed metric CRS); never Earth WGS84",
+      "qa": "Stereo DEM mosaic flags; vertical uncertainty not per-window verified; CRS radius discrepancy disclosed in manifest notes; window checksums recorded",
+      "uncertainty": "Per-window vertical uncertainty not verified; mosaic seams/stereo artifacts may affect metrics",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_only_for_validated_same_support_mars_fine_comparisons",
+        "hard_filter": "allowed_only_for_validated_same_support_mars_fine_comparisons",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Single-region (Jezero) sparse coverage only",
+        "No global Mars fine D01 index",
+        "No verified HiRISE/CTX expansion beyond committed references in this state"
+      ],
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
+    },
+    {
+      "body": "Mars",
+      "feature_id": "roughness_std_m",
+      "dimension_code": "D01",
+      "source_id": "usgs-m20-jezero-ctx-dem-20m",
+      "provider": "USGS Astrogeology / NASA Mars 2020",
+      "product": "Mars 2020 Science Investigation CTX DEM Mosaic (Jezero)",
+      "version": "M20_JezeroCrater_CTXDEM_20m (USGS mosaic, accessed 2026-11-14/15 repository state)",
+      "licence": "Public domain (USGS product page states public domain); cite authors",
+      "licence_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 5,
+        "queryable_via": [
+          "pipelines/planetary/manifests/ctx_mars_references.json"
+        ],
+        "geographic_scope": "Jezero crater only, five 1.98 km windows; not global Mars coverage",
+        "exclusions": "All Mars locations outside these five Jezero windows are no_coverage for fine Mars D01 references"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_stereo_dem",
+      "time_support": "Static topography (CTX stereo-derived mosaic)",
+      "depth_support": "Surface only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m derived from 20 m native DEM",
+      "crs": "Jezero_Crater_Projection / Mars 2000 sphere (projected body-fixed metric CRS); never Earth WGS84",
+      "qa": "Stereo DEM mosaic flags; vertical uncertainty not per-window verified; CRS radius discrepancy disclosed in manifest notes; window checksums recorded",
+      "uncertainty": "Per-window vertical uncertainty not verified; mosaic seams/stereo artifacts may affect metrics",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_only_for_validated_same_support_mars_fine_comparisons",
+        "hard_filter": "allowed_only_for_validated_same_support_mars_fine_comparisons",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Single-region (Jezero) sparse coverage only",
+        "No global Mars fine D01 index",
+        "No verified HiRISE/CTX expansion beyond committed references in this state"
+      ],
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
+    },
+    {
+      "body": "Mars",
+      "feature_id": "flat_terrain_fraction",
+      "dimension_code": "D01",
+      "source_id": "usgs-m20-jezero-ctx-dem-20m",
+      "provider": "USGS Astrogeology / NASA Mars 2020",
+      "product": "Mars 2020 Science Investigation CTX DEM Mosaic (Jezero)",
+      "version": "M20_JezeroCrater_CTXDEM_20m (USGS mosaic, accessed 2026-11-14/15 repository state)",
+      "licence": "Public domain (USGS product page states public domain); cite authors",
+      "licence_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+      "actual_indexed_queryable_coverage": {
+        "indexed_windows": 5,
+        "queryable_via": [
+          "pipelines/planetary/manifests/ctx_mars_references.json"
+        ],
+        "geographic_scope": "Jezero crater only, five 1.98 km windows; not global Mars coverage",
+        "exclusions": "All Mars locations outside these five Jezero windows are no_coverage for fine Mars D01 references"
+      },
+      "data_status": "measured",
+      "observation_kind": "derived_from_observed_stereo_dem",
+      "time_support": "Static topography (CTX stereo-derived mosaic)",
+      "depth_support": "Surface only",
+      "spatial_support": "1.98 km window, 22x22 cells at 90 m derived from 20 m native DEM",
+      "crs": "Jezero_Crater_Projection / Mars 2000 sphere (projected body-fixed metric CRS); never Earth WGS84",
+      "qa": "Stereo DEM mosaic flags; vertical uncertainty not per-window verified; CRS radius discrepancy disclosed in manifest notes; window checksums recorded",
+      "uncertainty": "Per-window vertical uncertainty not verified; mosaic seams/stereo artifacts may affect metrics",
+      "legal_score_filter_roles": {
+        "similarity": "allowed_only_for_validated_same_support_mars_fine_comparisons",
+        "hard_filter": "allowed_only_for_validated_same_support_mars_fine_comparisons",
+        "evidence": "allowed",
+        "context_only": false
+      },
+      "gaps": [
+        "Single-region (Jezero) sparse coverage only",
+        "No global Mars fine D01 index",
+        "No verified HiRISE/CTX expansion beyond committed references in this state"
+      ],
+      "rebuild_instructions": "uv sync; use pipelines/recompute_terrain.py and pipelines/planetary/manifests/ctx_mars_references.json for reference recomputation/verification. Any expansion must follow bounded CP4/CP5 plan in docs/D01_COVERAGE_AUDIT.md and docs/data-sources/d01-terrain.json with license/version/checksum provenance and broken-href safeguards; do not bulk-download."
+    }
+  ],
+  "verified_blockers_and_alternatives": [
+    {
+      "body": "Moon",
+      "source_id": "jaxa-selene-kaguya-tc-darts",
+      "status": "blocked_or_unverified",
+      "blocker": "No anonymous, documented bulk API verified in audit; DARTS access may require registration/agreement.",
+      "alternative": "usgs-stac-kaguya-tc-dtms-v2 (CC0-1.0, per-item COG DTMs) as bounded candidate expansion source (CP3)."
+    },
+    {
+      "body": "Mars",
+      "source_id": "esa-mex-hrsc-psa",
+      "status": "blocked_or_unverified",
+      "blocker": "PSA access path and product-level licences not verified in audit.",
+      "alternative": "usgs-mars-hrsc-mola-blend-200m for coarse context only with share-alike licence constraints; do not use as 90 m index support."
+    },
+    {
+      "body": "Moon",
+      "source_id": "nasa-lola-rdr-direct",
+      "status": "blocked_or_unverified",
+      "blocker": "Shot/RDR archives are not ready DEMs; gridding required.",
+      "alternative": "usgs-pds-lro-lola-sldem2015-512ppd and nasa-pgda-lola-south-pole-sites-5m/mosaic for DEM-based bounded work."
+    },
+    {
+      "body": "Mars",
+      "source_id": "pds-mgs-mola-pedr",
+      "status": "blocked_or_unverified",
+      "blocker": "Shot-point archive; gridding to 90 m DEM not validated.",
+      "alternative": "pds4-mgs-mola-megdr for coarse context only; CTX/HiRISE DTMs for bounded fine windows with QA."
+    }
+  ],
+  "representative_queries": {
+    "Earth_fine": {
+      "description": "Read a real committed Earth fine-terrain candidate window with all five D01 metrics.",
+      "manifest": "pipelines/earth/manifests/copernicus_glo90_earth.json",
+      "example_record_selector": "first candidate (e.g. earth-alps-r1c1) or any record in candidates[]",
+      "reproducible_command": "python3 - <<'PY'\nimport json\nm=json.load(open('pipelines/earth/manifests/copernicus_glo90_earth.json'))\nc=m['candidates'][0]\nprint(c['location_id'], c['lat'], c['lon'], sorted(c['features'].keys()))\nprint({k:v['value'] for k,v in c['features'].items()})\nPY"
+    },
+    "Moon_fine": {
+      "description": "Read a real committed Moon fine-terrain reference window with all five D01 metrics.",
+      "manifest": "pipelines/planetary/manifests/lola_site01_references.json",
+      "example_record_selector": "first reference in references[]",
+      "reproducible_command": "python3 - <<'PY'\nimport json\nm=json.load(open('pipelines/planetary/manifests/lola_site01_references.json'))\nr=m['references'][0]\nprint(r['reference_id'], r['lat'], r['lon'], r['body'], sorted(r['features'].keys()))\nprint({k:v['value'] for k,v in r['features'].items()})\nPY"
+    },
+    "Mars_fine": {
+      "description": "Read a real committed Mars fine-terrain reference window with all five D01 metrics.",
+      "manifest": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "example_record_selector": "first reference in references[] (e.g. mars-jezero-ctx-window-01)",
+      "reproducible_command": "python3 - <<'PY'\nimport json\nm=json.load(open('pipelines/planetary/manifests/ctx_mars_references.json'))\nr=m['references'][0]\nprint(r['reference_id'], r['lat'], r['lon'], r['body'], sorted(r['features'].keys()))\nprint({k:v['value'] for k,v in r['features'].items()})\nPY"
+    },
+    "Earth_coarse_context": {
+      "description": "Read committed Earth coarse geomorpho coverage/index evidence (reuse #108/#97).",
+      "manifest": "docs/global-terrain-results/coverage.json",
+      "reproducible_command": "python3 - <<'PY'\nimport json\nm=json.load(open('docs/global-terrain-results/coverage.json'))\nprint(m['counts'])\nprint(m['coverage']['label'], m['coverage']['regions'])\nPY"
+    }
+  }
+}

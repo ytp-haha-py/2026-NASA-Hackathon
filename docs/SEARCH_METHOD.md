@@ -35,7 +35,8 @@ For candidate `c`, target `t`, feature `i`:
 distance = sqrt( sum_i[ w_i * ((c_i - t_i) / scale_i)^2 ] / sum_i w_i )
 ```
 
-- `scale_i` is a fixed, documented registry constant (10°, 15°, 200 m, 20 m). It is **not** computed
+- `scale_i` is a fixed, documented registry constant (10°, 15°, 200 m, 20 m, and 0.25 for flat
+  terrain fraction). It is **not** computed
   from the current results or the global dataset, so adding a candidate cannot silently rescale
   every distance.
 - Lower is more similar. Zero means all requested metrics match exactly.
@@ -58,6 +59,71 @@ distance = sqrt((0.36 + 0.0028125) / 1.5)   = 0.4918078893
 ```
 
 This number is a unitless ranking aid, not "49% similar" and not a physical-equivalence measure.
+
+## Research-informed weight presets (Custom mode)
+
+Research Presets are analyst-designed starting weights informed by NASA research contexts.
+They are **not NASA official weights**, experimentally validated optima, target measurements,
+safety thresholds, or a universal ranking of research suitability. Definitions, feature IDs,
+importance ratings and reference URLs live in `apps/web/src/lib/research-presets.ts`; explanatory
+text uses the existing English / Traditional Chinese message catalogs.
+
+| Feature ID | Rover Mobility | Precision Landing | Geological Fieldwork |
+|---|---:|---:|---:|
+| `slope_mean_deg` | 4 | 2 | 3 |
+| `slope_p90_deg` | 5 | 5 | 2 |
+| `terrain_relief_p95_p05_m` | 2 | 1 | 5 |
+| `roughness_std_m` | 4 | 4 | 4 |
+| `flat_terrain_fraction` | 2 | 5 | 1 |
+
+These are importance ratings `r`: 5 core, 4 high, 3 medium, 2 low, 1 supporting, 0 not applicable.
+Normalized weights are `r_i / sum(r_j)`. The existing 0–3 sliders use `weight_i = r_i / 2`,
+producing respectively `[2, 2.5, 1, 2, 1]`, `[1, 2.5, 0.5, 2, 2.5]`, and
+`[1.5, 1, 2.5, 2, 0.5]`. The common factor cancels in the existing distance denominator,
+so the backend algorithm, fixed registry scales, method comparability, and missing-data rules
+remain unchanged. All five currently have positive weights: a candidate missing any requested
+metric is excluded under the existing rule. Higher importance means closer matching to the
+analyst's target; it does not prefer larger/smaller values by itself.
+
+NASA references support the research scenarios, **not the numerical ratings**:
+
+- **Rover Mobility & Autonomous Navigation:** emphasize steep-tail slope, mean slope and
+  roughness as coarse terrain proxies for representative mobility/navigation challenges.
+  [NASA JPL ERNEST field testing](https://www.jpl.nasa.gov/news/nasa-testing-advanced-capabilities-for-moon-mars-rovers/)
+  describes mobility and autonomy field work on challenging terrain and under varied lighting.
+  D06 surface materials, D05 illumination and D03 thermal environment remain supporting evidence.
+  A 90 m DEM cannot determine wheel-scale trafficability or rover safety.
+- **Precision Landing & Hazard Avoidance:** emphasize P90 slope, flat fraction and roughness
+  to match hazard-avoidance terrain characteristics.
+  [NASA SPLICE](https://www.nasa.gov/safe-and-precise-landing-integrated-capabilities-evolution-splice/)
+  describes high-resolution sensor-based navigation/hazard detection, including rocks and slopes.
+  D05 illumination and D06 surface materials remain supporting evidence. Our 90 m DEM cannot
+  identify local rocks, contiguous safe landing areas, or actual landing safety. Matching a
+  challenge environment is different from recommending a safe landing site.
+- **Geological Fieldwork & Sampling:** emphasize relief, roughness and mean slope as landform
+  context for field investigation.
+  [NASA Artemis JETT / D-RATS](https://www.nasa.gov/humans-in-space/nasa-to-practice-artemis-moonwalking-roving-operations-in-arizona-desert/)
+  describes terrain, geological context, field operations and sample collection. D02 geology
+  and mineralogy are core scientific requirements, while D06 surface materials are also valuable;
+  neither enters this terrain-only numerical score. This is not complete geological similarity.
+
+Presets appear only in Custom mode beside the dimension heading, sharing its wrapping header
+row with the result limit and actions. The visible preset label and explanatory block are omitted;
+the select retains a localized accessible name and a capability-failure tooltip. Research rationale,
+NASA sources and scientific limitations remain documented here. Applying one changes weights
+only, retains targets/filters/limit, and waits for the existing Search button. Initial zero
+targets are not NASA recommendations: users must set targets appropriate to their question.
+All five IDs must be present in API capabilities as numeric `terrain_shape` similarity features;
+otherwise profiles are disabled with an explanation, and Manual remains available. No missing
+feature/observation is fabricated. Additional features are not opted into scoring by these presets.
+
+Editing a Custom weight returns the selector to Manual; editing targets/filters does not.
+Selecting Manual retains current settings; Reset returns weights/targets/filters/limit to their
+existing neutral defaults and resets the selector. Capability refresh returns the selector to
+Manual. Reference weights remain separate. Existing AOI `SearchTargetPreset` behavior still replaces
+weights/targets and submits once; it clears the Research Preset label. Selecting research weights
+afterwards preserves the AOI target values and does not submit again. No preset identifier or
+research-only metadata is added to the search API request, and D02–D06 stay evidence/context only.
 
 ## Per-result breakdown
 
@@ -96,7 +162,7 @@ distance and the per-metric normalized differences instead.
 
 ## Limitations
 
-- Four terrain-shape metrics do not capture gravity, atmosphere, radiation, regolith thickness,
+- Five terrain-shape metrics do not capture gravity, atmosphere, radiation, regolith thickness,
   mineralogy, temperature, wind, dust, or geological history.
 - The Earth DEM can be a digital surface model (vegetation/buildings), which biases slope and
   roughness; this is recorded as a quality flag.

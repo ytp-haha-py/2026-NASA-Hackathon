@@ -1,0 +1,159 @@
+{
+  "dimension": "D06",
+  "title": "Regolith & Surface Properties coverage matrix",
+  "issue": 140,
+  "version": "2026-11-15-d06-140",
+  "status": "bounded_pilot_partial",
+  "global_claim": false,
+  "notes": [
+    "Machine-readable body x feature coverage for D06 only. Not a global or exhaustive survey.",
+    "Earth SoilGrids values are 250 m model predictions, not local measurements. Q0.05/Q0.95 are prediction-quantile uncertainty evidence, not independent scored features.",
+    "No fabricated values, no zero-fill, no model-predictions-as-measurements, no DEM/roughness/WorldCover inference, and no Earth-to-Moon/Mars transfer. Missing stays missing; no_coverage/unsupported explicit.",
+    "Validated Earth 0-5 cm SoilGrids means for all 113 committed Earth fine-candidate AOIs are kept (113/113)."
+  ],
+  "bodies": {
+    "Earth": {
+      "soil_clay_0_5cm_mean": {
+        "source": "ISRIC SoilGrids 2.0",
+        "version": "SoilGrids 2.0; method soilgrids-wcs-2.0.0; dataset soilgrids-250m-v2",
+        "licence": "CC BY 4.0; cite ISRIC SoilGrids 2.0",
+        "licence_url": "https://docs.isric.org/globaldata/soilgrids/",
+        "product": "clay 0-5cm mean",
+        "actual_indexed_queryable_coverage": "113/113 committed Earth fine-candidate AOIs have 0-5 cm mean observations across committed D06 pilots (unique area_ids=113; pilots: d06_earth_soilgrids, d06_earth_soilgrids_depths, d06_earth_soilgrids_expansion_01, d06_earth_soilgrids_all_0_5cm).",
+        "value_semantics": "modeled",
+        "observation_state": "detected",
+        "time_support": "static model prediction release; no time series",
+        "depth_support": "depth_interval 0.0-0.05 m",
+        "spatial_support": "AOI-envelope mean of native 250 m SoilGrids cells; not a point/local sample",
+        "crs": "EPSG:4326 bbox/subsetting; native 250 m model grid",
+        "qa": "Per-release request logs, QA groups, SHA-256 checksums and manifests (see provenance_files)",
+        "uncertainty": "Companion Q0.05/Q0.95 records at same area/property/depth are uncertainty evidence only",
+        "legal_score_filter_roles": "Source observations evidence_only; gated 0-5 cm means eligible for similarity/hard_filter under exact support/version/depth/statistic gates (Earth-only, exact area join). Q05/Q95 not scored.",
+        "gaps": "Bounded to committed candidates (not global); model prediction not measurement; deeper intervals not universal for all 113 AOIs",
+        "rebuild_instructions": "uv run python scripts/import_typed_release.py --release pipelines/pilots/d06_earth_soilgrids_all_0_5cm --database var/analog.db (and related D06 releases as needed); rebuild via scripts/build_soilgrids_depth_pilot.py with bounded area IDs/depths/statistics and --resume (network) or --dry-run"
+      },
+      "soil_sand_0_5cm_mean": { "same_as": "soil_clay_0_5cm_mean", "product": "sand 0-5cm mean", "unit": "g kg-1" },
+      "soil_silt_0_5cm_mean": { "same_as": "soil_clay_0_5cm_mean", "product": "silt 0-5cm mean", "unit": "g kg-1" },
+      "soil_soc_0_5cm_mean": { "same_as": "soil_clay_0_5cm_mean", "product": "soc 0-5cm mean", "unit": "dg kg-1" },
+      "soil_bdod_0_5cm_mean": { "same_as": "soil_clay_0_5cm_mean", "product": "bdod fine-earth bulk density 0-5cm mean", "unit": "cg cm-3" },
+      "soil_properties_0_5cm_q05_q95": {
+        "source": "ISRIC SoilGrids 2.0",
+        "version": "SoilGrids 2.0; soilgrids-wcs-2.0.0; soilgrids-250m-v2",
+        "licence": "CC BY 4.0",
+        "product": "Q0.05/Q0.95 for clay,sand,silt,soc,bdod at 0-5cm",
+        "actual_indexed_queryable_coverage": "Present for same 113 Earth AOIs in committed 0-5 cm releases",
+        "value_semantics": "modeled_uncertainty",
+        "observation_state": "detected",
+        "time_support": "static",
+        "depth_support": "0.0-0.05 m",
+        "spatial_support": "AOI-envelope quantiles of native 250 m model cells",
+        "crs": "EPSG:4326",
+        "qa": "Checksums/request logs/QA groups per release",
+        "uncertainty": "Model prediction spread; not AOI-mean confidence interval; not independent scored features",
+        "legal_score_filter_roles": "uncertainty/evidence only; never independent scored features",
+        "gaps": "Not measurements",
+        "rebuild_instructions": "Same bounded SoilGrids build with statistics mean,Q0.05,Q0.95"
+      },
+      "soil_properties_5_15cm_15_30cm_30_60cm": {
+        "source": "ISRIC SoilGrids 2.0",
+        "version": "SoilGrids 2.0; soilgrids-wcs-2.0.0; soilgrids-250m-v2",
+        "licence": "CC BY 4.0",
+        "product": "clay,sand,silt,soc,bdod at 5-15/15-30/30-60 cm (mean,Q05,Q95)",
+        "actual_indexed_queryable_coverage": "Bounded to 5 AOIs in pipelines/pilots/d06_earth_soilgrids_depths (300 obs across 4 depths incl 0-5 cm); not universal for all 113 AOIs",
+        "value_semantics": "modeled / modeled_uncertainty",
+        "observation_state": "detected",
+        "time_support": "static",
+        "depth_support": "0.05-0.15 m, 0.15-0.30 m, 0.30-0.60 m (separate, never pooled)",
+        "spatial_support": "AOI-envelope aggregates of native 250 m model cells",
+        "crs": "EPSG:4326",
+        "qa": "QA groups/checksums in release manifests",
+        "uncertainty": "Q05/Q95 uncertainty evidence only",
+        "legal_score_filter_roles": "evidence_only/model records; only exact support/version/depth/statistic-gated uses allowed where registered",
+        "gaps": "60-100/100-200 cm out of scope; deeper depths not available for all 113 committed candidates",
+        "rebuild_instructions": "scripts/build_soilgrids_depth_pilot.py --depths 5-15cm,15-30cm,30-60cm with bounded --area-id and --resume"
+      },
+      "particle_size_distribution": { "value_semantics": "no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "none (no measured PSD release indexed)", "gaps": "SoilGrids texture fractions are separate model predictions, not a normalized measured PSD; requires verified source with bin edges/basis/depth", "legal_score_filter_roles": "n/a" },
+      "bulk_density_kg_m3": { "value_semantics": "no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "none as measured kg/m3 sample; SoilGrids bdod is separate fine-earth cg cm-3 model prediction", "gaps": "no verified measured/derived-with-assumptions ingest in this release", "legal_score_filter_roles": "n/a" },
+      "porosity_fraction": { "value_semantics": "no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "none", "gaps": "cannot infer from density without stated particle density and assumptions", "legal_score_filter_roles": "n/a" },
+      "cohesion_kpa": { "value_semantics": "no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "none", "gaps": "no verified geotechnical experiment ingest", "legal_score_filter_roles": "n/a" },
+      "friction_angle_deg": { "value_semantics": "no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "none", "gaps": "no verified geotechnical experiment ingest", "legal_score_filter_roles": "n/a" },
+      "bearing_strength_kpa": { "value_semantics": "no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "none", "gaps": "no verified test ingest", "legal_score_filter_roles": "n/a" }
+    },
+    "Moon": {
+      "particle_size_distribution": {
+        "source": "Official source audit: NASA PDS Apollo 15/16 LSRP, Apollo 15/17 HFE (public); alternative CC BY compilation with per-record provenance (Gasteiner et al.)",
+        "version": "unregistered in machine-ingestible per-sample form in this pass",
+        "licence": "NASA PDS public/open archive data; alternative compilation CC BY 4.0 (per-record original-source attribution required)",
+        "product": "sparse regolith grain-size evidence",
+        "actual_indexed_queryable_coverage": "explicit no_coverage records in pipelines/pilots/d06_moon_mars_regolith_evidence (bounded, representative areas)",
+        "value_semantics": "evidence_no_coverage",
+        "observation_state": "no_coverage",
+        "time_support": "n/a",
+        "depth_support": "n/a (no detected sample record ingested)",
+        "spatial_support": "representative mission/site reference areas only (not exhaustive)",
+        "crs": "planetary body-fixed frame as recorded in observations (not Earth WGS84)",
+        "qa": "source audit documented; no numeric value fabricated",
+        "uncertainty": "unknown",
+        "legal_score_filter_roles": "evidence_only/no_coverage",
+        "gaps": "Per-sample PSD with bin edges/basis/depth from official source not ingested in this bounded pass",
+        "rebuild_instructions": "import pipelines/pilots/d06_moon_mars_regolith_evidence; future bounded ingest requires verified sample records + checksums + assumptions"
+      },
+      "bulk_density_kg_m3": { "same_as_feature_family": "Moon sparse regolith evidence", "value_semantics": "evidence_no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "explicit no_coverage records in d06_moon_mars_regolith_evidence", "gaps": "no per-sample machine-ingested value with sample support/depth/assumptions" },
+      "porosity_fraction": { "same_as_feature_family": "Moon sparse regolith evidence", "value_semantics": "evidence_no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "explicit no_coverage records in d06_moon_mars_regolith_evidence", "gaps": "no direct porosity record ingested; cannot infer from density without stated particle density" },
+      "regolith_thickness_m": { "value_semantics": "unsupported", "observation_state": "unsupported", "actual_indexed_queryable_coverage": "0 (feature ID not registered in current D06 registry)", "gaps": "requires shared feature-registry/contract changes via #141", "legal_score_filter_roles": "n/a" },
+      "cohesion_kpa": { "same_as_feature_family": "Moon sparse regolith evidence", "value_semantics": "evidence_no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "explicit no_coverage records in d06_moon_mars_regolith_evidence", "gaps": "LSRP-derived mechanics need reduction-model assumptions and bounded extraction" },
+      "friction_angle_deg": { "same_as_feature_family": "Moon sparse regolith evidence", "value_semantics": "evidence_no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "explicit no_coverage records in d06_moon_mars_regolith_evidence", "gaps": "LSRP-derived mechanics need reduction-model assumptions and bounded extraction" },
+      "bearing_strength_kpa": { "same_as_feature_family": "Moon sparse regolith evidence", "value_semantics": "evidence_no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "explicit no_coverage records in d06_moon_mars_regolith_evidence", "gaps": "penetration evidence exists but typed derived ingest blocked in this pass" }
+    },
+    "Mars": {
+      "particle_size_distribution": {
+        "source": "Official source audit: NASA PDS InSight HP3/RAD (urn:nasa:pds:insight_hp3_tem, urn:nasa:pds:insight_rad), mission analyses with documented assumptions",
+        "version": "unregistered in machine-ingestible per-sample form in this pass",
+        "licence": "NASA PDS public/open archive data",
+        "product": "sparse regolith grain-size evidence",
+        "actual_indexed_queryable_coverage": "explicit no_coverage records in pipelines/pilots/d06_moon_mars_regolith_evidence",
+        "value_semantics": "evidence_no_coverage",
+        "observation_state": "no_coverage",
+        "time_support": "n/a",
+        "depth_support": "n/a",
+        "spatial_support": "representative landing-site reference area only (not exhaustive)",
+        "crs": "Mars body-fixed frame as recorded (not Earth WGS84)",
+        "qa": "source audit documented; no numeric value fabricated",
+        "uncertainty": "unknown",
+        "legal_score_filter_roles": "evidence_only/no_coverage",
+        "gaps": "Per-sample PSD not ingested in this bounded pass",
+        "rebuild_instructions": "import pipelines/pilots/d06_moon_mars_regolith_evidence"
+      },
+      "bulk_density_kg_m3": { "same_as_feature_family": "Mars sparse regolith evidence", "value_semantics": "evidence_no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "explicit no_coverage records in d06_moon_mars_regolith_evidence", "gaps": "model/inference-heavy values require explicit assumptions; not ingested" },
+      "porosity_fraction": { "same_as_feature_family": "Mars sparse regolith evidence", "value_semantics": "evidence_no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "explicit no_coverage records in d06_moon_mars_regolith_evidence", "gaps": "not directly ingested" },
+      "regolith_thickness_m": { "value_semantics": "unsupported", "observation_state": "unsupported", "actual_indexed_queryable_coverage": "0 (feature ID not registered)", "gaps": "shared registry/contract change via #141", "legal_score_filter_roles": "n/a" },
+      "cohesion_kpa": { "same_as_feature_family": "Mars sparse regolith evidence", "value_semantics": "evidence_no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "explicit no_coverage records in d06_moon_mars_regolith_evidence", "gaps": "HP3/landing-site mechanics derived with assumptions; not ingested" },
+      "friction_angle_deg": { "same_as_feature_family": "Mars sparse regolith evidence", "value_semantics": "evidence_no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "explicit no_coverage records in d06_moon_mars_regolith_evidence", "gaps": "derived with assumptions; not ingested" },
+      "bearing_strength_kpa": { "same_as_feature_family": "Mars sparse regolith evidence", "value_semantics": "evidence_no_coverage", "observation_state": "no_coverage", "actual_indexed_queryable_coverage": "explicit no_coverage records in d06_moon_mars_regolith_evidence", "gaps": "not ingested" }
+    }
+  },
+  "representative_queries": {
+    "Earth": [
+      "uv run python scripts/import_typed_release.py --release pipelines/pilots/d06_earth_soilgrids_all_0_5cm --database var/analog.db",
+      "Query: GET /api/v1/typed/observations?dimension=D06&body=Earth&feature_id=soil_clay_0_5cm_mean&limit=3"
+    ],
+    "Moon": [
+      "uv run python scripts/import_typed_release.py --release pipelines/pilots/d06_moon_mars_regolith_evidence --database var/analog.db",
+      "Query: GET /api/v1/typed/observations?dimension=D06&body=Moon&limit=5 (returns explicit no_coverage evidence records)"
+    ],
+    "Mars": [
+      "uv run python scripts/import_typed_release.py --release pipelines/pilots/d06_moon_mars_regolith_evidence --database var/analog.db",
+      "Query: GET /api/v1/typed/observations?dimension=D06&body=Mars&limit=5 (returns explicit no_coverage evidence records)"
+    ]
+  },
+  "provenance_files": [
+    "pipelines/pilots/d06_earth_soilgrids/manifest.json",
+    "pipelines/pilots/d06_earth_soilgrids_depths/manifest.json",
+    "pipelines/pilots/d06_earth_soilgrids_expansion_01/manifest.json",
+    "pipelines/pilots/d06_earth_soilgrids_all_0_5cm/manifest.json",
+    "pipelines/pilots/d06_moon_mars_regolith_evidence/manifest.json",
+    "docs/D06_REGOLITH_SEMANTICS.md",
+    "docs/D06_SOILGRIDS_DEPTH_PILOT.md",
+    "docs/D06_COVERAGE_140.md"
+  ]
+}

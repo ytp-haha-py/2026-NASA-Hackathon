@@ -1,0 +1,360 @@
+{
+  "generated_at": "2026-11-15T12:00:00+00:00",
+  "notes": [
+    "Bounded D06 Moon/Mars sparse regolith evidence audit release.",
+    "No numeric values fabricated or inferred; explicit no_coverage observations only for supported feature IDs.",
+    "Thickness (regolith_thickness_m) not registered in current D06 feature registry; tracked as unsupported in coverage matrix (shared change via #141)."
+  ],
+  "plan_version": "acquisition-plan-1.0.0",
+  "scope": "d06-moon-mars-regolith-evidence-v1",
+  "tasks": [
+    {
+      "area": {
+        "area_id": "mars-insight-elysium-hp3",
+        "bbox": {
+          "east": 135.624,
+          "north": 4.503,
+          "south": 4.502,
+          "west": 135.623
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_2015:49900",
+        "display_name": "InSight landing site (Elysium Planitia, HP3/RAD context)",
+        "notes": "Representative bounded landing-site area for HP3/RAD regolith physical-property evidence context. Approximate site location; no exhaustive coverage."
+      },
+      "body": "Mars",
+      "dataset_id": "nasa-pds-insight-hp3-rad-audit",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+      "expected_bytes": 0,
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "feature_id": "bearing_strength_kpa"
+      },
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-insight-hp3-rad-audit",
+      "task_id": "d06-evidence-mars-mars-insight-elysium-hp3-bearing_strength_kpa"
+    },
+    {
+      "area": {
+        "area_id": "mars-insight-elysium-hp3",
+        "bbox": {
+          "east": 135.624,
+          "north": 4.503,
+          "south": 4.502,
+          "west": 135.623
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_2015:49900",
+        "display_name": "InSight landing site (Elysium Planitia, HP3/RAD context)",
+        "notes": "Representative bounded landing-site area for HP3/RAD regolith physical-property evidence context. Approximate site location; no exhaustive coverage."
+      },
+      "body": "Mars",
+      "dataset_id": "nasa-pds-insight-hp3-rad-audit",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+      "expected_bytes": 0,
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "feature_id": "bulk_density_kg_m3"
+      },
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-insight-hp3-rad-audit",
+      "task_id": "d06-evidence-mars-mars-insight-elysium-hp3-bulk_density_kg_m3"
+    },
+    {
+      "area": {
+        "area_id": "mars-insight-elysium-hp3",
+        "bbox": {
+          "east": 135.624,
+          "north": 4.503,
+          "south": 4.502,
+          "west": 135.623
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_2015:49900",
+        "display_name": "InSight landing site (Elysium Planitia, HP3/RAD context)",
+        "notes": "Representative bounded landing-site area for HP3/RAD regolith physical-property evidence context. Approximate site location; no exhaustive coverage."
+      },
+      "body": "Mars",
+      "dataset_id": "nasa-pds-insight-hp3-rad-audit",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+      "expected_bytes": 0,
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "feature_id": "cohesion_kpa"
+      },
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-insight-hp3-rad-audit",
+      "task_id": "d06-evidence-mars-mars-insight-elysium-hp3-cohesion_kpa"
+    },
+    {
+      "area": {
+        "area_id": "mars-insight-elysium-hp3",
+        "bbox": {
+          "east": 135.624,
+          "north": 4.503,
+          "south": 4.502,
+          "west": 135.623
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_2015:49900",
+        "display_name": "InSight landing site (Elysium Planitia, HP3/RAD context)",
+        "notes": "Representative bounded landing-site area for HP3/RAD regolith physical-property evidence context. Approximate site location; no exhaustive coverage."
+      },
+      "body": "Mars",
+      "dataset_id": "nasa-pds-insight-hp3-rad-audit",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+      "expected_bytes": 0,
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "feature_id": "friction_angle_deg"
+      },
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-insight-hp3-rad-audit",
+      "task_id": "d06-evidence-mars-mars-insight-elysium-hp3-friction_angle_deg"
+    },
+    {
+      "area": {
+        "area_id": "mars-insight-elysium-hp3",
+        "bbox": {
+          "east": 135.624,
+          "north": 4.503,
+          "south": 4.502,
+          "west": 135.623
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_2015:49900",
+        "display_name": "InSight landing site (Elysium Planitia, HP3/RAD context)",
+        "notes": "Representative bounded landing-site area for HP3/RAD regolith physical-property evidence context. Approximate site location; no exhaustive coverage."
+      },
+      "body": "Mars",
+      "dataset_id": "nasa-pds-insight-hp3-rad-audit",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+      "expected_bytes": 0,
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "feature_id": "particle_size_distribution"
+      },
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-insight-hp3-rad-audit",
+      "task_id": "d06-evidence-mars-mars-insight-elysium-hp3-particle_size_distribution"
+    },
+    {
+      "area": {
+        "area_id": "mars-insight-elysium-hp3",
+        "bbox": {
+          "east": 135.624,
+          "north": 4.503,
+          "south": 4.502,
+          "west": 135.623
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_2015:49900",
+        "display_name": "InSight landing site (Elysium Planitia, HP3/RAD context)",
+        "notes": "Representative bounded landing-site area for HP3/RAD regolith physical-property evidence context. Approximate site location; no exhaustive coverage."
+      },
+      "body": "Mars",
+      "dataset_id": "nasa-pds-insight-hp3-rad-audit",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+      "expected_bytes": 0,
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "feature_id": "porosity_fraction"
+      },
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-insight-hp3-rad-audit",
+      "task_id": "d06-evidence-mars-mars-insight-elysium-hp3-porosity_fraction"
+    },
+    {
+      "area": {
+        "area_id": "moon-apollo15-station8-lsrp",
+        "bbox": {
+          "east": 3.6303,
+          "north": 26.1346,
+          "south": 26.1336,
+          "west": 3.6293
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_2015:30100",
+        "display_name": "Apollo 15 Station 8 / LSRP site (Hadley-Apennine)",
+        "notes": "Representative bounded site: Apollo 15 LSRP soil mechanics experiment near ALSEP (Station 8). Coordinates approximate station center in selenographic lon/lat; no exhaustive coverage."
+      },
+      "body": "Moon",
+      "dataset_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "expected_bytes": 0,
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "feature_id": "bearing_strength_kpa"
+      },
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "task_id": "d06-evidence-moon-moon-apollo15-station8-lsrp-bearing_strength_kpa"
+    },
+    {
+      "area": {
+        "area_id": "moon-apollo15-station8-lsrp",
+        "bbox": {
+          "east": 3.6303,
+          "north": 26.1346,
+          "south": 26.1336,
+          "west": 3.6293
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_2015:30100",
+        "display_name": "Apollo 15 Station 8 / LSRP site (Hadley-Apennine)",
+        "notes": "Representative bounded site: Apollo 15 LSRP soil mechanics experiment near ALSEP (Station 8). Coordinates approximate station center in selenographic lon/lat; no exhaustive coverage."
+      },
+      "body": "Moon",
+      "dataset_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "expected_bytes": 0,
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "feature_id": "bulk_density_kg_m3"
+      },
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "task_id": "d06-evidence-moon-moon-apollo15-station8-lsrp-bulk_density_kg_m3"
+    },
+    {
+      "area": {
+        "area_id": "moon-apollo15-station8-lsrp",
+        "bbox": {
+          "east": 3.6303,
+          "north": 26.1346,
+          "south": 26.1336,
+          "west": 3.6293
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_2015:30100",
+        "display_name": "Apollo 15 Station 8 / LSRP site (Hadley-Apennine)",
+        "notes": "Representative bounded site: Apollo 15 LSRP soil mechanics experiment near ALSEP (Station 8). Coordinates approximate station center in selenographic lon/lat; no exhaustive coverage."
+      },
+      "body": "Moon",
+      "dataset_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "expected_bytes": 0,
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "feature_id": "cohesion_kpa"
+      },
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "task_id": "d06-evidence-moon-moon-apollo15-station8-lsrp-cohesion_kpa"
+    },
+    {
+      "area": {
+        "area_id": "moon-apollo15-station8-lsrp",
+        "bbox": {
+          "east": 3.6303,
+          "north": 26.1346,
+          "south": 26.1336,
+          "west": 3.6293
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_2015:30100",
+        "display_name": "Apollo 15 Station 8 / LSRP site (Hadley-Apennine)",
+        "notes": "Representative bounded site: Apollo 15 LSRP soil mechanics experiment near ALSEP (Station 8). Coordinates approximate station center in selenographic lon/lat; no exhaustive coverage."
+      },
+      "body": "Moon",
+      "dataset_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "expected_bytes": 0,
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "feature_id": "friction_angle_deg"
+      },
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "task_id": "d06-evidence-moon-moon-apollo15-station8-lsrp-friction_angle_deg"
+    },
+    {
+      "area": {
+        "area_id": "moon-apollo15-station8-lsrp",
+        "bbox": {
+          "east": 3.6303,
+          "north": 26.1346,
+          "south": 26.1336,
+          "west": 3.6293
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_2015:30100",
+        "display_name": "Apollo 15 Station 8 / LSRP site (Hadley-Apennine)",
+        "notes": "Representative bounded site: Apollo 15 LSRP soil mechanics experiment near ALSEP (Station 8). Coordinates approximate station center in selenographic lon/lat; no exhaustive coverage."
+      },
+      "body": "Moon",
+      "dataset_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "expected_bytes": 0,
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "feature_id": "particle_size_distribution"
+      },
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "task_id": "d06-evidence-moon-moon-apollo15-station8-lsrp-particle_size_distribution"
+    },
+    {
+      "area": {
+        "area_id": "moon-apollo15-station8-lsrp",
+        "bbox": {
+          "east": 3.6303,
+          "north": 26.1346,
+          "south": 26.1336,
+          "west": 3.6293
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_2015:30100",
+        "display_name": "Apollo 15 Station 8 / LSRP site (Hadley-Apennine)",
+        "notes": "Representative bounded site: Apollo 15 LSRP soil mechanics experiment near ALSEP (Station 8). Coordinates approximate station center in selenographic lon/lat; no exhaustive coverage."
+      },
+      "body": "Moon",
+      "dataset_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "expected_bytes": 0,
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "feature_id": "porosity_fraction"
+      },
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "task_id": "d06-evidence-moon-moon-apollo15-station8-lsrp-porosity_fraction"
+    }
+  ]
+}

@@ -123,7 +123,13 @@ def test_typed_dimension_counts_are_derived_from_committed_files(inventory):
     assert groups["Earth"]["D06"]["observation_count"] == 1995
     assert groups["Earth"]["D06"]["dataset_ids"] == ["soilgrids-250m-v2"]
     for body in ("Moon", "Mars"):
-        assert "D06" not in groups[body]
+        # Issue #140/#150 added a sparse official-source D06 evidence audit:
+        # six explicit no_coverage records per body, never numeric values.
+        d06 = groups[body]["D06"]
+        assert d06["observation_count"] == 6
+        assert d06["states"] == {"no_coverage": 6}
+        assert d06["dataset_ids"]
+        assert "soilgrids-250m-v2" not in d06["dataset_ids"]
 
     for body in ("Moon", "Mars"):
         for dimension in DIMENSION_CODES:
@@ -143,10 +149,16 @@ def test_dimension_statuses_do_not_fabricate_measurements(inventory):
                 "present",
                 "present_evidence",
                 "evidence_only",
+                "evidence_no_coverage",
                 "absent",
                 "not_supported",
             }
-            if entry["status"] in {"present", "present_evidence", "evidence_only"}:
+            if entry["status"] in {
+                "present",
+                "present_evidence",
+                "evidence_only",
+                "evidence_no_coverage",
+            }:
                 assert entry["record_count"] > 0
                 assert entry["dataset_ids"]
             else:
@@ -164,12 +176,14 @@ def test_dimension_statuses_do_not_fabricate_measurements(inventory):
     assert mars_d01["on_demand_analysis_scope"] == "jezero_ctx_mosaic_window_only"
 
 
-def test_d06_moon_mars_is_absent_and_earth_soilgrids_is_excluded(inventory):
+def test_d06_moon_mars_evidence_is_no_coverage_and_earth_soilgrids_is_excluded(inventory):
     for body in ("Moon", "Mars"):
         d06 = inventory["bodies"][body]["dimension_support"]["D06"]
-        assert d06["status"] == "absent"
-        assert d06["record_count"] == 0
-        assert d06["dataset_ids"] == []
+        assert d06["status"] == "evidence_no_coverage"
+        assert d06["record_count"] == 6
+        assert d06["states"] == {"no_coverage": 6}
+        assert d06["on_demand_analysis_supported"] is False
+        assert d06["dataset_ids"]
         assert "soilgrids-250m-v2" not in d06["dataset_ids"]
         assert "regolith" in d06["reason"].lower()
     earth = inventory["earth_only_exclusions"]["D06"]

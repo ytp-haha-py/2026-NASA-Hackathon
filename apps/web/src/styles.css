@@ -2192,6 +2192,25 @@ h3 {
   cursor: not-allowed;
 }
 
+.board-title-controls {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.research-preset-select {
+  flex: 0 1 auto;
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 40px;
+  font-size: 15px;
+}
+
 .target-summary {
   display: flex;
   flex-wrap: wrap;

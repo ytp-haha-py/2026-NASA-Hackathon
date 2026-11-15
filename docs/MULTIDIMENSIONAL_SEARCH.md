@@ -276,3 +276,25 @@ time. This keeps the source `score_role`, observation ids, checksums and provena
 materialisation is deterministic (same rows + registry version → same values) and bounded
 (113 candidates, 2,140 rows, no raster I/O). A future persisted index can reuse the same
 `materialize()` contract without changing the API.
+
+
+## Issue #141 scoring extension (backward compatible)
+
+`POST /api/v1/search/multidimensional` accepts optional:
+
+- `dimension_weights`: `{ "D01": {"weight": 1.0, "enabled": true}, ... }`
+- `scoring_version`: `"feature-weighted-euclidean-v1"` (legacy, default when no dimension controls) or `"dimension-weighted-rms-v1"`
+
+When dimension controls are provided, scoring defaults to `dimension-weighted-rms-v1`:
+
+- per-feature normalized delta: `z_df = (x_df - t_df) / s_df`
+- per-dimension feature-weighted mean: `q_d = Σ(v_df * z_df^2) / Σ(v_df)` over compared positive-weight features in `d`
+- cross-dimension weighted RMS: `distance = sqrt(Σ(w_d * q_d) / Σ(w_d))` over enabled dimensions with `w_d > 0`
+
+Properties:
+- no hidden feature-count bias (each active dimension contributes by its mean, not by raw feature count)
+- `enabled=false` or `weight=0` dimensions and `weight=0` features do not contribute and do not exclude candidates
+- positive-weight missing/incompatible/QA-gated features in active dimensions still exclude with explicit reasons
+- responses include `scoring` metadata (version, formula, dimension controls, active dimensions) and rich per-dimension/per-feature contributions
+
+Legacy `/api/v1/search` and default `/api/v1/search/multidimensional` behavior remain unchanged.

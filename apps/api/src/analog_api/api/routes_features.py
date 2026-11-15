@@ -91,6 +91,14 @@ def multidimensional_search(
         feature_id: {"min": spec.min, "max": spec.max}
         for feature_id, spec in request.filters.items()
     }
+    dimension_weights = (
+        {
+            dimension_id: (spec.weight, spec.enabled)
+            for dimension_id, spec in request.dimension_weights.items()
+        }
+        if request.dimension_weights
+        else None
+    )
     return execute_multidimensional_search(
         repo=repo,
         snapshot=snapshot,
@@ -98,6 +106,8 @@ def multidimensional_search(
         filters=filters,
         reference_id=request.reference_id,
         candidate_body=request.candidate_body,
+        dimension_weights=dimension_weights,
+        scoring_version=request.scoring_version,
         limit=request.limit,
         offset=request.offset,
         include_evidence=request.include_evidence,

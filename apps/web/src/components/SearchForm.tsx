@@ -24,6 +24,11 @@ import {
   type SliderRange,
 } from "../lib/dimensions";
 import type { SearchSubmission, SearchTargetPreset } from "../lib/search-types";
+import {
+  RESEARCH_PRESETS,
+  researchWeights,
+  unavailableResearchFeatures,
+} from "../lib/research-presets";
 import { DataKindBadge } from "./DataKindBadge";
 import { RangeSlider, SingleSlider } from "./RangeSlider";
 
@@ -139,6 +144,7 @@ export function SearchForm({
     fullRanges(features, contextFeatures),
   );
   const [body, setBody] = useState<Body>("custom");
+  const [researchPresetId, setResearchPresetId] = useState("manual");
   const [referenceId, setReferenceId] = useState("");
   const [limit, setLimit] = useState("10");
   const [boardOpen, setBoardOpen] = useState(true);
@@ -157,7 +163,33 @@ export function SearchForm({
     setRows((current) => ({ ...initialRows(features), ...current }));
     setReferenceWeights((current) => ({ ...initialReferenceWeights(features), ...current }));
     setRanges((current) => ({ ...fullRanges(features, contextFeatures), ...current }));
+    setResearchPresetId("manual");
   }, [features, contextFeatures]);
+
+  const missingResearchFeatures = unavailableResearchFeatures(features);
+  const selectedResearchPreset = missingResearchFeatures.length === 0
+    ? RESEARCH_PRESETS.find((item) => item.id === researchPresetId)
+    : undefined;
+
+  function applyResearchPreset(id: string) {
+    const researchPreset = RESEARCH_PRESETS.find((item) => item.id === id);
+    if (!researchPreset) {
+      setResearchPresetId("manual");
+      return;
+    }
+    const weights = researchWeights(researchPreset, features);
+    if (Object.keys(weights).length === 0) return;
+    setRows((current) => Object.fromEntries(features.map((feature) => [
+      feature.id,
+      {
+        ...(current[feature.id] ?? initialRows([feature])[feature.id]),
+        weight: weights[feature.id],
+      },
+    ])));
+    setResearchPresetId(id);
+    setErrors([]);
+    setFieldErrors({});
+  }
 
   const bodyReferences = useMemo(
     () => references.filter((reference) => reference.body === body),
@@ -258,6 +290,7 @@ export function SearchForm({
       return;
     }
     lastAppliedPreset.current = preset.nonce;
+    setResearchPresetId("manual");
 
     const {
       features: currentFeatures,
@@ -336,6 +369,7 @@ export function SearchForm({
   }
 
   function resetAll() {
+    setResearchPresetId("manual");
     setRows(initialRows(features));
     setReferenceWeights(initialReferenceWeights(features));
     setRanges(fullRanges(features, contextFeatures));
@@ -517,6 +551,7 @@ export function SearchForm({
     if (referenceMode) {
       setReferenceWeights((current) => ({ ...current, [featureId]: value }));
     } else {
+      setResearchPresetId("manual");
       updateRow(featureId, { weight: value });
     }
   }
@@ -887,7 +922,30 @@ export function SearchForm({
 
       <section className="dimension-board" aria-labelledby="dimension-board-title">
         <div className="board-head">
-          <h2 id="dimension-board-title">{t("search.boardTitle")}</h2>
+          <div className="board-title-controls">
+            <h2 id="dimension-board-title">{t("search.boardTitle")}</h2>
+            {body === "custom" && (
+              <select
+                id="research-preset-select"
+                className="research-preset-select"
+                aria-label={t("research.label")}
+                value={selectedResearchPreset?.id ?? "manual"}
+                title={missingResearchFeatures.length > 0
+                  ? t("research.unavailable", {
+                    features: fmt.list(missingResearchFeatures.map((id) => label.feature(id))),
+                  })
+                  : t("research.disclaimer")}
+                onChange={(event) => applyResearchPreset(event.target.value)}
+              >
+                <option value="manual">{t("research.manual")}</option>
+                {RESEARCH_PRESETS.map((item) => (
+                  <option key={item.id} value={item.id} disabled={missingResearchFeatures.length > 0}>
+                    {t(item.titleKey)}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
           <div className="board-actions">
             <label className="limit-control">
               <span>{t("search.limitShort")}</span>

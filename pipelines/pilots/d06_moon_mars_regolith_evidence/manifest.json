@@ -1,0 +1,182 @@
+{
+  "asset_count": 12,
+  "files": {
+    "qa.json": {
+      "sha256": "c907f256e75c6055e1209af8fb31c405b770692aa6754840c4a4e6412ea0a3e9",
+      "version": "d06-moon-mars-evidence-audit-qa-1.0.0"
+    },
+    "requests.jsonl": {
+      "sha256": "cdeed11e9319842e99f464fbbb8a9284aa82399a54d7db55ec034825dfec16a1",
+      "version": "d06-moon-mars-evidence-requests-1.0.0"
+    }
+  },
+  "generated_at": "2026-11-15T12:00:00+00:00",
+  "notes": [
+    "Portable bounded D06 Moon/Mars sparse regolith evidence audit release (not a global survey).",
+    "All 12 observations are explicit no_coverage for supported feature IDs (particle_size_distribution, bulk_density_kg_m3, porosity_fraction, cohesion_kpa, friction_angle_deg, bearing_strength_kpa).",
+    "No numeric values fabricated, zero-filled, or inferred from DEM roughness/WorldCover/Earth transfer. Missing remains missing; no_coverage explicit.",
+    "Per-sample numeric ingest blocked pending bounded extraction of officially versioned records with sample support, depth/basis, assumptions, and checksums; alternative sources documented in manifest/report."
+  ],
+  "observation_count": 12,
+  "observations_sha256": "f16f2946ff95e14fb2db843b5f46eb395905748ab95ca8e6eb35af5710a7aa02",
+  "plan_sha256": "69eee38df90f9250818454da41607bc4c59b499ec9ad72f996496a1b6584cd4b",
+  "raw": [],
+  "release_version": "acquisition-release-1.0.0",
+  "report": {
+    "areas": [
+      "moon-apollo15-station8-lsrp",
+      "mars-insight-elysium-hp3"
+    ],
+    "by_body": {
+      "Mars": 6,
+      "Moon": 6
+    },
+    "by_dimension": {
+      "D06": 12
+    },
+    "by_feature": {
+      "bearing_strength_kpa": 2,
+      "bulk_density_kg_m3": 2,
+      "cohesion_kpa": 2,
+      "friction_angle_deg": 2,
+      "particle_size_distribution": 2,
+      "porosity_fraction": 2
+    },
+    "by_state": {
+      "no_coverage": 12
+    },
+    "total": 12
+  },
+  "request_count": 12,
+  "scope": "d06-moon-mars-regolith-evidence-v1",
+  "source_provenance": {
+    "Mars": {
+      "audited_official_sources": [
+        "NASA PDS InSight HP3 TEM urn:nasa:pds:insight_hp3_tem https://pds-geosciences.wustl.edu/insight/urn-nasa-pds-insight_hp3_tem/",
+        "NASA PDS InSight RAD urn:nasa:pds:insight_rad https://pds-geosciences.wustl.edu/insight/urn-nasa-pds-insight_rad/",
+        "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm"
+      ],
+      "licence_note": "NASA PDS public/open archive data; see mission/product pages for terms and attribution."
+    },
+    "Moon": {
+      "alternative_source": "Gasteiner et al. (2026) Lunar Regolith Database, CC BY 4.0, https://arxiv.org/abs/2602.03829v2 (provenance-linked compilation; per-record official-source attribution required)",
+      "audited_official_sources": [
+        "NASA PDS Apollo 15 LSRP urn:nasa:pds:a15lsrp_soil_mechanics https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+        "NASA PDS Apollo 16 LSRP urn:nasa:pds:a16lsrp_soil_mechanics https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a16lsrp_soil_mechanics/",
+        "NASA PDS Apollo 15/17 HFE urn:nasa:pds:a15_17_hfe_concatenated https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15_17_hfe_concatenated/"
+      ],
+      "licence_note": "NASA PDS public/open archive data; see mission/product pages for terms and attribution."
+    },
+    "unsupported_feature": "regolith_thickness_m not registered in current D06 FEATURES_V2; shared registry/contract change required via #141"
+  },
+  "tasks": [
+    {
+      "area_id": "mars-insight-elysium-hp3",
+      "body": "Mars",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-insight-hp3-rad-audit",
+      "task_id": "d06-evidence-mars-mars-insight-elysium-hp3-bearing_strength_kpa"
+    },
+    {
+      "area_id": "mars-insight-elysium-hp3",
+      "body": "Mars",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-insight-hp3-rad-audit",
+      "task_id": "d06-evidence-mars-mars-insight-elysium-hp3-bulk_density_kg_m3"
+    },
+    {
+      "area_id": "mars-insight-elysium-hp3",
+      "body": "Mars",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-insight-hp3-rad-audit",
+      "task_id": "d06-evidence-mars-mars-insight-elysium-hp3-cohesion_kpa"
+    },
+    {
+      "area_id": "mars-insight-elysium-hp3",
+      "body": "Mars",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-insight-hp3-rad-audit",
+      "task_id": "d06-evidence-mars-mars-insight-elysium-hp3-friction_angle_deg"
+    },
+    {
+      "area_id": "mars-insight-elysium-hp3",
+      "body": "Mars",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-insight-hp3-rad-audit",
+      "task_id": "d06-evidence-mars-mars-insight-elysium-hp3-particle_size_distribution"
+    },
+    {
+      "area_id": "mars-insight-elysium-hp3",
+      "body": "Mars",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-insight-hp3-rad-audit",
+      "task_id": "d06-evidence-mars-mars-insight-elysium-hp3-porosity_fraction"
+    },
+    {
+      "area_id": "moon-apollo15-station8-lsrp",
+      "body": "Moon",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "task_id": "d06-evidence-moon-moon-apollo15-station8-lsrp-bearing_strength_kpa"
+    },
+    {
+      "area_id": "moon-apollo15-station8-lsrp",
+      "body": "Moon",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "task_id": "d06-evidence-moon-moon-apollo15-station8-lsrp-bulk_density_kg_m3"
+    },
+    {
+      "area_id": "moon-apollo15-station8-lsrp",
+      "body": "Moon",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "task_id": "d06-evidence-moon-moon-apollo15-station8-lsrp-cohesion_kpa"
+    },
+    {
+      "area_id": "moon-apollo15-station8-lsrp",
+      "body": "Moon",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "task_id": "d06-evidence-moon-moon-apollo15-station8-lsrp-friction_angle_deg"
+    },
+    {
+      "area_id": "moon-apollo15-station8-lsrp",
+      "body": "Moon",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "task_id": "d06-evidence-moon-moon-apollo15-station8-lsrp-particle_size_distribution"
+    },
+    {
+      "area_id": "moon-apollo15-station8-lsrp",
+      "body": "Moon",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "provider_id": "d06-regolith-evidence-audit",
+      "source_id": "nasa-pds-apollo-lsrp-hfe-audit",
+      "task_id": "d06-evidence-moon-moon-apollo15-station8-lsrp-porosity_fraction"
+    }
+  ]
+}

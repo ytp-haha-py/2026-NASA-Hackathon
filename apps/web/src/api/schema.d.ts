@@ -78,6 +78,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/coverage/location": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Location Coverage */
+        get: operations["location_coverage_api_v1_coverage_location_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/datasets": {
         parameters: {
             query?: never;
@@ -1029,6 +1046,19 @@ export interface components {
             /** Score Role */
             score_role: string;
         };
+        /** DimensionWeightIn */
+        DimensionWeightIn: {
+            /**
+             * Enabled
+             * @default true
+             */
+            enabled: boolean;
+            /**
+             * Weight
+             * @default 1
+             */
+            weight: number;
+        };
         /** DimensionsOut */
         DimensionsOut: {
             /** Context Features */
@@ -1809,8 +1839,18 @@ export interface components {
         MultiDimDimensionContributionOut: {
             /** Contribution */
             contribution: number;
+            /** Dimension Weight */
+            dimension_weight?: number | null;
             /** Distance */
             distance: number;
+            /** Feature Count */
+            feature_count?: number | null;
+            /** Feature Weight Sum */
+            feature_weight_sum?: number | null;
+            /** Mean Squared Normalized Delta */
+            mean_squared_normalized_delta?: number | null;
+        } & {
+            [key: string]: unknown;
         };
         /** MultiDimEvidenceRecordOut */
         MultiDimEvidenceRecordOut: {
@@ -1903,6 +1943,23 @@ export interface components {
             /** Valid Features */
             valid_features: string[];
         };
+        /** MultiDimScoringOut */
+        MultiDimScoringOut: {
+            /** Active Dimensions */
+            active_dimensions?: string[];
+            /** Dimension Controls */
+            dimension_controls?: {
+                [key: string]: {
+                    [key: string]: unknown;
+                };
+            };
+            /** Formula */
+            formula: string;
+            /** Note */
+            note: string;
+            /** Version */
+            version: string;
+        };
         /** MultiDimSearchRequest */
         MultiDimSearchRequest: {
             /**
@@ -1911,6 +1968,10 @@ export interface components {
              * @enum {string}
              */
             candidate_body: "Earth" | "Moon" | "Mars";
+            /** Dimension Weights */
+            dimension_weights?: {
+                [key: string]: components["schemas"]["DimensionWeightIn"];
+            };
             /**
              * Evidence Limit
              * @default 12
@@ -1937,6 +1998,8 @@ export interface components {
             offset: number;
             /** Reference Id */
             reference_id?: string | null;
+            /** Scoring Version */
+            scoring_version?: ("feature-weighted-euclidean-v1" | "dimension-weighted-rms-v1") | null;
             /** Targets */
             targets?: {
                 [key: string]: components["schemas"]["MultiDimTargetIn"];
@@ -1986,6 +2049,7 @@ export interface components {
             results: components["schemas"]["MultiDimResultOut"][];
             /** Returned */
             returned: number;
+            scoring?: components["schemas"]["MultiDimScoringOut"] | null;
             /** Source Body */
             source_body: string;
             /** Total Matched */
@@ -2812,6 +2876,47 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CapabilitiesOut"];
+                };
+            };
+        };
+    };
+    location_coverage_api_v1_coverage_location_get: {
+        parameters: {
+            query: {
+                /** @description Earth, Moon or Mars */
+                body: string;
+                lat?: number | null;
+                lon?: number | null;
+                west?: number | null;
+                south?: number | null;
+                east?: number | null;
+                north?: number | null;
+                bbox_lon_convention?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
