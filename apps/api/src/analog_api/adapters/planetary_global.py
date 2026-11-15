@@ -234,10 +234,8 @@ def analyze_global_planetary_aoi(request: ValidatedAoi) -> AoiResult:
             else "native_or_downsampled"
         )
     )
-    frame, fallback_crs = _FRAMES[body]
-    crs = _crs_string(body, payload)
-    if not crs:
-        crs = fallback_crs
+    frame, geographic_crs = _FRAMES[body]
+    analysis_crs = _crs_string(body, payload) or geographic_crs
     features = {
         feature_id: value
         for feature_id, value in features.items()
@@ -308,7 +306,7 @@ def analyze_global_planetary_aoi(request: ValidatedAoi) -> AoiResult:
         area_km2=float(payload.get("area_km2") or request.area_km2),
         center_lon=(analysis_bbox["west"] + analysis_bbox["east"]) / 2.0,
         center_lat=(analysis_bbox["south"] + analysis_bbox["north"]) / 2.0,
-        crs=crs,
+        crs=geographic_crs,
         valid_fraction=float(payload.get("valid_fraction") or 0.0),
         window_size_m=float(max(width, height)),
         resolution_m=float(analysis_resolution),
@@ -327,7 +325,7 @@ def analyze_global_planetary_aoi(request: ValidatedAoi) -> AoiResult:
         coverage_note=(
             f"Global official {body} DEM bounded read over the requested bbox. "
             "Coverage is the source product footprint, not an exhaustive survey. "
-            "D02-D06 are explicit unsupported on-demand statuses."
+            f"D02-D06 are explicit unsupported on-demand statuses. Analysis CRS: {analysis_crs}."
         ),
         analysis_kind="global_dem_aoi",
     )
