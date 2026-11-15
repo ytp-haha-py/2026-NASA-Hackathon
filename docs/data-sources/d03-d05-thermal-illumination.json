@@ -1,0 +1,1638 @@
+{
+  "schema_version": "1.0.0",
+  "audit_id": "d03-d05-source-audit-2026-11-15",
+  "audit_date": "2026-11-15",
+  "scope": {
+    "dimensions": [
+      "D03",
+      "D05"
+    ],
+    "bodies": [
+      "Earth",
+      "Moon",
+      "Mars"
+    ],
+    "claim": "Bounded, reproducible source and feature audit for the 61 committed D03 and 28 committed D05 typed observations, plus a checkpointed path to more verified coverage.",
+    "not_claimed": [
+      "No new observation is fabricated or downloaded in this audit.",
+      "No global, exhaustive or all-planet coverage is claimed.",
+      "No cross-body D03 or D05 equivalence or similarity score is claimed.",
+      "No zero-fill is used for missing bins, pixels or products.",
+      "No raw raster, table or SPICE kernel is committed."
+    ]
+  },
+  "http_evidence": {
+    "checker": "scripts/check_d03_d05_sources.py",
+    "command": "python3 scripts/check_d03_d05_sources.py",
+    "json_command": "python3 scripts/check_d03_d05_sources.py --json",
+    "checked_at_utc": "2026-11-15T10:01:04Z",
+    "method": "stdlib urllib GET; full bodies capped at 256 KiB; data products and kernels read with HTTP Range requests capped at 4 KiB; status, content-type, total size and body markers checked",
+    "result": "24/24 probes passed on 2026-11-15",
+    "exit_policy": "non-zero if any status, content-type, byte-range total, size or marker regresses",
+    "no_large_downloads": true
+  },
+  "existing_coverage": {
+    "d03": {
+      "total": 61,
+      "areas": 28,
+      "by_body": {
+        "Earth": 20,
+        "Moon": 36,
+        "Mars": 5
+      },
+      "by_score_role": {
+        "context_only": 20,
+        "evidence_only": 41
+      },
+      "by_state": {
+        "detected": 51,
+        "no_coverage": 7,
+        "unknown": 3
+      },
+      "by_feature": {
+        "surface_brightness_temperature_k": 36,
+        "thermal_inertia": 5,
+        "surface_air_temperature_2m_c": 5,
+        "surface_air_temperature_2m_max_c": 5,
+        "surface_air_temperature_2m_min_c": 5,
+        "surface_skin_temperature_c": 5
+      },
+      "data_kind": "observed and observed_retrieval for Moon/Mars; model_reanalysis context for Earth",
+      "note": "The 36 Diviner rows comprise 26 detected, 3 unknown and 7 no_coverage; no_coverage and unknown carry no numeric value and are not zero-filled."
+    },
+    "d05": {
+      "total": 28,
+      "areas": 14,
+      "by_body": {
+        "Earth": 10,
+        "Moon": 8,
+        "Mars": 10
+      },
+      "by_score_role": {
+        "context_only": 28
+      },
+      "by_state": {
+        "detected": 28
+      },
+      "by_feature": {
+        "solar_incidence_deg": 9,
+        "solar_elevation_deg": 9,
+        "surface_shortwave_irradiance_kwh_m2_day": 5,
+        "surface_longwave_irradiance_kwh_m2_day": 5
+      },
+      "data_kind": "model_derived solar geometry for Moon/Mars; model_reanalysis context for Earth",
+      "note": "The 18 SPICE rows are model-derived point geometry at one instant. They are not observed irradiance, shadow fraction or ionizing radiation."
+    },
+    "feature_rows": [
+      {
+        "feature_id": "surface_brightness_temperature_k",
+        "dimension": "D03",
+        "count": 36,
+        "bodies": [
+          "Moon"
+        ],
+        "score_role": "evidence_only",
+        "method_version": "diviner-pcp-tbol-1.0.0",
+        "state_counts": {
+          "detected": 26,
+          "unknown": 3,
+          "no_coverage": 7
+        },
+        "native_support": "240 m native bins; 0.25 h local-time bins 00:00-00:15 and 12:00-12:15; 1.98 km window mean; multi-year southern-summer composite",
+        "status": "committed_observation"
+      },
+      {
+        "feature_id": "thermal_inertia",
+        "dimension": "D03",
+        "count": 5,
+        "bodies": [
+          "Mars"
+        ],
+        "score_role": "evidence_only",
+        "method_version": "themis-apparent-thermal-inertia-1.0.0",
+        "state_counts": {
+          "detected": 5
+        },
+        "native_support": "100 m THEMIS pixels; 1.98 km window mean; upper few centimetres; apparent thermal inertia",
+        "status": "committed_observation"
+      },
+      {
+        "feature_id": "surface_air_temperature_2m_c",
+        "dimension": "D03",
+        "count": 5,
+        "bodies": [
+          "Earth"
+        ],
+        "score_role": "context_only",
+        "method_version": "nasa-power-daily-1.0.0",
+        "state_counts": {
+          "detected": 5
+        },
+        "native_support": "approximately 0.5 x 0.625 degree POWER grid point; daily 2024-01-01..07",
+        "status": "committed_context"
+      },
+      {
+        "feature_id": "surface_air_temperature_2m_max_c",
+        "dimension": "D03",
+        "count": 5,
+        "bodies": [
+          "Earth"
+        ],
+        "score_role": "context_only",
+        "method_version": "nasa-power-daily-1.0.0",
+        "state_counts": {
+          "detected": 5
+        },
+        "native_support": "approximately 0.5 x 0.625 degree POWER grid point; daily 2024-01-01..07",
+        "status": "committed_context"
+      },
+      {
+        "feature_id": "surface_air_temperature_2m_min_c",
+        "dimension": "D03",
+        "count": 5,
+        "bodies": [
+          "Earth"
+        ],
+        "score_role": "context_only",
+        "method_version": "nasa-power-daily-1.0.0",
+        "state_counts": {
+          "detected": 5
+        },
+        "native_support": "approximately 0.5 x 0.625 degree POWER grid point; daily 2024-01-01..07",
+        "status": "committed_context"
+      },
+      {
+        "feature_id": "surface_skin_temperature_c",
+        "dimension": "D03",
+        "count": 5,
+        "bodies": [
+          "Earth"
+        ],
+        "score_role": "context_only",
+        "method_version": "nasa-power-daily-1.0.0",
+        "state_counts": {
+          "detected": 5
+        },
+        "native_support": "approximately 0.5 x 0.625 degree POWER grid point; daily 2024-01-01..07",
+        "status": "committed_context"
+      },
+      {
+        "feature_id": "surface_temperature_mean_k",
+        "dimension": "D03",
+        "count": 0,
+        "bodies": [],
+        "score_role": "evidence_only",
+        "method_version": "thermal-evidence-0.1.0",
+        "state_counts": {},
+        "native_support": "registry definition only; requires matched time/emissivity support",
+        "status": "registry_only_no_observation"
+      },
+      {
+        "feature_id": "diurnal_temperature_range_k",
+        "dimension": "D03",
+        "count": 0,
+        "bodies": [],
+        "score_role": "evidence_only",
+        "method_version": "thermal-evidence-0.1.0",
+        "state_counts": {},
+        "native_support": "registry definition only; requires same-location same-definition day/night samples",
+        "status": "registry_only_no_observation"
+      },
+      {
+        "feature_id": "solar_incidence_deg",
+        "dimension": "D05",
+        "count": 9,
+        "bodies": [
+          "Moon",
+          "Mars"
+        ],
+        "score_role": "context_only",
+        "method_version": "spice-solar-geometry-1.0.0",
+        "state_counts": {
+          "detected": 9
+        },
+        "native_support": "point site on a biaxial ellipsoid; one instant 2026-11-15T12:00:00Z; no DEM horizon",
+        "status": "committed_context"
+      },
+      {
+        "feature_id": "solar_elevation_deg",
+        "dimension": "D05",
+        "count": 9,
+        "bodies": [
+          "Moon",
+          "Mars"
+        ],
+        "score_role": "context_only",
+        "method_version": "spice-solar-geometry-1.0.0",
+        "state_counts": {
+          "detected": 9
+        },
+        "native_support": "derived as 90 - solar_incidence_deg; same point/instant support",
+        "status": "committed_context"
+      },
+      {
+        "feature_id": "surface_shortwave_irradiance_kwh_m2_day",
+        "dimension": "D05",
+        "count": 5,
+        "bodies": [
+          "Earth"
+        ],
+        "score_role": "context_only",
+        "method_version": "nasa-power-daily-1.0.0",
+        "state_counts": {
+          "detected": 5
+        },
+        "native_support": "approximately 0.5 x 0.625 degree POWER grid point; daily all-sky surface shortwave",
+        "status": "committed_context"
+      },
+      {
+        "feature_id": "surface_longwave_irradiance_kwh_m2_day",
+        "dimension": "D05",
+        "count": 5,
+        "bodies": [
+          "Earth"
+        ],
+        "score_role": "context_only",
+        "method_version": "nasa-power-daily-1.0.0",
+        "state_counts": {
+          "detected": 5
+        },
+        "native_support": "approximately 0.5 x 0.625 degree POWER grid point; daily all-sky surface longwave",
+        "status": "committed_context"
+      },
+      {
+        "feature_id": "ionizing_dose_gy",
+        "dimension": "D05",
+        "count": 0,
+        "bodies": [],
+        "score_role": "evidence_only",
+        "method_version": "illumination-radiation-0.1.0",
+        "state_counts": {},
+        "native_support": "registry definition only; requires detector/spectrum model with shielding, exposure interval and uncertainty",
+        "status": "registry_only_no_observation"
+      }
+    ]
+  },
+  "eligibility": {
+    "requested_path": "apps/api/src/analog_api/domain/eligibility.py",
+    "requested_path_exists": false,
+    "actual_modules": [
+      {
+        "path": "pipelines/src/analog_pipelines/dimensions.py",
+        "role": "D03/D05 feature ids, units, score_role, value_kind, method_version, bodies and source requirements."
+      },
+      {
+        "path": "pipelines/src/analog_pipelines/ontology.py",
+        "role": "compare_eligibility vocabulary: same_method_and_support, context_only, evidence_only, not_comparable."
+      },
+      {
+        "path": "pipelines/src/analog_pipelines/cross_body_gate.py",
+        "role": "coarse cross-body gate: quantity, method, support, unit, frame and explicit comparable decision must all agree."
+      },
+      {
+        "path": "apps/api/src/analog_api/domain/scoring.py",
+        "role": "production similarity scoring accepts only FEATURE_BY_ID from domain/features.py (terrain features)."
+      }
+    ],
+    "facts": [
+      "The committed D03 rows are evidence_only (Moon brightness temperature, Mars thermal inertia) or context_only (Earth POWER).",
+      "The committed D05 rows are context_only (SPICE geometry and POWER irradiance).",
+      "domain/features.py FEATURES contains terrain features only; D03/D05 ids are not admitted to scoring.py.",
+      "surface_temperature_mean_k, diurnal_temperature_range_k and ionizing_dose_gy are registry-only with zero committed observations.",
+      "surface_shortwave_irradiance_kwh_m2_day and surface_longwave_irradiance_kwh_m2_day exist as typed pilot observations but are not in the six-dimension FEATURES_V2 registry."
+    ],
+    "why_not_cross_body_similarity": [
+      {
+        "feature_family": "brightness temperature",
+        "reason": "A radiometric brightness temperature depends on wavelength/band, emissivity assumption, local solar time, season and viewing geometry. Diviner bolometric Tb (unit emissivity) is not kinetic surface temperature, not Earth 2 m air temperature and not a Mars TI retrieval. There is no shared method/support pair."
+      },
+      {
+        "feature_family": "thermal inertia",
+        "reason": "Apparent thermal inertia is a retrieval from a thermal model (albedo, emissivity, atmospheric opacity, slopes, season). THEMIS 100 m and TES 2.96 km use different instruments, models and epochs. Earth does not have a matching retrieval at the same support."
+      },
+      {
+        "feature_family": "solar geometry",
+        "reason": "Incidence and elevation are computed angles at a point and instant on a flat ellipsoid. They are not an observed flux, not a shadow fraction and not an irradiance. A geometry value cannot be compared with a daily 50 km reanalysis irradiance."
+      },
+      {
+        "feature_family": "irradiance",
+        "reason": "Irradiance requires a spectral band, atmosphere, surface orientation and time support. Earth POWER is daily all-sky broadband at about 50 km; TSIS TSI is 1 AU disk-integrated total solar irradiance; Moon/Mars have only geometry. These are different quantities and supports."
+      },
+      {
+        "feature_family": "ionizing radiation",
+        "reason": "CRaTER supplies calibrated energy deposits, not absorbed dose. A Gy value requires spectral unfolding, detector response and shielding assumptions; a Sv value would require additional physics. No shared dose definition exists."
+      }
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "pds-diviner-pcp",
+      "dimension": [
+        "D03"
+      ],
+      "bodies": [
+        "Moon"
+      ],
+      "data_kind": "observed_derived",
+      "provider": "NASA Planetary Data System Geosciences Node / UCLA Diviner Lunar Radiometer Experiment",
+      "product": "LRO Diviner Polar Cumulative Products (PCP), diurnal local-time bins, 240 m, bolometric brightness temperature",
+      "version": "PDS4 bundle urn:nasa:pds:lro_diviner_derived1 version 1.0; PCP product version 1; calibration software 4.0",
+      "evidence": [
+        {
+          "role": "collection_index",
+          "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/",
+          "request": "GET",
+          "http_status": 200,
+          "content_type": "text/html",
+          "bytes_read": 957,
+          "bytes_total": 957
+        },
+        {
+          "role": "product_label",
+          "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/diurnal/ltim/pols/pcp_avg_tbol_pols_sum_ltim01_240.lbl",
+          "request": "GET",
+          "http_status": 200,
+          "content_type": "text/plain",
+          "bytes_read": 3637,
+          "bytes_total": 3637
+        },
+        {
+          "role": "data_header_and_first_row_0000_0015",
+          "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/diurnal/ltim/pols/pcp_avg_tbol_pols_sum_ltim01_240.tab",
+          "request": "GET Range: bytes=0-117",
+          "http_status": 206,
+          "content_type": "text/plain",
+          "bytes_read": 118,
+          "bytes_total": 212653759
+        },
+        {
+          "role": "data_header_and_first_row_1200_1215",
+          "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/diurnal/ltim/pols/pcp_avg_tbol_pols_sum_ltim49_240.tab",
+          "request": "GET Range: bytes=0-117",
+          "http_status": 206,
+          "content_type": "text/plain",
+          "bytes_read": 118,
+          "bytes_total": 197367449
+        }
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "NASA-led mission data; no restrictive notice found in the PDS4 label or collection",
+        "url": "https://science.data.nasa.gov/about/license",
+        "evidence": "NASA Science Data Portal: NASA-led mission observations are CC0 unless marked with a restrictive notice. The PDS4 label carries no explicit licence field.",
+        "redistribution": "allowed_with_attribution_requested"
+      },
+      "citation": "Paige, D.; Sullivan, M.; Williams, J-P. (2022), LRO Diviner Derived Data Bundle 1, urn:nasa:pds:lro_diviner_derived1, doi:10.17189/wj0s-w188; Williams et al. (2019), JGR 124, 2505-2521, doi:10.1029/2019JE006028",
+      "coverage": {
+        "spatial": "-90 to -80 deg latitude, -180 to 180 deg longitude (south polar cap)",
+        "native_resolution_m": 240.0,
+        "crs_or_frame": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs; planetocentric, positive east",
+        "support": "Circular 1.98 km window of native 240 m bins; values are spatial means of bins present in one local-time bin; no resampling to 90 m",
+        "temporal": {
+          "kind": "multi_year_composite",
+          "start": "2009-07-05T16:50:26.195Z",
+          "stop": "2019-02-17T00:00:00.000Z",
+          "local_time_bins": [
+            "00:00-00:15",
+            "12:00-12:15"
+          ],
+          "season": "southern summer (subsolar latitude < 0 deg)",
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "surface",
+          "min_m": null,
+          "max_m": null,
+          "notes": "Bolometric brightness temperature with a unit-emissivity assumption; not kinetic surface temperature and not a subsurface retrieval."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "surface_brightness_temperature_k",
+          "dimension": "D03",
+          "relation": "existing_exact",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "The committed Diviner PCP pilot uses this exact product, method version diviner-pcp-tbol-1.0.0, 240 m native support and the same two local-time bins."
+        }
+      ],
+      "limitations": [
+        "Multi-year composite at one 0.25 h local-time bin; not a single acquisition and not a same-sol diurnal pair.",
+        "No per-bin uncertainty is supplied by the product.",
+        "Unit-emissivity bolometric brightness temperature is not kinetic surface temperature and is not comparable to Earth 2 m air/skin temperature.",
+        "Seven noon-bin windows have no native bins and three have fewer than five; they are stored as no_coverage/unknown, never zero-filled.",
+        "Only the 18 existing Moon reference windows are covered; not a global or exhaustive lunar survey."
+      ],
+      "reproduce": [
+        "curl -sS -L -r 0-117 'https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/diurnal/ltim/pols/pcp_avg_tbol_pols_sum_ltim01_240.tab'",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_existing_source"
+    },
+    {
+      "source_id": "pds-diviner-gcp",
+      "dimension": [
+        "D03"
+      ],
+      "bodies": [
+        "Moon"
+      ],
+      "data_kind": "observed_derived",
+      "provider": "NASA Planetary Data System Geosciences Node / UCLA Diviner Lunar Radiometer Experiment",
+      "product": "LRO Diviner Global Cumulative Products (GCP), 0.5 degree latitude/longitude and 0.25 h local-time bins",
+      "version": "PDS4 bundle urn:nasa:pds:lro_diviner_derived1 version 1.0; GCP product global_cumul_avg_cyl_*_002; calibration software 4.0",
+      "evidence": [
+        {
+          "role": "south_cap_label",
+          "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gcp/global_cumul_avg_cyl_90s80s_002.lbl",
+          "request": "GET",
+          "http_status": 200,
+          "content_type": "text/plain",
+          "bytes_read": 3413,
+          "bytes_total": 3413
+        },
+        {
+          "role": "south_cap_header_and_first_row",
+          "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gcp/global_cumul_avg_cyl_90s80s_002.tab",
+          "request": "GET Range: bytes=0-225",
+          "http_status": 206,
+          "content_type": "text/plain",
+          "bytes_read": 226,
+          "bytes_total": 156211313
+        }
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "NASA-led mission data; no restrictive notice found in the GCP label",
+        "url": "https://science.data.nasa.gov/about/license",
+        "evidence": "NASA Science Data Portal CC0 policy for NASA-led mission data; the PDS3 label carries no explicit licence field.",
+        "redistribution": "allowed_with_attribution_requested"
+      },
+      "citation": "Williams et al. (2017), Icarus 283, 300-325; Paige, Sullivan and Williams (2022), urn:nasa:pds:lro_diviner_derived1",
+      "coverage": {
+        "spatial": "Global in 10 degree latitude caps; the checked 90S-80S cap covers the existing Moon AOIs",
+        "native_resolution_m": 55500.0,
+        "crs_or_frame": "Simple cylindrical, planetocentric, positive east, sphere R = 1737.4 km; 0.5 degree bins",
+        "support": "0.5 degree bins (up to about 55 km in latitude, finer in longitude near the pole) aggregated over 0.25 h local-time bins; does not resolve a 1.98 km window",
+        "temporal": {
+          "kind": "multi_year_composite",
+          "start": "2009-07-05T16:50:26.195Z",
+          "stop": "2015-04-01T00:00:00.000Z",
+          "local_time_bins": "0.25 h bins",
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "surface",
+          "min_m": null,
+          "max_m": null,
+          "notes": "Channel and bolometric brightness temperatures; unit-emissivity assumption applies to bolometric values."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "surface_brightness_temperature_k",
+          "dimension": "D03",
+          "relation": "existing_method_mismatch",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "Same physical quantity family (Diviner bolometric brightness temperature) but a different cumulative product, 0.5 degree support, 2009-2015 epoch and no 240 m native bins; it cannot be mixed with PCP values under method version diviner-pcp-tbol-1.0.0."
+        }
+      ],
+      "limitations": [
+        "0.5 degree bins cannot represent a 1.98 km window or its spatial variability.",
+        "The 2009-2015 GCP epoch ends before the 2019 PCP epoch; mixing epochs would add an unquantified temporal difference.",
+        "Only a bounded coarse context could be added; it is not a replacement for PCP at the existing AOIs."
+      ],
+      "reproduce": [
+        "curl -sS -L -r 0-225 'https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gcp/global_cumul_avg_cyl_90s80s_002.tab'",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_coarse_candidate_not_mixed"
+    },
+    {
+      "source_id": "pds-diviner-gdr-l3",
+      "dimension": [
+        "D03"
+      ],
+      "bodies": [
+        "Moon"
+      ],
+      "data_kind": "observed_derived",
+      "provider": "NASA Planetary Data System Geosciences Node / UCLA Diviner Lunar Radiometer Experiment",
+      "product": "LRO Diviner Gridded Data Record Level 3, 128 pixels per degree cylindrical products (rock abundance and regolith temperature)",
+      "version": "PDS3 DATA_SET_ID LRO-L-DLRE-5-GDR-V1.0; product version V6.0",
+      "evidence": [
+        {
+          "role": "regolith_temperature_label",
+          "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/cylindrical/img/dgdr_st_avg_cyl_128_img.lbl",
+          "request": "GET",
+          "http_status": 200,
+          "content_type": "text/plain",
+          "bytes_read": 4700,
+          "bytes_total": 4700
+        }
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "NASA-led mission data; no restrictive notice found in the GDR label",
+        "url": "https://science.data.nasa.gov/about/license",
+        "evidence": "NASA Science Data Portal CC0 policy for NASA-led mission data; the PDS3 label carries no explicit licence field.",
+        "redistribution": "allowed_with_attribution_requested"
+      },
+      "citation": "Bandfield et al. (2011, 2016); Paige, Sullivan and Williams (2022), urn:nasa:pds:lro_diviner_derived1",
+      "coverage": {
+        "spatial": "-80 to 80 deg latitude, 0 to 360 deg longitude; excludes both polar caps",
+        "native_resolution_m": 236.901175,
+        "crs_or_frame": "Simple cylindrical, planetocentric, positive east, sphere R = 1737.4 km; mean Earth/polar axis of DE421",
+        "support": "128 pixels per degree (about 237 m); each pixel is a binned observation or model-adjusted estimate, not a 1.98 km window mean",
+        "temporal": {
+          "kind": "multi_year_grid",
+          "start": "2009-07-05T00:00:00.000Z",
+          "stop": "2016-10-10T07:00:00.000Z",
+          "local_time_bins": "restricted to 19:30-05:30 local time for the regolith-temperature product",
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "surface",
+          "min_m": null,
+          "max_m": null,
+          "notes": "Rock-free regolith surface temperature estimated from nighttime Diviner channels; model-adjusted, not observed kinetic temperature."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "surface_temperature_mean_k",
+          "dimension": "D03",
+          "relation": "registry_only_method_mismatch",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": false,
+          "reason": "The registry defines surface_temperature_mean_k, but GDR L3 supplies a nighttime, model-adjusted regolith temperature, not a mean surface temperature over matched day/night sampling."
+        }
+      ],
+      "limitations": [
+        "Excludes the existing Moon AOIs, which are at about 85-90 S; the product stops at 80 S.",
+        "The regolith-temperature product is model-adjusted and restricted to nighttime local times.",
+        "It cannot populate surface_brightness_temperature_k because it is not a bolometric brightness-temperature product."
+      ],
+      "reproduce": [
+        "curl -sS -L 'https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/cylindrical/img/dgdr_st_avg_cyl_128_img.lbl'",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_not_usable_for_polar_aois"
+    },
+    {
+      "source_id": "pds-diviner-ghrm",
+      "dimension": [
+        "D03"
+      ],
+      "bodies": [
+        "Moon"
+      ],
+      "data_kind": "observed_derived",
+      "provider": "NASA Planetary Data System Geosciences Node / UCLA Diviner Lunar Radiometer Experiment",
+      "product": "LRO Diviner Global High-Resolution Mosaic (GHRM), midnight bolometric temperature, 70S-70N",
+      "version": "PDS4 bundle urn:nasa:pds:lro_diviner_derived1; GHRM version 1.0",
+      "evidence": [
+        {
+          "role": "midnight_bolometric_metadata",
+          "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_ghrm/geotiff/dghrm_tbol_m_70s70n_tif.xml",
+          "request": "GET",
+          "http_status": 200,
+          "content_type": "application/xml",
+          "bytes_read": 8338,
+          "bytes_total": 8338
+        }
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "NASA-led mission data; no restrictive notice found in the GHRM metadata",
+        "url": "https://science.data.nasa.gov/about/license",
+        "evidence": "NASA Science Data Portal CC0 policy for NASA-led mission data; the PDS4 label carries no explicit licence field.",
+        "redistribution": "allowed_with_attribution_requested"
+      },
+      "citation": "Paige, Sullivan and Williams (2022), urn:nasa:pds:lro_diviner_derived1",
+      "coverage": {
+        "spatial": "-70 to 70 deg latitude, full longitude; excludes both polar caps",
+        "native_resolution_m": 236.90117518866782,
+        "crs_or_frame": "Simple cylindrical, planetocentric, positive east, sphere R = 1737.4 km",
+        "support": "128 pixels per degree (about 237 m), global mid-latitude mosaic; midnight bolometric temperature composite",
+        "temporal": {
+          "kind": "multi_year_mosaic",
+          "start": "2009-07-05T16:50:26.195Z",
+          "stop": "2022-08-01T00:00:00.000Z",
+          "local_time_bins": "midnight",
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "surface",
+          "min_m": null,
+          "max_m": null,
+          "notes": "Bolometric brightness temperature at midnight; unit-emissivity assumption."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "surface_brightness_temperature_k",
+          "dimension": "D03",
+          "relation": "existing_method_mismatch",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "Same quantity family but a midnight mosaic at 237 m and a different multi-year composite; it cannot be mixed with the PCP 00:00-00:15 and 12:00-12:15 bins."
+        }
+      ],
+      "limitations": [
+        "Stops at 70 N/S and therefore misses every existing Moon AOI (about 85-90 S).",
+        "Midnight-only mosaic; no matched noon bin or same-sol pair.",
+        "A different product and method from the committed PCP pilot."
+      ],
+      "reproduce": [
+        "curl -sS -L 'https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_ghrm/geotiff/dghrm_tbol_m_70s70n_tif.xml'",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_not_usable_for_polar_aois"
+    },
+    {
+      "source_id": "pds-diviner-rcp",
+      "dimension": [
+        "D03"
+      ],
+      "bodies": [
+        "Moon"
+      ],
+      "data_kind": "observed_derived",
+      "provider": "NASA Planetary Data System Geosciences Node / UCLA Diviner Lunar Radiometer Experiment",
+      "product": "LRO Diviner Regional Cumulative Product (RCP), Lacus Mortis, 128 pixels per degree",
+      "version": "PDS4 bundle urn:nasa:pds:lro_diviner_derived1; RCP version 1.0",
+      "evidence": [
+        {
+          "role": "lacus_mortis_metadata",
+          "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_rcp/region_lacus_mortis_cumul_avg_cyl_42n023e_128.xml",
+          "request": "GET",
+          "http_status": 200,
+          "content_type": "application/xml",
+          "bytes_read": 14463,
+          "bytes_total": 14463
+        }
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "NASA-led mission data; no restrictive notice found in the RCP metadata",
+        "url": "https://science.data.nasa.gov/about/license",
+        "evidence": "NASA Science Data Portal CC0 policy for NASA-led mission data; the PDS4 label carries no explicit licence field.",
+        "redistribution": "allowed_with_attribution_requested"
+      },
+      "citation": "Paige, Sullivan and Williams (2022), urn:nasa:pds:lro_diviner_derived1",
+      "coverage": {
+        "spatial": "Lacus Mortis region around 42 N, 23 E; does not overlap the existing south-polar AOIs",
+        "native_resolution_m": 236.901175,
+        "crs_or_frame": "Simple cylindrical, planetocentric, positive east, sphere R = 1737.4 km; 128 pixels per degree",
+        "support": "Regional 128 ppd cumulative bins (about 237 m), not a 1.98 km analysis window",
+        "temporal": {
+          "kind": "multi_year_regional_composite",
+          "start": "2009-07-05T16:50:26.195Z",
+          "stop": "2021-03-01T00:00:00.000Z",
+          "local_time_bins": "0.25 h local-time bins",
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "surface",
+          "min_m": null,
+          "max_m": null,
+          "notes": "Channel and bolometric brightness temperatures; unit-emissivity assumption."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "surface_brightness_temperature_k",
+          "dimension": "D03",
+          "relation": "existing_method_mismatch",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "Same product family at a higher resolution, but a different regional composite and 2009-2021 epoch; no overlap with the committed AOIs."
+        }
+      ],
+      "limitations": [
+        "Lacus Mortis is not one of the existing Moon reference sites.",
+        "Adding it would create a new, non-polar AOI and a new scientific scope; it would not expand coverage of the current AOIs.",
+        "The regional composite is not interchangeable with the polar PCP product."
+      ],
+      "reproduce": [
+        "curl -sS -L 'https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_rcp/region_lacus_mortis_cumul_avg_cyl_42n023e_128.xml'",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_out_of_scope_for_existing_aois"
+    },
+    {
+      "source_id": "pds-diviner-prp",
+      "dimension": [
+        "D03",
+        "D04"
+      ],
+      "bodies": [
+        "Moon"
+      ],
+      "data_kind": "model_derived",
+      "provider": "NASA Planetary Data System Geosciences Node / UCLA Diviner Lunar Radiometer Experiment",
+      "product": "LRO Diviner Polar Resource Products (PRP): annual average/maximum surface temperature and depth to water-ice permafrost",
+      "version": "PDS3 DATA_SET_ID LRO-L-DLRE-5-PRP-V2.0; product version 2",
+      "evidence": [
+        {
+          "role": "south_polar_label",
+          "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_prp/dlre_prp_south.lbl",
+          "request": "GET",
+          "http_status": 200,
+          "content_type": "text/plain",
+          "bytes_read": 2167,
+          "bytes_total": 2167
+        }
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "NASA-led mission data; no restrictive notice found in the PRP label",
+        "url": "https://science.data.nasa.gov/about/license",
+        "evidence": "NASA Science Data Portal CC0 policy for NASA-led mission data; the PDS3 label carries no explicit licence field.",
+        "redistribution": "allowed_with_attribution_requested"
+      },
+      "citation": "Paige et al., LRO DLRE Polar Resource Products, PDS3 DATA_SET_ID LRO-L-DLRE-5-PRP-V2.0",
+      "coverage": {
+        "spatial": "North and south polar regions poleward to 80 deg latitude",
+        "native_resolution_m": null,
+        "crs_or_frame": "Polar model grid tied to a Kaguya laser altimeter DEM; not an Earth CRS",
+        "support": "Thermal-model fits to Diviner observations; annual average temperature, annual maximum temperature and depth to water-ice permafrost",
+        "temporal": {
+          "kind": "model_fit",
+          "start": null,
+          "stop": null,
+          "local_time_bins": "annual model output",
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "surface_and_subsurface_model",
+          "min_m": null,
+          "max_m": null,
+          "notes": "Depth to ice is a model product, not a measured ice depth; do not treat it as an observation."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "surface_temperature_mean_k",
+          "dimension": "D03",
+          "relation": "registry_only_method_mismatch",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": false,
+          "reason": "Annual average surface temperature is a model output, not an observed mean over matched samples; it cannot populate the registry feature as evidence."
+        },
+        {
+          "feature_id": "water_ice_depth_interval",
+          "dimension": "D04",
+          "relation": "existing_method_mismatch",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": false,
+          "reason": "Depth to permafrost is a model fit, not a measured depth interval with uncertainty; D04 only and out of this audit's scoring scope."
+        }
+      ],
+      "limitations": [
+        "Model-derived product, not an observed brightness temperature or kinetic temperature time series.",
+        "Uses model parameters and a DEM; no per-pixel observational uncertainty is supplied in the label.",
+        "The ice-depth quantity belongs to D04 and must not be used as D03 evidence."
+      ],
+      "reproduce": [
+        "curl -sS -L 'https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_prp/dlre_prp_south.lbl'",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_model_product_not_observed_evidence"
+    },
+    {
+      "source_id": "usgs-themis-ti",
+      "dimension": [
+        "D03"
+      ],
+      "bodies": [
+        "Mars"
+      ],
+      "data_kind": "observed_retrieval",
+      "provider": "USGS Astrogeology Science Center / Arizona State University / NASA Mars Data Analysis Program",
+      "product": "THEMIS-derived global thermal inertia mosaic, quantitative 32-bit, 100 m/pixel, 60S-60N",
+      "version": "edition 1 (2014-05-30); tile THEMIS_TI_Mosaic_Quant_00N060E_100mpp",
+      "evidence": [
+        {
+          "role": "product_page",
+          "url": "https://astrogeology.usgs.gov/search/map/themis_thermal_inertia_mosaic_quantitative_00n060e_100mpp",
+          "request": "GET",
+          "http_status": 200,
+          "content_type": "text/html",
+          "bytes_read": 27670
+        },
+        {
+          "role": "isis_cube_header",
+          "url": "https://asc-astropedia.s3.us-west-2.amazonaws.com/Mars/Odyssey/THEMIS-Global-Thermal-Inertia-Mosaic/Quantitative-32-Bit/THEMIS_TI_Mosaic_Quant_00N060E_100mpp.cub",
+          "request": "GET Range: bytes=0-1023",
+          "http_status": 206,
+          "content_type": "binary/octet-stream",
+          "bytes_read": 1024,
+          "bytes_total": 2532510192
+        }
+      ],
+      "license": {
+        "spdx": "public_domain",
+        "name": "Public domain (USGS Astrogeology access constraints); cite the authors",
+        "url": "https://astrogeology.usgs.gov/search/map/themis_thermal_inertia_mosaic_quantitative_00n060e_100mpp",
+        "evidence": "The product page states 'Public domain' under Access Constraints and requests citation of Fergason et al. (2006).",
+        "redistribution": "allowed"
+      },
+      "citation": "Fergason, R.L., Christensen, P.R., Kieffer, H.H. (2006), JGR 111, E12004, doi:10.1029/2006JE002735",
+      "coverage": {
+        "spatial": "Global mosaic in 24 tiles, 60S-60N; checked tile 00N060E covers 0-30 N, 60-120 E",
+        "native_resolution_m": 100.0,
+        "crs_or_frame": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+        "support": "1.98 km window mean of native 100 m pixels read from bounded 128 x 128 ISIS tile blocks; no resampling to 90 m",
+        "temporal": {
+          "kind": "time_independent_retrieval_mosaic",
+          "start": null,
+          "stop": null,
+          "local_time_bins": "nighttime THEMIS IR retrieval; per-pixel acquisition time/season is not carried by the mosaic",
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "subsurface_effective",
+          "min_m": 0.0,
+          "max_m": 0.05,
+          "notes": "Apparent thermal inertia of the upper few centimetres; no single fixed depth interval."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "thermal_inertia",
+          "dimension": "D03",
+          "relation": "existing_exact",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "The committed Mars pilot uses this exact tile and method version themis-apparent-thermal-inertia-1.0.0 with native 100 m support."
+        }
+      ],
+      "limitations": [
+        "Absolute accuracy about 20%; relative accuracy within one image about 10%; no per-pixel uncertainty or QA layer.",
+        "No coverage poleward of 60 N/S.",
+        "Retrieval does not correct atmospheric water-ice clouds, surface slopes, or subsurface ice/bedrock; image-to-image calibration errors remain.",
+        "Only the five existing Jezero windows are covered; not a global Mars survey."
+      ],
+      "reproduce": [
+        "curl -sS -L -r 0-1023 -o /dev/null -D - 'https://asc-astropedia.s3.us-west-2.amazonaws.com/Mars/Odyssey/THEMIS-Global-Thermal-Inertia-Mosaic/Quantitative-32-Bit/THEMIS_TI_Mosaic_Quant_00N060E_100mpp.cub'",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_existing_source"
+    },
+    {
+      "source_id": "pds-tes-timap",
+      "dimension": [
+        "D03"
+      ],
+      "bodies": [
+        "Mars"
+      ],
+      "data_kind": "observed_retrieval",
+      "provider": "NASA Planetary Data System Geosciences Node / MGS TES team",
+      "product": "MGS TES derived thermal inertia maps, 20 pixels per degree (2.96 km/pixel), day and night global maps",
+      "version": "PDS3 DATA_SET_ID MGS-M-TES-5-TIMAP-V1.0; 2007 map edition",
+      "evidence": [
+        {
+          "role": "day_map_label",
+          "url": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_day_2007.lbl",
+          "request": "GET",
+          "http_status": 200,
+          "content_type": "text/plain",
+          "bytes_read": 2408,
+          "bytes_total": 2408
+        }
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "NASA-led mission data; no restrictive notice found in the TES label",
+        "url": "https://science.data.nasa.gov/about/license",
+        "evidence": "NASA Science Data Portal CC0 policy for NASA-led mission data; the PDS3 label carries no explicit licence field.",
+        "redistribution": "allowed_with_attribution_requested"
+      },
+      "citation": "Putzig and Mellon (2007); Putzig et al. (2005); PDS3 DATA_SET_ID MGS-M-TES-5-TIMAP-V1.0",
+      "coverage": {
+        "spatial": "Global 90 N to 90 S in 20 pixels per degree; 87 S-87 N infilled by interpolation (less than 8%)",
+        "native_resolution_m": 2960.0,
+        "crs_or_frame": "Simple cylindrical, planetocentric, positive east, sphere R = 3396.0 km; 16-bit MSB integer",
+        "support": "2.96 km/pixel global map; much coarser than the 1.98 km target window and a different retrieval from THEMIS",
+        "temporal": {
+          "kind": "multi_year_map",
+          "start": "1999-02-01T00:00:00.000Z",
+          "stop": "2004-04-30T00:00:00.000Z",
+          "local_time_bins": "separate day and night maps",
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "subsurface_effective",
+          "min_m": 0.0,
+          "max_m": 0.05,
+          "notes": "Apparent thermal inertia derived from TES bolometer temperatures; different model from the THEMIS product."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "thermal_inertia",
+          "dimension": "D03",
+          "relation": "existing_method_mismatch",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "Same physical quantity family but a different instrument, retrieval model and 2.96 km support; it cannot be mixed with the THEMIS 100 m values."
+        }
+      ],
+      "limitations": [
+        "2.96 km/pixel cannot resolve a 1.98 km window; any value would be a coarse context, not same-support evidence.",
+        "A different retrieval model and epoch from the THEMIS mosaic; the AAREADME explicitly warns that TES bolometer tables do not reproduce these maps.",
+        "Interpolated pixels exist; the interpolation mask must be applied if they are not wanted."
+      ],
+      "reproduce": [
+        "curl -sS -L 'https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_day_2007.lbl'",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_coarse_candidate_not_mixed"
+    },
+    {
+      "source_id": "naif-spice-generic-kernels",
+      "dimension": [
+        "D05"
+      ],
+      "bodies": [
+        "Moon",
+        "Mars"
+      ],
+      "data_kind": "model_derived",
+      "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+      "product": "Pinned generic SPICE kernels: leap seconds, planetary constants, DE421 ephemeris, lunar frame and lunar principal-axis orientation",
+      "version": "naif0012.tls, pck00011.tpc, de421.bsp, moon_pa_de421_1900-2050.bpc, moon_080317.tf; SHA-256 pinned in pipelines/pilots/d05_spice_illumination/manifest.json",
+      "evidence": [
+        {
+          "role": "leap_seconds_kernel",
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls",
+          "request": "GET Range: bytes=0-511",
+          "http_status": 206,
+          "content_type": "text/plain",
+          "bytes_read": 512,
+          "bytes_total": 5257
+        },
+        {
+          "role": "planetary_constants_kernel",
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc",
+          "request": "GET Range: bytes=0-511",
+          "http_status": 206,
+          "content_type": "text/plain",
+          "bytes_read": 512,
+          "bytes_total": 131226
+        },
+        {
+          "role": "lunar_principal_axis_kernel",
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc",
+          "request": "GET Range: bytes=0-511",
+          "http_status": 206,
+          "content_type": "<absent>",
+          "bytes_read": 512,
+          "bytes_total": 1770496
+        },
+        {
+          "role": "lunar_frame_kernel",
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf",
+          "request": "GET Range: bytes=0-511",
+          "http_status": 206,
+          "content_type": "text/plain",
+          "bytes_read": 512,
+          "bytes_total": 21437
+        },
+        {
+          "role": "de421_ephemeris",
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/a_old_versions/de421.bsp",
+          "request": "GET Range: bytes=0-511",
+          "http_status": 206,
+          "content_type": "model/vnd.valve.source.compiled-map",
+          "bytes_read": 512,
+          "bytes_total": 16790528
+        }
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "NASA/NAIF public SPICE kernels; NAIF asks for acknowledgement of SPICE/NAIF and the teams that produced the kernels",
+        "url": "https://naif.jpl.nasa.gov/naif/rules.html",
+        "evidence": "NAIF Rules Regarding Use of SPICE describe a SPICE software licence and encourage acknowledgement; NASA Science Data Portal CC0 policy applies to NASA-led mission data unless a restrictive notice is present.",
+        "redistribution": "allowed_with_attribution_requested"
+      },
+      "citation": "Acton et al., SPICE Toolkit and NAIF generic kernels; DE421 ephemeris; pck00011; moon_080317.tf; moon_pa_de421_1900-2050.bpc",
+      "coverage": {
+        "spatial": "Point geometry for any body-fixed site; the committed pilot uses 4 Moon sites and 5 Mars sites",
+        "native_resolution_m": null,
+        "crs_or_frame": "MOON_ME (frame 31001) and IAU_MARS (frame 10014), realised through DE421 and pck00011",
+        "support": "Point site on a biaxial ellipsoid; flat tangent-plane normal; no DEM horizon, observer height, shadow mask or spatial average",
+        "temporal": {
+          "kind": "instant",
+          "start": "2026-11-15T12:00:00Z",
+          "stop": "2026-11-15T12:00:00Z",
+          "local_time_bins": "single documented instant; local solar time is derived for provenance only",
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "surface_tangent_plane",
+          "min_m": 0.0,
+          "max_m": 0.0,
+          "notes": "Surface geometry only; no subsurface or atmospheric quantity."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "solar_incidence_deg",
+          "dimension": "D05",
+          "relation": "existing_exact",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "The committed pilot computes incidence with these pinned kernels and method version spice-solar-geometry-1.0.0."
+        },
+        {
+          "feature_id": "solar_elevation_deg",
+          "dimension": "D05",
+          "relation": "existing_exact",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "Elevation is derived as 90 - incidence in the same method version."
+        }
+      ],
+      "limitations": [
+        "Model-derived solar geometry only; no observed irradiance, radiance, shadow fraction or ionizing radiation.",
+        "Flat biaxial-ellipsoid tangent plane; no DEM terrain horizon, horizon mask, observer height, or atmospheric/cloud model.",
+        "One documented instant only; not a time series and not a same-sol diurnal pair.",
+        "DE421 covers approximately 1900-2050; kernel sizes and SHA-256 are pinned and drift is rejected by the builder.",
+        "Moon uses MOON_ME; Mars uses IAU_MARS; prime-meridian/frame registration is a documented assumption."
+      ],
+      "reproduce": [
+        "curl -sS -L -r 0-511 'https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/a_old_versions/de421.bsp' | head -c 8",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_existing_source"
+    },
+    {
+      "source_id": "nasa-power-daily-point",
+      "dimension": [
+        "D03",
+        "D05"
+      ],
+      "bodies": [
+        "Earth"
+      ],
+      "data_kind": "model_reanalysis",
+      "provider": "NASA Langley Research Center / NASA POWER",
+      "product": "NASA POWER Daily Point API: T2M, T2M_MAX, T2M_MIN, TS, ALLSKY_SFC_SW_DWN, ALLSKY_SFC_LW_DWN",
+      "version": "POWER Daily API v2.10.3; sources MERRA2 and SYN1DEG",
+      "evidence": [
+        {
+          "role": "daily_point_json",
+          "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN,ALLSKY_SFC_LW_DWN,T2M&community=RE&longitude=-68.4&latitude=-23.5&start=20240101&end=20240102&format=JSON",
+          "request": "GET",
+          "http_status": 200,
+          "content_type": "application/json",
+          "bytes_read": 831,
+          "bytes_total": 831
+        }
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "NASA POWER data are free and open; cite NASA POWER",
+        "url": "https://power.larc.nasa.gov/docs/services/api/",
+        "evidence": "NASA POWER documentation states the service is free and open and asks for citation; NASA Science Data Portal CC0 policy applies to NASA-led data unless a restrictive notice is present.",
+        "redistribution": "allowed_with_attribution_requested"
+      },
+      "citation": "NASA POWER Project (NASA Langley Research Center), POWER Daily API, accessed 2026-11-15",
+      "coverage": {
+        "spatial": "Point API at an AOI centre; grid approximately 0.5 x 0.625 degree",
+        "native_resolution_m": 50000.0,
+        "crs_or_frame": "EPSG:4326 point or grid cell; not a planetary body-fixed frame",
+        "support": "Coarse grid point or cell, not a 1.98 km surface measurement; daily aggregate",
+        "temporal": {
+          "kind": "daily_timeseries",
+          "start": "2024-01-01",
+          "stop": "2024-01-07",
+          "local_time_bins": "daily; POWER local standard time metadata",
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "near_surface",
+          "min_m": 0.0,
+          "max_m": 2.0,
+          "notes": "2 m air temperature and skin temperature; irradiance is surface downwelling broadband shortwave/longwave, not total solar irradiance at 1 AU."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "surface_air_temperature_2m_c",
+          "dimension": "D03",
+          "relation": "existing_exact",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "Committed Earth D03 context uses T2M at five AOIs."
+        },
+        {
+          "feature_id": "surface_air_temperature_2m_max_c",
+          "dimension": "D03",
+          "relation": "existing_exact",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "Committed Earth D03 context uses T2M_MAX at five AOIs."
+        },
+        {
+          "feature_id": "surface_air_temperature_2m_min_c",
+          "dimension": "D03",
+          "relation": "existing_exact",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "Committed Earth D03 context uses T2M_MIN at five AOIs."
+        },
+        {
+          "feature_id": "surface_skin_temperature_c",
+          "dimension": "D03",
+          "relation": "existing_exact",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "Committed Earth D03 context uses TS at five AOIs."
+        },
+        {
+          "feature_id": "surface_shortwave_irradiance_kwh_m2_day",
+          "dimension": "D05",
+          "relation": "existing_exact",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "Committed Earth D05 context uses ALLSKY_SFC_SW_DWN at five AOIs."
+        },
+        {
+          "feature_id": "surface_longwave_irradiance_kwh_m2_day",
+          "dimension": "D05",
+          "relation": "existing_exact",
+          "produces_value": true,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": true,
+          "reason": "Committed Earth D05 context uses ALLSKY_SFC_LW_DWN at five AOIs."
+        }
+      ],
+      "limitations": [
+        "Model/reanalysis values, not local observations; no per-point uncertainty.",
+        "Approximately 0.5 x 0.625 degree, not a 1.98 km measurement.",
+        "Earth-only; no Moon or Mars values and no cross-body conversion.",
+        "Daily aggregates cannot be compared with a single-instant solar geometry value."
+      ],
+      "reproduce": [
+        "curl -sS -L 'https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN,ALLSKY_SFC_LW_DWN,T2M&community=RE&longitude=-68.4&latitude=-23.5&start=20240101&end=20240102&format=JSON'",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_existing_context_source"
+    },
+    {
+      "source_id": "lasp-tsis-tsi",
+      "dimension": [
+        "D05"
+      ],
+      "bodies": [
+        "Earth",
+        "Sun"
+      ],
+      "data_kind": "observed",
+      "provider": "NASA / University of Colorado Laboratory for Atmospheric and Space Physics (LASP), TSIS-1 Total Irradiance Monitor",
+      "product": "TSIS-1 TIM Level 3 total solar irradiance at 1 AU, 24-hour cadence",
+      "version": "TSIS Level 3 TSI, version 5; 2018-01-10 to 2026-11-10 in the checked file",
+      "evidence": [
+        {
+          "role": "latest_24h_tsi_header",
+          "url": "https://lasp.colorado.edu/data/tsis/tsi_data/tsis_tsi_L3_c24h_latest.txt",
+          "request": "GET Range: bytes=0-2047",
+          "http_status": 206,
+          "content_type": "text/plain",
+          "bytes_read": 2048,
+          "bytes_total": 488641
+        }
+      ],
+      "license": {
+        "spdx": "not_verified",
+        "name": "Publicly accessible NASA-funded LASP data; citation requested; no explicit licence statement was located on the data page",
+        "url": "https://lasp.colorado.edu/tsis/data",
+        "evidence": "The TSIS data page provides direct public downloads and documentation but no explicit licence field was found in the checked HTML. Redistribution is therefore recorded as unknown rather than assumed.",
+        "redistribution": "unknown"
+      },
+      "citation": "TSIS-1 Total Irradiance Monitor team, LASP/University of Colorado; NASA TSIS-1 project",
+      "coverage": {
+        "spatial": "Earth-Sun total solar irradiance at 1 AU; no spatial footprint and no planetary surface location",
+        "native_resolution_m": null,
+        "crs_or_frame": "1 AU reference distance; not a planetary body-fixed frame",
+        "support": "Disk-integrated total solar irradiance; not a surface irradiance and not a local measurement",
+        "temporal": {
+          "kind": "daily_timeseries",
+          "start": "2018-01-10",
+          "stop": "2026-11-10",
+          "local_time_bins": "24 h cadence; 6 h cadence also available",
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "top_of_atmosphere",
+          "min_m": null,
+          "max_m": null,
+          "notes": "Total solar irradiance at 1 AU, not surface downwelling shortwave and not a Moon/Mars surface flux."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "total_solar_irradiance_w_m2",
+          "dimension": "D05",
+          "relation": "no_existing_feature",
+          "produces_value": false,
+          "exists_in_feature_registry": false,
+          "exists_in_committed_observations": false,
+          "reason": "No total_solar_irradiance_w_m2 feature exists in the current registry or committed observations. The existing surface_shortwave_irradiance_kwh_m2_day is a different quantity, unit and support."
+        }
+      ],
+      "limitations": [
+        "Earth-Sun 1 AU total solar irradiance, not a planetary surface irradiance.",
+        "No Moon or Mars surface values; no spatial sampling and no local solar time.",
+        "Adding it would require a new feature id, unit, support and method version; it must not be mapped onto the existing Earth surface irradiance field.",
+        "Licence is not explicit in the checked page; attribution is requested."
+      ],
+      "reproduce": [
+        "curl -sS -L -r 0-2047 'https://lasp.colorado.edu/data/tsis/tsi_data/tsis_tsi_L3_c24h_latest.txt'",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_not_mappable_without_new_feature"
+    },
+    {
+      "source_id": "pds-lro-crater",
+      "dimension": [
+        "D05"
+      ],
+      "bodies": [
+        "Moon"
+      ],
+      "data_kind": "observed",
+      "provider": "NASA Planetary Data System Planetary Plasma Interactions Node / LRO CRaTER team",
+      "product": "LRO CRaTER Level 3 calibrated energy data (charged-particle and photon energy deposits)",
+      "version": "PDS3 DATA_SET_ID LRO-L-CRAT-3-CDR-CALIBRATED-V1.0",
+      "evidence": [
+        {
+          "role": "dataset_catalog",
+          "url": "https://pds-ppi.igpp.ucla.edu/data/LRO-L-CRAT-3-CDR-CALIBRATED-V1.0/CATALOG/LRO_CRAT_L1_DS.CAT",
+          "request": "GET",
+          "http_status": 200,
+          "content_type": "application/vnd.ms-pki.seccat",
+          "bytes_read": 39895,
+          "bytes_total": 39895
+        }
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "NASA-led mission data; no restrictive notice found in the CRaTER catalog",
+        "url": "https://science.data.nasa.gov/about/license",
+        "evidence": "NASA Science Data Portal CC0 policy for NASA-led mission data; the PDS3 catalog carries no explicit licence field.",
+        "redistribution": "allowed_with_attribution_requested"
+      },
+      "citation": "LRO CRaTER team, LRO-L-CRAT-3-CDR-CALIBRATED-V1.0; Spence et al. (2010)",
+      "coverage": {
+        "spatial": "Lunar orbit / instrument field of view; not a surface pixel grid",
+        "native_resolution_m": null,
+        "crs_or_frame": "Spacecraft and detector frame; not a body-fixed surface CRS",
+        "support": "Detector event energy deposits and spectra, not a surface dose map",
+        "temporal": {
+          "kind": "mission_timeseries",
+          "start": "2009-06-29T00:00:00.000Z",
+          "stop": "2026-06-30T23:59:59.010Z",
+          "local_time_bins": null,
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "detector_and_shielding",
+          "min_m": null,
+          "max_m": null,
+          "notes": "Energy deposited in silicon detectors behind shielding; converting to absorbed dose in tissue requires a documented unfolding and shielding model."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "ionizing_dose_gy",
+          "dimension": "D05",
+          "relation": "registry_only_no_direct_product",
+          "produces_value": false,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": false,
+          "reason": "The registry defines ionizing_dose_gy, but the checked PDS product is calibrated energy data, not absorbed dose. A dose value would require spectral unfolding, detector response and shielding assumptions; none is committed."
+        }
+      ],
+      "limitations": [
+        "No direct Gy or Sv product was found in the checked PDS CRaTER dataset.",
+        "Detector energy deposits are not a surface dose and cannot be converted without physics and shielding assumptions.",
+        "No lunar surface spatial support; do not treat an orbital detector as a surface measurement."
+      ],
+      "reproduce": [
+        "curl -sS -L 'https://pds-ppi.igpp.ucla.edu/data/LRO-L-CRAT-3-CDR-CALIBRATED-V1.0/CATALOG/LRO_CRAT_L1_DS.CAT'",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_source_but_dose_feature_blocked"
+    },
+    {
+      "source_id": "pds-lro-lend",
+      "dimension": [
+        "D04"
+      ],
+      "bodies": [
+        "Moon"
+      ],
+      "data_kind": "observed",
+      "provider": "NASA Planetary Data System Geosciences Node / LRO LEND team",
+      "product": "LRO Lunar Exploration Neutron Detector (LEND) Reduced Data Records: thermal, epithermal and fast neutron counts",
+      "version": "PDS3 DATA_SET_ID LRO-L-LEND-4/5-RDR-V1.0",
+      "evidence": [
+        {
+          "role": "rdr_dataset_catalog",
+          "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/catalog/rdr_ds.cat",
+          "request": "GET",
+          "http_status": 200,
+          "content_type": "text/plain",
+          "bytes_read": 22880,
+          "bytes_total": 22880
+        }
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "NASA-led mission data; no restrictive notice found in the LEND catalog",
+        "url": "https://science.data.nasa.gov/about/license",
+        "evidence": "NASA Science Data Portal CC0 policy for NASA-led mission data; the PDS3 catalog carries no explicit licence field.",
+        "redistribution": "allowed_with_attribution_requested"
+      },
+      "citation": "LRO LEND team, LRO-L-LEND-4/5-RDR-V1.0; Mitrofanov et al. (2008)",
+      "coverage": {
+        "spatial": "Lunar polar orbits, with emphasis poleward of 60 deg; neutron count maps and time series",
+        "native_resolution_m": null,
+        "crs_or_frame": "Spacecraft/body-fixed geometry as supplied by LEND products; not a thermal or irradiance frame",
+        "support": "Neutron count rates and spectra; not a temperature, thermal inertia, solar geometry or irradiance quantity",
+        "temporal": {
+          "kind": "mission_timeseries",
+          "start": "2009-06-29T00:00:00.000Z",
+          "stop": "present (release 67 extends into 2026)",
+          "local_time_bins": null,
+          "same_sol": false
+        },
+        "depth": {
+          "kind": "near_surface_neutron",
+          "min_m": null,
+          "max_m": null,
+          "notes": "Neutron sensing depth is a hydrogen/regolith property; it is not a thermal or illumination depth."
+        }
+      },
+      "feature_mapping": [
+        {
+          "feature_id": "epithermal_neutron_flux_ratio",
+          "dimension": "D04",
+          "relation": "existing_d04_candidate",
+          "produces_value": false,
+          "exists_in_feature_registry": true,
+          "exists_in_committed_observations": false,
+          "reason": "LEND RDR contains neutron counts and spectra; producing a normalized epithermal flux ratio requires documented detector normalization and is a D04 task, not D03/D05."
+        }
+      ],
+      "limitations": [
+        "LEND is a neutron detector; it cannot produce brightness temperature, thermal inertia, solar geometry or irradiance.",
+        "Counts are not a normalized flux ratio without detector-efficiency and background treatment.",
+        "Included here only to document that the named source was checked and ruled out for D03/D05."
+      ],
+      "reproduce": [
+        "curl -sS -L 'https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/catalog/rdr_ds.cat'",
+        "python3 scripts/check_d03_d05_sources.py"
+      ],
+      "verdict": "verified_out_of_scope_d04_only"
+    }
+  ],
+  "services": [
+    {
+      "service_id": "pds-geosciences-node",
+      "kind": "archive_entry_point",
+      "url": "https://pds-geosciences.wustl.edu/",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes_read": 23177,
+      "purpose": "Canonical PDS Geosciences Node entry point used to locate Diviner, LEND and TES holdings.",
+      "notes": "Directory listings are HTML; labels and data are served as text/plain, application/xml or binary. No authentication was required."
+    },
+    {
+      "service_id": "pds-ode-rest",
+      "kind": "discovery_api",
+      "url": "https://oderest.rsl.wustl.edu/live2/?query=product&ihid=LRO&iid=DLRE&pt=RDR&results=json&limit=2",
+      "http_status": 200,
+      "content_type": "text/xml",
+      "bytes_read": 442,
+      "purpose": "PDS Geosciences Orbital Data Explorer REST product query; confirmed reachable and returns ODE product ids for LRO/DLRE.",
+      "notes": "The endpoint returns an XML envelope even when results=json is requested. No product metadata or data files were downloaded; use it for discovery, not as observation evidence."
+    }
+  ],
+  "gaps": [
+    {
+      "gap_id": "no_cross_body_d03_similarity",
+      "dimension": "D03",
+      "body_scope": [
+        "Earth",
+        "Moon",
+        "Mars"
+      ],
+      "severity": "blocking_for_similarity",
+      "summary": "Brightness temperature, thermal inertia, 2 m air temperature and skin temperature are different quantities with different methods and supports. No shared method/support pair exists.",
+      "evidence": "surface_brightness_temperature_k is Moon-only evidence; thermal_inertia is Mars-only evidence; Earth D03 fields are context_only POWER reanalysis.",
+      "resolution": "Keep all D03 typed values evidence_only/context_only; do not add D03 to scoring.py."
+    },
+    {
+      "gap_id": "no_lunar_kinetic_or_diurnal_series",
+      "dimension": "D03",
+      "body_scope": [
+        "Moon"
+      ],
+      "severity": "open",
+      "summary": "No source checked supplies same-sol kinetic surface temperature or a true diurnal range at the 18 Moon AOIs.",
+      "evidence": "PCP is a multi-year composite at one local-time bin; GCP is 0.5 degree and 2009-2015; GDR/GHRM exclude the polar AOIs; PRP is model-derived.",
+      "resolution": "Keep diurnal_temperature_range_k empty or unknown; do not difference the two PCP bins."
+    },
+    {
+      "gap_id": "no_mars_polar_thermal_inertia",
+      "dimension": "D03",
+      "body_scope": [
+        "Mars"
+      ],
+      "severity": "bounded",
+      "summary": "THEMIS quantitative TI stops at 60 N/S; TES TIMAP is global but 2.96 km; neither provides 100 m polar TI.",
+      "evidence": "USGS product page states no mosaic above 60 deg; TES label says 20 pixels/degree (2.96 km/pix).",
+      "resolution": "Do not claim Mars polar TI; any TES use must be a separate coarse context."
+    },
+    {
+      "gap_id": "no_observed_planetary_surface_irradiance",
+      "dimension": "D05",
+      "body_scope": [
+        "Moon",
+        "Mars"
+      ],
+      "severity": "blocking_for_irradiance",
+      "summary": "Only solar geometry is available for Moon/Mars. No observed or modeled surface irradiance product at the existing sites was found.",
+      "evidence": "SPICE produces incidence/elevation; TSIS TSI is 1 AU Earth-Sun total irradiance, not a planetary surface flux.",
+      "resolution": "Keep solar_incidence_deg/solar_elevation_deg context_only; do not derive irradiance from geometry without a flux model and documented assumptions."
+    },
+    {
+      "gap_id": "no_ionizing_dose_product",
+      "dimension": "D05",
+      "body_scope": [
+        "Moon"
+      ],
+      "severity": "blocked",
+      "summary": "CRaTER PDS data are calibrated energy deposits, not absorbed dose; LEND is neutron data (D04).",
+      "evidence": "CRaTER catalog DATA_SET_NAME is 'CALIBRATED ENERGY DATA'; no Gy/Sv field was found. LEND RDR is neutron counts.",
+      "resolution": "Do not populate ionizing_dose_gy without a documented spectral unfolding and shielding model; no Sv conversion."
+    },
+    {
+      "gap_id": "no_dem_horizon_or_shadow",
+      "dimension": "D05",
+      "body_scope": [
+        "Moon",
+        "Mars"
+      ],
+      "severity": "open",
+      "summary": "SPICE geometry uses a flat ellipsoid tangent plane; no DEM horizon, shadow fraction, observer height or visibility interval.",
+      "evidence": "Committed pilot quality flags and notes explicitly exclude terrain horizon and shadow.",
+      "resolution": "A future illumination product must document a DEM horizon model and validate frame registration; do not infer shadows from dark pixels."
+    },
+    {
+      "gap_id": "documentation_drift_in_dimension_inventory",
+      "dimension": "D03/D05",
+      "body_scope": [
+        "Moon"
+      ],
+      "severity": "documentation",
+      "summary": "catalog/dimension-source-inventory.yaml lists an older Diviner URL and a 26-detected count; the committed pilot has 31 detected and the canonical URL is the PDS4 bundle path.",
+      "evidence": "Inventory baseline says '26 detected'; observations.jsonl has 26 detected brightness-temperature rows plus 5 detected Mars TI rows (31 planetary detected). Inventory URL lro-l-diviner-3-rdr-v1/... does not match the verified PDS4 path.",
+      "resolution": "Use this audit's verified URL and counts; update the inventory in a separate documentation PR, not in this audit's three files."
+    },
+    {
+      "gap_id": "referenced_eligibility_module_absent",
+      "dimension": "D03/D05",
+      "body_scope": [
+        "Earth",
+        "Moon",
+        "Mars"
+      ],
+      "severity": "documentation",
+      "summary": "The audit brief referenced apps/api/src/analog_api/domain/eligibility.py, but that file does not exist at commit df6e365.",
+      "evidence": "find/git ls-tree found no eligibility.py; compare eligibility is implemented in pipelines/src/analog_pipelines/ontology.py and cross_body_gate.py.",
+      "resolution": "Use the actual modules; do not invent an API. A future refactor may add the file, but it is not part of this audit."
+    }
+  ],
+  "expansion_plan": [
+    {
+      "phase": "P0",
+      "title": "Freeze current evidence and re-run the bounded checker",
+      "status": "done_in_this_audit",
+      "scope": "No data change. Record 61 D03 and 28 D05 committed rows, exact URLs, statuses, sizes and licenses.",
+      "network": "24 bounded metadata/header probes",
+      "download_bytes_estimate": 120000,
+      "checkpoint": "24/24 probes pass; JSON valid; no raster or kernel downloaded in full.",
+      "not_claimed": "No new observation, no global coverage, no cross-body score."
+    },
+    {
+      "phase": "P1",
+      "title": "Moon D03 coarse context from Diviner GCP 0.5 degree",
+      "status": "proposed_opt_in",
+      "scope": "Read the 90S-80S GCP tile (156,211,313 bytes) and compute a 0.5 degree cell value for each of the 18 Moon AOIs. Store as a separate coarse_context method version, never as a 240 m PCP value.",
+      "network": "One full 156 MB ASCII table, explicit opt-in and checksum",
+      "download_bytes_estimate": 156211313,
+      "checkpoint": "Cell overlap >=1; temporal overlap 2009-2015; label and table SHA-256 recorded; values flagged 0.5 degree; PCP and GCP rows never share a feature method version.",
+      "not_claimed": "No 1.98 km representativeness; no replacement for PCP; no global lunar survey."
+    },
+    {
+      "phase": "P2",
+      "title": "Mars D03 coarse context from TES TIMAP",
+      "status": "proposed_opt_in",
+      "scope": "Read the day and night 2.96 km TES maps and sample the five Jezero windows as separate coarse_context values; keep the interpolation mask and apply it.",
+      "network": "51,840,000-byte day image + 25,920,000-byte night image + masks, explicit opt-in",
+      "download_bytes_estimate": 77760000,
+      "checkpoint": "2.96 km pixel covers the window centre; interpolation mask applied; method version distinct from THEMIS; no mixing with 100 m thermal_inertia.",
+      "not_claimed": "No 100 m Mars TI; no same-support comparison with THEMIS; no global Mars claim."
+    },
+    {
+      "phase": "P3",
+      "title": "Bounded Mars THEMIS 100 m extension within 60N/S",
+      "status": "proposed_after_review",
+      "scope": "Add at most 3 new Mars reference windows inside the existing 00N060E tile or an adjacent verified tile; read only the 128 x 128 ISIS blocks touched by each 1.98 km window.",
+      "network": "About 0.3-1.3 MB of tile blocks per window, HTTP range requests",
+      "download_bytes_estimate": 5000000,
+      "checkpoint": "Each window has >=1 native 100 m pixel; source tile checksum and byte ranges recorded; no resampling to 90 m; exact THEMIS method version.",
+      "not_claimed": "No global Mars coverage; no polar TI; no cross-body comparison."
+    },
+    {
+      "phase": "P4",
+      "title": "D05 SPICE time series at the existing nine sites",
+      "status": "proposed_lowest_risk",
+      "scope": "Reuse the five pinned kernels (18,718,944 bytes cached) and compute incidence/elevation at 1 h steps for one lunar day at the 4 Moon sites and one Mars sol at the 5 Mars sites. Bump the method version.",
+      "network": "No new download if the cache verifies; otherwise the same five pinned kernels",
+      "download_bytes_estimate": 18718944,
+      "checkpoint": "Kernel SHA-256 unchanged; 24-25 samples per site; time support explicit; flat-ellipsoid and no-horizon caveats retained; no irradiance derived.",
+      "not_claimed": "Still model-derived geometry, not observed irradiance, shadow fraction or ionizing radiation."
+    },
+    {
+      "phase": "P5",
+      "title": "D05 Earth-only TSI context from TSIS-1",
+      "status": "deferred_schema_change",
+      "scope": "If a new total_solar_irradiance_w_m2 feature is approved, ingest the 24 h TSIS TSI series as Earth-Sun context. Do not map it to surface_shortwave_irradiance_kwh_m2_day.",
+      "network": "One ~0.5 MB text file, or a bounded range for metadata",
+      "download_bytes_estimate": 500000,
+      "checkpoint": "New feature id, unit W/m^2, 1 AU support and method version approved; license verified; no planetary surface claim; no cross-body score.",
+      "not_claimed": "No Moon/Mars irradiance; no surface irradiance; no dose."
+    },
+    {
+      "phase": "P6",
+      "title": "D05 ionizing dose from CRaTER",
+      "status": "blocked",
+      "scope": "No ingestion. A future task would need spectral unfolding, detector response, shielding geometry and an absorbed-dose definition.",
+      "network": "Metadata only until a documented dose product exists",
+      "download_bytes_estimate": 0,
+      "checkpoint": "Blocked: no direct Gy product; no Sv conversion without physics; no surface support.",
+      "not_claimed": "No dose value, no equivalent dose, no habitability inference."
+    },
+    {
+      "phase": "P7",
+      "title": "Diviner GDR/GHRM or RCP for new lower-latitude AOIs",
+      "status": "deferred_new_scope",
+      "scope": "Only if a new non-polar Moon AOI is approved. GDR L3 stops at 80N/S, GHRM at 70N/S, and RCP Lacus Mortis is a separate region; none expands the current polar AOIs.",
+      "network": "Bounded image/tile reads; no full mosaic",
+      "download_bytes_estimate": 0,
+      "checkpoint": "New AOI and science question approved; method version separate from PCP; no claim of polar coverage.",
+      "not_claimed": "No expansion of the existing 18 polar windows; no global lunar survey."
+    },
+    {
+      "phase": "P8",
+      "title": "Use PDS ODE only as a discovery service",
+      "status": "available",
+      "scope": "Keep the ODE REST query as a discovery aid for LRO/DLRE product ids; do not treat ODE search results as observations.",
+      "network": "Small XML responses",
+      "download_bytes_estimate": 1000,
+      "checkpoint": "Every ODE-discovered product is re-verified against its PDS label and HTTP evidence before ingestion.",
+      "not_claimed": "ODE is not an observation source and does not establish coverage."
+    }
+  ],
+  "reproduction": {
+    "checker": "python3 scripts/check_d03_d05_sources.py",
+    "checker_json": "python3 scripts/check_d03_d05_sources.py --json",
+    "notes": "The checker is stdlib-only and safe to run repeatedly. It never downloads a full raster, table or kernel; full bodies are capped at 256 KiB and range responses at 4 KiB."
+  }
+}
