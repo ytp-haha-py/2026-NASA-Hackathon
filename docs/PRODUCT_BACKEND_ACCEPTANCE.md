@@ -19,7 +19,7 @@ global coverage, six-dimensional measurement completeness, or a validated combin
 | D03 thermal | `GET /typed/observations?dimension=D03` | 61: Earth POWER 20, Moon Diviner 36, Mars THEMIS 5 | `docs/D03_PLANETARY_THERMAL_PILOT.md` |
 | D04 water/ice | `GET /typed/observations?dimension=D04` | 75: Earth POWER 20, Moon LP NS/Mini-RF 53, Mars HEND 2 | `docs/D04_WATER_ICE_PILOT.md` |
 | D05 illumination | `GET /typed/observations?dimension=D05` | 28: Earth POWER 10, Moon SPICE 8, Mars SPICE 10 | `docs/D05_SPICE_PILOT.md` |
-| D06 regolith/soil | `GET /typed/observations?dimension=D06` | 345: SoilGrids 5 properties × 4 depths × 3 statistics × 5 AOIs plus 0–5 cm × 5 properties × 3 statistics × 3 AOIs | `docs/D06_SOILGRIDS_DEPTH_PILOT.md` |
+| D06 regolith/soil | `GET /typed/observations?dimension=D06` | 1,920: SoilGrids 5 properties × 4 depths × 3 statistics × 5 AOIs plus 0–5 cm × 5 properties × 3 statistics × 108 AOIs | `docs/D06_SOILGRIDS_DEPTH_PILOT.md` |
 | Planetary coarse evidence | `pipelines/planetary/coarse/index.json` | 4 Moon + 4 Mars CTX + 2 MOLA cells; cross-body ranking disabled | `docs/PLANETARY_COARSE_REFERENCE.md` |
 | Aggregate release | `pipelines/build_release.py verify` | Deterministic manifest/EDA; tamper rejection | `docs/MULTIDIMENSIONAL_RELEASE.md` |
 | DB capacity/backup | `scripts/db_audit.py`, `db_backup.py drill` | Measured local DB + 100k/1M synthetic benchmarks; copy-only restore | `docs/DB_CAPACITY_REPORT.md` |

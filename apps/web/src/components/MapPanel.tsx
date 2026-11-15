@@ -9,15 +9,15 @@ import type {
   SearchResultOut,
 } from "../api/client";
 import { useI18n } from "../i18n/I18nProvider";
+import { addEarthBasemap, type EarthBasemap } from "../lib/earthBasemap";
 import { PlanetMap, type PlanetBody } from "./PlanetMap";
 import { RankingOverlay } from "./RankingOverlay";
 
-type Basemap = "map" | "terrain" | "satellite";
 type BodyView = "Earth" | PlanetBody;
 
 const BODY_ORDER: BodyView[] = ["Earth", "Moon", "Mars"];
 
-const BASEMAP_ORDER: Basemap[] = ["map", "terrain", "satellite"];
+const BASEMAP_ORDER: EarthBasemap[] = ["map", "terrain", "satellite"];
 
 type MapPanelProps = {
   results: SearchResultOut[];
@@ -45,29 +45,6 @@ const MIN_DRAW_PX = 6;
 function wrapLongitude(lon: number): number {
   return ((((lon + 180) % 360) + 360) % 360) - 180;
 }
-
-const BASEMAPS: Record<Basemap, { url: string; maxZoom: number; attribution: string }> = {
-  map: {
-    url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    maxZoom: 19,
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-  // OpenTopoMap was dropped: it serves a "generic referrer" notice tile instead of terrain to
-  // localhost and other generic referrers at zoom >= ~10 (#55). Esri tiles need no key.
-  terrain: {
-    url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
-    maxZoom: 18,
-    attribution:
-      'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, USGS, NGA, EPA, USDA, NPS, and the GIS user community',
-  },
-  satellite: {
-    url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    maxZoom: 18,
-    attribution:
-      'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS user community',
-  },
-};
 
 /** Room for the floating ranking panel on the left, so fitted pins are not hidden under it. */
 const OVERLAY_PADDING: L.PointExpression = [340, 24];
@@ -125,13 +102,12 @@ export function MapPanel({
   aoiBbox = null,
   onDrawBbox,
 }: MapPanelProps) {
-  const { t, tp, fmt, label } = useI18n();
+  const { locale, t, tp, fmt, label } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
-  const tilesRef = useRef<L.TileLayer | null>(null);
   const onSelectRef = useRef(onSelect);
-  const [basemap, setBasemap] = useState<Basemap>("map");
+  const [basemap, setBasemap] = useState<EarthBasemap>("map");
   const [bodyView, setBodyView] = useState<BodyView>("Earth");
   const onEarth = bodyView === "Earth";
   const [drawing, setDrawing] = useState(false);
@@ -274,25 +250,13 @@ export function MapPanel({
       map.remove();
       mapRef.current = null;
       layerRef.current = null;
-      tilesRef.current = null;
     };
   }, []);
 
-  // Swap tile layers when the basemap toggle changes.
   useEffect(() => {
     const map = mapRef.current;
-    if (!map) {
-      return;
-    }
-    tilesRef.current?.remove();
-    const spec = BASEMAPS[basemap];
-    const tiles = L.tileLayer(spec.url, { maxZoom: spec.maxZoom, attribution: spec.attribution });
-    tiles.on("tileerror", () => setBasemapUnavailable(true));
-    tiles.on("tileload", () => setBasemapUnavailable(false));
-    tiles.addTo(map);
-    tiles.bringToBack();
-    tilesRef.current = tiles;
-  }, [basemap]);
+    if (map && onEarth) return addEarthBasemap(map, locale, basemap, setBasemapUnavailable);
+  }, [basemap, locale, onEarth]);
 
   const fitPadding = useCallback((): Pick<L.FitBoundsOptions, "paddingTopLeft" | "paddingBottomRight"> => {
     const wide = (containerRef.current?.clientWidth ?? 0) > 720;

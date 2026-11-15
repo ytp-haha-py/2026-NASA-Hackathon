@@ -18,13 +18,34 @@ npm ci
 npm run dev
 ```
 
-Open the URL Vite prints (normally `http://localhost:5173`).
+Open the URL Vite prints (normally `http://localhost:5173`). The browser always calls
+same-origin `/api/v1/...`; the Vite dev proxy decides once, at startup:
 
-The Vite dev server proxies `/api` to `http://127.0.0.1:8000`, so the browser
-always calls same-origin `/api/v1/...` paths. The same proxy is configured for
-`npm run preview`. Production is plain static output in `apps/web/dist`; the
-deployment layer is expected to serve those files and proxy `/api` to the API
-(for example with nginx).
+1. If `VITE_API_PROXY_TARGET` is set, use that origin and skip detection.
+2. Otherwise probe `http://127.0.0.1:8000/api/v1/health` with a 750 ms timeout.
+3. Use local FastAPI only when the response is HTTP 200 and matches the health schema
+   (`status=ok`, non-empty `data_version` and `data_snapshot_id`).
+4. Otherwise use `https://api.貓熊.台灣`.
+
+The selection is logged in the terminal and stays fixed for the Vite process. A
+connection failure or timeout never triggers a per-request switch, so one search or
+AOI job cannot mix two databases.
+
+To force a backend (for another API server, or to reproduce a failure), set an
+origin-only target with no `/api/v1` path:
+
+```bash
+VITE_API_PROXY_TARGET=http://127.0.0.1:9000 npm run dev
+# or put the same optional line in the repository-root .env.local
+```
+
+A target that includes a path such as `/api/v1` is rejected at startup, and TLS
+certificate verification is never disabled.
+
+`VITE_API_BASE` is production-only. The development client always uses `/api/v1`
+through the proxy, so setting `VITE_API_BASE` in a local shell cannot bypass the
+local-first decision. `npm run preview` and `npm run build` do not probe localhost;
+they use the public target unless `VITE_API_PROXY_TARGET` is explicitly set.
 
 Start the API from the repository root if it is not already running:
 

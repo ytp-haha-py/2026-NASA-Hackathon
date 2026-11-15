@@ -142,13 +142,27 @@ uv run python -m analog_pipelines.acquisition run \
 # Multi-depth extension (300 observations, 4 depths); dry run first
 uv run python scripts/build_soilgrids_depth_pilot.py --dry-run
 uv run python scripts/build_soilgrids_depth_pilot.py --resume --workers 2
+
+# 0-5 cm expansion over the remaining 105 Earth candidates (1,575 observations)
+# See pipelines/pilots/d06_earth_soilgrids_all_0_5cm/plan.json for the exact area ids.
+uv run python scripts/build_soilgrids_depth_pilot.py --dry-run \
+  --scope d06-earth-all-0-5cm --depths 0-5cm --statistics mean,Q0.05,Q0.95 \
+  --plan var/plans/d06-earth-all-0-5cm.json --run-dir var/runs/d06-earth-all-0-5cm \
+  --release pipelines/pilots/d06_earth_soilgrids_all_0_5cm
+uv run python scripts/build_soilgrids_depth_pilot.py --scope d06-earth-all-0-5cm \
+  --depths 0-5cm --statistics mean,Q0.05,Q0.95 \
+  --plan var/plans/d06-earth-all-0-5cm.json --run-dir var/runs/d06-earth-all-0-5cm \
+  --release pipelines/pilots/d06_earth_soilgrids_all_0_5cm --workers 4 --resume
 ```
 
 The committed base pilot contains 75 observations: clay, sand, silt, SOC and bulk density
 at 0–5 cm, with mean/Q0.05/Q0.95 quantiles. The multi-depth pilot
 (`pipelines/pilots/d06_earth_soilgrids_depths/`) contains 300 observations across
-0–5, 5–15, 15–30 and 30–60 cm. All are evidence-only model predictions, use 250 m metric
-source resolution, preserve the depth interval and never enter Terrain similarity.
+0–5, 5–15, 15–30 and 30–60 cm. The 0–5 cm expansion releases add 1,620 observations and now
+cover all 113 committed Earth fine candidates. Source rows keep `score_role=evidence_only`;
+the versioned `feature-eligibility-1.0.0` registry promotes only the gated 0–5 cm means to query
+similarity, and Q05/Q95 remain uncertainty evidence. All values are 250 m model predictions and
+never imply a local measurement.
 Raw TIFFs are not committed; per-request response checksums and statuses are recorded.
 No Moon/Mars regolith value is claimed; see `docs/D06_REGOLITH_SEMANTICS.md` and
 `contracts/d06-regolith-semantics-v1.json`.

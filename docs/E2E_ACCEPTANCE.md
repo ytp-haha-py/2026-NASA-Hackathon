@@ -163,7 +163,7 @@ D02  56 typed observations · Earth 15 / Moon 3 / Mars 38 · evidence only
 D03  61 · Earth 20 / Moon 36 / Mars 5 · context only
 D04  75 · Earth 20 / Moon 53 / Mars 2 · evidence only
 D05  28 · Earth 10 / Moon 8 / Mars 10 · context only
-D06 300 · Earth 300 · evidence only
+D06 1,920 · Earth 1,920 · source evidence; gated 0–5 cm means may score
 ```
 
 The board exposes "View observations" / "Open six dimensions"; a selected Moon/Mars reference or

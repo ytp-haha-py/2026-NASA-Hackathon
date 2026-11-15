@@ -176,9 +176,13 @@ export type NumericTarget = Record<string, number>;
 export const DEFAULT_PUBLIC_API_BASE = "https://api.貓熊.台灣/api/v1";
 
 const configuredApiBase = import.meta.env.VITE_API_BASE;
-const API_BASE =
-  (configuredApiBase && configuredApiBase.trim().replace(/\/$/, "")) ||
-  (import.meta.env.PROD ? DEFAULT_PUBLIC_API_BASE : "/api/v1");
+// Development always uses the same-origin Vite proxy so the local-first/remote-fallback decision
+// stays in one place. VITE_API_BASE is a production-only setting; VITE_API_PROXY_TARGET is the
+// development override.
+const API_BASE = import.meta.env.PROD
+  ? (configuredApiBase && configuredApiBase.trim().replace(/\/$/, "")) ||
+    DEFAULT_PUBLIC_API_BASE
+  : "/api/v1";
 
 export class ApiError extends Error {
   readonly status: number;
