@@ -70,6 +70,30 @@ Each primary session now contains a **synthetic** message with
 This distinguishes a native Goal from an ordinary user prompt, even if that prompt also contained
 goal-shaped text. #141 was additionally paused/resumed to verify the native manager accepted it.
 
+## External / adjacent workstreams
+
+| Issue | Scope | Worktree / branch | Session / Goal | Status | Rule |
+|---|---|---|---|---|---|
+| #132 | Earth/Moon/Mars map query + planetary on-demand | `/home/panda/workspace/analogx-issue-132` / `backend/issue-132` | `ses_e2111ccf7ffevCZ3c5V62sEAX8` / `1c5d9b7e-1818-4d19-bd43-ffb52ceb2228` | active external worker | do not modify or interrupt |
+| #108 | Earth global Geomorpho coarse index | none | none | open, no active session | D01 #135 coordinates; reuse local `var/global-coarse-index` |
+| #97 | persisted coarse-to-fine refinement | none | none | open, no active session | D01 #135 coordinates; no duplicate implementation |
+
+## Monitoring
+
+The coordinator monitor is documented in [`MONITORING.md`](MONITORING.md) and implemented in `tools/phase2_monitor`:
+
+```bash
+uv run python -m tools.phase2_monitor.cli run
+uv run python -m tools.phase2_monitor.cli once
+uv run python -m tools.phase2_monitor.cli status
+uv run python -m tools.phase2_monitor.cli events
+```
+
+It uses the supported `/api/event` SSE stream for immediate changes and a 90 s reconciliation loop
+for missed/crashed events. Goal state is read from OpenCode's read-only `kv` table
+(`plugin:%:session:<session-id>`), not inferred from session idle. State is persisted outside all
+worktrees at `/home/panda/.local/state/analogx-phase2/monitor.sqlite3`.
+
 ## Update log
 
 - 2026-11-15: preflight completed; 7 independent worktrees and sessions created; native Goal
