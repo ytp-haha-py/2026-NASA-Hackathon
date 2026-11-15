@@ -31,10 +31,10 @@ export const zhTW: { [K in MessageKey]?: string } = {
 
   // App shell
   "app.skipLink": "跳至主要內容",
-  "app.eyebrow": "地形形狀相似度 · 已索引 + 隨選地球區域",
-  "app.title": "行星類比地形探索器",
+  "app.eyebrow": "探索月球與火星 · 尋找地球類比地點",
+  "app.title": "AnalogX",
   "app.summary":
-    "將假設的地形形狀目標與已提交的地球索引比較，或分析一個有範圍限制的隨選 AOI（關注區域）。土地覆蓋背景資訊另外顯示，從不納入相似度分數。本工具不是全球普查、不是基地選址建議，也不宣稱物理條件等同。",
+    "選擇月球、火星參考地點，或自行設定地形條件，尋找特徵相近的地球區域。也可以查看六維觀測、資料來源及限制。只有經過驗證且適合比較的指標會參與搜尋排名。",
   "app.capabilitiesLoading": "正在載入系統能力與已索引覆蓋範圍…",
   "app.capabilitiesErrorTitle": "無法載入系統能力資訊。",
   "app.capabilitiesErrorHelp":

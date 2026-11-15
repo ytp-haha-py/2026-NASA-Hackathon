@@ -237,7 +237,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
           <div className="header-left">
             <h1 className="brand">
               <span className="brand-mark" aria-hidden="true">
-                PAE
+                AX
               </span>{" "}
               <span className="brand-name">{t("app.title")}</span>
             </h1>

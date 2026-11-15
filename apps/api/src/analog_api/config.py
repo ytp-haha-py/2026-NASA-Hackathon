@@ -12,7 +12,7 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_prefix="ANALOG_", env_file=".env", extra="ignore")
 
-    app_name: str = "Planetary Analog Explorer API"
+    app_name: str = "AnalogX API"
     database_url: str = "sqlite+pysqlite:///./var/analog.db"
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
     manifest_dir: str = "pipelines/earth/manifests"

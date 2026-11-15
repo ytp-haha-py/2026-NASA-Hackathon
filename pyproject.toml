@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "planetary-analog"
 version = "0.1.0"
-description = "Planetary Analog Explorer - transparent, evidence-based terrestrial analog search"
+description = "AnalogX - explore Moon and Mars observations and search for comparable Earth terrain"
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
 license = { text = "MIT" }
