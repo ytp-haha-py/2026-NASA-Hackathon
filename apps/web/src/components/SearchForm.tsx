@@ -21,9 +21,13 @@ import type { MessageKey } from "../locales/en/messages";
 import {
   FRACTION_RANGE,
   dimensionCards,
+  filterSlider,
+  filterSupported,
   orderContextFeatures,
   rangeToFilter,
   sliderRange,
+  type DimensionFilterControl,
+  type FilterDisabledReason,
   type SliderRange,
 } from "../lib/dimensions";
 import type { SearchSubmission, SearchTargetPreset } from "../lib/search-types";
@@ -33,7 +37,7 @@ import {
   researchWeights,
   unavailableResearchFeatures,
 } from "../lib/research-presets";
-import { queryFeaturesBeyondD01, soilFeatureParts } from "../lib/multidim";
+import { queryFeaturesBeyondD01, registrySimilarityFeature, soilFeatureParts } from "../lib/multidim";
 import { hasMapCoordinates, PlanetMap, type PlanetBody } from "./PlanetMap";
 import { RangeSlider, SingleSlider } from "./RangeSlider";
 
@@ -103,6 +107,19 @@ function fullRanges(
   return ranges;
 }
 
+function filterDefaultRanges(
+  controls: DimensionFilterControl[],
+): Record<string, [number, number]> {
+  const ranges: Record<string, [number, number]> = {};
+  for (const control of controls) {
+    const slider = filterSlider(control);
+    if (slider) {
+      ranges[control.id] = [slider.lo, slider.hi];
+    }
+  }
+  return ranges;
+}
+
 function referenceValues(reference: ReferenceOut | undefined): NumericTarget {
   if (!reference) {
     return {};
@@ -149,6 +166,8 @@ export function SearchForm({
   const [ranges, setRanges] = useState<Record<string, [number, number]>>(() =>
     fullRanges(features, contextFeatures),
   );
+  /** Selected category for a registered category filter; empty string means "any category". */
+  const [categoryFilters, setCategoryFilters] = useState<Record<string, string>>({});
   const [body, setBody] = useState<Body>("custom");
   const [researchPresetId, setResearchPresetId] = useState("manual");
   const [referenceIds, setReferenceIds] = useState<Partial<Record<PlanetBody, string>>>({});
@@ -294,11 +313,68 @@ export function SearchForm({
           : feature;
       });
   }, [registry, features, t]);
-  /** Registry features per dimension that are observed but not score inputs (listed read-only). */
+
+  /**
+   * A Moon/Mars reference may carry D01 feature ids that the Earth-scoped `features` prop does not
+   * list. Match by feature_id and borrow the registry domain; the value/unit displayed always comes
+   * from the reference observation. No domain is invented when the registry cannot supply one.
+   */
+  const referenceScoreFeatures = useMemo(() => {
+    if (!referenceMode || !selectedReference || !registry) {
+      return [];
+    }
+    const knownIds = new Set(features.map((feature) => feature.id));
+    const extras: FeatureOut[] = [];
+    for (const observation of selectedReference.features) {
+      if (knownIds.has(observation.feature_id)) {
+        continue;
+      }
+      const entry = registry.features.find(
+        (feature) =>
+          feature.feature_id === observation.feature_id &&
+          feature.dimension_id === "D01" &&
+          feature.roles.similarity?.supported === true,
+      );
+      const mapped = entry ? registrySimilarityFeature(entry) : null;
+      if (mapped) {
+        extras.push({
+          ...mapped,
+          label: observation.label ?? mapped.label,
+          unit: observation.unit ?? mapped.unit,
+        });
+      }
+    }
+    return extras;
+  }, [features, referenceMode, registry, selectedReference]);
+
+  /** Every feature that may carry a target/weight in the current mode. */
+  const scoreFeatures = useMemo(
+    () => (referenceMode ? [...features, ...referenceScoreFeatures] : [...features, ...queryFeatures]),
+    [features, queryFeatures, referenceMode, referenceScoreFeatures],
+  );
+
+  /**
+   * Reference mode keeps the full registry for D02–D05 filter roles, but hides Earth-only D06
+   * similarity means: a Moon/Mars reference has no SoilGrids observation to weight.
+   */
+  const boardRegistry = useMemo(() => {
+    if (!registry || !referenceMode) {
+      return registry;
+    }
+    return {
+      ...registry,
+      features: registry.features.filter(
+        (feature) =>
+          feature.dimension_id !== "D06" || feature.roles.similarity?.supported !== true,
+      ),
+    };
+  }, [referenceMode, registry]);
+
+  /** Registry features per dimension that are observed but not score/filter inputs (read-only). */
   const registryByDimension = useMemo(() => {
     const groups = new Map<string, FeatureRegistryOut["features"]>();
     for (const feature of registry?.features ?? []) {
-      if (feature.roles.similarity?.supported) {
+      if (feature.roles.similarity?.supported || filterSupported(feature)) {
         continue;
       }
       if (!(feature.coverage?.observation_count)) {
@@ -316,19 +392,32 @@ export function SearchForm({
   );
 
   useEffect(() => {
-    setRows((current) => ({ ...initialRows(queryFeatures), ...current }));
-    setRanges((current) => ({ ...fullRanges(queryFeatures, []), ...current }));
-  }, [queryFeatures]);
+    setRows((current) => ({ ...initialRows(scoreFeatures), ...current }));
+    setReferenceWeights((current) => ({ ...initialReferenceWeights(scoreFeatures), ...current }));
+    setRanges((current) => ({ ...fullRanges(scoreFeatures, []), ...current }));
+  }, [scoreFeatures]);
 
   const cards = useMemo(
     () =>
       dimensionCards(
-        referenceMode ? features : [...features, ...queryFeatures],
+        scoreFeatures,
         typedCoverage,
         typedObservations,
+        boardRegistry,
       ),
-    [features, queryFeatures, referenceMode, typedCoverage, typedObservations],
+    [scoreFeatures, boardRegistry, typedCoverage, typedObservations],
   );
+  /** D02–D05 filter-only controls from the live registry (never similarity targets). */
+  const filterControls = useMemo(
+    () => cards.flatMap((card) => card.filters),
+    [cards],
+  );
+
+  useEffect(() => {
+    const defaults = filterDefaultRanges(filterControls);
+    setRanges((current) => ({ ...defaults, ...current }));
+  }, [filterControls]);
+
   const { primary: primaryContext, more: moreContext } = useMemo(
     () => orderContextFeatures(contextFeatures),
     [contextFeatures],
@@ -345,6 +434,7 @@ export function SearchForm({
     currentFeatures: FeatureOut[],
     currentContext: ContextFeatureOut[],
     currentRanges: Record<string, [number, number]>,
+    currentFilterControls: DimensionFilterControl[] = [],
   ): Record<string, RangeFilterIn> {
     const filters: Record<string, RangeFilterIn> = {};
     for (const feature of currentFeatures) {
@@ -361,7 +451,58 @@ export function SearchForm({
         filters[feature.feature_id] = filter;
       }
     }
+    for (const control of currentFilterControls) {
+      if (control.kind !== "range" || control.disabledReason) {
+        continue;
+      }
+      const slider = filterSlider(control);
+      const range = currentRanges[control.id];
+      if (!slider || !range) {
+        continue;
+      }
+      const filter = rangeToFilter(range, slider);
+      if (filter) {
+        filters[control.id] = filter;
+      }
+    }
     return filters;
+  }
+
+  /**
+   * Category filters are only sent when the registry publishes a request field for them. The
+   * committed OpenAPI schema has no category filter yet, so this stays empty today and the UI
+   * renders the category select disabled with the registration reason.
+   */
+  function buildCategoryFilters(
+    currentFilterControls: DimensionFilterControl[],
+    currentCategories: Record<string, string>,
+  ): Record<string, { values: string[] }> {
+    const categoryFilters: Record<string, { values: string[] }> = {};
+    for (const control of currentFilterControls) {
+      if (control.kind !== "category" || control.disabledReason || !control.categoryField) {
+        continue;
+      }
+      const value = currentCategories[control.id];
+      if (value) {
+        categoryFilters[control.categoryField] = { values: [value] };
+      }
+    }
+    return categoryFilters;
+  }
+
+  /**
+   * The committed client type only knows numeric range filters. A backend that registers a
+   * category filter field also extends the request schema; until then `categoryFilters` is empty
+   * and this merge is a no-op.
+   */
+  function mergeCategoryFilters(
+    filters: Record<string, RangeFilterIn>,
+    categoryFilters: Record<string, { values: string[] }>,
+  ): Record<string, RangeFilterIn> {
+    if (Object.keys(categoryFilters).length === 0) {
+      return filters;
+    }
+    return { ...filters, ...categoryFilters } as unknown as Record<string, RangeFilterIn>;
   }
 
   useEffect(() => {
@@ -446,9 +587,13 @@ export function SearchForm({
 
   function resetAll() {
     setResearchPresetId("manual");
-    setRows(initialRows([...features, ...queryFeatures]));
-    setReferenceWeights(initialReferenceWeights(features));
-    setRanges(fullRanges([...features, ...queryFeatures], contextFeatures));
+    setRows(initialRows(scoreFeatures));
+    setReferenceWeights(initialReferenceWeights(scoreFeatures));
+    setRanges({
+      ...fullRanges(scoreFeatures, contextFeatures),
+      ...filterDefaultRanges(filterControls),
+    });
+    setCategoryFilters({});
     setLimit("10");
     setErrors([]);
     setFieldErrors({});
@@ -476,7 +621,7 @@ export function SearchForm({
         nextErrors.push({ key: "search.errReferenceEmpty", vars: { body } });
       } else {
         for (const observation of selectedReference.features) {
-          if (!features.some((feature) => feature.id === observation.feature_id)) {
+          if (!scoreFeatures.some((feature) => feature.id === observation.feature_id)) {
             continue;
           }
           const raw = referenceWeights[observation.feature_id] ?? "0";
@@ -498,7 +643,7 @@ export function SearchForm({
         }
       }
     } else {
-      for (const feature of [...features, ...queryFeatures]) {
+      for (const feature of scoreFeatures) {
         const row = rows[feature.id];
         if (!row) {
           continue;
@@ -563,22 +708,35 @@ export function SearchForm({
       return;
     }
 
+    const categoryFilterPayload = buildCategoryFilters(filterControls, categoryFilters);
+    const filters = mergeCategoryFilters(
+      buildFilters(features, contextFeatures, ranges, filterControls),
+      categoryFilterPayload,
+    );
+
     const request: SearchRequest = {
       body,
       reference_id: referenceId,
       target: referenceMode ? {} : target,
       ...(referenceMode ? { weights } : {}),
-      filters: buildFilters(features, contextFeatures, ranges),
+      filters,
       limit: parsedLimit,
     };
 
-    // Features beyond D01 (e.g. D06 soil) are only accepted by the multidimensional search.
+    // Features beyond D01 (e.g. D06 soil) and D02–D05 filters use the multidimensional search.
     let multidim: MultiDimSearchRequest | undefined;
     if (!referenceMode) {
       const queryFilters = buildFilters(queryFeatures, [], ranges);
+      const rangeFilterIds = filterControls
+        .filter((control) => control.kind === "range" && !control.disabledReason)
+        .map((control) => control.id);
+      const usesFilterControls =
+        Object.keys(filters).some((id) => rangeFilterIds.includes(id)) ||
+        Object.keys(categoryFilterPayload).length > 0;
       const usesQueryFeatures =
         Object.keys(target).some((id) => queryFeatureIds.has(id)) ||
-        Object.keys(queryFilters).length > 0;
+        Object.keys(queryFilters).length > 0 ||
+        usesFilterControls;
       if (usesQueryFeatures) {
         const contextIds = new Set(contextFeatures.map((feature) => feature.feature_id));
         if (Object.keys(request.filters ?? {}).some((id) => contextIds.has(id))) {
@@ -589,7 +747,10 @@ export function SearchForm({
           candidate_body: "Earth",
           reference_id: null,
           targets: target,
-          filters: { ...buildFilters(features, [], ranges), ...queryFilters },
+          filters: mergeCategoryFilters(
+            { ...buildFilters(features, [], ranges, filterControls), ...queryFilters },
+            categoryFilterPayload,
+          ),
           dimension_weights: {},
           limit: parsedLimit,
           offset: 0,
@@ -629,7 +790,7 @@ export function SearchForm({
     }
     if (message.key === "search.fieldError") {
       const featureId = String(vars.featureId);
-      const feature = features.find((candidate) => candidate.id === featureId);
+      const feature = scoreFeatures.find((candidate) => candidate.id === featureId);
       vars.label = label.feature(featureId, feature?.label);
       vars.field = t(vars.field === "weight" ? "search.fieldWeight" : "search.fieldValue");
       vars.message = t(vars.messageKey as MessageKey, vars);
@@ -722,8 +883,11 @@ export function SearchForm({
     const valueError = fieldErrors[feature.id]?.value;
     const weightError = fieldErrors[feature.id]?.weight;
     const featureLabel = label.feature(feature.id, feature.label);
-    const unitName = label.unitName(feature.unit);
-    const unitSymbol = feature.unit === "fraction" ? "" : fmt.unit(feature.unit);
+    // In reference mode the reference observation is authoritative for value and unit, including
+    // Moon/Mars D01 features that the Earth-scoped capability list may not repeat.
+    const featureUnit = referenceFeature?.unit ?? feature.unit;
+    const unitName = label.unitName(featureUnit);
+    const unitSymbol = featureUnit === "fraction" ? "" : fmt.unit(featureUnit);
     const range = ranges[feature.id] ?? [slider.lo, slider.hi];
     const filtered = rangeToFilter(range, slider) !== null;
 
@@ -851,6 +1015,98 @@ export function SearchForm({
             })}
           </p>
         </details>
+      </div>
+    );
+  }
+
+  function filterReason(reason: FilterDisabledReason): string {
+    switch (reason) {
+      case "no_coverage":
+        return t("search.filterNoCoverage");
+      case "no_domain":
+        return t("search.filterNoDomain");
+      case "category_values_not_registered":
+        return t("search.filterCategoryNoValues");
+      default:
+        return t("search.filterCategoryNotRegistered");
+    }
+  }
+
+  /**
+   * D02–D05 filter-only control. It narrows candidates and never renders a target or weight.
+   * Unusable registry entries show an explicit reason instead of a slider that does nothing.
+   */
+  function renderFilterControl(control: DimensionFilterControl) {
+    const featureLabel = label.feature(control.id, control.label);
+    const slider = filterSlider(control);
+    const reason = control.disabledReason ? filterReason(control.disabledReason) : null;
+    const range = ranges[control.id] ?? (slider ? [slider.lo, slider.hi] : null);
+    const filtered =
+      slider !== null && range !== null ? rangeToFilter(range, slider) !== null : false;
+    const unitSymbol = control.unit === "fraction" ? "" : fmt.unit(control.unit);
+
+    return (
+      <div
+        className={`metric context-metric filter-metric${reason ? " is-disabled" : ""}`}
+        key={control.id}
+        role="group"
+        aria-label={featureLabel}
+        data-testid={`dimension-filter-${control.id}`}
+      >
+        <div className="metric-head">
+          <span className="metric-name">{featureLabel}</span>
+          <span className="dimension-tag is-filter">{t("search.filterTag")}</span>
+        </div>
+
+        {control.kind === "category" ? (
+          <div className="metric-row filter-row">
+            <span className="metric-label" aria-hidden="true">
+              {t("search.filterCategoryShort")}
+            </span>
+            <select
+              className="metric-select"
+              aria-label={t("search.categoryFilter", { label: featureLabel })}
+              value={categoryFilters[control.id] ?? ""}
+              disabled={control.disabledReason !== null}
+              onChange={(event) =>
+                setCategoryFilters((current) => ({
+                  ...current,
+                  [control.id]: event.target.value,
+                }))
+              }
+            >
+              <option value="">{t("search.categoryAny")}</option>
+              {control.categories.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : reason === null && slider && range ? (
+          <div className="metric-row">
+            <span className="metric-label" aria-hidden="true">
+              {t("search.rangeLabel")}
+            </span>
+            <RangeSlider
+              id={`range-${control.id}`}
+              range={range}
+              slider={slider}
+              minLabel={t("search.rangeMin", { label: featureLabel })}
+              maxLabel={t("search.rangeMax", { label: featureLabel })}
+              onChange={(next) => setRange(control.id, next)}
+            />
+            <span className={`metric-range mono${filtered ? " is-active" : ""}`}>
+              {rangeText(range, slider, unitSymbol)}
+            </span>
+          </div>
+        ) : null}
+
+        {reason && (
+          <p className="field-hint filter-reason" data-testid={`filter-reason-${control.id}`}>
+            {reason}
+          </p>
+        )}
       </div>
     );
   }
@@ -1163,12 +1419,16 @@ export function SearchForm({
               const role =
                 card.role === "similarity"
                   ? t("search.dimensionRoleSimilarity")
-                  : card.role === "context_only"
-                    ? t("search.dimensionRoleContext")
-                    : t("search.dimensionRoleEvidence");
+                  : card.role === "filter"
+                    ? t("search.dimensionRoleFilter")
+                    : card.role === "context_only"
+                      ? t("search.dimensionRoleContext")
+                      : t("search.dimensionRoleEvidence");
+              const evidenceFeatures = registryByDimension.get(card.code) ?? [];
+              const hasControls = card.features.length > 0 || card.filters.length > 0;
               return (
                 <section
-                  className={`dimension-column dimension-card${card.features.length > 0 ? " is-similarity" : ""}${card.code === activeDimension ? " is-active" : ""}`}
+                  className={`dimension-column dimension-card${card.role === "similarity" ? " is-similarity" : ""}${card.role === "filter" ? " is-filter" : ""}${card.code === activeDimension ? " is-active" : ""}`}
                   key={card.code}
                   aria-label={`${card.code} ${name}`}
                   data-testid={`dimension-card-${card.code}`}
@@ -1189,61 +1449,73 @@ export function SearchForm({
                     )}
                   </div>
 
-                  {card.features.length > 0 ? (
-                    <>
-                      {card.code === "D01" && <p className="field-hint">{role}</p>}
-                      {renderFeatureGroup(card.features)}
-                    </>
-                  ) : typedLoading ? (
-                    <p className="field-hint" role="status">
-                      {t("search.dimensionLoading")}
-                    </p>
-                  ) : (
-                    <>
+                  <>
+                    {hasControls && <p className="field-hint">{role}</p>}
+                    {card.features.length > 0 && renderFeatureGroup(card.features)}
+                    {card.filters.length > 0 && (
+                      <div className="metric-list filter-list">
+                        {card.filters.map(renderFilterControl)}
+                      </div>
+                    )}
+                    {evidenceFeatures.length > 0 && (
+                      <ul className="observed-feature-list">
+                        {evidenceFeatures.map((feature) => {
+                          const coverage = feature.coverage;
+                          const bodies = fmt.list(
+                            Object.keys(coverage?.by_body ?? {}).map((name) => label.body(name)),
+                          );
+                          // Long technical units (e.g. dimensionless_spectral_parameter) add noise.
+                          const unit =
+                            feature.unit.length <= 12 && !feature.unit.includes("_")
+                              ? feature.unit
+                              : "";
+                          const min = coverage?.observed_numeric_min;
+                          const max = coverage?.observed_numeric_max;
+                          const reason =
+                            feature.unsupported_reason ??
+                            feature.roles.similarity?.reason ??
+                            feature.roles.filter?.reason ??
+                            feature.roles.hard_filter?.reason ??
+                            t("search.featureNotScored");
+                          return (
+                            <li key={feature.feature_id}>
+                              <span className="observed-feature-name">
+                                {readableFeatureName(feature.feature_id, feature.label, label.feature)}
+                              </span>
+                              <span className="observed-feature-meta">
+                                {bodies && <span>{bodies}</span>}
+                                <span className="mono">
+                                  {t("search.observationCount", {
+                                    count: coverage?.observation_count ?? 0,
+                                  })}
+                                </span>
+                                {typeof min === "number" && typeof max === "number" && (
+                                  <span className="mono">
+                                    {min === max
+                                      ? `${fmt.number(min, 3)} ${unit}`.trim()
+                                      : `${fmt.number(min, 3)} – ${fmt.number(max, 3)} ${unit}`.trim()}
+                                  </span>
+                                )}
+                              </span>
+                              <span className="observed-feature-reason field-hint">{reason}</span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                    {!hasControls && typedLoading && (
+                      <p className="field-hint" role="status">
+                        {t("search.dimensionLoading")}
+                      </p>
+                    )}
+                    {!hasControls && !typedLoading && (
                       <p data-testid={`dimension-total-${card.code}`}>
                         {card.total > 0
                           ? t("search.dimensionObservations", { count: card.total })
                           : t("search.dimensionNoObservations")}
                       </p>
-                      {(registryByDimension.get(card.code) ?? []).length > 0 && (
-                        <ul className="observed-feature-list">
-                          {(registryByDimension.get(card.code) ?? []).map((feature) => {
-                            const coverage = feature.coverage;
-                            const bodies = fmt.list(
-                              Object.keys(coverage?.by_body ?? {}).map((name) => label.body(name)),
-                            );
-                            // Long technical units (e.g. dimensionless_spectral_parameter) add noise.
-                            const unit =
-                              feature.unit.length <= 12 && !feature.unit.includes("_")
-                                ? feature.unit
-                                : "";
-                            const min = coverage?.observed_numeric_min;
-                            const max = coverage?.observed_numeric_max;
-                            return (
-                              <li key={feature.feature_id}>
-                                <span className="observed-feature-name">
-                                  {readableFeatureName(feature.feature_id, feature.label, label.feature)}
-                                </span>
-                                <span className="observed-feature-meta">
-                                  {bodies && <span>{bodies}</span>}
-                                  <span className="mono">
-                                    {t("search.observationCount", {
-                                      count: coverage?.observation_count ?? 0,
-                                    })}
-                                  </span>
-                                  {typeof min === "number" && typeof max === "number" && (
-                                    <span className="mono">
-                                      {min === max
-                                        ? `${fmt.number(min, 3)} ${unit}`.trim()
-                                        : `${fmt.number(min, 3)} – ${fmt.number(max, 3)} ${unit}`.trim()}
-                                    </span>
-                                  )}
-                                </span>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      )}
+                    )}
+                    {!hasControls && !typedLoading && (
                       <button
                         type="button"
                         className="secondary-button"
@@ -1252,8 +1524,8 @@ export function SearchForm({
                       >
                         {t("search.dimensionView")}
                       </button>
-                    </>
-                  )}
+                    )}
+                  </>
                 </section>
               );
             })}

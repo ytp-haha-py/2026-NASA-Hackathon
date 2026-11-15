@@ -1,4 +1,5 @@
-import type { ContextFeatureOut, FeatureOut } from "../api/client";
+import type { ContextFeatureOut, FeatureOut, FeatureRegistryOut } from "../api/client";
+import { registrySimilarityFeature } from "./multidim";
 import { DIMENSION_CODES, type DimensionCode } from "./six-dimensions";
 
 /** Number of similarity-dimension slots the board shows (D1…D6). */
@@ -126,24 +127,65 @@ export type TypedDimensionSummary = {
   by_state: Record<string, number>;
 };
 
+export type RegistryFeatureOut = FeatureRegistryOut["features"][number];
+
+export type DimensionRole = "similarity" | "filter" | "evidence_only" | "context_only";
+
+/** Extra registry fields the D02–D05 filter contract adds additively to the committed schema. */
+type RegistryFilterContract = {
+  /** "range" selects the numeric dual slider; "category" renders a category select. */
+  filter_kind?: "range" | "category" | null;
+  /** Request key for a registered category filter. */
+  category_filter_field?: string | null;
+  /** Alternative integration-contract spelling for the category request key. */
+  filter_field?: string | null;
+  /** Registered category values (strings or objects with value/code + label). */
+  categories?: unknown;
+};
+
+export type FilterKind = "range" | "category";
+
+export type FilterDisabledReason =
+  | "no_coverage"
+  | "no_domain"
+  | "category_filter_not_registered"
+  | "category_values_not_registered";
+
+export type FilterCategoryOption = {
+  value: string;
+  label: string;
+};
+
+/**
+ * A D02–D05 filter-only control. It narrows the candidate set in `filters`; it is never a target,
+ * weight or distance contribution. A non-null `disabledReason` means the UI must show the reason
+ * and no usable slider (no fake control).
+ */
+export type DimensionFilterControl = {
+  id: string;
+  label: string;
+  unit: string;
+  kind: FilterKind;
+  minValue: number | null;
+  maxValue: number | null;
+  categories: FilterCategoryOption[];
+  /** Request key for a category filter; null until the backend registers one. */
+  categoryField: string | null;
+  disabledReason: FilterDisabledReason | null;
+};
+
 export type FormalDimensionCard = {
   code: DimensionCode;
   name: string;
-  role: "similarity" | "evidence_only" | "context_only";
+  role: DimensionRole;
+  /** Similarity features with target/range/weight controls (D01 and Earth D06 today). */
   features: FeatureOut[];
+  /** Filter-only features with range/category controls (D02–D05 when the registry allows them). */
+  filters: DimensionFilterControl[];
   total: number;
   byBody: Record<string, number>;
   byState: Record<string, number>;
   valueKinds: string[];
-};
-
-const DIMENSION_ROLE: Record<DimensionCode, FormalDimensionCard["role"]> = {
-  D01: "similarity",
-  D02: "evidence_only",
-  D03: "context_only",
-  D04: "evidence_only",
-  D05: "context_only",
-  D06: "evidence_only",
 };
 
 const DIMENSION_NAME: Record<DimensionCode, string> = {
@@ -155,20 +197,172 @@ const DIMENSION_NAME: Record<DimensionCode, string> = {
   D06: "Regolith & Surface Properties",
 };
 
+type RoleLike = { supported?: boolean; reason?: string | null } | undefined;
+
+function roleFor(feature: RegistryFeatureOut, role: string): RoleLike {
+  const roles = feature.roles as Record<string, RoleLike>;
+  return roles[role];
+}
+
+/**
+ * The registry currently names the filter role `hard_filter`; the D02–D05 integration contract
+ * adds `filter`. Prefer the explicit `filter` entry, and fall back to `hard_filter` only when the
+ * API does not publish a `filter` role at all. An explicit `filter.supported=false` always wins.
+ */
+export function filterRole(feature: RegistryFeatureOut): RoleLike {
+  return roleFor(feature, "filter") ?? roleFor(feature, "hard_filter");
+}
+
+export function filterSupported(feature: RegistryFeatureOut): boolean {
+  return filterRole(feature)?.supported === true;
+}
+
+function similaritySupported(feature: RegistryFeatureOut): boolean {
+  return roleFor(feature, "similarity")?.supported === true;
+}
+
+function contextSupported(feature: RegistryFeatureOut): boolean {
+  return roleFor(feature, "context")?.supported === true;
+}
+
+function contract(feature: RegistryFeatureOut): RegistryFilterContract {
+  return feature as RegistryFeatureOut & RegistryFilterContract;
+}
+
+export function filterKind(feature: RegistryFeatureOut): FilterKind {
+  const declared = contract(feature).filter_kind;
+  if (declared === "range" || declared === "category") {
+    return declared;
+  }
+  return feature.value_kind === "category" ||
+    feature.value_kind === "detection" ||
+    feature.value_kind === "process_evidence"
+    ? "category"
+    : "range";
+}
+
+function categoryField(feature: RegistryFeatureOut): string | null {
+  const extension = contract(feature);
+  for (const candidate of [extension.category_filter_field, extension.filter_field]) {
+    if (typeof candidate === "string" && candidate.trim() !== "") {
+      return candidate;
+    }
+  }
+  return null;
+}
+
+function categoryOptions(feature: RegistryFeatureOut): FilterCategoryOption[] {
+  const support = feature.support as Record<string, unknown>;
+  const selector = feature.selector as Record<string, unknown>;
+  const raw = contract(feature).categories ?? support.categories ?? selector.categories;
+  if (!Array.isArray(raw)) {
+    return [];
+  }
+  const options: FilterCategoryOption[] = [];
+  for (const item of raw) {
+    if (typeof item === "string") {
+      options.push({ value: item, label: item });
+      continue;
+    }
+    if (typeof item !== "object" || item === null) {
+      continue;
+    }
+    const record = item as Record<string, unknown>;
+    const value =
+      typeof record.value === "string"
+        ? record.value
+        : typeof record.code === "string"
+          ? record.code
+          : typeof record.id === "string"
+            ? record.id
+            : null;
+    if (value !== null) {
+      options.push({
+        value,
+        label: typeof record.label === "string" ? record.label : value,
+      });
+    }
+  }
+  return options;
+}
+
+function hasCoverage(feature: RegistryFeatureOut): boolean {
+  return (feature.coverage?.observation_count ?? 0) > 0;
+}
+
+/**
+ * Builds a filter-only control from the live registry, or null when the feature has no filter
+ * role. Missing coverage/domain/category registration is reported explicitly, never replaced by
+ * a guess or a fake slider.
+ */
+export function dimensionFilter(feature: RegistryFeatureOut): DimensionFilterControl | null {
+  if (!filterSupported(feature)) {
+    return null;
+  }
+  const kind = filterKind(feature);
+  const minValue = feature.min_value;
+  const maxValue = feature.max_value;
+  const categories = kind === "category" ? categoryOptions(feature) : [];
+  const categoryFieldName = kind === "category" ? categoryField(feature) : null;
+  let disabledReason: FilterDisabledReason | null = null;
+  if (!hasCoverage(feature)) {
+    disabledReason = "no_coverage";
+  } else if (kind === "range" && (minValue === null || maxValue === null || minValue > maxValue)) {
+    disabledReason = "no_domain";
+  } else if (kind === "category" && categoryFieldName === null) {
+    disabledReason = "category_filter_not_registered";
+  } else if (kind === "category" && categories.length === 0) {
+    disabledReason = "category_values_not_registered";
+  }
+  return {
+    id: feature.feature_id,
+    label: feature.label,
+    unit: feature.unit,
+    kind,
+    minValue,
+    maxValue,
+    categories,
+    categoryField: categoryFieldName,
+    disabledReason,
+  };
+}
+
+/** Numeric slider domain for a range filter, or null when the registry has no usable domain. */
+export function filterSlider(control: DimensionFilterControl): SliderRange | null {
+  if (
+    control.kind !== "range" ||
+    control.minValue === null ||
+    control.maxValue === null ||
+    control.minValue > control.maxValue
+  ) {
+    return null;
+  }
+  return sliderRange({
+    id: control.id,
+    unit: control.unit,
+    min_value: control.minValue,
+    max_value: control.maxValue,
+  });
+}
+
 /**
  * Build fixed D01–D06 cards from the formal ontology codes.
  *
- * D01 holds the capability features. A D02–D06 card gets score controls only for features the
- * query registry marks as legal similarity inputs (passed in with dimension_id "D0n"); its
- * observation counts/kinds come from the typed API.
+ * Roles and controls come from the live feature registry, never from a per-dimension literal:
+ * similarity features (D01 + Earth D06 today) get score controls, filter-only features (D02–D05)
+ * get filter controls, and evidence/context features get neither. D01 capability features are
+ * kept even when the registry is unavailable, so existing D01 search always works.
  */
 export function dimensionCards(
   features: FeatureOut[],
   coverage: { by_dimension?: Record<string, TypedDimensionSummary> } | null,
   observations: Array<{ dimension_code: string | null; value_kind: string }> = [],
+  registry: FeatureRegistryOut | null = null,
 ): FormalDimensionCard[] {
+  const registryFeatures = registry?.features ?? [];
   return DIMENSION_CODES.map((code) => {
     const summary = coverage?.by_dimension?.[code];
+    const dimensionRegistry = registryFeatures.filter((feature) => feature.dimension_id === code);
     const valueKinds = Array.from(
       new Set(
         observations
@@ -176,16 +370,48 @@ export function dimensionCards(
           .map((observation) => observation.value_kind),
       ),
     ).sort();
+
+    const cardFeatures = features.filter((feature) =>
+      code === "D01"
+        ? !/^D0[2-6]$/.test(feature.dimension_id)
+        : feature.dimension_id === code,
+    );
+    const seen = new Set(cardFeatures.map((feature) => feature.id));
+    for (const entry of dimensionRegistry) {
+      if (!similaritySupported(entry) || seen.has(entry.feature_id)) {
+        continue;
+      }
+      const mapped = registrySimilarityFeature(entry);
+      if (mapped) {
+        cardFeatures.push(mapped);
+        seen.add(mapped.id);
+      }
+    }
+
+    const filters = dimensionRegistry
+      .filter((entry) => !similaritySupported(entry))
+      .map(dimensionFilter)
+      .filter((control): control is DimensionFilterControl => control !== null);
+
+    const role: DimensionRole = cardFeatures.length
+      ? "similarity"
+      : filters.length
+        ? "filter"
+        : dimensionRegistry.some(contextSupported)
+          ? "context_only"
+          : "evidence_only";
+
+    const registryObservations = dimensionRegistry.reduce(
+      (sum, entry) => sum + (entry.coverage?.observation_count ?? 0),
+      0,
+    );
     return {
       code,
       name: DIMENSION_NAME[code],
-      role: DIMENSION_ROLE[code],
-      features: features.filter((feature) =>
-        code === "D01"
-          ? !/^D0[2-6]$/.test(feature.dimension_id)
-          : feature.dimension_id === code,
-      ),
-      total: summary?.total ?? (code === "D01" ? features.length : 0),
+      role,
+      features: cardFeatures,
+      filters,
+      total: summary?.total ?? (registry ? registryObservations : code === "D01" ? features.length : 0),
       byBody: summary?.by_body ?? {},
       byState: summary?.by_state ?? {},
       valueKinds,
