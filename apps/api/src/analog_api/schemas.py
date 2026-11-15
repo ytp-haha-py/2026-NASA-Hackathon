@@ -675,6 +675,7 @@ class MultiDimSearchRequest(BaseModel):
     reference_id: str | None = None
     targets: dict[str, MultiDimTargetIn] = Field(default_factory=dict)
     filters: dict[str, MultiDimRangeFilterIn] = Field(default_factory=dict)
+    category_filters: dict[str, list[str]] = Field(default_factory=dict)
     dimension_weights: dict[str, DimensionWeightIn] = Field(default_factory=dict)
     scoring_version: (
         Literal["feature-weighted-euclidean-v1", "dimension-weighted-rms-v1"] | None
@@ -683,6 +684,18 @@ class MultiDimSearchRequest(BaseModel):
     offset: int = Field(default=0, ge=0)
     include_evidence: bool = True
     evidence_limit: int = Field(default=12, ge=1, le=50)
+
+    @field_validator("category_filters")
+    @classmethod
+    def valid_category_filters(cls, category_filters: dict[str, list[str]]) -> dict[str, list[str]]:
+        for feature_id, values in category_filters.items():
+            if not values:
+                raise ValueError(
+                    f"category_filters for {feature_id} must contain at least one stored label"
+                )
+            if any(not value.strip() for value in values):
+                raise ValueError(f"category_filters for {feature_id} must not contain blank labels")
+        return category_filters
 
     @field_validator("dimension_weights")
     @classmethod
@@ -882,6 +895,13 @@ class FeatureCoverageOut(BaseModel):
     gated_candidate_count: int
     gated_candidate_ids: list[str]
     rejected_observation_count: int
+    filter_kind: str | None = None
+    category_value_counts: dict[str, int] = Field(default_factory=dict)
+    filter_value_count: int = 0
+    filter_value_min: float | None = None
+    filter_value_max: float | None = None
+    candidate_pool_size: int = 0
+    coverage_fraction: float = 0.0
 
 
 class RegisteredFeatureOut(BaseModel):
@@ -894,6 +914,9 @@ class RegisteredFeatureOut(BaseModel):
     body_scope: list[str]
     score_role: str
     roles: dict[str, RoleSupportOut]
+    filter_kind: str | None = None
+    filter_statistic: str | None = None
+    context_filter_version: str | None = None
     min_value: float | None
     max_value: float | None
     scale: float | None
@@ -940,6 +963,7 @@ class AuditSummaryOut(BaseModel):
 
 class FeatureRegistryOut(BaseModel):
     registry_version: str
+    context_filter_version: str
     data_version: str
     filters: dict[str, str | None]
     features: list[RegisteredFeatureOut]

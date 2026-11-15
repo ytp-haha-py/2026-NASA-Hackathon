@@ -13,10 +13,11 @@ coverage and per-feature contributions.
 | `POST` | `/api/v1/search/multidimensional` | Deterministic multi-feature ranking with per-feature/per-dimension contributions. |
 | `GET` | `/api/v1/search` (unchanged) | Existing D01 `POST /api/v1/search`; preserved byte-for-byte at the response-shape level. |
 
-Registry version: `feature-eligibility-1.0.0`.
+Registry version: `feature-eligibility-1.0.0`; context filter version: `context-filter-1.0.0`.
 
 Per-feature query roles for every indexed D01–D06 feature are tabulated in
-[`SIXDIM_QUERY_ROLES.md`](SIXDIM_QUERY_ROLES.md).
+[`SIXDIM_QUERY_ROLES.md`](SIXDIM_QUERY_ROLES.md). D02–D05 controls (ten Earth range filters and
+one D02 category dropdown) are specified in [`D02_D05_CONTROLS_170.md`](D02_D05_CONTROLS_170.md).
 
 ## Source observation vs query eligibility
 
@@ -26,15 +27,19 @@ rewriting the source row:
 
 - `soil_<property>_<depth>cm_mean` → `similarity` + `hard_filter` (Earth only);
 - `soil_<property>_<depth>cm_q05` / `q95` → `uncertainty` evidence for the matching mean;
-- D02 map units / detections / spectral indices → `evidence` (map units explicitly unsupported for
-  similarity until a taxonomy crosswalk exists);
+- D02 map units / detections / spectral indices → `evidence`; Earth `geologic_unit` additionally
+  exposes an exact stored-label `category_match` dropdown, not a taxonomy crosswalk;
 - D03 / D04 planetary records → `evidence`/`context`, never a cross-body equivalence;
-- D05 solar geometry/radiation → `context`;
+- D03 / D04 / D05 Earth NASA POWER scalar context → `hard_filter` (coarse range only) +
+  `evidence`/`context`; never `similarity`;
+- D05 solar geometry/radiation → `context` (Earth irradiance is filterable, planetary geometry is
+  not);
 - D01 terrain metrics → `similarity` + `hard_filter`.
 
-`GET /api/v1/search/features` returns six named role slots for every feature:
+`GET /api/v1/search/features` returns six canonical role slots for every feature:
 `similarity`, `hard_filter`, `category_match`, `evidence`, `uncertainty`, `context`. Each slot has
-`supported`, `reason` and `constraints`.
+`supported`, `reason` and `constraints`. A `filter` alias is added when either filter role is
+active, so `?role=filter` returns every filterable feature.
 
 ## Exact join audit
 
@@ -244,7 +249,10 @@ releases acquired only 0–5 cm. See `pipelines/pilots/d06_earth_soilgrids_expan
   panel or an uncertainty display.
 - Read `selector` and `support` to label depth/support correctly.
 - `POST` the same feature ids to `/api/v1/search/multidimensional`; render `contributions[]`,
-  `dimension_contributions` and `coverage` directly.
+  `dimension_contributions` and `coverage` directly. Put range controls in `filters` and the D02
+  dropdown in `category_filters`; never put either in `targets`.
+- Use `?role=filter` to discover every filterable feature, and `filter_kind` /
+  `coverage.filter_value_min|max` / `coverage.category_value_counts` to build the D02–D05 UI.
 - Generated TypeScript types: `apps/web/src/api/schema.d.ts` from `contracts/openapi.json`.
 
 ## Reproduce locally
@@ -261,13 +269,13 @@ bash scripts/verify.sh --ci
 | Feature / group | Bodies | Stored support | Query role | Why it is not silently joined |
 |---|---|---|---|---|
 | D01 slope/relief/roughness/flat fraction | Earth, Moon, Mars | 90 m projected windows, fixed 1.98 km | similarity/filter | Comparable only within the registered terrain method; planetary references are processed ROIs, not global coverage. |
-| D02 `geologic_unit` | Moon, Mars (and Earth availability records) | provider map-unit geometry, free-text code/name | evidence | No versioned taxonomy/crosswalk; `Ec` on the Moon is not an Earth ecological class. |
+| D02 `geologic_unit` | Earth, Moon, Mars | provider map-unit geometry, free-text code/name | evidence; Earth-only category dropdown | No versioned taxonomy/crosswalk; matching is exact stored-label equality and never cross-body. |
 | D02 mineral detections / spectral indices | Mars, Moon | single-provider detections/indices, mixed states | evidence/uncertainty | Detection state and index support are not validated against fine 90 m Earth candidates. |
 | D03 `surface_brightness_temperature_k` | Moon (Diviner), Mars (THEMIS/HEND bundles) | 240 m / 100 m windows, instrument-specific methods | evidence | Different instruments, wavelengths, time-of-day and native support; no shared Earth method. |
-| D03 Earth reanalysis time series | Earth | 50 km point support, daily timestamps | context | Temporal selector and spatial support are not the 90 m candidate window; time-series aggregation is not versioned for ranking. |
+| D03 Earth reanalysis time series | Earth | 50 km point support, daily timestamps | context + coarse range filter | Temporal selector and spatial support are not the 90 m candidate window; the registered 7-day period mean is filter-only, never ranked. |
 | D04 water/ice detections, hydrogen, CPR | Moon, Mars | body-specific remote sensing windows | evidence | Hydrogen equivalent water, radar CPR, neutron flux and Earth soil wetness are different physical quantities. |
-| D04 Earth precipitation/wetness/snow | Earth | reanalysis point/time series | context | Different quantity and support from D06 soil predictions; not weighted. |
-| D05 solar geometry/irradiance | Earth, Moon, Mars | SPICE geometry or power time series | context | Illumination depends on a time selector and body ephemerides; it is not a surface-property similarity. |
+| D04 Earth precipitation/wetness/snow | Earth | reanalysis point/time series | context + coarse range filter | Different quantity and support from D06 soil predictions; the 7-day period mean is filter-only and not weighted. |
+| D05 solar geometry/irradiance | Earth, Moon, Mars | SPICE geometry or power time series | context; Earth irradiance is filterable | Illumination depends on a time selector and body ephemerides; it is not a surface-property similarity. |
 | D06 SoilGrids means | Earth | 250 m model cells, AOI envelope mean, 4 depths | similarity/filter | Only exact area-ID joins, same provider/method/depth/unit/bbox; 250 m model support is not 90 m terrain support. |
 | D06 SoilGrids Q05/Q95 | Earth | same model family, same depth | uncertainty only | Prediction quantiles, not independent observations; attached to the matching mean. |
 | ESA WorldCover fractions | Earth | 10 m land-cover context | context/filter (existing `/search` only) | Earth-only hard filter; never D07 and never part of the weighted distance. |

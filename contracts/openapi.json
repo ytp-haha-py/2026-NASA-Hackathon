@@ -1933,12 +1933,67 @@
             "title": "By State",
             "type": "object"
           },
+          "candidate_pool_size": {
+            "default": 0,
+            "title": "Candidate Pool Size",
+            "type": "integer"
+          },
+          "category_value_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Category Value Counts",
+            "type": "object"
+          },
+          "coverage_fraction": {
+            "default": 0.0,
+            "title": "Coverage Fraction",
+            "type": "number"
+          },
           "dataset_ids": {
             "items": {
               "type": "string"
             },
             "title": "Dataset Ids",
             "type": "array"
+          },
+          "filter_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Filter Kind"
+          },
+          "filter_value_count": {
+            "default": 0,
+            "title": "Filter Value Count",
+            "type": "integer"
+          },
+          "filter_value_max": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Filter Value Max"
+          },
+          "filter_value_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Filter Value Min"
           },
           "gated_candidate_count": {
             "title": "Gated Candidate Count",
@@ -2240,6 +2295,10 @@
           "audit_summary": {
             "$ref": "#/components/schemas/AuditSummaryOut"
           },
+          "context_filter_version": {
+            "title": "Context Filter Version",
+            "type": "string"
+          },
           "data_version": {
             "title": "Data Version",
             "type": "string"
@@ -2282,6 +2341,7 @@
         },
         "required": [
           "registry_version",
+          "context_filter_version",
           "data_version",
           "filters",
           "features",
@@ -3873,6 +3933,16 @@
             "title": "Candidate Body",
             "type": "string"
           },
+          "category_filters": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "title": "Category Filters",
+            "type": "object"
+          },
           "dimension_weights": {
             "additionalProperties": {
               "$ref": "#/components/schemas/DimensionWeightIn"
@@ -5372,6 +5442,17 @@
             "title": "Comparability Gates",
             "type": "array"
           },
+          "context_filter_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Context Filter Version"
+          },
           "coverage": {
             "anyOf": [
               {
@@ -5393,6 +5474,28 @@
           "feature_id": {
             "title": "Feature Id",
             "type": "string"
+          },
+          "filter_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Filter Kind"
+          },
+          "filter_statistic": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Filter Statistic"
           },
           "label": {
             "title": "Label",
