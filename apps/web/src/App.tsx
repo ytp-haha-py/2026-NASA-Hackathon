@@ -9,6 +9,7 @@ import {
   getReferences,
   isAbortError,
   searchCandidates,
+  searchMultidimensional,
   type CapabilitiesOut,
   type DatasetOut,
   type NumericTarget,
@@ -17,6 +18,7 @@ import {
   type SearchResultOut,
 } from "./api/client";
 import { useAoiAnalysis } from "./hooks/useAoiAnalysis";
+import { adaptMultiDimResponse } from "./lib/multidim";
 import { readAoiLimits } from "./lib/aoi";
 import { I18nProvider, SourceText, useI18n } from "./i18n/I18nProvider";
 import type { Locale } from "./i18n/translate";
@@ -154,7 +156,11 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
     setActiveTarget(submission.target);
 
     try {
-      const response = await searchCandidates(submission.request, controller.signal);
+      const response = submission.multidim
+        ? adaptMultiDimResponse(
+            await searchMultidimensional(submission.multidim, controller.signal),
+          )
+        : await searchCandidates(submission.request, controller.signal);
       if (!controller.signal.aborted) {
         setSearchResponse(response);
         if (response.results.length > 0) {

@@ -1815,3 +1815,53 @@ body {
     padding-left: 0;
   }
 }
+
+/* D02–D05: observed features listed like metric rows (name left, bodies / count / range right). */
+.observed-feature-list {
+  display: grid;
+  margin: 8px 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.observed-feature-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 16px;
+}
+
+.observed-feature-name {
+  font-weight: 600;
+}
+
+.observed-feature-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  color: var(--ink-soft);
+}
+
+.depth-tabs {
+  display: inline-flex;
+  margin: 4px 0 12px;
+}
+
+.depth-tabs .segment {
+  position: relative;
+  font-size: 15px;
+}
+
+.depth-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+  background: var(--accent);
+  border-radius: 50%;
+}
