@@ -2,11 +2,11 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { App } from "./App";
+import type { ComponentProps } from "react";
+import { RankingOverlay } from "./components/RankingOverlay";
 import { LOCALE_STORAGE_KEY } from "./i18n/translate";
-import { useI18n } from "./i18n/I18nProvider";
 import {
   referenceFixture,
-  searchResponseFixture,
 } from "./test/fixtures";
 import {
   errorResponse,
@@ -19,26 +19,22 @@ import { applyExampleTarget } from "./test/example-target";
 
 vi.mock("./components/MapPanel", () => ({
   MapPanel: ({
-    results, onSelect,
-  }: {
-    results: typeof searchResponseFixture.results;
-    onSelect: (id: string) => void;
-  }) => {
-    const { t } = useI18n();
-    return (
+    response, onSelect, selectedId, features = [], target = {},
+  }: ComponentProps<typeof import("./components/MapPanel").MapPanel>) => (
       <div data-testid="map-stub">
-        {results.map((result) => (
-          <button
-            key={result.location_id}
-            aria-label={t("overlay.selectLabel", { rank: result.rank, name: result.display_name })}
-            onClick={() => onSelect(result.location_id)}
-          >
-            {result.display_name}
-          </button>
-        ))}
+        {response && (
+          <div data-testid="map-search-results">
+            <RankingOverlay
+              response={response}
+              features={features}
+              target={target}
+              selectedId={selectedId}
+              onSelect={onSelect}
+            />
+          </div>
+        )}
       </div>
-    );
-  },
+  ),
 }));
 
 const EN_HEADING = "Describe a terrain-shape target";
@@ -165,11 +161,9 @@ describe("language switcher", () => {
 
     await switchTo(user, "繁體中文");
 
-    expect(screen.getByTestId("coverage-headline")).toHaveTextContent(
-      "在 4 個已索引區域中的前 2 名",
-    );
+    expect(screen.getByText("前 2 名")).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "選擇第 1 名：Observed test window" }),
+      screen.getByRole("button", { name: "在地圖上顯示第 1 名：Observed test window" }),
     ).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("heading", { name: "已選取的地球候選區域" })).toBeInTheDocument();
   });
@@ -183,7 +177,7 @@ describe("Traditional Chinese workflows", () => {
     expect(screen.getByText(/假設性範例，不是 NASA 量測值/)).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: "搜尋已索引的地球候選區域" }));
 
-    await screen.findByTestId("coverage-headline");
+    await screen.findByTestId("map-search-results");
     expect(searchRequestFromCalls(fetchMock)).toEqual({
       body: "custom",
       reference_id: null,
@@ -194,21 +188,17 @@ describe("Traditional Chinese workflows", () => {
       filters: {},
       limit: 10,
     });
-    expect(screen.getByText("這不是全球前 10 名。")).toBeInTheDocument();
-    expect(screen.getByRole("alert")).toHaveTextContent(
-      "回傳的 2 筆紀錄中有 1 筆是「示範／合成」資料。",
-    );
-    expect(screen.getByText(/缺少必要指標：第 90 百分位坡度/)).toBeInTheDocument();
-    expect(screen.getByText("1 個已排除的候選區域 — 顯示原因")).toBeInTheDocument();
+    expect(screen.getByText("示範／合成（DEMO / SYNTHETIC）")).toBeInTheDocument();
+    expect(screen.queryByTestId("coverage-headline")).not.toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "在地圖上顯示第 1 名：Observed test window" }));
-    const observedCard = screen.getByTestId("result-earth-observed-1");
-    expect(within(observedCard).getByText("0.037")).toBeInTheDocument();
-    expect(within(observedCard).getByText("12.4 度")).toBeInTheDocument();
-    expect(within(observedCard).getByText("距離")).toBeInTheDocument();
+    const detail = await screen.findByRole("region", { name: "已選取的地球候選區域" });
+    expect(await within(detail).findByText("觀測到的地形形狀特徵")).toBeInTheDocument();
+    const comparison = within(detail).getByRole("table", { name: "Observed test window 的請求目標與候選值比較" });
+    expect(within(comparison).getByText("12.4 度")).toBeInTheDocument();
 
     // API-provided English caveats stay verbatim and are marked as English.
-    const caveat = within(observedCard).getByText(/Earth land-cover context is informational only/);
+    const caveat = within(detail).getByText(/Earth land-cover context is informational only/);
     expect(caveat).toHaveAttribute("lang", "en");
   });
 
@@ -255,7 +245,7 @@ describe("Traditional Chinese workflows", () => {
     await user.type(slopeWeight, "1");
 
     await user.click(screen.getByRole("button", { name: "搜尋已索引的地球候選區域" }));
-    await screen.findByTestId("coverage-headline");
+    await screen.findByTestId("map-search-results");
     expect(searchRequestFromCalls(fetchMock)).toMatchObject({
       body: "Moon",
       reference_id: "moon-shackleton-rim-site04-roi2",

@@ -2,6 +2,8 @@ import { act, fireEvent, render, screen, waitFor, within } from "@testing-librar
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { App } from "./App";
+import type { ComponentProps } from "react";
+import { RankingOverlay } from "./components/RankingOverlay";
 import {
   capabilitiesFixture,
   datasetFixture,
@@ -27,18 +29,23 @@ vi.mock("./components/MapPanel", () => ({
     results,
     selectedId,
     onSelect,
-  }: {
-    results: typeof searchResponseFixture.results;
-    selectedId: string | null;
-    onSelect: (id: string) => void;
-  }) => (
+    response,
+    features = [],
+    target = {},
+  }: ComponentProps<typeof import("./components/MapPanel").MapPanel>) => (
     <div data-testid="map-stub" data-selected={selectedId ?? ""}>
       {results.length} windows plotted
-      {results.map((result) => (
-        <button key={result.location_id} onClick={() => onSelect(result.location_id)}>
-          Select rank {result.rank}: {result.display_name}
-        </button>
-      ))}
+      {response && (
+        <div data-testid="map-search-results">
+          <RankingOverlay
+            response={response}
+            features={features}
+            target={target}
+            selectedId={selectedId}
+            onSelect={onSelect}
+          />
+        </div>
+      )}
     </div>
   ),
 }));
@@ -121,7 +128,7 @@ describe("search form", () => {
 
     await runSearch();
 
-    await screen.findByTestId("coverage-headline");
+    await screen.findByTestId("map-search-results");
     const body = searchRequestFromCalls(fetchMock);
 
     expect(body).toEqual({
@@ -203,7 +210,7 @@ describe("search form", () => {
 });
 
 describe("search states and results", () => {
-  it("shows a loading status, then honest coverage and synthetic warnings", async () => {
+  it("shows results in the map without expanded search or duplicate result panels", async () => {
     let resolveSearch: ((response: Response) => void) | undefined;
     const pending = new Promise<Response>((resolve) => {
       resolveSearch = resolve;
@@ -220,31 +227,23 @@ describe("search states and results", () => {
       resolveSearch?.(jsonResponse(searchResponseFixture));
     });
 
-    expect(await screen.findByTestId("coverage-headline")).toHaveTextContent(
-      "Top 2 among 4 indexed regions",
-    );
-    expect(screen.getByText(/This is not a global top 10/)).toBeInTheDocument();
-    expect(screen.getByRole("alert")).toHaveTextContent(
-      "1 of 2 returned record is DEMO / SYNTHETIC",
-    );
+    const ranking = within(await screen.findByRole("region", { name: "Ranked candidates" }));
+    expect(ranking.getByText("Top 2")).toBeInTheDocument();
+    expect(ranking.getByText("DEMO / SYNTHETIC")).toBeInTheDocument();
+    expect(screen.queryByRole("group", { name: "Search scope" })).not.toBeInTheDocument();
+    expect(screen.queryByTestId("coverage-headline")).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Inspect a candidate" })).not.toBeInTheDocument();
+    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/global/"))).toBe(false);
 
-    await user.click(screen.getByRole("button", { name: "Select rank 1: Observed test window" }));
-    const observedCard = screen.getByTestId("result-earth-observed-1");
-    expect(within(observedCard).getByText("Observed")).toBeInTheDocument();
-    expect(within(observedCard).getByText("0.037")).toBeInTheDocument();
-    expect(within(observedCard).getByText("12.4 deg")).toBeInTheDocument();
-    expect(within(observedCard).getByText("12 deg")).toBeInTheDocument();
-    expect(within(observedCard).getByText("+0.4 deg")).toBeInTheDocument();
+    await user.click(ranking.getByRole("button", { name: "Show rank 1 on the map: Observed test window" }));
+    const detail = await screen.findByRole("region", { name: "Selected Earth candidate" });
+    expect(await within(detail).findByText("Observed terrain-shape features")).toBeInTheDocument();
+    const comparison = within(detail).getByRole("table", { name: "Requested target versus candidate for Observed test window" });
+    expect(within(comparison).getByText("12.4 deg")).toBeInTheDocument();
+    expect(within(comparison).getByText("12 deg")).toBeInTheDocument();
 
-    expect(screen.queryByTestId("result-earth-synthetic-2")).not.toBeInTheDocument();
-    await user.click(within(screen.getByTestId("map-stub")).getByRole("button", { name: /^Select rank 2:/ }));
-    const syntheticCard = screen.getByTestId("result-earth-synthetic-2");
-    expect(within(syntheticCard).getByText("DEMO / SYNTHETIC")).toBeInTheDocument();
-
-    expect(
-      screen.getByText("1 excluded candidate — show reasons"),
-    ).toBeInTheDocument();
-    expect(screen.getByText(/Missing required metric: 90th percentile slope/)).toBeInTheDocument();
+    await user.click(ranking.getByRole("button", { name: /^Show rank 2 on the map:/ }));
+    expect(within(detail).getByText("DEMO / SYNTHETIC")).toBeInTheDocument();
     expect(fetchMock).toHaveBeenCalled();
   });
 
@@ -266,7 +265,7 @@ describe("search states and results", () => {
     expect(screen.queryByTestId("coverage-headline")).not.toBeInTheDocument();
   });
 
-  it("renders a zero-eligible empty state with exclusion reasons", async () => {
+  it("renders a zero-eligible empty state in the ranking overlay", async () => {
     await renderReady({
       search: () => jsonResponse(emptySearchResponseFixture),
     });
@@ -274,10 +273,9 @@ describe("search states and results", () => {
     await runSearch();
 
     expect(
-      await screen.findByText("No eligible indexed candidates"),
+      await screen.findByText("No eligible candidates to rank."),
     ).toBeInTheDocument();
-    expect(screen.getByText(/This does not mean no real place/)).toBeInTheDocument();
-    expect(screen.getByText(/3 candidates were excluded/)).toBeInTheDocument();
+    expect(screen.queryByRole("region", { name: "Selected Earth candidate" })).not.toBeInTheDocument();
   });
 
   it("renders a network search error instead of substituting results", async () => {
@@ -314,9 +312,12 @@ describe("search states and results", () => {
 
 describe("about panel", () => {
   it("shows the coverage summary first and loads provenance inside its disclosure", async () => {
-    const pending = deferredResponse();
+    let resolveDatasets!: (response: Response) => void;
+    const pending = new Promise<Response>((resolve) => {
+      resolveDatasets = resolve;
+    });
     const user = userEvent.setup();
-    await renderReady({ datasets: () => pending.promise });
+    await renderReady({ datasets: () => pending });
 
     const toggle = screen.getByText("About this tool, coverage and limits");
     await user.click(toggle);
@@ -327,7 +328,7 @@ describe("about panel", () => {
 
     await user.click(about.getByText("Dataset provenance"));
     expect(about.getByRole("status")).toHaveTextContent("Loading dataset provenance…");
-    await act(async () => pending.resolve(jsonResponse([datasetFixture])));
+    await act(async () => resolveDatasets(jsonResponse([datasetFixture])));
     expect(await about.findByRole("link", { name: datasetFixture.license }))
       .toHaveAttribute("href", datasetFixture.license_url);
     expect(about.queryByText("Loading dataset provenance…")).not.toBeInTheDocument();
@@ -347,7 +348,7 @@ describe("selection, map state and context export", () => {
     await runSearch();
 
     const selectButton = await screen.findByRole("button", {
-      name: "Select rank 1: Observed test window",
+      name: "Show rank 1 on the map: Observed test window",
     });
     await user.click(selectButton);
 
@@ -359,15 +360,7 @@ describe("selection, map state and context export", () => {
       "data-selected",
       "earth-observed-1",
     );
-    expect(screen.getByTestId("result-earth-observed-1")).toHaveAttribute(
-      "data-selected",
-      "true",
-    );
-    expect(
-      within(
-        screen.getByTestId("result-earth-observed-1"),
-      ).getByRole("button", { name: "Select rank 1: Observed test window" }),
-    ).toHaveAttribute("aria-pressed", "true");
+    expect(selectButton).toHaveAttribute("aria-pressed", "true");
 
     await user.click(selectButton);
 
@@ -384,7 +377,7 @@ describe("selection, map state and context export", () => {
     await runSearch();
     await user.click(
       await screen.findByRole("button", {
-        name: "Select rank 1: Observed test window",
+        name: "Show rank 1 on the map: Observed test window",
       }),
     );
 
@@ -423,7 +416,7 @@ describe("selection, map state and context export", () => {
     await runSearch();
     await user.click(
       await screen.findByRole("button", {
-        name: "Select rank 1: Observed test window",
+        name: "Show rank 1 on the map: Observed test window",
       }),
     );
 
@@ -441,7 +434,7 @@ describe("selection, map state and context export", () => {
     await runSearch();
     await user.click(
       await screen.findByRole("button", {
-        name: "Select rank 1: Observed test window",
+        name: "Show rank 1 on the map: Observed test window",
       }),
     );
 
@@ -483,7 +476,7 @@ describe("selection, map state and context export", () => {
 });
 
 describe("context filters and Moon reference mode", () => {
-  it("sends optional land-cover filters and displays them", async () => {
+  it("sends the selected land-cover filters with the search request", async () => {
     const filteredResponse = {
       ...searchResponseFixture,
       filters_applied: {
@@ -506,18 +499,12 @@ describe("context filters and Moon reference mode", () => {
 
     await runSearch();
 
-    await screen.findByTestId("coverage-headline");
+    await screen.findByTestId("map-search-results");
     const body = searchRequestFromCalls(fetchMock);
     expect(body?.filters).toEqual({
       landcover_bare_sparse_fraction: { min: 0.4 },
       landcover_built_up_fraction: { max: 0.1 },
     });
-    expect(
-      screen.getByText(/Context filters:/).textContent,
-    ).toContain("Land cover: Bare / sparse vegetation fraction: min 0.4");
-    expect(screen.getByText(/Context filters:/).textContent).toContain(
-      "Land cover: Built-up fraction: max 0.1",
-    );
   });
 
   it("performs a Moon reference-mode search and shows the LOLA caveat", async () => {
@@ -557,7 +544,7 @@ describe("context filters and Moon reference mode", () => {
 
     await runSearch();
 
-    await screen.findByTestId("coverage-headline");
+    await screen.findByTestId("map-search-results");
     const body = searchRequestFromCalls(fetchMock);
     expect(body).toEqual({
       body: "Moon",
@@ -596,7 +583,7 @@ describe("flat terrain fraction", () => {
     const value = within(group).getByRole("spinbutton", { name: /Target value/ });
     await user.type(value, "0.5");
     await runSearch();
-    await screen.findByTestId("coverage-headline");
+    await screen.findByTestId("map-search-results");
     expect(searchRequestFromCalls(fetchMock)?.target?.flat_terrain_fraction).toEqual({ value: 0.5, weight: 1 });
   });
 });
@@ -628,7 +615,7 @@ describe("Mars reference mode", () => {
     await user.type(slopeWeight, "1");
 
     await runSearch();
-    await screen.findByTestId("coverage-headline");
+    await screen.findByTestId("map-search-results");
     expect(searchRequestFromCalls(fetchMock)).toMatchObject({
       body: "Mars",
       reference_id: "mars-jezero-ctx-window-01",
@@ -650,7 +637,7 @@ describe("dimension board", () => {
     });
 
     await runSearch();
-    await screen.findByTestId("coverage-headline");
+    await screen.findByTestId("map-search-results");
     expect(searchRequestFromCalls(fetchMock)?.filters).toEqual({
       slope_mean_deg: { min: 5, max: 20 },
     });
