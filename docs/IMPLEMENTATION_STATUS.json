@@ -66,16 +66,24 @@
       "scientific_data_status": "pilot_observations"
     },
     "D04": {
-      "actual_observation_counts": {},
-      "comparison_status": "not_comparable",
+      "actual_observation_counts": {
+        "Earth_power_water_context": 20,
+        "Mars": 0,
+        "Moon": 0,
+        "confirmed_ice": 0
+      },
+      "comparison_status": "context_only",
       "evidence": [
-        "typed contracts and inventory only"
+        "typed contracts and inventory only",
+        "20 NASA POWER water-context timeseries observations across 5 AOIs"
       ],
-      "implementation_status": "not_started",
+      "implementation_status": "pilot",
       "remaining_blockers": [
-        "provider adapters and detection semantics"
+        "Moon/Mars water-ice observations",
+        "confirmed ice/sub-surface products",
+        "no extraction or ice-volume claim"
       ],
-      "scientific_data_status": "none"
+      "scientific_data_status": "pilot_observations"
     },
     "D05": {
       "actual_observation_counts": {
@@ -231,20 +239,23 @@
       "title": "D03 thermal"
     },
     {
-      "comparison_status": "not_comparable",
+      "comparison_status": "context_only",
       "dependencies": [
         26,
         27
       ],
       "evidence": [
-        "inventory only"
+        "inventory only",
+        "20 real NASA POWER water-context observations imported as context-only D04 records"
       ],
-      "implementation_status": "not_started",
+      "implementation_status": "in_progress",
       "number": 44,
       "remaining_blockers": [
-        "snow/soil-moisture/neutron/radar providers and detection semantics"
+        "snow/soil-moisture/neutron/radar products for Moon/Mars",
+        "confirmed ice detection semantics",
+        "no extraction claim"
       ],
-      "scientific_data_status": "none",
+      "scientific_data_status": "pilot_observations",
       "title": "D04 water and ice"
     },
     {
@@ -580,10 +591,10 @@
     }
   ],
   "next_independent_tasks": [
-    "implement D04 Earth water/ice metadata discovery with explicit authentication/coverage blockers",
     "implement Moon/Mars illumination only after SPICE frame and horizon validation",
     "acquire a real coarse Geomorpho index only under an authorized bounded data plan",
-    "resolve GLiM rights, EMIT authentication, lunar mineral registration and CRISM thresholds"
+    "resolve GLiM rights, EMIT authentication, lunar mineral registration and CRISM thresholds",
+    "add a public CMR discovery provider for authenticated D03/D04 granule metadata"
   ],
   "repository": "ytp-haha-py/2026-NASA-Hackathon",
   "status_legend": {

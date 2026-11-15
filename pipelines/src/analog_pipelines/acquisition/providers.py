@@ -51,6 +51,13 @@ NASA_POWER_THERMAL_PARAMETERS = {
     "T2M_MIN": ("surface_air_temperature_2m_min_c", "degree_Celsius"),
     "TS": ("surface_skin_temperature_c", "degree_Celsius"),
 }
+NASA_POWER_WATER_METHOD_VERSION = "nasa-power-water-daily-1.0.0"
+NASA_POWER_WATER_PARAMETERS = {
+    "GWETTOP": ("surface_soil_wetness_fraction", "1"),
+    "GWETROOT": ("root_zone_soil_wetness_fraction", "1"),
+    "SNODP": ("snow_depth_cm", "cm"),
+    "PRECTOTCORR": ("precipitation_mm_day", "mm day-1"),
+}
 
 
 class AcquisitionError(RuntimeError):
@@ -95,8 +102,30 @@ class NasaPowerProvider:
     provider_id = "nasa-power"
 
     def discover(self, query: SourceQuery) -> list[SourceRecord]:
-        if query.body != "Earth" or query.dimension not in {"D03", "D05"}:
+        if query.body != "Earth" or query.dimension not in {"D03", "D04", "D05"}:
             return []
+        if query.dimension == "D04":
+            return [
+                SourceRecord(
+                    source_id="nasa-power-daily-point",
+                    provider_id=self.provider_id,
+                    body="Earth",
+                    dimension="D04",
+                    product="NASA POWER Daily Point API",
+                    version="temporal/daily/point",
+                    endpoint=NASA_POWER_ENDPOINT,
+                    license="NASA POWER data are free and open; cite NASA POWER",
+                    license_url="https://power.larc.nasa.gov/docs/services/api/",
+                    native_resolution="approximately 0.5 x 0.625 degree",
+                    observation_kinds=["timeseries"],
+                    comparability="context_only",
+                    notes=(
+                        "Coarse reanalysis/model water context: surface/root-zone soil wetness, "
+                        "snow depth and precipitation. Not confirmed extractable ice."
+                    ),
+                    metadata={"parameters": sorted(NASA_POWER_WATER_PARAMETERS)},
+                )
+            ]
         if query.dimension == "D03":
             return [
                 SourceRecord(
@@ -151,9 +180,13 @@ class NasaPowerProvider:
                 "license": source.license,
                 "native_resolution": source.native_resolution,
                 "parameters": sorted(
-                    NASA_POWER_THERMAL_PARAMETERS
-                    if source.dimension == "D03"
-                    else NASA_POWER_PARAMETERS
+                    NASA_POWER_WATER_PARAMETERS
+                    if source.dimension == "D04"
+                    else (
+                        NASA_POWER_THERMAL_PARAMETERS
+                        if source.dimension == "D03"
+                        else NASA_POWER_PARAMETERS
+                    )
                 ),
             },
             blockers=[],
@@ -169,9 +202,13 @@ class NasaPowerProvider:
         if query.dimension == "D03":
             default_parameters = NASA_POWER_THERMAL_PARAMETERS
             method_version = NASA_POWER_THERMAL_METHOD_VERSION
+        elif query.dimension == "D04":
+            default_parameters = NASA_POWER_WATER_PARAMETERS
+            method_version = NASA_POWER_WATER_METHOD_VERSION
         else:
             default_parameters = NASA_POWER_PARAMETERS
             method_version = NASA_POWER_METHOD_VERSION
+        community = "AG" if query.dimension == "D04" else "RE"
         parameters = query.parameters.get("parameters") or ",".join(default_parameters)
         tasks: list[AcquisitionTask] = []
         for area in areas:
@@ -182,7 +219,7 @@ class NasaPowerProvider:
             lat, lon = _center(area)
             params = {
                 "parameters": parameters,
-                "community": "RE",
+                "community": community,
                 "longitude": f"{lon:.6f}",
                 "latitude": f"{lat:.6f}",
                 "start": start.replace("-", ""),
@@ -249,9 +286,12 @@ class NasaPowerProvider:
         if not isinstance(parameter_payload, dict):
             raise AcquisitionError("POWER response has no properties.parameter object")
         observations: list[TypedObservation] = []
-        mapping = (
-            NASA_POWER_THERMAL_PARAMETERS if task.dimension == "D03" else NASA_POWER_PARAMETERS
-        )
+        if task.dimension == "D04":
+            mapping = NASA_POWER_WATER_PARAMETERS
+        elif task.dimension == "D03":
+            mapping = NASA_POWER_THERMAL_PARAMETERS
+        else:
+            mapping = NASA_POWER_PARAMETERS
         for parameter, series in parameter_payload.items():
             mapped = mapping.get(parameter)
             if mapped is None or not isinstance(series, dict):
@@ -289,7 +329,7 @@ class NasaPowerProvider:
                             "unit": unit,
                             "missing_count": missing,
                             "parameter": parameter,
-                            "community": "RE",
+                            "community": task.parameters.get("community", "RE"),
                         }
                         if state == "detected"
                         else None
@@ -322,25 +362,39 @@ class NasaPowerProvider:
                     source_asset_ids=[f"{task.provider_id}:{task.area.area_id}:{task.task_id}"],
                     quality_flags=(
                         [
-                            "model_or_reanalysis_thermal_context",
+                            "model_or_reanalysis_water_context",
                             "coarse_resolution",
-                            "not_a_local_temperature_measurement",
+                            "not_a_local_water_or_ice_measurement",
+                            "not_confirmed_subsurface_ice",
                         ]
-                        if task.dimension == "D03"
-                        else [
-                            "model_or_reanalysis_context",
-                            "coarse_resolution",
-                            "not_a_local_irradiance_measurement",
-                        ]
+                        if task.dimension == "D04"
+                        else (
+                            [
+                                "model_or_reanalysis_thermal_context",
+                                "coarse_resolution",
+                                "not_a_local_temperature_measurement",
+                            ]
+                            if task.dimension == "D03"
+                            else [
+                                "model_or_reanalysis_context",
+                                "coarse_resolution",
+                                "not_a_local_irradiance_measurement",
+                            ]
+                        )
                     ),
                     score_role="context_only",
                     notes=(
-                        "D03 Earth thermal context only. Do not present as a local measurement "
-                        "or derive thermal inertia."
-                        if task.dimension == "D03"
+                        "D04 Earth water/ice context only. Soil wetness, snow depth and "
+                        "precipitation are distinct; this is not confirmed extractable ice."
+                        if task.dimension == "D04"
                         else (
-                            "D05 Earth solar illumination context only. Do not present as a "
-                            "local measurement or combine with ionizing radiation."
+                            "D03 Earth thermal context only. Do not present as a local "
+                            "measurement or derive thermal inertia."
+                            if task.dimension == "D03"
+                            else (
+                                "D05 Earth solar illumination context only. Do not present as "
+                                "a local measurement or combine with ionizing radiation."
+                            )
                         )
                     ),
                 )
@@ -352,11 +406,15 @@ class NasaPowerProvider:
     def validate(self, observations: list[TypedObservation]) -> ValidationReport:
         issues: list[ValidationIssue] = []
         for observation in observations:
-            if observation.body != "Earth" or observation.dimension_code not in {"D03", "D05"}:
+            if observation.body != "Earth" or observation.dimension_code not in {
+                "D03",
+                "D04",
+                "D05",
+            }:
                 issues.append(
                     ValidationIssue(
                         code="wrong_body_or_dimension",
-                        message="POWER outputs must be Earth D03 or D05",
+                        message="POWER outputs must be Earth D03, D04 or D05",
                         observation_id=observation.observation_id,
                     )
                 )

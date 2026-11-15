@@ -1,0 +1,118 @@
+{
+  "asset_count": 5,
+  "generated_at": "2026-11-15T02:00:16.982183+00:00",
+  "notes": [
+    "Portable release of a bounded pilot, not a global survey.",
+    "Context-only and evidence-only observations are not scored similarity features.",
+    "NASA POWER values are coarse model/reanalysis context, not local 1.98 km measurements."
+  ],
+  "observation_count": 20,
+  "observations_sha256": "6d42daff339896949edcab1e278d8eba6ccee1b3b1a0787bb9af67d4402a3835",
+  "plan_sha256": "312d0585f8ce9ce584946f9bb9ce2404e537d8e7c5a91a0f7bb9c1c32356cd2b",
+  "raw": [
+    {
+      "bytes": 1122,
+      "path": "raw/nasa-power-D04-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
+      "sha256": "fe886486cec473441b54b287d3fb059d4d5baa3f23e64f247690281c9ee5b2eb",
+      "task_id": "nasa-power-D04-earth-earth-atacama-desert-2024-01-01-2024-01-07"
+    },
+    {
+      "bytes": 1121,
+      "path": "raw/nasa-power-D04-earth-earth-death-valley-2024-01-01-2024-01-07.json",
+      "sha256": "52728d31058640ee997fd7185d505d96a1dba5b30f973a58535266fbff4ff63e",
+      "task_id": "nasa-power-D04-earth-earth-death-valley-2024-01-01-2024-01-07"
+    },
+    {
+      "bytes": 1138,
+      "path": "raw/nasa-power-D04-earth-earth-devon-island-2024-01-01-2024-01-07.json",
+      "sha256": "99f2f09dd8f57f732181058aa870f56aabff2dee50f4965dfe2e8ff67ccb18db",
+      "task_id": "nasa-power-D04-earth-earth-devon-island-2024-01-01-2024-01-07"
+    },
+    {
+      "bytes": 1118,
+      "path": "raw/nasa-power-D04-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
+      "sha256": "de84df16160d030c7e0c5350bdee304b5c4d5359da255562012eb9064ec10150",
+      "task_id": "nasa-power-D04-earth-earth-lanzarote-2024-01-01-2024-01-07"
+    },
+    {
+      "bytes": 1119,
+      "path": "raw/nasa-power-D04-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json",
+      "sha256": "6af54474a2e6e693dd8297c2cdc12b894b82b340006942096e527333f9cce684",
+      "task_id": "nasa-power-D04-earth-earth-sahara-r1c1-2024-01-01-2024-01-07"
+    }
+  ],
+  "release_version": "acquisition-release-1.0.0",
+  "report": {
+    "areas": [
+      "earth-atacama-desert",
+      "earth-death-valley",
+      "earth-devon-island",
+      "earth-lanzarote",
+      "earth-sahara-r1c1"
+    ],
+    "by_body": {
+      "Earth": 20
+    },
+    "by_dimension": {
+      "D04": 20
+    },
+    "by_feature": {
+      "precipitation_mm_day": 5,
+      "root_zone_soil_wetness_fraction": 5,
+      "snow_depth_cm": 5,
+      "surface_soil_wetness_fraction": 5
+    },
+    "by_state": {
+      "detected": 20
+    },
+    "total": 20
+  },
+  "scope": "pilot-d04-earth",
+  "tasks": [
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D04",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=-68.399999&latitude=-23.500000&start=20240101&end=20240107&format=JSON",
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D04-earth-earth-atacama-desert-2024-01-01-2024-01-07"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D04",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=-117.100001&latitude=36.249999&start=20240101&end=20240107&format=JSON",
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D04-earth-earth-death-valley-2024-01-01-2024-01-07"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D04",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=-13.629999&latitude=29.040000&start=20240101&end=20240107&format=JSON",
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D04-earth-earth-lanzarote-2024-01-01-2024-01-07"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D04",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=-89.850021&latitude=75.399998&start=20240101&end=20240107&format=JSON",
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D04-earth-earth-devon-island-2024-01-01-2024-01-07"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D04",
+      "endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=10.470085&latitude=24.473205&start=20240101&end=20240107&format=JSON",
+      "provider_id": "nasa-power",
+      "source_id": "nasa-power-daily-point",
+      "task_id": "nasa-power-D04-earth-earth-sahara-r1c1-2024-01-01-2024-01-07"
+    }
+  ]
+}

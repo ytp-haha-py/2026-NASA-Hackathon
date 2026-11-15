@@ -310,3 +310,48 @@ def test_nasa_power_thermal_plan_and_process_are_d03_context(tmp_path: Path):
     assert {item.unit for item in observations} == {"degree_Celsius"}
     assert all(item.value["values"] for item in observations)
     assert provider.validate(observations).ok
+
+
+def test_nasa_power_water_plan_and_process_are_d04_context(tmp_path: Path):
+    provider = NasaPowerProvider()
+    plan = build_plan(
+        scope="pilot",
+        areas=[_area()],
+        dimensions=["D04"],
+        bodies=["Earth"],
+        provider_ids=["nasa-power"],
+        start="2024-01-01",
+        end="2024-01-02",
+    )
+    assert len(plan.tasks) == 1
+    task = plan.tasks[0]
+    assert task.dimension == "D04"
+    assert task.parameters["community"] == "AG"
+    assert "SNODP" in task.parameters["parameters"]
+    payload = {
+        "properties": {
+            "parameter": {
+                "GWETTOP": {"20240101": 0.4, "20240102": 0.5},
+                "SNODP": {"20240101": 0.0, "20240102": 2.5},
+            }
+        }
+    }
+    path = tmp_path / "water.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    asset = LocalAsset(
+        task_id=task.task_id,
+        path=str(path),
+        sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+        bytes=path.stat().st_size,
+    )
+    observations = provider.process(asset, task)
+    assert {item.dimension_code for item in observations} == {"D04"}
+    assert {item.score_role for item in observations} == {"context_only"}
+    assert {item.feature_id for item in observations} == {
+        "surface_soil_wetness_fraction",
+        "snow_depth_cm",
+    }
+    snow = next(item for item in observations if item.feature_id == "snow_depth_cm")
+    assert snow.value["values"] == [0.0, 2.5]
+    assert any("not_confirmed_subsurface_ice" in item.quality_flags for item in observations)
+    assert provider.validate(observations).ok

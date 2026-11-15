@@ -308,27 +308,27 @@ dimensions:
     research_question: "地表／地下有哪些水與冰及觀測證據？"
     subgroups: [surface_water, subsurface_ice, hydration_evidence]
     research_classes: []
-    baseline: "No D04 observations; candidate sources only"
+    baseline: "20 Earth NASA POWER water-context observations; no confirmed ice, no Moon/Mars water measurement"
     bodies:
       Earth:
         sources:
-          - source_id: earth-water-source-not-selected
-            provider: not_selected
-            product: not_selected
-            url: not_verified
-            license: not_verified
-            license_url: not_verified
-            native_resolution: not_verified
-            spatial_support: not_verified
-            temporal_support: not_verified
-            depth_support: not_verified
-            observation_kinds: [detection, numeric, distribution]
-            qa: not_verified
-            availability: planned
-            data_status: not_fetched
-            comparability: unknown
-            notes: "No Earth water product is claimed; WorldCover water is only land-cover context."
-            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+          - source_id: nasa-power-water-daily
+            provider: NASA Langley Research Center / NASA POWER
+            product: NASA POWER Daily Point API water-context parameters
+            url: https://power.larc.nasa.gov/api/temporal/daily/point
+            license: NASA POWER data are free and open; cite NASA POWER
+            license_url: https://power.larc.nasa.gov/docs/services/api/
+            native_resolution: approximately 0.5 x 0.625 degree
+            spatial_support: Five Earth AOI point contexts; not a 1.98 km measurement
+            temporal_support: Daily; pilot 2024-01-01 through 2024-01-07
+            depth_support: surface/root-zone soil wetness; snow depth; not subsurface ice
+            observation_kinds: [timeseries]
+            qa: Fill/finite checks; model/reanalysis context; no extraction or ice-volume claim
+            availability: accessible
+            data_status: existing_observed
+            comparability: context_only
+            notes: "Pilot: 5 AOIs, 20 observations (surface/root-zone wetness, snow depth, precipitation)."
+            unknown_fields: []
       Moon:
         sources:
           - source_id: lunar-water-ice-source-not-selected
