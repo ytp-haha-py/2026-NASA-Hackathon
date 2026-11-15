@@ -683,11 +683,11 @@
   "counts": {
     "candidates": 113,
     "datasets": 9,
-    "manifests": 9,
-    "references": 23,
-    "seedable_manifests": 9
+    "manifests": 10,
+    "references": 25,
+    "seedable_manifests": 10
   },
-  "data_version": "dv-b46f3bad38ea",
+  "data_version": "dv-6fefaf3a7974",
   "datasets": [
     {
       "dataset_id": "copernicus-dem-glo90",
@@ -761,6 +761,16 @@
       "body": "Mars",
       "dataset_id": "mars2020-jezero-ctx-dem-20m",
       "reference_id": "mars-jezero-ctx-window-05"
+    },
+    {
+      "body": "Mars",
+      "dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "reference_id": "mars-jezero-ctx-window-06"
+    },
+    {
+      "body": "Mars",
+      "dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "reference_id": "mars-jezero-ctx-window-07"
     },
     {
       "body": "Moon",

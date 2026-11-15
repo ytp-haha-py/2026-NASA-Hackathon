@@ -1,0 +1,38 @@
+[
+  {
+    "asset_id": "nasa-power:earth-grand-canyon-r2c2:nasa-power-D04-earth-earth-grand-canyon-r2c2-2024-01-01-2024-01-07",
+    "bytes": 1133,
+    "checksum": "d1f2c0123350c3aba52775cd8a61b6539e954fb83cb694ed2a19a8cb5cfc6bf2",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "nasa-power-daily-point",
+    "fetched_at": "2026-11-15T12:36:08.080670+00:00",
+    "redistribution_allowed": "unknown",
+    "source_endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=-112.200001&latitude=36.200000&start=20240101&end=20240107&format=JSON",
+    "uri": "source://nasa-power/nasa-power-D04-earth-earth-grand-canyon-r2c2-2024-01-01-2024-01-07"
+  },
+  {
+    "asset_id": "nasa-power:earth-iceland-r2c2:nasa-power-D04-earth-earth-iceland-r2c2-2024-01-01-2024-01-07",
+    "bytes": 1137,
+    "checksum": "4db1dfce9d738a138db93fdd2b40975085702b5a07145b2514f6947c4150e76e",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "nasa-power-daily-point",
+    "fetched_at": "2026-11-15T12:36:08.190417+00:00",
+    "redistribution_allowed": "unknown",
+    "source_endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=-16.800007&latitude=65.699999&start=20240101&end=20240107&format=JSON",
+    "uri": "source://nasa-power/nasa-power-D04-earth-earth-iceland-r2c2-2024-01-01-2024-01-07"
+  },
+  {
+    "asset_id": "nasa-power:earth-namib-r2c2:nasa-power-D04-earth-earth-namib-r2c2-2024-01-01-2024-01-07",
+    "bytes": 1122,
+    "checksum": "f10bfceacd88eecb113c780493ab3fbba4d6539dab35a379ef0059935d3d3bb8",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "nasa-power-daily-point",
+    "fetched_at": "2026-11-15T12:36:08.208438+00:00",
+    "redistribution_allowed": "unknown",
+    "source_endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=15.300001&latitude=-24.700000&start=20240101&end=20240107&format=JSON",
+    "uri": "source://nasa-power/nasa-power-D04-earth-earth-namib-r2c2-2024-01-01-2024-01-07"
+  }
+]

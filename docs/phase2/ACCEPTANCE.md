@@ -1,8 +1,10 @@
 # Phase 2 acceptance report (Issue #142)
 
-Status: **implemented and verified on the public API at `08c944a` / data snapshot
-`dv-b46f3bad38ea`.** This report closes the Phase 2 coordination scope. It does not claim global
-scientific coverage and does not take over #97/#108/#132 or the frontend #118/#119/#123.
+Status: **implemented and verified locally at `8536805` plus the bounded D01–D05 ingest expansion
+(2,185 typed observations, Mars references 7, local data version `dv-6fefaf3a7974`).** The public
+API still serves the previous snapshot `dv-b46f3bad38ea` until a separate deployment is confirmed.
+This report closes the Phase 2 coordination scope. It does not claim global scientific coverage and
+does not take over #97/#108/#132 or the frontend #118/#119/#123.
 
 ## Workstream outcome
 
@@ -41,15 +43,26 @@ that the documented data gaps (new D01–D05 ingest, Moon/Mars numeric regolith)
 
 ## Real data snapshot
 
-Public API (`https://api.貓熊.台灣/api/v1`, `dv-b46f3bad38ea`):
+Local verified snapshot (public API still on `dv-b46f3bad38ea` until deployment is confirmed):
 
 ```text
-typed observations: 2,152
-D02 56, D03 61, D04 75, D05 28, D06 1,932
+typed observations: 2,185
+D02 59, D03 73, D04 87, D05 34, D06 1,932
 D06 0–5 cm gated Earth candidates: 113 / 113
-D01 fine Earth candidates: 113; Moon references: 18; Mars references: 5
+D01 fine Earth candidates: 113; Moon references: 18; Mars references: 7
 Earth coarse pilot: 168 cells (separate 250 m method)
 ```
+
+Bounded 2026-11-15 expansions (real ingest, not global coverage):
+
+- **D01:** two additional Mars Jezero CTX 20 m windows (`mars-jezero-ctx-window-06/07`) from the
+  same official USGS M20 DEM checksum; raw raster not committed. Mars fine references now 7.
+- **D02:** three Macrostrat API v2 point-query `geologic_unit` records for existing Earth fine
+  candidates (`earth-grand-canyon-r2c2`, `earth-namib-r2c2`, `earth-iceland-r2c2`); CC-BY 4.0,
+  `evidence_only`, no taxonomy crosswalk. D02 now 59 (Earth 18).
+- **D03/D04/D05:** NASA POWER daily point context for the same three Earth AOIs: D03 +12
+  (Earth 32), D04 +12 (Earth 32), D05 +6 (Earth 16). All `context_only`, coarse reanalysis,
+  not local in-situ measurements and not evidence of ice/ionizing radiation.
 
 D06 Moon/Mars additions are **12 explicit `no_coverage` evidence records** for six physical
 properties; no numeric value was fabricated or inferred from DEM roughness/WorldCover. D02–D05

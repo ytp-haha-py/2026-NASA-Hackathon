@@ -35,6 +35,17 @@
       "observations_sha256": "c4d5ae7bcafc098870ee638b07778e46928fc523c71960aa828bebb9a123f72e",
       "plan_sha256": "ab3b233a78a72c0700e206dfc5bc8ba5f82ae3f78a252a4f18ed0e4d78112db4",
       "assets_sha256": "cb8919fc33ee777517171c8cd7d4a2ac88a743ff2817b6044aff5bb24e254549"
+    },
+    {
+      "release_id": "d04_earth_power_expansion_01",
+      "path": "pipelines/pilots/d04_earth_power_expansion_01",
+      "manifest_path": "pipelines/pilots/d04_earth_power_expansion_01/manifest.json",
+      "observations_path": "pipelines/pilots/d04_earth_power_expansion_01/observations.jsonl",
+      "release_version": "acquisition-release-1.0.0",
+      "scope": "phase2-D04-earth-expansion",
+      "observation_count": 12,
+      "observations_sha256": "c4fb114dc14fde99dc6c749296c49da0ac5dfe54680f0fd8468c38c77c9b669d",
+      "plan_sha256": "b796a5a4120c300d279a1d772df67397dd0d519659f76a16a6fe620d84f7035e"
     }
   ],
   "rows": [
@@ -43,7 +54,7 @@
       "version": "nasa-power-daily-1.0.0",
       "licence": "NASA POWER data policy / open access for use; attribution required per NASA POWER terms (https://power.larc.nasa.gov/docs/methodology/). Not redistributed as raw bulk; bounded point responses committed with checksums.",
       "product": "POWER Daily Point (GWETTOP, GWETROOT, SNODP, PRECTOTCORR)",
-      "indexed_queryable_coverage": "5 Earth pilot AOIs, 2024-01-01..2024-01-07 daily values (20 observations total). Queryable from pipelines/pilots/d04_earth_power/observations.jsonl and importable via acquisition/typed release tooling.",
+      "indexed_queryable_coverage": "8 Earth pilot AOIs, 2024-01-01..2024-01-07 daily values (32 observations total). Queryable from pipelines/pilots/d04_earth_power/observations.jsonl and importable via acquisition/typed release tooling.",
       "spatial_support": "Point at AOI centre on ~0.5 x 0.625 degree POWER grid (~50 km native); CRS EPSG:4326; not a 1.98 km local measurement.",
       "time_support": "Daily interval 2024-01-01 to 2024-01-07 (pilot); source supports historical daily series subject to provider availability.",
       "depth_support": "Surface/root-zone model context as defined by POWER parameters; not subsurface ice depth.",
@@ -66,9 +77,9 @@
       "value_kind": "timeseries",
       "unit": "1",
       "actual_counts": {
-        "observations": 5,
+        "observations": 8,
         "states": {
-          "detected": 5
+          "detected": 8
         }
       },
       "phase": "soil_moisture"
@@ -78,7 +89,7 @@
       "version": "nasa-power-daily-1.0.0",
       "licence": "NASA POWER data policy / open access for use; attribution required per NASA POWER terms (https://power.larc.nasa.gov/docs/methodology/). Not redistributed as raw bulk; bounded point responses committed with checksums.",
       "product": "POWER Daily Point (GWETTOP, GWETROOT, SNODP, PRECTOTCORR)",
-      "indexed_queryable_coverage": "5 Earth pilot AOIs, 2024-01-01..2024-01-07 daily values (20 observations total). Queryable from pipelines/pilots/d04_earth_power/observations.jsonl and importable via acquisition/typed release tooling.",
+      "indexed_queryable_coverage": "8 Earth pilot AOIs, 2024-01-01..2024-01-07 daily values (32 observations total). Queryable from pipelines/pilots/d04_earth_power/observations.jsonl and importable via acquisition/typed release tooling.",
       "spatial_support": "Point at AOI centre on ~0.5 x 0.625 degree POWER grid (~50 km native); CRS EPSG:4326; not a 1.98 km local measurement.",
       "time_support": "Daily interval 2024-01-01 to 2024-01-07 (pilot); source supports historical daily series subject to provider availability.",
       "depth_support": "Surface/root-zone model context as defined by POWER parameters; not subsurface ice depth.",
@@ -101,9 +112,9 @@
       "value_kind": "timeseries",
       "unit": "1",
       "actual_counts": {
-        "observations": 5,
+        "observations": 8,
         "states": {
-          "detected": 5
+          "detected": 8
         }
       },
       "phase": "soil_moisture"
@@ -113,7 +124,7 @@
       "version": "nasa-power-daily-1.0.0",
       "licence": "NASA POWER data policy / open access for use; attribution required per NASA POWER terms (https://power.larc.nasa.gov/docs/methodology/). Not redistributed as raw bulk; bounded point responses committed with checksums.",
       "product": "POWER Daily Point (GWETTOP, GWETROOT, SNODP, PRECTOTCORR)",
-      "indexed_queryable_coverage": "5 Earth pilot AOIs, 2024-01-01..2024-01-07 daily values (20 observations total). Queryable from pipelines/pilots/d04_earth_power/observations.jsonl and importable via acquisition/typed release tooling.",
+      "indexed_queryable_coverage": "8 Earth pilot AOIs, 2024-01-01..2024-01-07 daily values (32 observations total). Queryable from pipelines/pilots/d04_earth_power/observations.jsonl and importable via acquisition/typed release tooling.",
       "spatial_support": "Point at AOI centre on ~0.5 x 0.625 degree POWER grid (~50 km native); CRS EPSG:4326; not a 1.98 km local measurement.",
       "time_support": "Daily interval 2024-01-01 to 2024-01-07 (pilot); source supports historical daily series subject to provider availability.",
       "depth_support": "Surface/root-zone model context as defined by POWER parameters; not subsurface ice depth.",
@@ -136,9 +147,9 @@
       "value_kind": "timeseries",
       "unit": "cm",
       "actual_counts": {
-        "observations": 5,
+        "observations": 8,
         "states": {
-          "detected": 5
+          "detected": 8
         }
       },
       "phase": "snow_depth_context"
@@ -148,7 +159,7 @@
       "version": "nasa-power-daily-1.0.0",
       "licence": "NASA POWER data policy / open access for use; attribution required per NASA POWER terms (https://power.larc.nasa.gov/docs/methodology/). Not redistributed as raw bulk; bounded point responses committed with checksums.",
       "product": "POWER Daily Point (GWETTOP, GWETROOT, SNODP, PRECTOTCORR)",
-      "indexed_queryable_coverage": "5 Earth pilot AOIs, 2024-01-01..2024-01-07 daily values (20 observations total). Queryable from pipelines/pilots/d04_earth_power/observations.jsonl and importable via acquisition/typed release tooling.",
+      "indexed_queryable_coverage": "8 Earth pilot AOIs, 2024-01-01..2024-01-07 daily values (32 observations total). Queryable from pipelines/pilots/d04_earth_power/observations.jsonl and importable via acquisition/typed release tooling.",
       "spatial_support": "Point at AOI centre on ~0.5 x 0.625 degree POWER grid (~50 km native); CRS EPSG:4326; not a 1.98 km local measurement.",
       "time_support": "Daily interval 2024-01-01 to 2024-01-07 (pilot); source supports historical daily series subject to provider availability.",
       "depth_support": "Surface/root-zone model context as defined by POWER parameters; not subsurface ice depth.",
@@ -171,9 +182,9 @@
       "value_kind": "timeseries",
       "unit": "mm day-1",
       "actual_counts": {
-        "observations": 5,
+        "observations": 8,
         "states": {
-          "detected": 5
+          "detected": 8
         }
       },
       "phase": "precipitation"
@@ -736,15 +747,35 @@
     }
   ],
   "totals": {
-    "indexed_observations": 75,
+    "indexed_observations": 87,
     "by_body": {
-      "Earth": 20,
+      "Earth": 32,
       "Mars": 2,
       "Moon": 53
     },
     "by_release": {
       "d04_earth_power": 20,
-      "d04_water_ice_planetary": 55
+      "d04_water_ice_planetary": 55,
+      "d04_earth_power_expansion_01": 12
     }
+  },
+  "expansion_2026_11_15": {
+    "release": "pipelines/pilots/d04_earth_power_expansion_01",
+    "areas": [
+      "earth-grand-canyon-r2c2",
+      "earth-iceland-r2c2",
+      "earth-namib-r2c2"
+    ],
+    "observations": 12,
+    "features": [
+      "precipitation_mm_day",
+      "root_zone_soil_wetness_fraction",
+      "snow_depth_cm",
+      "surface_soil_wetness_fraction"
+    ],
+    "method_version": "nasa-power-daily-1.0.0",
+    "score_role": "context_only",
+    "global_claim": false,
+    "note": "Real bounded NASA POWER daily point ingest; coarse reanalysis context, no confirmed ice claim."
   }
 }

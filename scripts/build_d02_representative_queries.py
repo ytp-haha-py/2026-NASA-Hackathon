@@ -75,6 +75,13 @@ def main() -> int:
             "results": find(body="Earth", feature_id="geology_analysis_availability"),
         },
         {
+            "query_id": "Q-EARTH-macrostrat-units",
+            "body": "Earth",
+            "description": "Representative query: Macrostrat point-query map units for three Earth fine candidates (evidence-only, no crosswalk).",
+            "filters": {"body": "Earth", "feature_id": "geologic_unit"},
+            "results": find(body="Earth", feature_id="geologic_unit"),
+        },
+        {
             "query_id": "Q-MOON-mapped-units",
             "body": "Moon",
             "description": "Representative query: Moon mapped geologic unit/process evidence in indexed Shackleton ROI.",
