@@ -1005,14 +1005,14 @@ fieldset legend,
   z-index: 1;
   top: 8px;
   right: 8px;
-  min-height: 30px;
-  padding: 4px 10px;
-  font-size: 13px;
+  min-height: 36px;
+  padding: 6px 12px;
+  font-size: 15px;
 }
 
 .planet-canvas {
   isolation: isolate;
-  height: clamp(190px, 40vw, 240px);
+  height: clamp(320px, 50vw, 460px);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: #0b0b0b;
