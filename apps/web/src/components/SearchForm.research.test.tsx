@@ -127,6 +127,7 @@ describe("Research presets", () => {
     const { user, onSearch } = setup();
     await user.selectOptions(selector(), "rover-mobility");
     await user.click(screen.getByRole("radio", { name: "Moon" }));
+    await user.click(screen.getByRole("button", { name: referenceFixture.display_name }));
     expect(screen.queryByRole("combobox", { name: "Research preset" })).not.toBeInTheDocument();
     expect(metric("Mean slope").getByRole("spinbutton", { name: "Weight (≥ 0)" })).toHaveValue(0);
     fireEvent.change(metric("Mean slope").getByRole("spinbutton", { name: "Weight (≥ 0)" }), { target: { value: 1 } });
