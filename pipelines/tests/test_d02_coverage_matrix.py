@@ -54,8 +54,8 @@ def test_d02_coverage_matrix_artifact_complete():
 
     assert row("Mars", "context_olindex3")["indexed_observation_count"] == 2
     assert row("Moon", "geologic_unit")["indexed_observation_count"] == 1
-    assert row("Earth", "geologic_unit")["indexed_observation_count"] == 0
-    assert row("Earth", "geologic_unit")["observation_class"] == "unsupported"
+    assert row("Earth", "geologic_unit")["indexed_observation_count"] == 3
+    assert row("Earth", "geologic_unit")["observation_class"] == "evidence_mapped_or_detected_state"
     assert row("Earth", "geology_analysis_availability")["indexed_observation_count"] == 15
     # mineral detections unknown, not detected/abundance
     mars_ol = row("Mars", "mineral_olivine")

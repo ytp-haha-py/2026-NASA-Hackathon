@@ -11,13 +11,14 @@ worktree/session/goal ownership. It does not replace each Issue's acceptance cri
 | Issue | Worktree | Branch | Session ID | Native Goal ID | Goal / review | PR | Blocker |
 |---|---|---|---|---|---|---|---|
 | #142 Program coordinator | .../phase2-coordinator-142 | phase2/coordinator-142 | ses_e253e85e9ffeLjB1ipw0gIVen0 | a1caf80d-100c-4491-a301-cdf5020f0a69 | active / validated | coordinator | this PR | none |
-| #135 D01 | .../phase2-135-d01 | phase2/135-d01 | ses_e20fc8691ffeaMvQ1pjnNWscZp | 0199a330-c186-4293-acd6-71762469219d | phase complete / issue open | #147 | additional D01 ingest, #108/#97 |
-| #136 D02 | .../phase2-136-d02 | phase2/136-d02 | ses_e20fc69adffe9JAGca55A3aX5R | 8004c26a-8e34-464d-9bfb-8dc31680d2fe | complete / integrated | #148 | none |
-| #137 D03 | .../phase2-137-d03 | phase2/137-d03 | ses_e20fc6930ffeoPYLni2B8ZosUx | 0ceab842-708d-4164-81e2-96c4aeb23ca4 | complete / integrated | #146 | none |
-| #138 D04 | .../phase2-138-d04 | phase2/138-d04 | ses_e20fc68bbffe2Sar4coxcaeuS7 | 642a1a88-25bc-4515-a3bb-2d153bad8bb1 | complete / integrated | #144 | none |
-| #139 D05 | .../phase2-139-d05 | phase2/139-d05 | ses_e20fc684affe5mrOOQ6dvy5Ju5 | 993b3503-c9c2-4a47-a256-76f6e2f35ed9 | complete / integrated | #145 | none |
+| #135 D01 | .../phase2-135-d01 | phase2/135-d01 | ses_e20fc8691ffeaMvQ1pjnNWscZp | 0199a330-c186-4293-acd6-71762469219d | phase complete / issue open | #147 | additional ingest: 2 Mars CTX windows added; #108/#97 still open |
+| #136 D02 | .../phase2-136-d02 | phase2/136-d02 | ses_e20fc69adffe9JAGca55A3aX5R | 8004c26a-8e34-464d-9bfb-8dc31680d2fe | complete / integrated | #148 | additional ingest: 3 Macrostrat evidence records added; no crosswalk |
+| #137 D03 | .../phase2-137-d03 | phase2/137-d03 | ses_e20fc6930ffeoPYLni2B8ZosUx | 0ceab842-708d-4164-81e2-96c4aeb23ca4 | complete / integrated | #146 | additional ingest: 3 NASA POWER Earth AOIs added (context-only) |
+| #138 D04 | .../phase2-138-d04 | phase2/138-d04 | ses_e20fc68bbffe2Sar4coxcaeuS7 | 642a1a88-25bc-4515-a3bb-2d153bad8bb1 | complete / integrated | #144 | additional ingest: 3 NASA POWER Earth AOIs added (context-only) |
+| #139 D05 | .../phase2-139-d05 | phase2/139-d05 | ses_e20fc684affe5mrOOQ6dvy5Ju5 | 993b3503-c9c2-4a47-a256-76f6e2f35ed9 | complete / integrated | #145 | additional ingest: 3 NASA POWER Earth AOIs added (context-only) |
 | #140 D06 | .../phase2-140-d06 | phase2/140-d06 | ses_e20fc67c3ffeEHNB8Ra3Q5CLqP | 96555f26-c85b-448d-8ed1-6c55880da63c | complete / integrated | #150 | none |
 | #141 integration | .../phase2-141-integration | phase2/141-integration | ses_e20fc6751ffeXuPBKd6WZyqGcN | 2f312370-3a07-400f-b15a-95cd4cc8d251 | complete / integrated | #152 | none |
+| #160 P0 six-dim AOI | .../phase2-160-sixdim | feat/160-sixdim-aoi | ses_e20b4eb76ffekA5MUFIVhI4mSc | 051525ff-6215-470c-847a-a570d6b1aea1 | PR open / verified locally | #166 | no self-merge; #119 UI handoff; WorldCover multidimensional gap |
 
 
 `...` expands to `/home/panda/.local/share/opencode/worktree/204e7a/`.
@@ -31,8 +32,10 @@ worktree/session/goal ownership. It does not replace each Issue's acceptance cri
   (session `ses_e2111ccf7ffevCZ3c5V62sEAX8`). Do not modify that worktree.
 - #97 and #108 are open but have no dedicated active worktree/session. #135 owns D01 coordination.
 - #134 is an open frontend PR (`feat/130-research-weight-presets`); not Phase 2 backend scope.
-- Local indices: `var/global-coarse-index` 111 MB; `var/analog.db` 7.0 MB; public coarse pilot
-  168 cells. `data/global-index` is absent.
+- Local indices: `var/global-coarse-index` 111 MB; `var/analog.db` now 2,185 typed observations
+  (`dv-6fefaf3a7974`); public coarse pilot 168 cells. `data/global-index` is absent.
+- #160 is the current P0 product workstream: AOI-first six-dimension query, D01+D06 weighted search,
+  D02–D05 evidence queries, and frontend handoff to #119. It does not take over UI.
 - #112/#116/#117 are merged; reuse, do not reimplement.
 
 ## Ownership rules
@@ -104,3 +107,12 @@ See [`ACCEPTANCE.md`](ACCEPTANCE.md) for the three-body public acceptance, data 
   messages posted to #135–#141; all sessions report `running`.
 
 - 2026-11-15 19:30: all seven primary sessions confirmed with a delivered (not queued) native `/goal` synthetic message. `GET /api/command` exposes the native `goal` command; `POST /api/session/{id}/command` with `{"name":"goal","text":...}` was used. #137/#138 opened phase PRs #146/#144; #139 opened #145.
+
+
+## Public deployment observed (2026-11-15, read-only)
+
+`bash scripts/public_acceptance.sh` passed against the deployed API:
+`dv-72be27e95dba`, 117 candidates, 2,158 typed observations, D06 gated 113. This does **not** match
+PR #161 (`dv-6fefaf3a7974`, 113 candidates, 2,185 typed) or PR #166 (based on `f96fad1`, 2,152
+typed). No deployment or production DB overwrite was performed; formal deployment/rollback requires
+explicit confirmation. See `ACCEPTANCE.md` for the three-body results and remaining gaps.

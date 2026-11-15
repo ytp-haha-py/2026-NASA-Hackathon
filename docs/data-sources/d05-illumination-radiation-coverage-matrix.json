@@ -5,7 +5,10 @@
     "code": "D05",
     "name": "Illumination & Radiation",
     "goal": "Issue #139: expand illumination and ionizing-radiation products separately with bounded, reproducible, provenance-backed coverage for Earth, Moon, and Mars.",
-    "subgroups": ["illumination", "ionizing_radiation"]
+    "subgroups": [
+      "illumination",
+      "ionizing_radiation"
+    ]
   },
   "generated_from": {
     "base_commit": "ca0fc8f",
@@ -32,8 +35,18 @@
   ],
   "time_assumption_contract": {
     "illumination_geometry_spice": {
-      "applies_to_features": ["solar_incidence_deg", "solar_elevation_deg"],
-      "required_inputs": ["body", "latitude_deg", "longitude_deg", "epoch_utc", "body_fixed_frame", "ephemeris_kernel_set"],
+      "applies_to_features": [
+        "solar_incidence_deg",
+        "solar_elevation_deg"
+      ],
+      "required_inputs": [
+        "body",
+        "latitude_deg",
+        "longitude_deg",
+        "epoch_utc",
+        "body_fixed_frame",
+        "ephemeris_kernel_set"
+      ],
       "epoch_utc": "2026-11-15T12:00:00Z",
       "assumptions": [
         "Point site on body-fixed biaxial ellipsoid reference; no DEM elevation or observer height applied.",
@@ -46,8 +59,18 @@
       "kernel_validity": "DE421 approximately 1900-2050; kernel SHA-256 digests pinned in pilot manifest/assets."
     },
     "earth_irradiance_nasa_power": {
-      "applies_to_features": ["surface_shortwave_irradiance_kwh_m2_day", "surface_longwave_irradiance_kwh_m2_day"],
-      "required_inputs": ["latitude", "longitude", "start_date", "end_date", "parameter_set", "community"],
+      "applies_to_features": [
+        "surface_shortwave_irradiance_kwh_m2_day",
+        "surface_longwave_irradiance_kwh_m2_day"
+      ],
+      "required_inputs": [
+        "latitude",
+        "longitude",
+        "start_date",
+        "end_date",
+        "parameter_set",
+        "community"
+      ],
       "pilot_interval": "2024-01-01..2024-01-07 (daily)",
       "assumptions": [
         "NASA POWER daily point is coarse model/reanalysis context (~0.5 x 0.625 degree), not a local 1.98 km measurement.",
@@ -58,8 +81,21 @@
       "missing_time_behavior": "Requests outside supported temporal coverage or with missing interval must be reported as unsupported/no_coverage, not substituted."
     },
     "ionizing_radiation": {
-      "applies_to_features": ["ionizing_particle_flux", "absorbed_dose_gy", "equivalent_dose_sv", "shielding_context", "exposure_time_support"],
-      "required_inputs": ["instrument_or_model", "particle_species_or_channel", "energy_range", "geometry/shielding", "exposure_interval", "calibration/dose_model_version"],
+      "applies_to_features": [
+        "ionizing_particle_flux",
+        "absorbed_dose_gy",
+        "equivalent_dose_sv",
+        "shielding_context",
+        "exposure_time_support"
+      ],
+      "required_inputs": [
+        "instrument_or_model",
+        "particle_species_or_channel",
+        "energy_range",
+        "geometry/shielding",
+        "exposure_interval",
+        "calibration/dose_model_version"
+      ],
       "assumptions": [
         "Particle flux, absorbed dose, equivalent dose, shielding, sensor geometry, and exposure time must remain separate fields/products.",
         "No Gy<->Sv or flux<->dose conversion without an explicit, cited physics/calibration model and applicable geometry."
@@ -79,15 +115,27 @@
       "product": "Model-derived solar geometry from SPICE at body-fixed point sites",
       "actual_indexed_queryable_coverage": "0 indexed/queryable Earth pilot observations in committed D05 pilots (Moon/Mars only in current SPICE pilot). Computation is bounded/reproducible for existing Earth reference coordinates if a validated Earth frame/kernel/site set and epoch are provided; no Earth SPICE observations are currently committed.",
       "data_kind": "modeled",
-      "status_support": ["modeled", "unsupported", "no_coverage"],
+      "status_support": [
+        "modeled",
+        "unsupported",
+        "no_coverage"
+      ],
       "time_support": "Instant only when computed; epoch must be explicit (example pilot epoch 2026-11-15T12:00:00Z). No time series committed.",
       "depth_support": "Surface reference ellipsoid/tangent-plane context only; no subsurface/depth product.",
       "spatial_support": "Point site on body-fixed frame; not a 1.98 km window average unless separately aggregated and documented.",
       "crs": "Earth body-fixed frame to be declared per implementation (e.g. ITRF/IAU_EARTH via SPICE) before ingest; not currently committed in D05 SPICE pilot.",
       "qa": "No committed Earth SPICE rows. For future bounded runs: verify frame/kernel IDs, pin kernel checksums, record epoch and registration assumptions, fail closed on integrity mismatch.",
       "uncertainty": "Not quantified in current bounded pilot model output; geometry uncertainty dominated by frame/registration/horizon assumptions and must be disclosed.",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed_without_shared_contract", "display_role": "context_only_if_bounded_and_documented"},
-      "gaps": ["No committed Earth SPICE illumination observations.", "No DEM horizon/shadow model.", "Shared API/query contract for location+time assumptions is out of scope for #139 and belongs to #141."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed_without_shared_contract",
+        "display_role": "context_only_if_bounded_and_documented"
+      },
+      "gaps": [
+        "No committed Earth SPICE illumination observations.",
+        "No DEM horizon/shadow model.",
+        "Shared API/query contract for location+time assumptions is out of scope for #139 and belongs to #141."
+      ],
       "rebuild_instructions": "Use pinned NAIF kernels and a bounded site list with explicit epochs/frames: `uv sync --extra spice && uv run --extra spice python scripts/build_spice_illumination_pilot.py --download && uv run --extra spice python scripts/build_spice_illumination_pilot.py` (current script targets existing Moon/Mars reference manifests). Any Earth extension must remain bounded and document frame/kernel/epoch assumptions."
     },
     {
@@ -101,15 +149,26 @@
       "product": "Model-derived solar elevation geometry",
       "actual_indexed_queryable_coverage": "0 indexed/queryable Earth pilot observations in committed D05 pilots.",
       "data_kind": "modeled",
-      "status_support": ["modeled", "unsupported", "no_coverage"],
+      "status_support": [
+        "modeled",
+        "unsupported",
+        "no_coverage"
+      ],
       "time_support": "Instant only when computed; explicit epoch required.",
       "depth_support": "Surface reference context only.",
       "spatial_support": "Point site; no spatial average committed.",
       "crs": "Earth body-fixed frame to be declared before ingest; not currently committed.",
       "qa": "No committed Earth SPICE rows; same integrity/assumption checks as solar_incidence_deg apply.",
       "uncertainty": "Not quantified; assumption-dominated.",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed_without_shared_contract", "display_role": "context_only_if_bounded_and_documented"},
-      "gaps": ["No committed Earth SPICE elevation rows.", "No horizon/shadow/atmospheric correction."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed_without_shared_contract",
+        "display_role": "context_only_if_bounded_and_documented"
+      },
+      "gaps": [
+        "No committed Earth SPICE elevation rows.",
+        "No horizon/shadow/atmospheric correction."
+      ],
       "rebuild_instructions": "Same bounded SPICE workflow as solar_incidence_deg with explicit Earth frame and epoch; do not return fixed global values when time is missing."
     },
     {
@@ -121,17 +180,30 @@
       "version": "nasa-power-daily-1.0.0; pilot release acquisition-release-1.0.0",
       "licence": "NASA POWER data are free and open; citation requested (https://power.larc.nasa.gov/).",
       "product": "NASA POWER daily all-sky surface shortwave downward irradiance",
-      "actual_indexed_queryable_coverage": "5 Earth areas / 5 detected observations (1 per area) in pipelines/pilots/d05_earth_power/observations.jsonl for 2024-01-01..2024-01-07 daily series values; bounded pilot, not global.",
+      "actual_indexed_queryable_coverage": "8 Earth areas / 8 detected observations (1 per area) in pipelines/pilots/d05_earth_power/observations.jsonl for 2024-01-01..2024-01-07 daily series values; bounded pilot, not global. Expansion 2026-11-15: pipelines/pilots/d05_earth_power_expansion_01 (3 AOIs, 3 observations).",
       "data_kind": "modeled_context_reanalysis",
-      "status_support": ["detected", "modeled", "no_coverage", "unsupported"],
+      "status_support": [
+        "detected",
+        "modeled",
+        "no_coverage",
+        "unsupported"
+      ],
       "time_support": "Daily interval support in pilot (2024-01-01..2024-01-07); source supports other bounded date ranges via API subject to availability.",
       "depth_support": "Surface/atmospheric column context only.",
       "spatial_support": "Coarse point/grid context ~0.5 x 0.625 degree; not a local 1.98 km measurement.",
       "crs": "WGS84-like geographic latitude/longitude point query context as used by NASA POWER API.",
-      "qa": "Raw JSON responses checksummed in manifest/assets; fill/missing sentinels excluded; 10/10 observations detected in pilot manifest; no per-point source uncertainty provided.",
+      "qa": "Raw JSON responses checksummed in manifest/assets; fill/missing sentinels excluded; 16/16 observations detected in pilot manifest; no per-point source uncertainty provided.",
       "uncertainty": "Source uncertainty not provided; recorded as unknown in pilot.",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed_without_shared_contract", "display_role": "context_only"},
-      "gaps": ["Coarse spatial support; not local horizon/shadow-aware irradiance.", "Not ionizing radiation.", "Only 5 pilot AOIs and one 7-day window committed."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed_without_shared_contract",
+        "display_role": "context_only"
+      },
+      "gaps": [
+        "Coarse spatial support; not local horizon/shadow-aware irradiance.",
+        "Not ionizing radiation.",
+        "Only 5 pilot AOIs and one 7-day window committed."
+      ],
       "rebuild_instructions": "Use acquisition CLI: plan/run/validate/report/release for `--scope pilot-d05-earth --dimension D05 --body Earth --provider nasa-power` with bounded area list and dates; see pipelines/pilots/d05_earth_power/README.md and manifest.json reproduce_commands-equivalent section."
     },
     {
@@ -143,17 +215,29 @@
       "version": "nasa-power-daily-1.0.0; pilot release acquisition-release-1.0.0",
       "licence": "NASA POWER data are free and open; citation requested.",
       "product": "NASA POWER daily all-sky surface longwave downward irradiance",
-      "actual_indexed_queryable_coverage": "5 Earth areas / 5 detected observations in pipelines/pilots/d05_earth_power/observations.jsonl for 2024-01-01..2024-01-07; bounded pilot.",
+      "actual_indexed_queryable_coverage": "8 Earth areas / 8 detected observations in pipelines/pilots/d05_earth_power/observations.jsonl for 2024-01-01..2024-01-07; bounded pilot. Expansion 2026-11-15: pipelines/pilots/d05_earth_power_expansion_01 (3 AOIs, 3 observations).",
       "data_kind": "modeled_context_reanalysis",
-      "status_support": ["detected", "modeled", "no_coverage", "unsupported"],
+      "status_support": [
+        "detected",
+        "modeled",
+        "no_coverage",
+        "unsupported"
+      ],
       "time_support": "Daily interval support in pilot (2024-01-01..2024-01-07).",
       "depth_support": "Surface/atmospheric column context only.",
       "spatial_support": "Coarse point/grid context ~0.5 x 0.625 degree.",
       "crs": "WGS84-like geographic latitude/longitude point query context.",
-      "qa": "Raw responses checksummed; sentinels excluded; 10/10 pilot observations detected overall.",
+      "qa": "Raw responses checksummed; sentinels excluded; 16/16 pilot observations detected overall.",
       "uncertainty": "Unknown (not provided by source).",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed_without_shared_contract", "display_role": "context_only"},
-      "gaps": ["Coarse spatial support and single bounded window.", "Not thermal emission dose/radiation hazard metric."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed_without_shared_contract",
+        "display_role": "context_only"
+      },
+      "gaps": [
+        "Coarse spatial support and single bounded window.",
+        "Not thermal emission dose/radiation hazard metric."
+      ],
       "rebuild_instructions": "Same bounded NASA POWER acquisition workflow as shortwave feature with ALLSKY_SFC_LW_DWN included."
     },
     {
@@ -167,15 +251,25 @@
       "product": "Not ingested",
       "actual_indexed_queryable_coverage": "0 indexed/queryable observations.",
       "data_kind": "unsupported",
-      "status_support": ["unsupported", "no_coverage"],
+      "status_support": [
+        "unsupported",
+        "no_coverage"
+      ],
       "time_support": "Not established; exposure interval required if ever modeled/measured.",
       "depth_support": "Not established; shielding/depth/altitude context required.",
       "spatial_support": "Not established.",
       "crs": "n/a",
       "qa": "No data ingested; blocker documented.",
       "uncertainty": "n/a",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed", "display_role": "unsupported"},
-      "gaps": ["No bounded, validated Earth surface absorbed-dose ingest.", "Requires explicit exposure time, geometry, shielding, and physics model; no unit conversion without physics."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed",
+        "display_role": "unsupported"
+      },
+      "gaps": [
+        "No bounded, validated Earth surface absorbed-dose ingest.",
+        "Requires explicit exposure time, geometry, shielding, and physics model; no unit conversion without physics."
+      ],
       "rebuild_instructions": "Verified blocker: do not fabricate. Alternative path: evaluate official bounded models/datasets (e.g. aviation/space-weather dose products with documented validity domain) as a separate bounded ingest with explicit assumptions and schema coordination via #141 before any query contract change."
     },
     {
@@ -189,15 +283,24 @@
       "product": "Not ingested",
       "actual_indexed_queryable_coverage": "0 indexed/queryable observations.",
       "data_kind": "unsupported",
-      "status_support": ["unsupported", "no_coverage"],
+      "status_support": [
+        "unsupported",
+        "no_coverage"
+      ],
       "time_support": "Not established; exposure interval required.",
       "depth_support": "Not established; tissue/shielding model context required.",
       "spatial_support": "Not established.",
       "crs": "n/a",
       "qa": "No data ingested; blocker documented.",
       "uncertainty": "n/a",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed", "display_role": "unsupported"},
-      "gaps": ["No Sv product committed; conversion from Gy/flux requires radiation quality/weighting and model assumptions."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed",
+        "display_role": "unsupported"
+      },
+      "gaps": [
+        "No Sv product committed; conversion from Gy/flux requires radiation quality/weighting and model assumptions."
+      ],
       "rebuild_instructions": "Verified blocker: only ingest with documented dose-equivalent model, quality factors, and applicability domain; coordinate any shared fields via #141."
     },
     {
@@ -211,15 +314,28 @@
       "product": "Model-derived solar incidence at point sites (MOON_ME)",
       "actual_indexed_queryable_coverage": "4 Moon areas / 4 detected observations in pipelines/pilots/d05_spice_illumination/observations.jsonl (9 total sites across Moon+Mars; 18 observations total for incidence+elevation). Bounded to existing LOLA reference coordinates.",
       "data_kind": "modeled",
-      "status_support": ["detected", "modeled", "no_coverage", "unsupported"],
+      "status_support": [
+        "detected",
+        "modeled",
+        "no_coverage",
+        "unsupported"
+      ],
       "time_support": "Single instant 2026-11-15T12:00:00Z (ET 848016069.182739 s).",
       "depth_support": "Surface ellipsoid tangent-plane context only.",
       "spatial_support": "Point sites at existing reference coordinates; not spatial average over 1.98 km windows.",
       "crs": "MOON_ME body-fixed frame (frame ID 31001) realized from DE421.",
       "qa": "Kernel sizes/SHA-256 pinned and verified by builder; 9/9 sites succeeded in pilot manifest; flat-ellipsoid/no-horizon assumptions explicit; not observed irradiance/shadow.",
       "uncertainty": "Not numerically quantified in product; assumption and registration uncertainties documented as limitations.",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed_without_shared_contract", "display_role": "context_only"},
-      "gaps": ["No DEM horizon/shadow mask or time series.", "No observed irradiance.", "Coverage limited to 4 existing Shackleton-rim reference sites."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed_without_shared_contract",
+        "display_role": "context_only"
+      },
+      "gaps": [
+        "No DEM horizon/shadow mask or time series.",
+        "No observed irradiance.",
+        "Coverage limited to 4 existing Shackleton-rim reference sites."
+      ],
       "rebuild_instructions": "`uv sync --extra spice && uv run --extra spice python scripts/build_spice_illumination_pilot.py --download && uv run --extra spice python scripts/build_spice_illumination_pilot.py` (bounded; kernels cached under gitignored var/cache/spice-45)."
     },
     {
@@ -233,15 +349,27 @@
       "product": "Model-derived solar elevation at point sites (MOON_ME)",
       "actual_indexed_queryable_coverage": "4 Moon areas / 4 detected observations in pipelines/pilots/d05_spice_illumination/observations.jsonl.",
       "data_kind": "modeled",
-      "status_support": ["detected", "modeled", "no_coverage", "unsupported"],
+      "status_support": [
+        "detected",
+        "modeled",
+        "no_coverage",
+        "unsupported"
+      ],
       "time_support": "Single instant 2026-11-15T12:00:00Z.",
       "depth_support": "Surface context only.",
       "spatial_support": "Point sites; bounded reference set.",
       "crs": "MOON_ME (31001).",
       "qa": "Same pinned-kernel and manifest checks as incidence; complementary to incidence by construction.",
       "uncertainty": "Not numerically quantified; assumption-dominated.",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed_without_shared_contract", "display_role": "context_only"},
-      "gaps": ["No shadow/horizon/time series.", "Bounded to 4 sites."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed_without_shared_contract",
+        "display_role": "context_only"
+      },
+      "gaps": [
+        "No shadow/horizon/time series.",
+        "Bounded to 4 sites."
+      ],
       "rebuild_instructions": "Same as Moon solar_incidence_deg (same pilot build emits both features)."
     },
     {
@@ -249,21 +377,32 @@
       "subgroup": "ionizing_radiation",
       "feature_id": "ionizing_particle_flux_context",
       "feature_name": "Ionizing particle flux (context/evidence candidate)",
-      "source": "PDS LRO CRaTER calibrated data products (candidate, verified reachable in D03/D05 audit) — no bounded flux/dose ingest committed in D05 pilots.",
+      "source": "PDS LRO CRaTER calibrated data products (candidate, verified reachable in D03/D05 audit) \u2014 no bounded flux/dose ingest committed in D05 pilots.",
       "version": "n/a for committed ingest; CRaTER LRO-L-CRAT-3-CDR-CALIBRATED-V1.0 identified in audit metadata",
       "licence": "NASA-led PDS mission data (CC0-1.0 policy context, citation requested); verify product-specific citation/licence before redistribution/ingest.",
       "product": "Not ingested (detector energy/calibrated records identified; not a surface absorbed-dose map).",
       "actual_indexed_queryable_coverage": "0 indexed/queryable D05 ionizing-radiation observations committed.",
       "data_kind": "unsupported_no_committed_ingest",
-      "status_support": ["unsupported", "no_coverage", "evidence_only_if_future_bounded_ingest"],
+      "status_support": [
+        "unsupported",
+        "no_coverage",
+        "evidence_only_if_future_bounded_ingest"
+      ],
       "time_support": "Mission time series exists at source level (audit evidence), but no bounded D05 exposure-time product committed.",
       "depth_support": "Not established as surface/shielded dose context in current pilot; detector/geometry-dependent.",
       "spatial_support": "Spacecraft/detector context, not a validated local surface grid in current artifacts.",
       "crs": "n/a for committed product.",
       "qa": "Source reachability/catalog evidence recorded in docs/data-sources/d03-d05-thermal-illumination.json and audit; no ingested QA counts.",
       "uncertainty": "n/a",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed", "display_role": "unsupported_or_evidence_only"},
-      "gaps": ["No direct absorbed/equivalent dose product ingested.", "Flux, dose, shielding, sensor geometry, and exposure time must remain separated; no Sv conversion without physics."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed",
+        "display_role": "unsupported_or_evidence_only"
+      },
+      "gaps": [
+        "No direct absorbed/equivalent dose product ingested.",
+        "Flux, dose, shielding, sensor geometry, and exposure time must remain separated; no Sv conversion without physics."
+      ],
       "rebuild_instructions": "Verified blocker for dose products. Alternative bounded path: ingest a small, documented CRaTER-derived subset as evidence-only with explicit time/energy/channel/geometry metadata and no dose conversion; requires careful product selection and #141 coordination for any shared fields."
     },
     {
@@ -277,15 +416,24 @@
       "product": "Not ingested",
       "actual_indexed_queryable_coverage": "0 indexed/queryable observations.",
       "data_kind": "unsupported",
-      "status_support": ["unsupported", "no_coverage"],
+      "status_support": [
+        "unsupported",
+        "no_coverage"
+      ],
       "time_support": "Not established.",
       "depth_support": "Not established.",
       "spatial_support": "Not established.",
       "crs": "n/a",
       "qa": "Blocker documented.",
       "uncertainty": "n/a",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed", "display_role": "unsupported"},
-      "gaps": ["No Gy product committed; cannot infer from geometry/irradiance."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed",
+        "display_role": "unsupported"
+      },
+      "gaps": [
+        "No Gy product committed; cannot infer from geometry/irradiance."
+      ],
       "rebuild_instructions": "Do not fabricate. Only add via bounded ingest with explicit calibration, shielding, exposure interval, and dose model."
     },
     {
@@ -299,15 +447,27 @@
       "product": "Model-derived solar incidence at point sites (IAU_MARS)",
       "actual_indexed_queryable_coverage": "5 Mars areas / 5 detected observations in pipelines/pilots/d05_spice_illumination/observations.jsonl (Jezero CTX reference windows).",
       "data_kind": "modeled",
-      "status_support": ["detected", "modeled", "no_coverage", "unsupported"],
+      "status_support": [
+        "detected",
+        "modeled",
+        "no_coverage",
+        "unsupported"
+      ],
       "time_support": "Single instant 2026-11-15T12:00:00Z.",
       "depth_support": "Surface ellipsoid tangent-plane context only.",
       "spatial_support": "Point sites at existing reference coordinates; not window averages.",
       "crs": "IAU_MARS body-fixed frame (frame ID 10014) from pck00011.",
       "qa": "Pinned kernel checksums verified; 9/9 pilot sites succeeded overall; flat-ellipsoid/no-atmosphere/no-horizon assumptions explicit.",
       "uncertainty": "Not numerically quantified; assumption-dominated.",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed_without_shared_contract", "display_role": "context_only"},
-      "gaps": ["No DEM horizon/shadow/atmospheric correction/time series.", "Bounded to 5 Jezero reference points."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed_without_shared_contract",
+        "display_role": "context_only"
+      },
+      "gaps": [
+        "No DEM horizon/shadow/atmospheric correction/time series.",
+        "Bounded to 5 Jezero reference points."
+      ],
       "rebuild_instructions": "Same bounded SPICE pilot build command as Moon; uses existing ctx_mars_references manifest."
     },
     {
@@ -321,15 +481,27 @@
       "product": "Model-derived solar elevation at point sites (IAU_MARS)",
       "actual_indexed_queryable_coverage": "5 Mars areas / 5 detected observations in pipelines/pilots/d05_spice_illumination/observations.jsonl.",
       "data_kind": "modeled",
-      "status_support": ["detected", "modeled", "no_coverage", "unsupported"],
+      "status_support": [
+        "detected",
+        "modeled",
+        "no_coverage",
+        "unsupported"
+      ],
       "time_support": "Single instant 2026-11-15T12:00:00Z.",
       "depth_support": "Surface context only.",
       "spatial_support": "Point sites; bounded reference set.",
       "crs": "IAU_MARS (10014).",
       "qa": "Same pilot integrity checks as incidence.",
       "uncertainty": "Not numerically quantified; assumption-dominated.",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed_without_shared_contract", "display_role": "context_only"},
-      "gaps": ["No horizon/shadow/atmosphere/time series.", "Bounded to 5 sites."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed_without_shared_contract",
+        "display_role": "context_only"
+      },
+      "gaps": [
+        "No horizon/shadow/atmosphere/time series.",
+        "Bounded to 5 sites."
+      ],
       "rebuild_instructions": "Same as Mars solar_incidence_deg (emitted by the same bounded pilot build)."
     },
     {
@@ -343,15 +515,26 @@
       "product": "Not ingested",
       "actual_indexed_queryable_coverage": "0 indexed/queryable D05 ionizing-radiation observations committed.",
       "data_kind": "unsupported_no_committed_ingest",
-      "status_support": ["unsupported", "no_coverage", "evidence_only_if_future_bounded_ingest"],
+      "status_support": [
+        "unsupported",
+        "no_coverage",
+        "evidence_only_if_future_bounded_ingest"
+      ],
       "time_support": "Not established for committed queryable product; exposure interval must be explicit in any future ingest.",
       "depth_support": "Not established; surface/atmosphere/shielding context required.",
       "spatial_support": "Not established.",
       "crs": "n/a",
       "qa": "Blocker documented; no fabricated values.",
       "uncertainty": "n/a",
-      "legal_score_filter_roles": {"score": "not_allowed", "filter": "not_allowed", "display_role": "unsupported_or_evidence_only"},
-      "gaps": ["No bounded Mars dose/flux ingest committed.", "Particle flux, absorbed dose (Gy), equivalent dose (Sv), shielding, sensor geometry, and exposure time must be separated and never unit-converted without physics."],
+      "legal_score_filter_roles": {
+        "score": "not_allowed",
+        "filter": "not_allowed",
+        "display_role": "unsupported_or_evidence_only"
+      },
+      "gaps": [
+        "No bounded Mars dose/flux ingest committed.",
+        "Particle flux, absorbed dose (Gy), equivalent dose (Sv), shielding, sensor geometry, and exposure time must be separated and never unit-converted without physics."
+      ],
       "rebuild_instructions": "Verified blocker with alternative: identify an official bounded product (e.g. PDS MSL RAD derived records) and implement a separate evidence-only ingest with explicit channel, time, geometry, and dose-model provenance; coordinate shared contract changes via #141."
     }
   ],
@@ -379,5 +562,22 @@
         "command": "python3 -c \"import json,glob; paths=['pipelines/pilots/d05_earth_power/observations.jsonl','pipelines/pilots/d05_spice_illumination/observations.jsonl']; ion=[]; \\nfor p in paths:\\n  for l in open(p):\\n    o=json.loads(l); \\n    if 'ionizing' in o.get('feature_id','') or o.get('unit') in ('Gy','Sv'): ion.append((p,o['feature_id']))\\nprint({'committed_ionizing_observations': len(ion), 'examples': ion[:5]})\""
       }
     ]
+  },
+  "expansion_2026_11_15": {
+    "release": "pipelines/pilots/d05_earth_power_expansion_01",
+    "areas": [
+      "earth-grand-canyon-r2c2",
+      "earth-iceland-r2c2",
+      "earth-namib-r2c2"
+    ],
+    "observations": 6,
+    "features": [
+      "surface_shortwave_irradiance_kwh_m2_day",
+      "surface_longwave_irradiance_kwh_m2_day"
+    ],
+    "method_version": "nasa-power-daily-1.0.0",
+    "score_role": "context_only",
+    "global_claim": false,
+    "note": "Real bounded NASA POWER daily irradiance context; not ionizing radiation or shadow/horizon."
   }
 }

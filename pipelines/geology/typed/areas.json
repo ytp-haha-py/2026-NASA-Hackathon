@@ -654,5 +654,128 @@
     "notes": "Jezero floor (test AOI)",
     "schema_version": "2.0.0",
     "source_area_refs": []
+  },
+  {
+    "analysis_crs": "EPSG:4326",
+    "area_id": "earth-grand-canyon-r2c2",
+    "area_km2": null,
+    "bbox": {
+      "west": -112.21114733,
+      "south": 36.1909656,
+      "east": -112.18885517,
+      "north": 36.20903344
+    },
+    "body": "Earth",
+    "coordinate_frame": "earth_wgs84",
+    "crs": "EPSG:4326",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -112.21114733,
+            36.1909656
+          ],
+          [
+            -112.18885517,
+            36.1909656
+          ],
+          [
+            -112.18885517,
+            36.20903344
+          ],
+          [
+            -112.21114733,
+            36.20903344
+          ],
+          [
+            -112.21114733,
+            36.1909656
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "analysis_crs": "EPSG:4326",
+    "area_id": "earth-namib-r2c2",
+    "area_km2": null,
+    "bbox": {
+      "west": 15.2901923,
+      "south": -24.70896026,
+      "east": 15.3098091,
+      "north": -24.6910391
+    },
+    "body": "Earth",
+    "coordinate_frame": "earth_wgs84",
+    "crs": "EPSG:4326",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            15.2901923,
+            -24.70896026
+          ],
+          [
+            15.3098091,
+            -24.70896026
+          ],
+          [
+            15.3098091,
+            -24.6910391
+          ],
+          [
+            15.2901923,
+            -24.6910391
+          ],
+          [
+            15.2901923,
+            -24.70896026
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "analysis_crs": "EPSG:4326",
+    "area_id": "earth-iceland-r2c2",
+    "area_km2": null,
+    "bbox": {
+      "west": -16.82217361,
+      "south": 65.69086645,
+      "east": -16.77784115,
+      "north": 65.70913071
+    },
+    "body": "Earth",
+    "coordinate_frame": "earth_wgs84",
+    "crs": "EPSG:4326",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -16.82217361,
+            65.69086645
+          ],
+          [
+            -16.77784115,
+            65.69086645
+          ],
+          [
+            -16.77784115,
+            65.70913071
+          ],
+          [
+            -16.82217361,
+            65.70913071
+          ],
+          [
+            -16.82217361,
+            65.69086645
+          ]
+        ]
+      ]
+    }
   }
 ]

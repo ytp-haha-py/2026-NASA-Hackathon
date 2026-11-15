@@ -452,11 +452,12 @@ def rank_candidates(
             # per-feature contribution = dim contribution share * within-dim feature share
             for dimension_id, bucket in sorted(per_dim.items()):
                 v_sum = float(bucket["v_sum"])
-                q_d = (float(bucket["q_num"]) / v_sum) if v_sum > 0 else 0.0
+                q_num = float(bucket["q_num"])
+                q_d = (q_num / v_sum) if v_sum > 0 else 0.0
                 dim_weight = _dimension_control(dimension_id, dimension_weights).weight
                 dim_contribution = dim_weight * q_d
                 for target, entry, materialized, _, delta, normalized, z2 in bucket["items"]:
-                    within = (target.weight * z2 / v_sum) if v_sum > 0 else 0.0
+                    within = (target.weight * z2 / q_num) if q_num > 0 else 0.0
                     contribution = dim_contribution * within
                     contributions.append(
                         Contribution(
@@ -575,11 +576,19 @@ def coverage_payload(
     registry: Mapping[str, FeatureEligibility],
     candidates: Sequence[MultiDimCandidate],
     matches: Sequence[RankedMultiDimMatch],
+    dimension_weights: Mapping[str, DimensionControl] | None = None,
 ) -> dict[str, object]:
     """Report actual requested-feature coverage, not a six-dimension completeness claim."""
     per_feature: dict[str, dict[str, object]] = {}
     for target in targets:
         entry = registry[target.feature_id]
+        control = _dimension_control(entry.dimension_id, dimension_weights)
+        if target.weight <= 0:
+            comparison = "zero_weight_not_compared"
+        elif not control.enabled:
+            comparison = "dimension_disabled_not_compared"
+        else:
+            comparison = "active"
         present = sum(1 for candidate in candidates if target.feature_id in candidate.features)
         scored = sum(
             1
@@ -592,7 +601,7 @@ def coverage_payload(
             "unit": entry.unit,
             "body_scope": list(entry.body_scope),
             "weight": target.weight,
-            "comparison": "active" if target.weight > 0 else "zero_weight_not_compared",
+            "comparison": comparison,
             "eligible_candidate_count": present,
             "candidate_pool_size": len(candidates),
             "coverage_fraction": round(present / len(candidates), 6) if candidates else 0.0,

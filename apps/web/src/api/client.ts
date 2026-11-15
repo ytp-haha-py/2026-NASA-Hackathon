@@ -13,8 +13,12 @@ export type DimensionsOut = components["schemas"]["DimensionsOut"];
 export type ErrorOut = components["schemas"]["ErrorOut"];
 export type FeatureObservationOut = components["schemas"]["FeatureObservationOut"];
 export type FeatureOut = components["schemas"]["FeatureOut"];
+export type FeatureRegistryOut = components["schemas"]["FeatureRegistryOut"];
+export type MultiDimSearchRequest = components["schemas"]["MultiDimSearchRequest"];
+export type MultiDimSearchResponse = components["schemas"]["MultiDimSearchResponse"];
 export type GeoBBoxIn = components["schemas"]["GeoBBoxIn"];
 export type GlobalCoverageOut = components["schemas"]["GlobalCoverageOut"];
+export type GlobalRefineResponse = components["schemas"]["GlobalRefineResponse"];
 export type GlobalSearchRequest = components["schemas"]["GlobalSearchRequest"];
 export type GlobalSearchResponse = components["schemas"]["GlobalSearchResponse"];
 export type GlobalSearchResultOut = components["schemas"]["GlobalSearchResultOut"];
@@ -287,6 +291,27 @@ export function searchCandidates(
   );
 }
 
+/** Registry of query features with the roles each one legally supports (all six dimensions). */
+export function getSearchFeatures(signal?: AbortSignal): Promise<FeatureRegistryOut> {
+  return request<FeatureRegistryOut>("/search/features", {}, signal);
+}
+
+/** Weighted search over any registered similarity features, including D02–D06. */
+export function searchMultidimensional(
+  body: MultiDimSearchRequest,
+  signal?: AbortSignal,
+): Promise<MultiDimSearchResponse> {
+  return request<MultiDimSearchResponse>(
+    "/search/multidimensional",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    },
+    signal,
+  );
+}
+
 export function getLocation(
   locationId: string,
   signal?: AbortSignal,
@@ -439,6 +464,21 @@ export function createRefinePlan(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
+    },
+    signal,
+  );
+}
+
+export function refineGlobalCandidate(
+  candidateId: string,
+  signal?: AbortSignal,
+): Promise<GlobalRefineResponse> {
+  return request<GlobalRefineResponse>(
+    "/global/refine",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ candidate_id: candidateId }),
     },
     signal,
   );
