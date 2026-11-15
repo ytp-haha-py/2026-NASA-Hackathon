@@ -39,10 +39,13 @@ manifests. Search still returns subset coverage with batch metadata.
 **Acceptance:** reproducible batch import; partial failures recorded; UI coverage reflects actual
 indexed cells, not a country claim.
 
-## 4. PostGIS adapter (not implemented)
+## 4. PostGIS adapter (code implemented; deployment not verified)
 
 **Scope:** replace SQLite for multi-user/production scale.
 **Contract:** implement `ports/repository.py` Protocols; keep Pydantic/HTTP unchanged.
+**Status:** `apps/api/src/analog_api/adapters/postgis.py` implements the Protocols and a bounded
+regional bbox scan. Offline SQL/contract tests exist; no live PostgreSQL/PostGIS deployment was
+verified. See `docs/POSTGIS.md`.
 **Prerequisites:** Alembic migrations, spatial indexes, backup/restore runbook.
 **Acceptance:** contract tests pass against both adapters; search results identical for a fixture.
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, Request, Response
 from sqlalchemy.orm import Session
 
-from analog_api.adapters.repository import SqlAlchemyRepository
+from analog_api.adapters.postgis import repository_for_session
 from analog_api.domain.features import FEATURES
 from analog_api.domain.search import (
     capabilities_payload,
@@ -12,6 +12,7 @@ from analog_api.domain.search import (
     execute_search,
     location_payload,
 )
+from analog_api.ports.repository import CandidateRepositoryFull
 from analog_api.schemas import (
     CapabilitiesOut,
     ContextOut,
@@ -43,8 +44,8 @@ def get_session(request: Request):
         session.close()
 
 
-def get_repo(session: Session = Depends(get_session)) -> SqlAlchemyRepository:
-    return SqlAlchemyRepository(session)
+def get_repo(session: Session = Depends(get_session)) -> CandidateRepositoryFull:
+    return repository_for_session(session)
 
 
 def _reference_payload(reference) -> dict[str, object]:
@@ -86,7 +87,7 @@ def _reference_payload(reference) -> dict[str, object]:
 
 
 @router.get("/health", response_model=HealthOut)
-def health(repo: SqlAlchemyRepository = Depends(get_repo)) -> dict[str, str]:
+def health(repo: CandidateRepositoryFull = Depends(get_repo)) -> dict[str, str]:
     version = repo.data_version()
     return {
         "status": "ok",
@@ -101,13 +102,13 @@ def dimensions() -> dict[str, object]:
 
 
 @router.get("/capabilities", response_model=CapabilitiesOut)
-def capabilities(repo: SqlAlchemyRepository = Depends(get_repo)) -> dict[str, object]:
+def capabilities(repo: CandidateRepositoryFull = Depends(get_repo)) -> dict[str, object]:
     return capabilities_payload(repo)
 
 
 @router.get("/datasets", response_model=list[DatasetOut])
 def datasets(
-    response: Response, repo: SqlAlchemyRepository = Depends(get_repo)
+    response: Response, repo: CandidateRepositoryFull = Depends(get_repo)
 ) -> list[dict[str, object]]:
     response.headers["X-Data-Snapshot-ID"] = repo.data_version()
     return [
@@ -132,19 +133,21 @@ def datasets(
 
 
 @router.get("/references", response_model=list[ReferenceOut])
-def references(repo: SqlAlchemyRepository = Depends(get_repo)) -> list[dict[str, object]]:
+def references(repo: CandidateRepositoryFull = Depends(get_repo)) -> list[dict[str, object]]:
     return [_reference_payload(reference) for reference in repo.list_references()]
 
 
 @router.post("/search", response_model=SearchResponse, responses=ERROR_RESPONSES)
 def search(
-    request: SearchRequest, repo: SqlAlchemyRepository = Depends(get_repo)
+    request: SearchRequest, repo: CandidateRepositoryFull = Depends(get_repo)
 ) -> dict[str, object]:
     return execute_search(repo, request)
 
 
 @router.get("/locations/{location_id}", response_model=LocationOut, responses=ERROR_RESPONSES)
-def location(location_id: str, repo: SqlAlchemyRepository = Depends(get_repo)) -> dict[str, object]:
+def location(
+    location_id: str, repo: CandidateRepositoryFull = Depends(get_repo)
+) -> dict[str, object]:
     return location_payload(repo, location_id)
 
 
@@ -154,6 +157,6 @@ def location(location_id: str, repo: SqlAlchemyRepository = Depends(get_repo)) -
 def location_context(
     location_id: str,
     target: str | None = None,
-    repo: SqlAlchemyRepository = Depends(get_repo),
+    repo: CandidateRepositoryFull = Depends(get_repo),
 ) -> dict[str, object]:
     return context_payload(repo, location_id, target)

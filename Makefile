@@ -136,3 +136,6 @@ public-logs: ## Follow public demo stack logs
 
 public-smoke: ## Verify the public API/web endpoint
 	bash scripts/public_smoke.sh
+
+data-coarse-pilot: ## Build the bounded real Geomorpho250 three-region coarse pilot
+	uv run python scripts/build_geomorpho_real_pilot.py
