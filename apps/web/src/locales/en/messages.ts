@@ -73,7 +73,7 @@ export const en = {
   "app.noCapabilities":
     "No capabilities were returned. Search and AOI analysis are unavailable.",
   "app.footerVersions":
-    "Planetary Analog Explorer MVP · contract {contract} · method {method} · data {data} · snapshot {snapshot}",
+    "AnalogX MVP · contract {contract} · method {method} · data {data} · snapshot {snapshot}",
   "app.footerNote":
     "Distance is a weighted normalized Euclidean value on terrain shape only. Basemap © OpenStreetMap contributors.",
 

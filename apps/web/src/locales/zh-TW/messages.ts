@@ -68,7 +68,7 @@ export const zhTW: { [K in MessageKey]?: string } = {
     "重力、大氣、輻射、風化層、礦物組成、溫度與地質歷史都不在比較範圍內。ESA WorldCover 背景資訊不是礦物學資料。",
   "app.noCapabilities": "API 未回傳系統能力資訊，因此無法使用搜尋與 AOI 分析。",
   "app.footerVersions":
-    "行星類比地形探索器 MVP · 合約 {contract} · 方法 {method} · 資料 {data} · 快照 {snapshot}",
+    "AnalogX MVP · 合約 {contract} · 方法 {method} · 資料 {data} · 快照 {snapshot}",
   "app.footerNote": "距離僅是地形形狀的加權正規化歐氏距離值。底圖 © OpenStreetMap 貢獻者。",
 
   // Coverage counts (shared)
