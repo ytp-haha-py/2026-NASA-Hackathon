@@ -46,7 +46,7 @@ OPENAPI_BACKUP=""
 # directories are passed to pytest so the gate works before the planetary
 # pipeline lands.
 REQUIRED_TEST_DIRS=(apps/api/tests pipelines/tests)
-OPTIONAL_TEST_DIRS=(pipelines/earth/tests pipelines/worldcover/tests pipelines/planetary/tests)
+OPTIONAL_TEST_DIRS=(pipelines/d02_d04_aoi/tests pipelines/earth/tests pipelines/worldcover/tests pipelines/planetary/tests)
 TEST_DIRS=()
 for test_dir in "${REQUIRED_TEST_DIRS[@]}" "${OPTIONAL_TEST_DIRS[@]}"; do
   if [ -d "$test_dir" ]; then

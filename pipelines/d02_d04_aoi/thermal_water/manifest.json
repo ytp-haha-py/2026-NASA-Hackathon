@@ -1,0 +1,67 @@
+{
+  "area_count": 39,
+  "asset_count": 4,
+  "checksums": {
+    "aoi_evidence.json": "5467dd5c8b1ff6982fd95837a319529d651a831e088c416c63ba0ab25e1caf10",
+    "areas.json": "ccaa104980efc8887910aed59f34810267e1027f8bbe5ce3167cd5261e00e5d0",
+    "assets.json": "cdd6b3e9a7a9fac939a6a5f14ee3582bca6cc02dd32907b47451988575644cce",
+    "datasets.json": "2101ac5361f043c561381aa0e4d116ce4989d589fd75927b6fa14782efbeec30",
+    "modeled_evidence.jsonl": "6685d1abc61bb40544c1b9e6a3fcb4ece07ae0fcf0d644caca9d5c88350e083f",
+    "observations.jsonl": "39ceea97f13d27636c238c1c1a62a38ebe806910f81c5587bcdc851e8bcecb46",
+    "sources.json": "b34ad7bdd44232d553494a69fb6ab1c277bc5fc1af9fa385883c1f92f3a9ebb4"
+  },
+  "dataset_count": 4,
+  "generated_at": "2026-11-15T14:29:58Z",
+  "goal": "E",
+  "issue": 170,
+  "mars_reference_count": 5,
+  "modeled_evidence_count": 59,
+  "modeled_evidence_states": {
+    "detected": 44,
+    "unknown": 15
+  },
+  "moon_reference_count": 18,
+  "non_claims": [
+    "No D03 or D04 similarity score or cross-body ranking.",
+    "GCP and TES are coarse context, not 240 m/100 m AOI measurements.",
+    "PRP values are model-derived, not observed ice detections or ice abundance.",
+    "Odyssey NS counts/second are not the normalized HEND flux ratio.",
+    "No value is zero-filled; missing states carry no numeric value.",
+    "Coverage is limited to the 23 committed Moon/Mars reference windows."
+  ],
+  "observation_count": 64,
+  "observation_states": {
+    "detected": 64
+  },
+  "raw_cache": "var/cache/d03-d04-aoi-170",
+  "reference_count": 23,
+  "schema_version": "d03-d04-aoi-evidence-1.0.0",
+  "scope": "D03 thermal + D04 water/ice AOI evidence for committed Moon/Mars reference windows",
+  "source_status": {
+    "diviner-gcp": {
+      "errors": [],
+      "rows": 36,
+      "source": "diviner-gcp",
+      "state": "ok"
+    },
+    "diviner-prp": {
+      "errors": [],
+      "source": "diviner-prp",
+      "state": "ok",
+      "triangles": 429
+    },
+    "odyssey-ns": {
+      "cells": 5,
+      "errors": [],
+      "source": "odyssey-ns",
+      "state": "ok"
+    },
+    "tes-timap": {
+      "errors": [],
+      "pixels": 10,
+      "source": "tes-timap",
+      "state": "ok"
+    }
+  },
+  "window_size_m": 1980.0
+}
