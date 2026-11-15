@@ -1,6 +1,8 @@
 # API
 
-Base path: `/api/v1`. Interactive docs: `http://127.0.0.1:8000/docs`. The committed machine
+Base path: `/api/v1`. Local interactive docs: `http://127.0.0.1:8000/docs`. Intended public
+deployment docs: `https://api.貓熊.台灣/docs` (`https://api.xn--2vxr09c.xn--kpry57d/docs`). The
+committed machine
 contract is `contracts/openapi.json`; regenerate it with `uv run python scripts/export_openapi.py`
 after any schema change. The frontend types are generated from that snapshot.
 

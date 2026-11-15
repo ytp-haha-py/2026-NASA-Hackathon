@@ -26,7 +26,12 @@ export type TargetSpec = components["schemas"]["TargetSpec"];
 
 export type NumericTarget = Record<string, number>;
 
-const API_BASE = "/api/v1";
+export const DEFAULT_PUBLIC_API_BASE = "https://api.貓熊.台灣/api/v1";
+
+const configuredApiBase = import.meta.env.VITE_API_BASE;
+const API_BASE =
+  (configuredApiBase && configuredApiBase.trim().replace(/\/$/, "")) ||
+  (import.meta.env.PROD ? DEFAULT_PUBLIC_API_BASE : "/api/v1");
 
 export class ApiError extends Error {
   readonly status: number;

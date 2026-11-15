@@ -17,6 +17,29 @@ analytical coverage.
 Built for the NASA Space Apps Challenge 2026 challenge
 [Permanent Moon Base Locations and Mars](https://www.spaceappschallenge.org/2026/challenges/permanent-moon-base-locations-and-mars/).
 
+## Public API endpoint
+
+The public Cloudflare Tunnel endpoint is:
+
+```text
+https://api.貓熊.台灣
+https://api.xn--2vxr09c.xn--kpry57d   # ASCII/punycode form
+```
+
+Useful paths:
+
+```text
+https://api.貓熊.台灣/api/v1/health
+https://api.貓熊.台灣/api/v1/capabilities
+https://api.貓熊.台灣/api/v1/typed/coverage
+https://api.貓熊.台灣/docs
+```
+
+Production frontend builds default to `https://api.貓熊.台灣/api/v1`; override with
+`VITE_API_BASE`. Local development remains `http://127.0.0.1:8000`, with the Vite `/api` proxy and
+the relative `/api/v1` base. Verified on 2026-11-15: `api` health and typed coverage return HTTP 200, and the web routes return HTTP 200. The tunnel is managed outside the repository; see
+[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for the exact routes and operator commands.
+
 ## Architecture at a glance
 
 ```text
