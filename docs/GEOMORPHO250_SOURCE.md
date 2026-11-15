@@ -62,3 +62,9 @@ scientific global result.
 4. Built the deterministic 5 km grid and coarse features, then an immutable Parquet index.
 5. Verified DuckDB top-K and the FastAPI `/api/v1/global/*` contract on the real index.
 6. Never promote coarse values to the 90 m score without refinement.
+
+## Online smoke (opt-in)
+
+`uv run python scripts/geomorpho_online_smoke.py` performs a 10x10 `/vsicurl` range read and prints
+the verified CRS, dimensions, pixel size, dtype, nodata, block layout, scale tag and raw/slope
+ranges. It never downloads the full global object and is not part of CI.
