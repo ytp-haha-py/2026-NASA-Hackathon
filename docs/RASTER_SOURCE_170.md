@@ -65,7 +65,7 @@ window. **No remote read happens unless `allow_remote=True`.**
 
 ```python
 with open_raster_source(source) as reader:
-    meta = reader.metadata          # RasterSourceMetadata
+    meta = reader.metadata  # RasterSourceMetadata
     window = reader.read_window(bbox={"west": ..., "south": ..., "east": ..., "north": ...})
     # or: reader.read_window(window=(col_off, row_off, width, height))
     # or: reader.read_window(window=Window(...), pad_pixels=2)

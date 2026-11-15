@@ -50,9 +50,9 @@ source = RasterSource(
     "data/raw/example.tif",
     kind=RasterAccessKind.STAGED_TILE,
     dataset_id="example-dem",
-    version="sha256:...",       # required for a stable identity
+    version="sha256:...",  # required for a stable identity
 )
-cache = RasterCache("data/cache/raster")   # or RasterCache() / cache_from_env()
+cache = RasterCache("data/cache/raster")  # or RasterCache() / cache_from_env()
 result = read_window_cached(cache, source, window=(128, 256, 512, 512))
 ```
 
@@ -128,7 +128,7 @@ Eviction is LRU by payload `mtime`, with limits applied after each write
 
 ```python
 cache.evict(max_entries=500, max_bytes=8 * 1024**3)
-cache.evict(dry_run=True)      # report only
+cache.evict(dry_run=True)  # report only
 ```
 
 `stats()`, `EvictionReport` and `probe()` expose entry counts, bytes, hits/misses,
