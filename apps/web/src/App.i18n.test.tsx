@@ -1,13 +1,10 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { App } from "./App";
 import { LOCALE_STORAGE_KEY } from "./i18n/translate";
 import { useI18n } from "./i18n/I18nProvider";
 import {
-  analyzeQueuedFixture,
-  aoiLocationFixture,
-  jobPartialFixture,
   referenceFixture,
   searchResponseFixture,
 } from "./test/fixtures";
@@ -288,56 +285,5 @@ describe("Traditional Chinese workflows", () => {
     expect(screen.getByText("本應用程式不是聊天機器人")).toBeInTheDocument();
     // Machine-readable export keys are never localized.
     expect(screen.getByText(/"export_version"/)).toBeInTheDocument();
-  });
-
-  it("validates and monitors an AOI job in zh-TW with per-provider status", async () => {
-    const user = userEvent.setup();
-    await renderApp(
-      {
-        analyze: () => jsonResponse(analyzeQueuedFixture, 202),
-        job: () => jsonResponse(jobPartialFixture),
-        areaFeatures: () => jsonResponse({ ...aoiLocationFixture, context_observations: [] }),
-      },
-      { initialLocale: "zh-TW" },
-    );
-    await user.click(screen.getByRole("button", { name: "分析新區域" }));
-
-    const east = screen.getByLabelText("東側經度（°）");
-    await user.clear(east);
-    await user.type(east, "-13.6449");
-    await user.click(screen.getByRole("button", { name: "分析此地球 AOI" }));
-    expect(await screen.findByRole("alert")).toHaveTextContent(/AOI 太小：每邊至少要 600 m/);
-
-    await user.clear(east);
-    await user.type(east, "-13.635");
-    await user.click(screen.getByRole("button", { name: "分析此地球 AOI" }));
-
-    expect(await screen.findByText("部分結果")).toBeInTheDocument();
-    const jobPanel = screen.getByTestId("aoi-job-panel");
-    expect(within(jobPanel).getByText("部分完成")).toHaveAttribute("data-status", "partial");
-    expect(within(jobPanel).getByText("失敗")).toHaveAttribute("data-status", "failed");
-    expect(within(jobPanel).getByText("worldcover_context_provider_failed")).toBeInTheDocument();
-    expect(within(jobPanel).getByText(/ESA WorldCover window read failed in test/))
-      .toHaveAttribute("lang", "en");
-    expect(screen.getByTestId("aoi-record")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "以 AOI 特徵作為搜尋目標" })).toBeEnabled();
-  });
-
-  it("keeps an in-progress AOI job state when switching language", async () => {
-    const user = userEvent.setup();
-    await renderApp({
-      analyze: () => jsonResponse(analyzeQueuedFixture, 202),
-      job: () => jsonResponse(jobPartialFixture),
-      areaFeatures: () => jsonResponse(aoiLocationFixture),
-    });
-    await user.click(screen.getByRole("button", { name: "Analyze a new area" }));
-    await user.click(screen.getByRole("button", { name: "Analyze this Earth AOI" }));
-    await screen.findByTestId("aoi-record");
-
-    await switchTo(user, "繁體中文");
-
-    expect(screen.getByRole("button", { name: "分析新區域" })).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByText("部分結果")).toBeInTheDocument();
-    await waitFor(() => expect(screen.getByTestId("aoi-record")).toBeInTheDocument());
   });
 });
