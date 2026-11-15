@@ -1,0 +1,265 @@
+{
+  "spec_id": "d06-regolith-measurement-semantics",
+  "version": "1.0.0",
+  "method_version": "regolith-evidence-0.1.0",
+  "status": "specification_only_not_observed_coverage",
+  "title": "D06 regolith and surface-property measurement semantics",
+  "scope": "Particle size, bulk density, porosity, cohesion, friction angle and bearing strength. Earth predictions from SoilGrids 2.0 are evidence-only model output; Moon and Mars have no registered real sample/measurement source in this repository.",
+  "principles": [
+    "A model prediction is not a measurement; every observation states which one it is.",
+    "Depth support is mandatory and per observation; different depths are never averaged, pooled or scored as one feature.",
+    "A measured physical zero is a value; missing, not detected, no coverage and not applicable are separate states and never zero-filled.",
+    "A particle-size distribution keeps its bin edges, bin basis (mass, volume or number) and depth.",
+    "Experiment-derived strength properties keep gravity, moisture, load geometry, failure criterion and sample state.",
+    "Moon and Mars regolith values are no_coverage until a real public sample or PDS measurement is registered.",
+    "No regolith property is derived from DEM roughness, slope, land-cover bare fraction or Earth SoilGrids transfer."
+  ],
+  "vocabulary": {
+    "observation_states": [
+      "detected",
+      "not_detected",
+      "no_coverage",
+      "unknown",
+      "not_applicable"
+    ],
+    "value_kinds": [
+      "distribution",
+      "numeric"
+    ],
+    "evidence_classes": [
+      "measured_sample",
+      "measured_in_situ",
+      "experiment",
+      "model_prediction",
+      "not_observed"
+    ],
+    "score_role": "evidence_only"
+  },
+  "depth_policy": {
+    "kind": "depth_interval_or_surface",
+    "required_for_detected_d06": true,
+    "min_m_inclusive": true,
+    "max_m_exclusive": true,
+    "pool_depths_in_one_value": false,
+    "soilgrids_intervals_cm": [
+      {
+        "label": "0-5cm",
+        "min_m": 0.0,
+        "max_m": 0.05
+      },
+      {
+        "label": "5-15cm",
+        "min_m": 0.05,
+        "max_m": 0.15
+      },
+      {
+        "label": "15-30cm",
+        "min_m": 0.15,
+        "max_m": 0.3
+      },
+      {
+        "label": "30-60cm",
+        "min_m": 0.3,
+        "max_m": 0.6
+      }
+    ],
+    "surface_semantics": "kind=surface means a sample interface with no measured thickness; it is not a depth interval and is not comparable to one."
+  },
+  "variables": [
+    {
+      "feature_id": "particle_size_distribution",
+      "label": "Particle size distribution",
+      "value_kind": "distribution",
+      "unit": "fraction",
+      "bins": {
+        "edge_kind": "lower_edge",
+        "unit": "micrometre",
+        "edges_um": [
+          0.0,
+          2.0,
+          50.0,
+          2000.0
+        ],
+        "labels": [
+          "clay",
+          "silt",
+          "sand"
+        ],
+        "terminal_bin": "extends to +infinity",
+        "basis_required": [
+          "mass",
+          "volume",
+          "number"
+        ],
+        "normalization": "fractions are within [0, 1] and sum to 1 within 1e-6",
+        "usda_note": "The default USDA texture edges are clay <2 um, silt 2-50 um, sand 50-2000 um. Other published schemes must record their own edges."
+      },
+      "measured_evidence": "Sieve/laser/hydrometer sample measurement with sample ID, method and depth.",
+      "earth_status": "model_prediction_available_separately",
+      "earth_note": "SoilGrids supplies clay, sand and silt mass fractions (g kg-1) as separate model predictions; this pilot does not convert them into a normalized distribution.",
+      "moon_status": "no_coverage",
+      "mars_status": "no_coverage",
+      "not_observed_reason": "No public lunar or Martian particle-size sample measurement is registered.",
+      "forbidden_derivations": [
+        "DEM roughness or slope to grain size",
+        "land-cover bare fraction to grain size",
+        "SoilGrids Earth texture transferred to Moon or Mars"
+      ]
+    },
+    {
+      "feature_id": "bulk_density_kg_m3",
+      "label": "Bulk density",
+      "value_kind": "numeric",
+      "unit": "kg/m^3",
+      "sample_state_required": [
+        "bulk_dry",
+        "bulk_natural",
+        "fine_earth",
+        "bulk_total"
+      ],
+      "measured_evidence": "Mass/volume sample measurement or geotechnical in-situ test with depth and sample state.",
+      "earth_status": "model_prediction_available",
+      "earth_note": "SoilGrids bdod is bulk density of the fine earth fraction in cg cm-3, a model prediction, not a local sample. It excludes coarse fragments and is not the total bulk density of a rocky regolith.",
+      "moon_status": "no_coverage",
+      "mars_status": "no_coverage",
+      "not_observed_reason": "No public lunar or Martian bulk-density measurement is registered; thermal inertia is not converted without a verified physical model.",
+      "forbidden_derivations": [
+        "thermal inertia to bulk density without a verified model",
+        "porosity to bulk density without a stated grain density",
+        "Earth SoilGrids values transferred to Moon or Mars"
+      ]
+    },
+    {
+      "feature_id": "porosity_fraction",
+      "label": "Porosity",
+      "value_kind": "numeric",
+      "unit": "fraction",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "sample_state_required": [
+        "bulk_dry",
+        "bulk_natural",
+        "fine_earth",
+        "bulk_total"
+      ],
+      "measured_evidence": "Pore-volume measurement with sample state, depth, pore definition and uncertainty.",
+      "earth_status": "no_coverage",
+      "earth_note": "No porosity product is ingested; SoilGrids does not publish porosity. It must not be inferred from bdod without a stated particle density.",
+      "moon_status": "no_coverage",
+      "mars_status": "no_coverage",
+      "not_observed_reason": "No public porosity measurement with pore definition and depth is registered.",
+      "forbidden_derivations": [
+        "1 - bulk_density/2650 without a stated and justified particle density",
+        "DEM roughness or radar roughness to porosity"
+      ]
+    },
+    {
+      "feature_id": "cohesion_kpa",
+      "label": "Cohesion",
+      "value_kind": "numeric",
+      "unit": "kPa",
+      "experiment_context_required": [
+        "gravity",
+        "moisture_state",
+        "load_or_normal_stress",
+        "failure_criterion"
+      ],
+      "measured_evidence": "Direct shear or triaxial experiment with stated conditions.",
+      "earth_status": "no_coverage",
+      "earth_note": "No cohesion experiment table is ingested for these AOIs.",
+      "moon_status": "no_coverage",
+      "mars_status": "no_coverage",
+      "not_observed_reason": "No public lunar or Martian cohesion experiment with stated conditions is registered.",
+      "forbidden_derivations": [
+        "slope angle or DEM-derived slope stability to cohesion",
+        "Earth SoilGrids texture to cohesion without a verified pedotransfer function"
+      ]
+    },
+    {
+      "feature_id": "friction_angle_deg",
+      "label": "Friction angle",
+      "value_kind": "numeric",
+      "unit": "degree",
+      "range": [
+        0.0,
+        90.0
+      ],
+      "experiment_context_required": [
+        "gravity",
+        "moisture_state",
+        "load_or_normal_stress",
+        "failure_criterion"
+      ],
+      "measured_evidence": "Direct shear or triaxial experiment with stated conditions.",
+      "earth_status": "no_coverage",
+      "earth_note": "No friction-angle experiment table is ingested for these AOIs.",
+      "moon_status": "no_coverage",
+      "mars_status": "no_coverage",
+      "not_observed_reason": "No public lunar or Martian friction-angle experiment is registered.",
+      "forbidden_derivations": [
+        "DEM slope angle to internal friction angle",
+        "angle of repose assumed from a landform class"
+      ]
+    },
+    {
+      "feature_id": "bearing_strength_kpa",
+      "label": "Bearing strength",
+      "value_kind": "numeric",
+      "unit": "kPa",
+      "experiment_context_required": [
+        "gravity",
+        "load_geometry",
+        "depth",
+        "moisture_state",
+        "penetration_rate"
+      ],
+      "measured_evidence": "Penetrometer, plate load or cone penetration test with stated conditions.",
+      "earth_status": "no_coverage",
+      "earth_note": "No bearing-strength test table is ingested for these AOIs.",
+      "moon_status": "no_coverage",
+      "mars_status": "no_coverage",
+      "not_observed_reason": "No public lunar or Martian bearing-strength measurement is registered.",
+      "forbidden_derivations": [
+        "DEM-derived terrain trafficability score presented as bearing strength",
+        "rover wheel slip or slope to bearing strength without calibration"
+      ]
+    }
+  ],
+  "body_coverage": {
+    "Earth": {
+      "status": "model_prediction_only",
+      "prediction_variables": [
+        "clay",
+        "sand",
+        "silt",
+        "soc",
+        "bdod"
+      ],
+      "prediction_source": "SoilGrids 2.0 250 m WCS (ISRIC), CC BY 4.0",
+      "note": "Five AOIs only; not global coverage and not local measurements."
+    },
+    "Moon": {
+      "status": "no_coverage",
+      "registered_real_measurements": 0,
+      "note": "No public lunar sample or PDS regolith measurement is registered. No value is estimated from a DEM."
+    },
+    "Mars": {
+      "status": "no_coverage",
+      "registered_real_measurements": 0,
+      "note": "No public Mars PDS regolith measurement is registered. No value is estimated from a DEM."
+    }
+  },
+  "quality_flags": {
+    "model_prediction": "model_derived_soil_property + model_prediction_not_measurement",
+    "measured_sample": "measured_sample",
+    "no_coverage": "no_coverage",
+    "synthetic_fixture": "synthetic_fixture (never counted as observed)"
+  },
+  "references": [
+    "ISRIC SoilGrids 2.0 documentation: https://docs.isric.org/globaldata/soilgrids/",
+    "Poggio et al. 2021, SoilGrids 2.0, SOIL 7, 217-240, https://doi.org/10.5194/soil-7-217-2021",
+    "USDA soil texture classes, Soil Survey Manual"
+  ]
+}

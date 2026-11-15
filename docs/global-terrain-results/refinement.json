@@ -1,0 +1,156 @@
+{
+  "available": true,
+  "comparison_note": "Coarse 5 km / ~250 m values and fine 1.98 km / 90 m values are shown side by side but are not interchangeable. No fine rank, recall, precision, or sensitivity estimate is computed; the coarse rank is not a fine rank.",
+  "counts": {
+    "coarse_eligible": 168,
+    "coarse_indexed": 168,
+    "coarse_selected": 3,
+    "context_observations": 33,
+    "failures": 0,
+    "fine_feature_observations": 15,
+    "links": 3,
+    "refined_failed": 0,
+    "refined_no_coverage": 0,
+    "refined_succeeded": 3
+  },
+  "coverage": {
+    "claim": "Only the selected coarse cells and their focus windows were processed. No global or exhaustive best-match claim is made.",
+    "regions": [
+      "pilot-alps",
+      "pilot-grand-canyon",
+      "pilot-sahara"
+    ],
+    "scope": "local_coarse_index_not_global_exhaustive"
+  },
+  "datasets": [
+    {
+      "dataset_id": "copernicus-dem-glo90",
+      "license": "Copernicus DEM GLO-90: free basis for the general public (AWS Open Data registry), under the Copernicus Contributing Mission Data Access Licence terms",
+      "native_resolution_m": 90.0,
+      "product_id": "COP-DEM_GLO-90-DGED",
+      "provider": "European Space Agency (ESA) / Airbus Defence and Space; AWS Open Data mirror",
+      "title": "Copernicus DEM GLO-90 Digital Surface Model (DSM), 3 arc-second COG"
+    },
+    {
+      "dataset_id": "esa-worldcover-2021-v200",
+      "license": "CC BY 4.0 (Creative Commons Attribution 4.0 International)",
+      "native_resolution_m": 10.0,
+      "product_id": "ESA WorldCover 2021 v200",
+      "provider": "European Space Agency (ESA) WorldCover",
+      "title": "ESA WorldCover 10 m 2021 v200 land cover"
+    }
+  ],
+  "evidence": {
+    "generated_at": "2026-11-15T06:07:19Z",
+    "generated_by": "pipelines/refine_coarse_hits.py",
+    "path": "pipelines/coarse/real-pilot/refine/refinement.json",
+    "report_version": "coarse-refine-report-1.0.0",
+    "sha256": "b2fcd6d3f2796ca8330e61676b6e007b098509b70f760ad7636ca429cbcce77a"
+  },
+  "focus": {
+    "analysis_resolution_m": 90,
+    "inside_coarse_window": true,
+    "placement_rule": "coarse_recorded_metric_bbox_centre_v1",
+    "selection_is_deterministic": true,
+    "window_m": 1980.0
+  },
+  "links": [
+    {
+      "coarse_candidate_id": "coarse-v1:249d33516a874855",
+      "coarse_distance": 0.727555209,
+      "coarse_flat_fraction_lt5deg": 1.0,
+      "coarse_rank": 1,
+      "coarse_rank_scope": "within_region",
+      "coarse_slope_mean_deg": 0.724448,
+      "coarse_slope_p90_deg": 1.490487,
+      "error": null,
+      "fine_flat_terrain_fraction": 1.0,
+      "fine_slope_mean_deg": 0.784752,
+      "fine_slope_p90_deg": 1.790683,
+      "fine_terrain_relief_p95_p05_m": 17.070468,
+      "fine_valid_fraction": 1.0,
+      "refined_area_id": "earth-refine-48a9e5a4fee2ca81",
+      "refined_checksum": "sha256:f1c654744a7cac54f5997c3f0a81ce9a700e36746fc425fcd9d9e57898878a73",
+      "region_id": "pilot-alps",
+      "status": "succeeded"
+    },
+    {
+      "coarse_candidate_id": "coarse-v1:e0d4c209d928961c",
+      "coarse_distance": 0.095804934,
+      "coarse_flat_fraction_lt5deg": 0.8275,
+      "coarse_rank": 1,
+      "coarse_rank_scope": "within_region",
+      "coarse_slope_mean_deg": 7.041951,
+      "coarse_slope_p90_deg": 31.548981,
+      "error": null,
+      "fine_flat_terrain_fraction": 1.0,
+      "fine_slope_mean_deg": 2.248833,
+      "fine_slope_p90_deg": 3.472857,
+      "fine_terrain_relief_p95_p05_m": 50.394,
+      "fine_valid_fraction": 1.0,
+      "refined_area_id": "earth-refine-432552ef1e4bb863",
+      "refined_checksum": "sha256:2793783e09cf80360582885e2a75fd6069695c780d93891a71eb4fbf6a5d4f0f",
+      "region_id": "pilot-grand-canyon",
+      "status": "succeeded"
+    },
+    {
+      "coarse_candidate_id": "coarse-v1:95046a41aeb31ca9",
+      "coarse_distance": 0.013548552,
+      "coarse_flat_fraction_lt5deg": 0.3875,
+      "coarse_rank": 1,
+      "coarse_rank_scope": "within_region",
+      "coarse_slope_mean_deg": 8.135486,
+      "coarse_slope_p90_deg": 16.653602,
+      "error": null,
+      "fine_flat_terrain_fraction": 0.19,
+      "fine_slope_mean_deg": 12.456029,
+      "fine_slope_p90_deg": 22.96912,
+      "fine_terrain_relief_p95_p05_m": 154.650052,
+      "fine_valid_fraction": 1.0,
+      "refined_area_id": "earth-refine-01a341a9cef18971",
+      "refined_checksum": "sha256:01d0da0618265083bb9c96e35783383a270958e8c64565a1553b9a289b556a71",
+      "region_id": "pilot-sahara",
+      "status": "succeeded"
+    }
+  ],
+  "provider_counts": {
+    "copernicus-dem-glo90": {
+      "failed": 0,
+      "no_coverage": 0,
+      "unknown": 0,
+      "verified": 3
+    },
+    "esa-worldcover-2021-v200": {
+      "failed": 0,
+      "no_coverage": 0,
+      "unknown": 0,
+      "verified": 3
+    }
+  },
+  "recall_estimate": {
+    "reason": "No held-out labelled pilot is available. This run measures bounded refinement behaviour and provider support, not coarse-shortlist recall.",
+    "value": null
+  },
+  "report_version": "global-terrain-results-1.0.0",
+  "run_metrics": {
+    "elapsed_s": 26.708,
+    "max_rss_mb": 201.2
+  },
+  "selection": {
+    "limit": 3,
+    "rank_scope": "within_region",
+    "rule": "top-per-region",
+    "rule_description": "Top 1 hit per coarse region for the first 3 region(s) sorted by region_id; order inside each region is coarse distance then candidate_id.",
+    "selected_candidate_ids": [
+      "coarse-v1:249d33516a874855",
+      "coarse-v1:e0d4c209d928961c",
+      "coarse-v1:95046a41aeb31ca9"
+    ],
+    "target": {
+      "coarse_slope_mean_deg": 8.0
+    },
+    "weights": {
+      "coarse_slope_mean_deg": 1.0
+    }
+  }
+}

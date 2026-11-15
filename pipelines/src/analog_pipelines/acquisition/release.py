@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import shutil
 from datetime import UTC, datetime
 from pathlib import Path
@@ -16,6 +17,87 @@ from analog_pipelines.acquisition.models import (
 from analog_pipelines.acquisition.reporting import collect_run
 
 RELEASE_VERSION = "acquisition-release-1.0.0"
+
+
+class ReleaseIntegrityError(ValueError):
+    """A committed or generated release does not match its own checksums."""
+
+
+def verify_release_integrity(release_dir: str | Path) -> dict[str, Any]:
+    """Verify a release's observation checksum, counts and copied raw assets.
+
+    This is intentionally offline and read-only. Missing checksums are accepted
+    only for older manifests that did not record them; a recorded checksum that
+    does not match is always an error.
+    """
+    root = Path(release_dir)
+    manifest_path = root / "manifest.json"
+    observations_path = root / "observations.jsonl"
+    if not manifest_path.is_file():
+        raise ReleaseIntegrityError(f"release has no manifest.json: {root}")
+    if not observations_path.is_file():
+        raise ReleaseIntegrityError(f"release has no observations.jsonl: {root}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    computed = file_sha256(observations_path)
+    expected = manifest.get("observations_sha256")
+    if expected and computed != expected:
+        raise ReleaseIntegrityError(
+            f"observations checksum mismatch: manifest={expected} actual={computed}"
+        )
+    line_count = sum(
+        1 for line in observations_path.read_text(encoding="utf-8").splitlines() if line.strip()
+    )
+    expected_count = manifest.get("observation_count")
+    if expected_count is not None and line_count != int(expected_count):
+        raise ReleaseIntegrityError(
+            f"observation count mismatch: manifest={expected_count} actual={line_count}"
+        )
+    verified_raw = 0
+    missing_raw: list[str] = []
+    for entry in manifest.get("raw", []):
+        path = root / str(entry.get("path", ""))
+        if not path.is_file():
+            # Raster binaries are gitignored by repository policy and may be absent from a
+            # committed release. Their recorded checksum is verified whenever bytes exist.
+            missing_raw.append(str(entry.get("path")))
+            continue
+        if file_sha256(path) != entry.get("sha256"):
+            raise ReleaseIntegrityError(
+                f"manifest raw asset checksum mismatch: {entry.get('path')}"
+            )
+        verified_raw += 1
+    verified_assets = 0
+    assets_path = root / "assets.json"
+    if assets_path.is_file():
+        for asset in json.loads(assets_path.read_text(encoding="utf-8")):
+            uri = str(asset.get("uri", ""))
+            if "://" in uri or not uri:
+                continue
+            path = root / uri
+            if not path.is_file():
+                continue
+            checksum = asset.get("checksum")
+            if asset.get("checksum_algorithm") == "sha256" and checksum:
+                if file_sha256(path) != checksum:
+                    raise ReleaseIntegrityError(f"asset checksum mismatch: {uri}")
+                verified_assets += 1
+    verified_files: list[str] = []
+    for name, metadata in manifest.get("files", {}).items():
+        path = root / str(name)
+        if not path.is_file():
+            raise ReleaseIntegrityError(f"declared release file is missing: {name}")
+        expected_file_checksum = metadata.get("sha256") if isinstance(metadata, dict) else None
+        if expected_file_checksum and file_sha256(path) != expected_file_checksum:
+            raise ReleaseIntegrityError(f"release file checksum mismatch: {name}")
+        verified_files.append(str(name))
+    return {
+        "observations_sha256": computed,
+        "observations": line_count,
+        "verified_raw": verified_raw,
+        "missing_raw": missing_raw,
+        "verified_assets": verified_assets,
+        "verified_files": sorted(verified_files),
+    }
 
 
 def build_release(

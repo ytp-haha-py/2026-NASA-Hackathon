@@ -1,0 +1,2896 @@
+{
+  "asset_count": 300,
+  "depth_counts": {
+    "0-5cm": 75,
+    "15-30cm": 75,
+    "30-60cm": 75,
+    "5-15cm": 75
+  },
+  "failed_requests": [],
+  "files": {
+    "qa.json": {
+      "sha256": "7ffe77b4bf37d5fcb3d08df2959f1c5debcf440db352fe40da86f05cb8eedd74",
+      "version": "d06-soilgrids-depth-qa-1.0.0"
+    },
+    "requests.jsonl": {
+      "sha256": "bb64f3aab1de871f826b27dabc402b35c9d727a581931e9bf945a79458cb17f3",
+      "version": "d06-soilgrids-requests-1.0.0"
+    }
+  },
+  "generated_at": "2026-11-15T06:27:06.055449+00:00",
+  "notes": [
+    "Portable release of a bounded five-AOI pilot, not a global survey.",
+    "SoilGrids values are 250 m global model predictions, not local measurements.",
+    "Each observation carries its own depth interval; depths are never pooled.",
+    "Observations are evidence-only and never enter weighted similarity scoring.",
+    "Raw rasters are not committed; response checksums are recorded per request.",
+    "The 0-5 cm records reuse the same observation IDs as the earlier SoilGrids pilot and are upserted rather than duplicated on import."
+  ],
+  "observation_count": 300,
+  "observation_depths": [
+    [
+      0.0,
+      0.05
+    ],
+    [
+      0.05,
+      0.15
+    ],
+    [
+      0.15,
+      0.3
+    ],
+    [
+      0.3,
+      0.6
+    ]
+  ],
+  "observations_sha256": "e0f8a7104d2782e62a6d8fc4e74043cd8169be5dca7ed2e324c332ed48eccde8",
+  "plan_sha256": "aebfc5f2fa4f9933c162edab057da21dcb44e16e6093fd075929cd7c6a21991b",
+  "property_counts": {
+    "bdod": 60,
+    "clay": 60,
+    "sand": 60,
+    "silt": 60,
+    "soc": 60
+  },
+  "qa": {
+    "groups": 100,
+    "missing_groups": 0,
+    "qa_version": "d06-soilgrids-depth-qa-1.0.0"
+  },
+  "raw": [],
+  "release_version": "acquisition-release-1.0.0",
+  "report": {
+    "areas": [
+      "earth-atacama-desert",
+      "earth-death-valley",
+      "earth-devon-island",
+      "earth-lanzarote",
+      "earth-sahara-r1c1"
+    ],
+    "by_body": {
+      "Earth": 300
+    },
+    "by_dimension": {
+      "D06": 300
+    },
+    "by_feature": {
+      "soil_bdod_0_5cm_mean": 5,
+      "soil_bdod_0_5cm_q05": 5,
+      "soil_bdod_0_5cm_q95": 5,
+      "soil_bdod_15_30cm_mean": 5,
+      "soil_bdod_15_30cm_q05": 5,
+      "soil_bdod_15_30cm_q95": 5,
+      "soil_bdod_30_60cm_mean": 5,
+      "soil_bdod_30_60cm_q05": 5,
+      "soil_bdod_30_60cm_q95": 5,
+      "soil_bdod_5_15cm_mean": 5,
+      "soil_bdod_5_15cm_q05": 5,
+      "soil_bdod_5_15cm_q95": 5,
+      "soil_clay_0_5cm_mean": 5,
+      "soil_clay_0_5cm_q05": 5,
+      "soil_clay_0_5cm_q95": 5,
+      "soil_clay_15_30cm_mean": 5,
+      "soil_clay_15_30cm_q05": 5,
+      "soil_clay_15_30cm_q95": 5,
+      "soil_clay_30_60cm_mean": 5,
+      "soil_clay_30_60cm_q05": 5,
+      "soil_clay_30_60cm_q95": 5,
+      "soil_clay_5_15cm_mean": 5,
+      "soil_clay_5_15cm_q05": 5,
+      "soil_clay_5_15cm_q95": 5,
+      "soil_sand_0_5cm_mean": 5,
+      "soil_sand_0_5cm_q05": 5,
+      "soil_sand_0_5cm_q95": 5,
+      "soil_sand_15_30cm_mean": 5,
+      "soil_sand_15_30cm_q05": 5,
+      "soil_sand_15_30cm_q95": 5,
+      "soil_sand_30_60cm_mean": 5,
+      "soil_sand_30_60cm_q05": 5,
+      "soil_sand_30_60cm_q95": 5,
+      "soil_sand_5_15cm_mean": 5,
+      "soil_sand_5_15cm_q05": 5,
+      "soil_sand_5_15cm_q95": 5,
+      "soil_silt_0_5cm_mean": 5,
+      "soil_silt_0_5cm_q05": 5,
+      "soil_silt_0_5cm_q95": 5,
+      "soil_silt_15_30cm_mean": 5,
+      "soil_silt_15_30cm_q05": 5,
+      "soil_silt_15_30cm_q95": 5,
+      "soil_silt_30_60cm_mean": 5,
+      "soil_silt_30_60cm_q05": 5,
+      "soil_silt_30_60cm_q95": 5,
+      "soil_silt_5_15cm_mean": 5,
+      "soil_silt_5_15cm_q05": 5,
+      "soil_silt_5_15cm_q95": 5,
+      "soil_soc_0_5cm_mean": 5,
+      "soil_soc_0_5cm_q05": 5,
+      "soil_soc_0_5cm_q95": 5,
+      "soil_soc_15_30cm_mean": 5,
+      "soil_soc_15_30cm_q05": 5,
+      "soil_soc_15_30cm_q95": 5,
+      "soil_soc_30_60cm_mean": 5,
+      "soil_soc_30_60cm_q05": 5,
+      "soil_soc_30_60cm_q95": 5,
+      "soil_soc_5_15cm_mean": 5,
+      "soil_soc_5_15cm_q05": 5,
+      "soil_soc_5_15cm_q95": 5
+    },
+    "by_state": {
+      "detected": 300
+    },
+    "total": 300
+  },
+  "request_count": 300,
+  "request_summary": {
+    "succeeded": 300
+  },
+  "scope": "pilot-d06-earth-depths",
+  "source_provenance": {
+    "access": "public, no credentials",
+    "attribution_required": true,
+    "dataset_id": "soilgrids-250m-v2",
+    "endpoint": "https://maps.isric.org/mapserv",
+    "evidence_class": "model_prediction",
+    "license": "CC BY 4.0; cite ISRIC SoilGrids 2.0",
+    "license_url": "https://docs.isric.org/globaldata/soilgrids/",
+    "model_uncertainty": "Q0.05 and Q0.95 are separate SoilGrids prediction-quantile records per area/property/depth. They are not a confidence interval for the AOI mean.",
+    "native_resolution_m": 250.0,
+    "not_a_measurement": true,
+    "product": "ISRIC SoilGrids 2.0",
+    "product_version": "2.0",
+    "provider_id": "soilgrids-wcs",
+    "rate_limit": {
+      "backoff": "exponential, honours Retry-After, capped at 30 s",
+      "max_attempts": 4,
+      "min_interval_s": 0.25
+    },
+    "redistribution_allowed": "yes",
+    "request_parameters": {
+      "depths": [
+        "0-5cm",
+        "15-30cm",
+        "30-60cm",
+        "5-15cm"
+      ],
+      "format": "image/tiff",
+      "properties": [
+        "bdod",
+        "clay",
+        "sand",
+        "silt",
+        "soc"
+      ],
+      "statistics": [
+        "Q0.05",
+        "Q0.95",
+        "mean"
+      ],
+      "subsetting_crs": "EPSG:4326"
+    },
+    "wcs_version": "2.0.1"
+  },
+  "tasks": [
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-clay-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-clay-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-clay-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-clay-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-clay-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-clay-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-clay-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-clay-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-clay-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-sand-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-sand-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-sand-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-sand-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-sand-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-sand-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-sand-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-sand-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-sand-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-sand-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-sand-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-sand-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-silt-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-silt-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-silt-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-silt-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-silt-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-silt-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-silt-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-silt-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-silt-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-silt-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-silt-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-silt-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-soc-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-soc-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-soc-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-soc-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-soc-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-soc-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-soc-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-soc-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-soc-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-soc-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-soc-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-soc-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-bdod-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-bdod-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-bdod-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-bdod-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-bdod-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-bdod-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-bdod-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-bdod-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-atacama-desert",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.40973566%2C-68.39026303%29&subset=Lat%28-23.5089791%2C-23.49102032%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-atacama-desert-bdod-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-clay-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-clay-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-clay-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-clay-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-clay-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-clay-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-clay-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-clay-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-clay-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-clay-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-clay-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-clay-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-sand-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-sand-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-sand-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-sand-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-sand-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-sand-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-sand-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-sand-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-sand-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-sand-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-sand-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-sand-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-silt-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-silt-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-silt-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-silt-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-silt-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-silt-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-silt-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-silt-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-silt-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-silt-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-silt-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-silt-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-soc-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-soc-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-soc-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-soc-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-soc-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-soc-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-soc-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-soc-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-soc-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-soc-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-soc-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-soc-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-bdod-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-bdod-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-bdod-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-bdod-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-bdod-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-bdod-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-bdod-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-bdod-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-bdod-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-bdod-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-bdod-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-death-valley",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-117.11103192%2C-117.08897059%29&subset=Lat%2836.24106488%2C36.2589341%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-death-valley-bdod-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-clay-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-clay-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-clay-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-clay-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-clay-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-clay-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-clay-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-clay-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-clay-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-clay-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-clay-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-clay-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-sand-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-sand-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-sand-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-sand-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-sand-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-sand-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-sand-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-sand-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-sand-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-sand-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-sand-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-sand-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-silt-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-silt-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-silt-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-silt-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-silt-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-silt-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-silt-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-silt-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-silt-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-silt-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-silt-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-silt-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-soc-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-soc-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-soc-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-soc-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-soc-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-soc-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-soc-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-soc-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-soc-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-soc-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-soc-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-soc-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-bdod-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-bdod-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-bdod-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-bdod-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-bdod-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-bdod-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-bdod-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-bdod-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-bdod-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-bdod-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-bdod-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-lanzarote",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-13.64028241%2C-13.61971584%29&subset=Lat%2829.03096285%2C29.04903644%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-lanzarote-bdod-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-clay-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-clay-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-clay-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-clay-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-clay-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-clay-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-clay-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-clay-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-clay-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-clay-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-clay-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-clay-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-sand-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-sand-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-sand-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-sand-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-sand-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-sand-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-sand-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-sand-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-sand-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-sand-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-sand-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-sand-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-silt-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-silt-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-silt-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-silt-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-silt-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-silt-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-silt-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-silt-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-silt-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-silt-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-silt-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-silt-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-soc-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-soc-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-soc-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-soc-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-soc-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-soc-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-soc-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-soc-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-soc-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-soc-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-soc-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-soc-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-bdod-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-bdod-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-bdod-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-bdod-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-bdod-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-bdod-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-bdod-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-bdod-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-bdod-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-bdod-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-bdod-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-devon-island",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-89.88685478%2C-89.81318683%29&subset=Lat%2875.39070894%2C75.40928632%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-devon-island-bdod-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-clay-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-clay-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-clay-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-clay-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-clay-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-clay-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-clay-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-clay-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-clay-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-clay-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-clay-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-clay-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-sand-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-sand-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-sand-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-sand-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-sand-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-sand-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-sand-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-sand-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-sand-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-sand-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-sand-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-sand-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-silt-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-silt-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-silt-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-silt-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-silt-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-silt-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-silt-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-silt-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-silt-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-silt-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-silt-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-silt-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-soc-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-soc-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-soc-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-soc-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-soc-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-soc-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-soc-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-soc-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-soc-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-soc-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-soc-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-soc-30-60cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-bdod-0-5cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-bdod-0-5cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-bdod-0-5cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-bdod-5-15cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-bdod-5-15cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_5-15cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-bdod-5-15cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-bdod-15-30cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-bdod-15-30cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_15-30cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-bdod-15-30cm-Q0.95"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-bdod-30-60cm-mean"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-bdod-30-60cm-Q0.05"
+    },
+    {
+      "area_id": "earth-sahara-r1c1",
+      "body": "Earth",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_30-60cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2810.46021483%2C10.47995505%29&subset=Lat%2824.46417129%2C24.48223826%29&format=image%2Ftiff",
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-sahara-r1c1-bdod-30-60cm-Q0.95"
+    }
+  ]
+}
