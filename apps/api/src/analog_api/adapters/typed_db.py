@@ -173,6 +173,12 @@ class TypedObservationStore:
         body: str | None = None,
         feature_id: str | None = None,
         area_id: str | None = None,
+        state: str | None = None,
+        dataset_id: str | None = None,
+        source_asset_id: str | None = None,
+        min_depth_m: float | None = None,
+        max_depth_m: float | None = None,
+        temporal_kind: str | None = None,
     ) -> list[dict[str, Any]]:
         query = select(TypedObservationRow)
         if area_id:
@@ -183,31 +189,49 @@ class TypedObservationStore:
             query = query.where(TypedObservationRow.body == body)
         if feature_id:
             query = query.where(TypedObservationRow.feature_id == feature_id)
+        if state:
+            query = query.where(TypedObservationRow.state == state)
         rows = self.session.scalars(query.order_by(TypedObservationRow.observation_id)).all()
-        return [
-            {
-                "observation_id": row.observation_id,
-                "area_id": row.area_id,
-                "body": row.body,
-                "dimension_code": row.dimension_code,
-                "feature_id": row.feature_id,
-                "value_kind": row.value_kind,
-                "state": row.state,
-                "value": row.value,
-                "unit": row.unit,
-                "method_version": row.method_version,
-                "dataset_ids": row.dataset_ids,
-                "source_asset_ids": row.source_asset_ids,
-                "quality_flags": row.quality_flags,
-                "score_role": row.score_role,
-                "spatial_support": row.spatial_support,
-                "temporal_support": row.temporal_support,
-                "depth_support": row.depth_support,
-                "uncertainty": row.uncertainty,
-                "notes": row.notes,
-            }
-            for row in rows
-        ]
+        result: list[dict[str, Any]] = []
+        for row in rows:
+            # JSON-backed fields are filtered in Python for cross-dialect compatibility.
+            if dataset_id and dataset_id not in (row.dataset_ids or []):
+                continue
+            if source_asset_id and source_asset_id not in (row.source_asset_ids or []):
+                continue
+            if temporal_kind and (row.temporal_support or {}).get("kind") != temporal_kind:
+                continue
+            depth = row.depth_support or {}
+            row_min = depth.get("min_m")
+            row_max = depth.get("max_m")
+            if min_depth_m is not None and (row_max is None or float(row_max) < min_depth_m):
+                continue
+            if max_depth_m is not None and (row_min is None or float(row_min) > max_depth_m):
+                continue
+            result.append(
+                {
+                    "observation_id": row.observation_id,
+                    "area_id": row.area_id,
+                    "body": row.body,
+                    "dimension_code": row.dimension_code,
+                    "feature_id": row.feature_id,
+                    "value_kind": row.value_kind,
+                    "state": row.state,
+                    "value": row.value,
+                    "unit": row.unit,
+                    "method_version": row.method_version,
+                    "dataset_ids": row.dataset_ids or [],
+                    "source_asset_ids": row.source_asset_ids or [],
+                    "quality_flags": row.quality_flags or [],
+                    "score_role": row.score_role,
+                    "spatial_support": row.spatial_support or {},
+                    "temporal_support": row.temporal_support or {},
+                    "depth_support": row.depth_support or {},
+                    "uncertainty": row.uncertainty,
+                    "notes": row.notes,
+                }
+            )
+        return result
 
     def coverage(self) -> dict[str, Any]:
         rows = self.session.execute(
