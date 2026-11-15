@@ -999,9 +999,15 @@
           "D03": 20
         },
         "observations": 20,
-        "raw_files_bundled": 5,
-        "raw_files_not_bundled": 0,
-        "raw_files_not_bundled_examples": [],
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 5,
+        "raw_files_not_bundled_examples": [
+          "raw/nasa-power-D03-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D03-earth-earth-death-valley-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D03-earth-earth-devon-island-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D03-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D03-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json"
+        ],
         "raw_files_referenced": 5,
         "tasks_attempted": 5,
         "tasks_failed": 0,
@@ -1061,7 +1067,8 @@
       "kind": "typed_bundle_acquisition",
       "limitations": [
         "NASA POWER coarse model/reanalysis context, not a local temperature measurement.",
-        "No thermal inertia is derived."
+        "No thermal inertia is derived.",
+        "5 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
       ],
       "method_versions": [
         "nasa-power-daily-1.0.0"
@@ -1138,9 +1145,15 @@
           "D04": 20
         },
         "observations": 20,
-        "raw_files_bundled": 5,
-        "raw_files_not_bundled": 0,
-        "raw_files_not_bundled_examples": [],
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 5,
+        "raw_files_not_bundled_examples": [
+          "raw/nasa-power-D04-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D04-earth-earth-death-valley-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D04-earth-earth-devon-island-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D04-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D04-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json"
+        ],
         "raw_files_referenced": 5,
         "tasks_attempted": 5,
         "tasks_failed": 0,
@@ -1199,7 +1212,8 @@
       "hash_method": "sha256(canonical-json(files[]))",
       "kind": "typed_bundle_acquisition",
       "limitations": [
-        "NASA POWER wetness/snow/precipitation context only; no confirmed ice."
+        "NASA POWER wetness/snow/precipitation context only; no confirmed ice.",
+        "5 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
       ],
       "method_versions": [
         "nasa-power-daily-1.0.0"
@@ -1278,9 +1292,15 @@
           "D05": 10
         },
         "observations": 10,
-        "raw_files_bundled": 5,
-        "raw_files_not_bundled": 0,
-        "raw_files_not_bundled_examples": [],
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 5,
+        "raw_files_not_bundled_examples": [
+          "raw/nasa-power-D05-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D05-earth-earth-death-valley-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D05-earth-earth-devon-island-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D05-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D05-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json"
+        ],
         "raw_files_referenced": 5,
         "tasks_attempted": 5,
         "tasks_failed": 0,
@@ -1339,7 +1359,8 @@
       "hash_method": "sha256(canonical-json(files[]))",
       "kind": "typed_bundle_acquisition",
       "limitations": [
-        "NASA POWER coarse irradiance context, not local illuminance and not ionizing radiation."
+        "NASA POWER coarse irradiance context, not local illuminance and not ionizing radiation.",
+        "5 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
       ],
       "method_versions": [
         "nasa-power-daily-1.0.0"
@@ -1594,9 +1615,15 @@
           "D06": 75
         },
         "observations": 75,
-        "raw_files_bundled": 75,
-        "raw_files_not_bundled": 0,
-        "raw_files_not_bundled_examples": [],
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 75,
+        "raw_files_not_bundled_examples": [
+          "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.05.tif",
+          "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.95.tif",
+          "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-mean.tif",
+          "raw/soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-Q0.05.tif",
+          "raw/soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-Q0.95.tif"
+        ],
         "raw_files_referenced": 75,
         "tasks_attempted": 75,
         "tasks_failed": 0,
@@ -1650,7 +1677,8 @@
       "hash_method": "sha256(canonical-json(files[]))",
       "kind": "typed_bundle_acquisition",
       "limitations": [
-        "SoilGrids 250 m model prediction at 0-5 cm, not a local sample."
+        "SoilGrids 250 m model prediction at 0-5 cm, not a local sample.",
+        "75 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
       ],
       "method_versions": [
         "soilgrids-wcs-2.0.0"
@@ -3612,7 +3640,7 @@
   "generated_at": "2026-11-15T05:45:52Z",
   "generated_by": "pipelines/src/analog_pipelines/release.py",
   "notes": "Bounded local multi-dimension release assembled from committed artifacts only. This is not global coverage; missing bodies/dimensions are listed explicitly and no value is zero-filled.",
-  "release_id": "rel-90a7757ef12cbcb0",
+  "release_id": "rel-5d6f8cf123055379",
   "release_version": "multi-dimension-release-1.0.0",
   "scope": {
     "bodies": [

@@ -543,20 +543,15 @@ def _pilot_summary(
     if succeeded > attempted:
         raise ReleaseError(f"{bundle_dir}: succeeded task count exceeds attempted")
     task_failures = attempted - succeeded
+    # Raw rasters are intentionally never part of the Git release. Report every
+    # referenced raw path as not bundled so the manifest is identical on a clean
+    # checkout and on a machine with a local cache; never hash untracked files.
     bundled_raw = 0
     missing_raw: list[str] = []
     for entry in raw_entries:
         if not isinstance(entry, dict) or not isinstance(entry.get("path"), str):
             raise ReleaseError(f"{bundle_dir}: raw entry is missing a path")
-        relative = entry["path"]
-        raw_path = bundle_dir / relative
-        if not raw_path.is_file():
-            missing_raw.append(relative)
-            continue
-        expected = entry.get("sha256")
-        if isinstance(expected, str) and sha256_file(raw_path) != expected:
-            raise ReleaseError(f"{bundle_dir}: raw checksum mismatch for {relative}")
-        bundled_raw += 1
+        missing_raw.append(entry["path"])
     by_body = _typed_by_body(observations)
     body_origins = {body: dict(values["value_origins"]) for body, values in by_body.items()}
     methods = sorted({observation.method_version for observation in observations})
