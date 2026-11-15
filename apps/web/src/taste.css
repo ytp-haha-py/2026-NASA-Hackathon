@@ -1377,3 +1377,133 @@ body {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ==========================================================================
+   Single map workflow (#123): in-page sections replace the old top tabs.
+   ========================================================================== */
+
+.map-draw {
+  position: absolute;
+  top: 108px;
+  right: 12px;
+  z-index: 500;
+  min-height: 40px;
+  padding: 0 14px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-btn);
+  cursor: pointer;
+}
+
+.map-draw:hover {
+  background: var(--surface-sunken);
+}
+
+.map-draw.is-active {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.map-show-all {
+  top: 156px;
+}
+
+.map-canvas.is-drawing {
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.workflow-section {
+  border-bottom: 1px solid var(--line);
+}
+
+.workflow-heading {
+  margin: 0;
+  font-size: inherit;
+}
+
+.workflow-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 64px;
+  padding: 0;
+  font: inherit;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-align: left;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.workflow-toggle:hover {
+  color: var(--accent);
+}
+
+.workflow-chevron {
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.workflow-toggle[aria-expanded="true"] .workflow-chevron {
+  transform: rotate(-135deg);
+}
+
+.workflow-body {
+  padding-bottom: 8px;
+}
+
+.workflow-body[hidden] {
+  display: none;
+}
+
+.workflow-body .aoi-form,
+.workflow-body .aoi-workspace,
+.workflow-body .six-dimension-panel,
+.workflow-body .global-panel {
+  border-bottom: 0;
+  padding-block: 8px 28px;
+}
+
+@media (max-width: 720px) {
+  /* styles.css pins the controls to the bottom here; keep them stacked at the
+     top-left instead and clear `bottom`, or top+bottom stretch them full height. */
+  .map-toggle,
+  .map-toggle.map-body-toggle,
+  .map-draw,
+  .map-show-all {
+    right: auto;
+    bottom: auto;
+    left: 12px;
+  }
+
+  .map-toggle.map-body-toggle {
+    top: 12px;
+  }
+
+  .map-toggle {
+    top: 60px;
+  }
+
+  .map-draw {
+    top: 108px;
+  }
+
+  .map-show-all {
+    top: 156px;
+  }
+}

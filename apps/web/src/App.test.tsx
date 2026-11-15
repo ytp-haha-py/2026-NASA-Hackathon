@@ -78,7 +78,7 @@ function requestUrls(fetchMock: ReturnType<typeof installMockFetch>): string[] {
 }
 
 async function openAoiTab(user: ReturnType<typeof userEvent.setup>) {
-  await user.click(screen.getByRole("tab", { name: "Analyze AOI" }));
+  await user.click(screen.getByRole("button", { name: "Analyze a new area" }));
 }
 
 describe("search form", () => {
@@ -731,10 +731,7 @@ describe("AOI analysis", () => {
         ]),
       ),
     );
-    expect(screen.getByRole("tab", { name: "Search target" })).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
+    expect(screen.queryByRole("tab")).not.toBeInTheDocument();
     expect(await screen.findByTestId("coverage-headline")).toBeInTheDocument();
   });
 

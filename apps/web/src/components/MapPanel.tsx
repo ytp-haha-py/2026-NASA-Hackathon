@@ -32,7 +32,19 @@ type MapPanelProps = {
   /** Moon and Mars reference sites, shown on their own basemaps. */
   references?: ReferenceOut[];
   selectedReferenceId?: string | null;
+  /** Area to outline (drawn here or typed in the analysis form). */
+  aoiBbox?: MapBbox | null;
+  /** Enables the "Select area" tool on the Earth map. */
+  onDrawBbox?: (bbox: MapBbox) => void;
 };
+
+export type MapBbox = { west: number; south: number; east: number; north: number };
+
+const MIN_DRAW_PX = 6;
+
+function wrapLongitude(lon: number): number {
+  return ((((lon + 180) % 360) + 360) % 360) - 180;
+}
 
 const BASEMAPS: Record<Basemap, { url: string; maxZoom: number; attribution: string }> = {
   map: {
@@ -110,6 +122,8 @@ export function MapPanel({
   showIdle = false,
   references = [],
   selectedReferenceId = null,
+  aoiBbox = null,
+  onDrawBbox,
 }: MapPanelProps) {
   const { t, tp, fmt, label } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -120,13 +134,118 @@ export function MapPanel({
   const [basemap, setBasemap] = useState<Basemap>("map");
   const [bodyView, setBodyView] = useState<BodyView>("Earth");
   const onEarth = bodyView === "Earth";
+  const [drawing, setDrawing] = useState(false);
+  const aoiLayerRef = useRef<L.Rectangle | null>(null);
+  const onDrawRef = useRef(onDrawBbox);
   const [basemapUnavailable, setBasemapUnavailable] = useState(
     () => typeof navigator !== "undefined" && navigator.onLine === false,
   );
 
   useEffect(() => {
     onSelectRef.current = onSelect;
-  }, [onSelect]);
+    onDrawRef.current = onDrawBbox;
+  }, [onSelect, onDrawBbox]);
+
+  // Outline the area chosen for analysis.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) {
+      return;
+    }
+    aoiLayerRef.current?.remove();
+    aoiLayerRef.current = null;
+    if (!aoiBbox) {
+      return;
+    }
+    aoiLayerRef.current = L.rectangle(
+      [
+        [aoiBbox.south, aoiBbox.west],
+        [aoiBbox.north, aoiBbox.east],
+      ],
+      { color: COLORS.selected, weight: 2, dashArray: "6 4", fillOpacity: 0.1, interactive: false },
+    ).addTo(map);
+  }, [aoiBbox]);
+
+  // Rubber-band selection. Pointer events so mouse, pen and touch all work.
+  useEffect(() => {
+    const map = mapRef.current;
+    const container = containerRef.current;
+    if (!drawing || !onEarth || !map || !container) {
+      return;
+    }
+    let start: L.LatLng | null = null;
+    let startPoint: { x: number; y: number } | null = null;
+    let box: L.Rectangle | null = null;
+
+    map.dragging.disable();
+    container.classList.add("is-drawing");
+
+    const latLngOf = (event: PointerEvent) => map.mouseEventToLatLng(event);
+
+    const down = (event: PointerEvent) => {
+      if (event.button !== 0 && event.pointerType === "mouse") {
+        return;
+      }
+      container.setPointerCapture?.(event.pointerId);
+      start = latLngOf(event);
+      startPoint = { x: event.clientX, y: event.clientY };
+    };
+    const move = (event: PointerEvent) => {
+      if (!start) {
+        return;
+      }
+      const bounds = L.latLngBounds(start, latLngOf(event));
+      if (box) {
+        box.setBounds(bounds);
+      } else {
+        box = L.rectangle(bounds, {
+          color: COLORS.selected,
+          weight: 2,
+          dashArray: "6 4",
+          fillOpacity: 0.1,
+          interactive: false,
+        }).addTo(map);
+      }
+    };
+    const up = (event: PointerEvent) => {
+      if (!start || !startPoint) {
+        return;
+      }
+      const end = latLngOf(event);
+      const moved = Math.hypot(event.clientX - startPoint.x, event.clientY - startPoint.y);
+      const from = start;
+      start = null;
+      box?.remove();
+      box = null;
+      if (moved < MIN_DRAW_PX) {
+        return;
+      }
+      const round = (value: number) => Number(value.toFixed(5));
+      const west = wrapLongitude(Math.min(from.lng, end.lng));
+      const east = wrapLongitude(Math.max(from.lng, end.lng));
+      onDrawRef.current?.({
+        west: round(Math.min(west, east)),
+        east: round(Math.max(west, east)),
+        south: round(Math.max(-90, Math.min(from.lat, end.lat))),
+        north: round(Math.min(90, Math.max(from.lat, end.lat))),
+      });
+      setDrawing(false);
+    };
+
+    container.addEventListener("pointerdown", down);
+    container.addEventListener("pointermove", move);
+    container.addEventListener("pointerup", up);
+    container.addEventListener("pointercancel", up);
+    return () => {
+      container.removeEventListener("pointerdown", down);
+      container.removeEventListener("pointermove", move);
+      container.removeEventListener("pointerup", up);
+      container.removeEventListener("pointercancel", up);
+      container.classList.remove("is-drawing");
+      box?.remove();
+      map.dragging.enable();
+    };
+  }, [drawing, onEarth]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -346,6 +465,17 @@ export function MapPanel({
           ))}
         </div>
 
+        {onEarth && onDrawBbox && (
+          <button
+            type="button"
+            className={`map-draw${drawing ? " is-active" : ""}`}
+            aria-pressed={drawing}
+            onClick={() => setDrawing((value) => !value)}
+          >
+            {drawing ? t("map.drawStop") : t("map.drawStart")}
+          </button>
+        )}
+
         {onEarth && results.length > 0 && (
           <button type="button" className="map-show-all" onClick={showAll}>
             {t("map.showAll")}
@@ -367,6 +497,18 @@ export function MapPanel({
           </section>
         )}
       </div>
+
+      {onEarth && drawing && (
+        <p className="map-status" role="status">
+          {t("map.drawHint")}
+        </p>
+      )}
+
+      {!onEarth && onDrawBbox && (
+        <p className="map-status" role="status">
+          {t("map.planetAnalysisLimit")}
+        </p>
+      )}
 
       {basemapUnavailable && (
         <p className="map-status" role="status">

@@ -43,6 +43,13 @@ export const en = {
   "app.tabsLabel": "Analysis mode",
   "app.tabSearch": "Search target",
   "app.tabAoi": "Analyze AOI",
+  "flow.aoiTitle": "Analyze a new area",
+  "flow.dimensionsTitle": "Six-dimension comparison",
+  "flow.globalTitle": "Global coarse screening and refinement",
+  "map.drawStart": "Select area",
+  "map.drawStop": "Cancel selection",
+  "map.drawHint": "Drag on the map to draw the area to analyze. Sides and area are checked against the limits below.",
+  "map.planetAnalysisLimit": "Moon and Mars maps are browse-only: extracting data for an arbitrary area and the full six-dimension calculation are not supported yet.",
   "app.coverageEyebrow": "Searchable coverage",
   "app.coverageHeading_one": "{count} searchable Earth region",
   "app.coverageHeading_other": "{count} searchable Earth regions",
@@ -483,7 +490,7 @@ export const en = {
     "Bounded Copernicus DEM terrain metrics plus ESA WorldCover land-cover context. On-demand AOIs are user-requested and are never presented as global coverage.",
   "aoi.idleHeading": "No AOI submitted yet",
   "aoi.idleBody":
-    "Use the {tab} tab to submit a bounding box. Limits from GET /capabilities: sides {min}–{max} m, area ≤ {area} km², latitude −80° to 84°, analysis resolution {resolution} m.",
+    "Select an area on the Earth map, or enter a bounding box in {tab}, then submit it. Limits from GET /capabilities: sides {min}–{max} m, area ≤ {area} km², latitude −80° to 84°, analysis resolution {resolution} m.",
   "aoi.idleHint":
     "A completed AOI can be used as a search target; it also becomes searchable for later searches, with its on-demand origin shown in caveats.",
   "aoi.requestFailed": "AOI request failed",
