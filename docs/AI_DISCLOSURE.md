@@ -242,3 +242,5 @@ PR #183 合併至 main，提交為 `2d35515`，Issue #163 關閉。[PR #183](htt
 排名區沿用原本的中英文文案與選取狀態，測試確認地圖選點後結果卡與詳情同步更新。這項復原以 Issue #192 記錄，並將更新內容隨 PR 一併提交。[Issue #192](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/192)
 
 118 項前端測試、lint、typecheck/build 與 API types 檢查通過。另以真實本機 API 驗證桌機繁中與手機英文畫面，確認排名摘要、選取連動與切換語言後的狀態。完成畫面為 [桌機排名結果](screenshots/41-restored-ranking-desktop.jpg) 與 [手機排名結果](screenshots/42-restored-ranking-mobile.jpg)。
+
+GitHub 檢查發現既有多維篩選測試未明確填寫目標數值，可能先觸發數值驗證而無法測到土地覆蓋衝突。測試已補上有效數值，保留原本的衝突檢查。
