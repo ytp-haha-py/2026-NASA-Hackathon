@@ -86,6 +86,17 @@
             ],
             "title": "Area Id"
           },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body"
+          },
           "cache_key": {
             "title": "Cache Key",
             "type": "string"
@@ -93,6 +104,33 @@
           "cached": {
             "title": "Cached",
             "type": "boolean"
+          },
+          "coordinate_frame": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coordinate Frame"
+          },
+          "coverage_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coverage Note"
+          },
+          "dimension_support": {
+            "additionalProperties": true,
+            "title": "Dimension Support",
+            "type": "object"
           },
           "job_id": {
             "title": "Job Id",
@@ -104,6 +142,17 @@
             },
             "title": "Links",
             "type": "object"
+          },
+          "method_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Method Version"
           },
           "provider_status": {
             "additionalProperties": true,
@@ -1311,6 +1360,496 @@
         "title": "DimensionsOut",
         "type": "object"
       },
+      "EarthMapBBoxOut": {
+        "properties": {
+          "crosses_antimeridian": {
+            "title": "Crosses Antimeridian",
+            "type": "boolean"
+          },
+          "crs": {
+            "title": "Crs",
+            "type": "string"
+          },
+          "east": {
+            "title": "East",
+            "type": "number"
+          },
+          "longitude_span_deg": {
+            "title": "Longitude Span Deg",
+            "type": "number"
+          },
+          "north": {
+            "title": "North",
+            "type": "number"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "south": {
+            "title": "South",
+            "type": "number"
+          },
+          "west": {
+            "title": "West",
+            "type": "number"
+          }
+        },
+        "required": [
+          "west",
+          "south",
+          "east",
+          "north",
+          "crosses_antimeridian",
+          "longitude_span_deg",
+          "source",
+          "crs"
+        ],
+        "title": "EarthMapBBoxOut",
+        "type": "object"
+      },
+      "EarthMapCenterOut": {
+        "properties": {
+          "lat": {
+            "title": "Lat",
+            "type": "number"
+          },
+          "lon": {
+            "title": "Lon",
+            "type": "number"
+          }
+        },
+        "required": [
+          "lon",
+          "lat"
+        ],
+        "title": "EarthMapCenterOut",
+        "type": "object"
+      },
+      "EarthMapCoverageOut": {
+        "additionalProperties": true,
+        "properties": {
+          "coarse": {
+            "additionalProperties": true,
+            "title": "Coarse",
+            "type": "object"
+          },
+          "fine": {
+            "additionalProperties": true,
+            "title": "Fine",
+            "type": "object"
+          },
+          "on_demand": {
+            "additionalProperties": true,
+            "title": "On Demand",
+            "type": "object"
+          },
+          "typed": {
+            "additionalProperties": true,
+            "title": "Typed",
+            "type": "object"
+          }
+        },
+        "required": [
+          "fine",
+          "on_demand",
+          "typed",
+          "coarse"
+        ],
+        "title": "EarthMapCoverageOut",
+        "type": "object"
+      },
+      "EarthMapFeatureOut": {
+        "additionalProperties": true,
+        "properties": {
+          "analysis_crs": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Crs"
+          },
+          "area_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Id"
+          },
+          "availability": {
+            "additionalProperties": true,
+            "title": "Availability",
+            "type": "object"
+          },
+          "available_dimensions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Available Dimensions",
+            "type": "array"
+          },
+          "bbox": {
+            "$ref": "#/components/schemas/EarthMapBBoxOut"
+          },
+          "bbox_crs": {
+            "title": "Bbox Crs",
+            "type": "string"
+          },
+          "bbox_geometry": {
+            "additionalProperties": true,
+            "title": "Bbox Geometry",
+            "type": "object"
+          },
+          "body": {
+            "const": "Earth",
+            "title": "Body",
+            "type": "string"
+          },
+          "candidate_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Id"
+          },
+          "center": {
+            "$ref": "#/components/schemas/EarthMapCenterOut"
+          },
+          "coordinate_frame": {
+            "title": "Coordinate Frame",
+            "type": "string"
+          },
+          "crs": {
+            "title": "Crs",
+            "type": "string"
+          },
+          "data_level": {
+            "enum": [
+              "fine",
+              "coarse",
+              "typed"
+            ],
+            "title": "Data Level",
+            "type": "string"
+          },
+          "data_version": {
+            "title": "Data Version",
+            "type": "string"
+          },
+          "detail_links": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Detail Links",
+            "type": "object"
+          },
+          "dimension_status": {
+            "additionalProperties": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Dimension Status",
+            "type": "object"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "feature_id": {
+            "title": "Feature Id",
+            "type": "string"
+          },
+          "feature_type": {
+            "enum": [
+              "fine_candidate",
+              "on_demand_aoi",
+              "typed_area",
+              "coarse_candidate"
+            ],
+            "title": "Feature Type",
+            "type": "string"
+          },
+          "geometry": {
+            "additionalProperties": true,
+            "title": "Geometry",
+            "type": "object"
+          },
+          "linked_candidate_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Linked Candidate Id"
+          },
+          "location_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location Id"
+          },
+          "missing_dimensions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Missing Dimensions",
+            "type": "array"
+          },
+          "support": {
+            "title": "Support",
+            "type": "string"
+          },
+          "support_label": {
+            "title": "Support Label",
+            "type": "string"
+          },
+          "typed_area_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Typed Area Id"
+          }
+        },
+        "required": [
+          "feature_id",
+          "feature_type",
+          "body",
+          "display_name",
+          "data_level",
+          "bbox",
+          "center",
+          "geometry",
+          "bbox_geometry",
+          "crs",
+          "bbox_crs",
+          "coordinate_frame",
+          "support",
+          "support_label",
+          "dimension_status",
+          "available_dimensions",
+          "missing_dimensions",
+          "availability",
+          "data_version",
+          "detail_links"
+        ],
+        "title": "EarthMapFeatureOut",
+        "type": "object"
+      },
+      "EarthMapFeaturesOut": {
+        "properties": {
+          "bbox": {
+            "$ref": "#/components/schemas/EarthMapBBoxOut"
+          },
+          "bbox_crs": {
+            "title": "Bbox Crs",
+            "type": "string"
+          },
+          "body": {
+            "const": "Earth",
+            "title": "Body",
+            "type": "string"
+          },
+          "contract_version": {
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "coordinate_contract_version": {
+            "title": "Coordinate Contract Version",
+            "type": "string"
+          },
+          "coordinate_frame": {
+            "title": "Coordinate Frame",
+            "type": "string"
+          },
+          "coordinate_system": {
+            "title": "Coordinate System",
+            "type": "string"
+          },
+          "counts_by_type": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Counts By Type",
+            "type": "object"
+          },
+          "coverage": {
+            "$ref": "#/components/schemas/EarthMapCoverageOut"
+          },
+          "data_version": {
+            "title": "Data Version",
+            "type": "string"
+          },
+          "features": {
+            "items": {
+              "$ref": "#/components/schemas/EarthMapFeatureOut"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "next_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Offset"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Notes",
+            "type": "array"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "query": {
+            "$ref": "#/components/schemas/EarthMapQueryOut"
+          },
+          "returned": {
+            "title": "Returned",
+            "type": "integer"
+          },
+          "snapshot_id": {
+            "title": "Snapshot Id",
+            "type": "string"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "contract_version",
+          "coordinate_contract_version",
+          "data_version",
+          "snapshot_id",
+          "body",
+          "bbox",
+          "bbox_crs",
+          "coordinate_system",
+          "coordinate_frame",
+          "query",
+          "total",
+          "returned",
+          "offset",
+          "limit",
+          "next_offset",
+          "counts_by_type",
+          "coverage",
+          "features"
+        ],
+        "title": "EarthMapFeaturesOut",
+        "type": "object"
+      },
+      "EarthMapQueryOut": {
+        "properties": {
+          "availability": {
+            "title": "Availability",
+            "type": "string"
+          },
+          "bbox": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bbox"
+          },
+          "bbox_lon_convention": {
+            "title": "Bbox Lon Convention",
+            "type": "string"
+          },
+          "bbox_source": {
+            "title": "Bbox Source",
+            "type": "string"
+          },
+          "data_level": {
+            "title": "Data Level",
+            "type": "string"
+          },
+          "dimension": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dimension"
+          },
+          "feature_type": {
+            "title": "Feature Type",
+            "type": "string"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "bbox",
+          "bbox_lon_convention",
+          "bbox_source",
+          "feature_type",
+          "data_level",
+          "dimension",
+          "availability",
+          "limit",
+          "offset"
+        ],
+        "title": "EarthMapQueryOut",
+        "type": "object"
+      },
       "ErrorBody": {
         "properties": {
           "code": {
@@ -1870,6 +2409,143 @@
         "title": "GlobalCoverageOut",
         "type": "object"
       },
+      "GlobalRefineRequest": {
+        "additionalProperties": false,
+        "description": "Execute one bounded coarse-hit refinement through the durable AOI queue.",
+        "properties": {
+          "candidate_id": {
+            "title": "Candidate Id",
+            "type": "string"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "requested_features": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Features"
+          }
+        },
+        "required": [
+          "candidate_id"
+        ],
+        "title": "GlobalRefineRequest",
+        "type": "object"
+      },
+      "GlobalRefineResponse": {
+        "properties": {
+          "area_id": {
+            "title": "Area Id",
+            "type": "string"
+          },
+          "cached": {
+            "title": "Cached",
+            "type": "boolean"
+          },
+          "candidate_id": {
+            "title": "Candidate Id",
+            "type": "string"
+          },
+          "coarse_candidate_id": {
+            "title": "Coarse Candidate Id",
+            "type": "string"
+          },
+          "coarse_method_version": {
+            "title": "Coarse Method Version",
+            "type": "string"
+          },
+          "coarse_region_id": {
+            "title": "Coarse Region Id",
+            "type": "string"
+          },
+          "fine_method_version": {
+            "title": "Fine Method Version",
+            "type": "string"
+          },
+          "focus_window": {
+            "additionalProperties": true,
+            "title": "Focus Window",
+            "type": "object"
+          },
+          "job_id": {
+            "title": "Job Id",
+            "type": "string"
+          },
+          "links": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Links",
+            "type": "object"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "provider_status": {
+            "additionalProperties": true,
+            "title": "Provider Status",
+            "type": "object"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result"
+          },
+          "status": {
+            "enum": [
+              "queued",
+              "running",
+              "completed",
+              "partial",
+              "failed"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "job_id",
+          "status",
+          "area_id",
+          "candidate_id",
+          "coarse_candidate_id",
+          "coarse_region_id",
+          "coarse_method_version",
+          "fine_method_version",
+          "focus_window",
+          "cached",
+          "links",
+          "note"
+        ],
+        "title": "GlobalRefineResponse",
+        "type": "object"
+      },
       "GlobalSearchRequest": {
         "additionalProperties": false,
         "properties": {
@@ -2142,6 +2818,28 @@
               }
             ],
             "title": "Area Id"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body"
+          },
+          "coordinate_frame": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coordinate Frame"
           },
           "created_at": {
             "anyOf": [
@@ -3465,6 +4163,55 @@
           "measurement_family"
         ],
         "title": "MultiDimTargetResolvedOut",
+        "type": "object"
+      },
+      "PlanetaryAoiAnalyzeRequest": {
+        "additionalProperties": false,
+        "description": "On-demand Moon/Mars AOI analysis (Issue #132).\n\nCoordinates are planetocentric lon/lat degrees in the declared body frame. This is\nnever Earth EPSG:4326. Only verified D01 terrain sources are recomputed; other\ndimensions stay explicit unsupported evidence instead of being fabricated.",
+        "properties": {
+          "bbox": {
+            "$ref": "#/components/schemas/GeoBBoxIn"
+          },
+          "body": {
+            "enum": [
+              "Moon",
+              "Mars"
+            ],
+            "title": "Body",
+            "type": "string"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "requested_features": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Features"
+          }
+        },
+        "required": [
+          "body",
+          "bbox"
+        ],
+        "title": "PlanetaryAoiAnalyzeRequest",
         "type": "object"
       },
       "PlanetaryBBoxOut": {
@@ -6066,6 +6813,189 @@
         "summary": "Dimensions"
       }
     },
+    "/api/v1/earth/map-features": {
+      "get": {
+        "operationId": "earth_map_features_api_v1_earth_map_features_get",
+        "parameters": [
+          {
+            "description": "Earth only. Moon/Mars map features live under /api/v1/planetary.",
+            "in": "query",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "default": "Earth",
+              "description": "Earth only. Moon/Mars map features live under /api/v1/planetary.",
+              "title": "Body",
+              "type": "string"
+            }
+          },
+          {
+            "description": "west,south,east,north in Earth WGS84 degrees. west>east crosses the antimeridian. Omit for the whole world.",
+            "in": "query",
+            "name": "bbox",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "west,south,east,north in Earth WGS84 degrees. west>east crosses the antimeridian. Omit for the whole world.",
+              "title": "Bbox"
+            }
+          },
+          {
+            "in": "query",
+            "name": "bbox_lon_convention",
+            "required": false,
+            "schema": {
+              "default": "signed",
+              "enum": [
+                "signed",
+                "360"
+              ],
+              "title": "Bbox Lon Convention",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "feature_type",
+            "required": false,
+            "schema": {
+              "default": "all",
+              "enum": [
+                "all",
+                "fine_candidate",
+                "on_demand_aoi",
+                "typed_area",
+                "coarse_candidate"
+              ],
+              "title": "Feature Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "data_level",
+            "required": false,
+            "schema": {
+              "default": "all",
+              "enum": [
+                "all",
+                "fine",
+                "coarse"
+              ],
+              "title": "Data Level",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "dimension",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Dimension"
+            }
+          },
+          {
+            "in": "query",
+            "name": "availability",
+            "required": false,
+            "schema": {
+              "default": "any",
+              "enum": [
+                "any",
+                "present",
+                "absent"
+              ],
+              "title": "Availability",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EarthMapFeaturesOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Earth Map Features",
+        "tags": [
+          "earth-map"
+        ]
+      }
+    },
     "/api/v1/global/candidates/{candidate_id}": {
       "get": {
         "operationId": "global_candidate_api_v1_global_candidates__candidate_id__get",
@@ -6192,6 +7122,65 @@
           }
         },
         "summary": "Global Cross Body Gate"
+      }
+    },
+    "/api/v1/global/refine": {
+      "post": {
+        "description": "Execute one centered 1.98 km refinement through the durable Earth AOI queue.\n\nThe coarse candidate remains coarse provenance. The returned area is a real 90 m\non-demand AOI persisted by the normal job runner, so it is immediately queryable\nthrough ``/locations/{area_id}`` and participates in the standard search index.\nCoarse values are never relabeled as fine metrics.",
+        "operationId": "refine_candidate_api_v1_global_refine_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GlobalRefineRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalRefineResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Refine Candidate"
       }
     },
     "/api/v1/global/refine-plan": {
@@ -6521,6 +7510,132 @@
         "summary": "Location Context"
       }
     },
+    "/api/v1/planetary/areas/analyze": {
+      "post": {
+        "description": "Analyze a bounded Moon/Mars AOI from verified scientific sources.\n\nThe job is durable and queryable through the shared ``/jobs/{job_id}`` route.\nCoordinates are planetocentric degrees in the selected body frame; they are\nnever interpreted as Earth WGS84.",
+        "operationId": "analyze_planetary_area_api_v1_planetary_areas_analyze_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanetaryAoiAnalyzeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AoiAnalyzeResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Analyze Planetary Area",
+        "tags": [
+          "planetary"
+        ]
+      }
+    },
+    "/api/v1/planetary/areas/{area_id}": {
+      "get": {
+        "operationId": "planetary_area_api_v1_planetary_areas__area_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "area_id",
+            "required": true,
+            "schema": {
+              "title": "Area Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Planetary Area Api V1 Planetary Areas  Area Id  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Planetary Area",
+        "tags": [
+          "planetary"
+        ]
+      }
+    },
     "/api/v1/planetary/bodies": {
       "get": {
         "operationId": "planetary_bodies_api_v1_planetary_bodies_get",
@@ -6563,6 +7678,68 @@
           }
         },
         "summary": "Planetary Coordinate Contract",
+        "tags": [
+          "planetary"
+        ]
+      }
+    },
+    "/api/v1/planetary/jobs/{job_id}": {
+      "get": {
+        "operationId": "get_planetary_job_api_v1_planetary_jobs__job_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Get Planetary Job",
         "tags": [
           "planetary"
         ]
