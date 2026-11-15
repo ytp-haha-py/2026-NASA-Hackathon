@@ -44,11 +44,15 @@ Typed features: water/ice detection, depth interval.
 
 ## D05 Illumination & Radiation
 
-Typed features: solar incidence angle (degree) and absorbed dose (Gy).
+Typed features: solar incidence/elevation angle (degree) and absorbed dose (Gy).
 - Illumination and ionizing radiation are separate subgroups; dose units cannot
   appear on illumination.
 - No Gy→Sv conversion without physics; no shadow inferred from dark pixels.
 - Horizon/observer height, shielding, exposure interval and uncertainty required.
+- The committed `pipelines/pilots/d05_spice_illumination/` pilot is **model-derived
+  solar geometry only** (NAIF SPICE, one epoch, flat ellipsoid tangent plane). It
+  is not observed irradiance, a shadow fraction, or a radiation dose; see
+  `docs/D05_SPICE_PILOT.md`.
 
 ## D06 Regolith & Surface Properties
 

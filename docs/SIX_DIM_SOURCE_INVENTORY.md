@@ -15,7 +15,7 @@ only verified observations in the repository are D01 terrain (113 Earth, 18 Moon
 | **D02 Geology & Mineralogy** | Identified candidates: GLiM, EMIT (not fetched) | Identified: USGS unified map, M³ (not fetched) | Identified: Jezero/Nili map, CRISM (not fetched) |
 | **D03 Thermal Environment** | Identified: MOD11A2 (not fetched) | Identified: Diviner (not fetched) | Planned: no product ID asserted |
 | **D04 Water & Ice** | Planned: no product selected | Planned: no product selected | Planned: no product selected |
-| **D05 Illumination & Radiation** | Planned: separate illumination/radiation groups | Planned: separate groups | Planned: separate groups |
+| **D05 Illumination & Radiation** | Context: NASA POWER (10 timeseries, model/reanalysis) | Model geometry: NAIF SPICE (4 sites, 8 observations) | Model geometry: NAIF SPICE (5 sites, 10 observations) |
 | **D06 Regolith & Surface Properties** | Planned: sparse evidence only | Planned: sparse evidence only | Planned: sparse evidence only |
 
 ## Status semantics
@@ -27,7 +27,9 @@ only verified observations in the repository are D01 terrain (113 Earth, 18 Moon
 - `unknown`: not determined.
 - `not_applicable`: not scientifically applicable.
 
-`data_status`: `existing_observed`, `not_fetched`, or `unknown`.
+`data_status`: `existing_observed`, `existing_modeled`, `not_fetched`, or
+`unknown`. `existing_modeled` means a committed model-derived value (for example
+NAIF SPICE solar geometry); it is not an observation of the surface.
 `comparability`: `comparable`, `context_only`, `evidence_only`, `not_comparable`, or
 `unknown`.
 
@@ -45,6 +47,9 @@ an authoritative product, licence, access method and scientific semantics.
 | Moon reference windows | 18 | `pipelines/planetary/manifests/lola_*.json` |
 | Mars reference windows | 5 | `pipelines/planetary/manifests/ctx_mars_references.json` |
 | Earth WorldCover context observations | 1,243 | `pipelines/worldcover/manifests/` |
+| D05 Moon/Mars model-derived solar-geometry observations | 18 | `pipelines/pilots/d05_spice_illumination/` |
 | D02–D06 observed values | **0** | not implemented / not downloaded |
 
-No new source raster was downloaded for this inventory.
+The D05 SPICE values are model-derived geometry (Sun incidence/elevation), not
+observed irradiance, shadow fraction or ionizing radiation. No new source raster
+was downloaded for this inventory; the SPICE kernels live in a gitignored cache.

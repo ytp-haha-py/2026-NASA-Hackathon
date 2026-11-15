@@ -23,6 +23,7 @@ dependencies = [
 
 [project.optional-dependencies]
 storage = ["boto3>=1.35,<2"]
+spice = ["spiceypy>=6.0,<7"]
 
 [dependency-groups]
 dev = [

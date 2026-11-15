@@ -88,20 +88,23 @@
     "D05": {
       "actual_observation_counts": {
         "Earth_power_timeseries": 10,
-        "Mars": 0,
-        "Moon": 0,
+        "Mars_spice_model_geometry": 10,
+        "Moon_spice_model_geometry": 8,
         "ionizing_radiation": 0
       },
       "comparison_status": "context_only",
       "evidence": [
         "committed pipelines/pilots/d05_earth_power release",
         "typed import and API query test",
+        "18 NAIF SPICE model-derived solar-geometry observations at 4 Moon and 5 Mars reference sites",
+        "pinned DE421/MOON_ME/IAU_MARS kernels with SHA-256 manifest",
         "merged in PR #59 (c834285)"
       ],
       "implementation_status": "pilot",
       "remaining_blockers": [
-        "Moon/Mars illumination",
+        "observed illumination product and terrain horizon/shadow model",
         "radiation detectors",
+        "independent frame/prime-meridian validation",
         "no combined scalar"
       ],
       "scientific_data_status": "pilot_observations"
@@ -267,13 +270,15 @@
       "evidence": [
         "10 real NASA POWER Earth context timeseries observations",
         "5 AOIs, 2024-01-01..2024-01-07",
+        "18 NAIF SPICE model-derived Moon/Mars solar-geometry observations",
         "portable release and typed import test"
       ],
       "implementation_status": "pilot",
       "number": 45,
       "remaining_blockers": [
-        "Moon/Mars illumination",
+        "observed illumination and terrain horizon/shadow model",
         "ionizing-radiation detectors",
+        "independent frame/prime-meridian validation",
         "no combined scalar"
       ],
       "scientific_data_status": "pilot_observations",
