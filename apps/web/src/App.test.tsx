@@ -59,6 +59,16 @@ async function runSearch() {
   return user;
 }
 
+function deferredResponse() {
+  let resolve!: (response: Response) => void;
+  let reject!: (error: unknown) => void;
+  const promise = new Promise<Response>((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+  return { promise, resolve, reject };
+}
+
 describe("search form", () => {
   it("opens the target map and remembers the points selected for each body", async () => {
     const user = userEvent.setup();
