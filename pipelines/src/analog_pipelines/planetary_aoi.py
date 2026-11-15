@@ -1103,27 +1103,43 @@ def _bbox_contains(outer: Mapping[str, float], inner: Mapping[str, float]) -> bo
     )
 
 
+def _bbox_intersects(a: Mapping[str, float], b: Mapping[str, float]) -> bool:
+    if float(a["south"]) > float(b["north"]) or float(b["south"]) > float(a["north"]):
+        return False
+    a_w, a_e = float(a["west"]), float(a["east"])
+    b_w, b_e = float(b["west"]), float(b["east"])
+    a_cross = a_w > a_e
+    b_cross = b_w > b_e
+    if not a_cross and not b_cross:
+        return a_w <= b_e and b_w <= a_e
+    if a_cross and not b_cross:
+        return b_w <= a_e or b_e >= a_w
+    if b_cross and not a_cross:
+        return a_w <= b_e or a_e >= b_w
+    return True
+
+
 def _select_records(
     records: tuple[_CellRecord, ...], request: PlanetaryAoiRequest
 ) -> tuple[_CellRecord, ...]:
+    """Select all analysis-eligible committed cells intersecting the requested AOI.
+
+    This analyzes the whole requested bbox over available committed coverage by
+    tiling across all intersecting cells (not a fixed center window). Any portion of
+    the request not covered by committed/eligible data must be reported explicitly by
+    the caller/report layer (never silently shrunk).
+    """
     selected: list[_CellRecord] = []
     for record in records:
         if not record.coverage.analysis_eligible:
             continue
-        bbox = record.coverage.bbox_body_lonlat
-        center_lon = (float(bbox["west"]) + float(bbox["east"])) / 2.0
-        center_lat = (float(bbox["south"]) + float(bbox["north"])) / 2.0
-        covers_center = _point_in_request(center_lon, center_lat, request)
-        contains_request = False
-        if not covers_center:
-            for cell_piece in _cell_bbox_pieces(bbox):
-                if any(
-                    _bbox_contains(cell_piece, request_piece)
-                    for request_piece in request.bbox_pieces
-                ):
-                    contains_request = True
-                    break
-        if covers_center or contains_request:
+        cell_pieces = _cell_bbox_pieces(record.coverage.bbox_body_lonlat)
+        intersects = any(
+            _bbox_intersects(cell_piece, request_piece)
+            for cell_piece in cell_pieces
+            for request_piece in request.bbox_pieces
+        )
+        if intersects:
             selected.append(record)
     return tuple(selected)
 

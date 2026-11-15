@@ -4214,6 +4214,378 @@
         "title": "PlanetaryAoiAnalyzeRequest",
         "type": "object"
       },
+      "PlanetaryAoiEngineDimensionOut": {
+        "properties": {
+          "dimension_code": {
+            "title": "Dimension Code",
+            "type": "string"
+          },
+          "features": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          },
+          "method_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Method Version"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "title": "Provenance",
+            "type": "object"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "status": {
+            "enum": [
+              "available",
+              "evidence",
+              "no_coverage",
+              "not_indexed",
+              "unsupported",
+              "pending"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "support": {
+            "additionalProperties": true,
+            "title": "Support",
+            "type": "object"
+          },
+          "value_origin": {
+            "enum": [
+              "observed_derived",
+              "stored_evidence",
+              "declared_source",
+              "not_measured",
+              "none"
+            ],
+            "title": "Value Origin",
+            "type": "string"
+          }
+        },
+        "required": [
+          "dimension_code",
+          "label",
+          "status",
+          "value_origin"
+        ],
+        "title": "PlanetaryAoiEngineDimensionOut",
+        "type": "object"
+      },
+      "PlanetaryAoiEngineRequest": {
+        "additionalProperties": false,
+        "description": "Create a full-AOI Moon/Mars job with explicit six-dimension statuses.\n\n``bbox`` is planetocentric lon/lat in the declared body frame, never Earth\nEPSG:4326. The engine route requests the whole bounded bbox; the response reports\nwhether the persisted analysis envelope actually covered it (``full_aoi``).\nD02-D06 are reported as explicit status entries, not fabricated measurements.",
+        "properties": {
+          "bbox": {
+            "$ref": "#/components/schemas/GeoBBoxIn"
+          },
+          "bbox_lon_convention": {
+            "default": "signed",
+            "enum": [
+              "signed",
+              "360"
+            ],
+            "title": "Bbox Lon Convention",
+            "type": "string"
+          },
+          "body": {
+            "enum": [
+              "Moon",
+              "Mars"
+            ],
+            "title": "Body",
+            "type": "string"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "latitude_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional explicit latitude contract. Moon/Mars accept planetocentric only; planetographic/geocentric are rejected instead of silently converted.",
+            "title": "Latitude Kind"
+          },
+          "requested_features": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Features"
+          }
+        },
+        "required": [
+          "body",
+          "bbox"
+        ],
+        "title": "PlanetaryAoiEngineRequest",
+        "type": "object"
+      },
+      "PlanetaryAoiEngineResponse": {
+        "properties": {
+          "analysis_bbox": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Bbox"
+          },
+          "analysis_scope": {
+            "title": "Analysis Scope",
+            "type": "string"
+          },
+          "area_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Id"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body"
+          },
+          "cache_key": {
+            "title": "Cache Key",
+            "type": "string"
+          },
+          "cached": {
+            "title": "Cached",
+            "type": "boolean"
+          },
+          "contract_version": {
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "coordinate_frame": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coordinate Frame"
+          },
+          "coverage": {
+            "additionalProperties": true,
+            "title": "Coverage",
+            "type": "object"
+          },
+          "coverage_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coverage Note"
+          },
+          "data_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Version"
+          },
+          "dimension_status": {
+            "additionalProperties": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Dimension Status",
+            "type": "object"
+          },
+          "dimensions": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/PlanetaryAoiEngineDimensionOut"
+            },
+            "title": "Dimensions",
+            "type": "object"
+          },
+          "full_aoi": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Aoi"
+          },
+          "job_id": {
+            "title": "Job Id",
+            "type": "string"
+          },
+          "links": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Links",
+            "type": "object"
+          },
+          "method_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Method Version"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "title": "Provenance",
+            "type": "object"
+          },
+          "provider_status": {
+            "additionalProperties": true,
+            "title": "Provider Status",
+            "type": "object"
+          },
+          "requested_bbox": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Bbox"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result"
+          },
+          "status": {
+            "enum": [
+              "queued",
+              "running",
+              "completed",
+              "partial",
+              "failed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "support": {
+            "additionalProperties": true,
+            "title": "Support",
+            "type": "object"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "contract_version",
+          "job_id",
+          "status",
+          "area_id",
+          "cache_key",
+          "cached",
+          "analysis_scope"
+        ],
+        "title": "PlanetaryAoiEngineResponse",
+        "type": "object"
+      },
       "PlanetaryBBoxOut": {
         "properties": {
           "crosses_antimeridian": {
@@ -7508,6 +7880,194 @@
           }
         },
         "summary": "Location Context"
+      }
+    },
+    "/api/v1/planetary/aoi": {
+      "post": {
+        "description": "Create or reuse a durable full-AOI Moon/Mars analysis job.",
+        "operationId": "create_planetary_aoi_job_api_v1_planetary_aoi_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanetaryAoiEngineRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanetaryAoiEngineResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Create Planetary Aoi Job",
+        "tags": [
+          "planetary"
+        ]
+      }
+    },
+    "/api/v1/planetary/aoi/{job_id}": {
+      "get": {
+        "description": "Report the durable job lifecycle and the current D01-D06 statuses.",
+        "operationId": "get_planetary_aoi_job_api_v1_planetary_aoi__job_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanetaryAoiEngineResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Get Planetary Aoi Job",
+        "tags": [
+          "planetary"
+        ]
+      }
+    },
+    "/api/v1/planetary/aoi/{job_id}/result": {
+      "get": {
+        "description": "Return the persisted engine result once the job completed or partially completed.",
+        "operationId": "get_planetary_aoi_result_api_v1_planetary_aoi__job_id__result_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanetaryAoiEngineResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Get Planetary Aoi Result",
+        "tags": [
+          "planetary"
+        ]
       }
     },
     "/api/v1/planetary/areas/analyze": {

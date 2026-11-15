@@ -373,6 +373,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/planetary/aoi": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Planetary Aoi Job
+         * @description Create or reuse a durable full-AOI Moon/Mars analysis job.
+         */
+        post: operations["create_planetary_aoi_job_api_v1_planetary_aoi_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/planetary/aoi/{job_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Planetary Aoi Job
+         * @description Report the durable job lifecycle and the current D01-D06 statuses.
+         */
+        get: operations["get_planetary_aoi_job_api_v1_planetary_aoi__job_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/planetary/aoi/{job_id}/result": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Planetary Aoi Result
+         * @description Return the persisted engine result once the job completed or partially completed.
+         */
+        get: operations["get_planetary_aoi_result_api_v1_planetary_aoi__job_id__result_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/planetary/areas/analyze": {
         parameters: {
             query?: never;
@@ -2146,6 +2206,149 @@ export interface components {
             /** Requested Features */
             requested_features?: string[] | null;
         };
+        /** PlanetaryAoiEngineDimensionOut */
+        PlanetaryAoiEngineDimensionOut: {
+            /** Dimension Code */
+            dimension_code: string;
+            /** Features */
+            features?: {
+                [key: string]: unknown;
+            }[];
+            /** Label */
+            label: string;
+            /** Limitations */
+            limitations?: string[];
+            /** Method Version */
+            method_version?: string | null;
+            /** Provenance */
+            provenance?: {
+                [key: string]: unknown;
+            };
+            /** Reason */
+            reason?: string | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "available" | "evidence" | "no_coverage" | "not_indexed" | "unsupported" | "pending";
+            /** Support */
+            support?: {
+                [key: string]: unknown;
+            };
+            /**
+             * Value Origin
+             * @enum {string}
+             */
+            value_origin: "observed_derived" | "stored_evidence" | "declared_source" | "not_measured" | "none";
+        };
+        /**
+         * PlanetaryAoiEngineRequest
+         * @description Create a full-AOI Moon/Mars job with explicit six-dimension statuses.
+         *
+         *     ``bbox`` is planetocentric lon/lat in the declared body frame, never Earth
+         *     EPSG:4326. The engine route requests the whole bounded bbox; the response reports
+         *     whether the persisted analysis envelope actually covered it (``full_aoi``).
+         *     D02-D06 are reported as explicit status entries, not fabricated measurements.
+         */
+        PlanetaryAoiEngineRequest: {
+            bbox: components["schemas"]["GeoBBoxIn"];
+            /**
+             * Bbox Lon Convention
+             * @default signed
+             * @enum {string}
+             */
+            bbox_lon_convention: "signed" | "360";
+            /**
+             * Body
+             * @enum {string}
+             */
+            body: "Moon" | "Mars";
+            /** Idempotency Key */
+            idempotency_key?: string | null;
+            /**
+             * Latitude Kind
+             * @description Optional explicit latitude contract. Moon/Mars accept planetocentric only; planetographic/geocentric are rejected instead of silently converted.
+             */
+            latitude_kind?: string | null;
+            /** Requested Features */
+            requested_features?: string[] | null;
+        };
+        /** PlanetaryAoiEngineResponse */
+        PlanetaryAoiEngineResponse: {
+            /** Analysis Bbox */
+            analysis_bbox?: {
+                [key: string]: number;
+            } | null;
+            /** Analysis Scope */
+            analysis_scope: string;
+            /** Area Id */
+            area_id: string | null;
+            /** Body */
+            body?: string | null;
+            /** Cache Key */
+            cache_key: string;
+            /** Cached */
+            cached: boolean;
+            /** Contract Version */
+            contract_version: string;
+            /** Coordinate Frame */
+            coordinate_frame?: string | null;
+            /** Coverage */
+            coverage?: {
+                [key: string]: unknown;
+            };
+            /** Coverage Note */
+            coverage_note?: string | null;
+            /** Data Version */
+            data_version?: string | null;
+            /** Dimension Status */
+            dimension_status?: {
+                [key: string]: {
+                    [key: string]: unknown;
+                };
+            };
+            /** Dimensions */
+            dimensions?: {
+                [key: string]: components["schemas"]["PlanetaryAoiEngineDimensionOut"];
+            };
+            /** Full Aoi */
+            full_aoi?: boolean | null;
+            /** Job Id */
+            job_id: string;
+            /** Links */
+            links?: {
+                [key: string]: string;
+            };
+            /** Method Version */
+            method_version?: string | null;
+            /** Provenance */
+            provenance?: {
+                [key: string]: unknown;
+            };
+            /** Provider Status */
+            provider_status?: {
+                [key: string]: unknown;
+            };
+            /** Requested Bbox */
+            requested_bbox?: {
+                [key: string]: number;
+            } | null;
+            /** Result */
+            result?: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "queued" | "running" | "completed" | "partial" | "failed";
+            /** Support */
+            support?: {
+                [key: string]: unknown;
+            };
+            /** Warnings */
+            warnings?: string[];
+        };
         /** PlanetaryBBoxOut */
         PlanetaryBBoxOut: {
             /** Crosses Antimeridian */
@@ -3556,6 +3759,155 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ContextOut"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    create_planetary_aoi_job_api_v1_planetary_aoi_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PlanetaryAoiEngineRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlanetaryAoiEngineResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    get_planetary_aoi_job_api_v1_planetary_aoi__job_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                job_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlanetaryAoiEngineResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    get_planetary_aoi_result_api_v1_planetary_aoi__job_id__result_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                job_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlanetaryAoiEngineResponse"];
                 };
             };
             /** @description Not Found */
