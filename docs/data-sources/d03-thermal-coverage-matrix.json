@@ -1,0 +1,233 @@
+{
+  "dimension_code": "D03",
+  "dimension_name": "Thermal Environment",
+  "generated_at": "2026-11-15",
+  "scope": "bounded_d03_thermal_coverage_matrix_issue_137",
+  "survey_claim": "not_global_not_exhaustive",
+  "architecture": "Dimension -> Feature two-layer; all rows are evidence_only or context_only and no cross-body D03 similarity score is produced.",
+  "bodies": {
+    "Earth": {
+      "coverage_status": "bounded_context_pilot",
+      "actual_indexed_queryable_coverage": {
+        "areas": 5,
+        "observations": 20,
+        "typed_bundle": "pipelines/pilots/d03_earth_power",
+        "area_ids": [
+          "earth-atacama-desert",
+          "earth-death-valley",
+          "earth-devon-island",
+          "earth-lanzarote",
+          "earth-sahara-r1c1"
+        ],
+        "note": "Five Earth reference points with NASA POWER daily time series; each point is a coarse grid location, not a 1.98 km in-situ measurement."
+      },
+      "sources": [
+        {
+          "source_id": "nasa-power-daily-point",
+          "provider": "NASA Langley Research Center / NASA POWER",
+          "product": "NASA POWER Daily Point API (temporal/daily/point)",
+          "version": "POWER daily point API; method nasa-power-daily-1.0.0 / thermal context export acquisition-release-1.0.0",
+          "licence": "NASA POWER data are free and open; cite NASA POWER",
+          "licence_url": "https://power.larc.nasa.gov/docs/services/api/",
+          "url": "https://power.larc.nasa.gov/api/temporal/daily/point",
+          "access": "official public HTTPS API; bounded point/day queries with checkpointed raw JSON in pilot",
+          "checksums": "raw request/response SHA-256 recorded in pipelines/pilots/d03_earth_power/manifest.json",
+          "crs_frame": "Earth geographic point (WGS84 longitude/latitude query); native model grid approximately 0.5 x 0.625 degree",
+          "resolution": "approximately 0.5 x 0.625 degree grid point; not 1.98 km",
+          "time_support": "daily values 2024-01-01 to 2024-01-07 (7 daily samples per area/parameter)",
+          "depth_support": "2 m air temperature and surface skin temperature; not subsurface",
+          "qa": "finite-value checks; coarse reanalysis/model context, not local measurement",
+          "uncertainty": "not supplied as per-observation uncertainty in pilot; model/reanalysis uncertainty not represented as a numeric interval",
+          "measurement_kind": "modeled_reanalysis_context",
+          "score_role": "context_only",
+          "legal_score_filter_roles": "context_only only; excluded from cross-body similarity scoring"
+        }
+      ],
+      "features": [
+        {
+          "feature_id": "surface_air_temperature_2m_c",
+          "quantity": "2 m air temperature (daily mean context)",
+          "unit": "degree_Celsius",
+          "measured_modeled_derived_evidence_no_coverage_unsupported": "modeled_reanalysis_context (detected values present)",
+          "state_counts": {"detected": 5, "not_detected": 0, "no_coverage": 0, "unknown": 0, "not_applicable": 0},
+          "time_support": "daily interval 2024-01-01T00:00:00Z to 2024-01-07T00:00:00Z, 7 samples",
+          "local_solar_time": "not_applicable (daily aggregate at model grid; no sub-daily LST)",
+          "season_support": "single 7-day winter (Northern Hemisphere) window in committed pilot; seasonal representativeness not claimed",
+          "day_night_support": "daily mean/max/min parameters available; no instantaneous day/night split",
+          "footprint": "coarse ~0.5x0.625 degree POWER grid point centered on area reference; footprint much larger than 1.98 km window",
+          "uncertainty": "unknown per-value; coarse model/reanalysis context",
+          "crs": "EPSG:4326 point query context",
+          "gaps": "no sub-daily/local-solar-time, no kinetic surface temperature observation, no thermal inertia, no multi-season committed expansion"
+        },
+        {
+          "feature_id": "surface_air_temperature_2m_max_c",
+          "quantity": "2 m daily maximum air temperature (context)",
+          "unit": "degree_Celsius",
+          "measured_modeled_derived_evidence_no_coverage_unsupported": "modeled_reanalysis_context (detected values present)",
+          "state_counts": {"detected": 5, "not_detected": 0, "no_coverage": 0, "unknown": 0, "not_applicable": 0},
+          "time_support": "daily interval 2024-01-01T00:00:00Z to 2024-01-07T00:00:00Z, 7 samples",
+          "local_solar_time": "not_applicable",
+          "season_support": "single 7-day window",
+          "day_night_support": "daily maximum statistic; not an instantaneous observation time",
+          "footprint": "coarse ~0.5x0.625 degree grid point",
+          "uncertainty": "unknown per-value",
+          "crs": "EPSG:4326 point query context",
+          "gaps": "same as mean temperature"
+        },
+        {
+          "feature_id": "surface_air_temperature_2m_min_c",
+          "quantity": "2 m daily minimum air temperature (context)",
+          "unit": "degree_Celsius",
+          "measured_modeled_derived_evidence_no_coverage_unsupported": "modeled_reanalysis_context (detected values present)",
+          "state_counts": {"detected": 5, "not_detected": 0, "no_coverage": 0, "unknown": 0, "not_applicable": 0},
+          "time_support": "daily interval 2024-01-01T00:00:00Z to 2024-01-07T00:00:00Z, 7 samples",
+          "local_solar_time": "not_applicable",
+          "season_support": "single 7-day window",
+          "day_night_support": "daily minimum statistic",
+          "footprint": "coarse ~0.5x0.625 degree grid point",
+          "uncertainty": "unknown per-value",
+          "crs": "EPSG:4326 point query context",
+          "gaps": "same as mean temperature"
+        },
+        {
+          "feature_id": "surface_skin_temperature_c",
+          "quantity": "surface skin temperature (context)",
+          "unit": "degree_Celsius",
+          "measured_modeled_derived_evidence_no_coverage_unsupported": "modeled_reanalysis_context (detected values present)",
+          "state_counts": {"detected": 5, "not_detected": 0, "no_coverage": 0, "unknown": 0, "not_applicable": 0},
+          "time_support": "daily interval 2024-01-01T00:00:00Z to 2024-01-07T00:00:00Z, 7 samples",
+          "local_solar_time": "not_applicable",
+          "season_support": "single 7-day window",
+          "day_night_support": "daily mean skin temperature context",
+          "footprint": "coarse ~0.5x0.625 degree grid point",
+          "uncertainty": "unknown per-value",
+          "crs": "EPSG:4326 point query context",
+          "gaps": "skin temperature is model/reanalysis; not comparable to Diviner brightness temperature or THEMIS TI"
+        }
+      ]
+    },
+    "Moon": {
+      "coverage_status": "bounded_evidence_pilot",
+      "actual_indexed_queryable_coverage": {
+        "areas": 18,
+        "observations": 36,
+        "typed_bundle": "pipelines/pilots/d03_planetary_thermal",
+        "area_note": "18 existing LOLA south-polar reference windows; two Diviner PCP local-solar-time bins per window",
+        "windows": "moon-lola-site01-roi1..4, moon-lola-site04-roi1..4, moon-lola-site07-bounds-centre, moon-lola-site11-roi1..4, moon-lola-site20-bounds-centre, moon-lola-site23-bounds-centre, moon-shackleton-rim-site04-roi1..2"
+      },
+      "sources": [
+        {
+          "source_id": "lro-diviner-pcp-pols-summer-240m",
+          "provider": "NASA PDS Geosciences Node / UCLA Diviner Lunar Radiometer Experiment",
+          "product": "LRO Diviner Polar Cumulative Products (PCP), average bolometric brightness temperature, south pole summer",
+          "version": "PDS4 collection/product 1.0; calibration software 4.0; files PCP_AVG_TBOL_POLS_SUM_LTIM01_240.TAB and PCP_AVG_TBOL_POLS_SUM_LTIM49_240.TAB",
+          "licence": "NASA PDS public archive; no explicit licence field in the PDS4 label; cite Williams et al. (2019) doi:10.1029/2019JE006028",
+          "licence_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/",
+          "url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/diurnal/ltim/pols/",
+          "access": "official public PDS archive; bounded 1.98 km window selections from local cached ASCII tables (opt-in download script)",
+          "checksums": "source asset SHA-256 recorded in pipelines/pilots/d03_planetary_thermal/assets.json; derived export checksums in manifest.json",
+          "crs_frame": "Polar stereographic, planetocentric, positive east, sphere R=1737400 m (+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +R=1737400); coordinate_frame lunar_projected in typed areas",
+          "resolution": "240 m/pixel native bins; 1.98 km circular window spatial mean; not resampled to 90 m",
+          "time_support": "multi-year composite 2009-07-05T16:50:26.195Z to 2019-02-17T00:00:00.000Z; southern summer (subsolar latitude < 0 deg)",
+          "depth_support": "surface thermal-infrared bolometric brightness temperature",
+          "qa": "sparse bins omitted; invalid/unknown special constants rejected; no per-bin uncertainty; rejected/row counts recorded",
+          "uncertainty": "no per-bin uncertainty supplied by product; spatial variability recorded as min/max/std in legacy_provenance",
+          "measurement_kind": "measured_radiometric_composite",
+          "score_role": "evidence_only",
+          "legal_score_filter_roles": "evidence_only only; excluded from cross-body similarity scoring and filters"
+        }
+      ],
+      "features": [
+        {
+          "feature_id": "surface_brightness_temperature_k",
+          "quantity": "bolometric brightness temperature (unit-emissivity assumption)",
+          "unit": "K",
+          "measured_modeled_derived_evidence_no_coverage_unsupported": "measured_radiometric_composite evidence with explicit states: detected/unknown/no_coverage",
+          "state_counts": {"detected": 26, "not_detected": 0, "no_coverage": 7, "unknown": 3, "not_applicable": 0},
+          "time_support": "composite 2009-07-05T16:50:26.195Z to 2019-02-17T00:00:00.000Z (not a single acquisition)",
+          "local_solar_time": "two 0.25 h bins committed: 00:00-00:15 and 12:00-12:15",
+          "season_support": "southern summer composite only (subsolar latitude < 0 deg)",
+          "day_night_support": "night bin 00:00-00:15 and day bin 12:00-12:15 represented as separate local-time observations; not a same-sol pair and no diurnal range computed",
+          "footprint": "circular 1.98 km window (radius 990 m) of native 240 m bins; bbox recorded in projected lunar frame; native resolution preserved",
+          "uncertainty": "unknown per-bin/product; spatial n/min/max/std and valid_fraction recorded per observation",
+          "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +R=1737400 +units=m +no_defs",
+          "gaps": "only 2 of 96 possible local-time bins committed; no_coverage at 7 noon windows and unknown at 3 sparse noon windows (genuine missing/sparse native data, not zero-filled); no kinetic temperature; no diurnal range/change rate; polar cap 80-90S only for this product"
+        }
+      ]
+    },
+    "Mars": {
+      "coverage_status": "bounded_evidence_pilot",
+      "actual_indexed_queryable_coverage": {
+        "areas": 5,
+        "observations": 5,
+        "typed_bundle": "pipelines/pilots/d03_planetary_thermal",
+        "area_note": "5 existing Jezero CTX reference windows inside THEMIS quantitative TI tile 00N060E",
+        "windows": "mars-jezero-ctx-window-01..05"
+      },
+      "sources": [
+        {
+          "source_id": "usgs-mars-themis-global-thermal-inertia-quantitative",
+          "provider": "USGS Astrogeology Science Center / Arizona State University / NASA Mars Data Analysis Program",
+          "product": "THEMIS-derived global thermal inertia mosaic, quantitative 32-bit, edition 1",
+          "version": "edition 1 (2014-05-30); product THEMIS_TI_Mosaic_Quant_00N060E_100mpp.cub",
+          "licence": "Public domain (USGS Astrogeology access constraints); cite Fergason et al. (2006) doi:10.1029/2006JE002735",
+          "licence_url": "https://astrogeology.usgs.gov/search/map/mars-themis-derived-global-thermal-inertia-mosaic",
+          "url": "https://asc-astropedia.s3.us-west-2.amazonaws.com/Mars/Odyssey/THEMIS-Global-Thermal-Inertia-Mosaic/Quantitative-32-Bit/THEMIS_TI_Mosaic_Quant_00N060E_100mpp.cub",
+          "access": "official public USGS/S3 product; bounded 128x128 ISIS tile HTTP range reads cached locally (opt-in download)",
+          "checksums": "window-scoped asset SHA-256 and byte count recorded in pipelines/pilots/d03_planetary_thermal/assets.json",
+          "crs_frame": "Equirectangular planetocentric simple cylindrical, R=3396190 m (+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +R=3396190); coordinate_frame mars_projected in typed areas",
+          "resolution": "100 m/pixel native; 1.98 km circular window spatial mean; not resampled to 90 m",
+          "time_support": "apparent thermal inertia treated as time-independent by retrieval; per-pixel acquisition time/season/local solar time not carried by mosaic (static support)",
+          "depth_support": "upper few centimetres (apparent thermal inertia); no fixed depth interval",
+          "qa": "no explicit no-data constant in ISIS label; non-finite/non-positive/>10000 rejected and counted; no per-pixel QA layer",
+          "uncertainty": "published absolute accuracy ~20%, relative within one image ~10%; no per-pixel uncertainty layer; interval recorded per observation when detected",
+          "measurement_kind": "derived_retrieval_evidence",
+          "score_role": "evidence_only",
+          "legal_score_filter_roles": "evidence_only only; excluded from cross-body similarity scoring"
+        }
+      ],
+      "features": [
+        {
+          "feature_id": "thermal_inertia",
+          "quantity": "apparent thermal inertia (THEMIS retrieval)",
+          "unit": "J m^-2 K^-1 s^-1/2",
+          "measured_modeled_derived_evidence_no_coverage_unsupported": "derived_retrieval_evidence (detected values present); not an in-situ measurement and not a surface temperature",
+          "state_counts": {"detected": 5, "not_detected": 0, "no_coverage": 0, "unknown": 0, "not_applicable": 0},
+          "time_support": "static/time-independent retrieval semantics; no per-pixel acquisition time, season, or local solar time available",
+          "local_solar_time": "unsupported_by_product (not carried by mosaic)",
+          "season_support": "unsupported_by_product (retrieval treats apparent TI as time-independent; seasonal effects not separable per pixel)",
+          "day_night_support": "unsupported_by_product (no day/night acquisition split in this mosaic)",
+          "footprint": "circular 1.98 km window of native 100 m pixels; bounded tile reads only; bbox recorded in Mars projected frame",
+          "uncertainty": "published ~20% absolute / ~10% relative accuracy; represented as published_range interval; no per-pixel uncertainty",
+          "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +R=3396190 +units=m +no_defs",
+          "gaps": "no time series possible from mosaic (and must not be invented); no per-pixel time/season/LST; retrieval does not correct clouds/slopes/subsurface ice-bedrock; coverage only 5 Jezero windows in tile 00N060E"
+        }
+      ]
+    }
+  },
+  "cross_body_comparability": {
+    "status": "not_comparable_evidence_only",
+    "reason": "Brightness temperature, thermal inertia, and Earth air/skin temperature are different physical quantities with different methods, supports, time semantics, and emissivity/model assumptions. No approved D03 similarity feature or shared method exists.",
+    "enforcement": "All committed D03 observations carry score_role evidence_only or context_only; no cross-body D03 score is produced."
+  },
+  "rebuild_instructions": [
+    "uv run python scripts/build_planetary_thermal_pilot.py --download  # opt-in; caches raw PCP tables and THEMIS tile blocks under var/cache/thermal-43/",
+    "uv run python scripts/build_planetary_thermal_pilot.py              # offline rebuild from cache into pipelines/pilots/d03_planetary_thermal/",
+    "uv run pytest pipelines/tests/test_thermal_planetary.py -q",
+    "Earth D03 POWER pilot is committed under pipelines/pilots/d03_earth_power/; rebuild via acquisition pipeline with nasa-power provider for D03 Earth pilot areas if re-acquisition is needed (network, opt-in).",
+    "python3 scripts/d03_thermal_query_evidence.py  # time-selector/LST query evidence over committed pilot exports"
+  ],
+  "gaps_and_blockers": [
+    "Moon: only 00:00-00:15 and 12:00-12:15 LST bins committed for 18 windows; adding more of the 96 official PCP bins requires opt-in download/cache of additional ~200 MB tables per bin and bounded processing.",
+    "Moon: 7 noon-bin windows have no native coverage and 3 have sparse coverage (<5 bins) - recorded as no_coverage/unknown, not zero-filled.",
+    "Mars: THEMIS quantitative TI mosaic carries no per-pixel acquisition time/season/LST; time-series expansion is not possible from this product and must not be invented.",
+    "Earth: POWER is coarse modeled/reanalysis context (not measured 1.98 km temperature); committed window is one 7-day period only.",
+    "Shared API time-selector query endpoints/schemas are out of scope for D03 ownership (#141 if changes needed); query evidence is provided via committed data and scripts.",
+    "No global/exhaustive D03 coverage claimed for any body."
+  ],
+  "costs": {
+    "network_downloads_in_this_work": "none (audit and documentation from committed artifacts only)",
+    "storage_committed": "derived JSON/JSONL/Markdown coverage artifacts and docs only; no raw rasters/tables committed",
+    "committed_pilot_raw_cache_in_repo": "Earth POWER raw JSON responses (~6 KB total) under pipelines/pilots/d03_earth_power/raw/"
+  }
+}
