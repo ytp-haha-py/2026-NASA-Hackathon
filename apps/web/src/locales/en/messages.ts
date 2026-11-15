@@ -629,8 +629,23 @@ export const en = {
   "search.expand": "Expand",
   "search.submitShort": "Search",
   "search.dimensionRoleSimilarity": "Similarity — comparable within the same method/support",
+  "search.dimensionRoleFilter": "Filter only — narrows candidates, never scored",
   "search.dimensionRoleEvidence": "Evidence only — not scored",
   "search.dimensionRoleContext": "Context only — not scored",
+  "search.filterTag": "Filter only · not scored",
+  "search.filterCategoryShort": "Category",
+  "search.categoryFilter": "{label} category filter",
+  "search.categoryAny": "Any category",
+  "search.filterNoCoverage":
+    "No typed observations for this feature in this database, so no filter is shown.",
+  "search.filterNoDomain":
+    "The registry does not publish a numeric domain for this feature, so no range filter is shown.",
+  "search.filterCategoryNotRegistered":
+    "Category filter not registered: no category request field is available, so this control is disabled.",
+  "search.filterCategoryNoValues":
+    "The registry does not publish category values for this feature, so this control is disabled.",
+  "search.featureNotScored":
+    "Not registered for scoring or filtering; shown as evidence only.",
   "search.dimensionLoading": "Loading typed coverage…",
   "search.dimensionDataFailed": "Typed dimension data failed to load.",
   "search.dimensionRetry": "Retry typed data",
