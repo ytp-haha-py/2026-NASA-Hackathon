@@ -1,0 +1,72 @@
+[
+  {
+    "dataset_id": "crism-mtrdr-hrl000040ff",
+    "body": "Mars",
+    "provider": "NASA PDS Geosciences Node / MRO CRISM",
+    "instrument": "Compact Reconnaissance Imaging Spectrometer for Mars (CRISM)",
+    "product_id": "hrl000040ff_07_if183j_mtr3",
+    "collection_id": "MRO-M-CRISM-5-RDR-MPTARGETED-V1.0 (volume mrocr_4001)",
+    "version": "MTRDR; 2007-029; solar longitude 174.791242",
+    "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_if183j_mtr3.lbl",
+    "wavelength_table_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_wv183j_mtr3.tab",
+    "license": "PDS archived data are in the public domain (NASA PDS Geosciences Node)",
+    "license_url": "https://pds.nasa.gov/",
+    "access_status": "open",
+    "credentials_required": false,
+    "range_requests_supported": true,
+    "assets": [
+      {"role": "spectral_cube", "bytes": 668374980, "geometry": "455 x 751 x 489 BSQ float32"},
+      {"role": "refined_summary", "bytes": 82009200, "geometry": "455 x 751 x 60 BSQ float32"},
+      {"role": "dp_information", "bytes": 12301380, "geometry": "455 x 751 x 9 BSQ float32"},
+      {"role": "spectral_header", "bytes": 14842, "sha256": "120c55955551d38ad5cf80bd4739aeffd7c0c999af3a81f01695546db341e230"},
+      {"role": "spectral_label", "bytes": 6179, "sha256": "c0ac14dbdb17bd994d21099b42d9cb62cefde6a2238b6b5fdc79848f4a2f9e4e"},
+      {"role": "wavelength_table", "bytes": 14670, "sha256": "bc54157f4c376e5f4cb4242e091978b9efd2bb2b8a72a71fb39a1c8b61f146b3"},
+      {"role": "summary_header", "bytes": 1802, "sha256": "089a0bd2443612399a0a8ebb98f6107154d6335f48b341ce30408874486ee2f4"},
+      {"role": "information_header", "bytes": 1479, "sha256": "fc43ecdf63a2c4430dac1521305f4afb84e39850518197006793bc8f2ae0618e"}
+    ],
+    "native_support": "36 m equirectangular (MRO Mars Equirectangular, custom sphere radius 3394839.813316312 m, standard parallel 15 N)",
+    "band_semantics": "489 bands 436.13-3896.76 nm, float32 reflectance factor; three detector gaps recorded; header wavelength vector agrees with the detached TAB",
+    "coverage": "one map-projected targeted observation; footprint 18.2767-18.7324 N, 77.2756-77.5611 E",
+    "observation_states_enabled": "unknown only; decoder failed the reproduction tolerance",
+    "verification_status": "granule_read_verified",
+    "limitations": [
+      "Only 256-pixel sub-windows per AOI were read, not the full AOI, so valid_fraction is not asserted.",
+      "The DP information map values read as 0 with no validated SIS bit table; it is not used as a quality filter.",
+      "The official refined-summary values are context; they are not a detection or an abundance.",
+      "One granule is not a survey of Jezero crater or Mars."
+    ]
+  },
+  {
+    "dataset_id": "moon-m3-l2-reflectance",
+    "body": "Moon",
+    "provider": "NASA PDS Imaging Node / Chandrayaan-1 M3 team",
+    "instrument": "Moon Mineralogy Mapper (M3)",
+    "product_id": "M3G20090203T175131_V01_RFL",
+    "collection_id": "CH1-ORB-L-M3-4-L2-REFLECTANCE-V1.0",
+    "version": "V01 (2011-11-19 label creation)",
+    "url": "https://planetarydata.jpl.nasa.gov/img/data/m3/CH1M3_0004/DATA/20081118_20090214/200902/L2/M3G20090203T175131_V01_L2.LBL",
+    "license": "NASA Planetary Data System archived data (public domain)",
+    "license_url": "https://pds.nasa.gov/",
+    "access_status": "open",
+    "credentials_required": false,
+    "range_requests_supported": true,
+    "assets": [
+      {"role": "reflectance_cube", "bytes": 2173660800, "geometry": "304 samples x 21030 lines x 85 bands, BIL float32"},
+      {"role": "supplemental_cube", "bytes": 76717440, "geometry": "304 x 21030 x 3, BIL float32"},
+      {"role": "reflectance_header", "bytes": 37989, "sha256": "3f9aad70c60ad103fcfa121d1f99041147962ecbde5a4a550dd11204463211ff"},
+      {"role": "supplemental_header", "bytes": 292, "sha256": "387ab4e9f2558f76d2f3a0aace4daf33da6374ea7b3d0a4fd51e028d3395a720"},
+      {"role": "pds_label", "bytes": 7323, "sha256": "1a3e798d7912404974a0df7e091582eed15a5a8e494c4d616f877e07bea2c1c1"}
+    ],
+    "native_support": "global mode, 304-pixel swath, 85 bands 460.99-2976 nm",
+    "band_semantics": "RFL header exposes 85 explicit wavelengths in nm and 85 kernel widths; BIL layout makes a bounded row window a single contiguous range",
+    "coverage": "single global-mode orbit strip (2009-02-03T17:51:31Z to 18:27:11Z); the lunar ROI (Shackleton rim) is not confirmed inside this strip",
+    "observation_states_enabled": "none",
+    "verification_status": "granule_inspected_not_measured",
+    "limitations": [
+      "The RFL/SUP headers expose no per-pixel latitude/longitude; the PDS label states pixel-located data but geolocation depends on the archive GEOMETRY/SPICE products, which were not read.",
+      "SUP band 1 is a photometric-relative reflectance, band 2 an estimated surface temperature and band 3 radiance band 84; none is a geolocation backplane.",
+      "The 2.17 GB spectral cube was not downloaded; only headers and labels were read.",
+      "No M3 band-depth parameter or threshold is applied."
+    ]
+  }
+]
