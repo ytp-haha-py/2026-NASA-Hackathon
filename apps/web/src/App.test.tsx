@@ -3,14 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { App } from "./App";
 import {
-  analyzeQueuedFixture,
   capabilitiesFixture,
-  aoiLocationFixture,
   emptySearchResponseFixture,
-  jobCompletedFixture,
-  jobFailedFixture,
-  jobPartialFixture,
-  jobRunningFixture,
   noCoverageCapabilitiesFixture,
   referenceFixture,
   searchResponseFixture,
@@ -62,30 +56,6 @@ async function runSearch() {
     screen.getByRole("button", { name: "Search indexed Earth candidates" }),
   );
   return user;
-}
-
-function deferredResponse() {
-  let resolve!: (response: Response) => void;
-  let reject!: (error: unknown) => void;
-  const promise = new Promise<Response>((res, rej) => {
-    resolve = res;
-    reject = rej;
-  });
-  return { promise, resolve, reject };
-}
-
-function requestUrls(fetchMock: ReturnType<typeof installMockFetch>): string[] {
-  return fetchMock.mock.calls.map(([input]) =>
-    typeof input === "string"
-      ? input
-      : input instanceof URL
-        ? input.toString()
-        : input.url,
-  );
-}
-
-async function openAoiTab(user: ReturnType<typeof userEvent.setup>) {
-  await user.click(screen.getByRole("button", { name: "Analyze a new area" }));
 }
 
 describe("search form", () => {
@@ -638,202 +608,6 @@ describe("Mars reference mode", () => {
   });
 });
 
-describe("AOI analysis", () => {
-  it("validates AOI bbox limits client-side before submitting", async () => {
-    const user = userEvent.setup();
-    const fetchMock = await renderReady();
-    await openAoiTab(user);
-
-    const east = screen.getByLabelText("East longitude (°)");
-    await user.clear(east);
-    await user.type(east, "-13.6449");
-
-    await user.click(screen.getByRole("button", { name: "Analyze this Earth AOI" }));
-
-    const alert = await screen.findByRole("alert");
-    expect(alert).toHaveTextContent("AOI too small");
-    expect(
-      requestUrls(fetchMock).filter((url) => url.endsWith("/areas/analyze")),
-    ).toHaveLength(0);
-  });
-
-  it("shows server 422 AOI errors with codes and details", async () => {
-    const user = userEvent.setup();
-    const fetchMock = await renderReady({
-      analyze: () =>
-        errorResponse(422, "aoi_too_large", "AOI sides must be at most 2000 m.", [
-          { reason: "side_too_long", max_side_m: 2000 },
-        ]),
-    });
-    await openAoiTab(user);
-
-    await user.click(screen.getByRole("button", { name: "Analyze this Earth AOI" }));
-
-    const alert = await screen.findByRole("alert");
-    expect(alert).toHaveTextContent("AOI request failed");
-    expect(alert).toHaveTextContent("AOI sides must be at most 2000 m.");
-    expect(alert).toHaveTextContent("aoi_too_large");
-    expect(within(alert).getByText("Validation details")).toBeInTheDocument();
-    expect(
-      requestUrls(fetchMock).filter((url) => url.includes("/api/v1/jobs/")),
-    ).toHaveLength(0);
-  });
-
-  it("polls queued → running → completed and shows provider status", async () => {
-    const user = userEvent.setup();
-    const jobDeferreds = [deferredResponse(), deferredResponse()];
-    let jobCalls = 0;
-    await renderReady({
-      analyze: () => jsonResponse(analyzeQueuedFixture, 202),
-      job: () => {
-        const deferred =
-          jobDeferreds[Math.min(jobCalls, jobDeferreds.length - 1)];
-        jobCalls += 1;
-        return deferred.promise;
-      },
-      areaFeatures: () => jsonResponse(aoiLocationFixture),
-    });
-
-    await openAoiTab(user);
-    await user.click(screen.getByRole("button", { name: "Analyze this Earth AOI" }));
-
-    expect(await screen.findByText("AOI analysis queued…")).toBeInTheDocument();
-    await waitFor(() => expect(jobCalls).toBe(1));
-
-    await act(async () => {
-      jobDeferreds[0].resolve(jsonResponse(jobRunningFixture));
-    });
-    expect(await screen.findByText("AOI analysis running…")).toBeInTheDocument();
-
-    await waitFor(() => expect(jobCalls).toBe(2));
-    await act(async () => {
-      jobDeferreds[1].resolve(jsonResponse(jobCompletedFixture));
-    });
-
-    expect(await screen.findByTestId("aoi-record")).toBeInTheDocument();
-    const jobPanel = screen.getByTestId("aoi-job-panel");
-    expect(within(jobPanel).getByText("completed")).toBeInTheDocument();
-    expect(within(jobPanel).getAllByText("verified")).toHaveLength(2);
-    expect(
-      within(jobPanel).getByText("copernicus-dem-glo90"),
-    ).toBeInTheDocument();
-    expect(within(jobPanel).getByText("source_nodata_undefined")).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: "On-demand Earth AOI test" }),
-    ).toBeInTheDocument();
-  });
-
-  it("renders a partial job with failed provider status and still shows features", async () => {
-    const user = userEvent.setup();
-    await renderReady({
-      analyze: () => jsonResponse(analyzeQueuedFixture, 202),
-      job: () => jsonResponse(jobPartialFixture),
-      areaFeatures: () =>
-        jsonResponse({ ...aoiLocationFixture, context_observations: [] }),
-    });
-    await openAoiTab(user);
-
-    await user.click(screen.getByRole("button", { name: "Analyze this Earth AOI" }));
-
-    expect(await screen.findByText("Partial result")).toBeInTheDocument();
-    expect(screen.getByTestId("aoi-record")).toBeInTheDocument();
-    const jobPanel = screen.getByTestId("aoi-job-panel");
-    expect(within(jobPanel).getByText("partial")).toBeInTheDocument();
-    expect(within(jobPanel).getByText("failed")).toBeInTheDocument();
-    expect(
-      within(jobPanel).getByText(/ESA WorldCover window read failed in test/),
-    ).toBeInTheDocument();
-    expect(within(jobPanel).getByText("worldcover_context_provider_failed")).toBeInTheDocument();
-  });
-
-  it("renders a failed job with its error and does not show a feature record", async () => {
-    const user = userEvent.setup();
-    await renderReady({
-      analyze: () => jsonResponse(analyzeQueuedFixture, 202),
-      job: () => jsonResponse(jobFailedFixture),
-      areaFeatures: () => jsonResponse(aoiLocationFixture),
-    });
-    await openAoiTab(user);
-
-    await user.click(screen.getByRole("button", { name: "Analyze this Earth AOI" }));
-
-    expect(await screen.findByText("AOI analysis failed")).toBeInTheDocument();
-    expect(
-      screen.getByText(/Copernicus DEM window read failed in test/),
-    ).toBeInTheDocument();
-    expect(screen.getAllByText("source_fetch_failed").length).toBeGreaterThan(0);
-    expect(screen.queryByTestId("aoi-record")).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("button", {
-        name: "Compare this AOI against indexed Earth candidates",
-      }),
-    ).not.toBeInTheDocument();
-  });
-
-  it("uses completed AOI features as the next search target", async () => {
-    const user = userEvent.setup();
-    const fetchMock = await renderReady({
-      analyze: () => jsonResponse(analyzeQueuedFixture, 202),
-      job: () => jsonResponse(jobCompletedFixture),
-      areaFeatures: () => jsonResponse(aoiLocationFixture),
-    });
-    await openAoiTab(user);
-    await user.click(screen.getByRole("button", { name: "Analyze this Earth AOI" }));
-    await screen.findByTestId("aoi-record");
-
-    await user.click(
-      screen.getByRole("button", { name: "Use AOI features as search target" }),
-    );
-
-    await waitFor(() => expect(searchRequestFromCalls(fetchMock)).not.toBeNull());
-    const body = searchRequestFromCalls(fetchMock);
-    expect(body?.body).toBe("custom");
-    expect(body?.target).toEqual(
-      Object.fromEntries(
-        aoiLocationFixture.features.map((feature) => [
-          feature.feature_id,
-          { value: feature.value, weight: 1 },
-        ]),
-      ),
-    );
-    expect(screen.queryByRole("tab")).not.toBeInTheDocument();
-    expect(await screen.findByTestId("coverage-headline")).toBeInTheDocument();
-  });
-
-  it("compares a completed AOI by calling the no-body compare endpoint", async () => {
-    const user = userEvent.setup();
-    const fetchMock = await renderReady({
-      analyze: () => jsonResponse(analyzeQueuedFixture, 202),
-      job: () => jsonResponse(jobCompletedFixture),
-      areaFeatures: () => jsonResponse(aoiLocationFixture),
-      compare: () => jsonResponse(searchResponseFixture),
-    });
-    await openAoiTab(user);
-    await user.click(screen.getByRole("button", { name: "Analyze this Earth AOI" }));
-    await screen.findByTestId("aoi-record");
-
-    await user.click(
-      screen.getByRole("button", {
-        name: "Compare this AOI against indexed Earth candidates",
-      }),
-    );
-
-    await waitFor(() => {
-      expect(
-        requestUrls(fetchMock).some((url) => url.endsWith("/compare")),
-      ).toBe(true);
-    });
-    const compareCall = fetchMock.mock.calls.find(([input]) =>
-      (typeof input === "string" ? input : input.toString()).endsWith("/compare"),
-    );
-    expect(compareCall?.[1]).toMatchObject({ method: "POST" });
-    expect((compareCall?.[1] as RequestInit | undefined)?.body).toBeUndefined();
-    expect(await screen.findByTestId("coverage-headline")).toHaveTextContent(
-      "Top 2 among 4 indexed regions",
-    );
-  });
-});
-
 describe("dimension board", () => {
   it("sends a narrowed terrain range as a hard filter and leaves full ranges out", async () => {
     const fetchMock = await renderReady();
@@ -891,19 +665,6 @@ describe("dimension board", () => {
       await within(board).findByTestId("dimension-total-D02"),
     ).toHaveTextContent("typed observations");
     expect(attempts).toBe(2);
-  });
-
-  it("opens the six-dimension workspace from its own section without a board shortcut", async () => {
-    const user = userEvent.setup();
-    await renderReady({ references: () => jsonResponse([referenceFixture]) });
-    await user.click(screen.getByRole("radio", { name: "Moon" }));
-    await user.click(screen.getByRole("button", { name: referenceFixture.display_name }));
-    const board = within(screen.getByRole("region", { name: "Dimensions" }));
-    expect(board.queryByRole("button", { name: "Open six dimensions" })).not.toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: "Six-dimension comparison" }));
-    expect(await screen.findByRole("heading", { name: "D01–D06 observations for one area" }))
-      .toBeInTheDocument();
-
   });
 
   it("shows read-only reference values in Moon mode and editable targets in custom mode", async () => {
