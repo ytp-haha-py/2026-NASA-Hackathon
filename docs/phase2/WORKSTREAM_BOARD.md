@@ -11,7 +11,7 @@ worktree/session/goal ownership. It does not replace each Issue's acceptance cri
 | Issue | Worktree | Branch | Session ID | Native Goal ID | Goal / review | PR | Blocker |
 |---|---|---|---|---|---|---|---|
 | #142 Program coordinator | .../phase2-coordinator-142 | phase2/coordinator-142 | ses_e253e85e9ffeLjB1ipw0gIVen0 | a1caf80d-100c-4491-a301-cdf5020f0a69 | active / validated | coordinator | this PR | none |
-| #135 D01 | .../phase2-135-d01 | phase2/135-d01 | ses_e20fc8691ffeaMvQ1pjnNWscZp | 0199a330-c186-4293-acd6-71762469219d | complete / integrated | #147 | none |
+| #135 D01 | .../phase2-135-d01 | phase2/135-d01 | ses_e20fc8691ffeaMvQ1pjnNWscZp | 0199a330-c186-4293-acd6-71762469219d | phase complete / issue open | #147 | additional D01 ingest, #108/#97 |
 | #136 D02 | .../phase2-136-d02 | phase2/136-d02 | ses_e20fc69adffe9JAGca55A3aX5R | 8004c26a-8e34-464d-9bfb-8dc31680d2fe | complete / integrated | #148 | none |
 | #137 D03 | .../phase2-137-d03 | phase2/137-d03 | ses_e20fc6930ffeoPYLni2B8ZosUx | 0ceab842-708d-4164-81e2-96c4aeb23ca4 | complete / integrated | #146 | none |
 | #138 D04 | .../phase2-138-d04 | phase2/138-d04 | ses_e20fc68bbffe2Sar4coxcaeuS7 | 642a1a88-25bc-4515-a3bb-2d153bad8bb1 | complete / integrated | #144 | none |
@@ -96,7 +96,7 @@ worktrees at `/home/panda/.local/state/analogx-phase2/monitor.sqlite3`.
 
 ## Final acceptance
 
-See [`ACCEPTANCE.md`](ACCEPTANCE.md) for the three-body public acceptance, data snapshot, formulas and limitations.
+See [`ACCEPTANCE.md`](ACCEPTANCE.md) for the three-body public acceptance, data snapshot, formulas and limitations. #135–#139 remain open for additional bounded ingest; #140–#142 are closed.
 
 ## Update log
 
