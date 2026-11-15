@@ -1,0 +1,70 @@
+{
+  "blockers": [
+    "Moon PSD: no machine-readable bin/fraction table with basis and depth for the Station 8 AOI.",
+    "Moon bearing strength: only cone penetration resistance is reported; no bearing-capacity conversion applied.",
+    "Mars PSD: no measured site-specific distribution; literature grain-size scalar not converted.",
+    "Mars porosity: no direct porosity; no density-to-porosity conversion without particle density and model.",
+    "Mars friction angle: only an assumed 30 deg model input, not a measurement.",
+    "Mars bearing strength: only mole penetration resistance, not bearing strength.",
+    "Regolith thickness: feature not registered in D06 FEATURES_V2; shared change via #141.",
+    "Soil chemistry: no D06 chemistry feature; APXS values are audit-only."
+  ],
+  "checks": {
+    "all_states_explicit": true,
+    "chemistry_and_thermal_inertia_are_audit_only": true,
+    "detected_values_are_finite_numbers": true,
+    "detected_values_have_explicit_depth": true,
+    "global_claim_false": true,
+    "mars_has_real_value_or_no_coverage": true,
+    "moon_has_real_value": true,
+    "no_coverage_has_no_value_and_has_blocker": true,
+    "no_dem_roughness_or_landcover_or_earth_transfer_flags": true,
+    "no_zero_fill": true,
+    "planetary_frames_only": true,
+    "registered_d06_features_only": true,
+    "source_versions_and_licenses_present": true
+  },
+  "counts": {
+    "by_body": {
+      "Mars": 6,
+      "Moon": 6
+    },
+    "by_feature": {
+      "bearing_strength_kpa": 2,
+      "bulk_density_kg_m3": 2,
+      "cohesion_kpa": 2,
+      "friction_angle_deg": 2,
+      "particle_size_distribution": 2,
+      "porosity_fraction": 2
+    },
+    "by_state": {
+      "detected": 6,
+      "no_coverage": 6
+    },
+    "detected_by_body": {
+      "Mars": 2,
+      "Moon": 4
+    },
+    "explicit_no_coverage": 6,
+    "observations": 12,
+    "real_values": 6
+  },
+  "generated_at": "2026-11-15T12:00:00+00:00",
+  "notes": [
+    "All checks are computed from observations.jsonl and sources.json.",
+    "No value is zero-filled. No-coverage rows carry a blocker and a null value.",
+    "No DEM roughness, land-cover, thermal-inertia or Earth-SoilGrids transfer is performed."
+  ],
+  "qa_version": "d06-regolith-aoi-qa-1.0.0",
+  "scope": "d06-regolith-aoi-170",
+  "source_checksums": {
+    "a15lsrp-bundle": null,
+    "apollo15-psr-ch7-ocr-pdf": "87a9efdd93f1d2337f9427d9af9f40cd95cba6756321cdd5c23a9185a8c188bb",
+    "apollo15-psr-ch7-pds-pdf": "7581df975197a76f0c151965f917b8b92606014b921f03c0ed30251a32e9c3d9",
+    "apxs-supplement-csv": "c7e8c6f1067b54e376ab83d615f4720fd3cb2e273e828e3661bc703c5408dd43",
+    "delage2024-insight-soil-pdf": "b07d5502362c94849ad0d860a544b1dffe1a55526fb3decae517f97fe7f02b08",
+    "gasteiner-regolith-csv": "a3320cc90f6b272b35a60231c73034ff14fea1da5960a223eb01d2638cdd68f3",
+    "insight-hp3-tem-bundle": null,
+    "themis-quantitative-ti-mosaic": null
+  }
+}

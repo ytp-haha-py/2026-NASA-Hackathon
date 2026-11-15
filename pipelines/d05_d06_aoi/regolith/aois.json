@@ -1,0 +1,60 @@
+{
+  "schema_version": "d06-regolith-aois-1.0.0",
+  "scope": "d06-regolith-aoi-170",
+  "global_claim": false,
+  "notes": [
+    "Two bounded measurement-site AOIs for D06 Moon/Mars regolith evidence, issue #170 Goal F.",
+    "Planetary frames only. Moon uses IAU_2015:30100; Mars uses IAU_2015:49900. Neither is Earth WGS84.",
+    "Values are site/sample-specific, not area averages and not global or exhaustive coverage."
+  ],
+  "aois": [
+    {
+      "area_id": "moon-apollo15-station8-regolith-170",
+      "body": "Moon",
+      "display_name": "Apollo 15 Station 8 LSRP trench (Hadley-Apennine)",
+      "bbox": {
+        "west": 3.6293,
+        "south": 26.1336,
+        "east": 3.6303,
+        "north": 26.1346
+      },
+      "crs": "IAU_2015:30100",
+      "coordinate_frame": "lunar_planetocentric",
+      "center": {
+        "latitude_deg": 26.1341,
+        "longitude_deg": 3.6298,
+        "body_fixed_frame": "MOON_ME"
+      },
+      "site_radius_m": 100.0,
+      "source_refs": [
+        "urn:nasa:pds:a15lsrp_soil_mechanics",
+        "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/readme.txt"
+      ],
+      "notes": "Bounded ~100 m site envelope around the Apollo 15 ALSEP/Station 8 LSRP trench. The PSR places the ALSEP at 26.1341 N, 3.6298 E and the LSRP runs next to a ~40 cm trench. Values are site-specific, not an area average."
+    },
+    {
+      "area_id": "mars-insight-hp3-regolith-170",
+      "body": "Mars",
+      "display_name": "InSight HP3/mole site, Elysium Planitia",
+      "bbox": {
+        "west": 135.6225,
+        "south": 4.5015,
+        "east": 135.6235,
+        "north": 4.5025
+      },
+      "crs": "IAU_2015:49900",
+      "coordinate_frame": "mars_planetocentric",
+      "center": {
+        "latitude_deg": 4.502,
+        "longitude_deg": 135.623,
+        "body_fixed_frame": "IAU_MARS"
+      },
+      "site_radius_m": 100.0,
+      "source_refs": [
+        "urn:nasa:pds:insight_hp3_tem",
+        "https://doi.org/10.28927/SR.2024.005023"
+      ],
+      "notes": "Bounded ~100 m site envelope around the InSight lander/HP3 mole site (4.502 N, 135.623 E). Values describe the upper ~40 cm at the lander site, not an area average."
+    }
+  ]
+}

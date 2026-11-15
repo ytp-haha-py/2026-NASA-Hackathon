@@ -1,0 +1,210 @@
+{
+  "schema_version": "d06-regolith-audit-1.0.0",
+  "scope": "d06-regolith-aoi-170",
+  "global_claim": false,
+  "notes": [
+    "This audit records related evidence that is not emitted as a detected D06 physical-property observation.",
+    "It exists to show that chemistry, thermal inertia and thickness were checked rather than silently ignored.",
+    "No value here is used to fill a D06 feature that lacks a registered, measured value."
+  ],
+  "unsupported_features": [
+    {
+      "feature_id": "regolith_thickness_m",
+      "body": "Moon",
+      "state": "unsupported",
+      "reason": "Not registered in the current D06 FEATURES_V2 registry. Apollo 15 trench/drill depths are local sampling depths, not a regolith-thickness product.",
+      "required_change": "Shared feature-registry/contract change via #141; not made in this pass."
+    },
+    {
+      "feature_id": "regolith_thickness_m",
+      "body": "Mars",
+      "state": "unsupported",
+      "reason": "Not registered in the current D06 FEATURES_V2 registry. InSight mole/duricrust depths are local profile depths, not a regolith-thickness product.",
+      "required_change": "Shared feature-registry/contract change via #141; not made in this pass."
+    },
+    {
+      "feature_id": "soil_chemistry",
+      "body": "Moon",
+      "state": "unsupported_by_registry",
+      "reason": "No soil-chemistry feature in the current D06 FEATURES_V2 registry; Apollo sample chemistry is not ingested as a D06 observation.",
+      "required_change": "A new versioned feature/ontology entry would be required; not made in this pass."
+    },
+    {
+      "feature_id": "soil_chemistry",
+      "body": "Mars",
+      "state": "unsupported_by_registry",
+      "reason": "No soil-chemistry feature in the current D06 FEATURES_V2 registry. Real APXS chemistry exists (see chemistry_evidence) but is audit-only.",
+      "required_change": "A new versioned feature/ontology entry would be required; not made in this pass."
+    }
+  ],
+  "chemistry_evidence": {
+    "body": "Mars",
+    "feature_id": "soil_chemistry",
+    "registered_feature": false,
+    "state": "unsupported_by_registry",
+    "dataset_id": "nasa-pds-msl-apxs-supplement",
+    "source_asset_id": "apxs-supplement-csv",
+    "version": "PDS4 bundle 1.1; doi:10.17189/6q8a-kg55",
+    "license": "NASA PDS public archive; cite the bundle DOI and Berger et al. (2022)",
+    "product": "MSL APXS summary and geological context, sols 0-3076",
+    "target": "Gobabeb_Scoop2_RP",
+    "sol": 1225,
+    "preparation_method": "SD",
+    "quality_note": "The PDS CSV quality field is blank for this row; per-oxide uncertainties are present.",
+    "depth_support": {
+      "kind": "surface",
+      "notes": "Scooped active sand at the surface; APXS samples the upper tens of micrometres."
+    },
+    "local_site_coordinates": {
+      "northing_m": 8142393.08,
+      "easting_m": -277346.0,
+      "elevation_m": -4423.69,
+      "frame_note": "MSL local site coordinates from the PDS CSV. Not a geographic CRS and not WGS84."
+    },
+    "values": [
+      {
+        "oxide": "Na2O",
+        "value": 2.35,
+        "unit": "wt%",
+        "error": 0.14
+      },
+      {
+        "oxide": "MgO",
+        "value": 9.32,
+        "unit": "wt%",
+        "error": 0.25
+      },
+      {
+        "oxide": "Al2O3",
+        "value": 9.16,
+        "unit": "wt%",
+        "error": 0.19
+      },
+      {
+        "oxide": "SiO2",
+        "value": 45.74,
+        "unit": "wt%",
+        "error": 0.54
+      },
+      {
+        "oxide": "SO3",
+        "value": 2.87,
+        "unit": "wt%",
+        "error": 0.05
+      },
+      {
+        "oxide": "Cl",
+        "value": 0.49,
+        "unit": "wt%",
+        "error": 0.02
+      },
+      {
+        "oxide": "K2O",
+        "value": 0.39,
+        "unit": "wt%",
+        "error": 0.01
+      },
+      {
+        "oxide": "CaO",
+        "value": 7.13,
+        "unit": "wt%",
+        "error": 0.08
+      },
+      {
+        "oxide": "TiO2",
+        "value": 0.84,
+        "unit": "wt%",
+        "error": 0.03
+      },
+      {
+        "oxide": "FeO",
+        "value": 19.97,
+        "unit": "wt%",
+        "error": 0.26
+      }
+    ],
+    "source_locator": "ds01_2021je007171r.csv, row Sol=1225 Target=Gobabeb_Scoop2_RP; DOI 10.17189/6q8a-kg55.",
+    "notes": "Real Mars soil chemistry at an AOI, kept audit-only because D06 has no chemistry feature. Not used to infer any physical property."
+  },
+  "thermal_inertia_audit": {
+    "body": "Mars",
+    "feature_id": "thermal_inertia",
+    "dimension_code": "D03",
+    "registered_d06_feature": false,
+    "used_for_d06_density": false,
+    "dataset_id": "usgs-themis-quantitative-ti",
+    "product_id": "THEMIS_TI_Mosaic_Quant_00N060E_100mpp",
+    "version": "edition 1 (2014-05-30)",
+    "doi": "10.1029/2006JE002735",
+    "native_resolution_m": 100.0,
+    "footprint": "Mars; existing D03 Jezero windows are inside the 00N060E tile",
+    "depth_support": "upper few centimetres; no single fixed depth",
+    "existing_d03_evidence": {
+      "pilot": "pipelines/pilots/d03_planetary_thermal",
+      "reference_windows": 5,
+      "example_window": "mars-jezero-ctx-window-01",
+      "example_mean_thermal_inertia": 213.63,
+      "unit": "J m^-2 K^-1 s^-1/2"
+    },
+    "reason_not_used": "D06 semantics forbids thermal inertia -> bulk density without a verified physical model and stated conductivity/heat-capacity assumptions. No conversion is applied in this pass.",
+    "notes": "Thermal inertia remains D03 evidence and is not relabeled as D06 density or porosity."
+  },
+  "cross_checks": [
+    {
+      "check_id": "moon-a15-psr-vs-gasteiner",
+      "body": "Moon",
+      "result": "match",
+      "detail": "PSR Table 7-IV (density 1.97 g/cm3, porosity 36.5%, friction 49.5 deg, 0-20 cm) matches Gasteiner et al. Dataset_Regolith.csv row 100 (density 1.97, porosity 35-38%, friction 47.5-51.5, depth 0-20 cm)."
+    },
+    {
+      "check_id": "moon-a15-cohesion-published-range",
+      "body": "Moon",
+      "result": "rounded_match",
+      "detail": "PSR summary gives ~1 kN/m2; Gasteiner row 101 records 0.94 kPa for the same trench experiment. The record keeps both as a published range."
+    },
+    {
+      "check_id": "moon-a15-direct-core-density",
+      "body": "Moon",
+      "result": "documented_discrepancy",
+      "detail": "PSR text notes a direct drill-core density of 1.84 g/cm3 from the same Station 8 area, lower than the SRP-derived 1.97 g/cm3. The SRP estimate depends on Gs=3.1; the discrepancy is preserved as a limitation, not averaged away."
+    },
+    {
+      "check_id": "mars-insight-density-no-direct-measurement",
+      "body": "Mars",
+      "result": "documented_limitation",
+      "detail": "Delage et al. (2024) explicitly state there are no direct density measurements at the InSight site. The 1491 kg/m3 value is model-derived from HP3 thermal conductivity and is flagged as such."
+    },
+    {
+      "check_id": "mars-insight-friction-assumption",
+      "body": "Mars",
+      "result": "not_a_measurement",
+      "detail": "The 30 deg friction angle in Delage et al. (2024) is a fixed model input, not a measured value; friction_angle_deg is therefore no_coverage."
+    },
+    {
+      "check_id": "mars-insight-penetration-vs-bearing",
+      "body": "Mars",
+      "result": "not_relabelled",
+      "detail": "The 5.3 MPa mole penetration resistance is not bearing strength; bearing_strength_kpa is no_coverage and no conversion is applied."
+    }
+  ],
+  "forbidden_derivations_not_performed": [
+    "DEM roughness or slope -> grain size, cohesion, friction angle or bearing strength",
+    "land-cover bare fraction -> regolith thickness or grain size",
+    "Earth SoilGrids texture or bulk density -> Moon/Mars properties",
+    "thermal inertia -> bulk density without a verified physical model and stated assumptions",
+    "1 - bulk_density / 2650 -> porosity without a stated particle density",
+    "penetration resistance -> bearing strength without a stated failure criterion and reduction model",
+    "literature grain-size scalar -> particle-size distribution without bin fractions, basis and depth",
+    "rover wheel slip or trafficability score -> bearing strength"
+  ],
+  "blockers": [
+    "Moon PSD: no machine-readable bin/fraction table with basis and depth for the Station 8 AOI.",
+    "Moon bearing strength: only cone penetration resistance is reported; no bearing-capacity conversion applied.",
+    "Mars PSD: no measured site-specific distribution; literature grain-size scalar not converted.",
+    "Mars porosity: no direct porosity; no density-to-porosity conversion without particle density and model.",
+    "Mars friction angle: only an assumed 30 deg model input, not a measurement.",
+    "Mars bearing strength: only mole penetration resistance, not bearing strength.",
+    "Regolith thickness: feature not registered in D06 FEATURES_V2; shared change via #141.",
+    "Soil chemistry: no D06 chemistry feature; APXS values are audit-only."
+  ]
+}

@@ -52,7 +52,11 @@ def test_observations_have_real_or_explicit_no_coverage_per_aoi_dimension():
         for dim in ["D05", "D06"]:
             subset = [o for o in obs if o["area_id"] == area and o["dimension_code"] == dim]
             assert subset, f"no records for {area} {dim}"
-            assert all(o["state"] in {"detected", "no_coverage", "not_detected", "unknown", "not_applicable"} for o in subset)
+            assert all(
+                o["state"]
+                in {"detected", "no_coverage", "not_detected", "unknown", "not_applicable"}
+                for o in subset
+            )
             assert any(o["state"] in {"detected", "no_coverage"} for o in subset)
     # D05 illumination real detected values for both AOIs
     illum = [o for o in obs if o["feature_id"] in {"solar_incidence_deg", "solar_elevation_deg"}]
@@ -70,7 +74,10 @@ def test_d05_illumination_and_radiation_separated():
     assert all("not_ionizing_radiation" in o["quality_flags"] for o in illum)
     assert all(o["state"] == "no_coverage" and o["value"] is None for o in rad)
     assert all("separated_from_solar_illumination" in o["quality_flags"] for o in rad)
-    assert all(o["method_version"] != "spice-solar-geometry-1.0.0" or "ionizing" not in o["observation_id"] for o in rad)
+    assert all(
+        o["method_version"] != "spice-solar-geometry-1.0.0" or "ionizing" not in o["observation_id"]
+        for o in rad
+    )
 
 
 def test_d06_no_coverage_no_proxy_flags():

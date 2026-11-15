@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -190,11 +189,18 @@ def illumination_observations(aoi: dict[str, Any]) -> list[dict[str, Any]]:
             "sun_distance_m": 147832168114.34378,
         }
     else:
-        vals = {"solar_incidence_deg": 100.59141779877926, "solar_elevation_deg": -10.591417798779261}
+        vals = {
+            "solar_incidence_deg": 100.59141779877926,
+            "solar_elevation_deg": -10.591417798779261,
+        }
         lst = "05.04 h"
         lst_h = 5.035240259335698
         frame = "IAU_MARS"
-        kernel_ids = ["naif-kernel:naif0012.tls", "naif-kernel:pck00011.tpc", "naif-kernel:de421.bsp"]
+        kernel_ids = [
+            "naif-kernel:naif0012.tls",
+            "naif-kernel:pck00011.tpc",
+            "naif-kernel:de421.bsp",
+        ]
         source_dataset = "mars2020-jezero-ctx-dem-20m"
         ref_manifest = "pipelines/planetary/manifests/ctx_mars_references.json"
         polar_flag = []
@@ -225,7 +231,7 @@ def illumination_observations(aoi: dict[str, Any]) -> list[dict[str, Any]]:
         rows.append(
             {
                 "schema_version": "2.0.0",
-                "observation_id": f"d05:illumination:{aoi['area_id']}:{feature_id}:{EPOCH_UTC.replace('-','').replace(':','')}",
+                "observation_id": f"d05:illumination:{aoi['area_id']}:{feature_id}:{EPOCH_UTC.replace('-', '').replace(':', '')}",
                 "area_id": aoi["area_id"],
                 "body": aoi["body"],
                 "dimension_code": "D05",
@@ -278,7 +284,10 @@ def illumination_observations(aoi: dict[str, Any]) -> list[dict[str, Any]]:
 
 def radiation_observations(aoi: dict[str, Any]) -> list[dict[str, Any]]:
     if aoi["body"] == "Moon":
-        source_assets = ["pds:lro-l-crat-3-cdr-calibrated-v1.0", "pds:lro-l-crat-3-4-ddr-processed-v1.0"]
+        source_assets = [
+            "pds:lro-l-crat-3-cdr-calibrated-v1.0",
+            "pds:lro-l-crat-3-4-ddr-processed-v1.0",
+        ]
         dataset_ids = ["lro-crater-cdr", "lro-crater-ddr"]
         reason = (
             "No in-situ surface ionizing-radiation measurement at this AOI. LRO CRaTER provides "
@@ -630,25 +639,40 @@ def main() -> int:
 
     requests = []
     for a in aois:
-        requests.append({
-            "task_id": f"d05-illumination:{a['area_id']}",
-            "area_id": a["area_id"], "body": a["body"], "dimension": "D05",
-            "subgroup": "solar_illumination", "status": "ok_detected",
-            "note": "Model-derived SPICE solar geometry from committed pilot provenance (epoch pinned).",
-        })
-        requests.append({
-            "task_id": f"d05-ionizing-radiation:{a['area_id']}",
-            "area_id": a["area_id"], "body": a["body"], "dimension": "D05",
-            "subgroup": "ionizing_radiation", "status": "no_coverage",
-            "note": "Official-source audit; no defensible AOI dose value without fabrication.",
-        })
+        requests.append(
+            {
+                "task_id": f"d05-illumination:{a['area_id']}",
+                "area_id": a["area_id"],
+                "body": a["body"],
+                "dimension": "D05",
+                "subgroup": "solar_illumination",
+                "status": "ok_detected",
+                "note": "Model-derived SPICE solar geometry from committed pilot provenance (epoch pinned).",
+            }
+        )
+        requests.append(
+            {
+                "task_id": f"d05-ionizing-radiation:{a['area_id']}",
+                "area_id": a["area_id"],
+                "body": a["body"],
+                "dimension": "D05",
+                "subgroup": "ionizing_radiation",
+                "status": "no_coverage",
+                "note": "Official-source audit; no defensible AOI dose value without fabrication.",
+            }
+        )
         for fid, _, _ in D06_FEATURES:
-            requests.append({
-                "task_id": f"d06-regolith:{a['area_id']}:{fid}",
-                "area_id": a["area_id"], "body": a["body"], "dimension": "D06",
-                "feature_id": fid, "status": "no_coverage",
-                "note": "Official-source audit; no direct measured value with required footprint/depth/support for AOI.",
-            })
+            requests.append(
+                {
+                    "task_id": f"d06-regolith:{a['area_id']}:{fid}",
+                    "area_id": a["area_id"],
+                    "body": a["body"],
+                    "dimension": "D06",
+                    "feature_id": fid,
+                    "status": "no_coverage",
+                    "note": "Official-source audit; no direct measured value with required footprint/depth/support for AOI.",
+                }
+            )
     requests_sha = write_jsonl(OUT / "requests.jsonl", requests)
 
     by_body: dict[str, int] = {}
@@ -747,7 +771,11 @@ def main() -> int:
         ],
     }
     write_json(OUT / "manifest.json", manifest)
-    print(json.dumps({"observations": len(obs), "by_state": by_state, "sha256": observations_sha}, indent=2))
+    print(
+        json.dumps(
+            {"observations": len(obs), "by_state": by_state, "sha256": observations_sha}, indent=2
+        )
+    )
     return 0
 
 

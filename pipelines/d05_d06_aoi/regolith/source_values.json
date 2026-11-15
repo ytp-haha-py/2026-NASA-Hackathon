@@ -1,0 +1,626 @@
+{
+  "schema_version": "d06-regolith-source-values-1.0.0",
+  "scope": "d06-regolith-aoi-170",
+  "notes": [
+    "Curated, bounded extraction from the sources in sources.json. No value is fabricated, zero-filled, or inferred from DEM roughness, land cover, thermal inertia or Earth SoilGrids.",
+    "Each detected value records its evidence class, explicit depth support, published uncertainty where available, source locator and assumptions.",
+    "No-coverage records carry a specific blocker and never carry a numeric value."
+  ],
+  "values": [
+    {
+      "source_value_id": "moon-a15-station8-bulk-density-srp",
+      "area_id": "moon-apollo15-station8-regolith-170",
+      "body": "Moon",
+      "feature_id": "bulk_density_kg_m3",
+      "state": "detected",
+      "value": 1970.0,
+      "unit": "kg/m^3",
+      "value_kind": "numeric",
+      "depth_support": {
+        "kind": "depth_interval",
+        "min_m": 0.0,
+        "max_m": 0.2
+      },
+      "depth_notes": "PSR Table 7-IV states the estimates are appropriate for the upper 10-20 cm at Station 8; this record uses 0-20 cm.",
+      "uncertainty": {
+        "kind": "published_range",
+        "lower": 1920.0,
+        "upper": 2010.0,
+        "unit": "kg/m^3",
+        "notes": "Best estimate 1.97 g/cm3; published range 1.92-2.01 g/cm3 (Table 7-IV)."
+      },
+      "temporal_support": {
+        "kind": "instant",
+        "start": "1971-08-01T00:00:00Z",
+        "notes": "Apollo 15 EVA-2 date; exact measurement time is not encoded in this artifact."
+      },
+      "evidence_class": "derived_from_in_situ_penetration",
+      "value_semantics": "derived_estimate",
+      "method_version": "apollo15-psr-table7iv-srp-reduction-1.0.0",
+      "dataset_id": "nasa-sp-289-a15-psr-ch7",
+      "source_asset_ids": [
+        "apollo15-psr-ch7-pds-pdf",
+        "apollo15-psr-ch7-ocr-pdf",
+        "gasteiner-regolith-csv"
+      ],
+      "source_locator": "NASA SP-289 Chapter 7, Table 7-IV (p. 7-17): density best estimate 1.97 g/cm3, range 1.92-2.01 g/cm3, for the upper 10-20 cm at Station 8.",
+      "assumptions": [
+        "Specific gravity Gs = 3.1 is assumed, as stated in the PSR (Apollo 11/12 analogue; Apollo 15 Gs not measured at the time).",
+        "Density is derived from SRP penetration data and porosity-friction correlations, not a direct mass/volume measurement.",
+        "The PSR notes a direct drill-core density of 1.84 g/cm3 from the same area; the 1.97 g/cm3 estimate is higher and depends on the stated Gs assumption."
+      ],
+      "quality_flags": [
+        "published_value",
+        "explicit_depth_support",
+        "derived_from_in_situ_penetration",
+        "published_reduction_model",
+        "specific_gravity_assumed_3.1",
+        "not_a_direct_density_measurement",
+        "cross_checked_against_cc_by_compilation",
+        "no_dem_roughness_inference",
+        "no_worldcover_inference",
+        "no_earth_transfer",
+        "not_global_coverage",
+        "bounded_site_not_global",
+        "evidence_only_not_similarity"
+      ],
+      "notes": "Published Apollo 15 PSR estimate for Station 8, not a local direct density measurement. Cross-checked against Gasteiner et al. CSV row 100 (Apollo 15 penetrometer, 1.97 g/cm3, 0-20 cm); the compilation cites the same NASA SP-289."
+    },
+    {
+      "source_value_id": "moon-a15-station8-porosity-srp",
+      "area_id": "moon-apollo15-station8-regolith-170",
+      "body": "Moon",
+      "feature_id": "porosity_fraction",
+      "state": "detected",
+      "value": 0.365,
+      "unit": "fraction",
+      "value_kind": "numeric",
+      "depth_support": {
+        "kind": "depth_interval",
+        "min_m": 0.0,
+        "max_m": 0.2
+      },
+      "depth_notes": "Same PSR Table 7-IV station-8 upper 10-20 cm estimate; recorded as 0-20 cm.",
+      "uncertainty": {
+        "kind": "published_range",
+        "lower": 0.35,
+        "upper": 0.38,
+        "unit": "fraction",
+        "notes": "Best estimate 36.5%; published range 35-38% (Table 7-IV)."
+      },
+      "temporal_support": {
+        "kind": "instant",
+        "start": "1971-08-01T00:00:00Z",
+        "notes": "Apollo 15 EVA-2 date; exact measurement time is not encoded."
+      },
+      "evidence_class": "derived_from_in_situ_penetration",
+      "value_semantics": "derived_estimate",
+      "method_version": "apollo15-psr-table7iv-srp-reduction-1.0.0",
+      "dataset_id": "nasa-sp-289-a15-psr-ch7",
+      "source_asset_ids": [
+        "apollo15-psr-ch7-pds-pdf",
+        "apollo15-psr-ch7-ocr-pdf",
+        "gasteiner-regolith-csv"
+      ],
+      "source_locator": "NASA SP-289 Chapter 7, Table 7-IV (p. 7-17): porosity best estimate 36.5%, range 35-38%, void ratio 0.57 (0.54-0.61).",
+      "assumptions": [
+        "Porosity is derived from SRP penetration data and lunar-soil porosity-friction correlations.",
+        "Specific gravity Gs = 3.1 is assumed; the PSR states this is an estimate, not an Apollo 15 measurement."
+      ],
+      "quality_flags": [
+        "published_value",
+        "explicit_depth_support",
+        "derived_from_in_situ_penetration",
+        "porosity_from_srp_correlation",
+        "specific_gravity_assumed_3.1",
+        "not_a_direct_porosity_measurement",
+        "cross_checked_against_cc_by_compilation",
+        "no_dem_roughness_inference",
+        "no_worldcover_inference",
+        "no_earth_transfer",
+        "not_global_coverage",
+        "bounded_site_not_global",
+        "evidence_only_not_similarity"
+      ],
+      "notes": "Published PSR estimate, not a direct core porosity. Cross-checked against Gasteiner et al. CSV row 100 (35-38%, 0-20 cm)."
+    },
+    {
+      "source_value_id": "moon-a15-station8-friction-srp",
+      "area_id": "moon-apollo15-station8-regolith-170",
+      "body": "Moon",
+      "feature_id": "friction_angle_deg",
+      "state": "detected",
+      "value": 49.5,
+      "unit": "degree",
+      "value_kind": "numeric",
+      "depth_support": {
+        "kind": "depth_interval",
+        "min_m": 0.0,
+        "max_m": 0.2
+      },
+      "depth_notes": "PSR Table 7-IV station-8 upper 10-20 cm estimate; recorded as 0-20 cm.",
+      "uncertainty": {
+        "kind": "published_range",
+        "lower": 47.5,
+        "upper": 51.5,
+        "unit": "degree",
+        "notes": "Best estimate 49.5 deg; published range 47.5-51.5 deg (Table 7-IV)."
+      },
+      "temporal_support": {
+        "kind": "instant",
+        "start": "1971-08-01T00:00:00Z",
+        "notes": "Apollo 15 EVA-2 date; exact measurement time is not encoded."
+      },
+      "evidence_class": "derived_from_in_situ_penetration",
+      "value_semantics": "derived_estimate",
+      "method_version": "apollo15-psr-table7iv-srp-reduction-1.0.0",
+      "dataset_id": "nasa-sp-289-a15-psr-ch7",
+      "source_asset_ids": [
+        "apollo15-psr-ch7-pds-pdf",
+        "apollo15-psr-ch7-ocr-pdf",
+        "gasteiner-regolith-csv"
+      ],
+      "source_locator": "NASA SP-289 Chapter 7, Table 7-IV (p. 7-17): friction angle best estimate 49.5 deg, range 47.5-51.5 deg.",
+      "assumptions": [
+        "Friction angle is estimated from the lunar-soil porosity-friction correlation, not a direct shear test.",
+        "The correlation and the Gs = 3.1 assumption are stated in the PSR."
+      ],
+      "quality_flags": [
+        "published_value",
+        "explicit_depth_support",
+        "derived_from_in_situ_penetration",
+        "porosity_friction_correlation",
+        "specific_gravity_assumed_3.1",
+        "not_a_direct_shear_measurement",
+        "cross_checked_against_cc_by_compilation",
+        "no_dem_roughness_inference",
+        "no_worldcover_inference",
+        "no_earth_transfer",
+        "not_global_coverage",
+        "bounded_site_not_global",
+        "evidence_only_not_similarity"
+      ],
+      "notes": "Published PSR estimate for Station 8. Cross-checked against Gasteiner et al. CSV row 100 (47.5-51.5 deg, 0-20 cm)."
+    },
+    {
+      "source_value_id": "moon-a15-station8-cohesion-trench",
+      "area_id": "moon-apollo15-station8-regolith-170",
+      "body": "Moon",
+      "feature_id": "cohesion_kpa",
+      "state": "detected",
+      "value": 1.0,
+      "unit": "kPa",
+      "value_kind": "numeric",
+      "depth_support": {
+        "kind": "depth_interval",
+        "min_m": 0.0,
+        "max_m": 0.36
+      },
+      "depth_notes": "The PSR reports the Station 8 trench as ~36-41 cm deep; the cohesion is a trench-face value, so the conservative 0-36 cm exposure is used, not a point-sample depth.",
+      "uncertainty": {
+        "kind": "published_range",
+        "lower": 0.94,
+        "upper": 1.0,
+        "unit": "kPa",
+        "notes": "PSR summary gives ~1 kN/m2; Gasteiner et al. CSV row 101 records 0.94 kPa for the same trench experiment."
+      },
+      "temporal_support": {
+        "kind": "instant",
+        "start": "1971-08-01T00:00:00Z",
+        "notes": "Apollo 15 EVA-2 date; exact measurement time is not encoded."
+      },
+      "evidence_class": "derived_from_in_situ_trench_failure",
+      "value_semantics": "derived_estimate",
+      "method_version": "apollo15-psr-trench-wedge-1.0.0",
+      "dataset_id": "nasa-sp-289-a15-psr-ch7",
+      "source_asset_ids": [
+        "apollo15-psr-ch7-pds-pdf",
+        "apollo15-psr-ch7-ocr-pdf",
+        "gasteiner-regolith-csv"
+      ],
+      "source_locator": "NASA SP-289 Chapter 7 summary (p. 7-1/7-2): 'a cohesion of 1 kN/m2 for the soil at station 8'; trench depth ~36-41 cm described in the same chapter. Gasteiner et al. CSV row 101: 0.94 kPa.",
+      "assumptions": [
+        "Cohesion is back-calculated from trench-wall stability / wedge failure, not a direct shear test.",
+        "The PSR notes end effects and uncertainty in the failure force; values are preliminary.",
+        "The trench-face depth interval is an exposure interval, not a single sample depth."
+      ],
+      "quality_flags": [
+        "published_value",
+        "explicit_depth_support",
+        "derived_from_in_situ_trench_failure",
+        "reduction_model_required",
+        "trench_face_not_point_sample",
+        "not_direct_shear_test",
+        "preliminary_value",
+        "cross_checked_against_cc_by_compilation",
+        "no_dem_roughness_inference",
+        "no_worldcover_inference",
+        "no_earth_transfer",
+        "not_global_coverage",
+        "bounded_site_not_global",
+        "evidence_only_not_similarity"
+      ],
+      "notes": "The PSR summary rounds the trench result to ~1 kN/m2; the compilation records 0.94 kPa. This is a trench-scale strength estimate, not a point measurement."
+    },
+    {
+      "source_value_id": "moon-a15-station8-psd-no-coverage",
+      "area_id": "moon-apollo15-station8-regolith-170",
+      "body": "Moon",
+      "feature_id": "particle_size_distribution",
+      "state": "no_coverage",
+      "value": null,
+      "unit": "fraction",
+      "value_kind": "distribution",
+      "depth_support": {
+        "kind": "unknown"
+      },
+      "depth_notes": "No machine-readable particle-size distribution with bin edges, basis and depth was ingested.",
+      "uncertainty": {
+        "kind": "unknown",
+        "notes": "No numeric value ingested."
+      },
+      "temporal_support": {
+        "kind": "unknown",
+        "notes": "No PSD observation ingested."
+      },
+      "evidence_class": "no_coverage",
+      "value_semantics": "no_coverage",
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "dataset_id": "nasa-pds-a15lsrp-soil-mechanics",
+      "source_asset_ids": [
+        "a15lsrp-bundle",
+        "apollo15-psr-ch7-ocr-pdf"
+      ],
+      "source_locator": "NASA SP-289 Chapter 7 discusses grain-size curves (Fig. 7-6) but this pass did not ingest a tabulated PSD for Station 8.",
+      "assumptions": [],
+      "blocker": "No machine-readable particle-size table with bin edges, basis (mass/volume/number) and depth for this AOI. PSD is not inferred from texture, DEM roughness, land cover or Earth SoilGrids.",
+      "quality_flags": [
+        "no_coverage_explicit",
+        "no_fabricated_value",
+        "no_zero_fill",
+        "no_dem_roughness_inference",
+        "no_worldcover_inference",
+        "no_earth_transfer",
+        "not_global_coverage",
+        "bounded_site_not_global",
+        "evidence_only_not_similarity"
+      ],
+      "notes": "Explicit no_coverage. Future ingest requires a bounded PSD table with bin edges/basis/depth and sample support."
+    },
+    {
+      "source_value_id": "moon-a15-station8-bearing-no-coverage",
+      "area_id": "moon-apollo15-station8-regolith-170",
+      "body": "Moon",
+      "feature_id": "bearing_strength_kpa",
+      "state": "no_coverage",
+      "value": null,
+      "unit": "kPa",
+      "value_kind": "numeric",
+      "depth_support": {
+        "kind": "unknown"
+      },
+      "depth_notes": "No bearing-strength value under the registered D06 semantics was ingested.",
+      "uncertainty": {
+        "kind": "unknown",
+        "notes": "No numeric value ingested."
+      },
+      "temporal_support": {
+        "kind": "unknown",
+        "notes": "No bearing-strength observation ingested."
+      },
+      "evidence_class": "no_coverage",
+      "value_semantics": "no_coverage",
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "dataset_id": "nasa-pds-a15lsrp-soil-mechanics",
+      "source_asset_ids": [
+        "a15lsrp-bundle",
+        "apollo15-psr-ch7-ocr-pdf"
+      ],
+      "source_locator": "NASA SP-289 Chapter 7, Table 7-III lists cone-penetration-resistance gradients and qc values, not bearing strength.",
+      "assumptions": [],
+      "blocker": "Measured LSRP cone penetration resistance exists but is not bearing strength under the registered D06 semantics; no bearing-capacity conversion was applied. Penetration resistance is not relabeled as bearing strength.",
+      "quality_flags": [
+        "no_coverage_explicit",
+        "no_fabricated_value",
+        "no_zero_fill",
+        "penetration_resistance_not_relabelled",
+        "no_dem_roughness_inference",
+        "no_worldcover_inference",
+        "no_earth_transfer",
+        "not_global_coverage",
+        "bounded_site_not_global",
+        "evidence_only_not_similarity"
+      ],
+      "notes": "Explicit no_coverage. A future bearing-strength record needs a stated failure criterion, load geometry and reduction model, or a direct plate-load test."
+    },
+    {
+      "source_value_id": "mars-insight-bulk-density-hp3",
+      "area_id": "mars-insight-hp3-regolith-170",
+      "body": "Mars",
+      "feature_id": "bulk_density_kg_m3",
+      "state": "detected",
+      "value": 1491.0,
+      "unit": "kg/m^3",
+      "value_kind": "numeric",
+      "depth_support": {
+        "kind": "depth_interval",
+        "min_m": 0.0,
+        "max_m": 0.4
+      },
+      "depth_notes": "Average density of the top ~40 cm of soil at the InSight landing site, derived from HP3 TEM-A thermal-conductivity inversion.",
+      "uncertainty": {
+        "kind": "published_range",
+        "lower": 1378.0,
+        "upper": 1612.0,
+        "unit": "kg/m^3",
+        "notes": "Published asymmetric uncertainty +121/-113 kg/m3; lower/upper computed from the central value 1491 kg/m3."
+      },
+      "temporal_support": {
+        "kind": "unknown",
+        "notes": "InSight mission measurements (2018-2022); exact acquisition interval not encoded in this artifact."
+      },
+      "evidence_class": "model_derived_from_thermal_conductivity",
+      "value_semantics": "model_derived_estimate",
+      "method_version": "insight-hp3-thermal-conductivity-inversion-1.0.0",
+      "dataset_id": "delage-2024-insight-soil",
+      "source_asset_ids": [
+        "delage2024-insight-soil-pdf",
+        "insight-hp3-tem-bundle"
+      ],
+      "source_locator": "Delage et al. (2024), Section 5.2.2: 'average density of the top 40 cm of the soil of 1491 +121/-113 kg/m3'; the paper explicitly states there are no direct measurements of soil density at the site.",
+      "assumptions": [
+        "Density is inferred by inversion of HP3 TEM-A thermal-conductivity measurements using the published model (Grott et al. 2021; Spohn et al. 2022).",
+        "The value is an average over the top ~40 cm, not a point measurement and not a layer-resolved profile.",
+        "The source does not claim a direct density measurement; this record preserves that distinction."
+      ],
+      "quality_flags": [
+        "published_value",
+        "explicit_depth_support",
+        "model_derived_from_thermal_conductivity",
+        "density_not_directly_measured",
+        "thermal_conductivity_inversion",
+        "asymmetric_uncertainty",
+        "no_dem_roughness_inference",
+        "no_worldcover_inference",
+        "no_earth_transfer",
+        "not_global_coverage",
+        "bounded_site_not_global",
+        "evidence_only_not_similarity"
+      ],
+      "notes": "Published model-derived estimate, not a measurement. The paper reports layer values (1300 kg/m3 surface sand/dust, 950-1100 kg/m3 duricrust, 1300-1500 kg/m3 sand, 1600 kg/m3 sand/gravel below 31 cm) but only the top-40 cm average is ingested here to avoid pooling depths."
+    },
+    {
+      "source_value_id": "mars-insight-cohesion-scoop",
+      "area_id": "mars-insight-hp3-regolith-170",
+      "body": "Mars",
+      "feature_id": "cohesion_kpa",
+      "state": "detected",
+      "value": 5.8,
+      "unit": "kPa",
+      "value_kind": "numeric",
+      "depth_support": {
+        "kind": "depth_interval",
+        "min_m": 0.0,
+        "max_m": 0.07
+      },
+      "depth_notes": "Mole-pit dimensions reported as 0.045 m wide by 0.07 m high; the tip-push cohesion is a pit-scale value over that exposure.",
+      "uncertainty": {
+        "kind": "unknown",
+        "notes": "Minimum inferred cohesion; no symmetric uncertainty reported. A flat-push experiment gave a lower minimum of 0.4 kPa."
+      },
+      "temporal_support": {
+        "kind": "unknown",
+        "notes": "InSight mission scoop-press experiments; exact sol interval not encoded in this artifact."
+      },
+      "evidence_class": "derived_from_in_situ_scoop_push",
+      "value_semantics": "derived_lower_bound",
+      "method_version": "insight-hp3-scoop-slope-stability-1.0.0",
+      "dataset_id": "delage-2024-insight-soil",
+      "source_asset_ids": [
+        "delage2024-insight-soil-pdf"
+      ],
+      "source_locator": "Delage et al. (2024), Section 5.2.3: inferred minimum cohesion c' = 5.8 kPa for the tip push (0.4 kPa for the flat push), with friction angle fixed at 30 deg in a slope-stability back-analysis; tip-push pressure 91.9 kPa.",
+      "assumptions": [
+        "Friction angle phi' = 30 deg is a fixed model input, not a measured value.",
+        "Cohesion is a minimum inferred from slope stability with safety factor 1, not a direct shear test.",
+        "The value applies to the mole-pit exposure (0-0.07 m), not the full 40 cm profile."
+      ],
+      "quality_flags": [
+        "published_value",
+        "explicit_depth_support",
+        "derived_from_in_situ_scoop_push",
+        "minimum_estimate",
+        "slope_stability_back_analysis",
+        "friction_angle_assumed_30deg",
+        "not_direct_shear_test",
+        "no_dem_roughness_inference",
+        "no_worldcover_inference",
+        "no_earth_transfer",
+        "not_global_coverage",
+        "bounded_site_not_global",
+        "evidence_only_not_similarity"
+      ],
+      "notes": "Published minimum cohesion from a scoop-push experiment, not a direct shear measurement. The companion flat-push estimate is 0.4 kPa; using the tip-push value is explicit and not an average."
+    },
+    {
+      "source_value_id": "mars-insight-psd-no-coverage",
+      "area_id": "mars-insight-hp3-regolith-170",
+      "body": "Mars",
+      "feature_id": "particle_size_distribution",
+      "state": "no_coverage",
+      "value": null,
+      "unit": "fraction",
+      "value_kind": "distribution",
+      "depth_support": {
+        "kind": "unknown"
+      },
+      "depth_notes": "No site-specific measured PSD with bin edges, basis and depth was ingested.",
+      "uncertainty": {
+        "kind": "unknown",
+        "notes": "No numeric value ingested."
+      },
+      "temporal_support": {
+        "kind": "unknown",
+        "notes": "No PSD observation ingested."
+      },
+      "evidence_class": "no_coverage",
+      "value_semantics": "no_coverage",
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "dataset_id": "delage-2024-insight-soil",
+      "source_asset_ids": [
+        "delage2024-insight-soil-pdf"
+      ],
+      "source_locator": "Delage et al. (2024) cites a literature grain-size estimate of ~104-173 microns for the site; it is not a measured distribution with bins, basis and depth.",
+      "assumptions": [],
+      "blocker": "No measured site-specific particle-size distribution with bin edges, basis and depth. A literature grain-size scalar is not converted into a distribution.",
+      "quality_flags": [
+        "no_coverage_explicit",
+        "no_fabricated_value",
+        "no_zero_fill",
+        "literature_grain_size_scalar_not_a_distribution",
+        "no_dem_roughness_inference",
+        "no_worldcover_inference",
+        "no_earth_transfer",
+        "not_global_coverage",
+        "bounded_site_not_global",
+        "evidence_only_not_similarity"
+      ],
+      "notes": "Explicit no_coverage. A future PSD record requires measured bin fractions and a stated basis/depth."
+    },
+    {
+      "source_value_id": "mars-insight-porosity-no-coverage",
+      "area_id": "mars-insight-hp3-regolith-170",
+      "body": "Mars",
+      "feature_id": "porosity_fraction",
+      "state": "no_coverage",
+      "value": null,
+      "unit": "fraction",
+      "value_kind": "numeric",
+      "depth_support": {
+        "kind": "unknown"
+      },
+      "depth_notes": "No direct porosity value was ingested.",
+      "uncertainty": {
+        "kind": "unknown",
+        "notes": "No numeric value ingested."
+      },
+      "temporal_support": {
+        "kind": "unknown",
+        "notes": "No porosity observation ingested."
+      },
+      "evidence_class": "no_coverage",
+      "value_semantics": "no_coverage",
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "dataset_id": "delage-2024-insight-soil",
+      "source_asset_ids": [
+        "delage2024-insight-soil-pdf"
+      ],
+      "source_locator": "Delage et al. (2024) reports density but no direct porosity; converting density to porosity requires a stated particle density and a verified model.",
+      "assumptions": [],
+      "blocker": "No direct porosity. Not derived from bulk density because the particle density and conversion model are not stated/verified for this site.",
+      "quality_flags": [
+        "no_coverage_explicit",
+        "no_fabricated_value",
+        "no_zero_fill",
+        "no_density_to_porosity_conversion",
+        "no_dem_roughness_inference",
+        "no_worldcover_inference",
+        "no_earth_transfer",
+        "not_global_coverage",
+        "bounded_site_not_global",
+        "evidence_only_not_similarity"
+      ],
+      "notes": "Explicit no_coverage. Density is not a porosity substitute without a stated particle density and model."
+    },
+    {
+      "source_value_id": "mars-insight-friction-no-coverage",
+      "area_id": "mars-insight-hp3-regolith-170",
+      "body": "Mars",
+      "feature_id": "friction_angle_deg",
+      "state": "no_coverage",
+      "value": null,
+      "unit": "degree",
+      "value_kind": "numeric",
+      "depth_support": {
+        "kind": "unknown"
+      },
+      "depth_notes": "No measured friction angle was ingested.",
+      "uncertainty": {
+        "kind": "unknown",
+        "notes": "No numeric value ingested."
+      },
+      "temporal_support": {
+        "kind": "unknown",
+        "notes": "No friction-angle observation ingested."
+      },
+      "evidence_class": "no_coverage",
+      "value_semantics": "no_coverage",
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "dataset_id": "delage-2024-insight-soil",
+      "source_asset_ids": [
+        "delage2024-insight-soil-pdf"
+      ],
+      "source_locator": "Delage et al. (2024), Section 5.2.3: friction angle phi' = 30 deg was fixed as a model input for the slope-stability calculation, not measured.",
+      "assumptions": [],
+      "blocker": "Only an assumed phi' = 30 deg model input is reported, not a measured friction angle. The assumption is not ingested as a detected value.",
+      "quality_flags": [
+        "no_coverage_explicit",
+        "no_fabricated_value",
+        "no_zero_fill",
+        "assumed_model_input_not_measurement",
+        "no_dem_roughness_inference",
+        "no_worldcover_inference",
+        "no_earth_transfer",
+        "not_global_coverage",
+        "bounded_site_not_global",
+        "evidence_only_not_similarity"
+      ],
+      "notes": "Explicit no_coverage. The 30 deg value is recorded only as an assumption in the cohesion observation, not as a measured friction angle."
+    },
+    {
+      "source_value_id": "mars-insight-bearing-no-coverage",
+      "area_id": "mars-insight-hp3-regolith-170",
+      "body": "Mars",
+      "feature_id": "bearing_strength_kpa",
+      "state": "no_coverage",
+      "value": null,
+      "unit": "kPa",
+      "value_kind": "numeric",
+      "depth_support": {
+        "kind": "unknown"
+      },
+      "depth_notes": "No bearing-strength value under the registered D06 semantics was ingested.",
+      "uncertainty": {
+        "kind": "unknown",
+        "notes": "No numeric value ingested."
+      },
+      "temporal_support": {
+        "kind": "unknown",
+        "notes": "No bearing-strength observation ingested."
+      },
+      "evidence_class": "no_coverage",
+      "value_semantics": "no_coverage",
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "dataset_id": "delage-2024-insight-soil",
+      "source_asset_ids": [
+        "delage2024-insight-soil-pdf"
+      ],
+      "source_locator": "Delage et al. (2024), Section 5.2.2: mole penetration resistance 5.3 MPa in the sand/gravel layer and 5-10 times smaller in the duricrust; this is penetration resistance, not bearing strength.",
+      "assumptions": [],
+      "blocker": "Measured mole penetration resistance (5.3 MPa sand/gravel; 5-10x lower duricrust) is not bearing strength under the registered semantics. No bearing-capacity conversion was applied.",
+      "quality_flags": [
+        "no_coverage_explicit",
+        "no_fabricated_value",
+        "no_zero_fill",
+        "penetration_resistance_not_relabelled",
+        "no_dem_roughness_inference",
+        "no_worldcover_inference",
+        "no_earth_transfer",
+        "not_global_coverage",
+        "bounded_site_not_global",
+        "evidence_only_not_similarity"
+      ],
+      "notes": "Explicit no_coverage. A future bearing-strength record needs a stated failure criterion, load geometry and reduction model, or a direct plate-load test."
+    }
+  ]
+}
