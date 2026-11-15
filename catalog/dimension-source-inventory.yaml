@@ -13,6 +13,7 @@ status_legend:
     not_applicable: The dimension is not scientifically applicable to this body.
   data_status:
     existing_observed: Derived observations already exist in committed manifests.
+    existing_modeled: Model-derived values exist in committed manifests; they are not observations.
     not_fetched: No source bytes were fetched for this inventory.
     unknown: Cannot determine without source verification.
   comparability:
@@ -406,7 +407,7 @@ dimensions:
     research_question: "地表受到什麼光照與輻射條件？"
     subgroups: [solar_illumination, ionizing_radiation]
     research_classes: []
-    baseline: "10 Earth NASA POWER context observations in the committed D05 pilot; no ionizing-radiation measurement and no cross-body D05 score"
+    baseline: "10 Earth NASA POWER context observations plus 18 NAIF SPICE model-derived Moon/Mars solar-geometry observations; no ionizing-radiation measurement and no cross-body D05 score"
     bodies:
       Earth:
         sources:
@@ -446,6 +447,23 @@ dimensions:
             unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
       Moon:
         sources:
+          - source_id: naif-spice-solar-geometry-moon
+            provider: NASA JPL Navigation and Ancillary Information Facility (NAIF)
+            product: SPICE DE421 ephemeris + MOON_ME lunar frame + pck00011 radii
+            url: https://naif.jpl.nasa.gov/pub/naif/generic_kernels/
+            license: Public NASA/NAIF SPICE kernels; cite NAIF/PDS
+            license_url: https://naif.jpl.nasa.gov/naif/rules.html
+            native_resolution: Point geometry; no raster resolution
+            spatial_support: 4 existing LOLA Site04 ROI centres, interpreted as body-fixed point sites
+            temporal_support: Single documented instant 2026-11-15T12:00:00Z; DE421 covers about 1900-2050
+            depth_support: Surface tangent plane only
+            observation_kinds: [numeric]
+            qa: Kernel sizes and SHA-256 pinned; MOON_ME frame validated by pxform; flat ellipsoid tangent plane; no horizon/shadow
+            availability: accessible
+            data_status: existing_modeled
+            comparability: context_only
+            notes: "Committed model-derived pilot: 4 Moon point sites, 8 solar-geometry observations; not observed irradiance and not ionizing radiation."
+            unknown_fields: []
           - source_id: lunar-illumination-source-not-selected
             provider: not_selected
             product: not_selected
@@ -461,7 +479,7 @@ dimensions:
             availability: planned
             data_status: not_fetched
             comparability: unknown
-            notes: "Illumination product not selected; horizon/observer height and time support required."
+            notes: "Illumination observation product not selected; NAIF SPICE pilot covers geometry only, and horizon/observer-height support is still required."
             unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
           - source_id: lunar-ionizing-radiation-not-selected
             provider: not_selected
@@ -482,6 +500,23 @@ dimensions:
             unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
       Mars:
         sources:
+          - source_id: naif-spice-solar-geometry-mars
+            provider: NASA JPL Navigation and Ancillary Information Facility (NAIF)
+            product: SPICE DE421 ephemeris + IAU_MARS orientation from pck00011
+            url: https://naif.jpl.nasa.gov/pub/naif/generic_kernels/
+            license: Public NASA/NAIF SPICE kernels; cite NAIF/PDS
+            license_url: https://naif.jpl.nasa.gov/naif/rules.html
+            native_resolution: Point geometry; no raster resolution
+            spatial_support: 5 existing Jezero CTX coordinate windows, interpreted as body-fixed point sites
+            temporal_support: Single documented instant 2026-11-15T12:00:00Z; DE421 covers about 1900-2050
+            depth_support: Surface tangent plane only
+            observation_kinds: [numeric]
+            qa: Kernel sizes and SHA-256 pinned; IAU_MARS frame validated by pxform; flat ellipsoid tangent plane; no horizon/shadow
+            availability: accessible
+            data_status: existing_modeled
+            comparability: context_only
+            notes: "Committed model-derived pilot: 5 Mars point sites, 10 solar-geometry observations; not observed irradiance and not ionizing radiation."
+            unknown_fields: []
           - source_id: mars-illumination-radiation-not-selected
             provider: not_selected
             product: not_selected
@@ -497,7 +532,7 @@ dimensions:
             availability: planned
             data_status: not_fetched
             comparability: unknown
-            notes: "Illumination and radiation remain separate; no product IDs asserted."
+            notes: "Ionizing radiation not selected; illumination geometry is covered by naif-spice-solar-geometry-mars. No product IDs asserted."
             unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
   - code: D06
     name: Regolith & Surface Properties

@@ -1,0 +1,279 @@
+{
+  "assets_sha256": "da3692abbcf5f1a7c0a726c984868d7632f1fdefe1a14c79a2573d93ffdb95fa",
+  "counts": {
+    "areas": 9,
+    "by_body": {
+      "Mars": 10,
+      "Moon": 8
+    },
+    "by_feature": {
+      "solar_elevation_deg": 9,
+      "solar_incidence_deg": 9
+    },
+    "by_score_role": {
+      "context_only": 18
+    },
+    "by_state": {
+      "detected": 18
+    },
+    "no_coverage": 0,
+    "observations": 18,
+    "sites_attempted": 9,
+    "sites_failed": 0,
+    "sites_succeeded": 9
+  },
+  "data_kind": "model_derived",
+  "epoch_utc": "2026-11-15T12:00:00Z",
+  "et_seconds": 848016069.1827395,
+  "frames": {
+    "Mars": {
+      "epoch_utc": "2026-11-15T12:00:00Z",
+      "frame": "IAU_MARS",
+      "frame_id": 10014,
+      "validation": "pxform('IAU_MARS', 'J2000') succeeded"
+    },
+    "Moon": {
+      "epoch_utc": "2026-11-15T12:00:00Z",
+      "frame": "MOON_ME",
+      "frame_id": 31001,
+      "validation": "pxform('MOON_ME', 'J2000') succeeded"
+    }
+  },
+  "generated_at": "2026-11-15T05:45:52.609562+00:00",
+  "input_manifests": [
+    {
+      "path": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "references": 4,
+      "sha256": "80c91cb5992d395791e0835ce5952a99e51f52f6933643a414749ffdcb9eafcd"
+    },
+    {
+      "path": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "references": 5,
+      "sha256": "6168256e3a03502a48a0aa812ae00365337dc819cd6a161a9f4a75ee2b158153"
+    }
+  ],
+  "kernel_count": 5,
+  "kernel_total_bytes": 18718944,
+  "kernels": [
+    {
+      "asset_id": "naif-kernel:naif0012.tls",
+      "bytes": 5257,
+      "filename": "naif0012.tls",
+      "local_cache_path": "var/cache/spice-45/naif0012.tls",
+      "purpose": "Leap-second kernel for UTC -> ephemeris time conversion.",
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls"
+    },
+    {
+      "asset_id": "naif-kernel:pck00011.tpc",
+      "bytes": 131226,
+      "filename": "pck00011.tpc",
+      "local_cache_path": "var/cache/spice-45/pck00011.tpc",
+      "purpose": "Text planetary constants: body radii and IAU_MARS orientation.",
+      "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc"
+    },
+    {
+      "asset_id": "naif-kernel:de421.bsp",
+      "bytes": 16790528,
+      "filename": "de421.bsp",
+      "local_cache_path": "var/cache/spice-45/de421.bsp",
+      "purpose": "JPL DE421 planetary ephemeris (1900-2050), Sun/Moon/Mars states.",
+      "sha256": "08b20db2ae22488650641c5a9033e5bfda4b1c4b440cfeaf20f621cfa18ecdb3",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/a_old_versions/de421.bsp"
+    },
+    {
+      "asset_id": "naif-kernel:moon_pa_de421_1900-2050.bpc",
+      "bytes": 1770496,
+      "filename": "moon_pa_de421_1900-2050.bpc",
+      "local_cache_path": "var/cache/spice-45/moon_pa_de421_1900-2050.bpc",
+      "purpose": "DE421 lunar principal-axis orientation (binary PCK).",
+      "sha256": "656f90616403d75a75f0cd6c8830fc5b44f8cb4facb5ccb8915e752b397520cf",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc"
+    },
+    {
+      "asset_id": "naif-kernel:moon_080317.tf",
+      "bytes": 21437,
+      "filename": "moon_080317.tf",
+      "local_cache_path": "var/cache/spice-45/moon_080317.tf",
+      "purpose": "Lunar frame definitions: MOON_ME / MOON_PA realized from DE421.",
+      "sha256": "78732477b96f9863e7b0d65bcee3c22b8707ca5ed0db56d1173319cb2e8c7993",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf"
+    }
+  ],
+  "limitations": [
+    "Model-derived geometry only: not observed irradiance, radiance, shadow fraction, or ionizing radiation.",
+    "Flat biaxial-ellipsoid tangent-plane normal; no DEM terrain horizon, horizon mask, observer height, or atmospheric/cloud model.",
+    "The site is placed on the reference biaxial ellipsoid; source DEM elevations and observer heights are not added.",
+    "Sun position is the light-time-corrected body-centre vector from SPICE; site parallax is applied by vector subtraction.",
+    "Point sites at existing reference coordinates; not a spatial average over the existing 1.98 km DEM windows.",
+    "Moon uses the MOON_ME body-fixed frame realized from DE421; Mars uses IAU_MARS from pck00011. Source projected-CRS coordinates are interpreted in those frames; prime-meridian/frame registration is a documented assumption, not an independent geodetic validation.",
+    "One documented instant only; no time series, eclipse/occultation, or local-solar-time series is produced.",
+    "DE421 covers approximately 1900-2050; kernel SHA-256 digests are pinned and any drift is rejected by the builder.",
+    "No cross-body D05 score; illumination and ionizing radiation remain separate subgroups. No Gy/Sv value is produced.",
+    "Kernels are cached under a gitignored var/cache directory and are not committed to Git."
+  ],
+  "method_version": "spice-solar-geometry-1.0.0",
+  "non_claims": [
+    "No observed solar irradiance or radiance.",
+    "No shadow fraction, shadow mask, or horizon visibility interval.",
+    "No ionizing radiation, absorbed dose (Gy), or equivalent dose (Sv).",
+    "No global or exhaustive Moon/Mars illumination coverage.",
+    "No cross-body or Earth/Moon/Mars D05 similarity score."
+  ],
+  "notes": [
+    "Bounded pilot at existing Moon/Mars terrain reference coordinates only.",
+    "The values are a solar-geometry model, not a measurement of surface illumination.",
+    "Kernel URLs, SHA-256 digests, frame names, epoch, site coordinates, and limitations are preserved in this manifest.",
+    "Kernels are public NAIF products; redistribution of the kernel bytes is not re-asserted here."
+  ],
+  "observations_sha256": "1c642d6c23582761fe01facebbaf5779bd7be5b1a7aef55588cf3d20d041eb45",
+  "plan_sha256": "f7f32afb793606f9765ff09afdc9ecad1bc646c3afcbdb041535ff0026736d9b",
+  "release_version": "spice-geometry-pilot-1.0.0",
+  "reproduce_commands": [
+    "uv sync --extra spice",
+    "uv run --extra spice python scripts/build_spice_illumination_pilot.py --download",
+    "uv run --extra spice python scripts/build_spice_illumination_pilot.py",
+    "uv run --extra spice pytest pipelines/tests/test_solar_geometry.py -q",
+    "uv run --extra spice pytest apps/api/tests/test_typed_api.py -q -k d05_spice"
+  ],
+  "scope": "pilot-d05-spice-illumination",
+  "sites": [
+    {
+      "area_id": "moon-shackleton-rim-site04-roi1",
+      "body": "Moon",
+      "display_name": "Shackleton Rim (LOLA Site04 roi1)",
+      "elevation_deg": 1.536835707219069,
+      "frame": "MOON_ME",
+      "incidence_deg": 88.46316429278093,
+      "latitude_deg": -89.76196621,
+      "local_solar_time_hours": 18.3057806651083,
+      "longitude_deg": -157.06719662,
+      "site_radius_m": 1737399.9999999998,
+      "subsolar_latitude_deg": -1.55655714823731,
+      "subsolar_longitude_deg": 108.34609340337546,
+      "sun_distance_m": 147832168114.34378
+    },
+    {
+      "area_id": "moon-shackleton-rim-site04-roi2",
+      "body": "Moon",
+      "display_name": "Shackleton Rim (LOLA Site04 ROI 2)",
+      "elevation_deg": 1.535392516821858,
+      "frame": "MOON_ME",
+      "incidence_deg": 88.46460748317814,
+      "latitude_deg": -89.77192511,
+      "local_solar_time_hours": 18.343443097108302,
+      "longitude_deg": -156.50226014,
+      "site_radius_m": 1737399.9999999998,
+      "subsolar_latitude_deg": -1.55655714823731,
+      "subsolar_longitude_deg": 108.34609340337546,
+      "sun_distance_m": 147832168158.09042
+    },
+    {
+      "area_id": "moon-shackleton-rim-site04-roi3",
+      "body": "Moon",
+      "display_name": "Shackleton Rim (LOLA Site04 roi3)",
+      "elevation_deg": 1.5354582150585685,
+      "frame": "MOON_ME",
+      "incidence_deg": 88.46454178494143,
+      "latitude_deg": -89.78008311,
+      "local_solar_time_hours": 18.35508876577497,
+      "longitude_deg": -156.32757511,
+      "site_radius_m": 1737399.9999999998,
+      "subsolar_latitude_deg": -1.55655714823731,
+      "subsolar_longitude_deg": 108.34609340337546,
+      "sun_distance_m": 147832168156.09894
+    },
+    {
+      "area_id": "moon-shackleton-rim-site04-roi4",
+      "body": "Moon",
+      "display_name": "Shackleton Rim (LOLA Site04 roi4)",
+      "elevation_deg": 1.5345277535545847,
+      "frame": "MOON_ME",
+      "incidence_deg": 88.46547224644542,
+      "latitude_deg": -89.78487392,
+      "local_solar_time_hours": 18.37962852177497,
+      "longitude_deg": -155.95947877,
+      "site_radius_m": 1737400.0000000002,
+      "subsolar_latitude_deg": -1.55655714823731,
+      "subsolar_longitude_deg": 108.34609340337546,
+      "sun_distance_m": 147832168184.3035
+    },
+    {
+      "area_id": "mars-jezero-ctx-window-01",
+      "body": "Mars",
+      "display_name": "Jezero CTX coordinate window 01",
+      "elevation_deg": -10.591417798779261,
+      "frame": "IAU_MARS",
+      "incidence_deg": 100.59141779877926,
+      "latitude_deg": 18.220253246764436,
+      "local_solar_time_hours": 5.035240259335698,
+      "longitude_deg": 77.37095200216012,
+      "site_radius_m": 3396189.9999999995,
+      "subsolar_latitude_deg": 9.288096980795011,
+      "subsolar_longitude_deg": -178.15765188787532,
+      "sun_distance_m": 240751585441.26016
+    },
+    {
+      "area_id": "mars-jezero-ctx-window-02",
+      "body": "Mars",
+      "display_name": "Jezero CTX coordinate window 02",
+      "elevation_deg": -10.387747963654903,
+      "frame": "IAU_MARS",
+      "incidence_deg": 100.3877479636549,
+      "latitude_deg": 18.388959295345586,
+      "local_solar_time_hours": 5.047097876500781,
+      "longitude_deg": 77.54881625963637,
+      "site_radius_m": 3396189.9999999995,
+      "subsolar_latitude_deg": 9.288096980795011,
+      "subsolar_longitude_deg": -178.15765188787532,
+      "sun_distance_m": 240751573570.52283
+    },
+    {
+      "area_id": "mars-jezero-ctx-window-03",
+      "body": "Mars",
+      "display_name": "Jezero CTX coordinate window 03",
+      "elevation_deg": -10.184311098499904,
+      "frame": "IAU_MARS",
+      "incidence_deg": 100.1843110984999,
+      "latitude_deg": 18.55766534392674,
+      "local_solar_time_hours": 5.05895549366586,
+      "longitude_deg": 77.7266805171126,
+      "site_radius_m": 3396190.0000000005,
+      "subsolar_latitude_deg": 9.288096980795011,
+      "subsolar_longitude_deg": -178.15765188787532,
+      "sun_distance_m": 240751561705.63998
+    },
+    {
+      "area_id": "mars-jezero-ctx-window-04",
+      "body": "Mars",
+      "display_name": "Jezero CTX coordinate window 04",
+      "elevation_deg": -9.98111075404887,
+      "frame": "IAU_MARS",
+      "incidence_deg": 99.98111075404887,
+      "latitude_deg": 18.72637139250789,
+      "local_solar_time_hours": 5.070813110830943,
+      "longitude_deg": 77.90454477458881,
+      "site_radius_m": 3396190.0,
+      "subsolar_latitude_deg": 9.288096980795011,
+      "subsolar_longitude_deg": -178.15765188787532,
+      "sun_distance_m": 240751549846.99472
+    },
+    {
+      "area_id": "mars-jezero-ctx-window-05",
+      "body": "Mars",
+      "display_name": "Jezero CTX coordinate window 05",
+      "elevation_deg": -9.77815048554011,
+      "frame": "IAU_MARS",
+      "incidence_deg": 99.77815048554011,
+      "latitude_deg": 18.895077441089043,
+      "local_solar_time_hours": 5.082670727996026,
+      "longitude_deg": 78.08240903206506,
+      "site_radius_m": 3396190.0,
+      "subsolar_latitude_deg": 9.288096980795011,
+      "subsolar_longitude_deg": -178.15765188787532,
+      "sun_distance_m": 240751537994.97003
+    }
+  ],
+  "spice_version": "6.0.3"
+}

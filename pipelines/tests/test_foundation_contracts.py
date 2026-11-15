@@ -51,6 +51,23 @@ def test_inventory_keeps_unknown_fields_explicit():
     assert all(source.availability != "verified" for source in d02.bodies["Earth"].sources)
 
 
+def test_inventory_marks_spice_pilot_as_model_derived_context():
+    inventory = load_inventory()
+    d05 = inventory.dimensions[4]
+    for body, source_id, count in (
+        ("Moon", "naif-spice-solar-geometry-moon", 8),
+        ("Mars", "naif-spice-solar-geometry-mars", 10),
+    ):
+        source = next(item for item in d05.bodies[body].sources if item.source_id == source_id)
+        assert source.availability == "accessible"
+        assert source.data_status == "existing_modeled"
+        assert source.comparability == "context_only"
+        assert source.unknown_fields == []
+        assert str(count) in source.notes
+        assert "not observed irradiance" in source.notes
+        assert "not ionizing radiation" in source.notes
+
+
 def test_ontology_maps_existing_feature_ids_without_changing_them():
     ontology = load_ontology()
     expected = {feature.id for feature in FEATURES} | {

@@ -36,7 +36,7 @@ D05_SUBGROUPS = {"solar_illumination", "ionizing_radiation"}
 Availability = Literal[
     "verified", "accessible", "identified", "planned", "unknown", "not_applicable"
 ]
-DataStatus = Literal["existing_observed", "not_fetched", "unknown"]
+DataStatus = Literal["existing_observed", "existing_modeled", "not_fetched", "unknown"]
 Comparability = Literal["comparable", "context_only", "evidence_only", "not_comparable", "unknown"]
 
 
