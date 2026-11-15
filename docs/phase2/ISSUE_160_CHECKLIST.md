@@ -24,7 +24,7 @@ with observed command output and real API responses.
 | 9 | Frontend handoff lists exact D01-only hardcodes and replacement APIs | Subagent C | `docs/FRONTEND_HANDOFF_160.md` | **done** (executable contract; duplicate summary removed) |
 | 10 | OpenAPI + TypeScript types regenerated | Integrator | diff + `bash scripts/verify.sh --ci` | **done** (29 paths; `npm run generate:api`) |
 | 11 | Full CI passes | Integrator | verify output | **done** (`bash scripts/verify.sh --ci` PASS, 14 steps, 117s) |
-| 12 | PR opened with real requests/responses and gaps; not self-merged | Integrator | PR URL | pending (commit/push/PR) |
+| 12 | PR opened with real requests/responses and gaps; not self-merged | Integrator | PR URL | **done**: https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/166 |
 
 ## Shared-scoring fix (Integration-owned)
 
