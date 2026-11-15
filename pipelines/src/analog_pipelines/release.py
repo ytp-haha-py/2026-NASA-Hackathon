@@ -189,6 +189,19 @@ ARTIFACTS: tuple[ArtifactSpec, ...] = (
         ),
     ),
     ArtifactSpec(
+        artifact_id="typed-d05-spice-geometry",
+        kind="typed_bundle_acquisition",
+        primary_path="pipelines/pilots/d05_spice_illumination/manifest.json",
+        dimensions=("D05",),
+        bodies=("Moon", "Mars"),
+        source_ids=("naif-spice-solar-geometry-moon", "naif-spice-solar-geometry-mars"),
+        value_origin="model_derived_geometry",
+        limitations=(
+            "NAIF SPICE model geometry (incidence/elevation), not observed irradiance or shadow.",
+            "No ionizing radiation, absorbed dose (Gy) or equivalent dose (Sv) is included.",
+        ),
+    ),
+    ArtifactSpec(
         artifact_id="typed-d06-regolith",
         kind="typed_bundle_acquisition",
         primary_path="pipelines/pilots/d06_earth_soilgrids/manifest.json",
@@ -1366,6 +1379,7 @@ def _build_release_payload(
         "typed-d03-thermal",
         "typed-d04-water-ice",
         "typed-d05-illumination",
+        "typed-d05-spice-geometry",
         "typed-d06-regolith",
     )
     typed_by_dimension = {

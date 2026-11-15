@@ -24,6 +24,7 @@ A missing approved artifact fails the build; nothing is downloaded.
 | `typed-d03-thermal` | `pipelines/pilots/d03_earth_power/manifest.json` | D03 Earth | 20 observations, 5 tasks/assets | `6cec151a5bd3f33aea2a718fb1feca5fd08c3d9cf09ce204084b1028305e5e37` |
 | `typed-d04-water-ice` | `pipelines/pilots/d04_earth_power/manifest.json` | D04 Earth | 20 observations, 5 tasks/assets | `52f4e95076d1cbfe0c3c09bba14c34eb1a1b893d8b250824681d6358fa32cede` |
 | `typed-d05-illumination` | `pipelines/pilots/d05_earth_power/manifest.json` | D05 Earth | 10 observations, 5 tasks/assets | `da598016a0057c0c30c6612f24dfeebaddbea7d23a591919c14b6130be371cdf` |
+| `typed-d05-spice-geometry` | `pipelines/pilots/d05_spice_illumination/manifest.json` | D05 Moon/Mars | 18 model-geometry observations, 5 kernel assets | `1c642d6c23582761fe01facebbaf5779bd7be5b1a7aef55588cf3d20d041eb45` |
 | `typed-d06-regolith` | `pipelines/pilots/d06_earth_soilgrids/manifest.json` | D06 Earth | 75 observations, 75 tasks/assets | `4c982e30c2ad0a6f162bfb9bce5292c009bceaabca3263dce321bfd40ed6c469` |
 | `source-inventory` | `catalog/dimension-source-inventory.yaml` | all | 27 source entries across 18 body × dimension cells | `d13fde531033940db3145feeecc4b79ef923294cc7dc8a6020c77555f5b041f2` |
 
@@ -39,9 +40,9 @@ artifacts=8 files=59
 fine_snapshot_id=snap-0cef4d75b147866a data_version=dv-b46f3bad38ea
 candidates=113 references=23 datasets=9
 fine_feature_observations=565 context_observations=1243
-typed_observations=181 (D02 56, D03 20, D04 20, D05 10, D06 75)
+typed_observations=199 (D02 56, D03 20, D04 20, D05 10 + 18 SPICE, D06 75)
 coarse_cells=168 regions=3 partitions=3
-explicit absent body×dimension cells=8
+explicit absent body×dimension cells=6
 source_references=15 dataset_references=18
 ```
 
@@ -56,10 +57,10 @@ manifest and EDA report.
 | **D02 Geology/mineralogy** | 15 evidence records; 0 validated mineral detections; 15 `unknown`/`no_coverage` | 3 evidence records; 2 detected map/process records; 1 `unknown` | 38 evidence records; 28 detected map/process records; 10 `unknown` |
 | **D03 Thermal** | 20 NASA POWER model-context observations | **absent** | **absent** (THEMIS metadata only, not fetched) |
 | **D04 Water/ice** | 20 NASA POWER model-context observations | **absent** | **absent** |
-| **D05 Illumination/radiation** | 10 NASA POWER solar-context observations | **absent** | **absent** |
+| **D05 Illumination/radiation** | 10 NASA POWER solar-context observations | 8 SPICE model-geometry observations | 10 SPICE model-geometry observations |
 | **D06 Regolith** | 75 SoilGrids 250 m model observations | **absent** | **absent** |
 
-The eight absent cells are listed with reasons in the manifest. D02 detected
+The six absent cells are listed with reasons in the manifest. D05 Moon/Mars geometry is model-only; ionizing radiation remains absent. D02 detected
 records are map units/process evidence or unvalidated spectral context, not
 mineral abundance. NASA POWER and SoilGrids values are estimates; D01 metrics are
 derived from measured DEMs; WorldCover is mapped classification context only.
@@ -104,7 +105,7 @@ derived from measured DEMs; WorldCover is mapped classification context only.
 $ uv run python pipelines/build_release.py build \
     --output var/release-a.manifest.json --eda-output var/release-a.eda.json
 release_id=rel-c30a25fab81d2b7f artifacts=8 files=59 candidates=113 references=23 \
-typed_observations=181 coarse_cells=168 absent_dimensions=8
+typed_observations=199 coarse_cells=168 absent_dimensions=6
 
 $ uv run python pipelines/build_release.py build \
     --output var/release-b.manifest.json --eda-output var/release-b.eda.json
@@ -114,7 +115,7 @@ $ cmp var/release-a.eda.json var/release-b.eda.json
 # both files byte-identical
 
 $ uv run python pipelines/build_release.py verify
-OK release_id=rel-c30a25fab81d2b7f artifacts=8 files=59 absent_dimensions=8
+OK release_id=rel-072e483bfdff1acd artifacts=9 files=65 absent_dimensions=6
 ```
 
 Focused tests (all exit 0):

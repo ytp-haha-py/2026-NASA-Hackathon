@@ -462,6 +462,9 @@ def build_manifest(
         "plan_sha256": plan_sha256,
         "assets_sha256": assets_sha256,
         "counts": counts,
+        "observation_count": counts["observations"],
+        "area_count": counts["areas"],
+        "asset_count": len(KERNEL_SPECS),
         "sites": _site_rows(sites, records),
         "limitations": limitations,
         "non_claims": [

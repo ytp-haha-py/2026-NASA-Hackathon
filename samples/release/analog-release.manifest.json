@@ -22,16 +22,6 @@
     },
     {
       "body": "Moon",
-      "dimension_code": "D05",
-      "reason": "no validated observation in this release; inventory sources lunar-illumination-source-not-selected, lunar-ionizing-radiation-not-selected report planned/not_fetched"
-    },
-    {
-      "body": "Mars",
-      "dimension_code": "D05",
-      "reason": "no validated observation in this release; inventory sources mars-illumination-radiation-not-selected report planned/not_fetched"
-    },
-    {
-      "body": "Moon",
       "dimension_code": "D06",
       "reason": "no validated observation in this release; inventory sources lunar-regolith-source-not-selected report planned/not_fetched"
     },
@@ -1476,6 +1466,184 @@
       }
     },
     {
+      "artifact_id": "typed-d05-spice-geometry",
+      "bodies": [
+        "Moon",
+        "Mars"
+      ],
+      "bytes": 96755,
+      "counts": {
+        "areas": 9,
+        "assets": 5,
+        "by_body": {
+          "Mars": {
+            "by_state": {
+              "detected": 10
+            },
+            "detected": 10,
+            "observations": 10,
+            "unavailable": 0,
+            "value_origins": {
+              "unclassified": 10
+            }
+          },
+          "Moon": {
+            "by_state": {
+              "detected": 8
+            },
+            "detected": 8,
+            "observations": 8,
+            "unavailable": 0,
+            "value_origins": {
+              "unclassified": 8
+            }
+          }
+        },
+        "by_dimension": {
+          "D05": 18
+        },
+        "observations": 18,
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 0,
+        "raw_files_not_bundled_examples": [],
+        "raw_files_referenced": 0,
+        "tasks_attempted": 9,
+        "tasks_failed": 9,
+        "tasks_succeeded": 0
+      },
+      "datasets": [
+        {
+          "dataset_id": "naif-spice-generic-kernels",
+          "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+          "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+          "verification_status": "accessible"
+        }
+      ],
+      "dimensions": [
+        "D05"
+      ],
+      "duplicates": {
+        "duplicate_asset_ids": [],
+        "duplicate_observation_ids": [],
+        "overlapping_area_examples": [],
+        "overlapping_area_pairs": 0
+      },
+      "file_count": 6,
+      "files": [
+        {
+          "bytes": 2185,
+          "path": "pipelines/pilots/d05_spice_illumination/README.md",
+          "sha256": "1f47bf30783dfd4e1439e3ee577096304421c47ea6b3aeb86110faf880983afe"
+        },
+        {
+          "bytes": 1669,
+          "path": "pipelines/pilots/d05_spice_illumination/REPORT.md",
+          "sha256": "fcbe2a0b7559b014c0fcbfc7b4b22d1a5f3abde0b8cd311d77c919060b1b1d96"
+        },
+        {
+          "bytes": 3250,
+          "path": "pipelines/pilots/d05_spice_illumination/assets.json",
+          "sha256": "da3692abbcf5f1a7c0a726c984868d7632f1fdefe1a14c79a2573d93ffdb95fa"
+        },
+        {
+          "bytes": 11767,
+          "path": "pipelines/pilots/d05_spice_illumination/manifest.json",
+          "sha256": "3943902e40d97275e5ac73b6862c5bba148f987184d9b8d115e8cea97236f989"
+        },
+        {
+          "bytes": 57969,
+          "path": "pipelines/pilots/d05_spice_illumination/observations.jsonl",
+          "sha256": "1c642d6c23582761fe01facebbaf5779bd7be5b1a7aef55588cf3d20d041eb45"
+        },
+        {
+          "bytes": 19915,
+          "path": "pipelines/pilots/d05_spice_illumination/plan.json",
+          "sha256": "f7f32afb793606f9765ff09afdc9ecad1bc646c3afcbdb041535ff0026736d9b"
+        }
+      ],
+      "hash_method": "sha256(canonical-json(files[]))",
+      "kind": "typed_bundle_acquisition",
+      "limitations": [
+        "NAIF SPICE model geometry (incidence/elevation), not observed irradiance or shadow.",
+        "No ionizing radiation, absorbed dose (Gy) or equivalent dose (Sv) is included."
+      ],
+      "method_versions": [
+        "spice-solar-geometry-1.0.0"
+      ],
+      "path": "pipelines/pilots/d05_spice_illumination/manifest.json",
+      "primary_sha256": "3943902e40d97275e5ac73b6862c5bba148f987184d9b8d115e8cea97236f989",
+      "schema_versions": {
+        "observations": "2.0.0",
+        "plan": "acquisition-plan-1.0.0",
+        "release": "spice-geometry-pilot-1.0.0"
+      },
+      "sha256": "371141664f87e69d66033294a43dbdb1b80420796be30ff745454b9a36d17211",
+      "source_references": [
+        {
+          "availability": "accessible",
+          "body": "Moon",
+          "comparability": "context_only",
+          "data_status": "existing_modeled",
+          "dimension_code": "D05",
+          "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+          "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+          "product": "SPICE DE421 ephemeris + MOON_ME lunar frame + pck00011 radii",
+          "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+          "source_id": "naif-spice-solar-geometry-moon",
+          "unknown_fields": [],
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/"
+        },
+        {
+          "availability": "accessible",
+          "body": "Mars",
+          "comparability": "context_only",
+          "data_status": "existing_modeled",
+          "dimension_code": "D05",
+          "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+          "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+          "product": "SPICE DE421 ephemeris + IAU_MARS orientation from pck00011",
+          "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+          "source_id": "naif-spice-solar-geometry-mars",
+          "unknown_fields": [],
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/"
+        }
+      ],
+      "support": [
+        {
+          "crs": "IAU_MARS",
+          "depth_support": "surface",
+          "kind": "point",
+          "native_resolution_m": null,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "instant",
+          "window_size_m": null
+        },
+        {
+          "crs": "MOON_ME",
+          "depth_support": "surface",
+          "kind": "point",
+          "native_resolution_m": null,
+          "resolution_m": null,
+          "source_resolution_m": null,
+          "temporal_support": "instant",
+          "window_size_m": null
+        }
+      ],
+      "units": [
+        "degree"
+      ],
+      "value_origin": "model_derived_geometry",
+      "value_origins": {
+        "Mars": {
+          "unclassified": 10
+        },
+        "Moon": {
+          "unclassified": 8
+        }
+      }
+    },
+    {
       "artifact_id": "typed-d06-regolith",
       "bodies": [
         "Earth"
@@ -1624,7 +1792,7 @@
         "Moon",
         "Mars"
       ],
-      "bytes": 29905,
+      "bytes": 32633,
       "counts": {
         "by_dimension": {
           "D01": {
@@ -1677,15 +1845,15 @@
           },
           "D05": {
             "availability": {
-              "accessible": 1,
+              "accessible": 3,
               "planned": 4
             },
             "by_body": {
               "Earth": 2,
-              "Mars": 1,
-              "Moon": 2
+              "Mars": 2,
+              "Moon": 3
             },
-            "sources": 5
+            "sources": 7
           },
           "D06": {
             "availability": {
@@ -1701,7 +1869,7 @@
           }
         },
         "dimensions": 6,
-        "sources": 27
+        "sources": 29
       },
       "datasets": [],
       "dimensions": [
@@ -1716,9 +1884,9 @@
       "file_count": 1,
       "files": [
         {
-          "bytes": 29905,
+          "bytes": 32633,
           "path": "catalog/dimension-source-inventory.yaml",
-          "sha256": "ce686daee18a71031850d9cbe407adce4c34a326eb9a69f963ad20ea7420e224"
+          "sha256": "8904ea7e800dc03ea7318c4c30cdb3a2b1cd3a2d008691a79b7da0040124b010"
         }
       ],
       "hash_method": "sha256(canonical-json(files[]))",
@@ -1729,11 +1897,11 @@
       "method_versions": [],
       "overlaps": {},
       "path": "catalog/dimension-source-inventory.yaml",
-      "primary_sha256": "ce686daee18a71031850d9cbe407adce4c34a326eb9a69f963ad20ea7420e224",
+      "primary_sha256": "8904ea7e800dc03ea7318c4c30cdb3a2b1cd3a2d008691a79b7da0040124b010",
       "schema_versions": {
         "inventory": "1.0.0"
       },
-      "sha256": "d13fde531033940db3145feeecc4b79ef923294cc7dc8a6020c77555f5b041f2",
+      "sha256": "1b0b90f19f8fafc3704d6364d044175297c973b92f714168fc3a359964733318",
       "source_references": [],
       "support": [],
       "units": [],
@@ -1742,13 +1910,13 @@
     }
   ],
   "counts": {
-    "absent_body_dimension_cells": 8,
-    "artifacts": 8,
+    "absent_body_dimension_cells": 6,
+    "artifacts": 9,
     "coarse_cells": 168,
     "coarse_partitions": 3,
     "coarse_regions": 3,
-    "dataset_references": 18,
-    "files": 59,
+    "dataset_references": 19,
+    "files": 65,
     "fine_candidates": 113,
     "fine_context_observations": 1243,
     "fine_data_version": "dv-b46f3bad38ea",
@@ -1756,15 +1924,16 @@
     "fine_feature_observations": 565,
     "fine_references": 23,
     "fine_snapshot_id": "snap-0cef4d75b147866a",
-    "source_references": 15,
+    "source_references": 17,
     "typed_by_dimension": {
       "typed-d02-geology": 56,
       "typed-d03-thermal": 20,
       "typed-d04-water-ice": 20,
       "typed-d05-illumination": 10,
+      "typed-d05-spice-geometry": 18,
       "typed-d06-regolith": 75
     },
-    "typed_observations": 181
+    "typed_observations": 199
   },
   "dataset_references": [
     {
@@ -1862,6 +2031,18 @@
       "source_id": "mars2020-jezero-ctx-dem-20m",
       "unknown_fields": [],
       "url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif"
+    },
+    {
+      "availability": "accessible",
+      "comparability": null,
+      "data_status": "referenced_by_observation",
+      "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+      "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+      "product": null,
+      "provider": null,
+      "source_id": "naif-spice-generic-kernels",
+      "unknown_fields": [],
+      "url": null
     },
     {
       "availability": "verified",
@@ -3086,48 +3267,124 @@
           }
         },
         "Mars": {
-          "artifacts": [],
+          "artifacts": [
+            "typed-d05-spice-geometry"
+          ],
           "attempted": null,
           "attempted_unit": null,
           "body": "Mars",
-          "breakdown": [],
+          "breakdown": [
+            {
+              "artifact_id": "typed-d05-spice-geometry",
+              "attempted": 9,
+              "attempted_unit": "acquisition_tasks",
+              "failed": 9,
+              "failed_unit": "acquisition_tasks",
+              "observations": 10,
+              "valid": 10,
+              "valid_unit": "detected_observations"
+            }
+          ],
           "coarse_cells": 0,
           "context_observations": 0,
           "dimension_code": "D05",
           "failed": null,
           "failed_unit": null,
           "feature_observations": 0,
-          "observations": 0,
-          "status": "absent",
-          "support": [],
-          "unavailable": null,
-          "unavailable_unit": null,
-          "units": [],
-          "valid": null,
-          "valid_unit": null,
-          "value_origins": {}
+          "observations": 10,
+          "status": "present",
+          "support": [
+            {
+              "crs": "IAU_MARS",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "instant",
+              "window_size_m": null
+            },
+            {
+              "crs": "MOON_ME",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "instant",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 0,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "degree"
+          ],
+          "valid": 10,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "unclassified": 10
+          }
         },
         "Moon": {
-          "artifacts": [],
+          "artifacts": [
+            "typed-d05-spice-geometry"
+          ],
           "attempted": null,
           "attempted_unit": null,
           "body": "Moon",
-          "breakdown": [],
+          "breakdown": [
+            {
+              "artifact_id": "typed-d05-spice-geometry",
+              "attempted": 9,
+              "attempted_unit": "acquisition_tasks",
+              "failed": 9,
+              "failed_unit": "acquisition_tasks",
+              "observations": 8,
+              "valid": 8,
+              "valid_unit": "detected_observations"
+            }
+          ],
           "coarse_cells": 0,
           "context_observations": 0,
           "dimension_code": "D05",
           "failed": null,
           "failed_unit": null,
           "feature_observations": 0,
-          "observations": 0,
-          "status": "absent",
-          "support": [],
-          "unavailable": null,
-          "unavailable_unit": null,
-          "units": [],
-          "valid": null,
-          "valid_unit": null,
-          "value_origins": {}
+          "observations": 8,
+          "status": "present",
+          "support": [
+            {
+              "crs": "IAU_MARS",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "instant",
+              "window_size_m": null
+            },
+            {
+              "crs": "MOON_ME",
+              "depth_support": "surface",
+              "kind": "point",
+              "native_resolution_m": null,
+              "resolution_m": null,
+              "source_resolution_m": null,
+              "temporal_support": "instant",
+              "window_size_m": null
+            }
+          ],
+          "unavailable": 0,
+          "unavailable_unit": "missing_state_observations",
+          "units": [
+            "degree"
+          ],
+          "valid": 8,
+          "valid_unit": "detected_observations",
+          "value_origins": {
+            "unclassified": 8
+          }
         }
       },
       "dimension_code": "D05",
@@ -3169,6 +3426,20 @@
             "qa"
           ],
           "url": "not_verified"
+        },
+        {
+          "availability": "accessible",
+          "body": "Moon",
+          "comparability": "context_only",
+          "data_status": "existing_modeled",
+          "dimension_code": "D05",
+          "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+          "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+          "product": "SPICE DE421 ephemeris + MOON_ME lunar frame + pck00011 radii",
+          "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+          "source_id": "naif-spice-solar-geometry-moon",
+          "unknown_fields": [],
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/"
         },
         {
           "availability": "planned",
@@ -3215,6 +3486,20 @@
             "qa"
           ],
           "url": "not_verified"
+        },
+        {
+          "availability": "accessible",
+          "body": "Mars",
+          "comparability": "context_only",
+          "data_status": "existing_modeled",
+          "dimension_code": "D05",
+          "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+          "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+          "product": "SPICE DE421 ephemeris + IAU_MARS orientation from pck00011",
+          "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+          "source_id": "naif-spice-solar-geometry-mars",
+          "unknown_fields": [],
+          "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/"
         },
         {
           "availability": "planned",
@@ -3406,10 +3691,10 @@
       ]
     }
   ],
-  "generated_at": "2026-11-15T05:19:51Z",
+  "generated_at": "2026-11-15T05:45:52Z",
   "generated_by": "pipelines/src/analog_pipelines/release.py",
   "notes": "Bounded local multi-dimension release assembled from committed artifacts only. This is not global coverage; missing bodies/dimensions are listed explicitly and no value is zero-filled.",
-  "release_id": "rel-c30a25fab81d2b7f",
+  "release_id": "rel-072e483bfdff1acd",
   "release_version": "multi-dimension-release-1.0.0",
   "scope": {
     "bodies": [
@@ -3501,6 +3786,34 @@
         "qa"
       ],
       "url": "not_verified"
+    },
+    {
+      "availability": "accessible",
+      "body": "Mars",
+      "comparability": "context_only",
+      "data_status": "existing_modeled",
+      "dimension_code": "D05",
+      "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+      "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+      "product": "SPICE DE421 ephemeris + IAU_MARS orientation from pck00011",
+      "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+      "source_id": "naif-spice-solar-geometry-mars",
+      "unknown_fields": [],
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/"
+    },
+    {
+      "availability": "accessible",
+      "body": "Moon",
+      "comparability": "context_only",
+      "data_status": "existing_modeled",
+      "dimension_code": "D05",
+      "license": "Public NASA/NAIF SPICE kernels; cite NAIF/PDS",
+      "license_url": "https://naif.jpl.nasa.gov/naif/rules.html",
+      "product": "SPICE DE421 ephemeris + MOON_ME lunar frame + pck00011 radii",
+      "provider": "NASA JPL Navigation and Ancillary Information Facility (NAIF)",
+      "source_id": "naif-spice-solar-geometry-moon",
+      "unknown_fields": [],
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/"
     },
     {
       "availability": "identified",
