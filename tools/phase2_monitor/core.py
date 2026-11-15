@@ -549,6 +549,29 @@ class StateStore:
         self.connection.commit()
         return cursor.rowcount > 0
 
+    def mark(
+        self,
+        issue: int,
+        *,
+        validated: bool | None = None,
+        integrated: bool | None = None,
+        note: str = "",
+    ) -> dict[str, Any] | None:
+        fields: dict[str, Any] = {}
+        if validated is not None:
+            fields["validated"] = int(validated)
+        if integrated is not None:
+            fields["integrated"] = int(integrated)
+        if fields:
+            self.update(issue, **fields)
+        row = self.connection.execute(
+            "select * from workstreams where issue=?", (issue,)
+        ).fetchone()
+        if row and note:
+            self._transition(issue, "review_note", "", note, "coordinator mark")
+            self.connection.commit()
+        return dict(row) if row else None
+
     def rows(self) -> list[dict[str, Any]]:
         return [
             dict(row) for row in self.connection.execute("select * from workstreams order by issue")

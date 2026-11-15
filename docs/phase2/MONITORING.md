@@ -51,6 +51,10 @@ uv run python -m tools.phase2_monitor.cli events
 # Long-running monitor with SSE + 90s reconciliation
 uv run python -m tools.phase2_monitor.cli run --interval 90
 
+# Coordinator review decisions (do not auto-merge)
+uv run python -m tools.phase2_monitor.cli mark --issue 135 --validated --note "matrix/tests reviewed"
+uv run python -m tools.phase2_monitor.cli mark --issue 135 --integrated --note "PR merged"
+
 # Supervisor with restart-on-crash and a log outside all worktrees
 bash scripts/phase2_monitor.sh
 ```
