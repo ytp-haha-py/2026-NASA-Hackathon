@@ -113,7 +113,7 @@
         "observations": 36,
         "typed_bundle": "pipelines/pilots/d03_planetary_thermal",
         "area_note": "18 existing LOLA south-polar reference windows; two Diviner PCP local-solar-time bins per window",
-        "windows": "moon-lola-site01-roi1..4, moon-lola-site04-roi1..4, moon-lola-site07-bounds-centre, moon-lola-site11-roi1..4, moon-lola-site20-bounds-centre, moon-lola-site23-bounds-centre, moon-shackleton-rim-site04-roi1..2"
+        "windows": "thermal-moon-lola-site01-roi1..roi7, thermal-moon-lola-site07-roi1, thermal-moon-lola-site11-roi1..roi4, thermal-moon-lola-site20-bounds-centre, thermal-moon-lola-site23-bounds-centre, thermal-moon-shackleton-rim-site04-roi1..roi4"
       },
       "sources": [
         {
