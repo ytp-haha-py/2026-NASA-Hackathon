@@ -29,7 +29,18 @@ https://api.貓熊.台灣/docs
 ```
 
 正式前端建置預設使用 `https://api.貓熊.台灣/api/v1`，可用 `VITE_API_BASE` 覆寫。本機開發仍是
-`http://127.0.0.1:8000`，透過 Vite `/api` proxy 使用相對路徑 `/api/v1`。已於 2026-11-15 驗證：`api` health 與 typed coverage 回傳 HTTP 200，web routes 也回傳 HTTP 200。Tunnel 由 repository 外的 operator 管理；routes 與指令見 [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)。
+`http://127.0.0.1:8000`，透過 Vite `/api` proxy 使用相對路徑 `/api/v1`。已於 2026-11-15 驗證：`api` health 與 typed coverage 回傳 HTTP 200，web routes 也回傳 HTTP 200。
+
+公開 demo 使用 Docker（`api`、`web`、`cloudflared`），含 restart policy、healthcheck 與持久化
+SQLite。一個指令啟動：
+
+```bash
+make public-up      # docker compose -f compose.public.yaml up -d --build
+make public-smoke   # 公開 health/coverage/web 檢查
+make public-down    # 停止
+```
+
+Tunnel 憑證與 routes 見 [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)。
 
 ## 目前功能與資料
 

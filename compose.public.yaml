@@ -1,0 +1,65 @@
+name: planetary-analog-public
+
+# One-command demo stack:
+#   docker compose -f compose.public.yaml up -d --build
+# Public routes are handled by cloudflared; host ports bind to localhost only.
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    user: "${UID:-1000}:${GID:-1000}"
+    restart: unless-stopped
+    environment:
+      ANALOG_DATABASE_URL: sqlite+pysqlite:////data/analog.db
+      ANALOG_CORS_ORIGINS: "http://localhost:5173,https://貓熊.台灣,https://www.貓熊.台灣,https://xn--2vxr09c.xn--kpry57d,https://www.xn--2vxr09c.xn--kpry57d"
+      ANALOG_SEED_INCLUDE_SYNTHETIC: "false"
+      ANALOG_MANIFEST_DIR: /app/pipelines/earth/manifests
+      ANALOG_MANIFEST_DIR_CONTEXT: /app/pipelines/worldcover/manifests
+      ANALOG_MANIFEST_DIR_PLANETARY: /app/pipelines/planetary/manifests
+      ANALOG_AOI_RUNTIME_DIR: /data/aoi-catalog
+    volumes:
+      - ./var:/data
+    ports:
+      - "127.0.0.1:${PUBLIC_API_PORT:-18000}:8000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health', timeout=3)",
+        ]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  web:
+    build:
+      context: ./apps/web
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${PUBLIC_WEB_PORT:-18080}:80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    user: "${UID:-1000}:${GID:-1000}"
+    restart: unless-stopped
+    command: tunnel --no-autoupdate --config /etc/cloudflared/config.docker.yml run
+    volumes:
+      - "${HOME}/.cloudflared:/etc/cloudflared:ro"
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_healthy

@@ -35,16 +35,37 @@ https://api.貓熊.台灣
 https://api.xn--2vxr09c.xn--kpry57d   # punycode
 ```
 
-Suggested routes:
+Routes:
 
-| Hostname | Local service |
+| Hostname | Compose service |
 |---|---|
-| `api.貓熊.台灣` | `http://127.0.0.1:8000` (FastAPI) |
-| `貓熊.台灣`, `www.貓熊.台灣` | `http://127.0.0.1:8080` (web container) or `http://127.0.0.1:5173` (local Vite) |
+| `api.貓熊.台灣` | `http://api:8000` (FastAPI) |
+| `貓熊.台灣`, `www.貓熊.台灣` | `http://web:80` (nginx) |
 
-The repository does **not** create the tunnel, DNS records or credentials automatically. A
-Cloudflare account with zone access and either a tunnel token or `cloudflared` certificate is
-required. Never commit the token, `cert.pem`, or `credentials.json`.
+The repository does **not** create the tunnel or DNS records automatically. A Cloudflare account
+with zone access and either a tunnel token or `cloudflared` credentials is required. Never commit
+the token, `cert.pem`, or `credentials.json`.
+
+### One-command Docker demo
+
+```bash
+# One-time host setup (already done in this environment):
+# put the tunnel id + credentials under ~/.cloudflared/ and copy the Docker config
+cp deploy/cloudflared/config.docker.example.yml ~/.cloudflared/config.docker.yml
+# replace <TUNNEL_ID> in that file
+
+make public-up      # docker compose -f compose.public.yaml up -d --build
+make public-smoke   # public API + web check
+make public-logs    # follow api/web/cloudflared logs
+make public-down    # stop the stack
+```
+
+`compose.public.yaml` runs three services with `restart: unless-stopped`:
+`api` (healthcheck, SQLite bind mount `./var:/data`), `web` (nginx + healthcheck), and
+`cloudflared` (mounts `${HOME}/.cloudflared` read-only). Host ports bind to localhost only
+(`18000`/`18080`); public traffic goes through the tunnel.
+
+### Host-only tunnel alternative
 
 ```bash
 # One-time operator setup
@@ -83,12 +104,11 @@ Verified in this WSL environment on 2026-11-15:
 - DNS CNAMEs: `api`, apex and `www` all point to the tunnel.
 - `https://api.貓熊.台灣/api/v1/health` and `/api/v1/typed/coverage`: HTTP 200.
 - Web apex and `www`: HTTP 200.
-- `cloudflared 2026.11.0` runs with `~/.cloudflared/config.yml` and a mode-600 credentials file.
-  Tokens, certificates and credentials are not committed.
-
-Local web preview currently runs on port `18081` (the host's `8080` is occupied); the example
-config uses `8080` for the production web container. Adjust the ingress service to the actual web
-port used on the host.
+- `cloudflared 2026.11.0` runs in the `planetary-analog-public-cloudflared-1` container with
+  `~/.cloudflared/config.docker.yml` and a mode-600 credentials file. Tokens, certificates and
+  credentials are not committed.
+- `api` and `web` are healthy; host ports bind to `127.0.0.1:18000` and `127.0.0.1:18080` only.
+- `docker compose -f compose.public.yaml ps` shows all three services up and healthy.
 
 ## Docker Compose
 
