@@ -146,6 +146,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/global/cross-body": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Global Cross Body Gate
+         * @description Report the cross-body eligibility gate without ever emitting a cross-body score.
+         */
+        get: operations["global_cross_body_gate_api_v1_global_cross_body_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/global/refine-plan": {
         parameters: {
             query?: never;
@@ -554,6 +574,150 @@ export interface components {
             origins: {
                 [key: string]: number;
             };
+        };
+        /** CrossBodyBodyOut */
+        CrossBodyBodyOut: {
+            /** Analysis Support M */
+            analysis_support_m: number | null;
+            /** Analysis Support Ratio Vs Earth */
+            analysis_support_ratio_vs_earth: number | null;
+            /** Body */
+            body: string;
+            /** Frame Kind */
+            frame_kind: string;
+            /** Limitations */
+            limitations: string[];
+            /** Manifest */
+            manifest: string;
+            /** Method Version */
+            method_version: string;
+            /** Metrics */
+            metrics: components["schemas"]["CrossBodyMetricOut"][];
+            /** Native Support M */
+            native_support_m: number | null;
+            /** Quality Flags */
+            quality_flags: string[];
+            /** Region Id */
+            region_id: string;
+            /** Sample Label */
+            sample_label: string;
+            /** Source Id */
+            source_id: string;
+            /** Support Ratio Vs Earth */
+            support_ratio_vs_earth: number | null;
+            /** Vertical Unit Status */
+            vertical_unit_status: string;
+        };
+        /** CrossBodyCountsOut */
+        CrossBodyCountsOut: {
+            /** Eligible Metric Observations */
+            eligible_metric_observations: number;
+            /** Evidence Sources */
+            evidence_sources: number;
+            /** Excluded Metric Observations */
+            excluded_metric_observations: number;
+            /** Ranked Candidates */
+            ranked_candidates: number;
+            /** Scanned Metric Observations */
+            scanned_metric_observations: number;
+            /** Unknown Metric Observations */
+            unknown_metric_observations: number;
+        };
+        /** CrossBodyEarthBaselineOut */
+        CrossBodyEarthBaselineOut: {
+            /** Features */
+            features: components["schemas"]["CrossBodyEarthFeatureOut"][];
+            /** Frame Kind */
+            frame_kind: string;
+            /** Method Version */
+            method_version: string;
+            /** Support M */
+            support_m: number;
+            /** Value Source */
+            value_source: string;
+        };
+        /** CrossBodyEarthFeatureOut */
+        CrossBodyEarthFeatureOut: {
+            /** Feature Id */
+            feature_id: string;
+            /** Label */
+            label: string;
+            /** Scale */
+            scale: number;
+            /** Spatial Support */
+            spatial_support: string;
+            /** Unit */
+            unit: string;
+        };
+        /** CrossBodyGateOut */
+        CrossBodyGateOut: {
+            /** Blocking Features */
+            blocking_features: string[];
+            /** Bodies */
+            bodies: components["schemas"]["CrossBodyBodyOut"][];
+            /** Claim Scope */
+            claim_scope: string;
+            /** Comparability Decisions */
+            comparability_decisions: {
+                [key: string]: unknown;
+            }[];
+            counts: components["schemas"]["CrossBodyCountsOut"];
+            earth_baseline: components["schemas"]["CrossBodyEarthBaselineOut"];
+            /** Eligibility Contract */
+            eligibility_contract: {
+                [key: string]: string;
+            }[];
+            /** Gate Version */
+            gate_version: string;
+            /** Note */
+            note: string;
+            /** Ranked */
+            ranked: boolean;
+            /** Ranked Candidates */
+            ranked_candidates: {
+                [key: string]: unknown;
+            }[];
+            /** Ranking Enabled */
+            ranking_enabled: boolean;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "blocked" | "ready" | "no_evidence";
+            /** Uncertainty */
+            uncertainty: {
+                [key: string]: unknown;
+            };
+        };
+        /** CrossBodyMetricOut */
+        CrossBodyMetricOut: {
+            /** Analysis Support Ratio Vs Earth */
+            analysis_support_ratio_vs_earth: number | null;
+            /** Decision */
+            decision: string;
+            /** Earth Method Version */
+            earth_method_version: string;
+            /** Eligible */
+            eligible: boolean;
+            /** Feature Id */
+            feature_id: string;
+            /** Label */
+            label: string;
+            /** Method Version */
+            method_version: string;
+            /** Reasons */
+            reasons: components["schemas"]["CrossBodyReasonOut"][];
+            /** Support Ratio Vs Earth */
+            support_ratio_vs_earth: number | null;
+            /** Unit */
+            unit: string;
+        };
+        /** CrossBodyReasonOut */
+        CrossBodyReasonOut: {
+            /** Code */
+            code: string;
+            /** Message */
+            message: string;
         };
         /** DatasetOut */
         DatasetOut: {
@@ -1429,6 +1593,53 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["GlobalCoverageOut"];
+                };
+            };
+        };
+    };
+    global_cross_body_gate_api_v1_global_cross_body_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CrossBodyGateOut"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
                 };
             };
         };
