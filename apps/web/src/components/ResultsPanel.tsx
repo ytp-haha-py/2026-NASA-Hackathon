@@ -14,6 +14,7 @@ type ResultsPanelProps = {
   contextFeatures?: ContextFeatureOut[];
   selectedId: string | null;
   onSelect: (locationId: string) => void;
+  selectedOnly?: boolean;
 };
 
 function ResultCard({
@@ -147,6 +148,7 @@ export function ResultsPanel({
   contextFeatures = [],
   selectedId,
   onSelect,
+  selectedOnly = false,
 }: ResultsPanelProps) {
   const { t, tp, rich, fmt, label } = useI18n();
   const featureLabels = useMemo(
@@ -164,6 +166,9 @@ export function ResultsPanel({
   const syntheticCount = response.results.filter(
     (result) => result.data_kind.toLowerCase() === "synthetic",
   ).length;
+  const shownResults = selectedOnly
+    ? response.results.filter((result) => result.location_id === selectedId)
+    : response.results;
   const origins = response.coverage.origins;
   const indexedOriginCount = origins.indexed ?? 0;
   const onDemandOriginCount = origins.on_demand ?? 0;
@@ -270,9 +275,9 @@ export function ResultsPanel({
             <p>{tp("results.emptyExcluded", response.excluded_candidate_count)}</p>
           )}
         </div>
-      ) : (
+      ) : shownResults.length > 0 ? (
         <ol className="results-list">
-          {response.results.map((result) => (
+          {shownResults.map((result) => (
             <ResultCard
               key={result.location_id}
               result={result}
@@ -282,7 +287,7 @@ export function ResultsPanel({
             />
           ))}
         </ol>
-      )}
+      ) : null}
 
       <div className="excluded-panel">
         {response.excluded_candidate_count === 0 ? (
