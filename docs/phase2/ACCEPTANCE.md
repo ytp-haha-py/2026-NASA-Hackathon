@@ -22,6 +22,11 @@ Native Goal IDs and worktrees are in [`WORKSTREAM_BOARD.md`](WORKSTREAM_BOARD.md
 `{"source":"goal","goalID":"..."}` message produced by the native `goal` command, not a plain
 prompt.
 
+**Issue closure vs phase completion:** #140, #141 and #142 are closed. #135–#139 remain open so
+additional bounded data ingest can continue under the same visible coverage matrices; their
+Phase-2 Goal, validation and PR integration are complete. Closing them now would incorrectly imply
+that the documented data gaps (new D01–D05 ingest, Moon/Mars numeric regolith) no longer exist.
+
 ## Coverage matrices
 
 | Dimension | Machine-readable | Human-readable |
