@@ -1,0 +1,25 @@
+{
+  "artifacts": [
+    {
+      "bytes": 9239,
+      "path": "coverage.json",
+      "sha256": "134b84b7ab66d67f9e6e71c9cc0f978a46644351c348f7224821140956ea516e"
+    },
+    {
+      "bytes": 3330,
+      "path": "performance.json",
+      "sha256": "3fe6551a4d3b44122bd2af6390d73844b0a39fa89b4c784eede7ef4275035ec2"
+    },
+    {
+      "bytes": 1185,
+      "path": "regions.csv",
+      "sha256": "77482a6d819274c03acb82a3908d4af1b3901abae6b5c2c756f505115ff31586"
+    },
+    {
+      "bytes": 10780,
+      "path": "top-k-queries.json",
+      "sha256": "45c85fc53fb4d4dbd19bb024996167bd3b21145c29290743df1bb0319b45f4d6"
+    }
+  ],
+  "report_version": "global-terrain-results-1.0.0"
+}
