@@ -1,0 +1,340 @@
+{
+  "artifacts": [
+    {
+      "attempts": 1,
+      "output_checksum": "5c751f0b3b5e5bbe60eeecf71f6526171c77281abf3a719142cb528b014063b4",
+      "output_path": "tasks/geomorpho-batch-v1-415bceb2741c6f50/rows.parquet",
+      "region_id": "pilot-grand-canyon",
+      "rows": 8,
+      "status": "succeeded",
+      "task_id": "geomorpho-batch-v1-415bceb2741c6f50"
+    },
+    {
+      "attempts": 1,
+      "output_checksum": "53f58f01aca3a0c69c85f5a09633f2674ce2da34ebe4f3c5f22374db3cef3ae4",
+      "output_path": "tasks/geomorpho-batch-v1-65128d5a946443ce/rows.parquet",
+      "region_id": "pilot-grand-canyon",
+      "rows": 16,
+      "status": "succeeded",
+      "task_id": "geomorpho-batch-v1-65128d5a946443ce"
+    },
+    {
+      "attempts": 1,
+      "output_checksum": "4800369870db55b73ed12cddb8343f02cb08836e4f82e806bc66d392fcf762fb",
+      "output_path": "tasks/geomorpho-batch-v1-714e5c81d3777321/rows.parquet",
+      "region_id": "pilot-sahara",
+      "rows": 16,
+      "status": "succeeded",
+      "task_id": "geomorpho-batch-v1-714e5c81d3777321"
+    },
+    {
+      "attempts": 1,
+      "output_checksum": "e7a77882714f24854c8a4497acc016ee052e2051982a4c692ffdea390db057f3",
+      "output_path": "tasks/geomorpho-batch-v1-9cccaaa3f9cc0ad4/rows.parquet",
+      "region_id": "pilot-sahara",
+      "rows": 16,
+      "status": "succeeded",
+      "task_id": "geomorpho-batch-v1-9cccaaa3f9cc0ad4"
+    },
+    {
+      "attempts": 1,
+      "output_checksum": "6771b01a76e41089563a6f0f442ac9c0575463677cb587ff761cc0cff584d3b5",
+      "output_path": "tasks/geomorpho-batch-v1-aeedaabab626da85/rows.parquet",
+      "region_id": "pilot-grand-canyon",
+      "rows": 16,
+      "status": "succeeded",
+      "task_id": "geomorpho-batch-v1-aeedaabab626da85"
+    },
+    {
+      "attempts": 1,
+      "output_checksum": "77b9e62556608e69a3000dedd8e53679b54c7635948f385759f5f3f88957c91e",
+      "output_path": "tasks/geomorpho-batch-v1-b12288bbb5059082/rows.parquet",
+      "region_id": "pilot-alps",
+      "rows": 16,
+      "status": "succeeded",
+      "task_id": "geomorpho-batch-v1-b12288bbb5059082"
+    },
+    {
+      "attempts": 1,
+      "output_checksum": "65a4ad66287718ab4e50478013e84f31b15909c97362c2a51ef046b455f868ac",
+      "output_path": "tasks/geomorpho-batch-v1-c7bc681722713d78/rows.parquet",
+      "region_id": "pilot-alps",
+      "rows": 16,
+      "status": "succeeded",
+      "task_id": "geomorpho-batch-v1-c7bc681722713d78"
+    },
+    {
+      "attempts": 1,
+      "output_checksum": "70cc1f1295f8973af229d021db55cb27000cd74a721d40523a1cd34b02d50318",
+      "output_path": "tasks/geomorpho-batch-v1-c95ea5ef1ec5c77b/rows.parquet",
+      "region_id": "pilot-sahara",
+      "rows": 16,
+      "status": "succeeded",
+      "task_id": "geomorpho-batch-v1-c95ea5ef1ec5c77b"
+    },
+    {
+      "attempts": 1,
+      "output_checksum": "df3d63726dbaa3b72166373a2b4f88f12d69f538d81f72d5dc8df684fcfcdf1f",
+      "output_path": "tasks/geomorpho-batch-v1-df8e4318e3b07efc/rows.parquet",
+      "region_id": "pilot-grand-canyon",
+      "rows": 16,
+      "status": "succeeded",
+      "task_id": "geomorpho-batch-v1-df8e4318e3b07efc"
+    },
+    {
+      "attempts": 1,
+      "output_checksum": "85e3f1e5c0704354c7d725d55265da155c57610cfac3daf82ec7cd04215a0d42",
+      "output_path": "tasks/geomorpho-batch-v1-e46226ce9068c778/rows.parquet",
+      "region_id": "pilot-sahara",
+      "rows": 16,
+      "status": "succeeded",
+      "task_id": "geomorpho-batch-v1-e46226ce9068c778"
+    },
+    {
+      "attempts": 1,
+      "output_checksum": "02cc462542ed53c97fc145426b085ca3afd966d79711c226a96627814e246c34",
+      "output_path": "tasks/geomorpho-batch-v1-f3a7c68709553e27/rows.parquet",
+      "region_id": "pilot-alps",
+      "rows": 16,
+      "status": "succeeded",
+      "task_id": "geomorpho-batch-v1-f3a7c68709553e27"
+    }
+  ],
+  "batch_schema_version": "geomorpho-batch-1.0.0",
+  "bounds": {
+    "cells_per_task": 16,
+    "estimate_kind": "analytic_lower_bound_excludes_gdal_overhead",
+    "estimated_peak_mb": 0.375,
+    "last_counts": {
+      "failed": 0,
+      "invalid": 0,
+      "no_coverage": 0,
+      "skipped": 0,
+      "succeeded": 11
+    },
+    "max_retries": 1,
+    "memory_budget_mb": 512,
+    "tasks_planned": 11,
+    "tasks_selected": 11,
+    "workers": 2
+  },
+  "checkpoint": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/checkpoint.json",
+  "checkpoint_version": "1.0.0",
+  "coverage": {
+    "label": "three_region_pilot_not_global_exhaustive",
+    "note": "Three 0.4 degree pilot regions only; not a global or exhaustive survey."
+  },
+  "dry_run": false,
+  "generated_at": "2026-11-15T05:48:42.990485+00:00",
+  "inputs": {
+    "pilot-alps": {
+      "bytes": 83129,
+      "expected_published_sha256": "e1349d175135549fee6336c0aaa4d036fdaeb5d209b5a44c5865d73c17ca78fd",
+      "matches_published_window": true,
+      "path": "var/cache/geomorpho-pilot/pilot-alps.tif",
+      "present": true,
+      "sha256": "e1349d175135549fee6336c0aaa4d036fdaeb5d209b5a44c5865d73c17ca78fd"
+    },
+    "pilot-grand-canyon": {
+      "bytes": 134933,
+      "expected_published_sha256": "e0c301f2dcd4891c5f55533d526857f94b844bb8c80ab6a991e45bab34556885",
+      "matches_published_window": true,
+      "path": "var/cache/geomorpho-pilot/pilot-grand-canyon.tif",
+      "present": true,
+      "sha256": "e0c301f2dcd4891c5f55533d526857f94b844bb8c80ab6a991e45bab34556885"
+    },
+    "pilot-sahara": {
+      "bytes": 131663,
+      "expected_published_sha256": "3c8a3f993c43ddf79929b86db7c589abc781baa030b782db894926c8acf234c9",
+      "matches_published_window": true,
+      "path": "var/cache/geomorpho-pilot/pilot-sahara.tif",
+      "present": true,
+      "sha256": "3c8a3f993c43ddf79929b86db7c589abc781baa030b782db894926c8acf234c9"
+    }
+  },
+  "limitations": [
+    "Three 0.4 degree pilot regions, not global coverage.",
+    "7.5 arc-second source is ~250 m only near the equator; there is no fixed metric source grid.",
+    "Bilinear reprojection and 5 km aggregation are method-specific, not 90 m terrain metrics.",
+    "Global coverage and same-support Moon/Mars coarse references remain unavailable."
+  ],
+  "out_dir": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115",
+  "outcomes": {
+    "cell_counts": {
+      "invalid": 0,
+      "no_coverage": 0,
+      "succeeded": 168
+    },
+    "rows": 168,
+    "selected_tasks": 11,
+    "tasks": {
+      "succeeded": 11
+    }
+  },
+  "plan": {
+    "cells": 168,
+    "limit": null,
+    "regions": [
+      "pilot-alps",
+      "pilot-grand-canyon",
+      "pilot-sahara"
+    ],
+    "selected": [
+      {
+        "partition_index": 0,
+        "region_id": "pilot-alps",
+        "task_id": "geomorpho-batch-v1-c7bc681722713d78",
+        "window_count": 16
+      },
+      {
+        "partition_index": 1,
+        "region_id": "pilot-alps",
+        "task_id": "geomorpho-batch-v1-f3a7c68709553e27",
+        "window_count": 16
+      },
+      {
+        "partition_index": 2,
+        "region_id": "pilot-alps",
+        "task_id": "geomorpho-batch-v1-b12288bbb5059082",
+        "window_count": 16
+      },
+      {
+        "partition_index": 0,
+        "region_id": "pilot-grand-canyon",
+        "task_id": "geomorpho-batch-v1-aeedaabab626da85",
+        "window_count": 16
+      },
+      {
+        "partition_index": 1,
+        "region_id": "pilot-grand-canyon",
+        "task_id": "geomorpho-batch-v1-65128d5a946443ce",
+        "window_count": 16
+      },
+      {
+        "partition_index": 2,
+        "region_id": "pilot-grand-canyon",
+        "task_id": "geomorpho-batch-v1-df8e4318e3b07efc",
+        "window_count": 16
+      },
+      {
+        "partition_index": 3,
+        "region_id": "pilot-grand-canyon",
+        "task_id": "geomorpho-batch-v1-415bceb2741c6f50",
+        "window_count": 8
+      },
+      {
+        "partition_index": 0,
+        "region_id": "pilot-sahara",
+        "task_id": "geomorpho-batch-v1-714e5c81d3777321",
+        "window_count": 16
+      },
+      {
+        "partition_index": 1,
+        "region_id": "pilot-sahara",
+        "task_id": "geomorpho-batch-v1-c95ea5ef1ec5c77b",
+        "window_count": 16
+      },
+      {
+        "partition_index": 2,
+        "region_id": "pilot-sahara",
+        "task_id": "geomorpho-batch-v1-9cccaaa3f9cc0ad4",
+        "window_count": 16
+      },
+      {
+        "partition_index": 3,
+        "region_id": "pilot-sahara",
+        "task_id": "geomorpho-batch-v1-e46226ce9068c778",
+        "window_count": 16
+      }
+    ],
+    "selected_cells": 168,
+    "selected_tasks": 11,
+    "tasks": 11
+  },
+  "regions": [
+    {
+      "cell_counts": {
+        "invalid": 0,
+        "no_coverage": 0,
+        "succeeded": 48
+      },
+      "cells_planned": 48,
+      "input": {
+        "bytes": 83129,
+        "expected_published_sha256": "e1349d175135549fee6336c0aaa4d036fdaeb5d209b5a44c5865d73c17ca78fd",
+        "matches_published_window": true,
+        "path": "var/cache/geomorpho-pilot/pilot-alps.tif",
+        "present": true,
+        "sha256": "e1349d175135549fee6336c0aaa4d036fdaeb5d209b5a44c5865d73c17ca78fd"
+      },
+      "region_id": "pilot-alps",
+      "rows": 48,
+      "tasks": {
+        "succeeded": 3
+      },
+      "tasks_planned": 3
+    },
+    {
+      "cell_counts": {
+        "invalid": 0,
+        "no_coverage": 0,
+        "succeeded": 56
+      },
+      "cells_planned": 56,
+      "input": {
+        "bytes": 134933,
+        "expected_published_sha256": "e0c301f2dcd4891c5f55533d526857f94b844bb8c80ab6a991e45bab34556885",
+        "matches_published_window": true,
+        "path": "var/cache/geomorpho-pilot/pilot-grand-canyon.tif",
+        "present": true,
+        "sha256": "e0c301f2dcd4891c5f55533d526857f94b844bb8c80ab6a991e45bab34556885"
+      },
+      "region_id": "pilot-grand-canyon",
+      "rows": 56,
+      "tasks": {
+        "succeeded": 4
+      },
+      "tasks_planned": 4
+    },
+    {
+      "cell_counts": {
+        "invalid": 0,
+        "no_coverage": 0,
+        "succeeded": 64
+      },
+      "cells_planned": 64,
+      "input": {
+        "bytes": 131663,
+        "expected_published_sha256": "3c8a3f993c43ddf79929b86db7c589abc781baa030b782db894926c8acf234c9",
+        "matches_published_window": true,
+        "path": "var/cache/geomorpho-pilot/pilot-sahara.tif",
+        "present": true,
+        "sha256": "3c8a3f993c43ddf79929b86db7c589abc781baa030b782db894926c8acf234c9"
+      },
+      "region_id": "pilot-sahara",
+      "rows": 64,
+      "tasks": {
+        "succeeded": 4
+      },
+      "tasks_planned": 4
+    }
+  ],
+  "report_path": "var/geomorpho-batch/runs/geomorpho-pilot-real-20261115/report.json",
+  "run_id": "geomorpho-pilot-real-20261115",
+  "source_mode": "real",
+  "verification": {
+    "ok": true,
+    "orphaned_artifacts": [],
+    "problems": [],
+    "terminal_tasks": 11,
+    "verified": 11
+  },
+  "versions": {
+    "checkpoint_version": "1.0.0",
+    "grid_version": "coarse-grid-1.0.0",
+    "index_version": "coarse-index-1.0.0",
+    "method_version": "coarse-terrain-250m-1.0.0",
+    "parquet_schema_version": "coarse-parquet-1.0.0"
+  },
+  "warnings": []
+}
