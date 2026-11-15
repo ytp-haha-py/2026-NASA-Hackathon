@@ -1,0 +1,134 @@
+[
+  {
+    "asset_id": "d06-regolith-evidence-audit:mars-insight-elysium-hp3:bearing_strength_kpa",
+    "checksum": null,
+    "checksum_algorithm": "unknown",
+    "checksum_scope": "unknown",
+    "dataset_id": "nasa-pds-insight-hp3-rad-audit",
+    "native_crs": "IAU_2015:49900",
+    "redistribution_allowed": "yes",
+    "source_endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+    "uri": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm"
+  },
+  {
+    "asset_id": "d06-regolith-evidence-audit:mars-insight-elysium-hp3:bulk_density_kg_m3",
+    "checksum": null,
+    "checksum_algorithm": "unknown",
+    "checksum_scope": "unknown",
+    "dataset_id": "nasa-pds-insight-hp3-rad-audit",
+    "native_crs": "IAU_2015:49900",
+    "redistribution_allowed": "yes",
+    "source_endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+    "uri": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm"
+  },
+  {
+    "asset_id": "d06-regolith-evidence-audit:mars-insight-elysium-hp3:cohesion_kpa",
+    "checksum": null,
+    "checksum_algorithm": "unknown",
+    "checksum_scope": "unknown",
+    "dataset_id": "nasa-pds-insight-hp3-rad-audit",
+    "native_crs": "IAU_2015:49900",
+    "redistribution_allowed": "yes",
+    "source_endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+    "uri": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm"
+  },
+  {
+    "asset_id": "d06-regolith-evidence-audit:mars-insight-elysium-hp3:friction_angle_deg",
+    "checksum": null,
+    "checksum_algorithm": "unknown",
+    "checksum_scope": "unknown",
+    "dataset_id": "nasa-pds-insight-hp3-rad-audit",
+    "native_crs": "IAU_2015:49900",
+    "redistribution_allowed": "yes",
+    "source_endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+    "uri": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm"
+  },
+  {
+    "asset_id": "d06-regolith-evidence-audit:mars-insight-elysium-hp3:particle_size_distribution",
+    "checksum": null,
+    "checksum_algorithm": "unknown",
+    "checksum_scope": "unknown",
+    "dataset_id": "nasa-pds-insight-hp3-rad-audit",
+    "native_crs": "IAU_2015:49900",
+    "redistribution_allowed": "yes",
+    "source_endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+    "uri": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm"
+  },
+  {
+    "asset_id": "d06-regolith-evidence-audit:mars-insight-elysium-hp3:porosity_fraction",
+    "checksum": null,
+    "checksum_algorithm": "unknown",
+    "checksum_scope": "unknown",
+    "dataset_id": "nasa-pds-insight-hp3-rad-audit",
+    "native_crs": "IAU_2015:49900",
+    "redistribution_allowed": "yes",
+    "source_endpoint": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm",
+    "uri": "https://pds-geosciences.wustl.edu/missions/insight/hp3rad.htm"
+  },
+  {
+    "asset_id": "d06-regolith-evidence-audit:moon-apollo15-station8-lsrp:bearing_strength_kpa",
+    "checksum": null,
+    "checksum_algorithm": "unknown",
+    "checksum_scope": "unknown",
+    "dataset_id": "nasa-pds-apollo-lsrp-hfe-audit",
+    "native_crs": "IAU_2015:30100",
+    "redistribution_allowed": "yes",
+    "source_endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+    "uri": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/"
+  },
+  {
+    "asset_id": "d06-regolith-evidence-audit:moon-apollo15-station8-lsrp:bulk_density_kg_m3",
+    "checksum": null,
+    "checksum_algorithm": "unknown",
+    "checksum_scope": "unknown",
+    "dataset_id": "nasa-pds-apollo-lsrp-hfe-audit",
+    "native_crs": "IAU_2015:30100",
+    "redistribution_allowed": "yes",
+    "source_endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+    "uri": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/"
+  },
+  {
+    "asset_id": "d06-regolith-evidence-audit:moon-apollo15-station8-lsrp:cohesion_kpa",
+    "checksum": null,
+    "checksum_algorithm": "unknown",
+    "checksum_scope": "unknown",
+    "dataset_id": "nasa-pds-apollo-lsrp-hfe-audit",
+    "native_crs": "IAU_2015:30100",
+    "redistribution_allowed": "yes",
+    "source_endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+    "uri": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/"
+  },
+  {
+    "asset_id": "d06-regolith-evidence-audit:moon-apollo15-station8-lsrp:friction_angle_deg",
+    "checksum": null,
+    "checksum_algorithm": "unknown",
+    "checksum_scope": "unknown",
+    "dataset_id": "nasa-pds-apollo-lsrp-hfe-audit",
+    "native_crs": "IAU_2015:30100",
+    "redistribution_allowed": "yes",
+    "source_endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+    "uri": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/"
+  },
+  {
+    "asset_id": "d06-regolith-evidence-audit:moon-apollo15-station8-lsrp:particle_size_distribution",
+    "checksum": null,
+    "checksum_algorithm": "unknown",
+    "checksum_scope": "unknown",
+    "dataset_id": "nasa-pds-apollo-lsrp-hfe-audit",
+    "native_crs": "IAU_2015:30100",
+    "redistribution_allowed": "yes",
+    "source_endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+    "uri": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/"
+  },
+  {
+    "asset_id": "d06-regolith-evidence-audit:moon-apollo15-station8-lsrp:porosity_fraction",
+    "checksum": null,
+    "checksum_algorithm": "unknown",
+    "checksum_scope": "unknown",
+    "dataset_id": "nasa-pds-apollo-lsrp-hfe-audit",
+    "native_crs": "IAU_2015:30100",
+    "redistribution_allowed": "yes",
+    "source_endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+    "uri": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/"
+  }
+]
