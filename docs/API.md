@@ -23,7 +23,12 @@ Codes: `validation_error` (422), `unknown_feature` (422), `not_found` (404), `no
 #116/#117 paths additionally use `feature_role_not_scoreable` (422), `feature_role_not_filterable`
 (422), `body_out_of_scope` (422, `cross_body_incompatible`), `no_fine_candidates_for_body` (409),
 `unsupported_body` (422), `invalid_bbox` / `invalid_bbox_latitude` (422), `invalid_dimension` (422)
-and `invalid_longitude_convention` (422). Stack traces are never returned.
+and `invalid_longitude_convention` (422). Issue #132 adds `invalid_bbox_longitude` (422),
+`invalid_lon_convention` (422), `invalid_feature_type` / `invalid_data_level` /
+`invalid_availability` (422), `aoi_too_large` / `aoi_too_small` (422),
+`out_of_coverage` (422), `unsupported_feature_on_body` (422), `refine_focus_invalid` (422),
+`planetary_source_missing` / `planetary_analysis_invalid` (503) and `service_unavailable` (503).
+Stack traces are never returned.
 
 ## GET /health
 
@@ -370,6 +375,10 @@ returns zero results with every indexed row counted as excluded, never a silent
 fallback to all regions. The response carries `snapshot_id`, `method_version`,
 `index_version` and `coverage_label`; the pilot label is
 `local_coarse_index_not_global_exhaustive` and must never be rendered as global.
+The bounded bbox query (`query_bbox`) used by `/earth/map-features` accepts
+`west > east` for antimeridian queries, returns SQL `total` independently of
+`limit`/`offset`, and never materialises the whole index. See
+[`GLOBAL_SEARCH_132.md`](GLOBAL_SEARCH_132.md).
 
 ### GET /global/candidates/{id}
 
@@ -385,6 +394,28 @@ ids and QA flags. Missing -> 404.
 Returns planned 1.98 km fine windows. It does **not** run the 90 m AOI pipeline or
 download a DEM. Coarse and fine methods are explicitly different; a comparison is
 rejected rather than silently rescaled.
+
+### POST /global/refine (Issue #132)
+
+```json
+{
+  "candidate_id": "coarse-v1:...",
+  "requested_features": ["slope_mean_deg", "slope_p90_deg"],
+  "idempotency_key": "optional-client-key"
+}
+```
+
+Executes one centered 1.98 km focus window for a committed coarse candidate through
+the normal durable Earth AOI queue. The focus placement is
+`coarse_recorded_metric_bbox_centre_v1`; the fine area id is deterministic and starts
+with `earth-refine-`. On completion the real 90 m observations are persisted as an
+on-demand candidate, so `GET /locations/{area_id}` works and the area participates in
+the standard `/search` index. A repeated request returns `cached=true`; an unknown
+candidate returns 404. The response carries the coarse candidate/region, both method
+versions, the focus window, `job_id`, provider status and links. Coarse and fine
+values are never merged or rescaled into one score. This endpoint performs a bounded
+network read through the configured provider; offline tests inject a fixture
+processor.
 
 ### GET /global/cross-body
 
@@ -420,6 +451,10 @@ quantity/method/support/unit/frame/validation contract:
 The endpoint does not require an Earth coarse index and never returns a distance,
 score or percentage for an ineligible metric. A missing index returns
 `status=no_evidence`; a corrupt index returns `409 cross_body_evidence_invalid`.
+The committed body × D01–D06 availability, real record counts, source URLs and
+on-demand analysis support are published in
+[`PLANETARY_COVERAGE_INVENTORY.json`](PLANETARY_COVERAGE_INVENTORY.json); the
+narrative is in [`SIX_DIM_SOURCE_INVENTORY.md`](SIX_DIM_SOURCE_INVENTORY.md).
 
 ## Typed v2 observations
 
@@ -524,3 +559,73 @@ conventions, `[-180,180)` vs `0..360` conversion formulas and examples, antimeri
 pole behavior and GeoJSON metadata. Coordinates are never Earth EPSG:4326/OSM.
 
 See [`PLANETARY_MAPS_API.md`](PLANETARY_MAPS_API.md).
+
+## Earth map viewport (Issue #132)
+
+### GET /earth/map-features?bbox=west,south,east,north
+
+Returns stored Earth fine candidates, on-demand AOIs, typed Earth areas and coarse shortlist rows
+that intersect an Earth WGS84 viewport. This is the Earth counterpart of
+`/planetary/map-features` and is designed for viewport queries rather than loading every candidate
+in the browser.
+
+- `bbox` is `west,south,east,north` in **Earth WGS84/EPSG:4326**; `west > east` crosses the
+  antimeridian; `bbox_lon_convention=360` accepts `0..360`; omitted bbox means the whole world.
+- `feature_type=all|fine_candidate|on_demand_aoi|typed_area|coarse_candidate`,
+  `data_level=all|fine|coarse`, `dimension=D01..D06`, `availability=any|present|absent`,
+  `limit` 1..200 and `offset`.
+- Each feature reports `bbox`/`center`/`geometry`/`bbox_geometry` in Earth WGS84, `crs=EPSG:4326`,
+  `coordinate_frame=earth_wgs84`, `support`/`support_label` (`fine_90m`,
+  `shortlist_250m_derived_not_fine`, `stored_typed_subset`), `dimension_status` for D01-D06,
+  `available_dimensions`, `missing_dimensions`, `data_version` and `detail_links` to
+  `/locations/{id}`, `/global/candidates/{id}`, `/typed/areas/{id}` and `/areas/{id}/features`.
+- `coverage` separates fine stored candidates, on-demand AOIs, typed Earth areas and the coarse
+  index (`status`, `snapshot_id`/`snapshot`, `method_version`, `regions`, `bbox`, `matched_count`,
+  `truncated`). The coarse index is queried with SQL bbox pushdown; it is never fully returned.
+- Empty result is `total=0` with an explicit note. Missing dimensions are `absent` and never
+  zero-filled. Coarse rows are a shortlist, not a fine 90 m result. There is no global/exhaustive
+  coverage claim.
+- Errors: malformed bbox (`invalid_bbox`, `invalid_bbox_latitude`, `invalid_bbox_longitude`),
+  unsupported `body`/dimension/filter values return the shared structured 422 shape.
+
+See [`EARTH_MAP_API.md`](EARTH_MAP_API.md) for curl examples, pagination, antimeridian/pole cases
+and performance limits.
+
+## On-demand planetary AOI analysis (Issue #132)
+
+### POST /planetary/areas/analyze
+
+```json
+{
+  "body": "Moon",
+  "bbox": {"west": 19.85, "south": -10.15, "east": 20.15, "north": -9.85},
+  "requested_features": [
+    "coarse_slope_mean_deg",
+    "coarse_slope_p90_deg",
+    "coarse_flat_fraction_lt5deg"
+  ]
+}
+```
+
+Validates a bounded planetocentric AOI and queues a durable analysis job. Coordinates are in the
+declared body frame (`lunar_planetocentric` / `mars_planetocentric`), never Earth EPSG:4326. The
+response has the shared `job_id`/`status`/`area_id`/`cache_key`/`cached`/`provider_status`/`result`/
+`links` fields plus `body`, `coordinate_frame`, `method_version`, `coverage_note` and
+`dimension_support`. Poll `GET /jobs/{job_id}`; terminal states are `queued`, `running`,
+`completed`, `partial`, `failed`. A repeated request is cached.
+
+The reproducible committed cases are Moon around `19.85,-10.15,20.15,-9.85` (LOLA128 pilot, 4
+cells) and Mars around `78.08,18.47,78.27,18.65` (Jezero CTX pilot, 4 cells; a single-cell
+`78.08,18.47,78.18,18.56` case also works). AOI sides must stay within the 12,000 m guard. The
+engine recomputes D01 coarse slope metrics from checksum-verified
+committed fixtures. D02-D06 return explicit `unsupported_for_on_demand_analysis` reasons or stored
+evidence notes; no value is fabricated. Outside committed coverage returns an explicit
+`out_of_coverage`/`aoi_too_large` error or a failed job with a coverage reason. Moon may optionally
+use a bounded live LOLA read when `ANALOG_PLANETARY_ALLOW_NETWORK=true`; Mars live analysis outside
+Jezero is not claimed.
+
+The persisted area is queryable through `GET /typed/areas/{id}`, `GET /planetary/areas/{id}` and
+the planetary `map-features` endpoint. Planetary D01 values are evidence-only and never enter the
+Earth similarity distance or a cross-body score. See
+[`PLANETARY_AOI_ANALYSIS.md`](PLANETARY_AOI_ANALYSIS.md) and
+[`FRONTEND_HANDOFF_132.md`](FRONTEND_HANDOFF_132.md).

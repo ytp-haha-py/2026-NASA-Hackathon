@@ -61,6 +61,13 @@ class AoiResult:
     warnings: tuple[str, ...]
     checksum: str
     origin: str = "on_demand"
+    body: str = "Earth"
+    coordinate_frame: str | None = None
+    method_version: str | None = None
+    dimension_support: dict[str, Any] = field(default_factory=dict)
+    source_assets: tuple[dict[str, Any], ...] = ()
+    coverage_note: str | None = None
+    analysis_kind: str | None = None
 
     def as_candidate(self) -> CandidateEntity:
         from analog_api.domain.entities import ContextValue, FeatureValue
@@ -318,10 +325,15 @@ def validate_aoi_request(
 
 
 def job_status_payload(job) -> dict[str, object]:
+    request = job.request_json or {}
+    result = job.result_json or {}
+    body = result.get("body") or request.get("body")
     return {
         "job_id": job.job_id,
         "status": job.status,
         "area_id": job.area_id,
+        "body": body,
+        "coordinate_frame": result.get("coordinate_frame") or request.get("coordinate_frame"),
         "provider_status": job.provider_status or {},
         "error": (
             {"code": job.error_code, "message": job.error_message} if job.error_code else None
