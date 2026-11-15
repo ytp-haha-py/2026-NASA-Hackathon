@@ -437,3 +437,47 @@ bash scripts/issue132_acceptance.sh --public   # live public API check (network)
 Offline tests use the committed manifests and fixtures with `ANALOG_AOI_INLINE=true`; they never
 download a global raster. `ANALOG_PLANETARY_ALLOW_NETWORK` is `false` by default, so an AOI outside
 a committed pilot returns `out_of_coverage` instead of reaching the network.
+
+## Full-AOI engine job endpoints (Issue #170, Goal D)
+
+The additive `#170` engine route keeps the durable job/cache/persistence model and reports the
+whole requested AOI explicitly:
+
+| Method | Path | Purpose |
+|---|---|---|
+| `POST` | `/api/v1/planetary/aoi` | Create/reuse a durable full-AOI Moon/Mars job. |
+| `GET` | `/api/v1/planetary/aoi/{job_id}` | Job lifecycle plus the current D01-D06 statuses. |
+| `GET` | `/api/v1/planetary/aoi/{job_id}/result` | Persisted result, or `409 job_not_ready`/`job_failed`. |
+
+Request:
+
+```json
+{
+  "body": "Moon",
+  "bbox": {"west": 19.85, "south": -10.15, "east": 20.15, "north": -9.85},
+  "bbox_lon_convention": "signed",
+  "requested_features": ["coarse_slope_mean_deg"],
+  "idempotency_key": "moon-full-aoi-demo"
+}
+```
+
+The response includes `requested_bbox`, `analysis_bbox`, `full_aoi`, `analysis_scope` and a
+`D01`-`D06` `dimensions` map. `full_aoi` is true only when the persisted analysis envelope equals
+the requested envelope; a committed-cell union is reported as
+`analysis_scope: "selected_cell_union"` and `full_aoi: false`, never as a complete-AOI result.
+
+D02-D06 are never fabricated. Each entry is one of:
+
+- `available` / `evidence`: exact area-linked typed observations exist for this AOI;
+- `no_coverage`: the engine or an exact area record explicitly has no coverage;
+- `not_indexed`: a usable source exists for the body, but no exact AOI record is indexed here;
+- `unsupported`: no usable source/engine support is registered for this body/dimension.
+
+Each dimension carries `provenance` (datasets, source asset ids, method versions, declared source
+inventory) and `support` (requested/analysed bbox, resolution, valid fraction, temporal/depth
+support). A queued/running job reports D01 as `pending`; the result route returns `409` until a
+`completed`/`partial` job has persisted observations.
+
+The provider interface is the same `validate`/`analyze` protocol as `#132`. A Goal A/B full-AOI
+engine is injected as `planetary_processor` in `create_app`; until then the committed-fixture
+provider remains the fallback and the response reports the reduced scope honestly.
