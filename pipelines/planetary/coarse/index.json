@@ -1,0 +1,53 @@
+{
+  "command": "uv run python pipelines/build_planetary_coarse.py --allow-network",
+  "cross_body_ranking": {
+    "enabled": false,
+    "reason": "No planetary coarse metric is validated as the same quantity, method and support as the Earth coarse index; cross-body ranking stays disabled."
+  },
+  "generated_at": "2026-11-15T06:28:33Z",
+  "method_version": "coarse-planetary-dem-horn-1.0.0",
+  "pilots": [
+    {
+      "body": "Moon",
+      "cells": 4,
+      "cross_body_ranking_enabled": false,
+      "decisions": [
+        "evidence_only"
+      ],
+      "manifest": "pipelines/planetary/coarse/moon_lola128_window01.json",
+      "native_resolution_m": 236.90117518866782,
+      "same_support_as_earth": true,
+      "source_id": "moon-lola128-pa-pixel-202405"
+    },
+    {
+      "body": "Mars",
+      "cells": 4,
+      "cross_body_ranking_enabled": false,
+      "decisions": [
+        "evidence_only"
+      ],
+      "manifest": "pipelines/planetary/coarse/mars_ctx_jezero_window01.json",
+      "native_resolution_m": 20.0,
+      "same_support_as_earth": true,
+      "source_id": "mars2020-jezero-ctx-dem-20m"
+    },
+    {
+      "body": "Mars",
+      "cells": 2,
+      "cross_body_ranking_enabled": false,
+      "decisions": [
+        "not_comparable"
+      ],
+      "manifest": "pipelines/planetary/coarse/mars_mola_meg128_evidence.json",
+      "native_resolution_m": 463.0576672,
+      "same_support_as_earth": false,
+      "source_id": "mars-mola-megdr-meg128-t44n000"
+    }
+  ],
+  "run": {
+    "elapsed_s": 45.75,
+    "network_io_note": "Only bounded /vsicurl windows were read; per-cell upper bounds are recorded in each manifest. No global raster was downloaded.",
+    "peak_rss_kib": 135680
+  },
+  "schema_version": "planetary-coarse-index-1.0.0"
+}
