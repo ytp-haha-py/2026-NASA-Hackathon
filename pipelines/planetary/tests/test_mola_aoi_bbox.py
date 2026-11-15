@@ -237,6 +237,10 @@ def test_committed_evidence_has_three_dispersed_real_aois():
         assert "4326" not in item["crs"]["analysis"]["wkt"]
         assert "MOLA" in item["source"]["provider"]
         assert item["source"]["product_ids"]
+        assert item["source"]["source_ids"] == [
+            f"mars-mola-megdr-meg128-{product.removeprefix('meg').removesuffix('hb')}"
+            for product in item["source"]["product_ids"]
+        ]
         assert item["source_windows"]
         assert item["read_bytes_upper_bound"] > 0
         assert set(item["features"]) == set(D01_FEATURE_IDS)

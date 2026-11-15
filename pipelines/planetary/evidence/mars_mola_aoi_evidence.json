@@ -19,7 +19,7 @@
         77.44999999999999,
         18.44
       ],
-      "checksum": "sha256:d63afb6a1bc4582ea34a8d2645e38515a5e41cd21d8aa2814d4ee9ac4eb715fb",
+      "checksum": "sha256:d1f1a6c8d24bcfe679c162cc28fddd9a19ac2981de28e93d72d77cbd9e2d8455",
       "coordinate_frame": "mars_planetocentric",
       "crs": {
         "analysis": {
@@ -140,6 +140,7 @@
       "resolution_m": 463.0576672,
       "schema_version": "mars-mola-aoi-result-1.0.0",
       "scope": "bounded_full_bbox_aoi",
+      "slope_outer_rim_pixels": 94,
       "slope_pixel_count": 506,
       "source": {
         "citation": "Smith, D. E., et al. (2001), Mars Orbiter Laser Altimeter: Experiment summary after the first year of global mapping of Mars, J. Geophys. Res. 106(E10), 23689-23722. PDS bundle urn:nasa:pds:mgs_mola_topography_derived (1.0), collection data_meg128 (2.0), DOI 10.17189/1z1b-kv84.",
@@ -170,6 +171,9 @@
           "megt44n000hb"
         ],
         "source_id": "mars-mola-megdr-meg128-t44n000",
+        "source_ids": [
+          "mars-mola-megdr-meg128-t44n000"
+        ],
         "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
         "vertical_reference": "planetary radius minus the GMM3 (mgm1025) areoid, evaluated to degree and order 50"
       },
@@ -231,7 +235,7 @@
         70.44999999999999,
         -42.4
       ],
-      "checksum": "sha256:47252143925f608bafe64ddbdb6166380733c6bece3bc7551723d96a14093c57",
+      "checksum": "sha256:d539d0682fd94184099cc4d65b46ceaa2ec5d8d9ac29d7a8db4c34cfe7a4911e",
       "coordinate_frame": "mars_planetocentric",
       "crs": {
         "analysis": {
@@ -352,6 +356,7 @@
       "resolution_m": 463.0576672,
       "schema_version": "mars-mola-aoi-result-1.0.0",
       "scope": "bounded_full_bbox_aoi",
+      "slope_outer_rim_pixels": 86,
       "slope_pixel_count": 408,
       "source": {
         "citation": "Smith, D. E., et al. (2001), Mars Orbiter Laser Altimeter: Experiment summary after the first year of global mapping of Mars, J. Geophys. Res. 106(E10), 23689-23722. PDS bundle urn:nasa:pds:mgs_mola_topography_derived (1.0), collection data_meg128 (2.0), DOI 10.17189/1z1b-kv84.",
@@ -381,7 +386,10 @@
         "read_product_ids": [
           "megt00n000hb"
         ],
-        "source_id": "mars-mola-megdr-meg128-t44n000",
+        "source_id": "mars-mola-megdr-meg128-t00n000",
+        "source_ids": [
+          "mars-mola-megdr-meg128-t00n000"
+        ],
         "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
         "vertical_reference": "planetary radius minus the GMM3 (mgm1025) areoid, evaluated to degree and order 50"
       },
@@ -443,7 +451,7 @@
         240.0,
         80.0
       ],
-      "checksum": "sha256:676dd84bdd410f8c50a4ed6153422598928547e8b2d1624901776c37ee80a0d2",
+      "checksum": "sha256:98166a0d62c55562ff182fc0d7e8a679841ae4644b00cd1676596e15379663a1",
       "coordinate_frame": "mars_planetocentric",
       "crs": {
         "analysis": {
@@ -564,6 +572,7 @@
       "resolution_m": 463.0576672,
       "schema_version": "mars-mola-aoi-result-1.0.0",
       "scope": "bounded_full_bbox_aoi",
+      "slope_outer_rim_pixels": 80,
       "slope_pixel_count": 361,
       "source": {
         "citation": "Smith, D. E., et al. (2001), Mars Orbiter Laser Altimeter: Experiment summary after the first year of global mapping of Mars, J. Geophys. Res. 106(E10), 23689-23722. PDS bundle urn:nasa:pds:mgs_mola_topography_derived (1.0), collection data_meg128 (2.0), DOI 10.17189/1z1b-kv84.",
@@ -593,7 +602,10 @@
         "read_product_ids": [
           "megt88n180hb"
         ],
-        "source_id": "mars-mola-megdr-meg128-t44n000",
+        "source_id": "mars-mola-megdr-meg128-t88n180",
+        "source_ids": [
+          "mars-mola-megdr-meg128-t88n180"
+        ],
         "source_version": "PDS4 urn:nasa:pds:mgs_mola_topography_derived (1.0) / collection data_meg128 (2.0)",
         "vertical_reference": "planetary radius minus the GMM3 (mgm1025) areoid, evaluated to degree and order 50"
       },
@@ -649,7 +661,7 @@
   ],
   "data_kind": "observed",
   "dimension": "D01",
-  "generated_at": "2026-11-15T14:12:05+00:00",
+  "generated_at": "2026-11-15T14:16:32+00:00",
   "limitations": [
     "MEGDR native support is 0.4630576672 km/pixel; a 90 m D01 comparison is invalid.",
     "MEGDR is a median-binned grid with interpolated bins where no MOLA shot exists.",

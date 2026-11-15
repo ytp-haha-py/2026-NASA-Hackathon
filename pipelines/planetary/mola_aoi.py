@@ -479,10 +479,18 @@ def _checksum(payload: Mapping[str, Any]) -> str:
     return "sha256:" + hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
 
 
+def _tile_source_id(tile_id: str) -> str:
+    """Map a MEGDR product id (``megt44n000hb``) to a tile-specific source id."""
+    core = tile_id.removeprefix("meg").removesuffix("hb")
+    return f"mars-mola-megdr-meg128-{core}"
+
+
 def _source_payload(request: MolaAoiRequest, sources: Sequence[MolaSourceWindow]) -> dict[str, Any]:
     source = MARS_MOLA_MEG128
+    source_ids = [_tile_source_id(tile.tile_id) for tile in request.tiles]
     return {
-        "source_id": source.source_id,
+        "source_id": (source_ids[0] if len(source_ids) == 1 else "mars-mola-megdr-meg128-mosaic"),
+        "source_ids": source_ids,
         "dataset_id": source.dataset_id,
         "provider": source.provider,
         "source_version": SOURCE_VERSION,
@@ -712,6 +720,7 @@ def analyze_mola_aoi(
         "valid_fraction": round(valid_fraction, 6),
         "partial": partial,
         "slope_pixel_count": slope_grid_pixels,
+        "slope_outer_rim_pixels": total_pixels - slope_grid_pixels,
         "valid_slope_pixels": valid_slope_pixels,
         "invalid_slope_pixels": invalid_slope_pixels,
         "valid_slope_fraction": round(valid_slope_fraction, 6),
