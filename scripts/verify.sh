@@ -175,7 +175,7 @@ frontend_prereqs() {
     return 1
   fi
   local script
-  for script in typecheck lint test build check:api; do
+  for script in typecheck lint test build check:api check:dev; do
     if ! node -e '
       const fs = require("fs");
       const pkg = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
@@ -241,6 +241,7 @@ else
   run_step "frontend: npm run lint" frontend_script lint
   run_step "frontend: npm run test -- --run" frontend_test
   run_step "frontend: npm run build" frontend_script build
+  run_step "frontend: npm run check:dev" frontend_script check:dev
   run_step "frontend: npm run check:api" frontend_script check:api
 fi
 

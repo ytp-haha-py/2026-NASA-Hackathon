@@ -1,0 +1,6 @@
+{
+  "count": 0,
+  "failures": [],
+  "note": "A failure means no usable POWER response was processed for that point and dimension. It is not zero coverage and it is never filled with zeros.",
+  "release_version": "earth-power-113-1.0.0"
+}
