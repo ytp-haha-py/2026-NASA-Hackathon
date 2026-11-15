@@ -8,6 +8,8 @@ Built for the [NASA Space Apps Challenge 2026](https://www.spaceappschallenge.or
 
 [**Try AnalogX**](https://2026-nasa-hackathon.貓熊.台灣/) · [API documentation](https://api.貓熊.台灣/docs) · [繁體中文](README.zh-TW.md)
 
+AI-assisted development and content use are documented in the [AI / SI disclosure](docs/AI_DISCLOSURE.md), including outstanding submission-labeling checks.
+
 ## What can you do?
 
 1. **Find Earth analogs.** Start with a Moon or Mars reference location, or specify terrain characteristics such as slope and roughness. AnalogX ranks Earth locations from its indexed dataset.
