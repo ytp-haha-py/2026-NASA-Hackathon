@@ -52,7 +52,7 @@ def build_release(
         source = Path(checkpoint.asset.path)
         rel_uri = f"source://{task.provider_id}/{task.task_id}"
         if include_raw and source.is_file():
-            destination = raw_dir / f"{task.task_id}.json"
+            destination = raw_dir / f"{task.task_id}{task.output_suffix}"
             shutil.copyfile(source, destination)
             rel_uri = f"raw/{destination.name}"
             raw_entries.append(

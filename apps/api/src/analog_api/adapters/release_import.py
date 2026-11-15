@@ -33,8 +33,12 @@ def import_release(session: Session, release_dir: str | Path) -> dict[str, Any]:
         allowed = {key: value for key, value in raw.items() if key in SourceAssetV2.model_fields}
         store.upsert_asset(SourceAssetV2.model_validate(allowed))
     areas = 0
+    seen_areas: set[str] = set()
     for task in plan.tasks:
         area = task.area
+        if area.area_id in seen_areas:
+            continue
+        seen_areas.add(area.area_id)
         if area.crs == "unknown":
             raise ValueError(
                 f"release area {area.area_id} has no real CRS; refusing to fabricate one"

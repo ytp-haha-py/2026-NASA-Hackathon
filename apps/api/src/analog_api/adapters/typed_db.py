@@ -201,6 +201,10 @@ class TypedObservationStore:
                 "quality_flags": row.quality_flags,
                 "score_role": row.score_role,
                 "spatial_support": row.spatial_support,
+                "temporal_support": row.temporal_support,
+                "depth_support": row.depth_support,
+                "uncertainty": row.uncertainty,
+                "notes": row.notes,
             }
             for row in rows
         ]

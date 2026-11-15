@@ -4,7 +4,9 @@ import hashlib
 import json
 from pathlib import Path
 
+import numpy as np
 import pytest
+import rasterio
 from analog_pipelines.acquisition.executor import run_plan, validate_run
 from analog_pipelines.acquisition.models import (
     AcquisitionPlan,
@@ -19,12 +21,14 @@ from analog_pipelines.acquisition.models import (
 )
 from analog_pipelines.acquisition.planner import build_plan, load_areas
 from analog_pipelines.acquisition.providers import NasaPowerProvider
+from analog_pipelines.acquisition.providers_soilgrids import SoilGridsProvider
 from analog_pipelines.inventory import inventory_matrix, load_inventory
 from analog_pipelines.typed_contracts import (
     SpatialSupport,
     TemporalSupport,
     TypedObservation,
 )
+from rasterio.transform import from_origin
 
 
 def _area(area_id: str = "earth-test", body: str = "Earth") -> PlanArea:
@@ -217,3 +221,53 @@ def test_planner_rejects_unknown_provider():
             bodies=["Earth"],
             provider_ids=["missing"],
         )
+
+
+def test_soilgrids_plan_and_process_preserve_depth_and_metric_resolution(tmp_path: Path):
+    provider = SoilGridsProvider()
+    area = _area()
+    plan = build_plan(
+        scope="pilot",
+        areas=[area],
+        dimensions=["D06"],
+        bodies=["Earth"],
+        provider_ids=["soilgrids-wcs"],
+        parameters={"properties": "clay", "depths": "0-5cm", "statistics": "mean,Q0.05,Q0.95"},
+    )
+    assert len(plan.tasks) == 3
+    assert all("CoverageId=clay_0-5cm_" in task.endpoint for task in plan.tasks)
+    task = next(task for task in plan.tasks if task.parameters["statistic"] == "mean")
+    path = tmp_path / "clay.tif"
+    array = np.array([[131, 132], [133, 134]], dtype="int16")
+    with rasterio.open(
+        path,
+        "w",
+        driver="GTiff",
+        height=2,
+        width=2,
+        count=1,
+        dtype="int16",
+        crs="EPSG:4326",
+        transform=from_origin(10.0, 45.02, 0.01, 0.01),
+    ) as dst:
+        dst.write(array, 1)
+    asset = LocalAsset(
+        task_id=task.task_id,
+        path=str(path),
+        sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+        bytes=path.stat().st_size,
+        content_type="image/tiff",
+    )
+    observations = provider.process(asset, task)
+    assert len(observations) == 1
+    observation = observations[0]
+    assert observation.dimension_code == "D06"
+    assert observation.value == pytest.approx(132.5)
+    assert observation.unit == "g kg-1"
+    assert observation.spatial_support.resolution_m == 250.0
+    assert observation.spatial_support.source_resolution_m == 250.0
+    assert observation.depth_support.kind == "depth_interval"
+    assert observation.depth_support.min_m == 0.0
+    assert observation.depth_support.max_m == 0.05
+    assert observation.score_role == "evidence_only"
+    assert provider.validate(observations).ok

@@ -354,5 +354,7 @@ class NasaPowerProvider:
 
 
 def default_providers() -> dict[str, SourceProvider]:
-    provider = NasaPowerProvider()
-    return {provider.provider_id: provider}
+    from analog_pipelines.acquisition.providers_soilgrids import SoilGridsProvider
+
+    providers: list[SourceProvider] = [NasaPowerProvider(), SoilGridsProvider()]
+    return {provider.provider_id: provider for provider in providers}
