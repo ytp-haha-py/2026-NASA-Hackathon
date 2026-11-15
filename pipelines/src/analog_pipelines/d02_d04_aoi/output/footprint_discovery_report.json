@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-15T14:07:14.130107+00:00",
+  "generated_at_utc": "2026-11-15T14:11:13.099579+00:00",
   "aoi": {
     "body": "Mars",
     "reference_id": "mars-jezero-ctx-window-02",
@@ -20,12 +20,12 @@
     "query_url": "https://oderest.rsl.wustl.edu/live2/?query=product&results=fp&output=JSON&limit=10&target=mars&ihid=MRO&iid=CRISM&pt=MTRDR&minlat=18.338959295345585&maxlat=18.438959295345587&westernlon=77.49881625963637&easternlon=77.59881625963637",
     "query_provenance": {
       "url": "https://oderest.rsl.wustl.edu/live2/?query=product&results=fp&output=JSON&limit=10&target=mars&ihid=MRO&iid=CRISM&pt=MTRDR&minlat=18.338959295345585&maxlat=18.438959295345587&westernlon=77.49881625963637&easternlon=77.59881625963637",
-      "fetched_at_utc": "2026-11-15T14:07:14.129939+00:00",
-      "sha256": "cb18d608f11b48ce18a798f7fb17ed3c93747ec7a743728292b9097e47918682",
+      "fetched_at_utc": "2026-11-15T14:11:08.227194+00:00",
+      "sha256": "690085894ca42b864d830c7a192efa956f4a7c5f5d60f7c0ddeb99ccb354d2d5",
       "bytes": 167853
     },
     "product_type": "MRO/CRISM MTRDR (context footprint discovery)",
-    "license": "Per PDS/ODE product terms (recorded via product pages where accessed); this discovery only records metadata.",
+    "license": "Per PDS/ODE/product metadata; see per-product details and PDS pages (not asserted as a single license string here).",
     "hits": 4,
     "footprints": [
       {
@@ -97,8 +97,86 @@
         "scale": null
       }
     ],
+    "product_details": [
+      {
+        "pdsid": "hrl000040ff_07_if183j_mtr3",
+        "found": true,
+        "data_set_id": "mro_crism_mtrdr",
+        "product_version_id": "1.0",
+        "product_creation_time": "2017-07-17T15:06:10Z",
+        "bundle_lid": "urn:nasa:pds:mro_crism_mtrdr",
+        "collection_lid": "urn:nasa:pds:mro_crism_mtrdr:data_mtrdr",
+        "label_filename": "hrl000040ff_07_if183j_mtr3.xml",
+        "pds_volume_id": "MROCR_4001",
+        "target_name": "MARS",
+        "product_title": "hrl000040ff_07_if183j_mtr3 MTRDR IF",
+        "provenance": {
+          "url": "https://oderest.rsl.wustl.edu/live2/?query=product&results=fp&output=JSON&pdsid=hrl000040ff_07_if183j_mtr3",
+          "fetched_at_utc": "2026-11-15T14:11:09.462738+00:00",
+          "sha256": "a1cce509f93da57173c0f7bad56dbd675d7be5fadc5ed9b94a509e6ec904f60c",
+          "bytes": 42107
+        }
+      },
+      {
+        "pdsid": "frt000066a4_07_if166j_mtr3",
+        "found": true,
+        "data_set_id": "mro_crism_mtrdr",
+        "product_version_id": "1.0",
+        "product_creation_time": "2017-07-17T15:28:21Z",
+        "bundle_lid": "urn:nasa:pds:mro_crism_mtrdr",
+        "collection_lid": "urn:nasa:pds:mro_crism_mtrdr:data_mtrdr",
+        "label_filename": "frt000066a4_07_if166j_mtr3.xml",
+        "pds_volume_id": "MROCR_4001",
+        "target_name": "MARS",
+        "product_title": "frt000066a4_07_if166j_mtr3 MTRDR IF",
+        "provenance": {
+          "url": "https://oderest.rsl.wustl.edu/live2/?query=product&results=fp&output=JSON&pdsid=frt000066a4_07_if166j_mtr3",
+          "fetched_at_utc": "2026-11-15T14:11:10.677037+00:00",
+          "sha256": "b4de99a8a25891cb400ab6c561191decd66042d154cc909464d17c693db37368",
+          "bytes": 42110
+        }
+      },
+      {
+        "pdsid": "frt0001fb74_07_if166j_mtr3",
+        "found": true,
+        "data_set_id": "mro_crism_mtrdr",
+        "product_version_id": "1.0",
+        "product_creation_time": "2021-06-17T00:14:34Z",
+        "bundle_lid": "urn:nasa:pds:mro_crism_mtrdr",
+        "collection_lid": "urn:nasa:pds:mro_crism_mtrdr:data_mtrdr",
+        "label_filename": "frt0001fb74_07_if166j_mtr3.xml",
+        "pds_volume_id": "MROCR_4001",
+        "target_name": "MARS",
+        "product_title": "frt0001fb74_07_if166j_mtr3 MTRDR IF",
+        "provenance": {
+          "url": "https://oderest.rsl.wustl.edu/live2/?query=product&results=fp&output=JSON&pdsid=frt0001fb74_07_if166j_mtr3",
+          "fetched_at_utc": "2026-11-15T14:11:11.851187+00:00",
+          "sha256": "7bf4aa4f2c3d67ae9e8495b4c2dc2e4e4a8b5eccb4caba7326d5313e596db068",
+          "bytes": 42110
+        }
+      },
+      {
+        "pdsid": "frt00021da6_07_if166j_mtr3",
+        "found": true,
+        "data_set_id": "mro_crism_mtrdr",
+        "product_version_id": "1.0",
+        "product_creation_time": "2021-06-18T17:38:50Z",
+        "bundle_lid": "urn:nasa:pds:mro_crism_mtrdr",
+        "collection_lid": "urn:nasa:pds:mro_crism_mtrdr:data_mtrdr",
+        "label_filename": "frt00021da6_07_if166j_mtr3.xml",
+        "pds_volume_id": "MROCR_4001",
+        "target_name": "MARS",
+        "product_title": "frt00021da6_07_if166j_mtr3 MTRDR IF",
+        "provenance": {
+          "url": "https://oderest.rsl.wustl.edu/live2/?query=product&results=fp&output=JSON&pdsid=frt00021da6_07_if166j_mtr3",
+          "fetched_at_utc": "2026-11-15T14:11:13.099434+00:00",
+          "sha256": "46d96aba5b4cee32248e607e09c53f85d18c4a7993322d403b37a3aff5cb5a08",
+          "bytes": 42110
+        }
+      }
+    ],
     "outcome": "locatable_observation_candidates",
-    "notes": "Footprint discovery only; no pixel validation/mineral detection claimed here. Evidence-only; not scored."
+    "notes": "Footprint discovery only; no pixel validation/mineral detection claimed here. Evidence-only; not scored. Per-product details fetched via bounded ODE product query (creation time, version id, dataset/bundle/collection, label filename) where available."
   },
   "d03": {
     "dimension": "D03",

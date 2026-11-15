@@ -55,6 +55,36 @@ def bbox_around_point(lon: float, lat: float, half_deg: float = 0.05) -> dict[st
     return {"west": west, "south": south, "east": east, "north": north}
 
 
+def fetch_ode_product_detail(pdsid: str) -> dict[str, Any]:
+    url = "https://oderest.rsl.wustl.edu/live2/?" + urlencode(
+        {"query": "product", "results": "fp", "output": "JSON", "pdsid": pdsid}
+    )
+    try:
+        data, prov = fetch_json(url)
+        products = data.get("ODEResults", {}).get("Products", {}).get("Product", [])
+        if isinstance(products, dict):
+            products = [products]
+        if not products:
+            return {"pdsid": pdsid, "found": False, "provenance": prov}
+        prod = products[0]
+        return {
+            "pdsid": pdsid,
+            "found": True,
+            "data_set_id": prod.get("Data_Set_Id"),
+            "product_version_id": prod.get("Product_version_id") or prod.get("Product_version"),
+            "product_creation_time": prod.get("Product_creation_time") or prod.get("Creation_date"),
+            "bundle_lid": prod.get("Bundle_lid"),
+            "collection_lid": prod.get("Collection_lid"),
+            "label_filename": prod.get("LabelFileName"),
+            "pds_volume_id": prod.get("PDSVolume_Id"),
+            "target_name": prod.get("Target_name"),
+            "product_title": prod.get("Product_title"),
+            "provenance": prov,
+        }
+    except Exception as e:  # noqa: BLE001
+        return {"pdsid": pdsid, "found": False, "error": str(e)}
+
+
 def discover_d02_mars_crism_ode(bbox: dict[str, float]) -> dict[str, Any]:
     """Bounded ODE query for MTRDR products intersecting bbox (Mars)."""
     west, south, east, north = bbox["west"], bbox["south"], bbox["east"], bbox["north"]
@@ -110,17 +140,23 @@ def discover_d02_mars_crism_ode(bbox: dict[str, float]) -> dict[str, Any]:
                     "scale": p.get("Scale"),
                 }
             )
+        details = []
+        for fp in footprints:
+            pid = fp.get("pdsid")
+            if pid:
+                details.append(fetch_ode_product_detail(pid))
         return {
             "dimension": "D02",
             "source": "NASA PDS ODE (oderest.rsl.wustl.edu/live2)",
             "query_url": query,
             "query_provenance": prov,
             "product_type": "MRO/CRISM MTRDR (context footprint discovery)",
-            "license": "Per PDS/ODE product terms (recorded via product pages where accessed); this discovery only records metadata.",
+            "license": "Per PDS/ODE/product metadata; see per-product details and PDS pages (not asserted as a single license string here).",
             "hits": len(products),
             "footprints": footprints,
+            "product_details": details,
             "outcome": "locatable_observation_candidates" if footprints else "no_coverage",
-            "notes": "Footprint discovery only; no pixel validation/mineral detection claimed here. Evidence-only; not scored.",
+            "notes": "Footprint discovery only; no pixel validation/mineral detection claimed here. Evidence-only; not scored. Per-product details fetched via bounded ODE product query (creation time, version id, dataset/bundle/collection, label filename) where available.",
         }
     except Exception as e:  # noqa: BLE001
         return {
