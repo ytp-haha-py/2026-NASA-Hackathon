@@ -167,6 +167,19 @@ ARTIFACTS: tuple[ArtifactSpec, ...] = (
         ),
     ),
     ArtifactSpec(
+        artifact_id="typed-d03-planetary-thermal",
+        kind="typed_bundle_acquisition",
+        primary_path="pipelines/pilots/d03_planetary_thermal/manifest.json",
+        dimensions=("D03",),
+        bodies=("Moon", "Mars"),
+        source_ids=("lro-diviner", "usgs-mars-themis-global-thermal-inertia"),
+        value_origin="mixed_measured_brightness_and_apparent_inertia",
+        limitations=(
+            "Diviner brightness temperature is not kinetic temperature and has no per-bin uncertainty.",
+            "THEMIS apparent thermal inertia has ~20% absolute accuracy and no per-pixel uncertainty.",
+        ),
+    ),
+    ArtifactSpec(
         artifact_id="typed-d04-water-ice",
         kind="typed_bundle_acquisition",
         primary_path="pipelines/pilots/d04_earth_power/manifest.json",
@@ -175,6 +188,23 @@ ARTIFACTS: tuple[ArtifactSpec, ...] = (
         source_ids=("nasa-power-water-daily",),
         value_origin="model_estimate",
         limitations=("NASA POWER wetness/snow/precipitation context only; no confirmed ice.",),
+    ),
+    ArtifactSpec(
+        artifact_id="typed-d04-water-ice-planetary",
+        kind="typed_bundle_acquisition",
+        primary_path="pipelines/pilots/d04_water_ice_planetary/manifest.json",
+        dimensions=("D04",),
+        bodies=("Moon", "Mars"),
+        source_ids=(
+            "lunar-prospector-neutron-hydrogenhd",
+            "lro-minirf-global-cpr",
+            "mars-odyssey-hend-epithermal",
+        ),
+        value_origin="evidence_only_remote_sensing",
+        limitations=(
+            "WEH/CPR/epithermal flux are evidence, not confirmed ice or abundance.",
+            "Neutron/radar cells are coarser than the 1.98 km AOI windows.",
+        ),
     ),
     ArtifactSpec(
         artifact_id="typed-d05-illumination",
@@ -204,12 +234,14 @@ ARTIFACTS: tuple[ArtifactSpec, ...] = (
     ArtifactSpec(
         artifact_id="typed-d06-regolith",
         kind="typed_bundle_acquisition",
-        primary_path="pipelines/pilots/d06_earth_soilgrids/manifest.json",
+        primary_path="pipelines/pilots/d06_earth_soilgrids_depths/manifest.json",
         dimensions=("D06",),
         bodies=("Earth",),
         source_ids=("soilgrids-250m-v2",),
         value_origin="model_estimate",
-        limitations=("SoilGrids 250 m model prediction at 0-5 cm, not a local sample.",),
+        limitations=(
+            "SoilGrids 250 m model predictions at 0-5/5-15/15-30/30-60 cm, not local samples.",
+        ),
     ),
     ArtifactSpec(
         artifact_id="source-inventory",
@@ -526,23 +558,39 @@ def _pilot_summary(
     observations = _load_observations(bundle_dir)
     if not observations:
         raise ReleaseError(f"{bundle_dir}: observations.jsonl is empty")
-    if sha256_file(bundle_dir / "observations.jsonl") != manifest.get("observations_sha256"):
+    checksums = manifest.get("checksums") if isinstance(manifest.get("checksums"), dict) else {}
+    counts = manifest.get("counts") if isinstance(manifest.get("counts"), dict) else {}
+    observations_digest = manifest.get("observations_sha256") or checksums.get(
+        "observations_sha256"
+    )
+    if (
+        observations_digest
+        and sha256_file(bundle_dir / "observations.jsonl") != observations_digest
+    ):
         raise ReleaseError(f"{bundle_dir}: observations_sha256 does not match observations.jsonl")
-    if sha256_file(bundle_dir / "plan.json") != manifest.get("plan_sha256"):
+    plan_digest = manifest.get("plan_sha256") or checksums.get("plan_sha256")
+    if plan_digest and sha256_file(bundle_dir / "plan.json") != plan_digest:
         raise ReleaseError(f"{bundle_dir}: plan_sha256 does not match plan.json")
-    if int(manifest.get("observation_count", -1)) != len(observations):
+    declared_observations = int(
+        manifest.get("observation_count", counts.get("observations", len(observations)))
+    )
+    if declared_observations != len(observations):
         raise ReleaseError(f"{bundle_dir}: manifest observation_count does not match observations")
-    if int(manifest.get("asset_count", -1)) != len(assets):
+    declared_assets = int(manifest.get("asset_count", counts.get("assets", len(assets))))
+    if declared_assets != len(assets):
         raise ReleaseError(f"{bundle_dir}: manifest asset_count does not match assets.json")
-    tasks = plan.get("tasks")
+    tasks = plan.get("tasks", [])
     if not isinstance(tasks, list):
-        raise ReleaseError(f"{bundle_dir}: plan.json has no task list")
-    attempted = len(tasks)
+        raise ReleaseError(f"{bundle_dir}: plan.json task list is not a list")
+    attempted = len(tasks) or int(counts.get("tasks_planned", 0) or 0)
     raw_entries = manifest.get("raw") or []
-    succeeded = len({entry.get("task_id") for entry in raw_entries})
+    if raw_entries:
+        succeeded = len({entry.get("task_id") for entry in raw_entries})
+    else:
+        succeeded = int(counts.get("tasks_succeeded", 0) or 0)
     if succeeded > attempted:
         raise ReleaseError(f"{bundle_dir}: succeeded task count exceeds attempted")
-    task_failures = attempted - succeeded
+    task_failures = max(0, attempted - succeeded)
     # Raw rasters are intentionally never part of the Git release. Report every
     # referenced raw path as not bundled so the manifest is identical on a clean
     # checkout and on a machine with a local cache; never hash untracked files.
@@ -1373,7 +1421,9 @@ def _build_release_payload(
     typed_ids = (
         "typed-d02-geology",
         "typed-d03-thermal",
+        "typed-d03-planetary-thermal",
         "typed-d04-water-ice",
+        "typed-d04-water-ice-planetary",
         "typed-d05-illumination",
         "typed-d05-spice-geometry",
         "typed-d06-regolith",

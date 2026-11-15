@@ -91,18 +91,20 @@ def test_two_clean_builds_reproduce_ids_counts_and_checksums(tmp_path: Path):
     assert counts["fine_datasets"] == 9
     assert counts["fine_feature_observations"] == 565
     assert counts["fine_context_observations"] == 1243
-    assert counts["typed_observations"] == 199
+    assert counts["typed_observations"] == 520
     assert counts["typed_by_dimension"] == {
         "typed-d02-geology": 56,
         "typed-d03-thermal": 20,
+        "typed-d03-planetary-thermal": 41,
         "typed-d04-water-ice": 20,
+        "typed-d04-water-ice-planetary": 55,
         "typed-d05-illumination": 10,
         "typed-d05-spice-geometry": 18,
-        "typed-d06-regolith": 75,
+        "typed-d06-regolith": 300,
     }
     assert counts["coarse_cells"] == 168
     assert counts["coarse_regions"] == 3
-    assert counts["absent_body_dimension_cells"] == 6
+    assert counts["absent_body_dimension_cells"] == 2
     assert all(len(artifact["sha256"]) == 64 for artifact in first["artifacts"])
 
 
@@ -167,10 +169,6 @@ def test_eda_distinguishes_origins_and_marks_absent_cells():
 
     absent = {(item["dimension_code"], item["body"]) for item in eda["absent_dimensions"]}
     assert absent == {
-        ("D03", "Moon"),
-        ("D03", "Mars"),
-        ("D04", "Moon"),
-        ("D04", "Mars"),
         ("D06", "Moon"),
         ("D06", "Mars"),
     }

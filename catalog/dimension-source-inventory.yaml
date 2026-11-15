@@ -147,7 +147,7 @@ dimensions:
       - impact_geology
       - sedimentary_geology
       - aqueous_alteration
-    baseline: "Moon/Mars map-unit evidence and provider status integrated as evidence-only D02 typed records; zero verified quantitative minerals and no shareable Earth GLiM values"
+    baseline: "56 evidence-only D02 records (Earth 15, Moon 3, Mars 38): map units, process evidence, CRISM context and area fractions; zero verified quantitative minerals and no shareable Earth GLiM values"
     bodies:
       Earth:
         sources:
@@ -262,7 +262,7 @@ dimensions:
     research_question: "地表具有什麼溫度及熱物理環境？"
     subgroups: [surface_temperature, thermal_inertia]
     research_classes: []
-    baseline: "20 Earth NASA POWER thermal context observations; Mars THEMIS thermal-inertia metadata verified but no observation; no thermal inertia; Moon thermal still unavailable"
+    baseline: "61 D03 observations: 20 Earth NASA POWER context, 36 Moon Diviner brightness temperature, 5 Mars THEMIS thermal inertia; no kinetic temperature, diurnal rate or cross-body score"
     bodies:
       Earth:
         sources:
@@ -303,22 +303,22 @@ dimensions:
       Moon:
         sources:
           - source_id: lro-diviner
-            provider: NASA PDS / Diviner
-            product: Diviner lunar surface temperature products
-            url: https://pds-geosciences.wustl.edu/missions/lro/diviner.htm
-            license: not_verified
-            license_url: not_verified
-            native_resolution: not_verified
-            spatial_support: not_verified
-            temporal_support: not_verified
-            depth_support: Surface/subsurface thermal
-            observation_kinds: [numeric, timeseries]
-            qa: not_verified
-            availability: identified
-            data_status: not_fetched
-            comparability: unknown
-            notes: "Candidate only; attribution and time/illumination support must be verified."
-            unknown_fields: [license, native_resolution, spatial_support, temporal_support, qa]
+            provider: NASA PDS Geosciences / LRO Diviner
+            product: Diviner PCP average bolometric brightness temperature (240 m)
+            url: https://pds-geosciences.wustl.edu/lro/lro-l-diviner-3-rdr-v1/lrodv_1001/data/derived_pcp/
+            license: CC0-1.0 (NASA-led PDS data; no restrictive notice on the product page)
+            license_url: https://science.data.nasa.gov/about/license
+            native_resolution: 240 m/pixel
+            spatial_support: 18 lunar reference windows; two local-time bins
+            temporal_support: multi-year southern-summer composite per local-time bin (00:00-00:15, 12:00-12:15)
+            depth_support: Surface brightness temperature (unit emissivity assumption)
+            observation_kinds: [numeric]
+            qa: No per-bin uncertainty; brightness temperature is not kinetic temperature
+            availability: accessible
+            data_status: existing_observed
+            comparability: evidence_only
+            notes: "Pilot: 36 observations; 26 detected, 7 no_coverage, 3 unknown. No diurnal rate or cross-body score."
+            unknown_fields: []
       Mars:
         sources:
           - source_id: usgs-mars-themis-global-thermal-inertia
@@ -334,16 +334,16 @@ dimensions:
             observation_kinds: [numeric]
             qa: Absolute accuracy ~20%; relative accuracy within one image ~10%; no per-pixel uncertainty layer
             availability: accessible
-            data_status: not_fetched
+            data_status: existing_observed
             comparability: evidence_only
-            notes: "Metadata verified on the official USGS product page. No D03 thermal-inertia similarity feature exists, tiles are ~2.36 GB ISIS3 .cub, and no observation is claimed."
+            notes: "Pilot: 5 Jezero apparent-thermal-inertia observations read from bounded tile blocks; ~20% absolute accuracy and no per-pixel uncertainty."
             unknown_fields: []
   - code: D04
     name: Water & Ice
     research_question: "地表／地下有哪些水與冰及觀測證據？"
     subgroups: [surface_water, subsurface_ice, hydration_evidence]
     research_classes: []
-    baseline: "20 Earth NASA POWER water-context observations; no confirmed ice, no Moon/Mars water measurement"
+    baseline: "75 D04 observations: 20 Earth NASA POWER context, 53 Moon LP NS/Mini-RF evidence, 2 Mars HEND epithermal-flux evidence; no confirmed ice detection"
     bodies:
       Earth:
         sources:
@@ -366,48 +366,65 @@ dimensions:
             unknown_fields: []
       Moon:
         sources:
-          - source_id: lunar-water-ice-source-not-selected
-            provider: not_selected
-            product: not_selected
-            url: not_verified
-            license: not_verified
-            license_url: not_verified
-            native_resolution: not_verified
-            spatial_support: not_verified
-            temporal_support: not_verified
-            depth_support: not_verified
-            observation_kinds: [detection, spectrum, evidence]
-            qa: not_verified
-            availability: planned
-            data_status: not_fetched
-            comparability: unknown
-            notes: "Hydrogen/water-equivalent evidence is not mineable ice; product not selected."
-            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+          - source_id: lunar-prospector-neutron-hydrogenhd
+            provider: NASA Lunar Prospector Neutron Spectrometer (PDS Geosciences Node)
+            product: Reduced hydrogen abundance (hydrogenhd) special product
+            url: https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt
+            license: CC0-1.0 (NASA-led PDS data; no restrictive notice on the product page)
+            license_url: https://science.data.nasa.gov/about/license
+            native_resolution: 0.5 x 0.5 degree
+            spatial_support: 12 native lunar cells covering the reference windows
+            temporal_support: mission composite; not a time series
+            depth_support: Near-surface water-equivalent hydrogen (wt%)
+            observation_kinds: [numeric]
+            qa: Single fill marker; no per-cell uncertainty; WEH is not confirmed ice
+            availability: accessible
+            data_status: existing_observed
+            comparability: evidence_only
+            notes: "Pilot: water-equivalent hydrogen wt% at native cells; no ice detection or abundance claim."
+            unknown_fields: []
+          - source_id: lro-minirf-global-cpr
+            provider: NASA LRO Mini-RF (PDS Geosciences Node)
+            product: Global CPR mosaic 128 ppd (LRO-L-MRFLRO-5-GLOBAL-MOSAIC-V1.0)
+            url: https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img
+            license: CC0-1.0 (NASA-led PDS data; no restrictive notice on the product page)
+            license_url: https://science.data.nasa.gov/about/license
+            native_resolution: 128 pixels/degree (~237 m/pixel)
+            spatial_support: 12 native lunar windows covering the reference areas
+            temporal_support: mosaic; no time series
+            depth_support: Near-surface radar circular polarization ratio
+            observation_kinds: [numeric]
+            qa: CPR is a radar indicator, not an ice detection; no per-pixel uncertainty
+            availability: accessible
+            data_status: existing_observed
+            comparability: evidence_only
+            notes: "Pilot: bounded byte-range decoded CPR values; no confirmed ice detection."
+            unknown_fields: []
       Mars:
         sources:
-          - source_id: mars-water-ice-source-not-selected
-            provider: not_selected
-            product: not_selected
-            url: not_verified
-            license: not_verified
-            license_url: not_verified
-            native_resolution: not_verified
-            spatial_support: not_verified
-            temporal_support: not_verified
-            depth_support: not_verified
-            observation_kinds: [detection, spectrum, evidence]
-            qa: not_verified
-            availability: planned
-            data_status: not_fetched
-            comparability: unknown
-            notes: "No SHARAD/MARSIS product is asserted yet; no subsurface abundance claim."
-            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+          - source_id: mars-odyssey-hend-epithermal
+            provider: NASA 2001 Mars Odyssey HEND (PDS Geosciences Node GRS special products)
+            product: HEND epithermal neutron flux ratio (hend_epithermal_020917)
+            url: https://pds-geosciences.wustl.edu/ody/urn-nasa-pds-odyssey_grs_special/data/hend_epithermal_020917.tab
+            license: CC0-1.0 (NASA-led PDS data; no restrictive notice on the product page)
+            license_url: https://science.data.nasa.gov/about/license
+            native_resolution: 4 x 4 degree cells
+            spatial_support: 1 native Mars cell covering the Jezero reference areas
+            temporal_support: mission composite; not a time series
+            depth_support: Near-surface epithermal neutron flux (hydrogen proxy)
+            observation_kinds: [numeric]
+            qa: No Mars WEH or ice-fraction conversion; coarser than AOI windows
+            availability: accessible
+            data_status: existing_observed
+            comparability: evidence_only
+            notes: "Pilot: 2 HEND flux observations; no ice or abundance claim."
+            unknown_fields: []
   - code: D05
     name: Solar Illumination & Radiation
     research_question: "地表受到什麼光照與輻射條件？"
     subgroups: [solar_illumination, ionizing_radiation]
     research_classes: []
-    baseline: "10 Earth NASA POWER context observations plus 18 NAIF SPICE model-derived Moon/Mars solar-geometry observations; no ionizing-radiation measurement and no cross-body D05 score"
+    baseline: "28 D05 observations: 10 Earth NASA POWER context plus 18 NAIF SPICE Moon/Mars solar-geometry observations; no observed irradiance, shadow, ionizing radiation or cross-body score"
     bodies:
       Earth:
         sources:
@@ -539,7 +556,7 @@ dimensions:
     research_question: "地表材料如何表現？"
     subgroups: [particle_size, thickness_density_porosity, strength, dust]
     research_classes: []
-    baseline: "75 Earth SoilGrids 250 m evidence-only observations across 5 AOIs; Moon/Mars sparse measurements still unavailable"
+    baseline: "300 Earth SoilGrids 250 m evidence-only observations across 5 AOIs and 0-5/5-15/15-30/30-60 cm; Moon/Mars sparse measurements still unavailable"
     bodies:
       Earth:
         sources:
