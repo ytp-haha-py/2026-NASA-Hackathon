@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T19:30:00+08:00",
+  "generated_at": "2026-11-15T21:05:00+08:00",
   "coordinator": {
     "issue": 142,
     "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-coordinator-142",
@@ -37,7 +37,7 @@
     "open_pr_134": "feat/130-research-weight-presets",
     "indices": {
       "var/global-coarse-index": "111 MB",
-      "var/analog.db": "7.0 MB",
+      "var/analog.db": "2,185 typed observations (dv-6fefaf3a7974)",
       "public_coarse_pilot_cells": 168,
       "data/global-index": "absent"
     }
@@ -60,9 +60,10 @@
       ],
       "native_goal_verified": true,
       "head_commit": "89c01d6",
-      "note": "coverage matrix committed; PR pending",
+      "note": "bounded expansion: 2 Mars CTX windows added; Mars refs 5 -> 7; PR #161",
       "validated": true,
-      "integrated": true
+      "integrated": true,
+      "expansion_pr": 161
     },
     {
       "issue": 136,
@@ -80,9 +81,10 @@
       ],
       "native_goal_verified": true,
       "head_commit": "4f9c3bd",
-      "note": "geology matrix committed; PR pending",
+      "note": "bounded expansion: 3 Macrostrat evidence records; D02 56 -> 59; PR #161",
       "validated": true,
-      "integrated": true
+      "integrated": true,
+      "expansion_pr": 161
     },
     {
       "issue": 137,
@@ -100,9 +102,10 @@
       ],
       "native_goal_verified": true,
       "head_commit": "7e08d88",
-      "note": "phase PR open",
+      "note": "bounded expansion: 3 NASA POWER Earth AOIs; D03 61 -> 73; PR #161",
       "validated": true,
-      "integrated": true
+      "integrated": true,
+      "expansion_pr": 161
     },
     {
       "issue": 138,
@@ -120,9 +123,10 @@
       ],
       "native_goal_verified": true,
       "head_commit": "b658f86",
-      "note": "phase PR open",
+      "note": "bounded expansion: 3 NASA POWER Earth AOIs; D04 75 -> 87; PR #161",
       "validated": true,
-      "integrated": true
+      "integrated": true,
+      "expansion_pr": 161
     },
     {
       "issue": 139,
@@ -140,9 +144,10 @@
       ],
       "native_goal_verified": true,
       "head_commit": "54e2789",
-      "note": "phase PR open",
+      "note": "bounded expansion: 3 NASA POWER Earth AOIs; D05 28 -> 34; PR #161",
       "validated": true,
-      "integrated": true
+      "integrated": true,
+      "expansion_pr": 161
     },
     {
       "issue": 140,
@@ -183,6 +188,32 @@
       "note": "native goal active; worktree dirty",
       "validated": true,
       "integrated": true
+    },
+    {
+      "issue": 160,
+      "dimension": "D01-D06 product MVP",
+      "scope": "AOI-first six-dimension query, D01+Earth D06 weighted search, D02-D05 evidence queries, frontend handoff to #119",
+      "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-160-sixdim",
+      "branch": "feat/160-sixdim-aoi",
+      "session_id": "ses_e20b4eb76ffekA5MUFIVhI4mSc",
+      "goal_id": "051525ff-6215-470c-847a-a570d6b1aea1",
+      "goal_status": "running",
+      "subagents": [
+        "AOI query API",
+        "D01+D06 search and D02-D05 roles",
+        "E2E/QA and frontend handoff"
+      ],
+      "pr": null,
+      "blockers": [
+        "no UI takeover (#119)",
+        "backend/contracts only",
+        "no global-data wait"
+      ],
+      "native_goal_verified": true,
+      "head_commit": "8536805",
+      "note": "P0; independent worktree/branch/session/native goal; subagents running",
+      "validated": false,
+      "integrated": false
     }
   ],
   "native_goal_mechanism": "POST /api/session/{sessionID}/command with {\"name\":\"goal\",\"text\":objective}; verified by a synthetic first-class goal message",
