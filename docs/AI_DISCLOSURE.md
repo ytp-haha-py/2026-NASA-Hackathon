@@ -1,236 +1,299 @@
-# AI Disclosure — AnalogX 專案協作紀錄
+# AI Disclosure — AnalogX
 
-記錄日期為 2026-11-15，時區為 Asia/Taipei。
+**Record date:** 15 November 2026 (Asia/Taipei)  
+**Scope:** Human–AI collaboration on the AnalogX project for the NASA Space Apps Challenge 2026.
 
-本文件揭露本專案這段協作中 Codex 參與的工作，從本機架站開始，涵蓋使用者要求的操作與解說、需求釐清、程式修改、測試、PR、合併與版本同步。核對依據為對話紀錄、Git 歷史、操作日誌與已提交的畫面。
+This document describes how AI assistants contributed to project planning, implementation, debugging, data processing, scientific review, testing, documentation, and GitHub coordination. It covers the work recorded in the original Codex collaboration log and adds an anonymized account of work involving **ChatGPT (OpenAI)** and **OpenCode**.
 
-最初整理時本機位於 `main`，最後一次 pull 的提交為 `a4ea7359438a16641904aec7d4ec38f6688a6cae`。後續同步與刪除要求接續記錄於第 11 節，下列測試數量是各次修改當時的執行結果。
+The account is **de-identified at the narrative level**: human participants are described by project roles rather than personal names, and private conversation transcripts, account information, machine-specific paths, and OpenCode session identifiers are omitted. Links to public GitHub issues, commits, pull requests, and screenshots remain because they are useful for independent verification; those public records may still identify their authors.
 
-## 1. 在本機架設並操作專案
+## Collaboration model and accountability
 
-使用者提供 NASA Hackathon repository，要求把 server 架在本機。
+| Participant or tool | Main role | Boundary |
+| --- | --- | --- |
+| Project team / human maintainer | Define the product, choose research priorities, correct misunderstandings, decide what to accept or reject, and authorize repository changes | Humans retain responsibility for scientific claims, licenses, review, and release decisions |
+| **ChatGPT (OpenAI)** | Translate product goals into technical requirements; critique UI, API, and data assumptions; inspect GitHub code/CI; draft issues and agent instructions; review and, when explicitly authorized, merge PRs | Recommendations and conversational analysis are not themselves code execution or scientific verification |
+| **OpenCode** | Coordinate multiple coding sessions, native Goals, specialized agents, Git worktrees, and implementation/validation of backend, data, and integration work | Agent completion claims require source, test, CI, and integration evidence |
+| **Codex** | Local project setup, frontend implementation, debugging, testing, browser verification, PR preparation, and version synchronization in the collaboration recorded below | Only the tasks and test outcomes documented for that work are attributed to Codex |
+| Other human/AI collaborators | Independent frontend and backend contributions through repository issues and PRs | Authorship of a PR does not imply every design decision was made by an AI |
 
-- 在工作目錄建立專案 checkout，啟動前端 Vite 與後端 FastAPI。
-- 前端使用 `http://127.0.0.1:5173/`，API 使用 `http://127.0.0.1:8000/`，API 文件位於 `/docs`。
-- 服務於背景執行，當時以本機連線使用。
-- 檢查 API health、capabilities、references、datasets，並在瀏覽器實際送出搜尋，確認能顯示排名。
-- 後續 pull 更新後，曾重啟後端並確認新版 API 回應。
-- #165 驗證期間本機預覽服務停止，另行重新啟動，確認 5173 與後端 capabilities 可以連線後繼續驗證。
+The team used a **human-directed, AI-assisted development process**, not an autonomous scientific discovery process. AI-generated suggestions, code, reports, and test fixtures were subject to repository checks and human decisions. A green CI result, an agent's statement of completion, a merged PR, and a deployed public service are distinct states.
 
-操作日誌保留於 repo 外同一工作區的 `../analog-server-logs/`。其中包含前後端輸出、驗證日誌與部分 PR 草稿。實際啟動與代理設定以目前的前端開發說明為準。[前端開發說明](../apps/web/README.md)
+### Evidence and interpretation
 
-最初的線上 AOI 分析尚未驗證，Windows 上的完整測試也出現相容性問題。後續各項驗證的範圍記錄於第 8 節。
+The original Codex log is a first-party record of its local actions, browser checks, and reported tests. The ChatGPT account below reflects the human–assistant collaboration and GitHub operations; the OpenCode account reflects its reported coordination plus artifacts available in the repository. Public PRs and source code provide stronger evidence of committed changes than conversational status messages alone. Not every locally reported test was independently rerun in this disclosure revision.
 
-## 2. 說明 Codex 與 Claude Code 的協作
+---
 
-使用者詢問 `openai/codex-plugin-cc` 如何讓 Claude Code 派工給 Codex，以及如何讓兩邊共用專案規則，減少來回複製內容。
+## 1. Local setup, server operation, and initial verification (Codex)
 
-- 說明 Claude Code 插件透過本機 Codex CLI 與 app-server 派工的方式，以及兩者共用專案檔案的關係。
-- 介紹當時 README 提供的 `/codex:rescue`、`/codex:result`、`/codex:review`、`/codex:adversarial-review` 與 `/codex:transfer`。
-- 說明背景派工、程式審查與對話轉移的用途，以及轉移後各自延續對話的行為。
-- 檢查本機 Claude Code 版本及專案現有的 `AGENTS.md`。
-- 建議讓 `CLAUDE.md` 透過一行 `@AGENTS.md` 匯入同一份規則，讓規則內容集中維護。
+The human maintainer requested help running the NASA hackathon project locally.
 
-這項協助完成到說明與本機檢查。當時未實跑插件派工或對話轉移，也沒有在本次專案修改中交付插件安裝或共用規則檔設定。插件與版本行為的說明對應當時查閱的文件。[Codex 插件](https://github.com/openai/codex-plugin-cc/blob/main/README.md)
+- Prepared a project checkout and started the Vite web frontend and FastAPI backend.
+- Used localhost development endpoints, conventionally port 5173 for the web app and port 8000 for the API; FastAPI exposed interactive documentation at `/docs`.
+- Checked API health, capabilities, reference locations, and datasets; submitted real searches in a browser and checked that rankings appeared.
+- Restarted the backend after later repository updates and checked selected new API responses.
+- Restarted the preview during the #165 work when the local service was no longer running.
 
-## 3. 多次 pull、同步 main 與處理合併
+Execution logs and some draft materials were retained outside the repository, so this public disclosure does not publish local logs or machine-specific locations. See the [web development guide](../apps/web/README.md).
 
-使用者多次要求拉取最新資料，期間也有其他協作者持續合併新功能。
+Initial live AOI analysis and complete Windows compatibility were **not** proven by the initial setup checks. Later testing is described in Section 8.
 
-| 同步節點 | 當時結果 |
+## 2. Codex / Claude Code interoperability discussion
+
+The team asked how the `openai/codex-plugin-cc` project could allow Claude Code to delegate work to Codex while sharing project rules.
+
+Codex explained the plugin's Codex CLI / app-server integration and discussed the documented commands `/codex:rescue`, `/codex:result`, `/codex:review`, `/codex:adversarial-review`, and `/codex:transfer`. It also inspected the existing `AGENTS.md` and suggested referencing that shared rule file from `CLAUDE.md` rather than maintaining conflicting copies.
+
+**Scope limit:** This was an explanation and local inspection, not evidence that the plugin was installed or that cross-agent transfers were run during this project. See the [plugin documentation](https://github.com/openai/codex-plugin-cc/blob/main/README.md).
+
+## 3. Updating branches and coordinating merges
+
+Development was concurrent: the team and multiple assistants submitted and merged changes while Codex maintained a local checkout.
+
+| Recorded synchronization point | Observed result at that point |
 | --- | --- |
-| 早期第一次更新 | 拉取 11 個提交至 `2904bc4`，重啟後端並確認新版首頁及新增 API 回應 |
-| 再次 pull | 確認當時已是 `2904bc4` |
-| 地圖語言修改前 | 拉取 15 個提交至 `2082b07` |
-| PR #129 合併後 | 本機同步至 `c404c07` |
-| PR #169 合併後 | 切回 main 並同步至 `90d69ea` |
-| #165 開發期間 | 同步已合併的後端、資料管線及研究情境介面變更，以其為基準繼續開發 |
-| 使用者再次要求最新版本 | 切回 main 並拉到 `34bfe12` |
-| PR #180 合併後 | 本機同步至 `b56174f` |
-| #163 開發期間 | 同步更新至包含 PR #181 的 main，解決兩個語系檔的衝突 |
-| 最後一次「pull 新的」 | 切回 main 並同步至 `a4ea735`，與當時遠端 main 一致 |
+| Initial updates | Pulled 11 commits to `2904bc4`, restarted the API, and inspected the updated site |
+| Later update | Verified the checkout remained at `2904bc4` |
+| Before map-language changes | Pulled 15 commits to `2082b07` |
+| After PR #129 | Updated to `c404c07` |
+| After PR #169 | Returned to `main` at `90d69ea` |
+| During #165 | Incorporated concurrently merged backend, data, and interface work |
+| Another requested update | Pulled `34bfe12` |
+| After PR #180 | Updated to `b56174f` |
+| During #163 | Integrated changes including PR #181 and resolved locale-file conflicts |
+| Later local sync | Updated to `a4ea735`, then to subsequent changes as recorded in Section 11 |
 
-合併協助還包含以下事項。
+Merge-related assistance also included checking GitHub status, updating an outdated PR #155 branch, requesting review, performing explicitly requested merges, and adjusting frontend tests after the new six-dimensional API changed what constituted a real search request. For #163, an older test incorrectly treated fetching `/search/features` as a submitted search; it was changed to observe the actual search POST.
 
-- 檢查 PR 是否已合併、分支是否落後、必要檢查與審查狀態。
-- 為 PR #155 更新落後的分支，重新等待 GitHub 檢查，並送出審查邀請。
-- 依使用者後續要求直接執行 squash merge，並核對合併提交。
-- #165 發佈前先在本機 rebase 到最新 main。
-- #163 已發佈後，使用一般 merge 納入新版 main，保留新增的表土語系內容及本次排版修改。
-- 處理 #163 與新版六維搜尋測試的相容性。舊測試原先將讀取 `/search/features` 視為已送出搜尋，修正為檢查真正的 POST 搜尋請求。
+The last pull-only operation was not followed by a complete test-suite rerun.
 
-最後一次單純 pull 完成後，沒有重跑整套測試。
+## 4. Localized Earth basemap labels
 
-## 4. 地球地圖標籤跟隨介面語言
+The team reported that Earth map labels did not follow the selected Chinese or English interface language.
 
-使用者反映中文介面的地圖仍出現各地原文，英文介面也應統一使用英文地名。
+Codex contributed shared basemap handling that prefers Traditional Chinese place names when that locale is selected, falling back to available Chinese/English or transliterations; English mode prefers English or Latin transliteration. The change applied to map, terrain, and satellite styles while preserving attribution and a raster fallback if vector-layer initialization failed.
 
-- 新增共用 Earth basemap 邏輯，依目前語系調整向量地名。
-- 繁體中文優先使用繁中名稱，再使用可用的中文、英文或拉丁轉寫。
-- 英文使用英文或拉丁轉寫。無對應名稱的標籤省略。
-- 一般、地形與衛星底圖沿用同一套語系處理。
-- 保留地圖 attribution 與無法初始化向量圖層時的 raster fallback。
-- 實際驗證語言切換、三種底圖、搜尋標記，以及切換語言後的 AOI 框選狀態。
-- 更新相關 i18n 測試以配合已整合的頁面流程。
+It verified language toggling, basemap changes, search markers, and AOI selection state in the browser. Reported results included 99 frontend tests for the initial implementation, 16 subsequent i18n tests, and successful typecheck, lint, build, and API-type checks. Global-discovery behavior without an actual index was not fully tested.
 
-初次修改時 99 項前端測試通過，後續同步頁面流程後，16 項 i18n 測試通過，typecheck、lint、build 與 API types 檢查也通過。當時本機缺少全球索引，全球探索的實際資料流程未完整驗證。
+**Evidence:** [PR #129](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/129), merged as `c404c07`. Public deployment was not verified at that time.
 
-PR #129 已合併，提交為 `c404c07`。公開站部署狀態當時未驗證。[PR #129](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/129)
+## 5. Moon / Mars reference selection on a planetary map
 
-## 5. 依瀏覽器留言調整月球／火星選點
+### Design iteration and human decisions
 
-### 先完成的版面調整
+The initial prototype introduced separate map-preview controls for Moon and Mars. The human maintainer then clarified that the planetary buttons themselves should open the map, with reference selection occurring directly on that map rather than in an additional dropdown.
 
-- 將目標按鈕排成「月球 → 火星 → 自訂」。
-- 在目標列與比較維度之間放置可收合的月球／火星預覽。
-- 將下方搜尋結果地圖固定為地球，保留底圖切換、搜尋標記與框選功能。
+The collaboration included an explicit requirements-checking round. A request for an interactive question interface was initially misunderstood as a website feature; the misunderstanding was corrected **before implementation**. The agreed behaviors were:
 
-這一階段曾以額外的「月球地圖／火星地圖」按鈕開啟預覽，101 項前端測試通過。使用者後續進一步指定直接點上方天體按鈕開圖，最後實作依下列確認結果調整。
-
-### 互動式需求確認
-
-使用者要求先提問確認理解，並指定以互動式選單回答問題。過程中曾將「互動式選單」誤解為網站功能，後來改為提問介面，收集並落實以下選擇。
-
-| 問題 | 使用者確認的行為 |
+| Product decision | Human-approved behavior |
 | --- | --- |
-| 上方參考點下拉選單 | 上方只顯示已選名稱，從地圖選點 |
-| 收合後重新開圖 | 再點已選中的「月球」或「火星」 |
-| 第一次開圖的參考點 | 等使用者自行點選 |
-| 選點後的地圖 | 保持展開，方便改選 |
-| 切換天體的選點 | 月球與火星各自記住上次選點 |
-| 點位重疊時 | 先放大該區域，再點選個別點位 |
+| Target selector | Display the selected name; select the site on the map |
+| Open or reopen the preview | Click the Moon or Mars body button |
+| First visit to a body | Wait for explicit selection, rather than choosing a site automatically |
+| After selecting a site | Keep the preview open |
+| Switching between Moon and Mars | Remember each body's selection during the page session |
+| Overlapping reference markers | Zoom into the cluster before requiring individual selection |
 
-使用者確認流程符合預期後才開始修改。
+The delivered compact preview opens from the body selector; choosing a reference updates the selected name and marker state. The main ranked-results map remains Earth-focused. Browser verification covered close lunar markers, preview collapse/reopen, remembered selections, and a Mars-reference search returning indexed Earth candidates.
 
-### 最後交付
+**Evidence:** [Issue #153](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/153), [PR #155](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/155), merged as `864ef69`; [screenshot](screenshots/30-planet-map-reference-selection.jpg). The recorded frontend suite passed 130 tests, with required GitHub checks passing. The implementation uses already available reference sites and NASA Trek imagery; it does **not** establish arbitrary Moon/Mars AOI scientific coverage.
 
-- 點上方月球或火星按鈕，直接展開約 240 px 高的對應小地圖。
-- 在地圖點選參考點，上方名稱與高亮同步更新。
-- 使用小型收合控制隱藏地圖，重新開啟後保留選點。
-- 各天體在頁面開啟期間分別保留選點。
-- 下方主地圖顯示地球搜尋結果。
-- 實際驗證緊鄰的月球點能放大分開，以及火星參考點搜尋可回傳地球候選。
+## 6. Removing a redundant six-dimension workspace shortcut
 
-建立 Issue #153 與 PR #155，附畫面與測試。130 項前端測試及 GitHub 必要檢查通過。使用者要求直接合併後，PR #155 合併至 main，提交為 `864ef69`。[Issue #153](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/153) · [PR #155](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/155)
+A browser annotation asked to remove the "Open six dimensions" shortcut from the comparison toolbar. Codex removed that control and updated the associated test while verifying that the then-existing dedicated six-dimension section still worked and retained its selected reference.
 
-畫面位於 [月球／火星選點截圖](screenshots/30-planet-map-reference-selection.jpg)。
+The documented results were 130 passing frontend tests, plus typecheck, lint, and build. A Windows test run without a worker limit timed out; rerunning with two workers succeeded.
 
-## 6. 移除比較維度上的六維工作區捷徑
+**Evidence:** [PR #169](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/169), merged as `90d69ea`; [toolbar screenshot](screenshots/31-comparison-toolbar.png). Later page simplification further reorganized that section.
 
-使用者在瀏覽器點選「開啟六維工作區」，要求移除該按鈕。
+## 7. Frontend issue work, layout, and integration
 
-- 從比較維度工具列移除捷徑。
-- 驗證下方「六維比較與觀測」區塊仍可開啟，且能保留參考點。
-- 修改原有測試，確認工具列按鈕移除後，使用者可以從專屬區塊開啟六維比較。
-- 新增工具列畫面，建立 Issue #168 與 PR #169。
+Codex reviewed the frontend issue queue and concurrent changes, including #165, #167, #163, #123, #119, and #118. The work used the existing components and APIs instead of introducing a second independent search system.
 
-130 項前端測試、lint、typecheck 與 build 通過。一次未限制 worker 的 Windows 執行曾逾時，改用兩個 worker 後全數通過。GitHub 三項必要檢查通過後，PR #169 合併至 main，提交為 `90d69ea`，Issue #168 關閉。[PR #169](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/169)
+### #165 — Coarse/fine search within one results map
 
-畫面位於 [比較維度工具列](screenshots/31-comparison-toolbar.png)。
+The team challenged the earlier design that placed global coarse discovery and fine refinement below the search results in a separate large area. Codex moved these concepts into the indexed-results list and Earth map, including distinct scopes, eligibility and snapshot text, candidate selection, appropriate geographic bounds, and backend-driven refinement status.
 
-## 7. 前端 issues 盤點與功能整合
+Important distinctions were retained:
 
-使用者要求處理全部 frontend issues，先從 #165 開始，並指定使用 Ponytail。工作採用現有 API、元件與樣式，按 issue 逐項處理。曾盤點 #165、#167、#163、#123、#119 與 #118，並檢查未合併 PR，協調與後端更新的接點。
+- A 5 km coarse candidate and a roughly 1.98 km / 90 m fine analysis window do not share an interchangeable score.
+- Missing global index coverage cannot be presented as a completed global survey.
+- Real indexed searches were exercised; unavailable coarse/refinement stages were tested with **explicitly test-only fixtures**, not represented as live scientific coverage.
 
-### #165 將粗篩／精篩整合進排名列表與地圖
+The recorded result was 131 passing frontend tests, with lint, typecheck, build, API-type checks, and desktop/mobile browser checks.
 
-- 在同一個結果區提供「已索引結果」與「擴大搜尋」，顯示候選數及資料快照。
-- 沒有可用粗篩索引時，停用擴大搜尋並保留限制說明。
-- 將粗篩候選列表與幾何放進原本的 Earth 結果地圖。點列表或標記能選到同一個候選。
-- 針對有效地球座標適配視野，處理跨換日線、錯誤 bbox 與其他天體資料。
-- 將 5 km 粗篩距離與 90 m 正式排名分開呈現。
-- 使用既有 `/api/v1/global/refine`、job 與 area features API，顯示 1.98 km 精篩視窗及後端實際狀態。
-- 沿用 AOI polling 邏輯，處理 queued、running、partial、failed、completed 與載入錯誤。
-- 提供精篩完成後更新已索引排名的入口。
-- 把覆蓋、來源與精篩計畫限制收進可展開資訊。
-- 移除獨立的全球粗篩區塊及第二張地圖，並調整手機列表與地圖控制的位置。
+**Evidence:** [PR #180](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/180), merged as `b56174f`; [before](screenshots/32-search-results-before.jpg), [after](screenshots/33-search-results-after.jpg), [test-fixture mobile view](screenshots/34-search-results-coarse-fixture-mobile.jpg).
 
-131 項前端測試通過，lint、typecheck、build 與 API types 檢查通過。以 1500 px 繁中明亮模式及 390 px 英文深色模式驗證瀏覽器操作。
+### #163 — Restructuring "About this tool, coverage, and limitations"
 
-使用者詢問如何驗證時，提供搜尋、列表選點、地圖高亮、顯示全部結果及手機版面的檢查步驟。使用者詢問功能是否仍在時，說明粗篩／精篩已移到「擴大搜尋」，並解釋未就緒的原因。
+The original page displayed method details, feature specifications, data provenance, and limitations as a dense block. Codex reorganized it into a scannable coverage summary and three expandable groups: analysis methods, per-feature specifications, and data provenance.
 
-當時本機沒有已驗證的粗篩索引。真實 API 驗證涵蓋已索引搜尋，粗篩與精篩狀態以明確標記的 TEST-ONLY fixtures 驗證。
+It preserved scientific caveats, source licenses, coverage and AOI limits, coarse/fine differences, missing-value semantics, method versions, and dynamic API content. Checks included keyboard disclosure operation, delayed source responses, desktop/mobile widths, both locales, and light/dark themes. After incorporating newer six-dimensional changes, the recorded frontend test count was 136 passing.
 
-PR #180 合併至 main，提交為 `b56174f`，Issue #165 關閉。[PR #180](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/180)
+**Evidence:** [PR #183](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/183), merged as `2d35515`; [desktop before](screenshots/35-about-before-desktop.jpg), [desktop after](screenshots/36-about-after-desktop.jpg), [mobile before](screenshots/37-about-before-mobile.jpg), [mobile after](screenshots/38-about-after-mobile.jpg).
 
-對照畫面為 [修改前](screenshots/32-search-results-before.jpg)、[修改後](screenshots/33-search-results-after.jpg) 與 [手機粗篩測試資料](screenshots/34-search-results-coarse-fixture-mobile.jpg)。
+### Related work owned elsewhere
 
-### #163 重排「關於本工具、覆蓋範圍與限制」
+- **#167:** Codex inspected Vite/native-config and dependency problems and prepared an isolated workspace; the eventual fix entered through [PR #182](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/182), authored through a separate contribution. This disclosure does not attribute that full implementation to Codex.
+- **#118 / #119 / #123:** Codex considered their requirements and integrated concurrent changes but did not independently complete all their acceptance criteria.
+- Concurrent Moon/Mars AOI, six-dimensional API, and dataset improvements were incorporated as inputs to UI work; scientific pipeline authorship belongs to their respective PRs.
 
-- 上方以可搜尋覆蓋與搜尋限制作為摘要，桌機雙欄、手機單欄。
-- 將分析方法、各特徵規格、資料集溯源分成三組預設收合的 disclosure。
-- 每項特徵規格可個別展開，方法欄位與資料來源使用可掃描的 grid。
-- 合併重複覆蓋說明的呈現位置，保留完整方法與來源資訊。
-- 保留 AOI 上限、粗篩／精篩差異、缺值語意、license、attribution、方法版本及動態 API 內容。
-- 補上資料來源載入中狀態，測試延遲回應後正確顯示 license。
-- 驗證鍵盤開合及 1440 px／375 px、中英文、明亮／深色共八組版面。
-- 同步新版 main，處理語系衝突及六維搜尋更新後的測試相容性。
+## 8. Testing, failures, and what the results do not prove
 
-最初 132 項前端測試通過，同步新版六維功能並修正測試後為 136 項通過。lint、typecheck、build 與 API types 檢查通過，GitHub 三項必要檢查也通過。
+The original development record reports the following *point-in-time* outcomes, not one current all-project test run:
 
-PR #183 合併至 main，提交為 `2d35515`，Issue #163 關閉。[PR #183](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/183)
-
-對照畫面為 [桌機修改前](screenshots/35-about-before-desktop.jpg)、[桌機修改後](screenshots/36-about-after-desktop.jpg)、[手機修改前](screenshots/37-about-before-mobile.jpg) 與 [手機修改後](screenshots/38-about-after-mobile.jpg)。
-
-### 其他前端事項的協助狀態
-
-- #167 已讀取需求、檢查 Vite 設定及相依狀態，並建立獨立 `fix/167-web-dev-startup` worktree 準備處理。實際修復後由 PR #182 進入 main，最後一次 pull 已取得 `a4ea735`。該提交的作者為 Panda Wu，本文件將其記為同步取得的其他協作者成果。[PR #182](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/182)
-- #119、#123、#118 曾納入盤點，其中有其他協作者持續更新。這次協助沒有逐一完成並驗收這三張 issue 的全部條件。
-- 已同步的後端六維、Moon/Mars AOI 與資料管線變更作為前端整合基準使用。各項科學資料實作以原 PR 與專案文件記錄為準。
-
-## 8. 測試、操作問題與驗證界線
-
-| 項目 | 這次觀察結果 |
+| Work package | Reported local frontend result |
 | --- | --- |
-| 地圖語言初版 | 99 項前端測試通過，後續 16 項 i18n 測試通過 |
-| 初版天體預覽 | 101 項前端測試通過 |
-| 地圖選點與工具列調整 | 130 項前端測試通過 |
-| #165 結果整合 | 131 項前端測試通過 |
-| #163 初版 | 132 項前端測試通過 |
-| #163 同步最新六維功能後 | 136 項前端測試通過 |
-| PR #129、#155、#169、#180、#183 | 合併前均觀察到必要 GitHub 檢查通過 |
-| 必要檢查名稱 | `frontend-checks`、`backend-tests`、`integration-smoke` |
-| 本機完整驗證 | 多次執行 `scripts/verify.sh`，#163 使用 `--ci`。Windows 上出現 `resource` 模組缺失與暫存目錄權限問題，因此未記為完整通過 |
-| 暫存目錄與工具問題 | 改用獨立暫存目錄，並使用 Git Bash 執行 repo 驗證腳本，完成可執行的檢查並保留失敗日誌 |
-| 瀏覽器操作 | 檢查語系、底圖、選點、框選、結果連動、手機控制及 disclosure 的鍵盤操作 |
+| Initial map-language revision | 99 tests passed; later 16 i18n tests passed |
+| Initial planetary preview | 101 tests passed |
+| Planetary selection / toolbar | 130 tests passed |
+| #165 results integration | 131 tests passed |
+| #163 initial layout | 132 tests passed |
+| #163 after six-dimensional integration | 136 tests passed |
+| #187 simplified results | 114 tests initially; 118 after syncing concurrent changes |
 
-測試資料僅用於明確標記的測試流程。當時沒有實際粗篩索引的環境，其狀態驗證以 fixtures 補足。公開站部署、真實全球粗篩資料與所有科學資料流程的完整驗收仍有各自的檢查範圍。
+Required GitHub checks were reported successful before the merges of #129, #155, #169, #180, and #183. Local `scripts/verify.sh` runs sometimes failed on Windows because of an unavailable Python `resource` module or temporary-directory permissions; those runs were **not** called complete passes. Git Bash and separate temporary locations were used for the checks that could run.
 
-## 9. PR 與交付索引
+Browser work covered locale changes, map styles, site selection, AOI drawing, selected-result details, mobile control layouts, and disclosure keyboard access. Missing real coarse coverage was tested with marked fixtures. A passing frontend test suite does not prove all planetary datasets exist, that all six dimensions are scoreable, or that a new commit has been deployed.
 
-| 請求／issue | PR | main 合併提交 | 本次交付 |
+## 9. Codex contribution index
+
+| Issue or delivery | PR | Merged commit | Main contribution |
 | --- | --- | --- | --- |
-| 地圖語言切換 | [#129](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/129) | `c404c07` | 地名語系與三種底圖 |
-| #153 月球／火星地圖選點 | [#155](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/155) | `864ef69` | 目標列排序、預覽、選點與收合 |
-| #168 移除六維工作區工具列捷徑 | [#169](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/169) | `90d69ea` | 按鈕移除與測試 |
-| #165 搜尋結果整合 | [#180](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/180) | `b56174f` | 同一區域的粗篩、精篩與排名 |
-| #163 關於區塊排版 | [#183](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/183) | `2d35515` | 覆蓋摘要、限制與可展開的技術資料 |
+| Earth label localization | [#129](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/129) | `c404c07` | Locale-aware basemap text and fallback |
+| #153 | [#155](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/155) | `864ef69` | Moon/Mars preview, selection and state |
+| #168 | [#169](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/169) | `90d69ea` | Removed redundant toolbar shortcut |
+| #165 | [#180](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/180) | `b56174f` | Coarse/fine presentation in one results area |
+| #163 | [#183](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/183) | `2d35515` | Responsive coverage and limitations layout |
 
-使用者最初要求依 repo 規範送 PR，後續明確要求直接合併。上述直接合併的操作保留 squash merge 與必要檢查，部分 PR 未等待另一位審查者核准，當時已向使用者說明。
+These are traceable implementation records. A commit's author, reviewer, and merger may be different participants; this table describes the work covered by the original Codex log, not exclusive code authorship.
 
-## 10. 本次紀錄文件
+## 10. Why the original collaboration log was published
 
-使用者最後要求把這個專案內請 Codex 協助的所有事項寫入 repo 的 `docs`，並進一步確認範圍包含從專案開始的整段協作。
+The team requested a public record of work for which Codex had been consulted, covering the entire observed collaboration rather than only the final PR. The log was renamed `docs/AI_DISCLOSURE.md` to make the assistance visible to other contributors.
 
-本文件據此彙整架站、解說、需求確認、操作、開發、驗證與交付。最初整理文件時只進行紀錄核對與文件檢查。使用者後續要求改名為 AI Disclosure，並提交到 repository，讓其他協作者可以查閱。
+This English revision retains that chronological account while disclosing other AI-assisted planning, coding coordination, and review. It does not publish hidden reasoning, private prompts, private agent logs, credentials, or personal identifiers.
 
-## 11. 後續同步、刪除介面與公開提交
+## 11. Subsequent UI simplification (#187)
 
-使用者要求再拉取最新版本，本機同步至 `f74c551`，取得 PR #184 移除 AOI 與獨立六維區塊的變更，並保留原本尚未提交的協作紀錄。
+After another synchronization, the team asked to remove several items from the results page rather than simply hide them:
 
-接著使用者以三則瀏覽器留言要求進一步刪除搜尋頁內容，建立 Issue #187 處理。
+- The expanded-search control, associated scope/candidate/snapshot captions, and not-ready text.
+- A second ranking summary below the map.
+- A placeholder asking users to inspect a candidate before selecting one.
 
-- 移除「擴大搜尋」功能及上方搜尋範圍、候選數、資料快照與未就緒小字。
-- 移除地圖下方獨立的「排名結果」區塊。
-- 移除尚未選點時的「檢視候選區域」提示。
-- 搜尋結果直接透過地圖內的排名操作，選點後載入該候選的詳情。
-- 清除被移除功能使用的 GlobalPanel、粗篩地圖分支與相關樣式，更新既有搜尋及語系測試。
-- 將本文件更名為 `docs/AI_DISCLOSURE.md`，保留先前協作內容，補記本次刪除後隨程式修改一併提交。
+The result focused the search page on the map's own Top N ranking and selected-candidate details. Redundant `GlobalPanel` branches and styles were removed; tests addressed searches, empty states, test-fixture labels, coordinates, selected results, language changes, and mobile rendering.
 
-本次修改以當時的最新 main `0410c41` 為基準。測試涵蓋搜尋請求、空結果、合成資料標記、選點、候選詳情、語系切換與地圖座標處理，介面另以本機瀏覽器確認。[Issue #187](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/187)
+The original development record reports 114 frontend tests passing, then 118 after integrating a concurrently merged filtering change. The previous Codex log was included in this same documentation work.
 
-114 項前端測試通過。使用真實本機 API 驗證 1440 px 繁中明亮模式及 390 px 英文深色模式，確認三處指定內容已刪除、選點後仍能查看詳情與注意事項，語言切換後保留選取。
+**Evidence:** [Issue #187](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/187), [PR #189](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/189), merged on 15 November 2026; [desktop screenshot](screenshots/39-simplified-results-desktop.jpg) and [mobile screenshot](screenshots/40-simplified-results-mobile.jpg).
 
-完成畫面為 [桌機搜尋結果](screenshots/39-simplified-results-desktop.jpg) 與 [手機搜尋結果](screenshots/40-simplified-results-mobile.jpg)。
+---
 
-提交期間 main 另合併 PR #186 的篩選功能，本分支同步後沿用新版的測試輔助函式，118 項前端測試通過。UI 刪除與這份文件由 PR #189 一併交付。[PR #189](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/189)
+## 12. ChatGPT: product definition, critique, GitHub coordination, and review
+
+ChatGPT was used as a conversational technical collaborator alongside the coding environments. The human maintainer repeatedly challenged its recommendations, refined product requirements, and asked it to make concrete GitHub changes. Important examples include the following.
+
+### From a point-oriented demo to an area-oriented product
+
+The team clarified that the central object is an **Area of Interest (AOI)**: a user draws a region on Earth, Moon, or Mars, examines actual area-supported measurements, and searches for similar **Earth regions**. A selected map marker or the center of a rectangle is not equivalent to aggregating measurements across the rectangle.
+
+ChatGPT reviewed this distinction against existing code and issues. The resulting acceptance criteria emphasized requested geometry, coordinate conventions, data footprint, source resolution, valid coverage fraction, uncertainties, and explicitly missing observations. It highlighted that a global visual basemap does not imply a global scientific raster index.
+
+### Making the six dimensions scientifically honest
+
+The team asked why only terrain controls were available and whether an arbitrary planetary selection could automatically populate search values. ChatGPT separated three concepts:
+
+- **Target:** the desired measured or modeled feature value, used for similarity when eligible.
+- **Range:** a hard inclusion filter for candidates; it should normally remain unrestricted when an AOI first populates targets.
+- **Weight:** the strength of a feature or dimension within a legitimate similarity calculation; a zero weight does not automatically exclude candidates.
+
+It proposed concise, accessible information icons for these controls and supported dynamic control types based on the backend feature eligibility registry. D01 terrain and eligible Earth D06 SoilGrids properties can participate in scoring; D02–D05 evidence or context cannot silently become weighted scores. Earth-only WorldCover land cover remains a separate hard filter, **not a seventh planetary dimension**. These distinctions informed discussion and updates to [#119](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/119) and [#160](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/160).
+
+### Search layout and information hierarchy
+
+ChatGPT helped evaluate whether coarse discovery and fine refinement deserved a separate UI section. The recommendation was to treat them as **stages of one search**, shown alongside the existing ranked list and map, with separate candidate and final-result semantics. A dedicated [#165](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/165) issue documented the desired UI and acceptance tests.
+
+The team also asked to simplify the dense "About this tool, coverage, and limitations" area and to prioritize visual hierarchy over a long, undifferentiated block. This informed [#163](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/163).
+
+### Reproducible debugging and task organization
+
+ChatGPT reviewed reported local development errors: a missing MapLibre CSS module after an incomplete dependency installation; a subsequent `npm ci` that resolved that import; a Vite extensionless-import warning; and API proxy errors when nothing listened on `127.0.0.1:8000`. It distinguished fatal errors from warnings and created/updated [#167](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/167) with reproduction details, clean-install checks, and the later proxy diagnosis. No claim was made that ChatGPT itself ran the user's local web server.
+
+It also added `frontend` and `backend` GitHub labels, clarified dependencies between API, UI, and data work, and drafted implementation instructions for OpenCode. The instructions consistently called for true validation rather than declaring work finished from the existence of an agent session or a passing fixture test.
+
+### Reviewing and merging backend PRs
+
+At the maintainer's explicit request, ChatGPT inspected [PR #166](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/166) (AOI-first six-dimensional backend) and [PR #161](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/161) (bounded real-data ingest). It checked PR status and CI, identified an accidental machine-specific `compose.override.yaml` in #161, removed that file from the PR branch, and added an ignore rule. It then merged both PRs through GitHub after their relevant checks succeeded, and separately noted that post-merge integration and deployment require their own verification.
+
+ChatGPT contributed **requirements, review, GitHub actions, and this English disclosure revision**. It did not author the complete planetary raster pipeline, collect the underlying scientific observations, or independently certify global six-dimensional coverage.
+
+---
+
+## 13. OpenCode: multiple agents, native Goals, and scientific-data development
+
+OpenCode was used as the coding and orchestration environment for extensive backend and data-pipeline work. The project used separate Git branches/worktrees, primary coding sessions, native `/goal` invocations, specialized subagents, an integration owner, and CI/acceptance gates.
+
+### Phase 2: parallel dimension workstreams
+
+The documented [Phase 2 acceptance report](phase2/ACCEPTANCE.md) and [workstream board](phase2/WORKSTREAM_BOARD.md) describe parallel work on D01 terrain, D02 geology/minerals, D03 thermal data, D04 water/ice, D05 illumination/radiation, D06 surface materials, and backend integration.
+
+Reported verification distinguished an actual native Goal from a merely open or idle session. The project implemented a monitor with durable state, event updates, reconciliation, and completion notifications. The workstreams produced source inventories, coverage matrices, bounded data ingests, tests, OpenAPI contracts, and research limitations.
+
+Representative GitHub records include [#135–#142](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/142), [PR #152](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/152), and [PR #154](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/154).
+
+### P0: AOI-first six-dimensional API and source-grounded ingest
+
+The project prioritized the useful end-to-end contract before complete planetary coverage. [PR #166](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/166) delivered an AOI-first coverage query, legitimate D01/D06 dimension and feature weights, D02–D05 evidence queries, and WorldCover regression behavior. [PR #161](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/161) expanded bounded real data and provenance.
+
+The Phase 2 record reports a local snapshot with 2,185 typed observations, 113 Earth fine terrain candidates, 18 Moon references, and 7 Mars references. Those are **bounded research records**, not whole-planet measurements; source versions and the state of any deployed database must be checked independently. Missing observations and scientifically incompatible features must not be imputed as zero or promoted to a cross-body score.
+
+### Moving from pilot locations toward arbitrary planetary AOIs
+
+The human maintainer repeatedly emphasized that a handful of Moon/Mars reference windows cannot satisfy the intended product. OpenCode agents were directed to work concurrently on [#170](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/170), separating:
+
+- Moon global LOLA DEM access and full-bbox statistics;
+- Mars global MOLA DEM access and full-bbox statistics;
+- shared raster source/cache infrastructure;
+- planetary AOI coordinate and backend contracts;
+- D02–D06 spatial evidence and legitimate physical measurements;
+- cross-body comparability gates; and
+- end-to-end acceptance and data quality.
+
+These were parallel workstreams, not evidence that every geographic location or all six dimensions had already been validated. Related examples include [PR #177](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/177), [PR #179](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/179), [PR #176](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/176), and the integration/contract work in [PR #178](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/178). Individual PR status and integration evidence, rather than this document, determine current availability.
+
+### An observed multi-agent coordination failure
+
+Concurrent subagents were reported editing the same raster-cache file in the same worktree, overwriting one design with another. The two implementations favored different cache-key, locking, checkpoint, and resource-limiting approaches. ChatGPT recommended preserving both versions before deciding, assigning a single file owner, adopting the more reusable shared foundation where justified, porting missing requirements, and testing the combined API.
+
+This incident illustrates a real trade-off: **more agents do not automatically produce faster, safer development**. Effective parallelism requires isolated worktrees for independently owned tasks, explicit ownership of shared files, small integration interfaces, and immediate conflict detection. This document does not claim that a suggested resolution was executed unless a subsequent commit or test confirms it.
+
+### Delivery boundaries
+
+OpenCode could implement and locally validate code, but a locally successful native Goal was not treated as proof of deployment. GitHub CI, merge state, production data version, authorized rollout, and rollback readiness were tracked separately. The project did not treat missing lunar/martian regolith properties, indirect ice proxies, or incomplete radiation observations as measured facts.
+
+---
+
+## 14. Scientific integrity, privacy, and limitations
+
+### Scientific integrity
+
+- Earth, Moon, and Mars share some *physical quantities*, but not automatically comparable observational methods, spatial resolutions, observation times, depths, or uncertainties.
+- D01–D06 describes an organizational framework for evidence. It is **not** a claim that all six dimensions are available and scoreable everywhere.
+- Raster map tiles are for visualization. A planetary basemap is not itself an indexed global science dataset.
+- Candidate counts and published observation totals describe specific data snapshots, not a census of all potentially relevant areas.
+- Real observations, model estimates, contextual proxies, and explicitly missing data must remain distinguishable.
+- Similarity ranking within the indexed Earth sample is exploratory and should not be construed as a validated landing-site or permanent-base recommendation.
+
+See [data sources](DATA_SOURCES.md), [search methodology](SEARCH_METHOD.md), [multidimensional search](MULTIDIMENSIONAL_SEARCH.md), and the [Phase 2 acceptance report](phase2/ACCEPTANCE.md).
+
+### Disclosure and privacy boundaries
+
+This account intentionally omits private names, personal email addresses, precise local filesystem paths, full conversation histories, private agent messages, session IDs, credentials, and server-internal logs. Public issue/PR references and reproducible technical facts are kept. The names **ChatGPT**, **OpenCode**, and **Codex** identify assistance tools, not additional human members or endorsements by their vendors.
+
+A disclosed AI contribution does not transfer accountability from the project team to an AI provider. Human reviewers remain responsible for deciding whether software is fit for use, scientifically justified, legally distributable, and ready to deploy.
+
+### Scope of this revision
+
+This is a translated and expanded account of the collaboration **through 15 November 2026**, not a live status dashboard. The original Codex portions retain their point-in-time test evidence; the ChatGPT/OpenCode additions describe observed collaboration and link to independently inspectable repository artifacts. This document update itself was prepared using ChatGPT and submitted through the connected GitHub workflow at the maintainer's request.
