@@ -103,8 +103,12 @@ class PlanetaryAoiProvider:
                 "Planetary AOI analysis supports body Moon or Mars only.",
                 status_code=422,
             )
-        features = tuple(requested_features or DEFAULT_FEATURES)
-        unknown = sorted(set(features) - set(COARSE_FEATURE_BY_ID))
+        from analog_api.adapters.planetary_global import GLOBAL_D01_FEATURES
+
+        allowed = set(COARSE_FEATURE_BY_ID) | set(GLOBAL_D01_FEATURES)
+        default_features = GLOBAL_D01_FEATURES if self.allow_network else DEFAULT_FEATURES
+        features = tuple(requested_features or default_features)
+        unknown = sorted(set(features) - allowed)
         if unknown:
             raise AppError(
                 "unsupported_feature_on_body",
@@ -134,6 +138,15 @@ class PlanetaryAoiProvider:
         )
 
     def analyze(self, request: ValidatedAoi) -> AoiResult:
+        from analog_api.adapters.planetary_global import (
+            GLOBAL_D01_FEATURES,
+            analyze_global_planetary_aoi,
+        )
+
+        if self.allow_network and any(
+            feature in GLOBAL_D01_FEATURES for feature in request.requested_features
+        ):
+            return analyze_global_planetary_aoi(request)
         bbox = request.bbox.as_dict()
         try:
             result = analyze_planetary_aoi(
