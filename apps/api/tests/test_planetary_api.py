@@ -74,6 +74,9 @@ def test_moon_and_mars_map_catalog_uses_verified_official_layers(client: TestCli
         assert payload["science_coverage"]["coverage_label"] == "curated_subset_not_global"
         assert payload["coverage_separation"]["basemap_extent"].startswith("global")
         assert "not a global scientific survey" in payload["science_coverage"]["note"]
+        assert response.headers["cache-control"] == "public, max-age=300"
+        assert response.headers["x-planetary-catalog-version"] == payload["catalog_version"]
+        assert response.headers["x-data-snapshot-id"] == payload["data_version"]
 
 
 def test_maps_reject_earth_and_unknown_bodies(client: TestClient):
@@ -263,6 +266,20 @@ def test_pagination_type_and_dimension_filters(client: TestClient):
     )
     assert invalid_dimension.status_code == 422
     assert invalid_dimension.json()["error"]["code"] == "invalid_dimension"
+
+    too_large = client.get(
+        "/api/v1/planetary/map-features",
+        params={"body": "Mars", "bbox": "76,17,79,20", "limit": 201},
+    )
+    assert too_large.status_code == 422
+
+    cached = client.get(
+        "/api/v1/planetary/map-features",
+        params={"body": "Mars", "bbox": "76,17,79,20", "limit": 2},
+    )
+    assert cached.status_code == 200, cached.text
+    assert cached.headers["cache-control"] == "public, max-age=60, stale-while-revalidate=300"
+    assert cached.headers["x-data-snapshot-id"] == cached.json()["data_version"]
 
 
 def test_coordinate_helpers_handle_wrapping_and_antimeridian():
