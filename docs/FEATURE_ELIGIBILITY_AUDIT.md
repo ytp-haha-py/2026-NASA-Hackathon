@@ -1,0 +1,130 @@
+# Feature eligibility audit
+
+- registry_version: `feature-eligibility-1.0.0`
+- data_version: `dv-b46f3bad38ea`
+- typed_observations: 520
+- fine_candidates: 113
+
+## Join audit
+
+- join key: `typed_areas.area_id == candidates.location_id (exact string equality)`
+- proximity join used: `False`
+- typed areas: 70
+- typed areas exactly matching a fine candidate: 6 (earth-atacama-desert, earth-death-valley, earth-devon-island, earth-lanzarote, earth-rio-tinto, earth-sahara-r1c1)
+- typed areas exactly matching a planetary reference: 9 (mars-jezero-ctx-window-01, mars-jezero-ctx-window-02, mars-jezero-ctx-window-03, mars-jezero-ctx-window-04, mars-jezero-ctx-window-05, moon-shackleton-rim-site04-roi1, moon-shackleton-rim-site04-roi2, moon-shackleton-rim-site04-roi3, moon-shackleton-rim-site04-roi4)
+
+## Role summary
+
+| Dimension | Features | Similarity | Hard filter | Evidence | Unsupported for scoring |
+|---|---:|---:|---:|---:|---:|
+| D01 | 5 | 5 | 5 | 5 | 0 |
+| D02 | 15 | 0 | 0 | 15 | 15 |
+| D03 | 6 | 0 | 0 | 6 | 6 |
+| D04 | 8 | 0 | 0 | 8 | 8 |
+| D05 | 4 | 0 | 0 | 4 | 4 |
+| D06 | 60 | 20 | 20 | 60 | 40 |
+
+## Feature table
+
+| Feature | Dim | Bodies | Obs | Areas | Gated candidates | Legal roles | Unit | Selector | Unsupported reason |
+|---|---|---|---:|---:|---:|---|---|---|---|
+| `context_bd1900_2` | D02 | Mars | 2 | 2 | 0 | evidence | dimensionless_spectral_parameter | stored_observation | D02 Mars evidence record from a single provider. Detection states are unknown/no_coverage or the spectral index support is not validated against the fine candidate pool; it remains evidence/quality only. |
+| `context_cindex2` | D02 | Mars | 2 | 2 | 0 | evidence | dimensionless_spectral_parameter | stored_observation | D02 Mars evidence record from a single provider. Detection states are unknown/no_coverage or the spectral index support is not validated against the fine candidate pool; it remains evidence/quality only. |
+| `context_d2300` | D02 | Mars | 2 | 2 | 0 | evidence | dimensionless_spectral_parameter | stored_observation | D02 Mars evidence record from a single provider. Detection states are unknown/no_coverage or the spectral index support is not validated against the fine candidate pool; it remains evidence/quality only. |
+| `context_hcpindex2` | D02 | Mars | 2 | 2 | 0 | evidence | dimensionless_spectral_parameter | stored_observation | D02 Mars evidence record from a single provider. Detection states are unknown/no_coverage or the spectral index support is not validated against the fine candidate pool; it remains evidence/quality only. |
+| `context_lcpindex2` | D02 | Mars | 2 | 2 | 0 | evidence | dimensionless_spectral_parameter | stored_observation | D02 Mars evidence record from a single provider. Detection states are unknown/no_coverage or the spectral index support is not validated against the fine candidate pool; it remains evidence/quality only. |
+| `context_olindex3` | D02 | Mars | 2 | 2 | 0 | evidence | dimensionless_spectral_parameter | stored_observation | D02 Mars evidence record from a single provider. Detection states are unknown/no_coverage or the spectral index support is not validated against the fine candidate pool; it remains evidence/quality only. |
+| `context_sindex2` | D02 | Mars | 2 | 2 | 0 | evidence | dimensionless_spectral_parameter | stored_observation | D02 Mars evidence record from a single provider. Detection states are unknown/no_coverage or the spectral index support is not validated against the fine candidate pool; it remains evidence/quality only. |
+| `epithermal_neutron_flux_ratio` | D04 | Mars | 1 | 1 | 0 | evidence | 1 | stored_observation | D04 Mars water/ice record. Hydrogen proxies, radar CPR, reanalysis soil wetness and snow depth are different physical quantities with different supports; no validated cross-body or same-quantity mapping is registered. |
+| `flat_terrain_fraction` | D01 | Earth, Mars, Moon | 136 | 136 | 113 | similarity, hard_filter, evidence | fraction | local_window |  |
+| `geologic_process` | D02 | Mars, Moon | 5 | 3 | 0 | evidence | mixed | stored_observation | D02 process evidence is descriptive and has no validated numeric or categorical crosswalk for search. |
+| `geologic_unit` | D02 | Mars, Moon | 11 | 3 | 0 | evidence | mixed | stored_observation | Geologic map-unit names are dataset-specific free text. No versioned taxonomy crosswalk exists, so map units cannot enter categorical or weighted similarity. |
+| `geology_analysis_availability` | D02 | Earth, Moon | 16 | 6 | 0 | evidence, uncertainty | mixed | stored_observation | Coverage/availability record (unknown or no_coverage). It is a quality/evidence field, not a mineralogical measurement. |
+| `mineral_carbonates` | D02 | Mars | 2 | 2 | 0 | evidence, uncertainty | mixed | stored_observation | D02 Mars evidence record from a single provider. Detection states are unknown/no_coverage or the spectral index support is not validated against the fine candidate pool; it remains evidence/quality only. |
+| `mineral_clay_minerals` | D02 | Mars | 2 | 2 | 0 | evidence, uncertainty | mixed | stored_observation | D02 Mars evidence record from a single provider. Detection states are unknown/no_coverage or the spectral index support is not validated against the fine candidate pool; it remains evidence/quality only. |
+| `mineral_hydrated_sulfates` | D02 | Mars | 2 | 2 | 0 | evidence, uncertainty | mixed | stored_observation | D02 Mars evidence record from a single provider. Detection states are unknown/no_coverage or the spectral index support is not validated against the fine candidate pool; it remains evidence/quality only. |
+| `mineral_olivine` | D02 | Mars | 2 | 2 | 0 | evidence, uncertainty | mixed | stored_observation | D02 Mars evidence record from a single provider. Detection states are unknown/no_coverage or the spectral index support is not validated against the fine candidate pool; it remains evidence/quality only. |
+| `mineral_pyroxene` | D02 | Mars | 2 | 2 | 0 | evidence, uncertainty | mixed | stored_observation | D02 Mars evidence record from a single provider. Detection states are unknown/no_coverage or the spectral index support is not validated against the fine candidate pool; it remains evidence/quality only. |
+| `precipitation_mm_day` | D04 | Earth | 5 | 5 | 0 | evidence | mm day-1 | stored_observation | D04 Earth water/ice record. Hydrogen proxies, radar CPR, reanalysis soil wetness and snow depth are different physical quantities with different supports; no validated cross-body or same-quantity mapping is registered. |
+| `radar_circular_polarization_ratio` | D04 | Moon | 12 | 12 | 0 | evidence | 1 | stored_observation | D04 Moon water/ice record. Hydrogen proxies, radar CPR, reanalysis soil wetness and snow depth are different physical quantities with different supports; no validated cross-body or same-quantity mapping is registered. |
+| `root_zone_soil_wetness_fraction` | D04 | Earth | 5 | 5 | 0 | evidence | 1 | stored_observation | D04 Earth water/ice record. Hydrogen proxies, radar CPR, reanalysis soil wetness and snow depth are different physical quantities with different supports; no validated cross-body or same-quantity mapping is registered. |
+| `roughness_std_m` | D01 | Earth, Mars, Moon | 136 | 136 | 113 | similarity, hard_filter, evidence | meter | local_window |  |
+| `slope_mean_deg` | D01 | Earth, Mars, Moon | 136 | 136 | 113 | similarity, hard_filter, evidence | degree | local_window |  |
+| `slope_p90_deg` | D01 | Earth, Mars, Moon | 136 | 136 | 113 | similarity, hard_filter, evidence | degree | local_window |  |
+| `snow_depth_cm` | D04 | Earth | 5 | 5 | 0 | evidence | cm | stored_observation | D04 Earth water/ice record. Hydrogen proxies, radar CPR, reanalysis soil wetness and snow depth are different physical quantities with different supports; no validated cross-body or same-quantity mapping is registered. |
+| `soil_bdod_0_5cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | cg cm-3 | 0-5 cm |  |
+| `soil_bdod_0_5cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | cg cm-3 | 0-5 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_bdod_0_5cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | cg cm-3 | 0-5 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_bdod_15_30cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | cg cm-3 | 15-30 cm |  |
+| `soil_bdod_15_30cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | cg cm-3 | 15-30 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_bdod_15_30cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | cg cm-3 | 15-30 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_bdod_30_60cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | cg cm-3 | 30-60 cm |  |
+| `soil_bdod_30_60cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | cg cm-3 | 30-60 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_bdod_30_60cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | cg cm-3 | 30-60 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_bdod_5_15cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | cg cm-3 | 5-15 cm |  |
+| `soil_bdod_5_15cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | cg cm-3 | 5-15 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_bdod_5_15cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | cg cm-3 | 5-15 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_clay_0_5cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | g kg-1 | 0-5 cm |  |
+| `soil_clay_0_5cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 0-5 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_clay_0_5cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 0-5 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_clay_15_30cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | g kg-1 | 15-30 cm |  |
+| `soil_clay_15_30cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 15-30 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_clay_15_30cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 15-30 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_clay_30_60cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | g kg-1 | 30-60 cm |  |
+| `soil_clay_30_60cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 30-60 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_clay_30_60cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 30-60 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_clay_5_15cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | g kg-1 | 5-15 cm |  |
+| `soil_clay_5_15cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 5-15 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_clay_5_15cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 5-15 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_sand_0_5cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | g kg-1 | 0-5 cm |  |
+| `soil_sand_0_5cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 0-5 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_sand_0_5cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 0-5 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_sand_15_30cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | g kg-1 | 15-30 cm |  |
+| `soil_sand_15_30cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 15-30 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_sand_15_30cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 15-30 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_sand_30_60cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | g kg-1 | 30-60 cm |  |
+| `soil_sand_30_60cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 30-60 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_sand_30_60cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 30-60 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_sand_5_15cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | g kg-1 | 5-15 cm |  |
+| `soil_sand_5_15cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 5-15 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_sand_5_15cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 5-15 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_silt_0_5cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | g kg-1 | 0-5 cm |  |
+| `soil_silt_0_5cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 0-5 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_silt_0_5cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 0-5 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_silt_15_30cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | g kg-1 | 15-30 cm |  |
+| `soil_silt_15_30cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 15-30 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_silt_15_30cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 15-30 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_silt_30_60cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | g kg-1 | 30-60 cm |  |
+| `soil_silt_30_60cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 30-60 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_silt_30_60cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 30-60 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_silt_5_15cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | g kg-1 | 5-15 cm |  |
+| `soil_silt_5_15cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 5-15 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_silt_5_15cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | g kg-1 | 5-15 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_soc_0_5cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | dg kg-1 | 0-5 cm |  |
+| `soil_soc_0_5cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | dg kg-1 | 0-5 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_soc_0_5cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | dg kg-1 | 0-5 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_soc_15_30cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | dg kg-1 | 15-30 cm |  |
+| `soil_soc_15_30cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | dg kg-1 | 15-30 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_soc_15_30cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | dg kg-1 | 15-30 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_soc_30_60cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | dg kg-1 | 30-60 cm |  |
+| `soil_soc_30_60cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | dg kg-1 | 30-60 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_soc_30_60cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | dg kg-1 | 30-60 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_soc_5_15cm_mean` | D06 | Earth | 5 | 5 | 5 | similarity, hard_filter, evidence, uncertainty | dg kg-1 | 5-15 cm |  |
+| `soil_soc_5_15cm_q05` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | dg kg-1 | 5-15 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `soil_soc_5_15cm_q95` | D06 | Earth | 5 | 5 | 0 | evidence, uncertainty | dg kg-1 | 5-15 cm | Prediction quantile of the same SoilGrids model prediction. It is uncertainty evidence for the matching mean feature, not an independent observation and not a similarity feature. |
+| `solar_elevation_deg` | D05 | Mars, Moon | 9 | 9 | 0 | evidence, context | degree | stored_observation | D05 Mars/Moon illumination/radiation record. Solar geometry and irradiance depend on a time selector and body-specific ephemerides; they are context/evidence, not surface-property similarity. |
+| `solar_incidence_deg` | D05 | Mars, Moon | 9 | 9 | 0 | evidence, context | degree | stored_observation | D05 Mars/Moon illumination/radiation record. Solar geometry and irradiance depend on a time selector and body-specific ephemerides; they are context/evidence, not surface-property similarity. |
+| `surface_air_temperature_2m_c` | D03 | Earth | 5 | 5 | 0 | evidence, context | degree_Celsius | stored_observation | D03 Earth remote-sensing/reanalysis record. The method, native support and temporal selector are not shared with the fine Earth 90 m candidate pool; it is context/evidence and never a cross-body temperature equivalence. |
+| `surface_air_temperature_2m_max_c` | D03 | Earth | 5 | 5 | 0 | evidence, context | degree_Celsius | stored_observation | D03 Earth remote-sensing/reanalysis record. The method, native support and temporal selector are not shared with the fine Earth 90 m candidate pool; it is context/evidence and never a cross-body temperature equivalence. |
+| `surface_air_temperature_2m_min_c` | D03 | Earth | 5 | 5 | 0 | evidence, context | degree_Celsius | stored_observation | D03 Earth remote-sensing/reanalysis record. The method, native support and temporal selector are not shared with the fine Earth 90 m candidate pool; it is context/evidence and never a cross-body temperature equivalence. |
+| `surface_brightness_temperature_k` | D03 | Moon | 36 | 18 | 0 | evidence, uncertainty | K | stored_observation | D03 Moon remote-sensing/reanalysis record. The method, native support and temporal selector are not shared with the fine Earth 90 m candidate pool; it is context/evidence and never a cross-body temperature equivalence. |
+| `surface_longwave_irradiance_kwh_m2_day` | D05 | Earth | 5 | 5 | 0 | evidence, context | kWh m-2 day-1 | stored_observation | D05 Earth illumination/radiation record. Solar geometry and irradiance depend on a time selector and body-specific ephemerides; they are context/evidence, not surface-property similarity. |
+| `surface_shortwave_irradiance_kwh_m2_day` | D05 | Earth | 5 | 5 | 0 | evidence, context | kWh m-2 day-1 | stored_observation | D05 Earth illumination/radiation record. Solar geometry and irradiance depend on a time selector and body-specific ephemerides; they are context/evidence, not surface-property similarity. |
+| `surface_skin_temperature_c` | D03 | Earth | 5 | 5 | 0 | evidence, context | degree_Celsius | stored_observation | D03 Earth remote-sensing/reanalysis record. The method, native support and temporal selector are not shared with the fine Earth 90 m candidate pool; it is context/evidence and never a cross-body temperature equivalence. |
+| `surface_soil_wetness_fraction` | D04 | Earth | 5 | 5 | 0 | evidence | 1 | stored_observation | D04 Earth water/ice record. Hydrogen proxies, radar CPR, reanalysis soil wetness and snow depth are different physical quantities with different supports; no validated cross-body or same-quantity mapping is registered. |
+| `terrain_relief_p95_p05_m` | D01 | Earth, Mars, Moon | 136 | 136 | 113 | similarity, hard_filter, evidence | meter | local_window |  |
+| `thermal_inertia` | D03 | Mars | 5 | 5 | 0 | evidence | J m^-2 K^-1 s^-1/2 | stored_observation | D03 Mars remote-sensing/reanalysis record. The method, native support and temporal selector are not shared with the fine Earth 90 m candidate pool; it is context/evidence and never a cross-body temperature equivalence. |
+| `water_equivalent_hydrogen_wt_percent` | D04 | Moon | 12 | 12 | 0 | evidence | percent | stored_observation | D04 Moon water/ice record. Hydrogen proxies, radar CPR, reanalysis soil wetness and snow depth are different physical quantities with different supports; no validated cross-body or same-quantity mapping is registered. |
+| `water_ice_detection` | D04 | Mars, Moon | 30 | 30 | 0 | evidence, uncertainty | detection | stored_observation | D04 Mars/Moon water/ice record. Hydrogen proxies, radar CPR, reanalysis soil wetness and snow depth are different physical quantities with different supports; no validated cross-body or same-quantity mapping is registered. |
+
+Gated candidates are exact-ID-joined, gate-passing values. They are not counts of six-dimension observations and not a global survey.

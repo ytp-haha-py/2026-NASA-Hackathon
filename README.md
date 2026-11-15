@@ -324,8 +324,15 @@ See [`docs/DATA_ARCHITECTURE.md`](docs/DATA_ARCHITECTURE.md).
 | `POST /api/v1/global/refine-plan` | plan 90 m refinement windows (no download) |
 | `GET /api/v1/typed/observations` | typed D01–D06 fixture/verified observations |
 | `GET /api/v1/typed/areas/{id}` | typed area + observations |
+| `GET /api/v1/search/features` | versioned feature-eligibility registry (roles, coverage, gates, unsupported reasons) |
+| `POST /api/v1/search/multidimensional` | gated multi-feature ranking with per-feature/per-dimension contributions |
+| `GET /api/v1/planetary/maps` | verified Moon/Mars official WMTS basemap catalog |
+| `GET /api/v1/planetary/map-features` | real Moon/Mars reference/AOI overlays by planetocentric bbox |
+| `GET /api/v1/planetary/coordinate-contract` | planetocentric/planetographic, longitude and antimeridian contract |
 
-See [`docs/API.md`](docs/API.md). OpenAPI snapshot: `contracts/openapi.json`.
+See [`docs/API.md`](docs/API.md), [`docs/MULTIDIMENSIONAL_SEARCH.md`](docs/MULTIDIMENSIONAL_SEARCH.md)
+and [`docs/PLANETARY_MAPS_API.md`](docs/PLANETARY_MAPS_API.md). OpenAPI snapshot:
+`contracts/openapi.json`.
 
 ## Tests and quality gates
 
