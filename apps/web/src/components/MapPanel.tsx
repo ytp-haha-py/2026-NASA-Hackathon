@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type {
   FeatureOut,
+  GlobalSearchResultOut,
   NumericTarget,
   SearchResponse,
   SearchResultOut,
@@ -12,6 +13,15 @@ import { addEarthBasemap, type EarthBasemap } from "../lib/earthBasemap";
 import { RankingOverlay } from "./RankingOverlay";
 
 const BASEMAP_ORDER: EarthBasemap[] = ["map", "terrain", "satellite"];
+const NO_CANDIDATES: GlobalSearchResultOut[] = [];
+
+export type CoarseMapResults = {
+  results: GlobalSearchResultOut[];
+  selectedId: string | null;
+  onSelect: (candidateId: string) => void;
+  content: ReactNode;
+  refineWindow?: { bbox: Record<string, unknown>; status: string; method: string };
+};
 
 type MapPanelProps = {
   results: SearchResultOut[];
@@ -21,6 +31,8 @@ type MapPanelProps = {
   response?: SearchResponse;
   features?: FeatureOut[];
   target?: NumericTarget;
+  searchScope?: ReactNode;
+  coarse?: CoarseMapResults;
   /** Show the "nothing ranked yet" panel before the first search. */
   showIdle?: boolean;
   /** Area to outline (drawn here or typed in the analysis form). */
@@ -43,24 +55,34 @@ const OVERLAY_PADDING: L.PointExpression = [340, 24];
 /** A selected 1,980 m window fills a useful part of the map at this zoom without over-zooming. */
 const SELECTED_MAX_ZOOM = 13;
 
-function windowBounds(results: SearchResultOut[]): L.LatLngBounds {
-  const bounds = L.latLngBounds([]);
-  for (const result of results) {
-    bounds.extend([result.bbox.south, result.bbox.west]);
-    bounds.extend([result.bbox.north, result.bbox.east]);
+function earthBounds({ west, south, east, north }: Record<string, unknown>, near?: number) {
+  if (
+    typeof west !== "number" || typeof east !== "number" ||
+    typeof south !== "number" || typeof north !== "number" ||
+    ![west, south, east, north].every(Number.isFinite) ||
+    Math.abs(west) > 180 || Math.abs(east) > 180 ||
+    south < -90 || north > 90 || south >= north || west === east
+  ) {
+    return null;
   }
-  return bounds;
+  const easternEdge = east < west ? east + 360 : east;
+  const midpoint = (west + easternEdge) / 2;
+  const offset = near === undefined ? 0 : 360 * Math.round((near - midpoint) / 360);
+  return L.latLngBounds([south, west + offset], [north, easternEdge + offset]);
 }
 
 const COLORS = {
   earth: "#1d4ed8",
   selected: "#b93d0a",
+  coarse: "#a34a11",
+  refine: "#087d72",
+  source: "#8247a5",
 };
 
-function rankIcon(rank: number, selected: boolean): L.DivIcon {
+function rankIcon(rank: number, selected: boolean, coarse = false): L.DivIcon {
   const size = selected ? 30 : 24;
   const pin = document.createElement("span");
-  pin.className = `rank-pin${selected ? " is-selected" : ""}`;
+  pin.className = `rank-pin${coarse ? " is-coarse" : ""}${selected ? " is-selected" : ""}`;
   const text = document.createElement("span");
   text.textContent = String(rank);
   pin.append(text);
@@ -87,6 +109,8 @@ export function MapPanel({
   response,
   features = [],
   target = {},
+  searchScope,
+  coarse,
   showIdle = false,
   aoiBbox = null,
   onDrawBbox,
@@ -96,6 +120,12 @@ export function MapPanel({
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
   const onSelectRef = useRef(onSelect);
+  const selectCoarse = coarse?.onSelect;
+  const onSelectCoarseRef = useRef(selectCoarse);
+  const indexedResults = coarse ? null : results;
+  const coarseResults = coarse?.results ?? NO_CANDIDATES;
+  const coarseSelectedId = coarse?.selectedId ?? null;
+  const refineWindow = coarse?.refineWindow;
   const [basemap, setBasemap] = useState<EarthBasemap>("map");
   const [drawing, setDrawing] = useState(false);
   const aoiLayerRef = useRef<L.Rectangle | null>(null);
@@ -106,8 +136,9 @@ export function MapPanel({
 
   useEffect(() => {
     onSelectRef.current = onSelect;
+    onSelectCoarseRef.current = selectCoarse;
     onDrawRef.current = onDrawBbox;
-  }, [onSelect, onDrawBbox]);
+  }, [onSelect, selectCoarse, onDrawBbox]);
 
   // Outline the area chosen for analysis.
   useEffect(() => {
@@ -120,13 +151,12 @@ export function MapPanel({
     if (!aoiBbox) {
       return;
     }
-    aoiLayerRef.current = L.rectangle(
-      [
-        [aoiBbox.south, aoiBbox.west],
-        [aoiBbox.north, aoiBbox.east],
-      ],
-      { color: COLORS.selected, weight: 2, dashArray: "6 4", fillOpacity: 0.1, interactive: false },
-    ).addTo(map);
+    const bounds = earthBounds(aoiBbox);
+    if (bounds) {
+      aoiLayerRef.current = L.rectangle(bounds, {
+        color: COLORS.source, weight: 2, dashArray: "6 4", fillOpacity: 0.1, interactive: false,
+      }).addTo(map);
+    }
   }, [aoiBbox]);
 
   // Rubber-band selection. Pointer events so mouse, pen and touch all work.
@@ -162,7 +192,7 @@ export function MapPanel({
         box.setBounds(bounds);
       } else {
         box = L.rectangle(bounds, {
-          color: COLORS.selected,
+          color: COLORS.source,
           weight: 2,
           dashArray: "6 4",
           fillOpacity: 0.1,
@@ -250,13 +280,24 @@ export function MapPanel({
     return { paddingTopLeft: wide ? OVERLAY_PADDING : [24, 24], paddingBottomRight: [24, 24] };
   }, []);
 
+  const windows = useMemo(() => {
+    const candidates = coarseResults.filter((result) => result.body === "Earth");
+    const entries = indexedResults ?? candidates;
+    const first = entries.map((result) => earthBounds(result.bbox)).find(Boolean);
+    const near = first?.getCenter().lng;
+    return entries.flatMap((result) => {
+      const bounds = earthBounds(result.bbox, near);
+      return bounds ? [{ result, bounds }] : [];
+    });
+  }, [indexedResults, coarseResults]);
+
   const showAll = useCallback(() => {
     const map = mapRef.current;
-    if (!map || results.length === 0) {
-      return;
-    }
-    map.fitBounds(windowBounds(results), { ...fitPadding(), maxZoom: 9 });
-  }, [results, fitPadding]);
+    if (!map || windows.length === 0) return;
+    const bounds = L.latLngBounds([]);
+    for (const window of windows) bounds.extend(window.bounds);
+    map.fitBounds(bounds, { ...fitPadding(), maxZoom: 9 });
+  }, [windows, fitPadding]);
 
   // Fit the view when the result set changes.
   useEffect(() => {
@@ -264,30 +305,34 @@ export function MapPanel({
     if (!map) {
       return;
     }
-    if (results.length === 0) {
+    if (windows.length === 0) {
       map.setView([20, 0], 2);
       return;
     }
     showAll();
     // Only a new result set re-fits; selection is handled below.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [results]);
+  }, [windows]);
 
   // Zoom to a window when the user selects it (results never auto-select, so the overview stays).
   useEffect(() => {
     const map = mapRef.current;
-    const selected = results.find((result) => result.location_id === selectedId);
+    const selected = windows.find(({ result }) =>
+      "candidate_id" in result
+        ? result.candidate_id === coarseSelectedId
+        : result.location_id === selectedId,
+    );
     if (!map || !selected) {
       return;
     }
-    map.flyToBounds(windowBounds([selected]), {
+    map.flyToBounds(selected.bounds, {
       ...fitPadding(),
       maxZoom: SELECTED_MAX_ZOOM,
       duration: 0.6,
     });
     // Re-run on selection only; a new result set clears the selection in App.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedId]);
+  }, [selectedId, coarseSelectedId, Boolean(coarse)]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -298,14 +343,29 @@ export function MapPanel({
 
     layer.clearLayers();
 
-    for (const result of results) {
+    for (const { result, bounds } of windows) {
+      if ("candidate_id" in result) {
+        const selected = result.candidate_id === coarseSelectedId;
+        const select = () => onSelectCoarseRef.current?.(result.candidate_id);
+        L.rectangle(bounds, {
+          color: COLORS.coarse,
+          weight: selected ? 3 : 1.5,
+          dashArray: "5 4",
+          fillOpacity: selected ? 0.2 : 0.08,
+        }).on("click", select).addTo(layer);
+        const tooltip = document.createElement("span");
+        tooltip.textContent = `${t("map.coarseLayer")} · ${result.candidate_id} · ${result.method_version}`;
+        L.marker(bounds.getCenter(), { icon: rankIcon(result.rank, selected, true), keyboard: false })
+          .bindTooltip(tooltip, { direction: "top" })
+          .on("click", select)
+          .addTo(layer);
+        continue;
+      }
+
       const selected = result.location_id === selectedId;
       const color = selected ? COLORS.selected : COLORS.earth;
       const rectangle = L.rectangle(
-        [
-          [result.bbox.south, result.bbox.west],
-          [result.bbox.north, result.bbox.east],
-        ],
+        bounds,
         {
           color,
           weight: selected ? 2.5 : 1,
@@ -316,7 +376,8 @@ export function MapPanel({
       rectangle.on("click", () => onSelectRef.current(result.location_id));
       rectangle.addTo(layer);
 
-      const marker = L.marker([result.lat, result.lon], {
+      const midpoint = bounds.getCenter().lng;
+      const marker = L.marker([result.lat, result.lon + 360 * Math.round((midpoint - result.lon) / 360)], {
         icon: rankIcon(result.rank, selected),
         zIndexOffset: selected ? 1000 : 0,
         keyboard: false,
@@ -352,7 +413,20 @@ export function MapPanel({
           .openPopup();
       }
     }
-  }, [results, selectedId, t, fmt]);
+    if (refineWindow) {
+      const bounds = earthBounds(refineWindow.bbox, map.getCenter().lng);
+      if (bounds) {
+        const tooltip = document.createElement("span");
+        tooltip.textContent = `${t("map.refineLayer")} · ${t("global.executionStatus", { status: refineWindow.status })} · ${refineWindow.method}`;
+        L.rectangle(bounds, {
+          color: COLORS.refine,
+          weight: 3,
+          dashArray: refineWindow.status === "completed" ? undefined : "3 4",
+          fillOpacity: 0.16,
+        }).bindTooltip(tooltip).addTo(layer);
+      }
+    }
+  }, [windows, selectedId, coarseSelectedId, refineWindow, t, fmt]);
 
   return (
     <section className="map-panel" aria-labelledby="map-heading">
@@ -360,7 +434,7 @@ export function MapPanel({
         {t("map.heading")}
       </h2>
 
-      <div className="map-stage">
+      <div className={searchScope ? "map-stage has-search-scope" : "map-stage"}>
         <div
           ref={containerRef}
           className="map-canvas"
@@ -398,24 +472,30 @@ export function MapPanel({
           </button>
         )}
 
-        {results.length > 0 && (
+        {windows.length > 0 && (
           <button type="button" className="map-show-all" onClick={showAll}>
             {t("map.showAll")}
           </button>
         )}
 
-        {response && (
+        {coarse ? (
+          <section className="ranking-overlay coarse-ranking" aria-label={t("overlay.regionLabel")}>
+            {searchScope}
+            <div className="coarse-ranking-body">{coarse.content}</div>
+          </section>
+        ) : response ? (
           <RankingOverlay
             response={response}
             features={features}
             target={target}
             selectedId={selectedId}
             onSelect={onSelect}
+            controls={searchScope}
           />
-        )}
-        {!response && showIdle && (
+        ) : (showIdle || searchScope) && (
           <section className="ranking-overlay is-idle" aria-label={t("overlay.regionLabel")}>
-            <p className="ranking-overlay-empty">{t("overlay.idle")}</p>
+            {searchScope}
+            {showIdle && <p className="ranking-overlay-empty">{t("overlay.idle")}</p>}
           </section>
         )}
       </div>
@@ -432,8 +512,19 @@ export function MapPanel({
         </p>
       )}
 
+      {searchScope && (
+        <ul className="map-key">
+          {aoiBbox && <li><i className="source-key" aria-hidden="true" />{t("map.sourceLayer")}</li>}
+          <li>
+            <i className={coarse ? "coarse-key" : "indexed-key"} aria-hidden="true" />
+            {coarse ? t("map.coarseLayer") : t("map.indexedLayer")}
+          </li>
+          {refineWindow && <li><i className="refine-key" aria-hidden="true" />{t("map.refineLayer")}</li>}
+        </ul>
+      )}
       <p className="map-note">
-        {results.length === 0 ? t("map.noWindows") : tp("map.plotted", results.length)}{" "}
+        {coarse ? t("map.coarseCount", { count: fmt.number(windows.length, 0) }) :
+          windows.length === 0 ? t("map.noWindows") : tp("map.plotted", windows.length)}{" "}
         <span className="map-attribution-note">{t("map.attribution")}</span>
       </p>
     </section>

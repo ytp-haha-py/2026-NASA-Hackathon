@@ -3,11 +3,13 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { App } from "./App";
 import { LOCALE_STORAGE_KEY } from "./i18n/translate";
+import { useI18n } from "./i18n/I18nProvider";
 import {
   analyzeQueuedFixture,
   aoiLocationFixture,
   jobPartialFixture,
   referenceFixture,
+  searchResponseFixture,
 } from "./test/fixtures";
 import {
   errorResponse,
@@ -19,9 +21,27 @@ import {
 import { applyExampleTarget } from "./test/example-target";
 
 vi.mock("./components/MapPanel", () => ({
-  MapPanel: ({ results }: { results: unknown[] }) => (
-    <div data-testid="map-stub">{results.length}</div>
-  ),
+  MapPanel: ({
+    results, onSelect,
+  }: {
+    results: typeof searchResponseFixture.results;
+    onSelect: (id: string) => void;
+  }) => {
+    const { t } = useI18n();
+    return (
+      <div data-testid="map-stub">
+        {results.map((result) => (
+          <button
+            key={result.location_id}
+            aria-label={t("overlay.selectLabel", { rank: result.rank, name: result.display_name })}
+            onClick={() => onSelect(result.location_id)}
+          >
+            {result.display_name}
+          </button>
+        ))}
+      </div>
+    );
+  },
 }));
 
 const EN_HEADING = "Describe a terrain-shape target";
@@ -142,7 +162,7 @@ describe("language switcher", () => {
 
     await user.click(screen.getByRole("button", { name: "Search indexed Earth candidates" }));
     await user.click(
-      await screen.findByRole("button", { name: "Select rank 1: Observed test window" }),
+      await screen.findByRole("button", { name: "Show rank 1 on the map: Observed test window" }),
     );
     await screen.findByRole("heading", { name: "Selected Earth candidate" });
 
@@ -184,6 +204,7 @@ describe("Traditional Chinese workflows", () => {
     expect(screen.getByText(/缺少必要指標：第 90 百分位坡度/)).toBeInTheDocument();
     expect(screen.getByText("1 個已排除的候選區域 — 顯示原因")).toBeInTheDocument();
 
+    await user.click(screen.getByRole("button", { name: "在地圖上顯示第 1 名：Observed test window" }));
     const observedCard = screen.getByTestId("result-earth-observed-1");
     expect(within(observedCard).getByText("0.037")).toBeInTheDocument();
     expect(within(observedCard).getByText("12.4 度")).toBeInTheDocument();
@@ -251,7 +272,7 @@ describe("Traditional Chinese workflows", () => {
 
     await user.click(screen.getByRole("button", { name: "搜尋已索引的地球候選區域" }));
     await user.click(
-      await screen.findByRole("button", { name: "選擇第 1 名：Observed test window" }),
+      await screen.findByRole("button", { name: "在地圖上顯示第 1 名：Observed test window" }),
     );
 
     const contextHeading = await screen.findByRole("heading", {
