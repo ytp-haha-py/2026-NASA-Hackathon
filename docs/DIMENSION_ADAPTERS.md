@@ -31,14 +31,28 @@ Typed features: lithology area fractions (distribution), mineral spectral detect
 
 ## D03 Thermal Environment
 
-Typed features: mean surface temperature, diurnal range, timeseries.
+Typed features: mean surface temperature, diurnal range, timeseries, plus the
+evidence-only `surface_brightness_temperature_k` and `thermal_inertia` added by
+Issue #43.
 - K, with scale/offset, emissivity/QA, local solar time, season and n.
 - No fake extrema or time series.
-- Thermal inertia requires the original retrieval model and uncertainty.
+- Brightness temperature is a radiometric quantity under a unit-emissivity
+  assumption; it is never labelled kinetic surface temperature.
+- Thermal inertia requires the original retrieval model and uncertainty, and is
+  a separate feature from surface/brightness temperature.
 - Earth: NASA POWER thermal context is `context_only`.
-- Mars: the USGS THEMIS-derived quantitative thermal-inertia mosaic is verified metadata only;
-  it is `evidence_only`, has no approved similarity feature ID, no per-pixel uncertainty layer,
-  and no observation is persisted. See `docs/MARS_PROVIDER_GATES.md`.
+- Moon: the committed `pipelines/pilots/d03_planetary_thermal/` pilot reads the
+  official LRO Diviner PCP south-polar bolometric brightness-temperature product
+  at native 240 m over the existing 18 LOLA reference windows (two 0.25 h
+  local-time bins, southern-summer 2009-2019 composite). It is `evidence_only`;
+  no diurnal range is computed from non-simultaneous local-time bins, and no
+  value is presented as 90 m.
+- Mars: the same pilot reads bounded 128 x 128 ISIS tiles from the USGS THEMIS
+  quantitative thermal-inertia mosaic at native 100 m over the five existing
+  Jezero reference windows. It is `evidence_only`: there is no per-pixel
+  uncertainty/QA layer, absolute accuracy is ~20%, and the retrieval does not
+  correct clouds or surface slopes. See `docs/MARS_PROVIDER_GATES.md`.
+
 
 ## D04 Water & Ice
 
