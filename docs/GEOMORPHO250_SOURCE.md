@@ -1,27 +1,32 @@
 # Geomorpho90m 250 m source audit
 
 Catalog: [`catalog/geomorpho250-sources.yaml`](../catalog/geomorpho250-sources.yaml).
-Status: **documentation verified; no raster downloaded or staged.**
+Status: **source metadata verified from the live object; only bounded pilot windows were range-read, never the full 4.8 GB raster.**
 
 ## Exact product / access
 
 | Field | Value |
 |---|---|
 | Product | Geomorpho90m (Amatulli et al.), 7.5 arc-second (~250 m), WGS84 |
-| Global layers | 26 GeoTIFFs; per-file documented size range 100 MB–6 GB |
+| Global layers | Verified slope object: 5,022,223,729 bytes (~4.8 GB); 172800 x 71698 pixels |
 | OpenTopography dataspace | `OTDS.012020.4326.1` |
 | 250 m DOI | https://doi.org/10.1594/PANGAEA.899135 |
 | 90 m OpenTopography DOI | https://doi.org/10.5069/G91R6NPX |
 | Documentation | https://www.nature.com/articles/s41597-020-0479-6 |
 | Licence | CC BY 4.0 |
 | Coverage | ~60°S–85°N; Antarctica excluded (not "full Earth") |
-| Data type | Int16/UInt16 with scale factor in GeoTIFF metadata |
+| Data type | Int16; GeoTIFF `Scale=0.01`, `Offset=0`; nodata -32768; striped 1-row deflate blocks |
 | Temporal | Static MERIT-DEM derivatives (v1.0, 2018) |
-| Layer naming | Documented `dtm_*_merit.dem_m_250m_s0..0cm_2018_v1.0.tif` family |
+| Layer naming | Verified `dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif`; family documented |
 
-The exact object ETag/checksum, pixel scale/offset, nodata, block layout and remote
-range-read support are **not verified** because no asset was fetched. They must be
-inspected before ingestion.
+The live object was verified by bounded HTTP range reads:
+
+- URL: `https://hs.pangaea.de/Maps/DEM_Geomorpho90m/dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif`
+- CRS EPSG:4326, pixel size 0.00208333°, Int16, scale 0.01, offset 0, nodata -32768.
+- 172800 x 71698, striped (1 x 172800) deflate blocks; range reads of 240 x 240 windows
+  succeeded, so a bounded pilot does not require the full file.
+- The archive does not publish an ETag/checksum; SHA-256 of each local pilot window is in
+  [`GEOMORPHO_REAL_PILOT.md`](GEOMORPHO_REAL_PILOT.md).
 
 ## Go / no-go
 
@@ -44,14 +49,22 @@ inspected before ingestion.
 | `alps` | 8,45 to 12,48 | high-relief / steep |
 | `grand-canyon` | −113,35 to −111,37 | canyon / edge-sensitive |
 
-The pilot plan is metadata only until a source file is authorized. It is not a
-global scan and not a scientific result.
+The real pilot used three smaller 0.4° windows around Sahara (10–10.4E), Alps
+(10–10.4E) and Grand Canyon (-112.2–-111.8E), producing 168 real 5 km cells. See
+[`GEOMORPHO_REAL_PILOT.md`](GEOMORPHO_REAL_PILOT.md). This is still not a global scan or a
+scientific global result.
 
-## Future acquisition (not executed)
+## Pilot acquisition actually executed
 
-1. Confirm exact PANGAEA/OpenTopography object, licence, bytes, checksum, scale/offset.
-2. Check available disk; stage under `ANALOG_RAW_DIR` only if explicitly authorized.
-3. Run the local reader metadata check and a tiny bounded read.
-4. Record scale/offset/nodata/CRS/resolution/bytes/checksum in the source asset.
-5. Build the deterministic 5 km grid and coarse features; validate masks.
+1. Verified the exact PANGAEA object, licence, bytes, scale/offset, nodata and block layout.
+2. Used `/vsicurl` range reads for three 240 x 240 padded windows; no full download.
+3. Converted raw Int16 × 0.01 to float32 slope degrees and recorded SHA-256 per window.
+4. Built the deterministic 5 km grid and coarse features, then an immutable Parquet index.
+5. Verified DuckDB top-K and the FastAPI `/api/v1/global/*` contract on the real index.
 6. Never promote coarse values to the 90 m score without refinement.
+
+## Online smoke (opt-in)
+
+`uv run python scripts/geomorpho_online_smoke.py` performs a 10x10 `/vsicurl` range read and prints
+the verified CRS, dimensions, pixel size, dtype, nodata, block layout, scale tag and raw/slope
+ranges. It never downloads the full global object and is not part of CI.

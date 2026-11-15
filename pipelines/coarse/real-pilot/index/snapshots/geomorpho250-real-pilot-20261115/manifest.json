@@ -1,0 +1,95 @@
+{
+  "coverage": {
+    "bbox": {
+      "east": 10.393982962376148,
+      "north": 45.36007210182725,
+      "south": 23.996959690126204,
+      "west": -112.20542079733367
+    },
+    "label": "local_coarse_index_not_global_exhaustive",
+    "regions": [
+      "pilot-alps",
+      "pilot-grand-canyon",
+      "pilot-sahara"
+    ]
+  },
+  "created_at": "2026-11-15T05:19:51.447629+00:00",
+  "features": [
+    {
+      "description": "Mean of valid Geomorpho250 slope pixels within the 5 km window.",
+      "dimension_code": "D01",
+      "feature_id": "coarse_slope_mean_deg",
+      "grid_window_m": 5000,
+      "label": "Coarse mean slope (250 m source)",
+      "max_value": 90.0,
+      "method_version": "coarse-terrain-250m-1.0.0",
+      "min_value": 0.0,
+      "scale": 10.0,
+      "score_role": "similarity",
+      "source_resolution_m": 250.0,
+      "spatial_support": "5 km candidate window aggregated from 7.5 arc-second (~250 m) slope pixels",
+      "unit": "degree"
+    },
+    {
+      "description": "Linear 90th percentile of valid Geomorpho250 slope pixels.",
+      "dimension_code": "D01",
+      "feature_id": "coarse_slope_p90_deg",
+      "grid_window_m": 5000,
+      "label": "Coarse 90th percentile slope",
+      "max_value": 90.0,
+      "method_version": "coarse-terrain-250m-1.0.0",
+      "min_value": 0.0,
+      "scale": 15.0,
+      "score_role": "similarity",
+      "source_resolution_m": 250.0,
+      "spatial_support": "5 km candidate window aggregated from ~250 m slope pixels",
+      "unit": "degree"
+    },
+    {
+      "description": "Fraction of valid slope pixels strictly below 5 degrees.",
+      "dimension_code": "D01",
+      "feature_id": "coarse_flat_fraction_lt5deg",
+      "grid_window_m": 5000,
+      "label": "Coarse flat fraction (<5\u00b0)",
+      "max_value": 1.0,
+      "method_version": "coarse-terrain-250m-1.0.0",
+      "min_value": 0.0,
+      "scale": 0.25,
+      "score_role": "similarity",
+      "source_resolution_m": 250.0,
+      "spatial_support": "5 km candidate window aggregated from ~250 m slope pixels",
+      "unit": "fraction"
+    }
+  ],
+  "grid_version": "coarse-grid-1.0.0",
+  "index_version": "coarse-index-1.0.0",
+  "method_version": "coarse-terrain-250m-1.0.0",
+  "parquet_schema_version": "coarse-parquet-1.0.0",
+  "partitions": [
+    {
+      "bytes": 9255,
+      "path": "partitions/pilot-sahara/c38a11e353011d3d22d00d07d5291f03aaf3a0ef6a431fdd64afda2a833f7eb6.parquet",
+      "region_id": "pilot-sahara",
+      "rows": 64,
+      "sha256": "c38a11e353011d3d22d00d07d5291f03aaf3a0ef6a431fdd64afda2a833f7eb6"
+    },
+    {
+      "bytes": 8151,
+      "path": "partitions/pilot-alps/49a22a65f8e827a7f72a5552e224a3edac0bba8892e941896a69664f5bf87a3a.parquet",
+      "region_id": "pilot-alps",
+      "rows": 48,
+      "sha256": "49a22a65f8e827a7f72a5552e224a3edac0bba8892e941896a69664f5bf87a3a"
+    },
+    {
+      "bytes": 8767,
+      "path": "partitions/pilot-grand-canyon/b6d5a2d923d67c65619ac1f07c982fab498ada0706c97fdb7e6f4afa8b65ae40.parquet",
+      "region_id": "pilot-grand-canyon",
+      "rows": 56,
+      "sha256": "b6d5a2d923d67c65619ac1f07c982fab498ada0706c97fdb7e6f4afa8b65ae40"
+    }
+  ],
+  "row_count": 168,
+  "snapshot_id": "geomorpho250-real-pilot-20261115",
+  "snapshot_root": "pipelines/coarse/real-pilot/index/snapshots/geomorpho250-real-pilot-20261115",
+  "source_datasets": []
+}
