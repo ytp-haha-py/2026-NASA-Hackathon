@@ -1,0 +1,44 @@
+{
+  "checks": {
+    "d06_regolith_no_coverage_audited": true,
+    "explicit_no_coverage_for_missing": true,
+    "illumination_radiation_separated": true,
+    "no_proxy_as_measurement": true,
+    "no_zero_fill": true,
+    "planetary_frames_only": true
+  },
+  "counts": {
+    "by_body": {
+      "Mars": 9,
+      "Moon": 9
+    },
+    "by_dimension": {
+      "D05": 6,
+      "D06": 12
+    },
+    "by_feature": {
+      "absorbed_dose_gy": 2,
+      "bearing_strength_kpa": 2,
+      "bulk_density_kg_m3": 2,
+      "cohesion_kpa": 2,
+      "friction_angle_deg": 2,
+      "particle_size_distribution": 2,
+      "porosity_fraction": 2,
+      "solar_elevation_deg": 2,
+      "solar_incidence_deg": 2
+    },
+    "by_state": {
+      "detected": 4,
+      "no_coverage": 14
+    },
+    "observations": 18
+  },
+  "generated_at": "2026-11-15T12:00:00+00:00",
+  "notes": [
+    "Illumination: detected SPICE geometry values (model-derived) with full provenance.",
+    "Ionizing radiation: explicit no_coverage per AOI with official source audit rationale.",
+    "D06 regolith: explicit no_coverage for both AOIs with official-source audit, footprint/depth/support stated as unknown/unresolved for AOI (no proxy fill)."
+  ],
+  "qa_version": "d05-d06-aoi-qa-1.0.0",
+  "scope": "d05-d06-aoi-170"
+}

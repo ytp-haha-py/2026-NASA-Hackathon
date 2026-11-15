@@ -1,0 +1,37 @@
+{
+  "areas": [
+    "moon-shackleton-rim-site04-roi1",
+    "mars-jezero-ctx-window-01"
+  ],
+  "d05_illumination": "detected SPICE solar geometry (model-derived, instant, flat ellipsoid) for Moon and Mars AOIs.",
+  "d05_ionizing_radiation": "explicit no_coverage for both AOIs (official-source audit; separated from illumination; no Gy/Sv fabrication).",
+  "d06_regolith": "explicit no_coverage for all supported features on both AOIs (official-source audit; no DEM/proxy inference; footprint/depth/support unresolved for AOI).",
+  "generated_at": "2026-11-15T12:00:00+00:00",
+  "scope": "d05-d06-aoi-170",
+  "summary": {
+    "by_body": {
+      "Mars": 9,
+      "Moon": 9
+    },
+    "by_dimension": {
+      "D05": 6,
+      "D06": 12
+    },
+    "by_feature": {
+      "absorbed_dose_gy": 2,
+      "bearing_strength_kpa": 2,
+      "bulk_density_kg_m3": 2,
+      "cohesion_kpa": 2,
+      "friction_angle_deg": 2,
+      "particle_size_distribution": 2,
+      "porosity_fraction": 2,
+      "solar_elevation_deg": 2,
+      "solar_incidence_deg": 2
+    },
+    "by_state": {
+      "detected": 4,
+      "no_coverage": 14
+    },
+    "observations": 18
+  }
+}

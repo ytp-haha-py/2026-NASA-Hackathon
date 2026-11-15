@@ -1,0 +1,57 @@
+{
+  "schema_version": "d05-d06-aoi-registry-1.0.0",
+  "scope": "d05-d06-aoi-170",
+  "notes": [
+    "Bounded AOIs for Goal F (#170). Moon/Mars use planetary frames only.",
+    "Moon AOI reuses Shackleton rim Site04 ROI1 from LOLA reference manifest/pilot.",
+    "Mars AOI reuses Jezero CTX window 01 from CTX reference manifest/pilot."
+  ],
+  "aois": [
+    {
+      "area_id": "moon-shackleton-rim-site04-roi1",
+      "body": "Moon",
+      "display_name": "Shackleton Rim (LOLA Site04 roi1)",
+      "bbox": {
+        "west": -3812.5000520850217,
+        "south": -7647.500121704051,
+        "east": -1812.5000520850217,
+        "north": -5647.500121704051
+      },
+      "crs": "PROJCRS[\"Moon_South_Pole_Stereographic\",BASEGEOGCRS[\"Moon 2000\",DATUM[\"D_Moon_2000\",ELLIPSOID[\"Moon_2000_IAU_IAG\",1737400,0,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"ESRI\",104903]],CONVERSION[\"Moon_South_Pole_Stereographic\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],USAGE[SCOPE[\"Not known.\"],AREA[\"Moon - South Pole\"],BBOX[-90,-180,-80.5,180]],ID[\"ESRI\",103878]]",
+      "coordinate_frame": "lunar_projected",
+      "center": {
+        "latitude_deg": -89.76196621,
+        "longitude_deg": -157.06719662,
+        "body_fixed_frame": "MOON_ME"
+      },
+      "source_area_refs": [
+        "pipelines/planetary/manifests/lola_moon_reference.json#moon-shackleton-rim-site04-roi1",
+        "pipelines/pilots/d05_spice_illumination/plan.json#moon-shackleton-rim-site04-roi1"
+      ],
+      "notes": "2 km projected envelope from LOLA Site04 reference; SPICE geometry computed at centre point in MOON_ME (DE421). Bounded AOI, not exhaustive coverage."
+    },
+    {
+      "area_id": "mars-jezero-ctx-window-01",
+      "body": "Mars",
+      "display_name": "Jezero CTX coordinate window 01",
+      "bbox": {
+        "west": 4349000.0,
+        "south": 1079000.0,
+        "east": 4351000.0,
+        "north": 1081000.0
+      },
+      "crs": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"D_Mars_2000_Sphere\",ELLIPSOID[\"Mars_2000_Sphere_IAU_IAG\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"Degree\",0.0174532925199433]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\"],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"Degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "coordinate_frame": "mars_projected",
+      "center": {
+        "latitude_deg": 18.220253246764436,
+        "longitude_deg": 77.37095200216012,
+        "body_fixed_frame": "IAU_MARS"
+      },
+      "source_area_refs": [
+        "pipelines/planetary/manifests/ctx_mars_references.json#mars-jezero-ctx-window-01",
+        "pipelines/pilots/d05_spice_illumination/plan.json#mars-jezero-ctx-window-01"
+      ],
+      "notes": "2 km projected envelope from Jezero CTX reference; SPICE geometry computed at centre point in IAU_MARS (pck00011/DE421). Bounded AOI, not exhaustive coverage."
+    }
+  ]
+}

@@ -1,0 +1,381 @@
+{
+  "generated_at": "2026-11-15T12:00:00+00:00",
+  "notes": [
+    "Offline extraction plan: tasks describe provenance resolution, not network downloads.",
+    "Values were curated from published PDS/literature tables; the builder never downloads."
+  ],
+  "plan_version": "acquisition-plan-1.0.0",
+  "scope": "d06-regolith-aoi-170",
+  "tasks": [
+    {
+      "area": {
+        "area_id": "mars-insight-hp3-regolith-170",
+        "bbox": {
+          "east": 135.6235,
+          "north": 4.5025,
+          "south": 4.5015,
+          "west": 135.6225
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_2015:49900",
+        "display_name": "InSight HP3/mole site, Elysium Planitia",
+        "notes": "Bounded ~100 m site envelope around the InSight lander/HP3 mole site (4.502 N, 135.623 E). Values describe the upper ~40 cm at the lander site, not an area average."
+      },
+      "body": "Mars",
+      "dataset_id": "delage-2024-insight-soil",
+      "dimension": "D06",
+      "endpoint": "https://doi.org/10.28927/SR.2024.005023",
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "evidence_class": "no_coverage",
+        "feature_id": "bearing_strength_kpa",
+        "source_value_id": "mars-insight-bearing-no-coverage"
+      },
+      "provider_id": "d06-regolith-aoi-evidence",
+      "source_id": "delage-2024-insight-soil",
+      "task_id": "d06-aoi170-mars-mars-insight-hp3-regolith-170-bearing_strength_kpa"
+    },
+    {
+      "area": {
+        "area_id": "mars-insight-hp3-regolith-170",
+        "bbox": {
+          "east": 135.6235,
+          "north": 4.5025,
+          "south": 4.5015,
+          "west": 135.6225
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_2015:49900",
+        "display_name": "InSight HP3/mole site, Elysium Planitia",
+        "notes": "Bounded ~100 m site envelope around the InSight lander/HP3 mole site (4.502 N, 135.623 E). Values describe the upper ~40 cm at the lander site, not an area average."
+      },
+      "body": "Mars",
+      "dataset_id": "delage-2024-insight-soil",
+      "dimension": "D06",
+      "endpoint": "https://doi.org/10.28927/SR.2024.005023",
+      "method_version": "insight-hp3-thermal-conductivity-inversion-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "evidence_class": "model_derived_from_thermal_conductivity",
+        "feature_id": "bulk_density_kg_m3",
+        "source_value_id": "mars-insight-bulk-density-hp3"
+      },
+      "provider_id": "d06-regolith-aoi-evidence",
+      "source_id": "delage-2024-insight-soil",
+      "task_id": "d06-aoi170-mars-mars-insight-hp3-regolith-170-bulk_density_kg_m3"
+    },
+    {
+      "area": {
+        "area_id": "mars-insight-hp3-regolith-170",
+        "bbox": {
+          "east": 135.6235,
+          "north": 4.5025,
+          "south": 4.5015,
+          "west": 135.6225
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_2015:49900",
+        "display_name": "InSight HP3/mole site, Elysium Planitia",
+        "notes": "Bounded ~100 m site envelope around the InSight lander/HP3 mole site (4.502 N, 135.623 E). Values describe the upper ~40 cm at the lander site, not an area average."
+      },
+      "body": "Mars",
+      "dataset_id": "delage-2024-insight-soil",
+      "dimension": "D06",
+      "endpoint": "https://doi.org/10.28927/SR.2024.005023",
+      "method_version": "insight-hp3-scoop-slope-stability-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "evidence_class": "derived_from_in_situ_scoop_push",
+        "feature_id": "cohesion_kpa",
+        "source_value_id": "mars-insight-cohesion-scoop"
+      },
+      "provider_id": "d06-regolith-aoi-evidence",
+      "source_id": "delage-2024-insight-soil",
+      "task_id": "d06-aoi170-mars-mars-insight-hp3-regolith-170-cohesion_kpa"
+    },
+    {
+      "area": {
+        "area_id": "mars-insight-hp3-regolith-170",
+        "bbox": {
+          "east": 135.6235,
+          "north": 4.5025,
+          "south": 4.5015,
+          "west": 135.6225
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_2015:49900",
+        "display_name": "InSight HP3/mole site, Elysium Planitia",
+        "notes": "Bounded ~100 m site envelope around the InSight lander/HP3 mole site (4.502 N, 135.623 E). Values describe the upper ~40 cm at the lander site, not an area average."
+      },
+      "body": "Mars",
+      "dataset_id": "delage-2024-insight-soil",
+      "dimension": "D06",
+      "endpoint": "https://doi.org/10.28927/SR.2024.005023",
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "evidence_class": "no_coverage",
+        "feature_id": "friction_angle_deg",
+        "source_value_id": "mars-insight-friction-no-coverage"
+      },
+      "provider_id": "d06-regolith-aoi-evidence",
+      "source_id": "delage-2024-insight-soil",
+      "task_id": "d06-aoi170-mars-mars-insight-hp3-regolith-170-friction_angle_deg"
+    },
+    {
+      "area": {
+        "area_id": "mars-insight-hp3-regolith-170",
+        "bbox": {
+          "east": 135.6235,
+          "north": 4.5025,
+          "south": 4.5015,
+          "west": 135.6225
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_2015:49900",
+        "display_name": "InSight HP3/mole site, Elysium Planitia",
+        "notes": "Bounded ~100 m site envelope around the InSight lander/HP3 mole site (4.502 N, 135.623 E). Values describe the upper ~40 cm at the lander site, not an area average."
+      },
+      "body": "Mars",
+      "dataset_id": "delage-2024-insight-soil",
+      "dimension": "D06",
+      "endpoint": "https://doi.org/10.28927/SR.2024.005023",
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "evidence_class": "no_coverage",
+        "feature_id": "particle_size_distribution",
+        "source_value_id": "mars-insight-psd-no-coverage"
+      },
+      "provider_id": "d06-regolith-aoi-evidence",
+      "source_id": "delage-2024-insight-soil",
+      "task_id": "d06-aoi170-mars-mars-insight-hp3-regolith-170-particle_size_distribution"
+    },
+    {
+      "area": {
+        "area_id": "mars-insight-hp3-regolith-170",
+        "bbox": {
+          "east": 135.6235,
+          "north": 4.5025,
+          "south": 4.5015,
+          "west": 135.6225
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_planetocentric",
+        "crs": "IAU_2015:49900",
+        "display_name": "InSight HP3/mole site, Elysium Planitia",
+        "notes": "Bounded ~100 m site envelope around the InSight lander/HP3 mole site (4.502 N, 135.623 E). Values describe the upper ~40 cm at the lander site, not an area average."
+      },
+      "body": "Mars",
+      "dataset_id": "delage-2024-insight-soil",
+      "dimension": "D06",
+      "endpoint": "https://doi.org/10.28927/SR.2024.005023",
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "evidence_class": "no_coverage",
+        "feature_id": "porosity_fraction",
+        "source_value_id": "mars-insight-porosity-no-coverage"
+      },
+      "provider_id": "d06-regolith-aoi-evidence",
+      "source_id": "delage-2024-insight-soil",
+      "task_id": "d06-aoi170-mars-mars-insight-hp3-regolith-170-porosity_fraction"
+    },
+    {
+      "area": {
+        "area_id": "moon-apollo15-station8-regolith-170",
+        "bbox": {
+          "east": 3.6303,
+          "north": 26.1346,
+          "south": 26.1336,
+          "west": 3.6293
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_2015:30100",
+        "display_name": "Apollo 15 Station 8 LSRP trench (Hadley-Apennine)",
+        "notes": "Bounded ~100 m site envelope around the Apollo 15 ALSEP/Station 8 LSRP trench. The PSR places the ALSEP at 26.1341 N, 3.6298 E and the LSRP runs next to a ~40 cm trench. Values are site-specific, not an area average."
+      },
+      "body": "Moon",
+      "dataset_id": "nasa-pds-a15lsrp-soil-mechanics",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "evidence_class": "no_coverage",
+        "feature_id": "bearing_strength_kpa",
+        "source_value_id": "moon-a15-station8-bearing-no-coverage"
+      },
+      "provider_id": "d06-regolith-aoi-evidence",
+      "source_id": "nasa-pds-a15lsrp-soil-mechanics",
+      "task_id": "d06-aoi170-moon-moon-apollo15-station8-regolith-170-bearing_strength_kpa"
+    },
+    {
+      "area": {
+        "area_id": "moon-apollo15-station8-regolith-170",
+        "bbox": {
+          "east": 3.6303,
+          "north": 26.1346,
+          "south": 26.1336,
+          "west": 3.6293
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_2015:30100",
+        "display_name": "Apollo 15 Station 8 LSRP trench (Hadley-Apennine)",
+        "notes": "Bounded ~100 m site envelope around the Apollo 15 ALSEP/Station 8 LSRP trench. The PSR places the ALSEP at 26.1341 N, 3.6298 E and the LSRP runs next to a ~40 cm trench. Values are site-specific, not an area average."
+      },
+      "body": "Moon",
+      "dataset_id": "nasa-sp-289-a15-psr-ch7",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/document/a15_psr_ch7_sm.pdf",
+      "method_version": "apollo15-psr-table7iv-srp-reduction-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "evidence_class": "derived_from_in_situ_penetration",
+        "feature_id": "bulk_density_kg_m3",
+        "source_value_id": "moon-a15-station8-bulk-density-srp"
+      },
+      "provider_id": "d06-regolith-aoi-evidence",
+      "source_id": "nasa-sp-289-a15-psr-ch7",
+      "task_id": "d06-aoi170-moon-moon-apollo15-station8-regolith-170-bulk_density_kg_m3"
+    },
+    {
+      "area": {
+        "area_id": "moon-apollo15-station8-regolith-170",
+        "bbox": {
+          "east": 3.6303,
+          "north": 26.1346,
+          "south": 26.1336,
+          "west": 3.6293
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_2015:30100",
+        "display_name": "Apollo 15 Station 8 LSRP trench (Hadley-Apennine)",
+        "notes": "Bounded ~100 m site envelope around the Apollo 15 ALSEP/Station 8 LSRP trench. The PSR places the ALSEP at 26.1341 N, 3.6298 E and the LSRP runs next to a ~40 cm trench. Values are site-specific, not an area average."
+      },
+      "body": "Moon",
+      "dataset_id": "nasa-sp-289-a15-psr-ch7",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/document/a15_psr_ch7_sm.pdf",
+      "method_version": "apollo15-psr-trench-wedge-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "evidence_class": "derived_from_in_situ_trench_failure",
+        "feature_id": "cohesion_kpa",
+        "source_value_id": "moon-a15-station8-cohesion-trench"
+      },
+      "provider_id": "d06-regolith-aoi-evidence",
+      "source_id": "nasa-sp-289-a15-psr-ch7",
+      "task_id": "d06-aoi170-moon-moon-apollo15-station8-regolith-170-cohesion_kpa"
+    },
+    {
+      "area": {
+        "area_id": "moon-apollo15-station8-regolith-170",
+        "bbox": {
+          "east": 3.6303,
+          "north": 26.1346,
+          "south": 26.1336,
+          "west": 3.6293
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_2015:30100",
+        "display_name": "Apollo 15 Station 8 LSRP trench (Hadley-Apennine)",
+        "notes": "Bounded ~100 m site envelope around the Apollo 15 ALSEP/Station 8 LSRP trench. The PSR places the ALSEP at 26.1341 N, 3.6298 E and the LSRP runs next to a ~40 cm trench. Values are site-specific, not an area average."
+      },
+      "body": "Moon",
+      "dataset_id": "nasa-sp-289-a15-psr-ch7",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/document/a15_psr_ch7_sm.pdf",
+      "method_version": "apollo15-psr-table7iv-srp-reduction-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "evidence_class": "derived_from_in_situ_penetration",
+        "feature_id": "friction_angle_deg",
+        "source_value_id": "moon-a15-station8-friction-srp"
+      },
+      "provider_id": "d06-regolith-aoi-evidence",
+      "source_id": "nasa-sp-289-a15-psr-ch7",
+      "task_id": "d06-aoi170-moon-moon-apollo15-station8-regolith-170-friction_angle_deg"
+    },
+    {
+      "area": {
+        "area_id": "moon-apollo15-station8-regolith-170",
+        "bbox": {
+          "east": 3.6303,
+          "north": 26.1346,
+          "south": 26.1336,
+          "west": 3.6293
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_2015:30100",
+        "display_name": "Apollo 15 Station 8 LSRP trench (Hadley-Apennine)",
+        "notes": "Bounded ~100 m site envelope around the Apollo 15 ALSEP/Station 8 LSRP trench. The PSR places the ALSEP at 26.1341 N, 3.6298 E and the LSRP runs next to a ~40 cm trench. Values are site-specific, not an area average."
+      },
+      "body": "Moon",
+      "dataset_id": "nasa-pds-a15lsrp-soil-mechanics",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/",
+      "method_version": "d06-regolith-evidence-audit-0.1.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "evidence_class": "no_coverage",
+        "feature_id": "particle_size_distribution",
+        "source_value_id": "moon-a15-station8-psd-no-coverage"
+      },
+      "provider_id": "d06-regolith-aoi-evidence",
+      "source_id": "nasa-pds-a15lsrp-soil-mechanics",
+      "task_id": "d06-aoi170-moon-moon-apollo15-station8-regolith-170-particle_size_distribution"
+    },
+    {
+      "area": {
+        "area_id": "moon-apollo15-station8-regolith-170",
+        "bbox": {
+          "east": 3.6303,
+          "north": 26.1346,
+          "south": 26.1336,
+          "west": 3.6293
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_planetocentric",
+        "crs": "IAU_2015:30100",
+        "display_name": "Apollo 15 Station 8 LSRP trench (Hadley-Apennine)",
+        "notes": "Bounded ~100 m site envelope around the Apollo 15 ALSEP/Station 8 LSRP trench. The PSR places the ALSEP at 26.1341 N, 3.6298 E and the LSRP runs next to a ~40 cm trench. Values are site-specific, not an area average."
+      },
+      "body": "Moon",
+      "dataset_id": "nasa-sp-289-a15-psr-ch7",
+      "dimension": "D06",
+      "endpoint": "https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-a15lsrp_soil_mechanics/document/a15_psr_ch7_sm.pdf",
+      "method_version": "apollo15-psr-table7iv-srp-reduction-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "evidence_class": "derived_from_in_situ_penetration",
+        "feature_id": "porosity_fraction",
+        "source_value_id": "moon-a15-station8-porosity-srp"
+      },
+      "provider_id": "d06-regolith-aoi-evidence",
+      "source_id": "nasa-sp-289-a15-psr-ch7",
+      "task_id": "d06-aoi170-moon-moon-apollo15-station8-regolith-170-porosity_fraction"
+    }
+  ],
+  "totals": {
+    "areas": 2,
+    "bodies": [
+      "Mars",
+      "Moon"
+    ],
+    "detected": 6,
+    "no_coverage": 6,
+    "tasks": 12
+  }
+}

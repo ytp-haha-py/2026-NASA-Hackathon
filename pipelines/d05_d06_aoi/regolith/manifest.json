@@ -1,0 +1,122 @@
+{
+  "area_count": 2,
+  "asset_count": 8,
+  "blockers": [
+    "Moon PSD: no machine-readable bin/fraction table with basis and depth for the Station 8 AOI.",
+    "Moon bearing strength: only cone penetration resistance is reported; no bearing-capacity conversion applied.",
+    "Mars PSD: no measured site-specific distribution; literature grain-size scalar not converted.",
+    "Mars porosity: no direct porosity; no density-to-porosity conversion without particle density and model.",
+    "Mars friction angle: only an assumed 30 deg model input, not a measurement.",
+    "Mars bearing strength: only mole penetration resistance, not bearing strength.",
+    "Regolith thickness: feature not registered in D06 FEATURES_V2; shared change via #141.",
+    "Soil chemistry: no D06 chemistry feature; APXS values are audit-only."
+  ],
+  "counts": {
+    "by_body": {
+      "Mars": 6,
+      "Moon": 6
+    },
+    "by_feature": {
+      "bearing_strength_kpa": 2,
+      "bulk_density_kg_m3": 2,
+      "cohesion_kpa": 2,
+      "friction_angle_deg": 2,
+      "particle_size_distribution": 2,
+      "porosity_fraction": 2
+    },
+    "by_state": {
+      "detected": 6,
+      "no_coverage": 6
+    },
+    "detected_by_body": {
+      "Mars": 2,
+      "Moon": 4
+    },
+    "explicit_no_coverage": 6,
+    "observations": 12,
+    "real_values": 6
+  },
+  "files": {
+    "README.md": {
+      "bytes": 1456,
+      "sha256": "babca192d033773eba2a80c76eae7c6ae2c2b1fe0f8532d91b9590cdf3b984cd"
+    },
+    "REPORT.md": {
+      "bytes": 7450,
+      "sha256": "7f0f745676a2f23546fbb0470e8decf2998117ef62524b8845f5e8132c05a416"
+    },
+    "__init__.py": {
+      "bytes": 203,
+      "sha256": "8e791c10eb9e4123a317481c1e6734a554b48ea95856c78b4ecc29ed6c126006"
+    },
+    "aoi_results.json": {
+      "bytes": 17066,
+      "sha256": "a07b38cf2a10dfeae04db405805269c34d6e7423f0f3ca02515f731ad1b9ce21"
+    },
+    "aois.json": {
+      "bytes": 2206,
+      "sha256": "3422ef50ee15b5e0721c935f90f0cf2be0cdf2d7e3af95b336df37ef152e6084"
+    },
+    "assets.json": {
+      "bytes": 6007,
+      "sha256": "a803a683acddeaee5cabeb1380b6309d36b942460c3bef693e5313614d5488db"
+    },
+    "audit.json": {
+      "bytes": 8961,
+      "sha256": "5ff78356ae14b0e2fe00210a7772dacc089d224499e6b2e888d29e73000a10ae"
+    },
+    "build_release.py": {
+      "bytes": 24000,
+      "sha256": "070b3b23b4fa32d28c4f65ec114536490b1b877681babd1dd0918141ab026c3f"
+    },
+    "observations.jsonl": {
+      "bytes": 31875,
+      "sha256": "dd352677e4ffcf4d1a49e9bb202d7f8adb2b753301bb0ca1191a8c7770365fc0"
+    },
+    "plan.json": {
+      "bytes": 15817,
+      "sha256": "4e4cb6aa91e51d39cee4011b1658f99a66b420006af24f128bb3756991eeb9a6"
+    },
+    "qa.json": {
+      "bytes": 2913,
+      "sha256": "9c0815d41a9634b47d70b3e1b77548e945330275fcc6acad0cbd8dbb0771276b"
+    },
+    "requests.jsonl": {
+      "bytes": 6999,
+      "sha256": "35c6f4fcaecf8b3eba875ce96c1aa1f5f87655968bc2563c78bc2b11f7bb6335"
+    },
+    "source_values.json": {
+      "bytes": 26864,
+      "sha256": "f0acbb3fc1c3bb3c7255e45c77e52a4c0cf5f6459c716a7ae42a32caf558fb32"
+    },
+    "sources.json": {
+      "bytes": 18365,
+      "sha256": "7b31beb3141b0a4d6ae10dedc07459593f4ebd313b3e852316a7cafef0d7e361"
+    }
+  },
+  "generated_at": "2026-11-15T12:00:00+00:00",
+  "global_claim": false,
+  "notes": [
+    "Portable bounded D06 Moon/Mars regolith AOI release; not a global or exhaustive survey.",
+    "Detected values are published site/sample records with explicit evidence class, depth and uncertainty; no fabricated or zero-filled values.",
+    "No-coverage records are explicit and carry a blocker; no proxy is substituted.",
+    "No raw PDFs, rasters, caches or credentials are committed; only source URLs and SHA-256 checksums."
+  ],
+  "observation_count": 12,
+  "observations_sha256": "dd352677e4ffcf4d1a49e9bb202d7f8adb2b753301bb0ca1191a8c7770365fc0",
+  "plan_sha256": "4e4cb6aa91e51d39cee4011b1658f99a66b420006af24f128bb3756991eeb9a6",
+  "raw": [],
+  "release_version": "d06-regolith-aoi-release-1.0.0",
+  "scope": "d06-regolith-aoi-170",
+  "source_checksums": {
+    "a15lsrp-bundle": null,
+    "apollo15-psr-ch7-ocr-pdf": "87a9efdd93f1d2337f9427d9af9f40cd95cba6756321cdd5c23a9185a8c188bb",
+    "apollo15-psr-ch7-pds-pdf": "7581df975197a76f0c151965f917b8b92606014b921f03c0ed30251a32e9c3d9",
+    "apxs-supplement-csv": "c7e8c6f1067b54e376ab83d615f4720fd3cb2e273e828e3661bc703c5408dd43",
+    "delage2024-insight-soil-pdf": "b07d5502362c94849ad0d860a544b1dffe1a55526fb3decae517f97fe7f02b08",
+    "gasteiner-regolith-csv": "a3320cc90f6b272b35a60231c73034ff14fea1da5960a223eb01d2638cdd68f3",
+    "insight-hp3-tem-bundle": null,
+    "themis-quantitative-ti-mosaic": null
+  },
+  "task_count": 12
+}

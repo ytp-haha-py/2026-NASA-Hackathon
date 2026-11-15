@@ -1,0 +1,358 @@
+{
+  "aoi_evidence": {
+    "mars-jezero-ctx-window-01": {
+      "aoi_attribution": "different_site",
+      "area_id": "mars-jezero-ctx-window-01",
+      "blockers": [
+        "MSL-M-RAD-3-RDR-V1.0: The audited in-situ dose record is measured at Gale Crater, about 3,752 km from the Jezero AOI (great-circle, spherical R=3389.5 km); it is not an AOI observation.",
+        "MSL-M-RAD-3-RDR-V1.0: RAD RDR labels in the audited Sol carry placeholder ROVER_LAT/LON=0.000, so the archived record does not provide a usable per-record position for AOI attribution.",
+        "MSL-M-RAD-3-RDR-V1.0: No spatial mapping from the Gale record to the Jezero AOI is documented or applied; no proxy is substituted.",
+        "MSL-M-RAD-2-EDR-V1.0: EDR is raw event/telemetry data at Gale Crater, not a calibrated absorbed-dose value and not an observation at the Jezero AOI.",
+        "MSL-M-RAD-2-EDR-V1.0: Converting EDR counts to absorbed dose requires the RAD calibration and dose model, which is not selected or applied in this bounded scope."
+      ],
+      "body": "Mars",
+      "coverage_status": "no_coverage",
+      "feature_id": "ionizing_dose_gy",
+      "requested_window": {
+        "end_utc": "2026-03-02T00:00:00Z",
+        "start_utc": "2026-03-01T00:00:00Z"
+      },
+      "sources": [
+        {
+          "coverage_status": "no_coverage",
+          "dataset_id": "MSL-M-RAD-3-RDR-V1.0",
+          "product_kind": "in_situ_surface_dose_rate",
+          "source_id": "pds-msl-rad-rdr",
+          "verification_status": "verified"
+        },
+        {
+          "coverage_status": "no_coverage",
+          "dataset_id": "MSL-M-RAD-2-EDR-V1.0",
+          "product_kind": "in_situ_raw_event_data",
+          "source_id": "pds-msl-rad-edr",
+          "verification_status": "verified"
+        }
+      ],
+      "time_coverage_overlap": true,
+      "typed_state": "no_coverage",
+      "values_produced": 0
+    },
+    "moon-shackleton-rim-site04-roi1": {
+      "aoi_attribution": "orbital_instrument",
+      "area_id": "moon-shackleton-rim-site04-roi1",
+      "blockers": [
+        "LRO-L-CRAT-3-CDR-CALIBRATED-V1.0: CRaTER measures energy deposition in an orbital detector stack, not absorbed dose at a lunar surface AOI.",
+        "LRO-L-CRAT-3-CDR-CALIBRATED-V1.0: No surface dose transport model, detector-to-surface mapping or shielding/geometry model is selected or applied in this scope.",
+        "LRO-L-CRAT-3-CDR-CALIBRATED-V1.0: The archived 'accumulated radiation dosage' housekeeping is instrument dosage, not a surface absorbed or equivalent dose.",
+        "LRO-L-CRAT-2-EDR-RAWDATA-V1.0: EDR is raw orbital event data; no calibrated surface dose at the AOI.",
+        "LRO-L-CRAT-2-EDR-RAWDATA-V1.0: Reduction requires the CRaTER calibration and a surface transport model that are outside this bounded audit.",
+        "LRO-L-CRAT-3/4-DDR-PROCESSED-V1.0: Level-2 products are detector energy deposition and estimated LET, not surface absorbed or equivalent dose.",
+        "LRO-L-CRAT-3/4-DDR-PROCESSED-V1.0: No LET-to-dose transport, geometry or shielding model is applied here."
+      ],
+      "body": "Moon",
+      "coverage_status": "unsupported",
+      "feature_id": "ionizing_dose_gy",
+      "requested_window": {
+        "end_utc": "2026-03-02T00:00:00Z",
+        "start_utc": "2026-03-01T00:00:00Z"
+      },
+      "sources": [
+        {
+          "coverage_status": "unsupported",
+          "dataset_id": "LRO-L-CRAT-3-CDR-CALIBRATED-V1.0",
+          "product_kind": "orbital_detector_energy",
+          "source_id": "pds-lro-crater-cdr",
+          "verification_status": "verified"
+        },
+        {
+          "coverage_status": "unsupported",
+          "dataset_id": "LRO-L-CRAT-2-EDR-RAWDATA-V1.0",
+          "product_kind": "orbital_raw_event_data",
+          "source_id": "pds-lro-crater-edr",
+          "verification_status": "verified"
+        },
+        {
+          "coverage_status": "unsupported",
+          "dataset_id": "LRO-L-CRAT-3/4-DDR-PROCESSED-V1.0",
+          "product_kind": "orbital_deposited_energy_let",
+          "source_id": "pds-lro-crater-ddr",
+          "verification_status": "verified"
+        }
+      ],
+      "time_coverage_overlap": true,
+      "typed_state": "no_coverage",
+      "values_produced": 0
+    }
+  },
+  "checked_at": "2026-11-15T14:12:31.691578+00:00",
+  "conversions_applied": [],
+  "forbidden_conversions": [
+    "flux to dose without detector response and exposure interval",
+    "absorbed dose (Gy) to equivalent dose (Sv) without a documented radiation-weighting model",
+    "orbital detector energy deposition to surface absorbed dose",
+    "in-situ dose at one landing site to a different AOI",
+    "zero-fill or synthetic value substitution"
+  ],
+  "method_version": "d05-aoi-ionizing-radiation-audit-1.0.0",
+  "no_value_ingested": true,
+  "non_claims": [
+    "No ionizing-radiation dose or flux value is claimed for any AOI.",
+    "The audited products are not ingested, averaged, interpolated or converted.",
+    "No global or exhaustive ionizing-radiation coverage is claimed."
+  ],
+  "requested_window": {
+    "end_utc": "2026-03-02T00:00:00Z",
+    "start_utc": "2026-03-01T00:00:00Z"
+  },
+  "scope": "d05-aoi-ionizing-radiation-audit",
+  "sources": [
+    {
+      "aoi_attribution": "different_site",
+      "aoi_coverage_status": "no_coverage",
+      "blockers": [
+        "The audited in-situ dose record is measured at Gale Crater, about 3,752 km from the Jezero AOI (great-circle, spherical R=3389.5 km); it is not an AOI observation.",
+        "RAD RDR labels in the audited Sol carry placeholder ROVER_LAT/LON=0.000, so the archived record does not provide a usable per-record position for AOI attribution.",
+        "No spatial mapping from the Gale record to the Jezero AOI is documented or applied; no proxy is substituted."
+      ],
+      "body": "Mars",
+      "catalog_probe": {
+        "attempts": 1,
+        "bytes_read": 9840,
+        "content_type": "application/vnd.ms-pki.seccat",
+        "error": null,
+        "markers_present": {
+          "MSL-M-RAD-3-RDR-V1.0": true,
+          "START_TIME": true,
+          "STOP_TIME": true
+        },
+        "sha256": "630924fbdfe6bdb8662860f6ca6b267a87ffa855b8a61d071a73866061650e1e",
+        "status": 206,
+        "truncated_at_probe_cap": false,
+        "url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0/CATALOG/RAD_RDR_DS.CAT"
+      },
+      "catalog_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0/CATALOG/RAD_RDR_DS.CAT",
+      "citation": "J. Peterson, S. Rafkin, C. Zeitlin, B. Ehresmann, E. Weigle, S. Jeffers, and D.M. Hassler, MSL MARS RADIATION ASSESSMENT DETECTOR RDR V1.0, MSL-M-RAD-3-RDR-V1.0, NASA Planetary Data System, 2013.",
+      "collection_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0/",
+      "coverage_start": "2011-11-20T18:24:41",
+      "coverage_stop": "2026-03-22T18:01:11",
+      "dataset_id": "MSL-M-RAD-3-RDR-V1.0",
+      "dataset_name": "MSL MARS RADIATION ASSESSMENT DETECTOR RDR",
+      "label_probe": {
+        "attempts": 1,
+        "bytes_read": 65536,
+        "content_type": "",
+        "error": null,
+        "markers_present": {
+          "OBS_000_TOT_DOSE_B": true,
+          "microGray / Hour": true
+        },
+        "purpose": "Product-semantics check only (declared dose-rate columns and units). The values in this file are not ingested.",
+        "sha256": "4b0f2004a009752b27a0b2e4efb669e78a7c7579d243bca334042ab357662ad5",
+        "status": 206,
+        "truncated_at_probe_cap": false,
+        "url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-3-RDR-V1.0/DATA/SOL_04258_04354/RAD_RDR_2024_210_15_23_4258_V00.LBL"
+      },
+      "license": "NASA Planetary Data System public archive data; cite the dataset",
+      "license_url": "https://pds.nasa.gov/",
+      "measured_quantity": "Calibrated surface/cruise dosimetry incl. TOT_DOSE_B and TOT_DOSE_E dose-rate columns",
+      "native_units": [
+        "microGray / Hour"
+      ],
+      "probe_checked_at": "2026-11-15T14:12:31.691578+00:00",
+      "product_kind": "in_situ_surface_dose_rate",
+      "provider": "NASA PDS Geosciences Node / MSL RAD team (SwRI)",
+      "source_id": "pds-msl-rad-rdr",
+      "spatial_support": "In-situ on the MSL/Curiosity rover; official landing site Gale Crater (4.5895 S, 137.4417 E per MSL_MISSION.CAT), about 3,752 km from the Jezero AOI (great-circle, spherical R=3389.5 km)",
+      "subgroup": "ionizing_radiation",
+      "values_ingested": 0,
+      "verification_status": "verified"
+    },
+    {
+      "aoi_attribution": "different_site",
+      "aoi_coverage_status": "no_coverage",
+      "blockers": [
+        "EDR is raw event/telemetry data at Gale Crater, not a calibrated absorbed-dose value and not an observation at the Jezero AOI.",
+        "Converting EDR counts to absorbed dose requires the RAD calibration and dose model, which is not selected or applied in this bounded scope."
+      ],
+      "body": "Mars",
+      "catalog_probe": {
+        "attempts": 1,
+        "bytes_read": 10606,
+        "content_type": "application/vnd.ms-pki.seccat",
+        "error": null,
+        "markers_present": {
+          "MSL-M-RAD-2-EDR-V1.0": true,
+          "START_TIME": true,
+          "STOP_TIME": true
+        },
+        "sha256": "b8be0ba805baddab29b13b526767a589d9c1391ea980d6818db4d744d5fb74c8",
+        "status": 206,
+        "truncated_at_probe_cap": false,
+        "url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-2-EDR-V1.0/CATALOG/RAD_EDR_DS.CAT"
+      },
+      "catalog_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-2-EDR-V1.0/CATALOG/RAD_EDR_DS.CAT",
+      "citation": "S. Rafkin, J. Peterson, C. Zeitlin, B. Ehresmann, E. Weigle, and D.M. Hassler, MSL MARS RADIATION ASSESSMENT DETECTOR EDR V1.0, MSL-M-RAD-2-EDR-V1.0, NASA Planetary Data System, 2013.",
+      "collection_url": "https://pds-ppi.igpp.ucla.edu/data/MSL-M-RAD-2-EDR-V1.0/",
+      "coverage_start": "2023-07-29T21:03:21",
+      "coverage_stop": "2026-03-22T08:29:11",
+      "dataset_id": "MSL-M-RAD-2-EDR-V1.0",
+      "dataset_name": "MSL MARS RADIATION ASSESSMENT DETECTOR EDR",
+      "label_probe": null,
+      "license": "NASA Planetary Data System public archive data; cite the dataset",
+      "license_url": "https://pds.nasa.gov/",
+      "measured_quantity": "Raw/telemetry-reconstructed RAD event data (EDR)",
+      "native_units": [
+        "raw instrument counts"
+      ],
+      "probe_checked_at": "2026-11-15T14:12:31.691578+00:00",
+      "product_kind": "in_situ_raw_event_data",
+      "provider": "NASA PDS Geosciences Node / MSL RAD team",
+      "source_id": "pds-msl-rad-edr",
+      "spatial_support": "In-situ on the MSL/Curiosity rover at Gale Crater",
+      "subgroup": "ionizing_radiation",
+      "values_ingested": 0,
+      "verification_status": "verified"
+    },
+    {
+      "aoi_attribution": "orbital_instrument",
+      "aoi_coverage_status": "unsupported",
+      "blockers": [
+        "CRaTER measures energy deposition in an orbital detector stack, not absorbed dose at a lunar surface AOI.",
+        "No surface dose transport model, detector-to-surface mapping or shielding/geometry model is selected or applied in this scope.",
+        "The archived 'accumulated radiation dosage' housekeeping is instrument dosage, not a surface absorbed or equivalent dose."
+      ],
+      "body": "Moon",
+      "catalog_probe": {
+        "attempts": 1,
+        "bytes_read": 39895,
+        "content_type": "application/vnd.ms-pki.seccat",
+        "error": null,
+        "markers_present": {
+          "LRO-L-CRAT-3-CDR-CALIBRATED-V1.0": true,
+          "START_TIME": true,
+          "STOP_TIME": true
+        },
+        "sha256": "9e2ec77327354f6f8527cb19de7e234111b6d1fa32ec93612a5179fee24612b0",
+        "status": 206,
+        "truncated_at_probe_cap": false,
+        "url": "https://pds-ppi.igpp.ucla.edu/data/LRO-L-CRAT-3-CDR-CALIBRATED-V1.0/CATALOG/LRO_CRAT_L1_DS.CAT"
+      },
+      "catalog_url": "https://pds-ppi.igpp.ucla.edu/data/LRO-L-CRAT-3-CDR-CALIBRATED-V1.0/CATALOG/LRO_CRAT_L1_DS.CAT",
+      "citation": "Spence, H.E., LRO MOON CRATER 3 CALIBRATED ENERGY DATA V1.0, LRO-L-CRAT-3-CDR-CALIBRATED-V1.0, NASA Planetary Data System, 2010.",
+      "collection_url": "https://pds-ppi.igpp.ucla.edu/data/LRO-L-CRAT-3-CDR-CALIBRATED-V1.0/",
+      "coverage_start": "2009-06-29T00:00:00",
+      "coverage_stop": "2026-06-30T23:59:59",
+      "dataset_id": "LRO-L-CRAT-3-CDR-CALIBRATED-V1.0",
+      "dataset_name": "LRO MOON CRATER 3 CALIBRATED ENERGY DATA V1.0",
+      "label_probe": null,
+      "license": "NASA Planetary Data System public archive data; cite the dataset",
+      "license_url": "https://pds.nasa.gov/",
+      "measured_quantity": "Calibrated charged-particle energy depositions and instrument housekeeping (including accumulated instrument dosage)",
+      "native_units": [
+        "detector energy deposition / counts"
+      ],
+      "probe_checked_at": "2026-11-15T14:12:31.691578+00:00",
+      "product_kind": "orbital_detector_energy",
+      "provider": "NASA PDS Planetary Plasma Interactions (PPI) Node / LRO CRaTER",
+      "source_id": "pds-lro-crater-cdr",
+      "spatial_support": "Orbital instrument on LRO; six-detector telescope through shielding. Not a surface measurement at a lunar AOI.",
+      "subgroup": "ionizing_radiation",
+      "values_ingested": 0,
+      "verification_status": "verified"
+    },
+    {
+      "aoi_attribution": "orbital_instrument",
+      "aoi_coverage_status": "unsupported",
+      "blockers": [
+        "EDR is raw orbital event data; no calibrated surface dose at the AOI.",
+        "Reduction requires the CRaTER calibration and a surface transport model that are outside this bounded audit."
+      ],
+      "body": "Moon",
+      "catalog_probe": {
+        "attempts": 1,
+        "bytes_read": 26623,
+        "content_type": "application/vnd.ms-pki.seccat",
+        "error": null,
+        "markers_present": {
+          "LRO-L-CRAT-2-EDR-RAWDATA-V1.0": true,
+          "START_TIME": true,
+          "STOP_TIME": true
+        },
+        "sha256": "db763aac4fae90a67ae5c899b8e5e6d852747d5aa8665c602e93e77ded996b72",
+        "status": 206,
+        "truncated_at_probe_cap": false,
+        "url": "https://pds-ppi.igpp.ucla.edu/data/LRO-L-CRAT-2-EDR-RAWDATA-V1.0/CATALOG/LRO_CRAT_L0_DS.CAT"
+      },
+      "catalog_url": "https://pds-ppi.igpp.ucla.edu/data/LRO-L-CRAT-2-EDR-RAWDATA-V1.0/CATALOG/LRO_CRAT_L0_DS.CAT",
+      "citation": "Spence, H.E., LRO MOON CRATER EDR RAWDATA VERSION 1.0, LRO-L-CRAT-2-EDR-RAWDATA-V1.0, NASA Planetary Data System, 2010.",
+      "collection_url": "https://pds-ppi.igpp.ucla.edu/data/LRO-L-CRAT-2-EDR-RAWDATA-V1.0/",
+      "coverage_start": "2009-06-29T00:00:00",
+      "coverage_stop": "2026-06-30T23:59:59",
+      "dataset_id": "LRO-L-CRAT-2-EDR-RAWDATA-V1.0",
+      "dataset_name": "LRO MOON CRATER EDR RAWDATA VERSION 1.0",
+      "label_probe": null,
+      "license": "NASA Planetary Data System public archive data; cite the dataset",
+      "license_url": "https://pds.nasa.gov/",
+      "measured_quantity": "Raw detector event records (EDR)",
+      "native_units": [
+        "raw instrument counts"
+      ],
+      "probe_checked_at": "2026-11-15T14:12:31.691578+00:00",
+      "product_kind": "orbital_raw_event_data",
+      "provider": "NASA PDS Planetary Plasma Interactions (PPI) Node / LRO CRaTER",
+      "source_id": "pds-lro-crater-edr",
+      "spatial_support": "Orbital LRO CRaTER instrument; not a surface AOI observation",
+      "subgroup": "ionizing_radiation",
+      "values_ingested": 0,
+      "verification_status": "verified"
+    },
+    {
+      "aoi_attribution": "orbital_instrument",
+      "aoi_coverage_status": "unsupported",
+      "blockers": [
+        "Level-2 products are detector energy deposition and estimated LET, not surface absorbed or equivalent dose.",
+        "No LET-to-dose transport, geometry or shielding model is applied here."
+      ],
+      "body": "Moon",
+      "catalog_probe": {
+        "attempts": 1,
+        "bytes_read": 43213,
+        "content_type": "application/vnd.ms-pki.seccat",
+        "error": null,
+        "markers_present": {
+          "CALIBRATED LET DATA": true,
+          "LRO-L-CRAT-3/4-DDR-PROCESSED-V1.0": true
+        },
+        "sha256": "d26b4815e51e9bc1c6bcd6e1c826f2a5bee28af964abe273855b945cb4db9799",
+        "status": 206,
+        "truncated_at_probe_cap": false,
+        "url": "https://pds-ppi.igpp.ucla.edu/data/LRO-L-CRAT-3_4-DDR-PROCESSED-V1.0/CATALOG/LRO_CRAT_L2_DS.CAT"
+      },
+      "catalog_url": "https://pds-ppi.igpp.ucla.edu/data/LRO-L-CRAT-3_4-DDR-PROCESSED-V1.0/CATALOG/LRO_CRAT_L2_DS.CAT",
+      "citation": "Spence, H.E., LRO MOON CRATER 3/4 CALIBRATED LET DATA V1.0, LRO-L-CRAT-3/4-DDR-PROCESSED-V1.0, NASA Planetary Data System, 2010.",
+      "collection_url": "https://pds-ppi.igpp.ucla.edu/data/LRO-L-CRAT-3_4-DDR-PROCESSED-V1.0/",
+      "coverage_start": "2009-06-29T00:00:00",
+      "coverage_stop": "2026-06-30T23:59:59",
+      "dataset_id": "LRO-L-CRAT-3/4-DDR-PROCESSED-V1.0",
+      "dataset_name": "LRO MOON CRATER 3/4 CALIBRATED LET DATA V1.0",
+      "label_probe": null,
+      "license": "NASA Planetary Data System public archive data; cite the dataset",
+      "license_url": "https://pds.nasa.gov/",
+      "measured_quantity": "Per-event deposited energy in six silicon detectors plus estimated LET",
+      "native_units": [
+        "MeV deposited energy",
+        "keV/um LET"
+      ],
+      "probe_checked_at": "2026-11-15T14:12:31.691578+00:00",
+      "product_kind": "orbital_deposited_energy_let",
+      "provider": "NASA PDS Planetary Plasma Interactions (PPI) Node / LRO CRaTER",
+      "source_id": "pds-lro-crater-ddr",
+      "spatial_support": "Orbital LRO CRaTER Level-2 products with spacecraft location/orientation ancillary data; not a surface AOI observation",
+      "subgroup": "ionizing_radiation",
+      "values_ingested": 0,
+      "verification_status": "verified"
+    }
+  ],
+  "subgroup": "ionizing_radiation",
+  "values_produced": 0
+}
