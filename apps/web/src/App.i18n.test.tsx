@@ -38,7 +38,7 @@ async function renderApp(
 ) {
   const fetchMock = installMockFetch(handlers);
   const view = render(<App aoiPollIntervalMs={10} {...props} />);
-  await screen.findByRole("tablist");
+  await screen.findByRole("heading", { name: /Describe a terrain-shape target|描述地形形狀目標/ });
   await applyExampleTarget();
   return { fetchMock, view };
 }
