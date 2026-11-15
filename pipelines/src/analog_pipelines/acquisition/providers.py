@@ -44,6 +44,13 @@ NASA_POWER_PARAMETERS = {
         "kWh m-2 day-1",
     ),
 }
+NASA_POWER_THERMAL_METHOD_VERSION = "nasa-power-thermal-daily-1.0.0"
+NASA_POWER_THERMAL_PARAMETERS = {
+    "T2M": ("surface_air_temperature_2m_c", "degree_Celsius"),
+    "T2M_MAX": ("surface_air_temperature_2m_max_c", "degree_Celsius"),
+    "T2M_MIN": ("surface_air_temperature_2m_min_c", "degree_Celsius"),
+    "TS": ("surface_skin_temperature_c", "degree_Celsius"),
+}
 
 
 class AcquisitionError(RuntimeError):
@@ -88,8 +95,30 @@ class NasaPowerProvider:
     provider_id = "nasa-power"
 
     def discover(self, query: SourceQuery) -> list[SourceRecord]:
-        if query.body != "Earth" or query.dimension != "D05":
+        if query.body != "Earth" or query.dimension not in {"D03", "D05"}:
             return []
+        if query.dimension == "D03":
+            return [
+                SourceRecord(
+                    source_id="nasa-power-daily-point",
+                    provider_id=self.provider_id,
+                    body="Earth",
+                    dimension="D03",
+                    product="NASA POWER Daily Point API",
+                    version="temporal/daily/point",
+                    endpoint=NASA_POWER_ENDPOINT,
+                    license="NASA POWER data are free and open; cite NASA POWER",
+                    license_url="https://power.larc.nasa.gov/docs/services/api/",
+                    native_resolution="approximately 0.5 x 0.625 degree",
+                    observation_kinds=["timeseries"],
+                    comparability="context_only",
+                    notes=(
+                        "Coarse reanalysis/model thermal context. Not a local 1.98 km "
+                        "temperature measurement and not thermal inertia."
+                    ),
+                    metadata={"parameters": sorted(NASA_POWER_THERMAL_PARAMETERS)},
+                )
+            ]
         return [
             SourceRecord(
                 source_id="nasa-power-daily-point",
@@ -121,7 +150,11 @@ class NasaPowerProvider:
                 "version": source.version,
                 "license": source.license,
                 "native_resolution": source.native_resolution,
-                "parameters": sorted(NASA_POWER_PARAMETERS),
+                "parameters": sorted(
+                    NASA_POWER_THERMAL_PARAMETERS
+                    if source.dimension == "D03"
+                    else NASA_POWER_PARAMETERS
+                ),
             },
             blockers=[],
         )
@@ -133,7 +166,13 @@ class NasaPowerProvider:
         source = sources[0]
         start = query.start or "2024-01-01"
         end = query.end or "2024-01-07"
-        parameters = query.parameters.get("parameters") or ",".join(NASA_POWER_PARAMETERS)
+        if query.dimension == "D03":
+            default_parameters = NASA_POWER_THERMAL_PARAMETERS
+            method_version = NASA_POWER_THERMAL_METHOD_VERSION
+        else:
+            default_parameters = NASA_POWER_PARAMETERS
+            method_version = NASA_POWER_METHOD_VERSION
+        parameters = query.parameters.get("parameters") or ",".join(default_parameters)
         tasks: list[AcquisitionTask] = []
         for area in areas:
             if area.body != "Earth":
@@ -152,15 +191,15 @@ class NasaPowerProvider:
             }
             tasks.append(
                 AcquisitionTask(
-                    task_id=f"nasa-power-D05-earth-{area.area_id}-{start}-{end}",
+                    task_id=(f"nasa-power-{query.dimension}-earth-{area.area_id}-{start}-{end}"),
                     provider_id=self.provider_id,
                     source_id=source.source_id,
                     body="Earth",
-                    dimension="D05",
+                    dimension=query.dimension,
                     area=area,
                     endpoint=source.endpoint + "?" + urllib.parse.urlencode(params),
                     parameters=params,
-                    method_version=NASA_POWER_METHOD_VERSION,
+                    method_version=method_version,
                     dataset_id=NASA_POWER_DATASET_ID,
                     expected_bytes=50_000,
                 )
@@ -210,8 +249,11 @@ class NasaPowerProvider:
         if not isinstance(parameter_payload, dict):
             raise AcquisitionError("POWER response has no properties.parameter object")
         observations: list[TypedObservation] = []
+        mapping = (
+            NASA_POWER_THERMAL_PARAMETERS if task.dimension == "D03" else NASA_POWER_PARAMETERS
+        )
         for parameter, series in parameter_payload.items():
-            mapped = NASA_POWER_PARAMETERS.get(parameter)
+            mapped = mapping.get(parameter)
             if mapped is None or not isinstance(series, dict):
                 continue
             feature_id, unit = mapped
@@ -236,7 +278,7 @@ class NasaPowerProvider:
                     ),
                     area_id=task.area.area_id,
                     body="Earth",
-                    dimension_code="D05",
+                    dimension_code=task.dimension,
                     feature_id=feature_id,
                     value_kind="timeseries",
                     state=state,
@@ -278,15 +320,28 @@ class NasaPowerProvider:
                     method_version=NASA_POWER_METHOD_VERSION,
                     dataset_ids=[NASA_POWER_DATASET_ID],
                     source_asset_ids=[f"{task.provider_id}:{task.area.area_id}:{task.task_id}"],
-                    quality_flags=[
-                        "model_or_reanalysis_context",
-                        "coarse_resolution",
-                        "not_a_local_irradiance_measurement",
-                    ],
+                    quality_flags=(
+                        [
+                            "model_or_reanalysis_thermal_context",
+                            "coarse_resolution",
+                            "not_a_local_temperature_measurement",
+                        ]
+                        if task.dimension == "D03"
+                        else [
+                            "model_or_reanalysis_context",
+                            "coarse_resolution",
+                            "not_a_local_irradiance_measurement",
+                        ]
+                    ),
                     score_role="context_only",
                     notes=(
-                        "D05 Earth solar illumination context only. Do not present as a local "
-                        "measurement or combine with ionizing radiation."
+                        "D03 Earth thermal context only. Do not present as a local measurement "
+                        "or derive thermal inertia."
+                        if task.dimension == "D03"
+                        else (
+                            "D05 Earth solar illumination context only. Do not present as a "
+                            "local measurement or combine with ionizing radiation."
+                        )
                     ),
                 )
             )
@@ -297,11 +352,11 @@ class NasaPowerProvider:
     def validate(self, observations: list[TypedObservation]) -> ValidationReport:
         issues: list[ValidationIssue] = []
         for observation in observations:
-            if observation.body != "Earth" or observation.dimension_code != "D05":
+            if observation.body != "Earth" or observation.dimension_code not in {"D03", "D05"}:
                 issues.append(
                     ValidationIssue(
                         code="wrong_body_or_dimension",
-                        message="POWER outputs must be Earth D05",
+                        message="POWER outputs must be Earth D03 or D05",
                         observation_id=observation.observation_id,
                     )
                 )

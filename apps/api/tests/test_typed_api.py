@@ -178,3 +178,31 @@ def test_committed_d06_soilgrids_release_imports_and_queries(tmp_path: Path):
         assert any(row["depth_support"]["max_m"] == 0.05 for row in rows)
         coverage = client.get("/api/v1/typed/coverage").json()
         assert coverage["by_dimension"]["D06"]["total"] == 75
+
+
+def test_committed_d03_power_thermal_release_imports_and_queries(tmp_path: Path):
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'd03.db'}",
+        manifest_dir=str(tmp_path / "none"),
+        manifest_dir_planetary=str(tmp_path / "none"),
+        manifest_dir_context=str(tmp_path / "none"),
+        seed_include_synthetic=False,
+    )
+    app = create_app(settings)
+    with TestClient(app) as client:
+        with app.state.session_factory() as session:
+            result = import_release(session, ROOT / "pipelines/pilots/d03_earth_power")
+            session.commit()
+        assert result["observations"] == 20
+        response = client.get(
+            "/api/v1/typed/observations", params={"dimension": "D03", "body": "Earth"}
+        )
+        assert response.status_code == 200, response.text
+        rows = response.json()
+        assert len(rows) == 20
+        assert {row["state"] for row in rows} == {"detected"}
+        assert {row["score_role"] for row in rows} == {"context_only"}
+        assert {row["unit"] for row in rows} == {"degree_Celsius"}
+        assert {row["spatial_support"]["source_resolution_m"] for row in rows} == {50000.0}
+        coverage = client.get("/api/v1/typed/coverage").json()
+        assert coverage["by_dimension"]["D03"]["total"] == 20

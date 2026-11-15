@@ -271,3 +271,42 @@ def test_soilgrids_plan_and_process_preserve_depth_and_metric_resolution(tmp_pat
     assert observation.depth_support.max_m == 0.05
     assert observation.score_role == "evidence_only"
     assert provider.validate(observations).ok
+
+
+def test_nasa_power_thermal_plan_and_process_are_d03_context(tmp_path: Path):
+    provider = NasaPowerProvider()
+    plan = build_plan(
+        scope="pilot",
+        areas=[_area()],
+        dimensions=["D03"],
+        bodies=["Earth"],
+        provider_ids=["nasa-power"],
+        start="2024-01-01",
+        end="2024-01-02",
+    )
+    assert len(plan.tasks) == 1
+    task = plan.tasks[0]
+    assert task.dimension == "D03"
+    assert "T2M" in task.parameters["parameters"]
+    payload = {
+        "properties": {
+            "parameter": {
+                "T2M": {"20240101": 10.0, "20240102": 12.0},
+                "T2M_MAX": {"20240101": 15.0, "20240102": 17.0},
+            }
+        }
+    }
+    path = tmp_path / "thermal.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    asset = LocalAsset(
+        task_id=task.task_id,
+        path=str(path),
+        sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+        bytes=path.stat().st_size,
+    )
+    observations = provider.process(asset, task)
+    assert {item.dimension_code for item in observations} == {"D03"}
+    assert {item.score_role for item in observations} == {"context_only"}
+    assert {item.unit for item in observations} == {"degree_Celsius"}
+    assert all(item.value["values"] for item in observations)
+    assert provider.validate(observations).ok
