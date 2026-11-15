@@ -127,3 +127,52 @@ registration、CRISM thresholds 等 blocker 逐條列於 `MINERAL_EVIDENCE.md`�
 pyproject／uv.lock／scripts 的 `git diff --exit-code` 均 exit **0**。
 所有變更都是本次新增的 geology package、`pipelines/geology/` 與兩個 geology test files。
 不含 raw raster、SQLite、cache、.env、token 或憑證。
+
+## Area-fraction／evidence pilot（2026-11-15，#41）
+
+本次只新增 D02 area-fraction pilot，不改共用 Snapshot、API、前端、catalog、contracts
+或既有 terrain observations。實際執行：
+
+```bash
+uv run --frozen python -m analog_pipelines.geology.area_fraction --report-only
+uv run --frozen python -m analog_pipelines.geology.area_fraction
+```
+
+`--report-only` 先驗證 registry 與 source record 並印出 summary；正式輸出寫入
+`pipelines/geology/area-fraction/evidence.json`、`evidence.jsonl`、`manifest.json`。
+輸出 29 筆 record、21 筆 area summary；bodies 為 Earth／Mars／Moon。`evidence.json`
+128 KB、`evidence.jsonl` 88 KB，全部為可攜 JSON，不含 raw geometry 或 cache。
+
+```bash
+uv run --frozen pytest pipelines/tests/test_geology.py \
+  pipelines/tests/test_geology_area_fraction.py -o addopts='' -q
+```
+
+實際輸出：`64 passed`（共用環境；GIS 模組 skip）。
+
+```bash
+uv run --frozen --with-requirements pipelines/geology/requirements-ingest.txt \
+  pytest pipelines/tests/test_geology.py pipelines/tests/test_geology_spatial.py \
+  pipelines/tests/test_geology_area_fraction.py \
+  pipelines/tests/test_geology_area_fraction_spatial.py -o addopts='' -q
+```
+
+實際輸出：`76 passed`（含 five 舊 vector tests 與 seven 新 area-fraction spatial tests）。
+
+```bash
+uv run --frozen ruff check .
+uv run --frozen ruff format --check .
+```
+
+實際輸出：`All checks passed!`、`228 files already formatted`。
+
+覆蓋範圍：registry 版本／非互斥、交叉天體 code 不等價、unknown code 明示、
+aqueous alteration 不得由 iron oxide 推論、nearest-neighbour 類別不內插、nodata 與
+class `0` 區分、all-nodata=`no_coverage`（fraction 為 null）、fraction/area 加成、
+`no_coverage`／`license_unverified` 不得 0 填、同 AOI 重疊不重複計 coverage、
+validity 預設排除與 opt-in repair、planetary native CRS 與 Earth WGS84 拒絕、
+deterministic 重跑，以及 similarity／combined score 欄位拒絕。
+
+GLiM 授權查核結果與替代方案見 `pipelines/geology/area-fraction/SOURCE_VERIFICATION.md`
+與 `earth-glim-license.json`：polygon GIS 為 `license_unverified`，不提交幾何或逐單元數值。
+
