@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import {
   ApiError,
+  analyzeArea,
   createRefinePlan,
   errorCode,
   errorMessage,
+  getAreaFeatures,
   getGlobalCandidate,
   getGlobalCoverage,
+  getJob,
   isAbortError,
   searchGlobalCandidates,
   type GlobalCandidateOut,
@@ -13,6 +16,7 @@ import {
   type GlobalSearchRequest,
   type GlobalSearchResponse,
   type GlobalSearchResultOut,
+  type LocationOut,
   type RefinePlanOut,
 } from "../api/client";
 import { SourceText, useI18n } from "../i18n/I18nProvider";
@@ -140,6 +144,19 @@ export function GlobalPanel() {
   const [plan, setPlan] = useState<RefinePlanOut | null>(null);
   const [planError, setPlanError] = useState<string | null>(null);
   const [planning, setPlanning] = useState(false);
+
+  type RefineExecution = {
+    windowId: string;
+    jobId: string | null;
+    status: string;
+    areaId: string | null;
+    features: LocationOut["features"] | null;
+    providers: Record<string, unknown> | null;
+    warnings: string[];
+    error: string | null;
+  };
+  const [execution, setExecution] = useState<RefineExecution | null>(null);
+  const [executing, setExecuting] = useState<string | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -331,6 +348,7 @@ export function GlobalPanel() {
     setPlanning(true);
     setPlanError(null);
     setPlan(null);
+    setExecution(null);
     try {
       const payload = await createRefinePlan({
         candidate_id: selectedId,
@@ -343,6 +361,84 @@ export function GlobalPanel() {
       }
     } finally {
       setPlanning(false);
+    }
+  }
+
+  async function executeWindow(window: RefinePlanOut["windows"][number]) {
+    setExecuting(window.fine_window_id);
+    setExecution({
+      windowId: window.fine_window_id,
+      jobId: null,
+      status: "queued",
+      areaId: null,
+      features: null,
+      providers: null,
+      warnings: [],
+      error: null,
+    });
+    try {
+      const created = await analyzeArea({
+        body: "Earth",
+        bbox: {
+          west: window.bbox_wgs84.west,
+          south: window.bbox_wgs84.south,
+          east: window.bbox_wgs84.east,
+          north: window.bbox_wgs84.north,
+        },
+      });
+      let job = await getJob(created.job_id);
+      let status = job.status;
+      setExecution((current) =>
+        current
+          ? {
+              ...current,
+              jobId: created.job_id,
+              status,
+              areaId: job.area_id ?? created.area_id,
+              providers: job.provider_status ?? created.provider_status ?? null,
+            }
+          : current,
+      );
+      for (let attempt = 0; attempt < 40 && (status === "queued" || status === "running"); attempt += 1) {
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        job = await getJob(created.job_id);
+        status = job.status;
+        setExecution((current) =>
+          current
+            ? {
+                ...current,
+                status,
+                areaId: job.area_id ?? created.area_id,
+                providers: job.provider_status ?? current.providers,
+              }
+            : current,
+        );
+      }
+      const areaId = job.area_id ?? created.area_id;
+      let features: LocationOut["features"] | null = null;
+      if (areaId && (status === "completed" || status === "partial")) {
+        const location = await getAreaFeatures(areaId);
+        features = location.features;
+      }
+      const rawWarnings = job.result?.warnings;
+      setExecution({
+        windowId: window.fine_window_id,
+        jobId: created.job_id,
+        status,
+        areaId,
+        features,
+        providers: job.provider_status ?? created.provider_status ?? null,
+        warnings: Array.isArray(rawWarnings) ? rawWarnings.map(String) : [],
+        error: job.error?.message ?? null,
+      });
+    } catch (caught: unknown) {
+      if (!isAbortError(caught)) {
+        setExecution((current) =>
+          current ? { ...current, status: "failed", error: errorMessage(caught) } : current,
+        );
+      }
+    } finally {
+      setExecuting(null);
     }
   }
 
@@ -932,6 +1028,7 @@ export function GlobalPanel() {
                                 <th scope="col">{t("global.bbox")}</th>
                                 <th scope="col">{t("global.colWindowSize")}</th>
                                 <th scope="col">{t("global.methodVersion")}</th>
+                                <th scope="col">{t("global.colExecution")}</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -952,11 +1049,105 @@ export function GlobalPanel() {
                                   <td>
                                     <code>{window.method_version}</code>
                                   </td>
+                                  <td>
+                                    <button
+                                      type="button"
+                                      className="secondary-button"
+                                      disabled={executing !== null}
+                                      onClick={() => void executeWindow(window)}
+                                    >
+                                      {executing === window.fine_window_id
+                                        ? t("global.executing")
+                                        : t("global.execute")}
+                                    </button>
+                                  </td>
                                 </tr>
                               ))}
                             </tbody>
                           </table>
                         </div>
+
+                        <p className="field-hint">{t("global.executionIntro")}</p>
+
+                        {execution && (
+                          <div className="refine-execution" data-testid="refine-execution">
+                            <h5>{t("global.executionHeading")}</h5>
+                            <p role="status">
+                              {t("global.executionStatus", { status: execution.status })}
+                            </p>
+                            <dl className="facts-grid">
+                              <div>
+                                <dt>{t("global.executionWindow")}</dt>
+                                <dd>
+                                  <code>{execution.windowId}</code>
+                                </dd>
+                              </div>
+                              <div>
+                                <dt>{t("global.executionJob")}</dt>
+                                <dd>
+                                  <code>{execution.jobId ?? t("common.notReported")}</code>
+                                </dd>
+                              </div>
+                              <div>
+                                <dt>{t("global.executionArea")}</dt>
+                                <dd>
+                                  <code>{execution.areaId ?? t("common.notReported")}</code>
+                                </dd>
+                              </div>
+                              <div>
+                                <dt>{t("global.executionProviders")}</dt>
+                                <dd>
+                                  {execution.providers
+                                    ? Object.keys(execution.providers).join(", ")
+                                    : t("common.notReported")}
+                                </dd>
+                              </div>
+                            </dl>
+                            {execution.error && (
+                              <p className="alert alert-error" role="alert">
+                                {t("global.executionFailed")}{" "}
+                                <SourceText>{execution.error}</SourceText>
+                              </p>
+                            )}
+                            {execution.warnings.length > 0 && (
+                              <p className="alert alert-warning" role="status">
+                                {execution.warnings.join(", ")}
+                              </p>
+                            )}
+                            {execution.features && execution.features.length > 0 ? (
+                              <div className="table-scroll">
+                                <table className="metric-table">
+                                  <caption>{t("global.executionResults")}</caption>
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">{t("global.executionFeature")}</th>
+                                      <th scope="col">{t("global.value")}</th>
+                                      <th scope="col">{t("global.unit")}</th>
+                                      <th scope="col">{t("global.methodVersion")}</th>
+                                      <th scope="col">{t("global.validFraction")}</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {execution.features.map((feature) => (
+                                      <tr key={feature.feature_id}>
+                                        <th scope="row">{feature.label}</th>
+                                        <td>{fmt.number(feature.value, 3)}</td>
+                                        <td>{feature.unit}</td>
+                                        <td>
+                                          <code>{feature.method_version}</code>
+                                        </td>
+                                        <td>{fmt.percent(feature.valid_fraction)}</td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </div>
+                            ) : (
+                              <p className="field-hint">{t("global.executionNoFeatures")}</p>
+                            )}
+                            <p className="field-hint">{t("global.executionNote")}</p>
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <p className="field-hint">{t("global.noPlan")}</p>
