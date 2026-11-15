@@ -4,6 +4,17 @@ Status: **implementation in progress, not a completed six-dimension release.** T
 what actually runs against real data, what is only a schema or inventory, and what remains blocked.
 Machine-readable issue state is in [`IMPLEMENTATION_STATUS.json`](IMPLEMENTATION_STATUS.json).
 
+> **#116/#117 update (2026-11-15):** the source records remain evidence-only, but a versioned
+> `feature-eligibility-1.0.0` registry now promotes the four-depth D06 SoilGrids **means** to
+> gated Earth–Earth similarity/hard-filter features. `POST /api/v1/search/multidimensional` returns
+> per-feature/per-dimension contributions; Q05/Q95 remain uncertainty evidence. A real D06 clay
+> target flips the D01-only order of Sahara and Death Valley, with contribution
+> `0.011375347222`. `GET /api/v1/planetary/maps`, `/map-features` and `/coordinate-contract` provide
+> verified Moon/Mars WMTS catalog, overlays and planetocentric coordinates. See
+> [`MULTIDIMENSIONAL_SEARCH.md`](MULTIDIMENSIONAL_SEARCH.md),
+> [`FEATURE_ELIGIBILITY_AUDIT.md`](FEATURE_ELIGIBILITY_AUDIT.md) and
+> [`PLANETARY_MAPS_API.md`](PLANETARY_MAPS_API.md).
+
 ## What changed in this workstream
 
 1. v1→v2 migration now keeps the original v1 WGS84 geometry on Earth Areas, records the analysis
@@ -28,7 +39,7 @@ Machine-readable issue state is in [`IMPLEMENTATION_STATUS.json`](IMPLEMENTATION
 
 | Body | D01 Terrain | D02 Geology/mineralogy | D03 Thermal | D04 Water/ice | D05 Illumination/radiation | D06 Regolith |
 |---|---|---|---|---|---|---|
-| Earth | 113 fine windows, 565 feature observations; **168 real 5 km coarse cells** in 3 pilot regions | **15 evidence-only availability/status records**; 0 shareable GLiM values | **20 NASA POWER thermal context observations** (5 AOIs) | **20 NASA POWER water-context observations** (5 AOIs) | **10 NASA POWER solar context observations**; no ionizing radiation | **300 SoilGrids evidence-only observations** (5 AOIs, 5 properties, 4 depths, mean/Q05/Q95) |
+| Earth | 113 fine windows, 565 feature observations; **168 real 5 km coarse cells** in 3 pilot regions | **15 evidence-only availability/status records**; 0 shareable GLiM values | **20 NASA POWER thermal context observations** (5 AOIs) | **20 NASA POWER water-context observations** (5 AOIs) | **10 NASA POWER solar context observations**; no ionizing radiation | **300 SoilGrids observations** (5 AOIs, 5 properties, 4 depths, mean/Q05/Q95); 20 mean features gated for query similarity, 40 quantiles uncertainty-only |
 | Moon | 18 fine reference windows; **4 planetary coarse evidence cells** (not cross-body ranked) | **3 evidence records**: map units/process/availability; 0 verified quantitative minerals | **36 Diviner brightness-temperature observations** (2 local-time bins; 26 detected, 7 no-coverage, 3 unknown) | **53 LP NS/Mini-RF evidence observations** (WEH wt%, CPR; no confirmed ice) | **8 SPICE model-geometry observations** | No observations (`no_coverage`) |
 | Mars | 5 fine reference windows; **4 CTX + 2 MOLA planetary coarse evidence cells** (MOLA not comparable) | **38 evidence records**: 10 map units + 4 process + 14 CRISM context; 10 unknown mineral states; 0 verified quantitative minerals | **5 THEMIS thermal-inertia observations** (Jezero windows) | **2 HEND epithermal neutron-flux observations** (hydrogen proxy; no WEH/ice claim) | **10 SPICE model-geometry observations** | No observations (`no_coverage`) |
 
@@ -47,7 +58,7 @@ zero-filled and are not reported as negative detections.
 | D03 Mars THEMIS | Evidence-only apparent thermal inertia; ~20% absolute accuracy, no per-pixel uncertainty, 60° latitude limit |
 | D04 Earth POWER | Context-only; soil wetness, snow depth and precipitation; no confirmed ice |
 | D04 Moon/Mars | Evidence-only WEH/CPR/neutron-flux proxies; no confirmed ice detection and no D04 score |
-| D06 Earth SoilGrids | Evidence-only; 250 m model predictions at four depths (300 records), not local samples |
+| D06 Earth SoilGrids | Source records evidence-only; registry `feature-eligibility-1.0.0` promotes the 20 depth-specific means to gated Earth–Earth similarity/hard filters (exact area id, same method/depth/unit/bbox, state detected). Q05/Q95 are uncertainty evidence; 250 m model support is not 90 m terrain support. |
 | D06 Moon/Mars | `no_coverage`; no public sample/PDS measurement registered |
 | D05 Earth POWER | Context-only; coarse model/reanalysis, not local irradiance |
 | D05 Moon/Mars SPICE | Model-only solar incidence/elevation; no observed irradiance, horizon/shadow, or radiation |
