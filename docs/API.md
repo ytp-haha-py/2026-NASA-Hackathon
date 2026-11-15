@@ -504,7 +504,11 @@ The response also carries `join_audit` (`proximity_join_used=false`) and `audit_
     "slope_mean_deg": {"value": 10, "weight": 1},
     "soil_clay_0_5cm_mean": {"value": 200, "weight": 1}
   },
-  "filters": {"soil_clay_0_5cm_mean": {"min": 100, "max": 300}},
+  "filters": {
+    "soil_clay_0_5cm_mean": {"min": 100, "max": 300},
+    "surface_air_temperature_2m_c": {"max": 10}
+  },
+  "category_filters": {"geologic_unit": ["Redwall Limestone"]},
   "limit": 10,
   "offset": 0,
   "include_evidence": true,
@@ -514,9 +518,17 @@ The response also carries `join_audit` (`proximity_join_used=false`) and `audit_
 
 - Only registry features with `roles.similarity.supported=true` may be targets. Evidence-only
   targets return `422 feature_role_not_scoreable` with legal roles and a reason.
-- Only features with `roles.hard_filter.supported=true` may be filters.
-- A positive-weight missing/gated feature excludes a candidate with explicit reasons. A zero-weight
+- Only features with `roles.hard_filter.supported=true` may be range `filters`. Issue #170 adds ten
+  Earth-only coarse D03/D04/D05 context fields whose filter value is the stored 2024-01-01..07
+  period mean; they are never similarity targets.
+- Only features with `roles.category_match.supported=true` may be sent in `category_filters`. Today
+  this is Earth `geologic_unit`, matching a stored source label exactly (3/113 coverage). It is a
+  dropdown, not a taxonomy crosswalk.
+- A positive-weight missing/gated feature excludes a candidate with explicit reasons. A missing
+  filter value excludes it as `missing_filter:<id>`. Neither is ever filled with zero. A zero-weight
   feature is never compared and never excludes.
+- Filters only select the candidate set: a retained candidate's `distance` and relative rank are
+  unchanged from the unfiltered query.
 - The response returns `distance`, `distance_scope`, `dimension_contributions`,
   per-feature `contributions` (target, candidate, delta, scale, weight, normalized delta,
   contribution, contribution fraction, observation id, selector, support, uncertainty), `coverage`,
@@ -526,7 +538,8 @@ The response also carries `join_audit` (`proximity_join_used=false`) and `audit_
 - Moon/Mars references can use D01, but Earth-only D06 targets are rejected with
   `422 body_out_of_scope` (`reason: cross_body_incompatible`).
 
-See [`MULTIDIMENSIONAL_SEARCH.md`](MULTIDIMENSIONAL_SEARCH.md) and
+See [`MULTIDIMENSIONAL_SEARCH.md`](MULTIDIMENSIONAL_SEARCH.md),
+[`D02_D05_CONTROLS_170.md`](D02_D05_CONTROLS_170.md) and
 [`FEATURE_ELIGIBILITY_AUDIT.md`](FEATURE_ELIGIBILITY_AUDIT.md).
 
 ## Planetary maps (Issue #117)
