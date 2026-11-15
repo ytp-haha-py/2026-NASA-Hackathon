@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ThemeToggle } from "./components/ThemeToggle";
 import {
   ApiError,
@@ -23,10 +23,17 @@ import type { SearchSubmission, SearchTargetPreset } from "./lib/search-types";
 import { AoiForm } from "./components/AoiForm";
 import { AoiWorkspace } from "./components/AoiWorkspace";
 import { DetailPanel } from "./components/DetailPanel";
+import { GlobalPanel } from "./components/GlobalPanel";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { MapPanel } from "./components/MapPanel";
 import { ResultsPanel } from "./components/ResultsPanel";
 import { SearchForm } from "./components/SearchForm";
+import {
+  SixDimensionPanel,
+  fineValuesFromReference,
+  fineValuesFromSearchResult,
+  type SixDimensionTarget,
+} from "./components/SixDimensionPanel";
 import { SourcesAndMethods } from "./components/SourcesAndMethods";
 
 type SearchErrorState = {
@@ -36,7 +43,7 @@ type SearchErrorState = {
   details: { [key: string]: unknown }[];
 };
 
-type AnalysisPanel = "search" | "aoi";
+type AnalysisPanel = "search" | "aoi" | "dimensions" | "global";
 
 type AppProps = {
   aoiPollIntervalMs?: number;
@@ -72,6 +79,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const [searchError, setSearchError] = useState<SearchErrorState | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [activeTarget, setActiveTarget] = useState<NumericTarget>({});
+  const [selectedReference, setSelectedReference] = useState<ReferenceOut | null>(null);
   const searchController = useRef<AbortController | null>(null);
 
   useEffect(() => {
@@ -175,6 +183,32 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const selectedResult: SearchResultOut | null =
     searchResponse?.results.find((result) => result.location_id === selectedId) ?? null;
 
+  const sixDimensionTargets = useMemo<SixDimensionTarget[]>(() => {
+    const targets: SixDimensionTarget[] = [];
+    if (selectedResult) {
+      targets.push({
+        id: selectedResult.location_id,
+        label: selectedResult.display_name,
+        kind: "candidate",
+        body: "Earth",
+        fineValues: fineValuesFromSearchResult(
+          selectedResult.metrics,
+          capabilities?.features ?? [],
+        ),
+      });
+    }
+    if (selectedReference) {
+      targets.push({
+        id: selectedReference.reference_id,
+        label: selectedReference.display_name,
+        kind: "reference",
+        body: selectedReference.body,
+        fineValues: fineValuesFromReference(selectedReference.features),
+      });
+    }
+    return targets;
+  }, [selectedResult, selectedReference, capabilities?.features]);
+
   function handleUseAoiAsTarget(values: NumericTarget) {
     presetNonce.current += 1;
     setSearchPreset({
@@ -230,6 +264,28 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                   onClick={() => setActivePanel("aoi")}
                 >
                   {t("app.tabAoi")}
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  id="tab-dimensions"
+                  aria-selected={activePanel === "dimensions"}
+                  aria-controls="panel-dimensions"
+                  className={activePanel === "dimensions" ? "is-active" : ""}
+                  onClick={() => setActivePanel("dimensions")}
+                >
+                  {t("app.tabDimensions")}
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  id="tab-global"
+                  aria-selected={activePanel === "global"}
+                  aria-controls="panel-global"
+                  className={activePanel === "global" ? "is-active" : ""}
+                  onClick={() => setActivePanel("global")}
+                >
+                  {t("app.tabGlobal")}
                 </button>
               </div>
             )}
@@ -305,6 +361,7 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 contextFeatures={capabilities.context_features}
                 references={references}
                 referencesError={referencesError}
+                onReferenceChange={setSelectedReference}
                 onSearch={handleSearch}
                 loading={searching}
                 preset={searchPreset}
@@ -402,6 +459,32 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                   onUseAsTarget={handleUseAoiAsTarget}
                 />
               )}
+            </div>
+
+            <div
+              role="tabpanel"
+              id="panel-dimensions"
+              aria-labelledby="tab-dimensions"
+              className="panel-stack"
+              hidden={activePanel !== "dimensions"}
+            >
+              {activePanel === "dimensions" && (
+                <SixDimensionPanel
+                  features={capabilities.features}
+                  datasets={datasets}
+                  targets={sixDimensionTargets}
+                />
+              )}
+            </div>
+
+            <div
+              role="tabpanel"
+              id="panel-global"
+              aria-labelledby="tab-global"
+              className="panel-stack"
+              hidden={activePanel !== "global"}
+            >
+              {activePanel === "global" && <GlobalPanel />}
             </div>
 
             <details className="about-panel">

@@ -1,14 +1,27 @@
 import { vi } from "vitest";
-import type { AoiAnalyzeRequest, ReferenceOut, SearchRequest } from "../api/client";
+import type {
+  AoiAnalyzeRequest,
+  GlobalSearchRequest,
+  ReferenceOut,
+  RefinePlanRequest,
+  SearchRequest,
+} from "../api/client";
 import {
   analyzeQueuedFixture,
   aoiLocationFixture,
   capabilitiesFixture,
   contextFixture,
   datasetFixture,
+  dimensionsFixture,
+  globalCandidateFixture,
+  globalCoverageFixture,
+  globalSearchResponseFixture,
   jobCompletedFixture,
   locationFixture,
+  refinePlanFixture,
   searchResponseFixture,
+  typedAreaFixture,
+  typedCoverageFixture,
 } from "./fixtures";
 
 export function jsonResponse(body: unknown, status = 200): Response {
@@ -37,6 +50,9 @@ export type FetchHandlers = {
   references?: ResponseFactory;
   datasets?: ResponseFactory;
   dimensions?: ResponseFactory;
+  typedCoverage?: ResponseFactory;
+  typedObservations?: ResponseFactory<[string]>;
+  typedArea?: ResponseFactory<[string]>;
   search?: ResponseFactory<[SearchRequest]>;
   location?: ResponseFactory<[string]>;
   context?: ResponseFactory<[string, string | null]>;
@@ -44,6 +60,10 @@ export type FetchHandlers = {
   job?: ResponseFactory<[string]>;
   areaFeatures?: ResponseFactory<[string]>;
   compare?: ResponseFactory<[string]>;
+  globalCoverage?: ResponseFactory;
+  globalSearch?: ResponseFactory<[GlobalSearchRequest]>;
+  globalCandidate?: ResponseFactory<[string]>;
+  refinePlan?: ResponseFactory<[RefinePlanRequest]>;
 };
 
 function urlOf(input: string | URL | Request): string {
@@ -79,20 +99,34 @@ export function installMockFetch(handlers: FetchHandlers = {}) {
     if (url.endsWith("/api/v1/dimensions")) {
       return handlers.dimensions
         ? await handlers.dimensions()
-        : jsonResponse({
-            contract_version: "1.0.0",
-            method_version: "terrain-metrics-1.0.0",
-            dimensions: [
-              {
-                dimension_id: "terrain_shape",
-                label: "Terrain shape",
-                description: "Local terrain shape.",
-                score_role: "similarity",
-                features: [],
-              },
-            ],
-            context_features: capabilitiesFixture.context_features,
-          });
+        : jsonResponse(dimensionsFixture);
+    }
+
+    if (url.endsWith("/api/v1/typed/coverage")) {
+      return handlers.typedCoverage
+        ? await handlers.typedCoverage()
+        : jsonResponse(typedCoverageFixture);
+    }
+
+    if (url.includes("/api/v1/typed/areas/")) {
+      const match = url.match(/\/api\/v1\/typed\/areas\/([^/?]+)$/);
+      const areaId = decodeURIComponent(match?.[1] ?? "");
+      return handlers.typedArea
+        ? await handlers.typedArea(areaId)
+        : jsonResponse({ ...typedAreaFixture, area_id: areaId });
+    }
+
+    if (url.includes("/api/v1/typed/observations")) {
+      const parsed = new URL(url, "http://localhost");
+      const dimension = parsed.searchParams.get("dimension") ?? "";
+      const observations = dimension
+        ? typedAreaFixture.observations.filter(
+            (observation) => observation.dimension_code === dimension,
+          )
+        : typedAreaFixture.observations;
+      return handlers.typedObservations
+        ? await handlers.typedObservations(dimension)
+        : jsonResponse(observations);
     }
 
     if (url.endsWith("/api/v1/areas/analyze")) {
@@ -129,6 +163,34 @@ export function installMockFetch(handlers: FetchHandlers = {}) {
       return handlers.search
         ? await handlers.search(body)
         : jsonResponse(searchResponseFixture);
+    }
+
+    if (url.endsWith("/api/v1/global/coverage")) {
+      return handlers.globalCoverage
+        ? await handlers.globalCoverage()
+        : jsonResponse(globalCoverageFixture);
+    }
+
+    if (url.endsWith("/api/v1/global/search")) {
+      const body = JSON.parse(String(init?.body ?? "{}")) as GlobalSearchRequest;
+      return handlers.globalSearch
+        ? await handlers.globalSearch(body)
+        : jsonResponse(globalSearchResponseFixture);
+    }
+
+    if (url.includes("/api/v1/global/candidates/")) {
+      const match = url.match(/\/api\/v1\/global\/candidates\/([^/?]+)$/);
+      const candidateId = decodeURIComponent(match?.[1] ?? "");
+      return handlers.globalCandidate
+        ? await handlers.globalCandidate(candidateId)
+        : jsonResponse(globalCandidateFixture(candidateId));
+    }
+
+    if (url.endsWith("/api/v1/global/refine-plan")) {
+      const body = JSON.parse(String(init?.body ?? "{}")) as RefinePlanRequest;
+      return handlers.refinePlan
+        ? await handlers.refinePlan(body)
+        : jsonResponse({ ...refinePlanFixture, candidate_id: body.candidate_id });
     }
 
     if (url.includes("/context")) {

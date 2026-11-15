@@ -41,6 +41,9 @@ make data-demo             # offline demo index from the pinned snapshot
 make data-validate         # snapshot/manifest checksums
 make data-rebuild-index    # verify snapshot + rebuild ./var/analog.db
 make data-analyze-aoi WEST=-6.617 SOUTH=37.682 EAST=-6.600 NORTH=37.699
+make db-audit              # SQLite/Parquet/raw/cache/R2 storage audit (separate layers)
+make db-backup-drill       # backup -> restore -> rebuild on copies; never resets DB
+make db-benchmark-coarse ROWS=100000   # synthetic; not real global coverage
 bash scripts/backend_acceptance.sh  # offline six-dimension/global backend acceptance
 ```
 

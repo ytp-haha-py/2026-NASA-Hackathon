@@ -43,6 +43,8 @@ type SearchFormProps = {
   contextFeatures: ContextFeatureOut[];
   references: ReferenceOut[];
   referencesError: string | null;
+  /** Notifies the app shell which reference is active for the six-dimension panel. */
+  onReferenceChange?: (reference: ReferenceOut | null) => void;
   onSearch: (submission: SearchSubmission) => void;
   loading: boolean;
   preset?: SearchTargetPreset | null;
@@ -121,6 +123,7 @@ export function SearchForm({
   contextFeatures,
   references,
   referencesError,
+  onReferenceChange,
   onSearch,
   loading,
   preset = null,
@@ -167,6 +170,10 @@ export function SearchForm({
     (selectedReference.dataset_id.toLowerCase().includes("lola") ||
       selectedReference.notes?.toLowerCase().includes("lola") === true);
   const referenceTarget = useMemo(() => referenceValues(selectedReference), [selectedReference]);
+
+  useEffect(() => {
+    onReferenceChange?.(body !== "custom" ? (selectedReference ?? null) : null);
+  }, [body, selectedReference, onReferenceChange]);
 
   const availableBodies = useMemo(
     () => new Set(references.map((reference) => reference.body)),

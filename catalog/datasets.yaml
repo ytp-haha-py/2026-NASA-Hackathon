@@ -112,30 +112,64 @@ datasets:
     as an independent measurement. The 90 m analysis window is a local reference sample.
   processing_version: terrain-flat-extension-1.0.0
 - dataset_id: mars-mola-megdr
-  role: mars_reference_future
-  status: planned
+  role: mars_terrain_metadata
+  status: in_progress
   provider: NASA PDS Geosciences Node / MGS MOLA
-  product_id: null
-  version: null
+  product_id: urn:nasa:pds:mgs_mola_topography_derived:data_meg016:megt90n000eb
+  version: PDS4 product 1.1, bundle 1.0 (PDS3 MGS-M-MOLA-5-MEGDR-L3-V1.0)
   title: Mars Orbiter Laser Altimeter (MOLA) gridded topography (MEGDR)
   official_urls:
   - https://pds-geosciences.wustl.edu/missions/mgs/megdr.html
-  coverage: Not assessed in this repository.
-  native_resolution_m: null
-  source_crs: null
-  vertical_reference: null
-  temporal: null
+  - https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg016/megt90n000eb.xml
+  coverage: Global median topography grids (16 ppd file; 128 ppd tiles). No bounded ROI was selected
+    or processed.
+  native_resolution_m: 3704.4613374
+  source_crs: Equirectangular, planetocentric, positive east, sphere R = 3396000 m
+  vertical_reference: Planetary radius minus the GMM3 (mgm1025) areoid, metres
+  temporal: MOLA observations 1997-09-15 to 2001-06-30; static derived grid
   license: not_verified
-  license_url: null
+  license_url: https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/mgs_mola_topography_derived_bundle.xml
   attribution: not_verified
-  access: PDS archive; authentication and exact product version have not been verified by this repository.
-  authentication: not_verified
-  redistribution: not_verified
+  access: Public PDS4 bundle. Metadata (33,177,600-byte MEG016 product; 129,761,280-byte MEG128 tile)
+    was inspected, but no raster was downloaded or processed.
+  authentication: None (public PDS).
+  redistribution: not_verified; the PDS4 bundle label does not state a redistribution licence.
   verified_against:
     manifest: null
-    access_timestamp: null
-  limitations: MOLA remains planned and is not imported. Current Mars observations instead use the separately
-    catalogued real Jezero CTX DEM.
+    access_timestamp: '2026-11-15T00:00:00Z'
+  limitations: MEGDR native support is 3.704 km/pixel at 16 ppd and 0.463 km/pixel at 128 ppd,
+    coarser than the 90 m terrain method, and no-observation bins are interpolated. No Mars MOLA
+    reference value is claimed. Current Mars observations use the separately catalogued Jezero CTX DEM.
+- dataset_id: usgs-mars-themis-global-thermal-inertia
+  role: mars_thermal_evidence
+  status: in_progress
+  provider: USGS Astrogeology Science Center / Arizona State University / NASA MDAP
+  product_id: THEMIS_TI_Mosaic_Quant_30N000E_100mpp
+  version: Edition 1, published 2014-05-30
+  title: Mars THEMIS-Derived Global Thermal Inertia Mosaic, quantitative 32-bit
+  official_urls:
+  - https://astrogeology.usgs.gov/search/map/mars-themis-derived-global-thermal-inertia-mosaic
+  - https://astrogeology.usgs.gov/search/map/themis_thermal_inertia_mosaic_quantitative_30n000e_100mpp
+  coverage: 24 tiles of 30 x 60 degrees covering 60S to 60N; no polar coverage beyond 60 degrees.
+  native_resolution_m: 100.0
+  source_crs: Simple cylindrical, planetocentric, positive east, radius A 3396190 m
+  vertical_reference: not_applicable
+  temporal: Apparent thermal inertia is time-independent by definition; per-tile acquisition/season
+    metadata has not been validated.
+  license: Public domain (USGS Astrogeology access constraints); please cite authors
+  license_url: https://astrogeology.usgs.gov/search/map/themis_thermal_inertia_mosaic_quantitative_30n000e_100mpp
+  attribution: Fergason, R.L., Christensen, P.R., Kieffer, H.H. (2006), J. Geophys. Res. 111,
+    E12004, doi:10.1029/2006JE002735
+  access: Official USGS/Astropedia product page and representative 2,532,510,198-byte ISIS3 .cub
+    tile URL inspected. No tile was downloaded.
+  authentication: None (public download).
+  redistribution: Derived numeric values are not committed; no observation exists.
+  verified_against:
+    manifest: null
+    access_timestamp: '2026-11-15T00:00:00Z'
+  limitations: Evidence only. No approved D03 thermal-inertia similarity feature, no per-pixel
+    uncertainty or QA layer, and no committed observation. Absolute accuracy about 20%; relative
+    accuracy within one image about 10%.
 - dataset_id: mars2020-jezero-ctx-dem-20m
   role: mars_reference
   status: verified

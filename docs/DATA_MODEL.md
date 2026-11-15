@@ -2,7 +2,8 @@
 
 The MVP uses SQLite through SQLAlchemy 2. The storage adapter maps rows to domain dataclasses, so
 the API and scoring code do not import ORM objects. `ports/repository.py` defines the narrow
-Protocols that a PostGIS adapter would implement later.
+Protocols implemented by both the default SQLite adapter and the optional PostGIS adapter
+(`docs/POSTGIS.md`; code and offline contract tests exist, but no PostGIS deployment is verified).
 
 ## Tables
 
@@ -85,6 +86,28 @@ Key/value rows. `data_version` is a deterministic SHA-256 prefix over the canoni
 manifests; `seeded_at` records the seed time. `data_version` changes when observations or provenance
 change, so a stale UI can detect a different index.
 
+`schema_version` is a monotonic integer owned by `adapters/schema.py`. A database stamped by a
+newer build is rejected before `create_all`, seeding, or `--reset`; the older binary never
+downgrades user data. Legacy databases without a stamp are treated as the current additive schema
+and are stamped after the next successful seed/startup. New tables/columns must bump
+`SCHEMA_VERSION`; removing or renaming a persisted column requires an explicit migration.
+
+### Sparse typed observations (v2)
+
+`typed_observations` stores **one row per present observation**. It is not a dense
+area × dimension × feature matrix and missing sources are never materialised as null rows.
+An unavailable provider is represented by dataset/provider status and explicit `unknown` states,
+not by fabricated zero/NaN observations. This keeps the 181 real typed rows in the current runtime
+database small and avoids turning a sparse evidence catalogue into a six-dimension cross-product.
+
+Current query indexes: the primary key (`observation_id`) and `feature_id`. `area_id`,
+`body`/`dimension_code`, and coverage grouping have **no extra index yet** because the real
+database is far below the measured threshold; the synthetic 100k/1M measurement is recorded in
+`docs/DB_CAPACITY_REPORT.md`. Re-run
+`uv run python scripts/benchmark_typed_observations.py --rows 1000000` before adding indexes.
+Importing/upserting sparse rows is write-light, so an index is only justified when measured query
+latency crosses the documented threshold.
+
 ## Quality and separation rules
 
 - **Source-observed facts** live in `datasets`, candidate metadata, and observations. The API never
@@ -110,7 +133,29 @@ Manifests are validated by Pydantic (`domain/manifest.py`) before persistence. T
 `seed_manifests(reset=True)` now clears only the derived scientific index. It preserves
 on-demand AOIs, their feature/context observations, `analysis_jobs`, typed v2 tables, and
 datasets still referenced by those rows. It never calls `drop_all` on the runtime schema.
-Regression coverage: `pipelines/tests/test_sqlite_safety.py`.
+Regression coverage: `pipelines/tests/test_sqlite_safety.py` and
+`pipelines/tests/test_db_capacity.py`.
+
+### Backup, restore, and rebuild drill
+
+```bash
+# Consistent online backup + SHA-256 sidecar; the source is opened read-only.
+uv run python scripts/db_backup.py backup --source var/analog.db --output /tmp/analog-backup.db
+
+# Verify SHA-256/integrity, then restore atomically (refuses to overwrite without --overwrite).
+uv run python scripts/db_backup.py restore --backup /tmp/analog-backup.db \
+  --destination /tmp/restored.db
+
+# Backup -> restore -> baseline rebuild on copies; fails if runtime/user rows change.
+uv run python scripts/db_backup.py drill --source var/analog.db
+
+# Storage inventory (SQLite, Parquet, raw/cache, R2 kept separate).
+uv run python scripts/db_audit.py
+```
+
+The rebuild step re-verifies the pinned snapshot before touching the restored copy. Runtime
+SQLite/user state is preserved by `_reset_scientific_index`; the source database is never
+reset by the drill.
 
 MVP schema creation is `Base.metadata.create_all`. Before evolving columns in a persistent
 deployment, add Alembic:
@@ -121,5 +166,7 @@ uv run alembic init apps/api/alembic
 # configure sqlalchemy.url from ANALOG_DATABASE_URL, autogenerate, review, then upgrade head
 ```
 
-The API must never depend on SQLite-specific SQL. A PostGIS adapter replaces
-`adapters/repository.py` and `adapters/seed.py` while preserving the same Protocol methods.
+The API must never depend on SQLite-specific SQL. The optional PostGIS adapter implements the
+same Protocols and preserves entity results (`docs/POSTGIS.md`); it has not been verified against
+a live deployment. Deployment still needs a PostgreSQL/PostGIS service, Alembic migrations, a
+spatial index, and a backup/restore runbook.

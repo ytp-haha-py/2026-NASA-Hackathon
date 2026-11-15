@@ -121,6 +121,23 @@ dimensions:
             comparability: comparable
             notes: "Only five Jezero CTX windows; no Mars global coverage."
             unknown_fields: []
+          - source_id: pds4-mgs-mola-megdr
+            provider: NASA PDS Geosciences Node / MGS MOLA
+            product: MGS MOLA Topography Derived bundle, MEGDR topography (PDS4 product 1.1)
+            url: https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg016/megt90n000eb.xml
+            license: not_verified
+            license_url: https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/mgs_mola_topography_derived_bundle.xml
+            native_resolution: 3.704 km/pixel (16 ppd); 0.463 km/pixel (128 ppd tiles)
+            spatial_support: Global median topography grids; not a local 1.98 km DEM
+            temporal_support: Static topography, MOLA observations 1997-2001
+            depth_support: Surface only
+            observation_kinds: [numeric]
+            qa: Interpolated bins where no observations; no per-window vertical uncertainty verified
+            availability: identified
+            data_status: not_fetched
+            comparability: not_comparable
+            notes: "Metadata verified against the PDS4 bundle/product labels; native support is far coarser than 90 m, so no Mars MOLA reference value is claimed. Licence not stated in the PDS4 bundle."
+            unknown_fields: [license, qa, vertical_uncertainty]
   - code: D02
     name: Geology & Mineralogy
     research_question: "地表由什麼岩石與礦物構成？"
@@ -245,7 +262,7 @@ dimensions:
     research_question: "地表具有什麼溫度及熱物理環境？"
     subgroups: [surface_temperature, thermal_inertia]
     research_classes: []
-    baseline: "20 Earth NASA POWER thermal context observations; no thermal inertia; Moon/Mars thermal still unavailable"
+    baseline: "20 Earth NASA POWER thermal context observations; Mars THEMIS thermal-inertia metadata verified but no observation; no thermal inertia; Moon thermal still unavailable"
     bodies:
       Earth:
         sources:
@@ -304,23 +321,23 @@ dimensions:
             unknown_fields: [license, native_resolution, spatial_support, temporal_support, qa]
       Mars:
         sources:
-          - source_id: mars-thermal-product-not-selected
-            provider: not_selected
-            product: not_selected
-            url: not_verified
-            license: not_verified
-            license_url: not_verified
-            native_resolution: not_verified
-            spatial_support: not_verified
-            temporal_support: not_verified
-            depth_support: not_verified
-            observation_kinds: [numeric, timeseries]
-            qa: not_verified
-            availability: planned
+          - source_id: usgs-mars-themis-global-thermal-inertia
+            provider: USGS Astrogeology Science Center / Arizona State University / NASA MDAP
+            product: THEMIS-derived global thermal inertia mosaic, quantitative 32-bit
+            url: https://astrogeology.usgs.gov/search/map/mars-themis-derived-global-thermal-inertia-mosaic
+            license: Public domain (USGS Astrogeology access constraints); please cite authors
+            license_url: https://astrogeology.usgs.gov/search/map/mars-themis-derived-global-thermal-inertia-mosaic
+            native_resolution: 100 m/pixel; 24 tiles; 60S to 60N latitude
+            spatial_support: 24 tiles of 30 x 60 degrees; no polar coverage beyond 60 degrees
+            temporal_support: Apparent thermal inertia is time-independent by definition; per-tile acquisition/season metadata not validated
+            depth_support: Upper few centimetres, apparent thermal inertia
+            observation_kinds: [numeric]
+            qa: Absolute accuracy ~20%; relative accuracy within one image ~10%; no per-pixel uncertainty layer
+            availability: accessible
             data_status: not_fetched
-            comparability: unknown
-            notes: "No Mars thermal product ID is asserted until an authoritative source is verified."
-            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+            comparability: evidence_only
+            notes: "Metadata verified on the official USGS product page. No D03 thermal-inertia similarity feature exists, tiles are ~2.36 GB ISIS3 .cub, and no observation is claimed."
+            unknown_fields: []
   - code: D04
     name: Water & Ice
     research_question: "地表／地下有哪些水與冰及觀測證據？"

@@ -19,6 +19,7 @@ from analog_api.adapters.db import (
     ReferenceFeatureObservation,
     utcnow,
 )
+from analog_api.adapters.schema import ensure_schema_compatible, stamp_schema_version
 from analog_api.adapters.typed_db import TypedSourceAsset
 from analog_api.config import Settings, resolve_repo_path
 from analog_api.data.synthetic import synthetic_manifest
@@ -144,6 +145,7 @@ def seed_manifests(engine: Engine, manifests: list[Manifest], *, reset: bool = F
     Runtime AOIs, jobs and typed observations are preserved; see
     `_reset_scientific_index` and `docs/DATA_MODEL.md`.
     """
+    ensure_schema_compatible(engine)
     Base.metadata.create_all(engine)
 
     data_version = compute_data_version(manifests)
@@ -336,11 +338,14 @@ def seed_manifests(engine: Engine, manifests: list[Manifest], *, reset: bool = F
         session.merge(Meta(key=DATA_VERSION_KEY, value=data_version))
         session.merge(Meta(key="seeded_at", value=utcnow().isoformat()))
         session.commit()
+    stamp_schema_version(engine)
     return data_version
 
 
 def ensure_seeded(engine: Engine, settings: Settings) -> None:
+    ensure_schema_compatible(engine)
     init_db(engine)
+    stamp_schema_version(engine)
     with Session(engine) as session:
         count = session.query(Candidate).count()
     if count == 0:

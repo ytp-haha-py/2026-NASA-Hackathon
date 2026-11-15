@@ -136,9 +136,15 @@ internal gaps and boundary margins are zero. This describes the grid, not global
 uv run python -m analog_pipelines.reporting --index /path/to/fixture-index --output /tmp/report.json
 
 # Opt-in synthetic benchmark (no source data; temporary directory).
-uv run python scripts/benchmark_coarse_index.py --rows 10000
+uv run python scripts/benchmark_coarse_index.py --rows 100000 --json-out /tmp/coarse-100k.json
+uv run python scripts/benchmark_coarse_index.py --rows 1000000 --json-out /tmp/coarse-1m.json
+
+# Storage layers are audited separately (SQLite/Parquet/raw/cache/R2).
+uv run python scripts/db_audit.py
 ```
 
-Observed locally on 2026-11-14 for 10,000 synthetic rows:
-`build_s=2.731 parquet_bytes=66642 query_ms_median=21.28 query_ms_max=23.42`.
-This is a software benchmark, **not** a measurement of real global candidates.
+The benchmark reports build seconds, Parquet bytes/row, verification time, peak RSS/CPU, and
+query p50/p95/p99 for top-K, region filter, and offset pagination. Every row is labelled
+`synthetic_benchmark_not_observation`. **These are software timings, not real global
+coverage or a scientific result.** Observed 100k and 1M runs are recorded with the actual
+commands in `docs/DB_CAPACITY_REPORT.md`.

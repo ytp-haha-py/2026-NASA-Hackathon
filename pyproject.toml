@@ -23,6 +23,7 @@ dependencies = [
 
 [project.optional-dependencies]
 storage = ["boto3>=1.35,<2"]
+postgis = ["psycopg[binary]>=3.2,<4"]
 spice = ["spiceypy>=6.0,<7"]
 
 [dependency-groups]
@@ -44,6 +45,7 @@ testpaths = ["apps/api/tests", "pipelines/tests", "pipelines/earth/tests", "pipe
 addopts = "-q"
 markers = [
   "network: tests that reach the public internet (deselected by default in CI)",
+  "postgis: opt-in live PostgreSQL/PostGIS contract test; skipped without ANALOG_TEST_POSTGIS_URL",
 ]
 
 [tool.ruff]
