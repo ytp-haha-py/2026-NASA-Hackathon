@@ -853,6 +853,9 @@ export function SearchForm({
     const referenceFeature = selectedReference?.features.find(
       (observation) => observation.feature_id === feature.id,
     );
+    // Reference values are read-only data, so they stay visible even at weight 0 (opt-in weights
+    // decide comparability, not whether the selected reference can be read).
+    const showsReferenceValue = referenceMode && referenceFeature !== undefined;
     const weightDisabled = referenceMode && !referenceFeature;
     const displayWeight = referenceMode
       ? referenceFeature
@@ -874,7 +877,7 @@ export function SearchForm({
 
     return (
       <div
-        className={`metric${weighted ? " is-weighted" : ""}`}
+        className={`metric${weighted ? " is-weighted" : ""}${showsReferenceValue ? " is-reference" : ""}`}
         key={feature.id}
         role="group"
         aria-labelledby={`metric-${feature.id}-label`}

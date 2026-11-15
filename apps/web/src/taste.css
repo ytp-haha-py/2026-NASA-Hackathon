@@ -937,12 +937,12 @@ fieldset legend,
   font-size: 16px;
 }
 
-/* a metric is one line until it is weighted */
+/* a metric is one line until it is weighted; selected reference values stay readable */
 .metric:not(.is-weighted) .metric-row:not(.metric-row-weight) {
   display: none;
 }
 
-.metric:not(.is-weighted) .metric-target {
+.metric:not(.is-weighted):not(.is-reference) .metric-target {
   display: none;
 }
 
