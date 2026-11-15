@@ -1,0 +1,387 @@
+{
+  "aois": [
+    {
+      "area_id": "moon-shackleton-rim-site04-roi1",
+      "body": "Moon",
+      "cadence_minutes": 60,
+      "display_name": "Shackleton Rim (LOLA Site04 roi1)",
+      "elevation_max_deg": -0.2832127771605144,
+      "elevation_min_deg": -0.32480448129092565,
+      "frame": "MOON_ME",
+      "horizon_crossings": 0,
+      "illuminated_sample_fraction": 0.0,
+      "latitude_deg": -89.76196621,
+      "longitude_deg": -157.06719662,
+      "radiation_coverage_status": "unsupported",
+      "radiation_values_produced": 0,
+      "reference_manifest": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "sample_count": 25,
+      "source_dataset_id": "nasa-lola-site04-5mpp-surf",
+      "window": {
+        "end_utc": "2026-03-02T00:00:00Z",
+        "start_utc": "2026-03-01T00:00:00Z"
+      }
+    },
+    {
+      "area_id": "mars-jezero-ctx-window-01",
+      "body": "Mars",
+      "cadence_minutes": 60,
+      "display_name": "Jezero CTX coordinate window 01",
+      "elevation_max_deg": 51.20084896515605,
+      "elevation_min_deg": -85.75760579003787,
+      "frame": "IAU_MARS",
+      "horizon_crossings": 2,
+      "illuminated_sample_fraction": 0.48,
+      "latitude_deg": 18.220253246764436,
+      "longitude_deg": 77.37095200216012,
+      "radiation_coverage_status": "no_coverage",
+      "radiation_values_produced": 0,
+      "reference_manifest": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "sample_count": 25,
+      "source_dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "window": {
+        "end_utc": "2026-03-02T00:00:00Z",
+        "start_utc": "2026-03-01T00:00:00Z"
+      }
+    }
+  ],
+  "area_count": 2,
+  "counts": {
+    "aois": 2,
+    "bodies": {
+      "Mars": 51,
+      "Moon": 51
+    },
+    "by_feature": {
+      "ionizing_dose_gy": 2,
+      "solar_elevation_deg": 50,
+      "solar_incidence_deg": 50
+    },
+    "by_score_role": {
+      "context_only": 100,
+      "evidence_only": 2
+    },
+    "by_state": {
+      "detected": 100,
+      "no_coverage": 2
+    },
+    "illumination_observations": 100,
+    "no_coverage": 2,
+    "observations": 102,
+    "radiation_evidence_observations": 2,
+    "radiation_values_produced": 0,
+    "sample_instants_per_aoi": 25
+  },
+  "coverage_contract": {
+    "aoi_status": {
+      "mars-jezero-ctx-window-01": {
+        "ionizing_dose_gy": "no_coverage",
+        "solar_elevation_deg": "modeled",
+        "solar_incidence_deg": "modeled"
+      },
+      "moon-shackleton-rim-site04-roi1": {
+        "ionizing_dose_gy": "unsupported",
+        "solar_elevation_deg": "modeled",
+        "solar_incidence_deg": "modeled"
+      }
+    },
+    "contract_version": "location-coverage-status-1.0.0",
+    "global_coverage_claimed": false,
+    "note": "Statuses follow location-coverage-status-1.0.0 vocabulary; indexing them into the API snapshot and the D05 coverage matrix is a separate integration step.",
+    "score_roles": {
+      "ionizing_dose_gy": "evidence_only",
+      "solar_elevation_deg": "context_only",
+      "solar_incidence_deg": "context_only"
+    }
+  },
+  "data_kind": "model_derived",
+  "features": [
+    "solar_incidence_deg",
+    "solar_elevation_deg",
+    "ionizing_dose_gy"
+  ],
+  "frames": {
+    "Mars": {
+      "aoi_id": "mars-jezero-ctx-window-01",
+      "frame": "IAU_MARS",
+      "frame_id": 10014,
+      "spice_version": "6.0.3",
+      "validation": "pxform('IAU_MARS', 'J2000') succeeded"
+    },
+    "Moon": {
+      "aoi_id": "moon-shackleton-rim-site04-roi1",
+      "frame": "MOON_ME",
+      "frame_id": 31001,
+      "spice_version": "6.0.3",
+      "validation": "pxform('MOON_ME', 'J2000') succeeded"
+    }
+  },
+  "generated_at": "2026-11-15T14:22:32.581797+00:00",
+  "hashes": {
+    "assets_sha256": "260ec9e2ae57334c3aa51d06aace8654c7d12264096d0dd3b516e2831d649c9c",
+    "horizon_sha256": "bdaed095516d870d9edd3d64ebe53d2ae2fea6084f5ed0989bdb00804ad39200",
+    "observations_sha256": "3bbc94c1eebb0f8f151c0b87ca4d521ed309b07e05cf338b250a0d6398a1f74b",
+    "plan_sha256": "3ef4b4f1c5151d09d1a08ff12245ba6430bd2f67888870def0ada701053f131b",
+    "radiation_sources_sha256": "ca1b5a40c4ffed413e81e04cefbe01fa992a52347ba4b85453c3f2416f1097ea",
+    "requests_sha256": "50daf9a0a49deb24164ad16a2c0ae0314e9aedb71caa0c000a941f834b8cc42d"
+  },
+  "input_manifests": [
+    {
+      "body": "Moon",
+      "path": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "reference_id": "moon-shackleton-rim-site04-roi1",
+      "sha256": "80c91cb5992d395791e0835ce5952a99e51f52f6933643a414749ffdcb9eafcd"
+    },
+    {
+      "body": "Mars",
+      "path": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "reference_id": "mars-jezero-ctx-window-01",
+      "sha256": "6168256e3a03502a48a0aa812ae00365337dc819cd6a161a9f4a75ee2b158153"
+    }
+  ],
+  "kernel_count": 5,
+  "kernel_total_bytes": 18718944,
+  "kernels": [
+    {
+      "asset_id": "naif-kernel:naif0012.tls",
+      "bytes": 5257,
+      "filename": "naif0012.tls",
+      "local_cache_path": "var/cache/spice-45/naif0012.tls",
+      "purpose": "Leap-second kernel for UTC -> ephemeris time conversion.",
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls"
+    },
+    {
+      "asset_id": "naif-kernel:pck00011.tpc",
+      "bytes": 131226,
+      "filename": "pck00011.tpc",
+      "local_cache_path": "var/cache/spice-45/pck00011.tpc",
+      "purpose": "Text planetary constants: body radii and IAU_MARS orientation.",
+      "sha256": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc"
+    },
+    {
+      "asset_id": "naif-kernel:de421.bsp",
+      "bytes": 16790528,
+      "filename": "de421.bsp",
+      "local_cache_path": "var/cache/spice-45/de421.bsp",
+      "purpose": "JPL DE421 planetary ephemeris (1900-2050), Sun/Moon/Mars states.",
+      "sha256": "08b20db2ae22488650641c5a9033e5bfda4b1c4b440cfeaf20f621cfa18ecdb3",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/a_old_versions/de421.bsp"
+    },
+    {
+      "asset_id": "naif-kernel:moon_pa_de421_1900-2050.bpc",
+      "bytes": 1770496,
+      "filename": "moon_pa_de421_1900-2050.bpc",
+      "local_cache_path": "var/cache/spice-45/moon_pa_de421_1900-2050.bpc",
+      "purpose": "DE421 lunar principal-axis orientation (binary PCK).",
+      "sha256": "656f90616403d75a75f0cd6c8830fc5b44f8cb4facb5ccb8915e752b397520cf",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc"
+    },
+    {
+      "asset_id": "naif-kernel:moon_080317.tf",
+      "bytes": 21437,
+      "filename": "moon_080317.tf",
+      "local_cache_path": "var/cache/spice-45/moon_080317.tf",
+      "purpose": "Lunar frame definitions: MOON_ME / MOON_PA realized from DE421.",
+      "sha256": "78732477b96f9863e7b0d65bcee3c22b8707ca5ed0db56d1173319cb2e8c7993",
+      "url": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf"
+    }
+  ],
+  "limitations": [
+    "Model-derived solar geometry only: not observed irradiance, radiance, shadow fraction, or ionizing radiation.",
+    "Flat biaxial-ellipsoid tangent plane; no DEM terrain horizon, shadow mask, observer height, atmosphere or cloud model.",
+    "The AOI is placed on the reference biaxial ellipsoid; source DEM elevations and observer heights are not added.",
+    "Sun position is the light-time-corrected body-centre vector from SPICE; site parallax is applied by vector subtraction.",
+    "Point AOI centres; not a spatial average over the existing 1.98 km DEM windows and not global coverage.",
+    "Moon uses MOON_ME realised from DE421; Mars uses IAU_MARS from pck00011. Source projected-CRS registration is a documented assumption, not an independent geodetic validation.",
+    "Ionizing radiation is an official-source audit only; no dose/flux value is ingested, converted, interpolated or substituted.",
+    "DE421 covers approximately 1900-2050; kernel SHA-256 digests are pinned and any drift is rejected by the builder.",
+    "Kernels are cached under a gitignored var/cache directory and are not committed to Git."
+  ],
+  "method_version": "d05-aoi-illumination-1.0.0",
+  "non_claims": [
+    "No observed solar irradiance, radiance or power.",
+    "No terrain shadow fraction, shadow mask or horizon visibility interval.",
+    "No absorbed dose (Gy) or equivalent dose (Sv) value for any AOI.",
+    "No flux-to-dose or Gy-to-Sv conversion.",
+    "No global or exhaustive illumination or radiation coverage.",
+    "No cross-body or cross-dimension similarity score from these values."
+  ],
+  "notes": [
+    "Bounded AOI/time request: one Moon and one Mars AOI, 24 h window, hourly cadence.",
+    "Values are a solar-geometry model, not a measurement of surface illumination.",
+    "The radiation audit records verification evidence and blockers; it never creates a value."
+  ],
+  "observation_count": 102,
+  "radiation": {
+    "aoi_evidence": {
+      "mars-jezero-ctx-window-01": {
+        "aoi_attribution": "different_site",
+        "area_id": "mars-jezero-ctx-window-01",
+        "blockers": [
+          "MSL-M-RAD-3-RDR-V1.0: The audited in-situ dose record is measured at Gale Crater, about 3,752 km from the Jezero AOI (great-circle, spherical R=3389.5 km); it is not an AOI observation.",
+          "MSL-M-RAD-3-RDR-V1.0: RAD RDR labels in the audited Sol carry placeholder ROVER_LAT/LON=0.000, so the archived record does not provide a usable per-record position for AOI attribution.",
+          "MSL-M-RAD-3-RDR-V1.0: No spatial mapping from the Gale record to the Jezero AOI is documented or applied; no proxy is substituted.",
+          "MSL-M-RAD-2-EDR-V1.0: EDR is raw event/telemetry data at Gale Crater, not a calibrated absorbed-dose value and not an observation at the Jezero AOI.",
+          "MSL-M-RAD-2-EDR-V1.0: Converting EDR counts to absorbed dose requires the RAD calibration and dose model, which is not selected or applied in this bounded scope."
+        ],
+        "body": "Mars",
+        "coverage_status": "no_coverage",
+        "feature_id": "ionizing_dose_gy",
+        "requested_window": {
+          "end_utc": "2026-03-02T00:00:00Z",
+          "start_utc": "2026-03-01T00:00:00Z"
+        },
+        "sources": [
+          {
+            "coverage_status": "no_coverage",
+            "dataset_id": "MSL-M-RAD-3-RDR-V1.0",
+            "product_kind": "in_situ_surface_dose_rate",
+            "source_id": "pds-msl-rad-rdr",
+            "verification_status": "verified"
+          },
+          {
+            "coverage_status": "no_coverage",
+            "dataset_id": "MSL-M-RAD-2-EDR-V1.0",
+            "product_kind": "in_situ_raw_event_data",
+            "source_id": "pds-msl-rad-edr",
+            "verification_status": "verified"
+          }
+        ],
+        "time_coverage_overlap": true,
+        "typed_state": "no_coverage",
+        "values_produced": 0
+      },
+      "moon-shackleton-rim-site04-roi1": {
+        "aoi_attribution": "orbital_instrument",
+        "area_id": "moon-shackleton-rim-site04-roi1",
+        "blockers": [
+          "LRO-L-CRAT-3-CDR-CALIBRATED-V1.0: CRaTER measures energy deposition in an orbital detector stack, not absorbed dose at a lunar surface AOI.",
+          "LRO-L-CRAT-3-CDR-CALIBRATED-V1.0: No surface dose transport model, detector-to-surface mapping or shielding/geometry model is selected or applied in this scope.",
+          "LRO-L-CRAT-3-CDR-CALIBRATED-V1.0: The archived 'accumulated radiation dosage' housekeeping is instrument dosage, not a surface absorbed or equivalent dose.",
+          "LRO-L-CRAT-2-EDR-RAWDATA-V1.0: EDR is raw orbital event data; no calibrated surface dose at the AOI.",
+          "LRO-L-CRAT-2-EDR-RAWDATA-V1.0: Reduction requires the CRaTER calibration and a surface transport model that are outside this bounded audit.",
+          "LRO-L-CRAT-3/4-DDR-PROCESSED-V1.0: Level-2 products are detector energy deposition and estimated LET, not surface absorbed or equivalent dose.",
+          "LRO-L-CRAT-3/4-DDR-PROCESSED-V1.0: No LET-to-dose transport, geometry or shielding model is applied here."
+        ],
+        "body": "Moon",
+        "coverage_status": "unsupported",
+        "feature_id": "ionizing_dose_gy",
+        "requested_window": {
+          "end_utc": "2026-03-02T00:00:00Z",
+          "start_utc": "2026-03-01T00:00:00Z"
+        },
+        "sources": [
+          {
+            "coverage_status": "unsupported",
+            "dataset_id": "LRO-L-CRAT-3-CDR-CALIBRATED-V1.0",
+            "product_kind": "orbital_detector_energy",
+            "source_id": "pds-lro-crater-cdr",
+            "verification_status": "verified"
+          },
+          {
+            "coverage_status": "unsupported",
+            "dataset_id": "LRO-L-CRAT-2-EDR-RAWDATA-V1.0",
+            "product_kind": "orbital_raw_event_data",
+            "source_id": "pds-lro-crater-edr",
+            "verification_status": "verified"
+          },
+          {
+            "coverage_status": "unsupported",
+            "dataset_id": "LRO-L-CRAT-3/4-DDR-PROCESSED-V1.0",
+            "product_kind": "orbital_deposited_energy_let",
+            "source_id": "pds-lro-crater-ddr",
+            "verification_status": "verified"
+          }
+        ],
+        "time_coverage_overlap": true,
+        "typed_state": "no_coverage",
+        "values_produced": 0
+      }
+    },
+    "forbidden_conversions": [
+      "flux to dose without detector response and exposure interval",
+      "absorbed dose (Gy) to equivalent dose (Sv) without a documented radiation-weighting model",
+      "orbital detector energy deposition to surface absorbed dose",
+      "in-situ dose at one landing site to a different AOI",
+      "zero-fill or synthetic value substitution"
+    ],
+    "no_value_ingested": true,
+    "source_count": 5,
+    "sources": [
+      {
+        "aoi_coverage_status": "no_coverage",
+        "body": "Mars",
+        "coverage_start": "2011-11-20T18:24:41",
+        "coverage_stop": "2026-03-22T18:01:11",
+        "dataset_id": "MSL-M-RAD-3-RDR-V1.0",
+        "product_kind": "in_situ_surface_dose_rate",
+        "source_id": "pds-msl-rad-rdr",
+        "verification_status": "verified"
+      },
+      {
+        "aoi_coverage_status": "no_coverage",
+        "body": "Mars",
+        "coverage_start": "2023-07-29T21:03:21",
+        "coverage_stop": "2026-03-22T08:29:11",
+        "dataset_id": "MSL-M-RAD-2-EDR-V1.0",
+        "product_kind": "in_situ_raw_event_data",
+        "source_id": "pds-msl-rad-edr",
+        "verification_status": "verified"
+      },
+      {
+        "aoi_coverage_status": "unsupported",
+        "body": "Moon",
+        "coverage_start": "2009-06-29T00:00:00",
+        "coverage_stop": "2026-06-30T23:59:59",
+        "dataset_id": "LRO-L-CRAT-3-CDR-CALIBRATED-V1.0",
+        "product_kind": "orbital_detector_energy",
+        "source_id": "pds-lro-crater-cdr",
+        "verification_status": "verified"
+      },
+      {
+        "aoi_coverage_status": "unsupported",
+        "body": "Moon",
+        "coverage_start": "2009-06-29T00:00:00",
+        "coverage_stop": "2026-06-30T23:59:59",
+        "dataset_id": "LRO-L-CRAT-2-EDR-RAWDATA-V1.0",
+        "product_kind": "orbital_raw_event_data",
+        "source_id": "pds-lro-crater-edr",
+        "verification_status": "verified"
+      },
+      {
+        "aoi_coverage_status": "unsupported",
+        "body": "Moon",
+        "coverage_start": "2009-06-29T00:00:00",
+        "coverage_stop": "2026-06-30T23:59:59",
+        "dataset_id": "LRO-L-CRAT-3/4-DDR-PROCESSED-V1.0",
+        "product_kind": "orbital_deposited_energy_let",
+        "source_id": "pds-lro-crater-ddr",
+        "verification_status": "verified"
+      }
+    ],
+    "values_produced": 0
+  },
+  "radiation_method_version": "d05-aoi-ionizing-radiation-audit-1.0.0",
+  "release_version": "d05-aoi-illumination-1.0.0",
+  "reproduce_commands": [
+    "uv sync --extra spice",
+    "uv run --extra spice python scripts/build_d05_aoi_illumination.py --download",
+    "uv run --extra spice python scripts/build_d05_aoi_illumination.py",
+    "uv run --extra spice python scripts/build_d05_aoi_illumination.py --probe-radiation --download",
+    "uv run --extra spice pytest pipelines/tests/test_d05_aoi_illumination.py -q"
+  ],
+  "scope": "pilot-d05-aoi-illumination-170",
+  "subgroups": [
+    "solar_illumination",
+    "ionizing_radiation"
+  ],
+  "window": {
+    "cadence_minutes": 60,
+    "end_utc": "2026-03-02T00:00:00Z",
+    "inclusive_end": true,
+    "start_utc": "2026-03-01T00:00:00Z",
+    "time_basis": "UTC instants converted to SPICE ET by naif0012.tls"
+  }
+}

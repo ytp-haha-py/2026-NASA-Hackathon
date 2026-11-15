@@ -1,0 +1,129 @@
+{
+  "aois": [
+    {
+      "area_id": "moon-shackleton-rim-site04-roi1",
+      "body": "Moon",
+      "cadence_minutes": 60,
+      "elevation_max_deg": -0.2832127771605144,
+      "elevation_min_deg": -0.32480448129092565,
+      "frame": "MOON_ME",
+      "horizon_crossings": [],
+      "illuminated_sample_count": 0,
+      "illuminated_sample_fraction": 0.0,
+      "runs": [
+        {
+          "first_elevation_deg": -0.2832127771605144,
+          "first_sample_utc": "2026-03-01T00:00:00Z",
+          "last_elevation_deg": -0.32480448129092565,
+          "last_sample_utc": "2026-03-02T00:00:00Z",
+          "sample_count": 25,
+          "state": "below_geometric_horizon"
+        }
+      ],
+      "sample_count": 25,
+      "terrain_horizon": {
+        "available": false,
+        "horizon_visibility_interval_available": false,
+        "reason": "Raw DEM rasters are not committed and no bounded DEM ingest is part of this scope, so no terrain horizon, ridge shadow mask or horizon visibility interval is computed. Only the geometric flat-ellipsoid horizon (Sun above/below the local tangent plane) is reported.",
+        "shadow_fraction_computed": false
+      },
+      "window": {
+        "end_utc": "2026-03-02T00:00:00Z",
+        "start_utc": "2026-03-01T00:00:00Z"
+      }
+    },
+    {
+      "area_id": "mars-jezero-ctx-window-01",
+      "body": "Mars",
+      "cadence_minutes": 60,
+      "elevation_max_deg": 51.20084896515605,
+      "elevation_min_deg": -85.75760579003787,
+      "frame": "IAU_MARS",
+      "horizon_crossings": [
+        {
+          "bracketed_only": false,
+          "crossing_utc": "2026-03-01T01:05:22Z",
+          "direction": "sunset",
+          "elevation_deg_at_crossing": -0.0016371328221680415,
+          "from_utc": "2026-03-01T01:00:00Z",
+          "iterations": 12,
+          "refinement": "elevation_zero_bisection",
+          "to_utc": "2026-03-01T02:00:00Z",
+          "tolerance_seconds": 1.0
+        },
+        {
+          "bracketed_only": false,
+          "crossing_utc": "2026-03-01T14:23:31Z",
+          "direction": "sunrise",
+          "elevation_deg_at_crossing": 0.003433142761508634,
+          "from_utc": "2026-03-01T14:00:00Z",
+          "iterations": 12,
+          "refinement": "elevation_zero_bisection",
+          "to_utc": "2026-03-01T15:00:00Z",
+          "tolerance_seconds": 1.0
+        }
+      ],
+      "illuminated_sample_count": 12,
+      "illuminated_sample_fraction": 0.48,
+      "runs": [
+        {
+          "first_elevation_deg": 13.758990168097185,
+          "first_sample_utc": "2026-03-01T00:00:00Z",
+          "last_elevation_deg": 1.1499810535661652,
+          "last_sample_utc": "2026-03-01T01:00:00Z",
+          "sample_count": 2,
+          "state": "above_geometric_horizon"
+        },
+        {
+          "first_elevation_deg": -11.889074039794664,
+          "first_sample_utc": "2026-03-01T02:00:00Z",
+          "last_elevation_deg": -5.074548421757896,
+          "last_sample_utc": "2026-03-01T14:00:00Z",
+          "sample_count": 13,
+          "state": "below_geometric_horizon"
+        },
+        {
+          "first_elevation_deg": 7.752289565576092,
+          "first_sample_utc": "2026-03-01T15:00:00Z",
+          "last_elevation_deg": 21.74126847438542,
+          "last_sample_utc": "2026-03-02T00:00:00Z",
+          "sample_count": 10,
+          "state": "above_geometric_horizon"
+        }
+      ],
+      "sample_count": 25,
+      "terrain_horizon": {
+        "available": false,
+        "horizon_visibility_interval_available": false,
+        "reason": "Raw DEM rasters are not committed and no bounded DEM ingest is part of this scope, so no terrain horizon, ridge shadow mask or horizon visibility interval is computed. Only the geometric flat-ellipsoid horizon (Sun above/below the local tangent plane) is reported.",
+        "shadow_fraction_computed": false
+      },
+      "window": {
+        "end_utc": "2026-03-02T00:00:00Z",
+        "start_utc": "2026-03-01T00:00:00Z"
+      }
+    }
+  ],
+  "cadence_minutes": 60,
+  "definition": "Geometric flat-ellipsoid horizon: the Sun is above the horizon when the model elevation is strictly greater than 0 degrees. Runs are bounded by sampled instants; refined crossings use elevation-zero bisection with the same model and do not add terrain relief.",
+  "limitations": [
+    "The geometric horizon ignores DEM relief, ridges, boulders and local topography; it is not a shadow mask or a visibility interval.",
+    "A small above/below margin (under roughly 0.5 degrees) can be reversed by unmodeled terrain relief and site elevation; a negative flat-model elevation is not evidence of permanent darkness.",
+    "No observer height, atmospheric extinction, cloud or dust model is applied.",
+    "Sampled instants are discrete; refined crossings are model crossings of the flat tangent plane, not observed sunrise/sunset times."
+  ],
+  "method_version": "d05-aoi-illumination-1.0.0",
+  "non_claims": [
+    "No shadow fraction or shadow mask is produced.",
+    "No terrain horizon visibility interval is produced.",
+    "No observed irradiance, radiance or power value is produced."
+  ],
+  "release_version": "d05-aoi-illumination-1.0.0",
+  "subgroup": "solar_illumination",
+  "terrain_horizon_available": false,
+  "terrain_horizon_reason": "Raw DEM rasters are not committed and no bounded DEM ingest is part of this scope, so no terrain horizon, ridge shadow mask or horizon visibility interval is computed. Only the geometric flat-ellipsoid horizon (Sun above/below the local tangent plane) is reported.",
+  "window": {
+    "end_utc": "2026-03-02T00:00:00Z",
+    "start_utc": "2026-03-01T00:00:00Z"
+  }
+}
