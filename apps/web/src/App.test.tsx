@@ -322,12 +322,9 @@ describe("search states and results", () => {
 
 describe("about panel", () => {
   it("shows the coverage summary first and loads provenance inside its disclosure", async () => {
-    let resolveDatasets!: (response: Response) => void;
-    const pending = new Promise<Response>((resolve) => {
-      resolveDatasets = resolve;
-    });
+    const pending = deferredResponse();
     const user = userEvent.setup();
-    await renderReady({ datasets: () => pending });
+    await renderReady({ datasets: () => pending.promise });
 
     const toggle = screen.getByText("About this tool, coverage and limits");
     await user.click(toggle);
@@ -338,7 +335,7 @@ describe("about panel", () => {
 
     await user.click(about.getByText("Dataset provenance"));
     expect(about.getByRole("status")).toHaveTextContent("Loading dataset provenance…");
-    await act(async () => resolveDatasets(jsonResponse([datasetFixture])));
+    await act(async () => pending.resolve(jsonResponse([datasetFixture])));
     expect(await about.findByRole("link", { name: datasetFixture.license }))
       .toHaveAttribute("href", datasetFixture.license_url);
     expect(about.queryByText("Loading dataset provenance…")).not.toBeInTheDocument();

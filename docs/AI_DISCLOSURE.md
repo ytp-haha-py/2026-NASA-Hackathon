@@ -232,3 +232,5 @@ PR #183 合併至 main，提交為 `2d35515`，Issue #163 關閉。[PR #183](htt
 114 項前端測試通過。使用真實本機 API 驗證 1440 px 繁中明亮模式及 390 px 英文深色模式，確認三處指定內容已刪除、選點後仍能查看詳情與注意事項，語言切換後保留選取。
 
 完成畫面為 [桌機搜尋結果](screenshots/39-simplified-results-desktop.jpg) 與 [手機搜尋結果](screenshots/40-simplified-results-mobile.jpg)。
+
+提交期間 main 另合併 PR #186 的篩選功能，本分支同步後沿用新版的測試輔助函式，118 項前端測試通過。UI 刪除與這份文件由 PR #189 一併交付。[PR #189](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/189)
