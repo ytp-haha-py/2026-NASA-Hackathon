@@ -1,0 +1,19 @@
+[
+  {
+    "access": "public Open Access ZIP; bounded AOI clip committed, global ZIP not committed",
+    "dataset_id": "gsc-of-5529-world-geology",
+    "license": "Open Government Licence - Canada 2.0",
+    "license_url": "https://open.canada.ca/en/open-government-licence-canada",
+    "map_scale": "1:35,000,000",
+    "native_crs": "GCS_WGS_1972 (EPSG:4322)",
+    "product": "Generalized Geology of the World: Bedrock Domains and Major Faults in GIS Format",
+    "provider": "Geological Survey of Canada / Natural Resources Canada",
+    "redistribution_allowed": "yes",
+    "source_id": "gsc-of-5529-world-geology",
+    "url": "https://doi.org/10.4095/223767",
+    "version": "Open File 5529 (2007), approximately 1:35,000,000",
+    "zip_bytes": 577276750,
+    "zip_sha256": "7ff615c7b076ac07c58e38c541cbbc2ec2353d7f889cbc000788f4c12ea4b89e",
+    "zip_url": "https://ostr-backend-prod.azure.cloud.nrcan-rncan.gc.ca/server/api/core/bitstreams/a2141be1-5afb-41c7-9588-a135734c0f8a/content"
+  }
+]

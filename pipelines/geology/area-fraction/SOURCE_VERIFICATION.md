@@ -106,16 +106,24 @@ Government Licence – Canada, v2.0** (worldwide, royalty-free, commercial use
 allowed with attribution; third-party rights excluded).
 `https://doi.org/10.4095/223767`, `https://mrdata.usgs.gov/geology/gscworld`,
 `https://open.canada.ca/en/open-government-licence-canada`.
-Status: **ingested as evidence-only for two bounded Earth AOIs; insufficient for
-area-fraction acceptance** via the public USGS WMS
+Status: **ingested for two bounded Earth AOIs with true polygon area fractions.**
+The official GSC Open File 5529 ZIP (577,276,750 bytes, SHA-256
+`7ff615c7b076ac07c58e38c541cbbc2ec2353d7f889cbc000788f4c12ea4b89e`) was downloaded
+once to a gitignored cache and clipped to the two AOIs. The `roxworld` polygons are
+in EPSG:4322 (GCS WGS 1972); invalid geometries are repaired explicitly with
+`make_valid` and counted; intersections are measured in a local LAEA CRS and joined
+to the shipped `RUNO` dBase attributes. Results: Atacama `RUNO=9487`/`SEDIMENT`
+(1.0 sedimentary) and Lanzarote `RUNO=526`/`VOLCANIC` (1.0 igneous), both with
+coverage ≈1.0 and 0 invalid/repaired source polygons. Artifact:
+`pipelines/geology/gsc-world/polygon/`.
+
+A supplementary point-grid WMS pilot remains under `pipelines/geology/gsc-world/`
+and is explicitly marked insufficient for area-fraction acceptance.
 (`https://mrdata.usgs.gov/services/gscworld`, layer `geology`), without downloading
 the ~550 MB global GIS ZIP. The pilot is in `pipelines/geology/gsc-world/`:
 Atacama (raw `gid=8686`, sedimentary rocks) and Lanzarote (`gid=86`, volcanic
-rocks) both produced 25/25 covered 5x5 samples. This is a **point-grid fraction**,
-not polygon intersection; at ~1:35,000,000 the source is far coarser than a
-1.98 km AOI. The WFS endpoint is unavailable and WMS returns no polygon
-geometry; the ~550 MB global ZIP was not downloaded. Therefore #41 remains
-evidence-only and is not claimed as a completed polygon/area-fraction pilot. See `pipelines/geology/gsc-world/README.md` for the exact method,
+rocks) both produced 25/25 covered 5x5 samples. The polygon pilot above is the acceptance-grade measurement; the WMS point-grid
+artifact is supplementary only. See `pipelines/geology/gsc-world/README.md` for the exact method,
 checksums, limits and reproduction commands. No abundance, aqueous-alteration or
 geology similarity is claimed.
 

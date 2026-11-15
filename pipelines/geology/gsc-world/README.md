@@ -1,9 +1,16 @@
 # GSC Open File 5529 Earth-lithology pilot
 
-**Acceptance status: evidence-only, insufficient for #41 area-fraction acceptance.**
-No polygon/raster extract was obtained; this pilot is a bounded WMS point-grid
-sample. It is retained because it is transparent and legally usable, not because
-it satisfies the polygon/true-area-intersection requirement.
+**Acceptance status: the polygon pilot (`polygon/`) satisfies #41 for the two
+bounded Earth AOIs; the WMS point-grid pilot below is retained as supplementary
+evidence and is explicitly not a polygon area fraction.**
+
+The polygon pilot downloads the official ~550 MB Open File 5529 ZIP to a
+gitignored cache, clips only the two AOIs, repairs invalid geometries with
+`make_valid`, intersects true polygons in a local equal-area LAEA CRS and joins
+the shipped `RUNO` dBase attributes (`RUCODE`, `RXTP`, ages). Committed output:
+Atacama `RUNO=9487` / `SEDIMENT` → sedimentary, Lanzarote `RUNO=526` /
+`VOLCANIC` → igneous, both with coverage ≈1.0 and 0 invalid/repaired source
+geometries. See `polygon/README.md` and `../gsc_polygon.py`.
 
 Bounded ingestion of the legally usable alternative identified in
 `../area-fraction/SOURCE_VERIFICATION.md`: the Geological Survey of Canada
@@ -46,13 +53,11 @@ checksums.
   share of 25 bounded WMS samples assigned to a raw unit. This is flagged in
   every record (`point_grid_not_polygon_intersection`,
   `map_scale_1_35m_coarser_than_aoi`).
-- **Why no polygon extract:** the public USGS WFS endpoint for this dataset is
-  unavailable (`msLoadMap(): Unable to access file`), and WMS GetFeatureInfo
-  returns attributes plus a feature bbox, not polygon geometry. The original
-  ~550 MB global GIS ZIP was not downloaded because the issue requires a
-  bounded extract. The manifest records
-  `acceptance.polygon_extract = "not_obtained"` and
-  `acceptance.status = "evidence_only_insufficient_for_area_fraction_acceptance"`.
+- **This point-grid artifact is supplementary.** The separate polygon pilot
+  (`polygon/`) uses the official global ZIP and true polygon intersections; it is
+  the acceptance-grade artifact. This file remains explicitly marked
+  `evidence_only_insufficient_for_area_fraction_acceptance` so it cannot be
+  mistaken for polygon ingestion.
 - No abundance, no mineral detection, no aqueous-alteration inference, no
   geology similarity or combined six-dimension score.
 - A no-result sample is a real gap and lowers coverage; it is never zero-filled.

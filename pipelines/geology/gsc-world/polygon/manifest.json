@@ -1,0 +1,52 @@
+{
+  "acceptance": {
+    "fraction_basis": "true polygon intersection",
+    "metric_crs": "local LAEA per AOI",
+    "native_crs": "GCS_WGS_1972 (EPSG:4322)",
+    "polygon_extract": "obtained",
+    "source_zip_bytes": 577276750,
+    "source_zip_sha256": "7ff615c7b076ac07c58e38c541cbbc2ec2353d7f889cbc000788f4c12ea4b89e",
+    "source_zip_url": "https://ostr-backend-prod.azure.cloud.nrcan-rncan.gc.ca/server/api/core/bitstreams/a2141be1-5afb-41c7-9588-a135734c0f8a/content",
+    "status": "polygon_area_fraction_validated",
+    "validity_repair": "invalid source geometries repaired with shapely make_valid and counted"
+  },
+  "aois": [
+    "earth-atacama-desert",
+    "earth-lanzarote"
+  ],
+  "checksums": {
+    "evidence_sha256": "7de1833311085365841b0f9a564f38a06744b7ec4cacd16cf033086ca901cddd",
+    "registry_sha256": "ff0daba8f0984d533de6ea0242970b36924cac0fd524b5d73ac2a70d4c1ba290",
+    "sources_sha256": "ff33d48f3a806c84ea197ff9e05bd76d65e71a4f188103a4bb4095221690da02"
+  },
+  "counts": {
+    "areas": 2,
+    "by_body": {
+      "Earth": 2
+    },
+    "by_category": {
+      "igneous": 1,
+      "sedimentary": 1
+    },
+    "detected": 2,
+    "max_coverage": 0.999999999997652,
+    "min_coverage": 0.9999999999965633,
+    "no_coverage": 0,
+    "observations": 2
+  },
+  "generated_at": "2026-11-15T00:00:00Z",
+  "limitations": [
+    "GSC Open File 5529 is generalized bedrock at approximately 1:35,000,000, far coarser than a 1.98 km AOI.",
+    "Area fractions are true polygon intersections in a local equal-area LAEA CRS, but map-unit boundaries are generalized.",
+    "Map units are evidence only; no abundance, aqueous-alteration or geology similarity is produced.",
+    "Only two bounded Earth AOIs are included; the global dataset is cached outside Git."
+  ],
+  "method_version": "gsc-world-polygon-laea-1.0.0",
+  "non_claims": [
+    "No mineral abundance.",
+    "No aqueous-alteration inference.",
+    "No geology similarity or combined six-dimension score.",
+    "No global or exhaustive lithology coverage."
+  ],
+  "release_version": "gsc-world-polygon-pilot-1.0.0"
+}
