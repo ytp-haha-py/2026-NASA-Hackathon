@@ -16,7 +16,7 @@ from analog_pipelines.typed_contracts import (
     SourceAssetV2,
     TypedObservation,
 )
-from sqlalchemy import DateTime, Float, Integer, String, Text, select
+from sqlalchemy import DateTime, Float, Integer, String, Text, func, select
 from sqlalchemy.orm import Mapped, Session, mapped_column
 from sqlalchemy.types import JSON
 
@@ -204,6 +204,35 @@ class TypedObservationStore:
             }
             for row in rows
         ]
+
+    def coverage(self) -> dict[str, Any]:
+        rows = self.session.execute(
+            select(
+                TypedObservationRow.dimension_code,
+                TypedObservationRow.body,
+                TypedObservationRow.state,
+                func.count().label("count"),
+            ).group_by(
+                TypedObservationRow.dimension_code,
+                TypedObservationRow.body,
+                TypedObservationRow.state,
+            )
+        ).all()
+        by_dimension: dict[str, dict[str, Any]] = {}
+        for dimension, body, state, count in rows:
+            key = dimension or "context"
+            entry = by_dimension.setdefault(key, {"by_body": {}, "by_state": {}, "total": 0})
+            entry["by_body"][body] = entry["by_body"].get(body, 0) + count
+            entry["by_state"][state] = entry["by_state"].get(state, 0) + count
+            entry["total"] += count
+        return {
+            "total": sum(item["total"] for item in by_dimension.values()),
+            "by_dimension": dict(sorted(by_dimension.items())),
+            "scope_note": (
+                "Counts cover typed-v2 records in this database only. Evidence/context records "
+                "are not scored similarity features and missing sources are not zero-filled."
+            ),
+        }
 
     def get_area(self, area_id: str) -> dict[str, Any] | None:
         row = self.session.get(TypedArea, area_id)

@@ -21,14 +21,19 @@
     },
     "D02": {
       "actual_observation_counts": {
-        "Earth_shared_geology": 0,
-        "Mars_map_units": 2,
+        "Earth_availability_status": 15,
+        "Mars_context_values": 14,
+        "Mars_map_units": 10,
+        "Mars_process_records": 4,
         "Moon_map_units": 1,
+        "Moon_process_records": 1,
+        "mineral_states_unknown": 10,
         "quantitative_minerals": 0
       },
       "comparison_status": "evidence_only",
       "evidence": [
-        "independent Geology pilot snapshot"
+        "independent Geology pilot snapshot",
+        "56 evidence-only D02 typed records exported and imported via /api/v1/typed"
       ],
       "implementation_status": "pilot",
       "remaining_blockers": [
@@ -159,13 +164,14 @@
         57
       ],
       "evidence": [
-        "Moon Ec map unit and Mars Jezero units retained as map evidence"
+        "Moon Ec map unit and Mars Jezero units retained as map evidence",
+        "Moon/Mars map units and processes exported to typed-v2; Earth shareable values remain zero"
       ],
-      "implementation_status": "pilot",
+      "implementation_status": "in_progress",
       "number": 41,
       "remaining_blockers": [
-        "common backend integration",
-        "Earth GLiM redistribution rights"
+        "Earth GLiM redistribution rights",
+        "fine-scale Moon/Mars frame validation"
       ],
       "scientific_data_status": "pilot_observations",
       "title": "D02 geologic mapping"
@@ -271,7 +277,8 @@
       "evidence": [
         "existing additive typed SQLite tables and /api/v1/typed endpoints",
         "committed D05 release imports as 5 areas, 5 assets and 10 observations",
-        "merged integration work in PR #59 (c834285)"
+        "merged integration work in PR #59 (c834285)",
+        "D02 typed bundle imports 8 areas, 33 assets and 56 observations"
       ],
       "implementation_status": "in_progress",
       "number": 47,
@@ -552,11 +559,11 @@
     }
   ],
   "next_independent_tasks": [
-    "integrate the merged D02 geology pilot into typed-v2 as evidence-only records without changing its semantics",
-    "implement D03 Earth provider discovery with explicit Earthdata authentication blockers",
+    "implement D03 Earth thermal provider discovery with explicit Earthdata authentication blockers",
     "implement bounded D06 Earth SoilGrids/WebDAV acquisition with depth and uncertainty support",
     "implement Moon/Mars illumination only after SPICE frame and horizon validation",
-    "acquire a real coarse Geomorpho index only under an authorized bounded data plan"
+    "acquire a real coarse Geomorpho index only under an authorized bounded data plan",
+    "resolve GLiM rights, EMIT authentication, lunar mineral registration and CRISM thresholds"
   ],
   "repository": "ytp-haha-py/2026-NASA-Hackathon",
   "status_legend": {

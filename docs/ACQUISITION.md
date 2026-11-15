@@ -99,3 +99,21 @@ states use `detected`, `not_detected`, `no_coverage`, `unknown`, `not_applicable
   Moon/Mars coarse references are still not acquired.
 
 These are recorded as blockers, not fabricated observations.
+
+## D02 geology typed export
+
+The independent geology pilot is exported without changing its evidence semantics:
+
+```bash
+uv run python scripts/export_geology_typed.py \
+  --record pipelines/geology/records/geology-e920e7e3ae79e176.json \
+  --output pipelines/geology/typed
+
+uv run python scripts/import_typed_bundle.py \
+  --bundle pipelines/geology/typed --database var/geology-typed.db
+```
+
+Current bundle: 8 areas, 7 datasets, 33 assets and 56 observations. They are all `evidence_only`;
+map units/processes are categories or process evidence, mineral non-observations remain
+`unknown`/`no_coverage`, and CRISM parameters remain context. Mars geographic AOIs are transformed
+to a projected Mars analysis CRS while the original geometry/CRS is retained in legacy provenance.

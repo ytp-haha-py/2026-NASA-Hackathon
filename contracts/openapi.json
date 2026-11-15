@@ -3046,6 +3046,26 @@
         "summary": "Typed Area"
       }
     },
+    "/api/v1/typed/coverage": {
+      "get": {
+        "operationId": "typed_coverage_api_v1_typed_coverage_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Typed Coverage Api V1 Typed Coverage Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Typed Coverage"
+      }
+    },
     "/api/v1/typed/observations": {
       "get": {
         "operationId": "list_typed_observations_api_v1_typed_observations_get",
