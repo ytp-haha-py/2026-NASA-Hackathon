@@ -15,6 +15,7 @@ The account is **de-identified at the narrative level**: human participants are 
 | **ChatGPT (OpenAI)** | Translate product goals into technical requirements; critique UI, API, and data assumptions; inspect GitHub code/CI; draft issues and agent instructions; review and, when explicitly authorized, merge PRs | Recommendations and conversational analysis are not themselves code execution or scientific verification |
 | **OpenCode** | Coordinate multiple coding sessions, native Goals, specialized agents, Git worktrees, and implementation/validation of backend, data, and integration work | Agent completion claims require source, test, CI, and integration evidence |
 | **Codex** | Local project setup, frontend implementation, debugging, testing, browser verification, PR preparation, and version synchronization in the collaboration recorded below | Only the tasks and test outcomes documented for that work are attributed to Codex |
+| **Claude Code (Anthropic)** | Two separate sessions: a claude.ai cloud session (§15) and a terminal CLI session on a team member's computer (§16) — UI implementation, a backend filter, Windows tooling fixes, issues/PRs and CI-gated merges when authorized | Only the work listed in §15–§16 is attributed to Claude; merges followed explicit human authorization |
 | Other human/AI collaborators | Independent frontend and backend contributions through repository issues and PRs | Authorship of a PR does not imply every design decision was made by an AI |
 
 The team used a **human-directed, AI-assisted development process**, not an autonomous scientific discovery process. AI-generated suggestions, code, reports, and test fixtures were subject to repository checks and human decisions. A green CI result, an agent's statement of completion, a merged PR, and a deployed public service are distinct states.
@@ -234,6 +235,48 @@ All 118 frontend tests, lint, typecheck/build and generated API type checks pass
 - D02–D05 目前沒有比對控制項，是因為後端登錄表把這些特徵標為只能當證據；前端沒有替它們虛構可計分的控制。
 - 多維搜尋不接受土地覆蓋篩選，介面在兩者同時使用時會拒絕送出並說明，不會靜默忽略篩選。
 - 結果詳細資料的逐項比較表當時只列 D01 指標，表土的比對數值未加入。
+
+## 16. Claude Code（終端機 CLI 工作階段）參與的工作
+
+以下記錄 2026-11-14 至 11-15 另一段由 Claude Code 協助的工作，與第 15 節是不同的工作階段。Claude Code 以 CLI 直接在一位團隊成員的 Windows 電腦上執行，可以讀寫 repo、執行測試，並透過 `gh` 以該成員的帳號開 issue、推送分支與開 PR。提交作者為該成員帳號，提交訊息附 `Co-Authored-By: Claude`。
+
+### 工作方式與授權
+
+- 依 repo 流程進行：先開 issue，再從 `fix/<n>-…` 或 `feat/<n>-…` 分支開 PR，PR 說明照範本貼上實際測試輸出，等必要 CI（backend-tests、frontend-checks、integration-smoke）通過。
+- #18、#23、#50、#52 由 Claude Code 在 CI 通過後合併。這是團隊成員在對話中明確授權的（「update branch 再 merge」，以及離開電腦時要求「結束後自動發 PR and merge」），當時 ruleset 的必要審查人數為 0。#11 與 #56 由其他維護者合併。
+- 介面是否看起來正確，以無頭 Chrome（DevTools 協定）截圖確認；截圖只留在本機，沒有附在 PR 上。
+
+### 交付並合併的項目
+
+| issue | PR | 合併提交 | 內容 |
+| --- | --- | --- | --- |
+| #10 | [#11](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/11) | `2020c33` | 新增 `.gitattributes` 強制 LF，修正 Windows `core.autocrlf=true` 檢出後快照 SHA-256 驗證失敗。該 issue 由團隊成員自己從終端機開立，作為練習 GitHub 流程 |
+| #16 | [#18](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/18) | `4fb63f9` | 審查並落地團隊成員提供的介面 patch：地圖上的排名浮動視窗、權重預設 0；修正與新版 main 衝突的火星測試 |
+| #21 | [#23](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/23) | `25d66bc` | 後端 `POST /search` 接受地形指標的範圍篩選（原本只接受土地覆蓋）；邊界依特徵登錄表驗證，缺值回報 `missing_metric:<id>`；`query_version` 升為 `search-1.1.0`；新增 6 個 API 測試並重新產生 OpenAPI |
+| #22 | [#50](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/50) | `950fce8` | 依團隊在 Claude Design 做的設計稿實作介面：目標列（月球／自訂／火星）、D1–D6 比較維度看板（D2–D6 顯示「資料準備中」，不放假資料）、雙端範圍滑桿、土地覆蓋獨立為只篩選欄、深色模式、地圖底圖切換與編號圖釘；前端測試 67 → 70 |
+| #51 | [#52](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/52) | `5d07072` | 修正兩個只在 Windows 出錯的開發工具問題：LOLA 路徑測試假設 POSIX 分隔符；`export_openapi.py` 清理暫存資料夾時 WinError 32 且輸出 CRLF。修正後該電腦上後端 252 個測試通過 |
+| #55 | [#56](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/56) | `34ddaeb` | 團隊成員發現地形底圖出現 QR code。查明是 OpenTopoMap 對 `localhost` 等通用 referrer 在高縮放層級改回傳提示圖磚；改用 Esri World Topo Map，新增 Esri World Imagery 衛星底圖（標註僅供定位、非科學證據）；點選結果時地圖飛到該窗格，新增「顯示全部結果」；前端測試 70 → 73 |
+
+### 只開 issue、沒有修改程式的項目
+
+- [#53](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/53)：參考模式下權重 0 的指標仍會排除缺少該指標的候選，與介面「未計入」的說法不一致。因為這要改排名核心，而排名角色由 #47 負責，Claude Code 只記錄問題，沒有改程式。
+
+### 不在 repo 裡的協助
+
+- 解說 repo 結構、`instrument` 等名詞、資料處理狀態與已知問題。
+- 整理給 Claude Design 的背景資料（產品目的、資料限制、科學誠實規則），供團隊產生設計稿。
+- 從各資料清單與說明文件整理 Space Apps 報名表的資料來源清單（NASA 資料 15 筆、其他資料與工具 19 筆），放在 claude.ai 的文件中，未提交進 repo；部分網址尚待人工點開確認。
+
+### 過程中造成並已修正的問題
+
+- 在 Windows 上執行 `scripts/verify.sh` 時，其中的 `npm ci` 會先刪除 `node_modules`，但開發伺服器正佔用其中的原生檔案，導致安裝中斷、`node_modules` 殘缺。當下用 `npm install` 補回，之後發現仍不完整（找不到 `vite`），再以 `npm ci` 依 lock 檔重裝；lock 檔都沒有改動。在 Windows 上執行 `verify.sh` 前應先停止 `npm run dev`。
+- 曾給出錯誤的後端啟動指令（漏了 `--factory`），已更正為 `uv run uvicorn analog_api.main:create_app --factory --reload --port 8000`（與 `make api` 相同）。
+- 一度用 Python `write_text` 寫檔產生 CRLF，已從 HEAD 還原；一次暫存檔誤寫到 `/tmp`，已立即刪除。
+
+### 已知界線
+
+- 本節的測試數字是各 PR 當時在該 Windows 電腦上的執行結果；CI 以 Linux 執行完整檢查。之後其他人合併的變更（例如 #187 的介面簡化）可能已改動或移除這裡描述的部分介面。
+- 目前地球候選仍是 113 個人工挑選的取樣窗格，排名只代表在這些窗格中的相對相似度，不是全球掃描結果。
 
 ---
 
