@@ -65,6 +65,23 @@ dimensions:
             comparability: context_only
             notes: "Earth land-cover context/filter only; not mineralogy and not a scored terrain feature."
             unknown_fields: []
+          - source_id: geomorpho250-slope
+            provider: PANGAEA / Amatulli et al. Geomorpho90m
+            product: dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif
+            url: https://doi.pangaea.de/10.1594/PANGAEA.899135
+            license: CC BY 4.0
+            license_url: https://creativecommons.org/licenses/by/4.0/
+            native_resolution: 7.5 arc-second (~250 m); not a fixed metric grid
+            spatial_support: Three bounded 0.4-degree pilot regions; 168 real 5 km cells
+            temporal_support: Static 2018/2019 MERIT-DEM derivative
+            depth_support: Surface only
+            observation_kinds: [numeric]
+            qa: Scale 0.01, nodata -32768, bounded /vsicurl range reads, no full download
+            availability: verified
+            data_status: existing_observed
+            comparability: comparable
+            notes: "Coarse 250 m method only; not the existing 90 m terrain score. Global coverage not claimed."
+            unknown_fields: []
       Moon:
         sources:
           - source_id: nasa-lola-south-pole
