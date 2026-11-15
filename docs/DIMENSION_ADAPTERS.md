@@ -34,6 +34,10 @@ Typed features: mean surface temperature, diurnal range, timeseries.
 - K, with scale/offset, emissivity/QA, local solar time, season and n.
 - No fake extrema or time series.
 - Thermal inertia requires the original retrieval model and uncertainty.
+- Earth: NASA POWER thermal context is `context_only`.
+- Mars: the USGS THEMIS-derived quantitative thermal-inertia mosaic is verified metadata only;
+  it is `evidence_only`, has no approved similarity feature ID, no per-pixel uncertainty layer,
+  and no observation is persisted. See `docs/MARS_PROVIDER_GATES.md`.
 
 ## D04 Water & Ice
 

@@ -18,8 +18,10 @@ services:
       ANALOG_MANIFEST_DIR_CONTEXT: /app/pipelines/worldcover/manifests
       ANALOG_MANIFEST_DIR_PLANETARY: /app/pipelines/planetary/manifests
       ANALOG_AOI_RUNTIME_DIR: /data/aoi-catalog
+      ANALOG_GLOBAL_INDEX_DIR: /data/global-index
     volumes:
       - ./var:/data
+      - ./pipelines/coarse/real-pilot/index:/data/global-index:ro
     ports:
       - "127.0.0.1:${PUBLIC_API_PORT:-18000}:8000"
     healthcheck:
