@@ -107,3 +107,12 @@ See [`ACCEPTANCE.md`](ACCEPTANCE.md) for the three-body public acceptance, data 
   messages posted to #135–#141; all sessions report `running`.
 
 - 2026-11-15 19:30: all seven primary sessions confirmed with a delivered (not queued) native `/goal` synthetic message. `GET /api/command` exposes the native `goal` command; `POST /api/session/{id}/command` with `{"name":"goal","text":...}` was used. #137/#138 opened phase PRs #146/#144; #139 opened #145.
+
+
+## Public deployment observed (2026-11-15, read-only)
+
+`bash scripts/public_acceptance.sh` passed against the deployed API:
+`dv-72be27e95dba`, 117 candidates, 2,158 typed observations, D06 gated 113. This does **not** match
+PR #161 (`dv-6fefaf3a7974`, 113 candidates, 2,185 typed) or PR #166 (based on `f96fad1`, 2,152
+typed). No deployment or production DB overwrite was performed; formal deployment/rollback requires
+explicit confirmation. See `ACCEPTANCE.md` for the three-body results and remaining gaps.

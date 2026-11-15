@@ -159,3 +159,70 @@ monitor restart -> state persisted in ~/.local/state/analogx-phase2/monitor.sqli
   sample extraction with depth/support/assumption provenance is completed.
 - Manual review/merge/deploy remains a coordinator/human decision; the monitor never auto-merges or
   auto-deploys.
+
+## Final coordinator status (2026-11-15, after #132 integration)
+
+### Preflight / integration base
+
+- `origin/main` advanced to `f96fad1`; PR #151/#162/#164 (#132 Earth bbox + planetary AOI
+  analysis and Docker fixture fixes) are merged. No #132 worktree was modified.
+- #97 and #108 remain open with no active worktree/session. #153 is an external frontend PR (#155).
+- #118/#119/#123 remain frontend-owned; no UI file was edited by this coordinator.
+
+### Open PRs from this phase
+
+| PR | Scope | Local verification | Merge |
+|---|---|---|---|
+| #161 | D01–D05 bounded real ingest expansion (#135–#139) | `bash scripts/verify.sh --ci` PASS; `backend_acceptance.sh` PASS | open, not merged |
+| #166 | #160 P0 AOI-first six-dimension query, D01+D06 search, evidence filters | `bash scripts/verify.sh --ci` PASS; `accept_sixdim_aoi.sh` PASS | open, not merged |
+
+Both PRs were updated by merging `origin/main` (`f96fad1`) and re-running the full gate. GitHub
+reports them mergeable; required review/merge is intentionally left to the maintainer.
+
+### Native Goal verification (observed via `opencode session export`)
+
+| Issue | Session | Native goal | Outcome |
+|---|---|---|---|
+| #135 D01 | `ses_e20fc8691ffeaMvQ1pjnNWscZp` | `0199a330-c186-4293-acd6-71762469219d` | succeeded |
+| #136 D02 | `ses_e20fc69adffe9JAGca55A3aX5R` | `8004c26a-8e34-464d-9bfb-8dc31680d2fe` | succeeded |
+| #137 D03 | `ses_e20fc6930ffeoPYLni2B8ZosUx` | `0ceab842-708d-4164-81e2-96c4aeb23ca4` | succeeded |
+| #138 D04 | `ses_e20fc68bbffe2Sar4coxcaeuS7` | `642a1a88-25bc-4515-a3bb-2d153bad8bb1` | succeeded |
+| #139 D05 | `ses_e20fc684affe5mrOOQ6dvy5Ju5` | `993b3503-c9c2-4a47-a256-76f6e2f35ed9` | succeeded |
+| #140 D06 | `ses_e20fc67c3ffeEHNB8Ra3Q5CLqP` | `96555f26-c85b-448d-8ed1-6c55880da63c` | succeeded |
+| #141 Integration | `ses_e20fc6751ffeXuPBKd6WZyqGcN` | `2f312370-3a07-400f-b15a-95cd4cc8d251` | succeeded |
+| #142 Coordinator | `ses_e253e85e9ffeLjB1ipw0gIVen0` | `a1caf80d-100c-4491-a301-cdf5020f0a69` | active |
+| #160 P0 | `ses_e20b4eb76ffekA5MUFIVhI4mSc` | `051525ff-6215-470c-847a-a570d6b1aea1` | active |
+
+Each session contains a synthetic message with `metadata.source="goal"`; the message-list endpoint
+is paginated, so verification uses `opencode session export`.
+
+### Three-body acceptance (observed)
+
+- `bash scripts/backend_acceptance.sh` in the #161 branch: **PASS** (offline focused suites, legacy
+  smoke, pinned snapshot `snap-0faad9cee4386729` / `dv-6fefaf3a7974`, 25 references).
+- `bash scripts/public_acceptance.sh` against the deployed API: **PASS** (health, capabilities,
+  typed coverage, global coarse index, Moon legacy search, D06 eligibility, multidimensional search,
+  planetary map catalog, arbitrary-location D01–D06, dimension×feature weighting, legacy search,
+  web/CORS).
+- `bash scripts/accept_sixdim_aoi.sh` in the #160 branch: **PASS** (11/11 sections: Earth/Moon/Mars
+  statuses, evidence facets, D01+D06 rank change, cross-body rejection, out-of-coverage, WorldCover).
+
+### Public deployment status — not claimed as this branch
+
+- Observed public API: `dv-72be27e95dba`, 117 indexed candidates, 2,158 typed observations,
+  5 D01 features, D06 1,932, D06 gated 113. Public acceptance passed read-only.
+- Local #161 branch: `dv-6fefaf3a7974`, 113 Earth candidates, 2,185 typed observations, 7 Mars
+  references. Local #166 branch is based on `f96fad1` and seeds the committed 2,152/5 Mars data.
+- The public data version therefore does **not** match PR #161 or PR #166. No deployment, database
+  overwrite or production reset was performed. Formal deployment and rollback remain subject to
+  explicit maintainer confirmation.
+
+### Remaining gaps (explicit, not zero-filled)
+
+- D02–D05 remain evidence/context outside validated scoring; no cross-body six-dimension score.
+- Moon/Mars numeric regolith D06 properties remain `no_coverage` (12 explicit evidence records).
+- WorldCover remains an Earth-only land-cover hard filter; `/search/multidimensional` does not yet
+  accept `landcover_*` filters (`422 unknown_feature`). #119 must keep that control on legacy
+  `/search` until the combined path lands (documented in `docs/FRONTEND_HANDOFF_160.md`).
+- Coverage endpoint response bodies remain generic objects in OpenAPI; record fields are documented
+  but not yet Pydantic response models.

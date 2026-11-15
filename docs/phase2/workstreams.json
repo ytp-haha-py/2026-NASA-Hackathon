@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T21:35:00+08:00",
+  "generated_at": "2026-11-15T21:55:00+08:00",
   "coordinator": {
     "issue": 142,
     "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-coordinator-142",
@@ -266,5 +266,15 @@
       ]
     }
   ],
-  "acceptance_report": "docs/phase2/ACCEPTANCE.md"
+  "acceptance_report": "docs/phase2/ACCEPTANCE.md",
+  "public_deployment": {
+    "observed_at": "2026-11-15",
+    "data_version": "dv-72be27e95dba",
+    "indexed_candidates": 117,
+    "typed_observations": 2158,
+    "d06_gated": 113,
+    "matches_local_pr_161": false,
+    "matches_local_pr_166": false,
+    "note": "read-only public acceptance PASS; no deployment or DB overwrite performed"
+  }
 }
