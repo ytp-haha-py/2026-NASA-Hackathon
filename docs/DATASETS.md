@@ -7,8 +7,9 @@ The original Site04 ROI 2 is retained. NASA Site07 ROI 2 remains a failed range 
 and is not imported. Other initial range failures recovered with serial requests.
 
 The six lunar sites use the MOON_ME / DE421 source frame. Mars uses its own
-Mars_2000_Sphere projected frame, never Earth WGS84. MOLA remains planned as a
-separate source; the current Mars data is CTX. See [the expansion plan](TERRAIN_EXPANSION.md)
+Mars_2000_Sphere projected frame, never Earth WGS84. MOLA and THEMIS have metadata-only
+interfaces with fail-closed gates and no observations; the current Mars terrain data is CTX. See
+[the Mars provider gates](MARS_PROVIDER_GATES.md), [the expansion plan](TERRAIN_EXPANSION.md),
 and [catalog](../catalog/datasets.yaml) for current sources, caveats and commands.
 
 The following section records the original baseline before expansion.
@@ -39,11 +40,12 @@ sources contribute no numbers to the index.
 | Copernicus DEM GLO-90 | Earth terrain | **verified** | 90 m (3 arc-second) | `COP-DEM_GLO-90-DGED`, 2021 release | Copernicus DEM terms; free basis for the general public via the AWS Open Data mirror |
 | ESA WorldCover 2021 v200 | Earth land-cover context | **verified** | 10 m (1/12000°) | `ESA WorldCover 2021 v200` | CC BY 4.0 |
 | NASA LRO-LOLA Site04 5 m | Moon reference | **verified** | 5 m source; 90 m analysis | `Site04_final_adj_5mpp_surf` | CC0-1.0 per NASA Science Data Portal; PGDA requests citation |
-| Mars MOLA MEGDR | Mars reference | **planned** | not verified | not verified | not verified |
+| Mars MOLA MEGDR | Mars terrain metadata | **in_progress** | 0.463–3.704 km/pixel | PDS4 bundle 1.0 / product 1.1 | not stated in bundle; recorded `not_verified` |
+| Mars THEMIS thermal inertia | Mars thermal evidence | **in_progress** | 100 m | 24-tile quantitative mosaic, edition 1 | public domain; cite authors |
 
-At this revision there is no dataset in the `in_progress` state: the WorldCover context
-pipeline and a validated manifest now exist. This is a snapshot of repository state, not
-a promise that the manifests remain unchanged.
+Mars CTX reference windows remain **verified**; they are listed under the terrain expansion
+manifests. MOLA and THEMIS have metadata interfaces but no validated observation, so zero MOLA or
+THEMIS values contribute to the index.
 
 ## Earth — Copernicus DEM GLO-90 (verified)
 
@@ -134,20 +136,38 @@ Limitations:
   40,980,806-byte product.
 - The 90 m analysis window is a local reference sample.
 
-## Mars — PDS MOLA MEGDR (planned, not verified)
+## Mars — PDS4 MOLA MEGDR (metadata verified, no observation)
 
 | Field | Value |
 |---|---|
 | Provider | NASA PDS Geosciences Node / MGS MOLA |
-| Product | MOLA gridded topography (MEGDR); exact product/version not selected |
+| Bundle / product | `urn:nasa:pds:mgs_mola_topography_derived` 1.0; product `...:data_meg016:megt90n000eb` 1.1 |
 | Official URL | <https://pds-geosciences.wustl.edu/missions/mgs/megdr.html> |
-| Status | `planned` |
+| Status | `in_progress` (metadata verified; no observation) |
+| Native resolution | 3.704 km/pixel (16 ppd); 0.463 km/pixel (128 ppd tiles) |
+| Licence | not stated in the PDS4 bundle label; recorded `not_verified` |
 | Measurements | none |
 
-No Mars pipeline, manifest, feature, or preset exists. Before any future ingestion, an
-Issue/PR must verify and record the product version, CRS, grid resolution, vertical
-datum, licence, access method, and a bounded ROI. Mars must remain absent from
-`supported_bodies` and UI claims until a real reference manifest validates.
+The MEGDR native support is far coarser than the 90 m `terrain-metrics-1.0.0` analysis
+support, and the grid contains interpolated bins. `MarsMolaMegdrProvider` therefore
+returns metadata only and fails closed on acquisition/processing. Mars remains absent
+from `supported_bodies` for MOLA until a real comparable reference manifest validates.
+
+## Mars — THEMIS global thermal inertia (metadata verified, no observation)
+
+| Field | Value |
+|---|---|
+| Provider | USGS Astrogeology Science Center / ASU Mars Space Flight Facility / NASA MDAP |
+| Product | THEMIS-derived global thermal inertia mosaic, quantitative 32-bit, edition 1 |
+| Official URL | <https://astrogeology.usgs.gov/search/map/mars-themis-derived-global-thermal-inertia-mosaic> |
+| Status | `in_progress` (metadata verified; no observation) |
+| Native resolution / coverage | 100 m/pixel; 24 tiles; 60°S to 60°N |
+| Licence | Public domain; please cite authors |
+| Measurements | none |
+
+Thermal inertia is `evidence_only`. There is no approved D03 similarity feature ID and
+no per-pixel QA/uncertainty layer; the ~2.36 GB ISIS3 tiles were not downloaded. See
+[MARS_PROVIDER_GATES.md](MARS_PROVIDER_GATES.md) for the blockers and tests.
 
 ## Synthetic fixtures
 

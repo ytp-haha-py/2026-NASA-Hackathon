@@ -125,10 +125,10 @@ fixtures are programmatically generated and labelled.
 ## Persistence
 
 SQLite is the zero-credential MVP store. The API talks to the storage layer through
-`ports/repository.py`; swapping in PostGIS means implementing the same Protocol and changing the
-session factory, not changing scoring or HTTP contracts. Schema creation uses SQLAlchemy
+`ports/repository.py`; the optional PostGIS adapter implements the same Protocol and changes the
+selection in `api/routes.py`, not scoring or HTTP contracts. Schema creation uses SQLAlchemy
 `create_all` for the MVP; a production deployment should introduce Alembic before evolving columns
-(see `docs/DATA_MODEL.md`).
+(see `docs/DATA_MODEL.md` and `docs/POSTGIS.md`). No PostGIS deployment is verified here.
 
 ## Deployment topology
 

@@ -7,6 +7,8 @@ requested sites, and five Mars Jezero CTX DEM windows. Native resolutions are 90
 The source links, access timestamps, original CRS WKT, licences, checksums and crop
 coordinates are recorded in each manifest. [TERRAIN_EXPANSION.md](TERRAIN_EXPANSION.md)
 describes the bounded sampling rules and the remaining Site07 ROI 2 failure.
+Mars MOLA and THEMIS thermal inertia are metadata-only interfaces in
+[MARS_PROVIDER_GATES.md](MARS_PROVIDER_GATES.md); they contribute no observation.
 
 The following access evidence documents the original five-window / one-ROI baseline.
 
@@ -152,16 +154,24 @@ Manifest: `pipelines/planetary/manifests/lola_moon_reference.json`. Import metho
 414×414 px crop (1980 m) at 5 m, bilinear reprojection to the 22×22 / 90 m analysis grid, identical
 extractor. Only this real ROI is exposed as a Moon reference; no other lunar coverage is claimed.
 
-## Mars — PDS MOLA MEGDR (FUTURE / INTERFACE ONLY)
+## Mars — PDS4 MOLA MEGDR and THEMIS thermal inertia (metadata only)
 
-Candidate source: <https://pds-geosciences.wustl.edu/missions/mgs/megdr.html> (MGS MOLA gridded
-topography, PDS4 maintained archive). Not ingested in this MVP. No Mars features, presets, or
-"support" are claimed. A future importer must document the product version, CRS, resolution, and
-vertical datum, then use the shared extractor and reference manifest contract.
+MOLA source: <https://pds-geosciences.wustl.edu/missions/mgs/megdr.html> (MGS MOLA gridded
+topography, PDS4 maintained archive). The official PDS4 bundle/product labels were inspected; the
+native support is 3.704 km/pixel at 16 ppd and 0.463 km/pixel at 128 ppd, far coarser than the
+90 m terrain method, with interpolated no-observation bins. No MOLA raster is ingested and no Mars
+MOLA value is claimed.
 
-Implementation hook: the planetary reference repository/provider interfaces in
-`apps/api/src/analog_api/ports/` and the manifest `reference` schema. Mars remains absent from
-`supported_bodies` until then.
+Mars thermal source: <https://astrogeology.usgs.gov/search/map/mars-themis-derived-global-thermal-inertia-mosaic>
+(USGS Astrogeology THEMIS-derived quantitative thermal inertia, 100 m/pixel, 24 tiles, 60°S–60°N).
+It is public domain, requires citation, and is `evidence_only`. No D03 thermal-inertia similarity
+feature, per-pixel QA/uncertainty layer, or bounded tile acquisition exists, so no value is
+persisted.
+
+Implementation: `analog_pipelines.acquisition.providers_mars` and
+`mars_comparability`. Both providers fail closed; see
+[`docs/MARS_PROVIDER_GATES.md`](MARS_PROVIDER_GATES.md). MOLA does not add a Mars reference or
+`supported_bodies` entry until a validated manifest exists.
 
 ## Challenge source
 
