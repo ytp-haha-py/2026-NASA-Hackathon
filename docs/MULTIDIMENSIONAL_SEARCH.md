@@ -15,6 +15,9 @@ coverage and per-feature contributions.
 
 Registry version: `feature-eligibility-1.0.0`.
 
+Per-feature query roles for every indexed D01–D06 feature are tabulated in
+[`SIXDIM_QUERY_ROLES.md`](SIXDIM_QUERY_ROLES.md).
+
 ## Source observation vs query eligibility
 
 Source observations keep their acquisition `score_role`. The D06 pilot records are still stored as
