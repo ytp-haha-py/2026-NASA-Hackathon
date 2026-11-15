@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
-.PHONY: help setup api web seed seed-demo test test-backend test-frontend lint verify smoke smoke-online docker-up docker-down data-earth data-earth-dry-run data-worldcover data-moon data-ingest-earth data-ingest-moon data-analyze-aoi data-demo data-validate data-verify data-snapshot data-index data-index-dry-run data-publish data-sync data-fetch data-rebuild-index data-coarse-pilot data-geomorpho-batch data-geomorpho-batch-dry-run data-global-report data-global-report-check db-audit db-benchmark-coarse db-benchmark-typed db-backup db-backup-drill
+.PHONY: help setup api web seed seed-demo test test-backend test-frontend lint verify smoke smoke-online docker-up docker-down data-earth data-earth-dry-run data-worldcover data-moon data-ingest-earth data-ingest-moon data-analyze-aoi data-demo data-validate data-verify data-snapshot data-index data-index-dry-run data-publish data-sync data-fetch data-rebuild-index data-coarse-pilot data-geomorpho-batch data-geomorpho-batch-dry-run data-refine-coarse data-refine-coarse-dry-run data-global-report data-global-report-check db-audit db-benchmark-coarse db-benchmark-typed db-backup db-backup-drill
 
 WEST ?= -6.617
 SOUTH ?= 37.682
@@ -28,7 +28,7 @@ web: ## Run the Vite dev server on http://localhost:5173
 	cd apps/web && npm run dev
 
 seed: ## Load committed real-data manifests into ./var/analog.db
-	ANALOG_SEED_INCLUDE_SYNTHETIC=false uv run python -m analog_api.cli seed
+	ANALOG_SEED_INCLUDE_SYNTHETIC=false ANALOG_SEED_INCLUDE_TYPED=true uv run python -m analog_api.cli seed
 
 seed-demo: ## Load the clearly-labelled synthetic fixture into ./var/demo.db
 	ANALOG_DATABASE_URL=sqlite+pysqlite:///./var/demo.db ANALOG_SEED_INCLUDE_SYNTHETIC=true uv run python -m analog_api.cli seed
@@ -157,3 +157,9 @@ data-global-report: ## Regenerate the source-grounded global terrain evaluation 
 
 data-global-report-check: ## Verify the committed global terrain evaluation report is current
 	uv run python scripts/report_global_terrain.py --check
+
+data-refine-coarse: ## Refine deterministic coarse hits with the bounded 90 m pipeline (network)
+	uv run python pipelines/refine_coarse_hits.py
+
+data-refine-coarse-dry-run: ## Derive refinement focus windows offline (no provider calls)
+	uv run python pipelines/refine_coarse_hits.py --dry-run
