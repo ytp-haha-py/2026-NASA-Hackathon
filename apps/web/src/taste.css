@@ -1958,3 +1958,26 @@ body {
 .dimension-card .observed-feature-list {
   display: none;
 }
+
+/* #170: filter controls must remain visible even though unweighted similarity
+   target rows are hidden by the compact dimension-card layout. */
+.dimension-card .filter-metric .metric-row {
+  display: grid;
+}
+
+/* #170: override the higher-specificity compact-card rule that hides
+   unweighted metric rows; filter controls are not unweighted similarity rows. */
+.dimension-card .metric.filter-metric .metric-row:not(.metric-row-weight) {
+  display: grid;
+}
+
+/* #170: filter controls mirror the D01 card rows: weight, target, range.
+   Weight/target are intentionally disabled because D02-D05 are filters, not scores. */
+.filter-metric .metric-row-weight,
+.filter-metric .metric-row-target {
+  order: 0;
+}
+.filter-metric .metric-row-weight .metric-number,
+.filter-metric .metric-row-target .metric-number {
+  opacity: 0.6;
+}
