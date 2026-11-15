@@ -1,0 +1,194 @@
+{
+  "access_tests": [
+    {
+      "blocker": "",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "observed": "14,256,401 bytes; 259,200 comma-separated rows; one ********** missing cell",
+      "result": "accessible",
+      "test": "HTTPS GET of hydrogenhd.txt and header/column inspection"
+    },
+    {
+      "blocker": "",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "observed": "accept-ranges: bytes; HTTP 206; 8x8 native windows decoded as little-endian float32",
+      "result": "accessible",
+      "test": "HTTPS HEAD + HTTP Range GET of the 4.25 GB global CPR mosaic"
+    },
+    {
+      "blocker": "",
+      "dataset_id": "mro-hend-epithermal-020917",
+      "observed": "202,500 bytes; 4,050 rows on a 4x4 degree grid; normalized flux 0.158515-1.0",
+      "result": "accessible",
+      "test": "HTTPS GET of hend_epithermal_020917.tab and PDS4 label"
+    },
+    {
+      "blocker": "ALDS emits unitless relative count rates; converting them to flux or water-equivalent hydrogen requires normalization constants that are not in this table.",
+      "dataset_id": "lro-lend-alds-20090915",
+      "observed": "4,464,000 bytes; 14,400 records of 310 bytes; CSETN rates parse",
+      "result": "accessible_but_not_used",
+      "test": "HTTPS GET and PDS4 label/offset inspection of the LEND ALDS table"
+    },
+    {
+      "blocker": "LAMP is a far-UV spectrograph (stellar occultation / surface reflectance), not a gridded ice-abundance product; no bounded AOI product was located.",
+      "dataset_id": "lro-lamp-far-uv",
+      "observed": "instrument site reachable; no gridded PDS water-ice product ID verified",
+      "result": "identified",
+      "test": "official instrument site reachability"
+    },
+    {
+      "blocker": "LCROSS measured ejecta from one impacted Cabeus target, not the Shackleton or LOLA reference windows; the result is a published point measurement, not an areal product for these AOIs.",
+      "dataset_id": "lcross-cabeus-impact",
+      "observed": "page reachable; single-impact published result at Cabeus, not an areal product",
+      "result": "identified",
+      "test": "PDS LCROSS mission page reachability"
+    },
+    {
+      "blocker": "SHARAD products are orbit-track radargrams and clutter simulations, not a per-cell detection mask or abundance grid. A defensible subsurface detection needs track selection, clutter modelling and reflector interpretation; the Jezero CTX windows are not a SHARAD detection product.",
+      "dataset_id": "mro-sharad-radargrams",
+      "observed": "urn:nasa:pds:mro_sharad_us_radargrams and mro_sharad_simulations bundles reachable",
+      "result": "accessible",
+      "test": "PDS4 SHARAD radargram and clutter-simulation bundle listing"
+    },
+    {
+      "blocker": "MARSIS is a sounding radar; published subsurface detections are track/interpretation results, not a per-cell product that can be joined to the 1.98 km Jezero windows.",
+      "dataset_id": "mex-marsis-radargrams",
+      "observed": "page reachable; no bounded per-cell product selected",
+      "result": "identified",
+      "test": "PDS Mars Express MARSIS mission page reachability"
+    },
+    {
+      "blocker": "CRISM products are radiance/I-F cubes or multispectral tiles; hydration requires summary-product computation and is evidence of hydrated minerals (D02), not automatically ice. No D04 numeric observation is derived here.",
+      "dataset_id": "mro-crism-hydration",
+      "observed": "MROCR_3201 / MROCR_4001 volumes reachable; cubes and multispectral tiles, not a hydration mask",
+      "result": "accessible",
+      "test": "PDS4 CRISM TRDR/MRDR/MTRDR volume listing"
+    }
+  ],
+  "assets_sha256": "cb8919fc33ee777517171c8cd7d4a2ac88a743ff2817b6044aff5bb24e254549",
+  "counts": {
+    "areas": 30,
+    "by_body": {
+      "Mars": 2,
+      "Moon": 53
+    },
+    "by_feature": {
+      "epithermal_neutron_flux_ratio": 1,
+      "radar_circular_polarization_ratio": 12,
+      "water_equivalent_hydrogen_wt_percent": 12,
+      "water_ice_detection": 30
+    },
+    "by_state": {
+      "detected": 25,
+      "no_coverage": 5,
+      "not_detected": 1,
+      "unknown": 24
+    },
+    "claims": 30,
+    "claims_by_state": {
+      "no_coverage": 5,
+      "not_detected": 1,
+      "unknown": 24
+    },
+    "detected_claims": 0,
+    "no_coverage_claims": 5,
+    "observations": 55,
+    "tasks_failed": 0,
+    "tasks_planned": 30,
+    "tasks_succeeded": 30
+  },
+  "data_kind": "observed",
+  "generated_at": "2026-11-15T00:00:00Z",
+  "input_manifests": [
+    {
+      "path": "pipelines/planetary/manifests/ctx_mars_references.json",
+      "sha256": "6168256e3a03502a48a0aa812ae00365337dc819cd6a161a9f4a75ee2b158153"
+    },
+    {
+      "path": "pipelines/planetary/manifests/lola_moon_reference.json",
+      "sha256": "80c91cb5992d395791e0835ce5952a99e51f52f6933643a414749ffdcb9eafcd"
+    },
+    {
+      "path": "pipelines/planetary/manifests/lola_site01_references.json",
+      "sha256": "c8180b128cf7e49135f2fae242922eca3542ab4f1395a52986c7daf4dfabb22a"
+    },
+    {
+      "path": "pipelines/planetary/manifests/lola_site07_references.json",
+      "sha256": "96912b540e51bbbff6cd906bd12e2c5da94c1c825d692dbdd7853e26afc5ed41"
+    },
+    {
+      "path": "pipelines/planetary/manifests/lola_site11_references.json",
+      "sha256": "81a78d93c2c574a952a3e529e5a41c1031e1a7a2790637609a43374c86649bf8"
+    },
+    {
+      "path": "pipelines/planetary/manifests/lola_site20_references.json",
+      "sha256": "f5b4e27bdef8db8b64ce8e7f3f8243dfb9fdc176b311689bad7a3a1a1e3200b3"
+    },
+    {
+      "path": "pipelines/planetary/manifests/lola_site23_references.json",
+      "sha256": "450ea23631034d595ab0a708dea21d1c8f3130916fffaf23f149e2e229d5e8c5"
+    }
+  ],
+  "limitations": [
+    "Two neutron products and one radar mosaic only; this is not global or exhaustive Moon/Mars coverage.",
+    "Native source grids are preserved: 0.5 degree (Moon hydrogen), 236.9 m (Mini-RF), 4 degree (Mars neutron). Nothing is resampled to 90 m.",
+    "The Lunar Prospector product is a PDS special product that the PDS page describes as not a peer-reviewed archive; it is bounded to the 1998-1999 low-altitude mission phase.",
+    "The Mars HEND label has no start/stop dates; the 55-day mapping interval is documented in the product description, not the label.",
+    "Neutron-derived water-equivalent hydrogen and normalized epithermal flux are hydrogen evidence, not ice fraction, ice phase, or mineable ice.",
+    "Mini-RF CPR at or above unity is ice-consistent but not diagnostic; roughness and wavelength-scale rocks also raise CPR.",
+    "All 23 existing reference windows are coarser than the native source cells for the neutron products, so no AOI-scale ice detection is claimed.",
+    "No D04 similarity feature, D04 score, or cross-body water score is produced.",
+    "Raw products and window bytes remain in the gitignored var/cache/water-44 cache and are not committed."
+  ],
+  "method_version": "water-ice-evidence-0.1.0",
+  "non_claims": [
+    "No ice fraction, ice volume, or mineable-ice estimate.",
+    "No water-equivalent hydrogen for Mars (the HEND map is a normalized flux, not WEH).",
+    "No detection claim at 1.98 km support from 0.5 or 4 degree neutron cells.",
+    "No hydrate or mineral abundance (D02 owns hydrated-mineral evidence).",
+    "No liquid-water or permafrost observation.",
+    "No global coverage and no claim that an unmeasured area is ice-free."
+  ],
+  "notes": [
+    "Counts are measured from the committed observations.jsonl, not estimated.",
+    "Every native read is recorded in plan.json and every window checksum in assets.json.",
+    "Source and candidate statuses are recorded in sources.json."
+  ],
+  "observations_sha256": "c4d5ae7bcafc098870ee638b07778e46928fc523c71960aa828bebb9a123f72e",
+  "plan_sha256": "ab3b233a78a72c0700e206dfc5bc8ba5f82ae3f78a252a4f18ed0e4d78112db4",
+  "products": [
+    {
+      "dataset_id": "lp-ns-hydrogenhd",
+      "license": "CC0-1.0 (NASA-led mission data archived by the NASA Planetary Data System; no restrictive notice on the product page)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "product_id": "hydrogenhd (Hydrogen_halfdeg, December 2001)",
+      "url": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+      "verification_status": "verified"
+    },
+    {
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "license": "CC0-1.0 (NASA-led mission data archived by the NASA Planetary Data System; no restrictive notice on the product page)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "product_id": "GLOBAL_CPR_128PPD_SIMP_0C.IMG",
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+      "verification_status": "verified"
+    },
+    {
+      "dataset_id": "mro-hend-epithermal-020917",
+      "license": "CC0-1.0 (NASA-led mission data archived by the NASA Planetary Data System; no restrictive notice on the product page)",
+      "license_url": "https://science.data.nasa.gov/about/license",
+      "product_id": "hend_epithermal_020917.tab",
+      "url": "https://pds-geosciences.wustl.edu/ody/urn-nasa-pds-odyssey_grs_special/data/hend_epithermal_020917.tab",
+      "verification_status": "verified"
+    }
+  ],
+  "release_version": "d04-water-ice-pilot-1.0.0",
+  "reproduce_commands": [
+    "uv run python scripts/build_water_ice_pilot.py --download",
+    "uv run python scripts/build_water_ice_pilot.py",
+    "uv run python scripts/build_water_ice_pilot.py --check",
+    "uv run pytest pipelines/tests/test_water_ice_pilot.py -q",
+    "uv run ruff check .",
+    "uv run ruff format --check ."
+  ],
+  "scope": "pilot-d04-water-ice-planetary"
+}

@@ -41,10 +41,15 @@ Typed features: mean surface temperature, diurnal range, timeseries.
 
 ## D04 Water & Ice
 
-Typed features: water/ice detection, depth interval.
+Typed features: water/ice detection, depth interval, water-equivalent hydrogen mass
+percent, normalized epithermal neutron flux, radar circular polarization ratio.
 - Preserve phase, surface/subsurface, depth interval, footprint, detection limit.
 - No coverage ≠ not detected ≠ absent.
 - Water-equivalent hydrogen is not mineable ice; hydrated minerals are D02 evidence.
+- The committed `pipelines/pilots/d04_water_ice_planetary/` pilot is **evidence-only**:
+  Lunar Prospector WEH (0.5°), Mini-RF CPR (236.9 m) and Mars HEND normalized
+  epithermal flux (4°). None is an ice detection, ice fraction or D04 score; see
+  `docs/D04_WATER_ICE_PILOT.md`.
 
 ## D05 Illumination & Radiation
 

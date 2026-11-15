@@ -1,8 +1,10 @@
 """Six-dimension typed feature catalog, provider interfaces and validators (Issues #40–#46).
 
-No dimension beyond D01 terrain has observed values in the repository. This module
-defines stable IDs, value kinds, units, roles, missingness/comparability rules and
-offline parsers for fixture evidence. It does not invent coverage.
+Only D01 terrain participates in similarity. D04 has bounded, evidence-only
+observations from public neutron and radar products (``pipelines/pilots/
+d04_water_ice_planetary``); they are not similarity features and not ice abundance.
+This module defines stable IDs, value kinds, units, roles, missingness/comparability
+rules and offline parsers for fixture evidence. It does not invent coverage.
 """
 
 from __future__ import annotations
@@ -191,6 +193,45 @@ FEATURES_V2: tuple[DimensionFeatureV2, ...] = (
         ("Earth", "Moon", "Mars"),
         "Verified retrieval with depth interval, footprint and uncertainty",
         "not_comparable across bodies without method validation",
+    ),
+    DimensionFeatureV2(
+        "water_equivalent_hydrogen_wt_percent",
+        "D04",
+        "Water-equivalent hydrogen mass percent",
+        "numeric",
+        "percent",
+        "evidence_only",
+        _D04,
+        ("Moon", "Mars"),
+        "Verified neutron-spectrometer product with documented H-to-H2O conversion, sensing depth and retrieval caveats",
+        "not_comparable to ice fraction, radar CPR or hydrated-mineral abundance",
+        "H ppm by weight x 9. Mars products are not converted to WEH in this repository.",
+    ),
+    DimensionFeatureV2(
+        "epithermal_neutron_flux_ratio",
+        "D04",
+        "Normalized epithermal neutron flux",
+        "numeric",
+        "1",
+        "evidence_only",
+        _D04,
+        ("Moon", "Mars"),
+        "Verified neutron map with declared normalization, native cell size and no invented per-cell uncertainty",
+        "not_comparable across instruments without a shared normalization",
+        "Low flux is a hydrogen proxy; it is not ice abundance and does not resolve a 1.98 km window.",
+    ),
+    DimensionFeatureV2(
+        "radar_circular_polarization_ratio",
+        "D04",
+        "Radar circular polarization ratio",
+        "numeric",
+        "1",
+        "evidence_only",
+        _D04,
+        ("Moon", "Mars"),
+        "Verified radar mosaic with native pixel size, wavelength, calibration/QA and coverage mask",
+        "not_comparable to neutron or spectral products",
+        "CPR at or above unity is ice-consistent but not diagnostic; no depth retrieval.",
     ),
     DimensionFeatureV2(
         "solar_incidence_deg",
