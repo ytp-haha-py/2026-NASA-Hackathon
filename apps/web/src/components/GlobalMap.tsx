@@ -3,6 +3,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { GlobalCoverageOut, GlobalSearchResultOut } from "../api/client";
 import { useI18n } from "../i18n/I18nProvider";
+import { addEarthBasemap } from "../lib/earthBasemap";
 
 type GlobalMapProps = {
   coverage: GlobalCoverageOut | null;
@@ -55,7 +56,7 @@ function rankIcon(rank: number, selected: boolean): L.DivIcon {
 }
 
 export function GlobalMap({ coverage, results, selectedId, onSelect }: GlobalMapProps) {
-  const { t, fmt } = useI18n();
+  const { locale, t, fmt } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
@@ -79,11 +80,6 @@ export function GlobalMap({ coverage, results, selectedId, onSelect }: GlobalMap
     });
     L.control.zoom({ position: "bottomright" }).addTo(map);
     L.control.scale({ position: "bottomleft", imperial: false }).addTo(map);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map);
     const layer = L.layerGroup().addTo(map);
     mapRef.current = map;
     layerRef.current = layer;
@@ -95,6 +91,10 @@ export function GlobalMap({ coverage, results, selectedId, onSelect }: GlobalMap
       layerRef.current = null;
     };
   }, []);
+
+  useEffect(() => {
+    if (mapRef.current) return addEarthBasemap(mapRef.current, locale);
+  }, [locale]);
 
   const showAll = useCallback(() => {
     const map = mapRef.current;
