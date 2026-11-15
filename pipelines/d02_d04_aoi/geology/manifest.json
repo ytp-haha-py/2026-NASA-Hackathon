@@ -1,0 +1,116 @@
+{
+  "area_count": 3,
+  "body_counts": {
+    "Mars": 8,
+    "Moon": 5
+  },
+  "coverage_state_counts": {
+    "complete": 6,
+    "no_coverage": 3,
+    "partial": 4
+  },
+  "dataset_count": 3,
+  "export_version": "d02-aoi-geology-1.0.0",
+  "files": {
+    "aoi.json": {
+      "bytes": 35861,
+      "sha256": "sha256:03845fcc14d07dc2c8f76f9f3afbbdb0d6e9ed6d86d8022cdeec2a5412c4b550"
+    },
+    "evidence.json": {
+      "bytes": 117270,
+      "sha256": "sha256:f1b24bdda0620322fcf154e9ac95a20825a03dcb6b134cf575cdb6f9c4614f45"
+    },
+    "evidence.jsonl": {
+      "bytes": 38658,
+      "sha256": "sha256:76bb767233afeacc8c41128074966863d3446b63cb31f28774f3e884bdab204b"
+    },
+    "products.json": {
+      "bytes": 58062,
+      "sha256": "sha256:5f337906c96395e433dff6e3754acdae5f7f04fdd15e8162fb7260c8b0e357c6"
+    }
+  },
+  "generated_at": "2026-11-15T14:16:51Z",
+  "labels": {
+    "queries/labels/M3G20090131T112714_V01_RFL.lbl": {
+      "bytes": 7176,
+      "sha256": "sha256:a0c1f7308c37300254c3c5ff3756eb4a3d3ac47bb0c3ae486c6daa4d89fa92ab"
+    },
+    "queries/labels/M3G20090620T051312_V01_RFL.lbl": {
+      "bytes": 7226,
+      "sha256": "sha256:018f47ac2cb8b34063c453cda68e233c35be1062c4bbb40d700c1e69b352beed"
+    },
+    "queries/labels/M3G20090717T124352_V01_RFL.lbl": {
+      "bytes": 7229,
+      "sha256": "sha256:a82ad5e50c8e2c2bfc10545a0ea2f1e88b4829b0bc6aeb3f37b19310896fab05"
+    },
+    "queries/labels/M3G20090717T211502_V01_RFL.lbl": {
+      "bytes": 7229,
+      "sha256": "sha256:2b1a93f7b91f3bb5ae8e50001b5c0d97ddaa9423ac3f5da361bd49abfa290ec7"
+    },
+    "queries/labels/frt000047a3_07_if166j_mtr3.xml": {
+      "bytes": 14989,
+      "sha256": "sha256:39c995a64b34b9d231413e176edb1267a97844d9a5124a3a78a637d56768bb85"
+    },
+    "queries/labels/frt00005850_07_if167j_mtr3.xml": {
+      "bytes": 14992,
+      "sha256": "sha256:ab2b0d0b0e8d78c59af26320dfd55cdf84fc4e78818c6e136a23911fa128942c"
+    },
+    "queries/labels/frt00005c5e_07_if166j_mtr3.xml": {
+      "bytes": 14989,
+      "sha256": "sha256:61320f3cf57e69f5ad2ff5098cb7201c0bcbec8d2b333f171210878174e67706"
+    },
+    "queries/labels/frt0001fb74_07_if166j_mtr3.xml": {
+      "bytes": 14992,
+      "sha256": "sha256:047e6c143e2dcabc9f7c47a6485924e05e7245eada6d2b1d83f15b66721f5d62"
+    },
+    "queries/labels/hrl000040ff_07_if183j_mtr3.xml": {
+      "bytes": 14988,
+      "sha256": "sha256:b215954770f594b6596342db34c7b234b0bc7c614d0e062bf5eb3cf1ffb9d7a8"
+    },
+    "queries/labels/lroc_wac_tio2_sample.xml": {
+      "bytes": 13455,
+      "sha256": "sha256:b57bb10305ae852c044e7f8b46586a3fbe5cb6c697040b30d5a7aaf3d495106d"
+    }
+  },
+  "product_count": 9,
+  "queries": {
+    "queries/discovery.json": {
+      "bytes": 9301,
+      "sha256": "sha256:383438afaf0566f7a94fbc8f81c1b50e19a9c46fb4d7ff2271528055d2f36424"
+    },
+    "queries/label_index.json": {
+      "bytes": 6306,
+      "sha256": "sha256:cd5ff2676c88069babe8d316b1f1943ccbeb024b71d68ba94fb04f571a2261df"
+    },
+    "queries/ode_mars-test-jezero-floor-crism-mtrdr.json": {
+      "bytes": 25233,
+      "sha256": "sha256:6a8f8eb4e00fda00e2d570d388a74ad2c98f20a5db012a346c25ed601f31ff83"
+    },
+    "queries/ode_mars-test-jezero-western-delta-crism-mtrdr.json": {
+      "bytes": 15541,
+      "sha256": "sha256:2844cec81946b7613e120242ca2bc3f785344fe771c707e6469c27611d9e2f85"
+    },
+    "queries/ode_moon-shackleton-rim-site04-roi2-lroc-sdwtio.json": {
+      "bytes": 1137,
+      "sha256": "sha256:a1c3722b52f9b07ab166f7de07333cbb6edfe8b005ae37eee62c999e9049dfaf"
+    },
+    "queries/ode_moon-shackleton-rim-site04-roi2-m3-refimg.json": {
+      "bytes": 35862,
+      "sha256": "sha256:df8a4116b5277a34a29e53571983a4c60fdafe177df131425e03a3d818065c36"
+    },
+    "queries/ode_moon_lroc_tio2_family.json": {
+      "bytes": 1919,
+      "sha256": "sha256:796aeb111c2a24e82c33b18d384ee885ccc2f5d0d44ee1817df72709477bd615"
+    }
+  },
+  "record_count": 13,
+  "schema": "d02-aoi-geology-manifest-1.0.0",
+  "scope_note": "D02 official-footprint evidence only. No mineral detection, abundance, similarity or combined score. no_coverage is never zero-filled.",
+  "source_area_sha256": "sha256:941f178ce4c3dfea2fcd22ac92bd3c5212aee67191e41dc650c8ec4c4edcf732",
+  "state_counts": {
+    "no_coverage": 3,
+    "unknown": 10
+  },
+  "typed_manifest": "pipelines/geology/typed/manifest.json",
+  "typed_manifest_sha256": "sha256:57519e5d35175a6a739d51277ee70e3bcb99946f941dba5c3e181aca2a6c986a"
+}

@@ -1,0 +1,782 @@
+[
+  {
+    "analysis_crs": "+proj=longlat +R=3396190 +no_defs",
+    "area_id": "mars-ns-cell-s018.25-e0077.25",
+    "area_km2": null,
+    "bbox": {
+      "east": 77.5,
+      "north": 18.5,
+      "south": 18.0,
+      "west": 77.0
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_planetocentric",
+    "crs": "+proj=longlat +R=3396190 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D04 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=3396190 +no_defs",
+    "area_id": "mars-ns-cell-s018.25-e0077.75",
+    "area_km2": null,
+    "bbox": {
+      "east": 78.0,
+      "north": 18.5,
+      "south": 18.0,
+      "west": 77.5
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_planetocentric",
+    "crs": "+proj=longlat +R=3396190 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D04 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=3396190 +no_defs",
+    "area_id": "mars-ns-cell-s018.75-e0077.75",
+    "area_km2": null,
+    "bbox": {
+      "east": 78.0,
+      "north": 19.0,
+      "south": 18.5,
+      "west": 77.5
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_planetocentric",
+    "crs": "+proj=longlat +R=3396190 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D04 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=3396190 +no_defs",
+    "area_id": "mars-ns-cell-s018.75-e0078.25",
+    "area_km2": null,
+    "bbox": {
+      "east": 78.5,
+      "north": 19.0,
+      "south": 18.5,
+      "west": 78.0
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_planetocentric",
+    "crs": "+proj=longlat +R=3396190 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D04 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396000 +units=m +no_defs",
+    "area_id": "mars-tes-pixel-l1423-s5162",
+    "area_km2": null,
+    "bbox": {
+      "east": 4629093.102627569,
+      "north": 1120227.3238821053,
+      "south": 1117267.3238821053,
+      "west": 4626133.102627569
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_projected",
+    "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396000 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396000 +units=m +no_defs",
+    "area_id": "mars-tes-pixel-l1426-s5159",
+    "area_km2": null,
+    "bbox": {
+      "east": 4620202.395417911,
+      "north": 1111336.616672446,
+      "south": 1108376.616672446,
+      "west": 4617242.395417911
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_projected",
+    "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396000 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396000 +units=m +no_defs",
+    "area_id": "mars-tes-pixel-l1429-s5155",
+    "area_km2": null,
+    "bbox": {
+      "east": 4608348.119138366,
+      "north": 1102445.9094627872,
+      "south": 1099485.9094627872,
+      "west": 4605388.119138366
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_projected",
+    "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396000 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396000 +units=m +no_defs",
+    "area_id": "mars-tes-pixel-l1433-s5151",
+    "area_km2": null,
+    "bbox": {
+      "east": 4596493.842858817,
+      "north": 1090591.6331832414,
+      "south": 1087631.6331832414,
+      "west": 4593533.842858817
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_projected",
+    "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396000 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396000 +units=m +no_defs",
+    "area_id": "mars-tes-pixel-l1436-s5148",
+    "area_km2": null,
+    "bbox": {
+      "east": 4587603.13564916,
+      "north": 1081700.925973582,
+      "south": 1078740.925973582,
+      "west": 4584643.13564916
+    },
+    "body": "Mars",
+    "coordinate_frame": "mars_projected",
+    "crs": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396000 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=1737400 +no_defs",
+    "area_id": "moon-gcp-cell-s085.25-e0031.75",
+    "area_km2": null,
+    "bbox": {
+      "east": 32.0,
+      "north": -85.0,
+      "south": -85.5,
+      "west": 31.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +R=1737400 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=1737400 +no_defs",
+    "area_id": "moon-gcp-cell-s085.75-e-000.25",
+    "area_km2": null,
+    "bbox": {
+      "east": 0.0,
+      "north": -85.5,
+      "south": -86.0,
+      "west": -0.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +R=1737400 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=1737400 +no_defs",
+    "area_id": "moon-gcp-cell-s088.75-e-068.25",
+    "area_km2": null,
+    "bbox": {
+      "east": -68.0,
+      "north": -88.5,
+      "south": -89.0,
+      "west": -68.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +R=1737400 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=1737400 +no_defs",
+    "area_id": "moon-gcp-cell-s088.75-e-068.75",
+    "area_km2": null,
+    "bbox": {
+      "east": -68.5,
+      "north": -88.5,
+      "south": -89.0,
+      "west": -69.0
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +R=1737400 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=1737400 +no_defs",
+    "area_id": "moon-gcp-cell-s088.75-e0123.75",
+    "area_km2": null,
+    "bbox": {
+      "east": 124.0,
+      "north": -88.5,
+      "south": -89.0,
+      "west": 123.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +R=1737400 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=1737400 +no_defs",
+    "area_id": "moon-gcp-cell-s089.25-e-137.25",
+    "area_km2": null,
+    "bbox": {
+      "east": -137.0,
+      "north": -89.0,
+      "south": -89.5,
+      "west": -137.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +R=1737400 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=1737400 +no_defs",
+    "area_id": "moon-gcp-cell-s089.25-e-137.75",
+    "area_km2": null,
+    "bbox": {
+      "east": -137.5,
+      "north": -89.0,
+      "south": -89.5,
+      "west": -138.0
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +R=1737400 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=1737400 +no_defs",
+    "area_id": "moon-gcp-cell-s089.25-e-138.25",
+    "area_km2": null,
+    "bbox": {
+      "east": -138.0,
+      "north": -89.0,
+      "south": -89.5,
+      "west": -138.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +R=1737400 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=1737400 +no_defs",
+    "area_id": "moon-gcp-cell-s089.75-e-155.75",
+    "area_km2": null,
+    "bbox": {
+      "east": -155.5,
+      "north": -89.5,
+      "south": -90.0,
+      "west": -156.0
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +R=1737400 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=1737400 +no_defs",
+    "area_id": "moon-gcp-cell-s089.75-e-156.25",
+    "area_km2": null,
+    "bbox": {
+      "east": -156.0,
+      "north": -89.5,
+      "south": -90.0,
+      "west": -156.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +R=1737400 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=1737400 +no_defs",
+    "area_id": "moon-gcp-cell-s089.75-e-156.75",
+    "area_km2": null,
+    "bbox": {
+      "east": -156.5,
+      "north": -89.5,
+      "south": -90.0,
+      "west": -157.0
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +R=1737400 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=longlat +R=1737400 +no_defs",
+    "area_id": "moon-gcp-cell-s089.75-e-157.25",
+    "area_km2": null,
+    "bbox": {
+      "east": -157.0,
+      "north": -89.5,
+      "south": -90.0,
+      "west": -157.5
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_planetocentric",
+    "crs": "+proj=longlat +R=1737400 +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site01-roi1",
+    "area_km2": null,
+    "bbox": {
+      "east": -10592.407541301836,
+      "north": -11472.400514948298,
+      "south": -13452.400514948298,
+      "west": -12572.407541301836
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site01-roi2",
+    "area_km2": null,
+    "bbox": {
+      "east": -10497.408187143537,
+      "north": -11567.39963514235,
+      "south": -13547.39963514235,
+      "west": -12477.408187143537
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site01-roi3",
+    "area_km2": null,
+    "bbox": {
+      "east": -10362.410658461955,
+      "north": -11512.40160840376,
+      "south": -13492.40160840376,
+      "west": -12342.410658461955
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site01-roi4",
+    "area_km2": null,
+    "bbox": {
+      "east": -10297.414175924347,
+      "north": -11177.407484874115,
+      "south": -13157.407484874115,
+      "west": -12277.414175924347
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site01-roi5",
+    "area_km2": null,
+    "bbox": {
+      "east": -10112.41855390117,
+      "north": -10952.412391635824,
+      "south": -12932.412391635824,
+      "west": -12092.41855390117
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site01-roi6",
+    "area_km2": null,
+    "bbox": {
+      "east": -9812.424117779217,
+      "north": -10747.417551857092,
+      "south": -12727.417551857092,
+      "west": -11792.424117779217
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site01-roi7",
+    "area_km2": null,
+    "bbox": {
+      "east": -9237.432755014917,
+      "north": -10562.424042598674,
+      "south": -12542.424042598674,
+      "west": -11217.432755014917
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site07-roi1",
+    "area_km2": null,
+    "bbox": {
+      "east": 31156.408885763354,
+      "north": -19011.77653733648,
+      "south": -20991.77653733648,
+      "west": 29176.408885763354
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site11-roi1",
+    "area_km2": null,
+    "bbox": {
+      "east": -36550.80968840584,
+      "north": 15871.829933558547,
+      "south": 13891.829933558547,
+      "west": -38530.80968840584
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site11-roi2",
+    "area_km2": null,
+    "bbox": {
+      "east": -36400.8319479789,
+      "north": 15751.84145626589,
+      "south": 13771.84145626589,
+      "west": -38380.8319479789
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site11-roi3",
+    "area_km2": null,
+    "bbox": {
+      "east": -35525.947693871676,
+      "north": 15351.889468031177,
+      "south": 13371.889468031177,
+      "west": -37505.947693871676
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site11-roi4",
+    "area_km2": null,
+    "bbox": {
+      "east": -35523.4480887558,
+      "north": 15351.889582563661,
+      "south": 13371.889582563661,
+      "west": -37503.4480887558
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site20-bounds-centre",
+    "area_km2": null,
+    "bbox": {
+      "east": 73951.23630558726,
+      "north": 118927.34089325387,
+      "south": 116947.34089325387,
+      "west": 71971.23630558726
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-lola-site23-bounds-centre",
+    "area_km2": null,
+    "bbox": {
+      "east": 490.20362406239315,
+      "north": 122440.51928928072,
+      "south": 120460.51928928072,
+      "west": -1489.7963759376069
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-shackleton-rim-site04-roi1",
+    "area_km2": null,
+    "bbox": {
+      "east": -1822.4960068535106,
+      "north": -5657.490560574641,
+      "south": -7637.490560574641,
+      "west": -3802.4960068535106
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-shackleton-rim-site04-roi2",
+    "area_km2": null,
+    "bbox": {
+      "east": -1767.4963027596782,
+      "north": -5352.491496697405,
+      "south": -7332.491496697405,
+      "west": -3747.496302759678
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-shackleton-rim-site04-roi3",
+    "area_km2": null,
+    "bbox": {
+      "east": -1687.4966621092494,
+      "north": -5117.492386041524,
+      "south": -7097.492386041524,
+      "west": -3667.4966621092494
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  },
+  {
+    "analysis_crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "area_id": "moon-prp-window-moon-shackleton-rim-site04-roi4",
+    "area_km2": null,
+    "bbox": {
+      "east": -1667.4968158281754,
+      "north": -4967.492863030917,
+      "south": -6947.492863030917,
+      "west": -3647.4968158281754
+    },
+    "body": "Moon",
+    "coordinate_frame": "lunar_projected",
+    "crs": "+proj=stere +lat_0=-90 +lat_ts=-90 +lon_0=0 +x_0=0 +y_0=0 +R=1737400 +units=m +no_defs",
+    "geometry": null,
+    "geometry_crs": null,
+    "legacy_provenance": null,
+    "notes": "New #170 D03 AOI evidence area; native source support recorded per observation.",
+    "schema_version": "2.0.0",
+    "source_area_refs": []
+  }
+]
