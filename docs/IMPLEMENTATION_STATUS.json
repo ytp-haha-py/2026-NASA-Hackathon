@@ -1,88 +1,96 @@
 {
-  "base_commit": "0741eb2ce5f6f80ae2ad1dba128770a19cd756bc",
+  "base_commit": "60cf7a4319b912ef174b72c1e4ff98d7d05faade",
   "dimensions": {
     "D01": {
       "actual_observation_counts": {
         "Earth_fine": 565,
         "Mars_fine_references": 5,
         "Moon_fine_references": 18,
-        "coarse_real": 168
+        "coarse_real": 168,
+        "planetary_coarse_evidence": 10
       },
       "comparison_status": "comparable_subset",
       "evidence": [
         "113 Earth terrain windows and immutable fine snapshot",
-        "Real 168-cell Geomorpho250 coarse pilot (3 regions) committed and served"
+        "Real 168-cell Geomorpho250 coarse pilot (3 regions) committed and served",
+        "Real 168-cell Earth coarse pilot plus planetary coarse evidence (4 Moon + 4 Mars CTX + 2 MOLA); cross-body ranking disabled",
+        "Terrain buffer validation measured curvature/geomorphon support and edge loss; geomorphon classes remain unvalidated"
       ],
       "implementation_status": "merged",
       "remaining_blockers": [
         "global coarse coverage not claimed",
-        "same-support Moon/Mars coarse references unavailable"
+        "geomorphon reference validation unavailable (no GRASS r.geomorphon)",
+        "no validated cross-body coarse ranking"
       ],
       "scientific_data_status": "verified_subset"
     },
     "D02": {
       "actual_observation_counts": {
         "Earth_availability_status": 15,
-        "Mars_context_values": 14,
-        "Mars_map_units": 10,
-        "Mars_process_records": 4,
-        "Moon_map_units": 1,
-        "Moon_process_records": 1,
-        "mineral_states_unknown": 10,
-        "quantitative_minerals": 0
+        "Mars_evidence": 38,
+        "Moon_evidence": 3,
+        "quantitative_minerals": 0,
+        "total": 56
       },
       "comparison_status": "evidence_only",
       "evidence": [
         "independent Geology pilot snapshot",
-        "56 evidence-only D02 typed records exported and imported via /api/v1/typed"
+        "56 evidence-only D02 typed records exported and imported via /api/v1/typed",
+        "PR #87: Moon/Mars area-fraction evidence with non-exclusive process labels; Earth GLiM rights unresolved"
       ],
-      "implementation_status": "pilot",
+      "implementation_status": "merged",
       "remaining_blockers": [
-        "v2/API integration",
-        "GLiM rights",
-        "EMIT auth",
-        "lunar registration",
-        "CRISM validation"
+        "Earth GLiM redistribution rights",
+        "EMIT auth and granule decoder",
+        "M3/CRISM validated thresholds",
+        "fine-scale Moon/Mars frame validation"
       ],
       "scientific_data_status": "pilot_observations"
     },
     "D03": {
       "actual_observation_counts": {
         "Earth_power_thermal": 20,
-        "Mars": 0,
-        "Moon": 0,
-        "thermal_inertia": 0
+        "Mars_themis_inertia": 5,
+        "Moon_diviner_brightness": 36,
+        "detected": 51,
+        "ionizing_radiation": 0,
+        "no_coverage": 7,
+        "total": 61,
+        "unknown": 3
       },
-      "comparison_status": "context_only",
+      "comparison_status": "evidence_only",
       "evidence": [
         "typed contracts and inventory only",
-        "20 NASA POWER thermal timeseries observations across 5 AOIs"
+        "20 NASA POWER thermal timeseries observations across 5 AOIs",
+        "PR #90: 36 Diviner brightness-temperature and 5 THEMIS thermal-inertia observations at native support"
       ],
-      "implementation_status": "pilot",
+      "implementation_status": "merged",
       "remaining_blockers": [
-        "Moon/Mars thermal products",
-        "thermal inertia and local-solar-time products",
-        "no local 1.98 km measurement"
+        "brightness temperature is not kinetic temperature",
+        "no diurnal rate/uncertainty",
+        "no Moon/Mars cross-body score"
       ],
       "scientific_data_status": "pilot_observations"
     },
     "D04": {
       "actual_observation_counts": {
         "Earth_power_water_context": 20,
-        "Mars": 0,
-        "Moon": 0,
-        "confirmed_ice": 0
+        "Mars_hend_evidence": 2,
+        "Moon_weh_cpr_evidence": 53,
+        "confirmed_ice": 0,
+        "total": 75
       },
-      "comparison_status": "context_only",
+      "comparison_status": "evidence_only",
       "evidence": [
         "typed contracts and inventory only",
-        "20 NASA POWER water-context timeseries observations across 5 AOIs"
+        "20 NASA POWER water-context timeseries observations across 5 AOIs",
+        "PR #92: LP NS WEH, Mini-RF CPR and HEND epithermal-flux evidence; zero water-ice detections claimed"
       ],
-      "implementation_status": "pilot",
+      "implementation_status": "merged",
       "remaining_blockers": [
-        "Moon/Mars water-ice observations",
-        "confirmed ice/sub-surface products",
-        "no extraction or ice-volume claim"
+        "no confirmed ice detection",
+        "neutron/radar cells coarser than AOI windows",
+        "LEND/LAMP/LCROSS/SHARAD/MARSIS not validated"
       ],
       "scientific_data_status": "pilot_observations"
     },
@@ -91,7 +99,8 @@
         "Earth_power_timeseries": 10,
         "Mars_spice_model_geometry": 10,
         "Moon_spice_model_geometry": 8,
-        "ionizing_radiation": 0
+        "ionizing_radiation": 0,
+        "total": 28
       },
       "comparison_status": "context_only",
       "evidence": [
@@ -102,7 +111,7 @@
         "merged in PR #59 (c834285)",
         "18 NAIF SPICE Moon/Mars model-derived solar-geometry observations; no radiation measurement"
       ],
-      "implementation_status": "pilot",
+      "implementation_status": "merged",
       "remaining_blockers": [
         "ionizing radiation not measured",
         "terrain horizon/shadow and area-average geometry not modeled",
@@ -112,16 +121,18 @@
     },
     "D06": {
       "actual_observation_counts": {
-        "Earth_soilgrids": 75,
+        "Earth_soilgrids": 300,
         "Mars": 0,
-        "Moon": 0
+        "Moon": 0,
+        "total": 300
       },
       "comparison_status": "evidence_only",
       "evidence": [
         "typed contracts and inventory only",
-        "75 SoilGrids 2.0 WCS observations across 5 AOIs, 5 properties, 0-5 cm, mean/Q0.05/Q0.95"
+        "75 SoilGrids 2.0 WCS observations across 5 AOIs, 5 properties, 0-5 cm, mean/Q0.05/Q0.95",
+        "PR #91: 300 SoilGrids observations across 0\u20135/5\u201315/15\u201330/30\u201360 cm with versioned regolith semantics"
       ],
-      "implementation_status": "pilot",
+      "implementation_status": "merged",
       "remaining_blockers": [
         "Moon/Mars sparse sample measurements",
         "deeper/other property pilots",
@@ -130,7 +141,7 @@
       "scientific_data_status": "pilot_observations"
     }
   },
-  "generated_at": "2026-11-15T06:00:00+00:00",
+  "generated_at": "2026-11-15T07:45:00+00:00",
   "issues": [
     {
       "comparison_status": "not_comparable",
@@ -194,11 +205,11 @@
         "Moon Ec map unit and Mars Jezero units retained as map evidence",
         "Moon/Mars map units and processes exported to typed-v2; Earth shareable values remain zero"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "merged",
       "number": 41,
       "remaining_blockers": [
         "Earth GLiM redistribution rights",
-        "fine-scale Moon/Mars frame validation"
+        "Moon/Mars frame validation"
       ],
       "scientific_data_status": "pilot_observations",
       "title": "D02 geologic mapping"
@@ -212,18 +223,18 @@
         "EMIT and CRISM remain metadata/context only",
         "no verified quantitative mineral observation"
       ],
-      "implementation_status": "blocked",
+      "implementation_status": "in_progress",
       "number": 42,
       "remaining_blockers": [
-        "Earthdata auth and EMIT granule adapter",
-        "lunar mineral registration",
-        "validated CRISM detection method"
+        "EMIT auth",
+        "M3 registration",
+        "CRISM thresholds"
       ],
       "scientific_data_status": "none",
       "title": "D02 mineral detection"
     },
     {
-      "comparison_status": "context_only",
+      "comparison_status": "evidence_only",
       "dependencies": [
         26,
         27
@@ -232,18 +243,17 @@
         "inventory only",
         "20 real NASA POWER thermal observations imported as context-only D03 records"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "merged",
       "number": 43,
       "remaining_blockers": [
-        "MODIS/Diviner/THEMIS thermal products",
-        "thermal inertia and local-solar-time support",
-        "no local 1.98 km measurement"
+        "brightness temperature not kinetic",
+        "no diurnal rate/uncertainty"
       ],
       "scientific_data_status": "pilot_observations",
       "title": "D03 thermal"
     },
     {
-      "comparison_status": "context_only",
+      "comparison_status": "evidence_only",
       "dependencies": [
         26,
         27
@@ -252,12 +262,11 @@
         "inventory only",
         "20 real NASA POWER water-context observations imported as context-only D04 records"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "merged",
       "number": 44,
       "remaining_blockers": [
-        "snow/soil-moisture/neutron/radar products for Moon/Mars",
-        "confirmed ice detection semantics",
-        "no extraction claim"
+        "no confirmed ice detection",
+        "coarse neutron/radar cells"
       ],
       "scientific_data_status": "pilot_observations",
       "title": "D04 water and ice"
@@ -294,12 +303,11 @@
         "inventory only",
         "75 real SoilGrids observations imported as evidence-only D06 records"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "merged",
       "number": 46,
       "remaining_blockers": [
-        "Moon/Mars sample tables",
-        "additional depths/properties",
-        "no cross-body comparison"
+        "Moon/Mars regolith no_coverage",
+        "SoilGrids is model prediction"
       ],
       "scientific_data_status": "pilot_observations",
       "title": "D06 regolith"
@@ -335,12 +343,10 @@
         "new checksummed acquisition release manifest for D05 pilot",
         "merged integration work in PR #59 (c834285)"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "merged",
       "number": 48,
       "remaining_blockers": [
-        "multi-dimension aggregate snapshot",
-        "real coarse index",
-        "full restoration drill"
+        "optional R2 publish/readback not authorized"
       ],
       "scientific_data_status": "pilot_observations",
       "title": "Rebuildable multi-dimension release"
@@ -360,7 +366,7 @@
       "implementation_status": "in_progress",
       "number": 49,
       "remaining_blockers": [
-        "D02-D06 real observations and coverage reports"
+        "final full gate and public acceptance run"
       ],
       "scientific_data_status": "pilot_observations",
       "title": "End-to-end six-dimension acceptance"
@@ -466,7 +472,7 @@
       "title": "DuckDB coarse query"
     },
     {
-      "comparison_status": "not_comparable",
+      "comparison_status": "evidence_only",
       "dependencies": [
         31,
         34
@@ -474,12 +480,13 @@
       "evidence": [
         "interfaces and comparability gate only"
       ],
-      "implementation_status": "blocked",
+      "implementation_status": "merged",
       "number": 35,
       "remaining_blockers": [
-        "validated same-support planetary coarse products"
+        "MOLA native 463 m not 250 m; cross-body ranking disabled",
+        "planetary DEM licences/units need maintainer confirmation"
       ],
-      "scientific_data_status": "none",
+      "scientific_data_status": "pilot_observations",
       "title": "Same-support Moon/Mars coarse references"
     },
     {
@@ -490,7 +497,7 @@
       "evidence": [
         "not implemented"
       ],
-      "implementation_status": "blocked",
+      "implementation_status": "in_progress",
       "number": 36,
       "remaining_blockers": [
         "same-support references"
@@ -539,10 +546,11 @@
         "new acquisition report/release manifests",
         "merged integration work in PR #59 (c834285)"
       ],
-      "implementation_status": "in_progress",
+      "implementation_status": "merged",
       "number": 39,
       "remaining_blockers": [
-        "real multi-dimension coverage"
+        "no global coverage; 3 pilot regions",
+        "no recall/precision without held-out labels"
       ],
       "scientific_data_status": "pilot_observations",
       "title": "Coverage report and benchmark"
@@ -556,12 +564,12 @@
       "evidence": [
         "not implemented"
       ],
-      "implementation_status": "blocked",
+      "implementation_status": "merged",
       "number": 40,
       "remaining_blockers": [
-        "sufficient planetary support and validated method"
+        "geomorphon class values not validated without GRASS reference"
       ],
-      "scientific_data_status": "none",
+      "scientific_data_status": "verified_subset",
       "title": "Curvature and geomorphon validation"
     }
   ],
@@ -640,13 +648,78 @@
       "merge_commit": "0741eb2ce5f6f80ae2ad1dba128770a19cd756bc",
       "number": 80,
       "title": "D05 screenshot refresh"
+    },
+    {
+      "merge_commit": "5c060e43652aa0fe6ac9108c74e90f7c0e621454",
+      "number": 83,
+      "title": "typed pilot seeding"
+    },
+    {
+      "merge_commit": "5d7b735b6db644b5fd8b0b320d6c6359ab2874f6",
+      "number": 82,
+      "title": "multi-dimension release/EDA"
+    },
+    {
+      "merge_commit": "f72a8c99f81f95c83dd4b4aa321a135742bce547",
+      "number": 84,
+      "title": "coarse\u219290 m refinement"
+    },
+    {
+      "merge_commit": "0f7ce8a5688594ea185707f6b8f454e786859bd9",
+      "number": 85,
+      "title": "D02 mineral evidence matrix"
+    },
+    {
+      "merge_commit": "b74814de269c03d3217faa98d143701837518667",
+      "number": 87,
+      "title": "D02 area-fraction evidence"
+    },
+    {
+      "merge_commit": "3f4e60153b072ce83f2dc862ead3b007bda51e56",
+      "number": 88,
+      "title": "global terrain evaluation"
+    },
+    {
+      "merge_commit": "40d2eb9346aa685062050042f9d87ef384caf4fc",
+      "number": 89,
+      "title": "PostGIS parity/scan cost"
+    },
+    {
+      "merge_commit": "c1e9d9120da2d645dadf75529b1d7ec7c8b18ba4",
+      "number": 90,
+      "title": "D03 planetary thermal"
+    },
+    {
+      "merge_commit": "dc27d0139c0aa7bdc2385572ec3d840a6bf2ef00",
+      "number": 91,
+      "title": "D06 multi-depth SoilGrids"
+    },
+    {
+      "merge_commit": "719ee0aa0d5792073fda5cf1e954fba04bf75d2a",
+      "number": 92,
+      "title": "D04 water/ice evidence"
+    },
+    {
+      "merge_commit": "b0ea24185af8ca94f497aac00775fd1ea139ebda",
+      "number": 93,
+      "title": "planetary coarse evidence"
+    },
+    {
+      "merge_commit": "7e9b6c8d4e4a3fbaca3e800b7f8fb11b030a74e5",
+      "number": 94,
+      "title": "executed refine UI"
+    },
+    {
+      "merge_commit": "60cf7a4319b912ef174b72c1e4ff98d7d05faade",
+      "number": 95,
+      "title": "terrain buffer validation"
     }
   ],
   "next_independent_tasks": [
-    "integrate #37 real coarse\u219290m refinement and #48 aggregate release/rebuild when their PRs pass",
-    "complete #49 end-to-end acceptance with refined candidate evidence",
-    "resolve remaining Moon/Mars D02-D04/D06 source and calibration blockers (#41-#44, #46)",
-    "verify a real PostGIS deployment or keep #3 open with the documented offline contract evidence"
+    "run final verify/backend acceptance/public acceptance and refresh screenshots",
+    "integrate #36 cross-body gate and #42 granule-level spectral evidence when their PRs pass",
+    "resolve remaining Earth GLiM/EMIT/M3/CRISM source blockers",
+    "keep global coverage, cross-body ranking and six-dimension score disabled until validated"
   ],
   "repository": "ytp-haha-py/2026-NASA-Hackathon",
   "status_legend": {
@@ -672,5 +745,5 @@
       "blocked"
     ]
   },
-  "work_branch": "feat/20-six-dimension-backend"
+  "work_branch": "main"
 }

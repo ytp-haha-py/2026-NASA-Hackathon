@@ -5,6 +5,17 @@ geomorphon value is emitted in observed manifests, API targets, or similarity sc
 Flat Terrain Fraction is independently implemented and recalculated on all 136
 indexed terrain windows; it does not depend on these prototypes.
 
+**2026-11-15 update:** a bounded real-DEM buffer experiment now measures the exact
+edge loss and estimator sensitivity on five Earth Copernicus GLO-90 windows, one Moon
+LOLA window and one Mars CTX window. See
+[TERRAIN_BUFFER_VALIDATION.md](TERRAIN_BUFFER_VALIDATION.md) and the portable
+`terrain-buffer-validation.json` / `terrain-buffer-measurements.csv` artifacts. The
+normal 22x22 crop supports 400/484 central-curvature cells, 196/484 smoothed-curvature
+cells and 0/484 geomorphon cells at search=12. Values are unchanged on common cells;
+the measured difference is edge coverage and summary bias. Geomorphon remains blocked
+because no GRASS `r.geomorphon` reference output is available. Promotion conditions
+below are unchanged.
+
 ## Curvature candidate
 
 A signed average can cancel hills with depressions, while mean curvature alone can
