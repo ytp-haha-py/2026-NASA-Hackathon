@@ -125,6 +125,7 @@ describe("D02–D06 in the dimension board", () => {
       await within(screen.getByTestId("dimension-card-D06")).findByRole("group", { name: "Clay (0–5 cm)" }),
     );
     fireEvent.change(clay.getByRole("spinbutton", { name: "Weight (≥ 0)" }), { target: { value: 1 } });
+    fireEvent.change(clay.getByRole("spinbutton", { name: /Target value/ }), { target: { value: 200 } });
     fireEvent.change(screen.getByRole("slider", { name: "Built-up fraction upper bound" }), {
       target: { value: 0.2 },
     });

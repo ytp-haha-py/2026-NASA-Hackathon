@@ -191,6 +191,13 @@ The original development record reports 114 frontend tests passing, then 118 aft
 
 ---
 
+### Restoring the ranking section (#192)
+
+The maintainer subsequently requested restoration of the deleted ranking section. Codex reconnected the existing `ResultsPanel` below the map, retaining its search summary, coverage, exclusions and limitations. Selecting a map candidate displays its result card and details using the existing shared selection state.
+
+All 118 frontend tests, lint, typecheck/build and generated API type checks passed before integration with newer main changes. Browser checks used the live local API at 1440 px in Traditional Chinese light mode and 390 px in English dark mode, confirming ranking summaries, linked selection and retained state across language changes. An existing filter-conflict test intermittently omitted a required target value; its fixture now supplies that value before asserting the conflict. The local full gate failed on Windows backend compatibility cases, including the Unix-only `resource` module; required Linux CI checks passed before the subsequent main synchronization.
+
+**Evidence:** [Issue #192](https://github.com/ytp-haha-py/2026-NASA-Hackathon/issues/192), [PR #193](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/193), [desktop ranking](screenshots/41-restored-ranking-desktop.jpg) and [mobile ranking](screenshots/42-restored-ranking-mobile.jpg).
 提交期間 main 另合併 PR #186 的篩選功能，本分支同步後沿用新版的測試輔助函式，118 項前端測試通過。UI 刪除與這份文件由 PR #189 一併交付。[PR #189](https://github.com/ytp-haha-py/2026-NASA-Hackathon/pull/189)
 
 ## 15. Claude（claude.ai 上的 Claude Code 工作階段）參與的工作
