@@ -31,6 +31,15 @@ All four use `default028mm`, 256 × 256 tiles and the full 180°W–180°E / 90�
 official WMTS capabilities. The catalog includes the complete tile matrix (`matrix_width`,
 `matrix_height` per zoom) so a client does not need to guess it.
 
+**CRS authority note:** NASA Trek advertises `urn:ogc:def:crs:EPSG::104903` / `104905`, but
+`104903` / `104905` are ESRI/IAU GCS codes, not EPSG registry codes. The catalog returns
+`crs_authority` and `geographic_epsg_is_epsg_registry=false` so a client does not silently treat
+them as EPSG:4326. This is independently verified in
+[`PLANETARY_MAP_SOURCE_AUDIT.md`](PLANETARY_MAP_SOURCE_AUDIT.md).
+
+`zoom` is the WMTS TileMatrix level from the explicit matrix, not the Web-Mercator/OSM zoom. The
+provider `ScaleDenominator` is Earth-referenced and is not a planetary ground resolution.
+
 Attribution / license recorded per layer:
 
 - Moon WAC: NASA / GSFC / Arizona State University, LRO Wide Angle Camera mosaic.
@@ -76,6 +85,10 @@ substitutes an Earth basemap.
   reports the actual envelope and `crosses_antimeridian` rather than clamping to a rectangle.
 - **GeoJSON:** coordinates are `[longitude, latitude]` in degrees, but the CRS is the declared
   planetary body frame. A GeoJSON consumer must not assume OSM/Web-Mercator.
+- **Layer latitude convention:** PDS MOLA declares planetocentric latitude; the rendered Trek WMTS
+  grid does not separately declare its latitude convention. The catalog records this as a
+  `coordinate_note`; validate high-latitude overlays against the source product instead of
+  assuming planetographic or Earth geodetic latitude.
 
 Example contract answers:
 
@@ -172,5 +185,6 @@ record is never called a scored feature unless the #116 registry exposes a gated
 make seed
 uv run pytest apps/api/tests/test_planetary_api.py -q
 uv run python scripts/planetary_map_acceptance.py   # optional live HTTP check (network)
+python3 scripts/check_planetary_trek_sources.py     # independent 156-check source audit
 bash scripts/verify.sh --ci
 ```

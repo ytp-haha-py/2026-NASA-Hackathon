@@ -50,6 +50,10 @@ class PlanetaryBody:
             "api_longitude_domain": self.api_longitude_domain,
             "geographic_epsg": self.geographic_epsg,
             "geographic_epsg_uri": f"urn:ogc:def:crs:EPSG::{self.geographic_epsg}",
+            "geographic_epsg_authority": (
+                "ESRI/IAU code advertised by NASA Trek as a URN; it is not an EPSG registry code"
+            ),
+            "geographic_epsg_is_epsg_registry": False,
             "earth_wgs84": False,
             "notes": self.notes,
         }
@@ -489,6 +493,9 @@ class PlanetaryMapLayer:
     tile_matrix_set: str
     crs: str
     epsg: int
+    crs_authority: str
+    coordinate_note: str
+    zoom_semantics: str
     zoom_min: int
     zoom_max: int
     tile_size: int
@@ -515,6 +522,9 @@ class PlanetaryMapLayer:
             "tile_matrix_set": self.tile_matrix_set,
             "crs": self.crs,
             "epsg": self.epsg,
+            "crs_authority": self.crs_authority,
+            "coordinate_note": self.coordinate_note,
+            "zoom_semantics": self.zoom_semantics,
             "zoom": {"min": self.zoom_min, "max": self.zoom_max},
             "tile_size": self.tile_size,
             "tile_matrix": [
@@ -562,6 +572,22 @@ def _trek_layer(
         tile_matrix_set="default028mm",
         crs=f"urn:ogc:def:crs:EPSG::{info.geographic_epsg}",
         epsg=info.geographic_epsg,
+        crs_authority=(
+            "ESRI/IAU GCS code advertised inside an EPSG-style URN by NASA Trek; not an EPSG "
+            "registry code"
+        ),
+        coordinate_note=(
+            "Moon is a 1,737,400 m sphere. Mars is the IAU 2000 ellipsoid a=3,396,190 m, "
+            "b=3,376,200 m; the PDS MOLA source declares planetocentric latitude, while the "
+            "rendered WMTS latitude convention is not separately declared by the layer metadata. "
+            "Do not treat these coordinates as Earth WGS84/OSM; validate high-latitude overlays "
+            "against the source product."
+        ),
+        zoom_semantics=(
+            "WMTS TileMatrix level from this layer's explicit matrix; not Web-Mercator/OSM zoom. "
+            "The provider ScaleDenominator is Earth-referenced and must not be used for planetary "
+            "ground resolution."
+        ),
         zoom_min=0,
         zoom_max=zoom_max,
         tile_size=256,

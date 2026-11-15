@@ -878,6 +878,8 @@ class PlanetaryBodyOut(BaseModel):
     api_longitude_domain: str
     geographic_epsg: int
     geographic_epsg_uri: str
+    geographic_epsg_authority: str
+    geographic_epsg_is_epsg_registry: bool
     earth_wgs84: bool
     notes: str
 
@@ -923,6 +925,9 @@ class PlanetaryLayerOut(BaseModel):
     tile_matrix_set: str
     crs: str
     epsg: int
+    crs_authority: str
+    coordinate_note: str
+    zoom_semantics: str
     zoom: PlanetaryZoomOut
     tile_size: int
     tile_matrix: list[PlanetaryTileMatrixOut]
