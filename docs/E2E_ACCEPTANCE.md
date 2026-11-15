@@ -170,5 +170,20 @@ The board exposes "View observations" / "Open six dimensions"; a selected Moon/M
 Earth candidate is carried into `SixDimensionPanel` without an area-ID prompt. Typed-data
 failure shows an alert with retry. No D02–D06 weight, filter or combined score was added.
 
-Screenshots: `docs/screenshots/14` (before), `23`–`25` (after, local), plus the public
-Pages captures `26`–`27`.
+Screenshots: `docs/screenshots/14` (before), `23`–`25` (after, local), and the public Pages
+captures `26`–`29`.
+
+Public deployment evidence:
+
+```text
+Pages workflow run 43698078813: success
+head commit 86e74a085fcb5e9f0373f86ebc068645acfe3eee
+public board: Data in preparation = false
+D02 = 56 typed observations, D06 = 300 typed observations
+Moon reference selection preserved: true
+browser console errors: []
+```
+
+The public board was captured at
+`https://2026-nasa-hackathon.貓熊.台灣/` with the live tunnel API; the deployed commit matches
+`main` after the #113 merge.

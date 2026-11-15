@@ -63,3 +63,7 @@ Captured 2026-11-15 against `https://2026-nasa-hackathon.貓熊.台灣/` (Pages)
 | `23-comparison-board-desktop.png` | After: fixed D01–D06 cards with real typed counts, roles and observation entry |
 | `24-comparison-board-mobile.png` | After: one-column mobile cards and separate land-cover filter |
 | `25-comparison-sixdim-reference.png` | Selected Moon reference opens the six-dimension workspace with the selection preserved |
+| `26-comparison-public-desktop.png` | Public Pages deployment: live D01–D06 cards |
+| `27-comparison-public-mobile.png` | Public Pages deployment: mobile D01–D06 cards |
+| `28-comparison-public-sixdim.png` | Public Pages: D02 evidence entry opens the six-dimension workspace |
+| `29-comparison-public-sixdim-reference.png` | Public Pages: Moon reference selection preserved in the workspace |
