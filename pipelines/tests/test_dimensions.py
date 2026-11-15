@@ -58,6 +58,7 @@ def test_feature_registry_has_stable_evidence_features():
     assert FEATURE_V2_BY_ID["mineral_spectral_detection"].value_kind == "detection"
     assert FEATURE_V2_BY_ID["particle_size_distribution"].value_kind == "distribution"
     assert FEATURE_V2_BY_ID["solar_incidence_deg"].unit == "degree"
+    assert FEATURE_V2_BY_ID["solar_elevation_deg"].unit == "degree"
     assert FEATURE_V2_BY_ID["ionizing_dose_gy"].unit == "Gy"
 
 

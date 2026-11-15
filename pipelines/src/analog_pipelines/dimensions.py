@@ -206,6 +206,19 @@ FEATURES_V2: tuple[DimensionFeatureV2, ...] = (
         "Subgroup solar_illumination only.",
     ),
     DimensionFeatureV2(
+        "solar_elevation_deg",
+        "D05",
+        "Solar elevation angle",
+        "numeric",
+        "degree",
+        "evidence_only",
+        _D05,
+        ("Earth", "Moon", "Mars"),
+        "Solar geometry model with observer height, horizon assumptions and time support",
+        "not_comparable to ionizing radiation",
+        "Derived as 90 - solar_incidence_deg; subgroup solar_illumination only.",
+    ),
+    DimensionFeatureV2(
         "ionizing_dose_gy",
         "D05",
         "Absorbed ionizing dose",
@@ -293,10 +306,10 @@ def validate_dimension_observation(observation: TypedObservation) -> list[str]:
     if observation.body not in feature.bodies:
         errors.append(f"{feature.feature_id} is not defined for {observation.body}")
     if feature.dimension_code == "D05":
-        if observation.feature_id == "solar_incidence_deg" and observation.unit not in {
-            "degree",
-            None,
-        }:
+        if observation.feature_id in {
+            "solar_incidence_deg",
+            "solar_elevation_deg",
+        } and observation.unit not in {"degree", None}:
             errors.append("illumination must not use radiation dose units")
         if observation.feature_id.startswith("ionizing") and observation.unit == "degree":
             errors.append("ionizing radiation cannot use angular units")
