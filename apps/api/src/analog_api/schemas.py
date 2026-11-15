@@ -585,6 +585,7 @@ class RefinePlanOut(BaseModel):
 
 # ---------------------------------------------------------------------------
 # Issue #116: feature eligibility registry and multi-dimensional search.
+# Issue #141: optional dimension weights/enabled flags and versioned scoring.
 # ---------------------------------------------------------------------------
 
 
@@ -612,6 +613,13 @@ class MultiDimRangeFilterIn(BaseModel):
         return self
 
 
+class DimensionWeightIn(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    weight: float = Field(default=1.0, ge=0, allow_inf_nan=False)
+    enabled: bool = True
+
+
 class MultiDimSearchRequest(BaseModel):
     model_config = {"extra": "forbid"}
 
@@ -619,10 +627,34 @@ class MultiDimSearchRequest(BaseModel):
     reference_id: str | None = None
     targets: dict[str, MultiDimTargetIn] = Field(default_factory=dict)
     filters: dict[str, MultiDimRangeFilterIn] = Field(default_factory=dict)
+    dimension_weights: dict[str, DimensionWeightIn] = Field(default_factory=dict)
+    scoring_version: (
+        Literal["feature-weighted-euclidean-v1", "dimension-weighted-rms-v1"] | None
+    ) = None
     limit: int = Field(default=10, ge=1, le=50)
     offset: int = Field(default=0, ge=0)
     include_evidence: bool = True
     evidence_limit: int = Field(default=12, ge=1, le=50)
+
+    @field_validator("dimension_weights")
+    @classmethod
+    def known_dimensions(
+        cls, dimension_weights: dict[str, DimensionWeightIn]
+    ) -> dict[str, DimensionWeightIn]:
+        invalid = sorted(
+            dimension_id
+            for dimension_id in dimension_weights
+            if not (
+                dimension_id.startswith("D")
+                and len(dimension_id) == 3
+                and dimension_id[1:].isdigit()
+            )
+        )
+        if invalid:
+            raise ValueError(
+                "unsupported dimension id(s) in dimension_weights: " + ", ".join(invalid)
+            )
+        return dimension_weights
 
     @model_validator(mode="after")
     def has_query(self) -> MultiDimSearchRequest:
@@ -657,8 +689,14 @@ class MultiDimContributionOut(BaseModel):
 
 
 class MultiDimDimensionContributionOut(BaseModel):
+    model_config = {"extra": "allow"}
+
     contribution: float
     distance: float
+    dimension_weight: float | None = None
+    feature_weight_sum: float | None = None
+    mean_squared_normalized_delta: float | None = None
+    feature_count: int | float | None = None
 
 
 class MultiDimEvidenceRecordOut(BaseModel):
@@ -744,10 +782,19 @@ class MultiDimTargetResolvedOut(BaseModel):
     measurement_family: str | None
 
 
+class MultiDimScoringOut(BaseModel):
+    version: str
+    formula: str
+    dimension_controls: dict[str, dict[str, Any]] = Field(default_factory=dict)
+    active_dimensions: list[str] = Field(default_factory=list)
+    note: str
+
+
 class MultiDimSearchResponse(BaseModel):
     registry_version: str
     data_version: str
     data_snapshot_id: str
+    scoring: MultiDimScoringOut | None = None
     candidate_body: str
     source_body: str
     cross_body_gate: MultiDimCrossBodyGateOut

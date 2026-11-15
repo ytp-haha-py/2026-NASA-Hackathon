@@ -169,5 +169,54 @@
       "note": "native goal active; worktree dirty"
     }
   ],
-  "native_goal_mechanism": "POST /api/session/{sessionID}/command with {\"name\":\"goal\",\"text\":objective}; verified by a synthetic first-class goal message"
+  "native_goal_mechanism": "POST /api/session/{sessionID}/command with {\"name\":\"goal\",\"text\":objective}; verified by a synthetic first-class goal message",
+  "monitor": {
+    "coordinator_session_id": "ses_e253e85e9ffeLjB1ipw0gIVen0",
+    "reconcile_interval_s": 90,
+    "stale_after_s": 900,
+    "notify_session": null,
+    "state_db": "/home/panda/.local/state/analogx-phase2/monitor.sqlite3",
+    "opencode_db": "/home/panda/.local/share/opencode/opencode.db",
+    "service_json": "/home/panda/.local/state/opencode/service.json",
+    "event_stream": "GET /api/event (SSE, Basic auth from service.json)",
+    "goal_state_source": "read-only kv table key plugin:%:session:<session-id>"
+  },
+  "external": [
+    {
+      "issue": 132,
+      "dimension": "map-search",
+      "scope": "active Earth/Moon/Mars map-query worker",
+      "worktree": "/home/panda/workspace/analogx-issue-132",
+      "branch": "backend/issue-132",
+      "session_id": "ses_e2111ccf7ffevCZ3c5V62sEAX8",
+      "goal_id": "1c5d9b7e-1818-4d19-bd43-ffb52ceb2228",
+      "blockers": [
+        "owned by another active worker; do not modify"
+      ]
+    },
+    {
+      "issue": 108,
+      "dimension": "D01 coarse",
+      "scope": "Earth global Geomorpho coarse index",
+      "worktree": null,
+      "branch": null,
+      "session_id": null,
+      "goal_id": null,
+      "blockers": [
+        "open; no active worktree/session; coordinate with #135"
+      ]
+    },
+    {
+      "issue": 97,
+      "dimension": "refine",
+      "scope": "persisted coarse-to-fine refinement",
+      "worktree": null,
+      "branch": null,
+      "session_id": null,
+      "goal_id": null,
+      "blockers": [
+        "open; no active worktree/session; coordinate with #135"
+      ]
+    }
+  ]
 }
