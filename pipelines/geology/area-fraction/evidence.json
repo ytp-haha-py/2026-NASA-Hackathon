@@ -1,0 +1,2957 @@
+{
+  "area_summaries": [
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-atacama-desert",
+      "availability_status": "license_unverified",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "glim-niveau-i-mirror",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-death-valley",
+      "availability_status": "license_unverified",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "glim-niveau-i-mirror",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-lanzarote",
+      "availability_status": "license_unverified",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "glim-niveau-i-mirror",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-devon-island",
+      "availability_status": "license_unverified",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "glim-niveau-i-mirror",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-rio-tinto",
+      "availability_status": "license_unverified",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "glim-niveau-i-mirror",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": 3920368.514671088,
+      "area_id": "moon-shackleton-rim-site04-roi2",
+      "availability_status": "available",
+      "body": "Moon",
+      "category_fractions": [
+        {
+          "area_m2": 3920364.162898138,
+          "category": "impact",
+          "fraction_of_aoi": 0.999998889958193,
+          "unit_codes": [
+            "Ec"
+          ]
+        }
+      ],
+      "coverage_fraction": 0.999998889958193,
+      "coverage_state": "partial",
+      "covered_area_m2": 3920364.162898138,
+      "dataset_id": "usgs-moon-geology-v2",
+      "fraction_sum": 0.999998889958193,
+      "nonexclusive": true,
+      "notes": "Process categories are non-exclusive; category fractions can overlap and must not be summed into a similarity or combined score. Units without a reviewed process label remain explicit in unknown_categories.",
+      "supported_categories": [
+        "impact"
+      ],
+      "uncovered_fraction": 1.1100418070286722e-06,
+      "units": [
+        {
+          "area_m2": 3920364.162898138,
+          "fraction_of_aoi": 0.999998889958193,
+          "mapping_status": "mapped_with_process_evidence",
+          "raw_code": "Ec",
+          "source_feature_id": "5586",
+          "supported_categories": [
+            "impact"
+          ],
+          "unit_name": "Eratosthenian Crater",
+          "unknown_categories": [
+            "igneous",
+            "sedimentary",
+            "aqueous_alteration"
+          ]
+        }
+      ],
+      "unknown_categories": [
+        "igneous",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": 2998995.4545685844,
+      "area_id": "mars-test-jezero-western-delta",
+      "availability_status": "available",
+      "body": "Mars",
+      "category_fractions": [
+        {
+          "area_m2": 264488.34573359054,
+          "category": "impact",
+          "fraction_of_aoi": 0.08819231297289115,
+          "unit_codes": [
+            "cr"
+          ]
+        },
+        {
+          "area_m2": 2546707.3811948122,
+          "category": "sedimentary",
+          "fraction_of_aoi": 0.8491868093081738,
+          "unit_codes": [
+            "Aeb",
+            "NHjf2"
+          ]
+        }
+      ],
+      "coverage_fraction": 1.0,
+      "coverage_state": "complete",
+      "covered_area_m2": 2998995.4545685844,
+      "dataset_id": "usgs-jezero-sim3464",
+      "fraction_sum": 1.0000000000060734,
+      "nonexclusive": true,
+      "notes": "Process categories are non-exclusive; category fractions can overlap and must not be summed into a similarity or combined score. Units without a reviewed process label remain explicit in unknown_categories.",
+      "supported_categories": [
+        "impact",
+        "sedimentary"
+      ],
+      "uncovered_fraction": 0.0,
+      "units": [
+        {
+          "area_m2": 187799.72765839574,
+          "fraction_of_aoi": 0.06262087772500854,
+          "mapping_status": "mapped_without_process_evidence",
+          "raw_code": "Nue",
+          "source_feature_id": "1015",
+          "supported_categories": [],
+          "unit_name": "Upper etched unit",
+          "unknown_categories": [
+            "igneous",
+            "impact",
+            "sedimentary",
+            "aqueous_alteration"
+          ]
+        },
+        {
+          "area_m2": 261385.9815722821,
+          "fraction_of_aoi": 0.08715784519582853,
+          "mapping_status": "mapped_with_process_evidence",
+          "raw_code": "Aeb",
+          "source_feature_id": "1003",
+          "supported_categories": [
+            "sedimentary"
+          ],
+          "unit_name": "Eolian bedform unit",
+          "unknown_categories": [
+            "igneous",
+            "impact",
+            "aqueous_alteration"
+          ]
+        },
+        {
+          "area_m2": 2285321.39962253,
+          "fraction_of_aoi": 0.7620289641123452,
+          "mapping_status": "mapped_with_process_evidence",
+          "raw_code": "NHjf2",
+          "source_feature_id": "1101",
+          "supported_categories": [
+            "sedimentary"
+          ],
+          "unit_name": "Jezero fan 2 unit",
+          "unknown_categories": [
+            "igneous",
+            "impact",
+            "aqueous_alteration"
+          ]
+        },
+        {
+          "area_m2": 264488.34573359054,
+          "fraction_of_aoi": 0.08819231297289115,
+          "mapping_status": "mapped_with_process_evidence",
+          "raw_code": "cr",
+          "source_feature_id": "1008",
+          "supported_categories": [
+            "impact"
+          ],
+          "unit_name": "Crater rim unit",
+          "unknown_categories": [
+            "igneous",
+            "sedimentary",
+            "aqueous_alteration"
+          ]
+        }
+      ],
+      "unknown_categories": [
+        "igneous",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": 5332945.644284114,
+      "area_id": "mars-test-jezero-floor",
+      "availability_status": "available",
+      "body": "Mars",
+      "category_fractions": [
+        {
+          "area_m2": 707850.6969854797,
+          "category": "sedimentary",
+          "fraction_of_aoi": 0.1327316541739289,
+          "unit_codes": [
+            "Aeb",
+            "NHjf2"
+          ]
+        }
+      ],
+      "coverage_fraction": 0.9999999999992588,
+      "coverage_state": "complete",
+      "covered_area_m2": 5332945.644280162,
+      "dataset_id": "usgs-jezero-sim3464",
+      "fraction_sum": 0.9999999999992587,
+      "nonexclusive": true,
+      "notes": "Process categories are non-exclusive; category fractions can overlap and must not be summed into a similarity or combined score. Units without a reviewed process label remain explicit in unknown_categories.",
+      "supported_categories": [
+        "sedimentary"
+      ],
+      "uncovered_fraction": 7.411848912397545e-13,
+      "units": [
+        {
+          "area_m2": 2902446.233708783,
+          "fraction_of_aoi": 0.5442482311477604,
+          "mapping_status": "mapped_without_process_evidence",
+          "raw_code": "Njf",
+          "source_feature_id": "1146",
+          "supported_categories": [],
+          "unit_name": "Jezero floor unit",
+          "unknown_categories": [
+            "igneous",
+            "impact",
+            "sedimentary",
+            "aqueous_alteration"
+          ]
+        },
+        {
+          "area_m2": 221282.46879934502,
+          "fraction_of_aoi": 0.04149347913127842,
+          "mapping_status": "mapped_with_process_evidence",
+          "raw_code": "Aeb",
+          "source_feature_id": "1000",
+          "supported_categories": [
+            "sedimentary"
+          ],
+          "unit_name": "Eolian bedform unit",
+          "unknown_categories": [
+            "igneous",
+            "impact",
+            "aqueous_alteration"
+          ]
+        },
+        {
+          "area_m2": 1589594.5299849375,
+          "fraction_of_aoi": 0.29807064163286107,
+          "mapping_status": "mapped_without_process_evidence",
+          "raw_code": "Nle",
+          "source_feature_id": "983",
+          "supported_categories": [],
+          "unit_name": "Lower etched unit",
+          "unknown_categories": [
+            "igneous",
+            "impact",
+            "sedimentary",
+            "aqueous_alteration"
+          ]
+        },
+        {
+          "area_m2": 133054.18360096109,
+          "fraction_of_aoi": 0.024949473044708306,
+          "mapping_status": "mapped_without_process_evidence",
+          "raw_code": "Nue",
+          "source_feature_id": "963",
+          "supported_categories": [],
+          "unit_name": "Upper etched unit",
+          "unknown_categories": [
+            "igneous",
+            "impact",
+            "sedimentary",
+            "aqueous_alteration"
+          ]
+        },
+        {
+          "area_m2": 124657.49552515493,
+          "fraction_of_aoi": 0.02337497957789306,
+          "mapping_status": "mapped_with_process_evidence",
+          "raw_code": "NHjf2",
+          "source_feature_id": "953",
+          "supported_categories": [
+            "sedimentary"
+          ],
+          "unit_name": "Jezero fan 2 unit",
+          "unknown_categories": [
+            "igneous",
+            "impact",
+            "aqueous_alteration"
+          ]
+        },
+        {
+          "area_m2": 361910.7326609797,
+          "fraction_of_aoi": 0.06786319546475744,
+          "mapping_status": "mapped_with_process_evidence",
+          "raw_code": "NHjf2",
+          "source_feature_id": "1101",
+          "supported_categories": [
+            "sedimentary"
+          ],
+          "unit_name": "Jezero fan 2 unit",
+          "unknown_categories": [
+            "igneous",
+            "impact",
+            "aqueous_alteration"
+          ]
+        }
+      ],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-atacama-desert",
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "emit-l2bmin-002",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-atacama-desert",
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "emit-l2bmin-001",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-death-valley",
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "emit-l2bmin-002",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-death-valley",
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "emit-l2bmin-001",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-lanzarote",
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "emit-l2bmin-002",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-lanzarote",
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "emit-l2bmin-001",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-devon-island",
+      "availability_status": "no_coverage",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "no_coverage",
+      "covered_area_m2": null,
+      "dataset_id": "emit-l2bmin-002",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-devon-island",
+      "availability_status": "no_coverage",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "no_coverage",
+      "covered_area_m2": null,
+      "dataset_id": "emit-l2bmin-001",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-rio-tinto",
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "emit-l2bmin-002",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "earth-rio-tinto",
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "emit-l2bmin-001",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "moon-shackleton-rim-site04-roi2",
+      "availability_status": "unverified",
+      "body": "Moon",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "lunar-polar-minerals-zenodo-v4",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "mars-test-jezero-western-delta",
+      "availability_status": "context_only",
+      "body": "Mars",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "crism-mtrdr-context",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "aoi_area_m2": null,
+      "area_id": "mars-test-jezero-floor",
+      "availability_status": "context_only",
+      "body": "Mars",
+      "category_fractions": {},
+      "coverage_fraction": null,
+      "coverage_state": "unknown",
+      "covered_area_m2": null,
+      "dataset_id": "crism-mtrdr-context",
+      "fraction_sum": null,
+      "notes": "No mapped-unit fraction is exported; this is not zero coverage.",
+      "supported_categories": [],
+      "uncovered_fraction": null,
+      "units": [],
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    }
+  ],
+  "coverage_state_definition": {
+    "complete": "covered fraction is 1 within 1e-6",
+    "no_coverage": "the source has no polygon/raster coverage of this AOI; fractions are null",
+    "partial": "0 < covered fraction < 1 - 1e-6; uncovered_fraction is reported, not zero-filled",
+    "unknown": "coverage could not be exported (for example unverified redistribution rights)"
+  },
+  "export_version": "geology-area-fraction-1.0.0",
+  "limitations": [
+    "Area fractions measure polygon intersection at source map scale, not composition.",
+    "Missing coverage is no_coverage/unknown with null fractions; it is never zero-filled.",
+    "Raw codes are dataset-scoped and are not equivalent across Moon and Mars.",
+    "No geology similarity, combined six-dimension score or ranking is produced."
+  ],
+  "nonexclusive": true,
+  "records": [
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:6a99fdfbded493ec13a997e6f746b156c28d08645b0e60b13e9b678b6efee78e",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-atacama-desert",
+      "area_m2": null,
+      "availability_status": "license_unverified",
+      "body": "Earth",
+      "dataset_id": "glim-niveau-i-mirror",
+      "fraction_of_aoi": null,
+      "notes": "Spatial overlay completed locally; mirror licenseInfo is empty. Extracted values withheld from portable output.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": 3750000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "redistribution_not_verified",
+          "third_party_mirror",
+          "local_overlay_completed"
+        ]
+      },
+      "record_id": "area-fraction:earth-atacama-desert:glim-niveau-i-mirror:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Hartmann, J., Moosdorf, N. (2012), doi:10.1029/2012GC004370; Hartmann and Moosdorf (2015), doi:10.14682/2015LMWP",
+        "dataset_id": "glim-niveau-i-mirror",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "not_verified",
+        "license_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+        "map_scale": 3750000,
+        "native_frame": null,
+        "native_resolution_m": null,
+        "product": "GLiM_Niveau_I",
+        "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+        "redistribution": "not_verified",
+        "source_crs": "EPSG:3857",
+        "version": "1.1 (mirror description; upstream equivalence not_verified)"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:bbddc4a36d58205a2afaf915c2aaf6ca3db24c1586c6ef1755596584b761d166",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-death-valley",
+      "area_m2": null,
+      "availability_status": "license_unverified",
+      "body": "Earth",
+      "dataset_id": "glim-niveau-i-mirror",
+      "fraction_of_aoi": null,
+      "notes": "Spatial overlay completed locally; mirror licenseInfo is empty. Extracted values withheld from portable output.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": 3750000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "redistribution_not_verified",
+          "third_party_mirror",
+          "local_overlay_completed"
+        ]
+      },
+      "record_id": "area-fraction:earth-death-valley:glim-niveau-i-mirror:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Hartmann, J., Moosdorf, N. (2012), doi:10.1029/2012GC004370; Hartmann and Moosdorf (2015), doi:10.14682/2015LMWP",
+        "dataset_id": "glim-niveau-i-mirror",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "not_verified",
+        "license_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+        "map_scale": 3750000,
+        "native_frame": null,
+        "native_resolution_m": null,
+        "product": "GLiM_Niveau_I",
+        "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+        "redistribution": "not_verified",
+        "source_crs": "EPSG:3857",
+        "version": "1.1 (mirror description; upstream equivalence not_verified)"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:b366c7787a5b531e726f59f093fe113f5b205c073e4facd672ec539c4f1a0818",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-lanzarote",
+      "area_m2": null,
+      "availability_status": "license_unverified",
+      "body": "Earth",
+      "dataset_id": "glim-niveau-i-mirror",
+      "fraction_of_aoi": null,
+      "notes": "Spatial overlay completed locally; mirror licenseInfo is empty. Extracted values withheld from portable output.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": 3750000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "redistribution_not_verified",
+          "third_party_mirror",
+          "local_overlay_completed"
+        ]
+      },
+      "record_id": "area-fraction:earth-lanzarote:glim-niveau-i-mirror:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Hartmann, J., Moosdorf, N. (2012), doi:10.1029/2012GC004370; Hartmann and Moosdorf (2015), doi:10.14682/2015LMWP",
+        "dataset_id": "glim-niveau-i-mirror",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "not_verified",
+        "license_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+        "map_scale": 3750000,
+        "native_frame": null,
+        "native_resolution_m": null,
+        "product": "GLiM_Niveau_I",
+        "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+        "redistribution": "not_verified",
+        "source_crs": "EPSG:3857",
+        "version": "1.1 (mirror description; upstream equivalence not_verified)"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:d0a5ea98ed528b0b28ddba988d556913e9d7780977648fc55940b5bb0d21578c",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-devon-island",
+      "area_m2": null,
+      "availability_status": "license_unverified",
+      "body": "Earth",
+      "dataset_id": "glim-niveau-i-mirror",
+      "fraction_of_aoi": null,
+      "notes": "Spatial overlay completed locally; mirror licenseInfo is empty. Extracted values withheld from portable output.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": 3750000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "redistribution_not_verified",
+          "third_party_mirror",
+          "local_overlay_completed"
+        ]
+      },
+      "record_id": "area-fraction:earth-devon-island:glim-niveau-i-mirror:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Hartmann, J., Moosdorf, N. (2012), doi:10.1029/2012GC004370; Hartmann and Moosdorf (2015), doi:10.14682/2015LMWP",
+        "dataset_id": "glim-niveau-i-mirror",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "not_verified",
+        "license_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+        "map_scale": 3750000,
+        "native_frame": null,
+        "native_resolution_m": null,
+        "product": "GLiM_Niveau_I",
+        "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+        "redistribution": "not_verified",
+        "source_crs": "EPSG:3857",
+        "version": "1.1 (mirror description; upstream equivalence not_verified)"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:3c6867de4043b044bc33843393a5de7956071e6d2e51b158ed0eda69542279b6",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-rio-tinto",
+      "area_m2": null,
+      "availability_status": "license_unverified",
+      "body": "Earth",
+      "dataset_id": "glim-niveau-i-mirror",
+      "fraction_of_aoi": null,
+      "notes": "Spatial overlay completed locally; mirror licenseInfo is empty. Extracted values withheld from portable output.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": 3750000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "redistribution_not_verified",
+          "third_party_mirror",
+          "local_overlay_completed"
+        ]
+      },
+      "record_id": "area-fraction:earth-rio-tinto:glim-niveau-i-mirror:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Hartmann, J., Moosdorf, N. (2012), doi:10.1029/2012GC004370; Hartmann and Moosdorf (2015), doi:10.14682/2015LMWP",
+        "dataset_id": "glim-niveau-i-mirror",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "not_verified",
+        "license_url": "https://www.arcgis.com/sharing/rest/content/items/cff7159868224551bf2d03762702c18d?f=pjson",
+        "map_scale": 3750000,
+        "native_frame": null,
+        "native_resolution_m": null,
+        "product": "GLiM_Niveau_I",
+        "provider": "GLiM / Hartmann and Moosdorf; third-party ArcGIS mirror",
+        "redistribution": "not_verified",
+        "source_crs": "EPSG:3857",
+        "version": "1.1 (mirror description; upstream equivalence not_verified)"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": 3920368.514671088,
+        "coverage_fraction": 0.999998889958193,
+        "coverage_state": "partial",
+        "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+        "geometry_fingerprint": "sha256:976e0daa1156da220e50254b9afd19bba8ca6694eb49e1b71f5aa3c38016d2cd",
+        "geometry_source": "pipelines/planetary/manifests/lola_moon_reference.json#references/notes",
+        "uncovered_fraction": 1.1100418070286722e-06
+      },
+      "area_id": "moon-shackleton-rim-site04-roi2",
+      "area_m2": 3920364.162898138,
+      "availability_status": "available",
+      "body": "Moon",
+      "dataset_id": "usgs-moon-geology-v2",
+      "fraction_of_aoi": 0.999998889958193,
+      "notes": "Map-scale crater unit only; the 1:5,000,000 source cannot resolve local lithology or composition. Other DOMU codes remain unmapped in this pilot. Morphology and material from a primary impact event.",
+      "process_labels": [
+        {
+          "category": "impact",
+          "confidence": "mapped",
+          "evidence_basis": "mapped_geology",
+          "process": "impact_crater_unit",
+          "source_document": "USGS Unified Geologic Map of the Moon GIS v2, DOMU descriptions CSV (unit Ec) and GeoUnits attribute FIRST_Un_2",
+          "supporting_statement": "Official DOMU unit name 'Eratosthenian Crater', source family 'Crater Unit' and description (non-rayed circular craters with sharp to partially subdued rim crests and circumferential ejecta) document a primary impact-crater unit. No impact-melt, breccia, ejecta thickness or shock-mineral abundance is inferred."
+        }
+      ],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": 1,
+        "map_scale": 5000000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "mapped_with_process_evidence",
+        "quality_flags": [
+          "excluded_invalid_source_geometries:1",
+          "map_scale_5000000",
+          "frame_alignment_below_map_scale_unverified"
+        ]
+      },
+      "record_id": "area-fraction:moon-shackleton-rim-site04-roi2:usgs-moon-geology-v2:5586",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "+proj=laea +lat_0=-89.77192510538467 +lon_0=-156.50226013773622 +R=1737400.0 +units=m +type=crs",
+        "citation": "Fortezzo, C.M., Spudis, P.D., and Harrel, S.L. (2020), Unified Geologic Map of the Moon, USGS, scale 1:5,000,000.",
+        "dataset_id": "usgs-moon-geology-v2",
+        "legend_source": "USGS Unified Geologic Map of the Moon GIS v2: GeoUnits shapefile attributes plus the official DOMU descriptions CSV distributed in the same package.",
+        "legend_version": "2.0 (March 3, 2020)",
+        "license": "CC0, but please cite authors",
+        "license_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+        "map_scale": 5000000,
+        "native_frame": "Moon 2000 sphere, planetocentric latitude, east-positive longitude, LOLA control; no Earth WGS84.",
+        "native_resolution_m": null,
+        "product": "Unified Geologic Map of the Moon",
+        "provider": "USGS Astrogeology Science Center",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"Moon2000_EquidistantCylindrical_clon0\",GEOGCS[\"GCS_Moon_2000\",DATUM[\"D_Moon_2000\",SPHEROID[\"Moon_2000_IAU_IAG\",1737400,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "2.0, March 3, 2020"
+      },
+      "supported_categories": [
+        "impact"
+      ],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "Fraction is a geometric intersection at source map scale; it is not a composition, mineral abundance or positional uncertainty estimate."
+      },
+      "unit": {
+        "mapping_status": "mapped_with_process_evidence",
+        "official_family": "Crater Unit",
+        "raw_code": "Ec",
+        "registry_version": "geology-legend-registry-1.0.0",
+        "source_attributes": {
+          "AREA_GEO": 826338357.211,
+          "FIRST_Un_1": "Eratosthenian",
+          "FIRST_Un_2": "Crater Unit",
+          "FIRST_Unit": "Ec",
+          "Shape_Area": 162223893418.0,
+          "Shape_Leng": 21871774.9016
+        },
+        "source_feature_id": "5586",
+        "unit_name": "Eratosthenian Crater"
+      },
+      "unknown_categories": [
+        "igneous",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": 2998995.4545685844,
+        "coverage_fraction": 1.0,
+        "coverage_state": "complete",
+        "crs": "+proj=longlat +R=3396190 +type=crs",
+        "geometry_fingerprint": "sha256:530930f599a5d486b3c4f5d522f46d80b7a8430aa36016d9d305fcf64eed3154",
+        "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+        "uncovered_fraction": 0.0
+      },
+      "area_id": "mars-test-jezero-western-delta",
+      "area_m2": 187799.72765839574,
+      "availability_status": "available",
+      "body": "Mars",
+      "dataset_id": "usgs-jezero-sim3464",
+      "fraction_of_aoi": 0.06262087772500854,
+      "notes": "Official description documents an etched, rugged surficial unit without stating an igneous, impact, sedimentary or aqueous-alteration process. Kept mapped_without_process_evidence; no category is guessed. Official geomorphological map unit; no inferred quantitative mineral abundance.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": 2,
+        "map_scale": 75000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "mapped_without_process_evidence",
+        "quality_flags": [
+          "excluded_invalid_source_geometries:2",
+          "map_scale_75000"
+        ]
+      },
+      "record_id": "area-fraction:mars-test-jezero-western-delta:usgs-jezero-sim3464:1015",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+        "citation": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars, USGS SIM 3464, doi:10.3133/sim3464.",
+        "dataset_id": "usgs-jezero-sim3464",
+        "legend_source": "USGS SIM 3464 GIS GeoUnits_v1 attributes plus the official map-sheet descriptions (the distributed XML unit descriptions are empty).",
+        "legend_version": "2020; distributed GeoUnits_v1",
+        "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+        "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+        "map_scale": 75000,
+        "native_frame": "Mars 2000 sphere, planetocentric latitude, east-positive longitude, body-fixed MTM zone 77.5E; no Earth WGS84.",
+        "native_resolution_m": null,
+        "product": "SIM 3464 Jezero and Nili Planum",
+        "provider": "U.S. Geological Survey",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "2020; distributed GeoUnits_v1"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "Fraction is a geometric intersection at source map scale; it is not a composition, mineral abundance or positional uncertainty estimate."
+      },
+      "unit": {
+        "mapping_status": "mapped_without_process_evidence",
+        "official_family": "Etched unit",
+        "raw_code": "Nue",
+        "registry_version": "geology-legend-registry-1.0.0",
+        "source_attributes": {
+          "Color_ID": 74,
+          "ORIG_FID": 1019,
+          "SHAPE_Area": 3534555.5681484924,
+          "SHAPE_Length": 11580.127547445076,
+          "name": "Upper etched unit",
+          "subscript": null,
+          "symbol": "Nue",
+          "symbol_noSub": "Nue",
+          "unit": "10"
+        },
+        "source_feature_id": "1015",
+        "unit_name": "Upper etched unit"
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": 2998995.4545685844,
+        "coverage_fraction": 1.0,
+        "coverage_state": "complete",
+        "crs": "+proj=longlat +R=3396190 +type=crs",
+        "geometry_fingerprint": "sha256:530930f599a5d486b3c4f5d522f46d80b7a8430aa36016d9d305fcf64eed3154",
+        "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+        "uncovered_fraction": 0.0
+      },
+      "area_id": "mars-test-jezero-western-delta",
+      "area_m2": 261385.9815722821,
+      "availability_status": "available",
+      "body": "Mars",
+      "dataset_id": "usgs-jezero-sim3464",
+      "fraction_of_aoi": 0.08715784519582853,
+      "notes": "Eolian landform evidence only; not a mineral or aqueous-alteration observation. Official geomorphological map unit; no inferred quantitative mineral abundance.",
+      "process_labels": [
+        {
+          "category": "sedimentary",
+          "confidence": "mapped",
+          "evidence_basis": "mapped_geology",
+          "process": "eolian_deposition",
+          "source_document": "USGS SIM 3464 map sheet, unit description for eolian bedform unit (symbol Aeb)",
+          "supporting_statement": "Official SIM3464 unit name 'Eolian bedform unit' and description (light-toned, linear, commonly parallel, low-relief ridges in local topographic lows) document wind-formed sedimentary bedforms. No grain size, composition or aqueous origin is inferred."
+        }
+      ],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": 2,
+        "map_scale": 75000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "mapped_with_process_evidence",
+        "quality_flags": [
+          "excluded_invalid_source_geometries:2",
+          "map_scale_75000"
+        ]
+      },
+      "record_id": "area-fraction:mars-test-jezero-western-delta:usgs-jezero-sim3464:1003",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+        "citation": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars, USGS SIM 3464, doi:10.3133/sim3464.",
+        "dataset_id": "usgs-jezero-sim3464",
+        "legend_source": "USGS SIM 3464 GIS GeoUnits_v1 attributes plus the official map-sheet descriptions (the distributed XML unit descriptions are empty).",
+        "legend_version": "2020; distributed GeoUnits_v1",
+        "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+        "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+        "map_scale": 75000,
+        "native_frame": "Mars 2000 sphere, planetocentric latitude, east-positive longitude, body-fixed MTM zone 77.5E; no Earth WGS84.",
+        "native_resolution_m": null,
+        "product": "SIM 3464 Jezero and Nili Planum",
+        "provider": "U.S. Geological Survey",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "2020; distributed GeoUnits_v1"
+      },
+      "supported_categories": [
+        "sedimentary"
+      ],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "Fraction is a geometric intersection at source map scale; it is not a composition, mineral abundance or positional uncertainty estimate."
+      },
+      "unit": {
+        "mapping_status": "mapped_with_process_evidence",
+        "official_family": "Eolian bedform unit",
+        "raw_code": "Aeb",
+        "registry_version": "geology-legend-registry-1.0.0",
+        "source_attributes": {
+          "Color_ID": 51,
+          "ORIG_FID": 1007,
+          "SHAPE_Area": 390446.43066169607,
+          "SHAPE_Length": 2246.512447147012,
+          "name": "Eolian bedform unit",
+          "subscript": null,
+          "symbol": "Aeb",
+          "symbol_noSub": "Aeb",
+          "unit": "7"
+        },
+        "source_feature_id": "1003",
+        "unit_name": "Eolian bedform unit"
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": 2998995.4545685844,
+        "coverage_fraction": 1.0,
+        "coverage_state": "complete",
+        "crs": "+proj=longlat +R=3396190 +type=crs",
+        "geometry_fingerprint": "sha256:530930f599a5d486b3c4f5d522f46d80b7a8430aa36016d9d305fcf64eed3154",
+        "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+        "uncovered_fraction": 0.0
+      },
+      "area_id": "mars-test-jezero-western-delta",
+      "area_m2": 2285321.39962253,
+      "availability_status": "available",
+      "body": "Mars",
+      "dataset_id": "usgs-jezero-sim3464",
+      "fraction_of_aoi": 0.7620289641123452,
+      "notes": "Depositional fan interpretation only; mineralogy and alteration require separate evidence. Official geomorphological map unit; no inferred quantitative mineral abundance.",
+      "process_labels": [
+        {
+          "category": "sedimentary",
+          "confidence": "interpreted",
+          "evidence_basis": "documented_interpretation",
+          "process": "deltaic_lacustrine_deposition",
+          "source_document": "USGS SIM 3464 map sheet and pamphlet interpretation for Jezero fan units",
+          "supporting_statement": "Official SIM3464 map-sheet interpretation identifies deltaic/lacustrine or alluvial/fluvial deposits for this fan unit; the mapped description documents stratified, lobate fan deposits at the mouth of Neretva Vallis. No grain size, mineralogy or aqueous-alteration assemblage is inferred from this label alone."
+        }
+      ],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": 2,
+        "map_scale": 75000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "mapped_with_process_evidence",
+        "quality_flags": [
+          "excluded_invalid_source_geometries:2",
+          "map_scale_75000"
+        ]
+      },
+      "record_id": "area-fraction:mars-test-jezero-western-delta:usgs-jezero-sim3464:1101",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+        "citation": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars, USGS SIM 3464, doi:10.3133/sim3464.",
+        "dataset_id": "usgs-jezero-sim3464",
+        "legend_source": "USGS SIM 3464 GIS GeoUnits_v1 attributes plus the official map-sheet descriptions (the distributed XML unit descriptions are empty).",
+        "legend_version": "2020; distributed GeoUnits_v1",
+        "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+        "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+        "map_scale": 75000,
+        "native_frame": "Mars 2000 sphere, planetocentric latitude, east-positive longitude, body-fixed MTM zone 77.5E; no Earth WGS84.",
+        "native_resolution_m": null,
+        "product": "SIM 3464 Jezero and Nili Planum",
+        "provider": "U.S. Geological Survey",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "2020; distributed GeoUnits_v1"
+      },
+      "supported_categories": [
+        "sedimentary"
+      ],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "Fraction is a geometric intersection at source map scale; it is not a composition, mineral abundance or positional uncertainty estimate."
+      },
+      "unit": {
+        "mapping_status": "mapped_with_process_evidence",
+        "official_family": "Jezero fan unit",
+        "raw_code": "NHjf2",
+        "registry_version": "geology-legend-registry-1.0.0",
+        "source_attributes": {
+          "Color_ID": 603,
+          "ORIG_FID": 1105,
+          "SHAPE_Area": 22757189.01846644,
+          "SHAPE_Length": 43369.09492756587,
+          "name": "Jezero fan 2 unit",
+          "subscript": "2",
+          "symbol": "NHjf2",
+          "symbol_noSub": "NHjf",
+          "unit": "0"
+        },
+        "source_feature_id": "1101",
+        "unit_name": "Jezero fan 2 unit"
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": 2998995.4545685844,
+        "coverage_fraction": 1.0,
+        "coverage_state": "complete",
+        "crs": "+proj=longlat +R=3396190 +type=crs",
+        "geometry_fingerprint": "sha256:530930f599a5d486b3c4f5d522f46d80b7a8430aa36016d9d305fcf64eed3154",
+        "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+        "uncovered_fraction": 0.0
+      },
+      "area_id": "mars-test-jezero-western-delta",
+      "area_m2": 264488.34573359054,
+      "availability_status": "available",
+      "body": "Mars",
+      "dataset_id": "usgs-jezero-sim3464",
+      "fraction_of_aoi": 0.08819231297289115,
+      "notes": "Geomorphological crater-rim unit only. Official geomorphological map unit; no inferred quantitative mineral abundance.",
+      "process_labels": [
+        {
+          "category": "impact",
+          "confidence": "mapped",
+          "evidence_basis": "mapped_geology",
+          "process": "impact_crater_rim",
+          "source_document": "USGS SIM 3464 map sheet, unit description for crater rim unit (symbol cr)",
+          "supporting_statement": "Official SIM3464 unit name 'Crater rim unit' and description (high-relief scarps surrounding circular or quasicircular depressions) document an impact-crater rim landform. No impact-melt, breccia or shock-mineral abundance is inferred."
+        }
+      ],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": 2,
+        "map_scale": 75000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "mapped_with_process_evidence",
+        "quality_flags": [
+          "excluded_invalid_source_geometries:2",
+          "map_scale_75000"
+        ]
+      },
+      "record_id": "area-fraction:mars-test-jezero-western-delta:usgs-jezero-sim3464:1008",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "+proj=laea +lat_0=18.484999999999996 +lon_0=77.36500000000002 +R=3396190.0 +units=m +type=crs",
+        "citation": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars, USGS SIM 3464, doi:10.3133/sim3464.",
+        "dataset_id": "usgs-jezero-sim3464",
+        "legend_source": "USGS SIM 3464 GIS GeoUnits_v1 attributes plus the official map-sheet descriptions (the distributed XML unit descriptions are empty).",
+        "legend_version": "2020; distributed GeoUnits_v1",
+        "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+        "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+        "map_scale": 75000,
+        "native_frame": "Mars 2000 sphere, planetocentric latitude, east-positive longitude, body-fixed MTM zone 77.5E; no Earth WGS84.",
+        "native_resolution_m": null,
+        "product": "SIM 3464 Jezero and Nili Planum",
+        "provider": "U.S. Geological Survey",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "2020; distributed GeoUnits_v1"
+      },
+      "supported_categories": [
+        "impact"
+      ],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "Fraction is a geometric intersection at source map scale; it is not a composition, mineral abundance or positional uncertainty estimate."
+      },
+      "unit": {
+        "mapping_status": "mapped_with_process_evidence",
+        "official_family": "Crater rim unit",
+        "raw_code": "cr",
+        "registry_version": "geology-legend-registry-1.0.0",
+        "source_attributes": {
+          "Color_ID": 355,
+          "ORIG_FID": 1012,
+          "SHAPE_Area": 540119.9691292439,
+          "SHAPE_Length": 5754.629296810429,
+          "name": "Crater rim unit",
+          "subscript": null,
+          "symbol": "cr",
+          "symbol_noSub": "cr",
+          "unit": "11"
+        },
+        "source_feature_id": "1008",
+        "unit_name": "Crater rim unit"
+      },
+      "unknown_categories": [
+        "igneous",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": 5332945.644284114,
+        "coverage_fraction": 0.9999999999992588,
+        "coverage_state": "complete",
+        "crs": "+proj=longlat +R=3396190 +type=crs",
+        "geometry_fingerprint": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779",
+        "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+        "uncovered_fraction": 7.411848912397545e-13
+      },
+      "area_id": "mars-test-jezero-floor",
+      "area_m2": 2902446.233708783,
+      "availability_status": "available",
+      "body": "Mars",
+      "dataset_id": "usgs-jezero-sim3464",
+      "fraction_of_aoi": 0.5442482311477604,
+      "notes": "The description mentions impact craters on the surface but the unit itself is a floor unit, not an impact unit. No process label is assigned; crater counts are not impact-process evidence for the unit. Official geomorphological map unit; no inferred quantitative mineral abundance.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": 2,
+        "map_scale": 75000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "mapped_without_process_evidence",
+        "quality_flags": [
+          "excluded_invalid_source_geometries:2",
+          "map_scale_75000"
+        ]
+      },
+      "record_id": "area-fraction:mars-test-jezero-floor:usgs-jezero-sim3464:1146",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+        "citation": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars, USGS SIM 3464, doi:10.3133/sim3464.",
+        "dataset_id": "usgs-jezero-sim3464",
+        "legend_source": "USGS SIM 3464 GIS GeoUnits_v1 attributes plus the official map-sheet descriptions (the distributed XML unit descriptions are empty).",
+        "legend_version": "2020; distributed GeoUnits_v1",
+        "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+        "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+        "map_scale": 75000,
+        "native_frame": "Mars 2000 sphere, planetocentric latitude, east-positive longitude, body-fixed MTM zone 77.5E; no Earth WGS84.",
+        "native_resolution_m": null,
+        "product": "SIM 3464 Jezero and Nili Planum",
+        "provider": "U.S. Geological Survey",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "2020; distributed GeoUnits_v1"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "Fraction is a geometric intersection at source map scale; it is not a composition, mineral abundance or positional uncertainty estimate."
+      },
+      "unit": {
+        "mapping_status": "mapped_without_process_evidence",
+        "official_family": "Floor unit",
+        "raw_code": "Njf",
+        "registry_version": "geology-legend-registry-1.0.0",
+        "source_attributes": {
+          "Color_ID": 13,
+          "ORIG_FID": 1150,
+          "SHAPE_Area": 318761370.5357068,
+          "SHAPE_Length": 208786.22960935335,
+          "name": "Jezero floor unit",
+          "subscript": null,
+          "symbol": "Njf",
+          "symbol_noSub": "Njf",
+          "unit": "2"
+        },
+        "source_feature_id": "1146",
+        "unit_name": "Jezero floor unit"
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": 5332945.644284114,
+        "coverage_fraction": 0.9999999999992588,
+        "coverage_state": "complete",
+        "crs": "+proj=longlat +R=3396190 +type=crs",
+        "geometry_fingerprint": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779",
+        "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+        "uncovered_fraction": 7.411848912397545e-13
+      },
+      "area_id": "mars-test-jezero-floor",
+      "area_m2": 221282.46879934502,
+      "availability_status": "available",
+      "body": "Mars",
+      "dataset_id": "usgs-jezero-sim3464",
+      "fraction_of_aoi": 0.04149347913127842,
+      "notes": "Eolian landform evidence only; not a mineral or aqueous-alteration observation. Official geomorphological map unit; no inferred quantitative mineral abundance.",
+      "process_labels": [
+        {
+          "category": "sedimentary",
+          "confidence": "mapped",
+          "evidence_basis": "mapped_geology",
+          "process": "eolian_deposition",
+          "source_document": "USGS SIM 3464 map sheet, unit description for eolian bedform unit (symbol Aeb)",
+          "supporting_statement": "Official SIM3464 unit name 'Eolian bedform unit' and description (light-toned, linear, commonly parallel, low-relief ridges in local topographic lows) document wind-formed sedimentary bedforms. No grain size, composition or aqueous origin is inferred."
+        }
+      ],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": 2,
+        "map_scale": 75000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "mapped_with_process_evidence",
+        "quality_flags": [
+          "excluded_invalid_source_geometries:2",
+          "map_scale_75000"
+        ]
+      },
+      "record_id": "area-fraction:mars-test-jezero-floor:usgs-jezero-sim3464:1000",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+        "citation": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars, USGS SIM 3464, doi:10.3133/sim3464.",
+        "dataset_id": "usgs-jezero-sim3464",
+        "legend_source": "USGS SIM 3464 GIS GeoUnits_v1 attributes plus the official map-sheet descriptions (the distributed XML unit descriptions are empty).",
+        "legend_version": "2020; distributed GeoUnits_v1",
+        "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+        "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+        "map_scale": 75000,
+        "native_frame": "Mars 2000 sphere, planetocentric latitude, east-positive longitude, body-fixed MTM zone 77.5E; no Earth WGS84.",
+        "native_resolution_m": null,
+        "product": "SIM 3464 Jezero and Nili Planum",
+        "provider": "U.S. Geological Survey",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "2020; distributed GeoUnits_v1"
+      },
+      "supported_categories": [
+        "sedimentary"
+      ],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "Fraction is a geometric intersection at source map scale; it is not a composition, mineral abundance or positional uncertainty estimate."
+      },
+      "unit": {
+        "mapping_status": "mapped_with_process_evidence",
+        "official_family": "Eolian bedform unit",
+        "raw_code": "Aeb",
+        "registry_version": "geology-legend-registry-1.0.0",
+        "source_attributes": {
+          "Color_ID": 51,
+          "ORIG_FID": 1004,
+          "SHAPE_Area": 16916796.613280017,
+          "SHAPE_Length": 66052.31936580242,
+          "name": "Eolian bedform unit",
+          "subscript": null,
+          "symbol": "Aeb",
+          "symbol_noSub": "Aeb",
+          "unit": "7"
+        },
+        "source_feature_id": "1000",
+        "unit_name": "Eolian bedform unit"
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": 5332945.644284114,
+        "coverage_fraction": 0.9999999999992588,
+        "coverage_state": "complete",
+        "crs": "+proj=longlat +R=3396190 +type=crs",
+        "geometry_fingerprint": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779",
+        "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+        "uncovered_fraction": 7.411848912397545e-13
+      },
+      "area_id": "mars-test-jezero-floor",
+      "area_m2": 1589594.5299849375,
+      "availability_status": "available",
+      "body": "Mars",
+      "dataset_id": "usgs-jezero-sim3464",
+      "fraction_of_aoi": 0.29807064163286107,
+      "notes": "Official description documents an etched, rugged surficial unit without stating an igneous, impact, sedimentary or aqueous-alteration process. Kept mapped_without_process_evidence; no category is guessed. Official geomorphological map unit; no inferred quantitative mineral abundance.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": 2,
+        "map_scale": 75000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "mapped_without_process_evidence",
+        "quality_flags": [
+          "excluded_invalid_source_geometries:2",
+          "map_scale_75000"
+        ]
+      },
+      "record_id": "area-fraction:mars-test-jezero-floor:usgs-jezero-sim3464:983",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+        "citation": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars, USGS SIM 3464, doi:10.3133/sim3464.",
+        "dataset_id": "usgs-jezero-sim3464",
+        "legend_source": "USGS SIM 3464 GIS GeoUnits_v1 attributes plus the official map-sheet descriptions (the distributed XML unit descriptions are empty).",
+        "legend_version": "2020; distributed GeoUnits_v1",
+        "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+        "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+        "map_scale": 75000,
+        "native_frame": "Mars 2000 sphere, planetocentric latitude, east-positive longitude, body-fixed MTM zone 77.5E; no Earth WGS84.",
+        "native_resolution_m": null,
+        "product": "SIM 3464 Jezero and Nili Planum",
+        "provider": "U.S. Geological Survey",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "2020; distributed GeoUnits_v1"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "Fraction is a geometric intersection at source map scale; it is not a composition, mineral abundance or positional uncertainty estimate."
+      },
+      "unit": {
+        "mapping_status": "mapped_without_process_evidence",
+        "official_family": "Etched unit",
+        "raw_code": "Nle",
+        "registry_version": "geology-legend-registry-1.0.0",
+        "source_attributes": {
+          "Color_ID": 55,
+          "ORIG_FID": 987,
+          "SHAPE_Area": 4574553.727028843,
+          "SHAPE_Length": 15153.054932384912,
+          "name": "Lower etched unit",
+          "subscript": null,
+          "symbol": "Nle",
+          "symbol_noSub": "Nle",
+          "unit": "3"
+        },
+        "source_feature_id": "983",
+        "unit_name": "Lower etched unit"
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": 5332945.644284114,
+        "coverage_fraction": 0.9999999999992588,
+        "coverage_state": "complete",
+        "crs": "+proj=longlat +R=3396190 +type=crs",
+        "geometry_fingerprint": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779",
+        "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+        "uncovered_fraction": 7.411848912397545e-13
+      },
+      "area_id": "mars-test-jezero-floor",
+      "area_m2": 133054.18360096109,
+      "availability_status": "available",
+      "body": "Mars",
+      "dataset_id": "usgs-jezero-sim3464",
+      "fraction_of_aoi": 0.024949473044708306,
+      "notes": "Official description documents an etched, rugged surficial unit without stating an igneous, impact, sedimentary or aqueous-alteration process. Kept mapped_without_process_evidence; no category is guessed. Official geomorphological map unit; no inferred quantitative mineral abundance.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": 2,
+        "map_scale": 75000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "mapped_without_process_evidence",
+        "quality_flags": [
+          "excluded_invalid_source_geometries:2",
+          "map_scale_75000"
+        ]
+      },
+      "record_id": "area-fraction:mars-test-jezero-floor:usgs-jezero-sim3464:963",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+        "citation": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars, USGS SIM 3464, doi:10.3133/sim3464.",
+        "dataset_id": "usgs-jezero-sim3464",
+        "legend_source": "USGS SIM 3464 GIS GeoUnits_v1 attributes plus the official map-sheet descriptions (the distributed XML unit descriptions are empty).",
+        "legend_version": "2020; distributed GeoUnits_v1",
+        "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+        "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+        "map_scale": 75000,
+        "native_frame": "Mars 2000 sphere, planetocentric latitude, east-positive longitude, body-fixed MTM zone 77.5E; no Earth WGS84.",
+        "native_resolution_m": null,
+        "product": "SIM 3464 Jezero and Nili Planum",
+        "provider": "U.S. Geological Survey",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "2020; distributed GeoUnits_v1"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "Fraction is a geometric intersection at source map scale; it is not a composition, mineral abundance or positional uncertainty estimate."
+      },
+      "unit": {
+        "mapping_status": "mapped_without_process_evidence",
+        "official_family": "Etched unit",
+        "raw_code": "Nue",
+        "registry_version": "geology-legend-registry-1.0.0",
+        "source_attributes": {
+          "Color_ID": 74,
+          "ORIG_FID": 967,
+          "SHAPE_Area": 1243055.1163313373,
+          "SHAPE_Length": 8501.941753985893,
+          "name": "Upper etched unit",
+          "subscript": null,
+          "symbol": "Nue",
+          "symbol_noSub": "Nue",
+          "unit": "10"
+        },
+        "source_feature_id": "963",
+        "unit_name": "Upper etched unit"
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": 5332945.644284114,
+        "coverage_fraction": 0.9999999999992588,
+        "coverage_state": "complete",
+        "crs": "+proj=longlat +R=3396190 +type=crs",
+        "geometry_fingerprint": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779",
+        "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+        "uncovered_fraction": 7.411848912397545e-13
+      },
+      "area_id": "mars-test-jezero-floor",
+      "area_m2": 124657.49552515493,
+      "availability_status": "available",
+      "body": "Mars",
+      "dataset_id": "usgs-jezero-sim3464",
+      "fraction_of_aoi": 0.02337497957789306,
+      "notes": "Depositional fan interpretation only; mineralogy and alteration require separate evidence. Official geomorphological map unit; no inferred quantitative mineral abundance.",
+      "process_labels": [
+        {
+          "category": "sedimentary",
+          "confidence": "interpreted",
+          "evidence_basis": "documented_interpretation",
+          "process": "deltaic_lacustrine_deposition",
+          "source_document": "USGS SIM 3464 map sheet and pamphlet interpretation for Jezero fan units",
+          "supporting_statement": "Official SIM3464 map-sheet interpretation identifies deltaic/lacustrine or alluvial/fluvial deposits for this fan unit; the mapped description documents stratified, lobate fan deposits at the mouth of Neretva Vallis. No grain size, mineralogy or aqueous-alteration assemblage is inferred from this label alone."
+        }
+      ],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": 2,
+        "map_scale": 75000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "mapped_with_process_evidence",
+        "quality_flags": [
+          "excluded_invalid_source_geometries:2",
+          "map_scale_75000"
+        ]
+      },
+      "record_id": "area-fraction:mars-test-jezero-floor:usgs-jezero-sim3464:953",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+        "citation": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars, USGS SIM 3464, doi:10.3133/sim3464.",
+        "dataset_id": "usgs-jezero-sim3464",
+        "legend_source": "USGS SIM 3464 GIS GeoUnits_v1 attributes plus the official map-sheet descriptions (the distributed XML unit descriptions are empty).",
+        "legend_version": "2020; distributed GeoUnits_v1",
+        "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+        "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+        "map_scale": 75000,
+        "native_frame": "Mars 2000 sphere, planetocentric latitude, east-positive longitude, body-fixed MTM zone 77.5E; no Earth WGS84.",
+        "native_resolution_m": null,
+        "product": "SIM 3464 Jezero and Nili Planum",
+        "provider": "U.S. Geological Survey",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "2020; distributed GeoUnits_v1"
+      },
+      "supported_categories": [
+        "sedimentary"
+      ],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "Fraction is a geometric intersection at source map scale; it is not a composition, mineral abundance or positional uncertainty estimate."
+      },
+      "unit": {
+        "mapping_status": "mapped_with_process_evidence",
+        "official_family": "Jezero fan unit",
+        "raw_code": "NHjf2",
+        "registry_version": "geology-legend-registry-1.0.0",
+        "source_attributes": {
+          "Color_ID": 603,
+          "ORIG_FID": 957,
+          "SHAPE_Area": 124657.78328925345,
+          "SHAPE_Length": 1324.7658750812564,
+          "name": "Jezero fan 2 unit",
+          "subscript": "2",
+          "symbol": "NHjf2",
+          "symbol_noSub": "NHjf",
+          "unit": "0"
+        },
+        "source_feature_id": "953",
+        "unit_name": "Jezero fan 2 unit"
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": 5332945.644284114,
+        "coverage_fraction": 0.9999999999992588,
+        "coverage_state": "complete",
+        "crs": "+proj=longlat +R=3396190 +type=crs",
+        "geometry_fingerprint": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779",
+        "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+        "uncovered_fraction": 7.411848912397545e-13
+      },
+      "area_id": "mars-test-jezero-floor",
+      "area_m2": 361910.7326609797,
+      "availability_status": "available",
+      "body": "Mars",
+      "dataset_id": "usgs-jezero-sim3464",
+      "fraction_of_aoi": 0.06786319546475744,
+      "notes": "Depositional fan interpretation only; mineralogy and alteration require separate evidence. Official geomorphological map unit; no inferred quantitative mineral abundance.",
+      "process_labels": [
+        {
+          "category": "sedimentary",
+          "confidence": "interpreted",
+          "evidence_basis": "documented_interpretation",
+          "process": "deltaic_lacustrine_deposition",
+          "source_document": "USGS SIM 3464 map sheet and pamphlet interpretation for Jezero fan units",
+          "supporting_statement": "Official SIM3464 map-sheet interpretation identifies deltaic/lacustrine or alluvial/fluvial deposits for this fan unit; the mapped description documents stratified, lobate fan deposits at the mouth of Neretva Vallis. No grain size, mineralogy or aqueous-alteration assemblage is inferred from this label alone."
+        }
+      ],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": 2,
+        "map_scale": 75000,
+        "map_scale_note": "Map-scale geological context only; overlay fraction does not improve source accuracy.",
+        "mapping_status": "mapped_with_process_evidence",
+        "quality_flags": [
+          "excluded_invalid_source_geometries:2",
+          "map_scale_75000"
+        ]
+      },
+      "record_id": "area-fraction:mars-test-jezero-floor:usgs-jezero-sim3464:1101",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "+proj=laea +lat_0=18.440000000000005 +lon_0=77.42000000000002 +R=3396190.0 +units=m +type=crs",
+        "citation": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars, USGS SIM 3464, doi:10.3133/sim3464.",
+        "dataset_id": "usgs-jezero-sim3464",
+        "legend_source": "USGS SIM 3464 GIS GeoUnits_v1 attributes plus the official map-sheet descriptions (the distributed XML unit descriptions are empty).",
+        "legend_version": "2020; distributed GeoUnits_v1",
+        "license": "USGS-authored GIS in public domain; copyrighted third-party materials, if identified, excluded.",
+        "license_url": "https://pubs.usgs.gov/sim/3464/sim3464_pamphlet.pdf",
+        "map_scale": 75000,
+        "native_frame": "Mars 2000 sphere, planetocentric latitude, east-positive longitude, body-fixed MTM zone 77.5E; no Earth WGS84.",
+        "native_resolution_m": null,
+        "product": "SIM 3464 Jezero and Nili Planum",
+        "provider": "U.S. Geological Survey",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"MTM_clon77.5E\",GEOGCS[\"Mars_2000_(Sphere)\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_(Sphere)\",3396190,0],AUTHORITY[\"ESRI\",\"106971\"]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",77.5],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "2020; distributed GeoUnits_v1"
+      },
+      "supported_categories": [
+        "sedimentary"
+      ],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "Fraction is a geometric intersection at source map scale; it is not a composition, mineral abundance or positional uncertainty estimate."
+      },
+      "unit": {
+        "mapping_status": "mapped_with_process_evidence",
+        "official_family": "Jezero fan unit",
+        "raw_code": "NHjf2",
+        "registry_version": "geology-legend-registry-1.0.0",
+        "source_attributes": {
+          "Color_ID": 603,
+          "ORIG_FID": 1105,
+          "SHAPE_Area": 22757189.01846644,
+          "SHAPE_Length": 43369.09492756587,
+          "name": "Jezero fan 2 unit",
+          "subscript": "2",
+          "symbol": "NHjf2",
+          "symbol_noSub": "NHjf",
+          "unit": "0"
+        },
+        "source_feature_id": "1101",
+        "unit_name": "Jezero fan 2 unit"
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:6a99fdfbded493ec13a997e6f746b156c28d08645b0e60b13e9b678b6efee78e",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-atacama-desert",
+      "area_m2": null,
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-002",
+      "fraction_of_aoi": null,
+      "notes": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "cmr_bbox_hits_are_not_valid_pixel_coverage",
+          "native_swath_not_orthorectified"
+        ]
+      },
+      "record_id": "area-fraction:earth-atacama-desert:emit-l2bmin-002:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V002, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.002",
+        "dataset_id": "emit-l2bmin-002",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "NASA Earth science data and information policy",
+        "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 60.0,
+        "product": "EMITL2BMIN",
+        "provider": "NASA JPL / LP DAAC",
+        "redistribution": "permitted",
+        "source_crs": "EPSG:4326",
+        "version": "002"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:6a99fdfbded493ec13a997e6f746b156c28d08645b0e60b13e9b678b6efee78e",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-atacama-desert",
+      "area_m2": null,
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-001",
+      "fraction_of_aoi": null,
+      "notes": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "cmr_bbox_hits_are_not_valid_pixel_coverage",
+          "native_swath_not_orthorectified"
+        ]
+      },
+      "record_id": "area-fraction:earth-atacama-desert:emit-l2bmin-001:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V001, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.001",
+        "dataset_id": "emit-l2bmin-001",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "NASA Earth science data and information policy",
+        "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 60.0,
+        "product": "EMITL2BMIN",
+        "provider": "NASA JPL / LP DAAC",
+        "redistribution": "permitted",
+        "source_crs": "EPSG:4326",
+        "version": "001"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:bbddc4a36d58205a2afaf915c2aaf6ca3db24c1586c6ef1755596584b761d166",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-death-valley",
+      "area_m2": null,
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-002",
+      "fraction_of_aoi": null,
+      "notes": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "cmr_bbox_hits_are_not_valid_pixel_coverage",
+          "native_swath_not_orthorectified"
+        ]
+      },
+      "record_id": "area-fraction:earth-death-valley:emit-l2bmin-002:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V002, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.002",
+        "dataset_id": "emit-l2bmin-002",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "NASA Earth science data and information policy",
+        "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 60.0,
+        "product": "EMITL2BMIN",
+        "provider": "NASA JPL / LP DAAC",
+        "redistribution": "permitted",
+        "source_crs": "EPSG:4326",
+        "version": "002"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:bbddc4a36d58205a2afaf915c2aaf6ca3db24c1586c6ef1755596584b761d166",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-death-valley",
+      "area_m2": null,
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-001",
+      "fraction_of_aoi": null,
+      "notes": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "cmr_bbox_hits_are_not_valid_pixel_coverage",
+          "native_swath_not_orthorectified"
+        ]
+      },
+      "record_id": "area-fraction:earth-death-valley:emit-l2bmin-001:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V001, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.001",
+        "dataset_id": "emit-l2bmin-001",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "NASA Earth science data and information policy",
+        "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 60.0,
+        "product": "EMITL2BMIN",
+        "provider": "NASA JPL / LP DAAC",
+        "redistribution": "permitted",
+        "source_crs": "EPSG:4326",
+        "version": "001"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:b366c7787a5b531e726f59f093fe113f5b205c073e4facd672ec539c4f1a0818",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-lanzarote",
+      "area_m2": null,
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-002",
+      "fraction_of_aoi": null,
+      "notes": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "cmr_bbox_hits_are_not_valid_pixel_coverage",
+          "native_swath_not_orthorectified"
+        ]
+      },
+      "record_id": "area-fraction:earth-lanzarote:emit-l2bmin-002:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V002, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.002",
+        "dataset_id": "emit-l2bmin-002",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "NASA Earth science data and information policy",
+        "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 60.0,
+        "product": "EMITL2BMIN",
+        "provider": "NASA JPL / LP DAAC",
+        "redistribution": "permitted",
+        "source_crs": "EPSG:4326",
+        "version": "002"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:b366c7787a5b531e726f59f093fe113f5b205c073e4facd672ec539c4f1a0818",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-lanzarote",
+      "area_m2": null,
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-001",
+      "fraction_of_aoi": null,
+      "notes": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "cmr_bbox_hits_are_not_valid_pixel_coverage",
+          "native_swath_not_orthorectified"
+        ]
+      },
+      "record_id": "area-fraction:earth-lanzarote:emit-l2bmin-001:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V001, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.001",
+        "dataset_id": "emit-l2bmin-001",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "NASA Earth science data and information policy",
+        "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 60.0,
+        "product": "EMITL2BMIN",
+        "provider": "NASA JPL / LP DAAC",
+        "redistribution": "permitted",
+        "source_crs": "EPSG:4326",
+        "version": "001"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "no_coverage",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:d0a5ea98ed528b0b28ddba988d556913e9d7780977648fc55940b5bb0d21578c",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-devon-island",
+      "area_m2": null,
+      "availability_status": "no_coverage",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-002",
+      "fraction_of_aoi": null,
+      "notes": "CMR bbox query returned no granules",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "cmr_bbox_hits_are_not_valid_pixel_coverage",
+          "native_swath_not_orthorectified"
+        ]
+      },
+      "record_id": "area-fraction:earth-devon-island:emit-l2bmin-002:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V002, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.002",
+        "dataset_id": "emit-l2bmin-002",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "NASA Earth science data and information policy",
+        "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 60.0,
+        "product": "EMITL2BMIN",
+        "provider": "NASA JPL / LP DAAC",
+        "redistribution": "permitted",
+        "source_crs": "EPSG:4326",
+        "version": "002"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "no_coverage",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:d0a5ea98ed528b0b28ddba988d556913e9d7780977648fc55940b5bb0d21578c",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-devon-island",
+      "area_m2": null,
+      "availability_status": "no_coverage",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-001",
+      "fraction_of_aoi": null,
+      "notes": "CMR bbox query returned no granules",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "cmr_bbox_hits_are_not_valid_pixel_coverage",
+          "native_swath_not_orthorectified"
+        ]
+      },
+      "record_id": "area-fraction:earth-devon-island:emit-l2bmin-001:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V001, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.001",
+        "dataset_id": "emit-l2bmin-001",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "NASA Earth science data and information policy",
+        "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 60.0,
+        "product": "EMITL2BMIN",
+        "provider": "NASA JPL / LP DAAC",
+        "redistribution": "permitted",
+        "source_crs": "EPSG:4326",
+        "version": "001"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:3c6867de4043b044bc33843393a5de7956071e6d2e51b158ed0eda69542279b6",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-rio-tinto",
+      "area_m2": null,
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-002",
+      "fraction_of_aoi": null,
+      "notes": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "cmr_bbox_hits_are_not_valid_pixel_coverage",
+          "native_swath_not_orthorectified"
+        ]
+      },
+      "record_id": "area-fraction:earth-rio-tinto:emit-l2bmin-002:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V002, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.002",
+        "dataset_id": "emit-l2bmin-002",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "NASA Earth science data and information policy",
+        "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 60.0,
+        "product": "EMITL2BMIN",
+        "provider": "NASA JPL / LP DAAC",
+        "redistribution": "permitted",
+        "source_crs": "EPSG:4326",
+        "version": "002"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "EPSG:4326",
+        "geometry_fingerprint": "sha256:3c6867de4043b044bc33843393a5de7956071e6d2e51b158ed0eda69542279b6",
+        "geometry_source": "pipelines/earth/manifests/copernicus_glo90_earth.json#candidates/bbox",
+        "uncovered_fraction": null
+      },
+      "area_id": "earth-rio-tinto",
+      "area_m2": null,
+      "availability_status": "auth_required",
+      "body": "Earth",
+      "dataset_id": "emit-l2bmin-001",
+      "fraction_of_aoi": null,
+      "notes": "CMR metadata candidates only; Earthdata download + native geolocation, mask and uncertainty validation required.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "cmr_bbox_hits_are_not_valid_pixel_coverage",
+          "native_swath_not_orthorectified"
+        ]
+      },
+      "record_id": "area-fraction:earth-rio-tinto:emit-l2bmin-001:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Green, R., EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V001, NASA LP DAAC, doi:10.5067/EMIT/EMITL2BMIN.001",
+        "dataset_id": "emit-l2bmin-001",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "NASA Earth science data and information policy",
+        "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-and-information-policy",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 60.0,
+        "product": "EMITL2BMIN",
+        "provider": "NASA JPL / LP DAAC",
+        "redistribution": "permitted",
+        "source_crs": "EPSG:4326",
+        "version": "001"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+        "geometry_fingerprint": "sha256:976e0daa1156da220e50254b9afd19bba8ca6694eb49e1b71f5aa3c38016d2cd",
+        "geometry_source": "pipelines/planetary/manifests/lola_moon_reference.json#references/notes",
+        "uncovered_fraction": null
+      },
+      "area_id": "moon-shackleton-rim-site04-roi2",
+      "area_m2": null,
+      "availability_status": "unverified",
+      "body": "Moon",
+      "dataset_id": "lunar-polar-minerals-zenodo-v4",
+      "fraction_of_aoi": null,
+      "notes": "Research-derived MAT has no embedded CRS, pixel registration, unit, valid-range or QA/uncertainty metadata. Legacy TIFF is RGB; its colors cannot supply abundance or validate v4 matrix registration. No AOI mineral numbers or detection claims enabled.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "research_derived_product",
+          "rgb_abundance_rejected",
+          "spatial_registration_unverified",
+          "units_unverified",
+          "uncertainty_not_supplied"
+        ]
+      },
+      "record_id": "area-fraction:moon-shackleton-rim-site04-roi2:lunar-polar-minerals-zenodo-v4:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": null,
+        "citation": "Du et al. (2026), Quantitative Mineral Maps of the Lunar South Polar Region Derived From the Moon Mineralogy Mapper (M3) Data, doi:10.1029/2024JE008842; dataset doi:10.5281/zenodo.20725024.",
+        "dataset_id": "lunar-polar-minerals-zenodo-v4",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "cc-by-4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 193.0,
+        "product": "M3/LOLA research-derived polar mineral maps",
+        "provider": "Du, Kecheng; Liu, Sicong / Tongji University",
+        "redistribution": "permitted",
+        "source_crs": null,
+        "version": "Zenodo 20725024, v4, 2026-06-17"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "+proj=longlat +R=3396190 +type=crs",
+        "geometry_fingerprint": "sha256:530930f599a5d486b3c4f5d522f46d80b7a8430aa36016d9d305fcf64eed3154",
+        "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+        "uncovered_fraction": null
+      },
+      "area_id": "mars-test-jezero-western-delta",
+      "area_m2": null,
+      "availability_status": "context_only",
+      "body": "Mars",
+      "dataset_id": "crism-mtrdr-context",
+      "fraction_of_aoi": null,
+      "notes": "Spectral parameters are not validated mineral identification or mass fraction.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "context_only",
+          "spectral_indices_are_not_abundances",
+          "mineral_detection_not_validated"
+        ]
+      },
+      "record_id": "area-fraction:mars-test-jezero-western-delta:crism-mtrdr-context:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "citation": "MRO CRISM MTRDR, NASA PDS; product IDs and source labels pinned in manifest artifacts.",
+        "dataset_id": "crism-mtrdr-context",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "Data sets archived in the PDS are in the public domain.",
+        "license_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 36.0,
+        "product": "MTRDR refined spectral summary parameters",
+        "provider": "NASA PDS Geosciences Node / MRO CRISM",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "MTR3; selected product version recorded in provenance"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    },
+    {
+      "area": {
+        "area_m2": null,
+        "coverage_fraction": null,
+        "coverage_state": "unknown",
+        "crs": "+proj=longlat +R=3396190 +type=crs",
+        "geometry_fingerprint": "sha256:82331cb9be55a48bacfac543af105d3348a80205e78b1ab9a936ea2c4b08a779",
+        "geometry_source": "Analyst-selected validation window inside official SIM3464 extent (76.8..77.8 E, 17.7..18.7 N).",
+        "uncovered_fraction": null
+      },
+      "area_id": "mars-test-jezero-floor",
+      "area_m2": null,
+      "availability_status": "context_only",
+      "body": "Mars",
+      "dataset_id": "crism-mtrdr-context",
+      "fraction_of_aoi": null,
+      "notes": "Spectral parameters are not validated mineral identification or mass fraction.",
+      "process_labels": [],
+      "qa": {
+        "derived_from_committed_overlay": true,
+        "fraction_tolerance": 1e-06,
+        "geometry_repair": "invalid source polygons excluded and counted, never silently repaired",
+        "invalid_source_geometries_excluded": null,
+        "map_scale": null,
+        "map_scale_note": "Map scale not available.",
+        "mapping_status": "not_exported",
+        "quality_flags": [
+          "context_only",
+          "spectral_indices_are_not_abundances",
+          "mineral_detection_not_validated"
+        ]
+      },
+      "record_id": "area-fraction:mars-test-jezero-floor:crism-mtrdr-context:availability",
+      "score_role": "evidence_only",
+      "source": {
+        "analysis_crs": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "citation": "MRO CRISM MTRDR, NASA PDS; product IDs and source labels pinned in manifest artifacts.",
+        "dataset_id": "crism-mtrdr-context",
+        "legend_source": null,
+        "legend_version": null,
+        "license": "Data sets archived in the PDS are in the public domain.",
+        "license_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "map_scale": null,
+        "native_frame": null,
+        "native_resolution_m": 36.0,
+        "product": "MTRDR refined spectral summary parameters",
+        "provider": "NASA PDS Geosciences Node / MRO CRISM",
+        "redistribution": "permitted",
+        "source_crs": "PROJCS[\"MRO Mars Equirectangular [IAU 2000] [15.00N; 0.00E]\",GEOGCS[\"GCS_Mars_2000_IAU_IAG_custom_sphere_lat15\",DATUM[\"D_Mars_2000_IAU_IAG_custom_sphere_lat15\",SPHEROID[\"Mars_2000_IAU_IAG_custom_sphere_lat15\",3394839.81331631,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",15],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+        "version": "MTR3; selected product version recorded in provenance"
+      },
+      "supported_categories": [],
+      "uncertainty": {
+        "kind": "not_quantified",
+        "notes": "No fraction or area is exported for this availability state."
+      },
+      "unit": {
+        "mapping_status": "not_exported",
+        "official_family": null,
+        "raw_code": null,
+        "source_attributes": {},
+        "source_feature_id": null,
+        "unit_name": null
+      },
+      "unknown_categories": [
+        "igneous",
+        "impact",
+        "sedimentary",
+        "aqueous_alteration"
+      ]
+    }
+  ],
+  "registry_sha256": "e565e62ae0e55915915bf8f3040bc0c21ce3953748e16dee876df2f1390b9daa",
+  "registry_version": "geology-legend-registry-1.0.0",
+  "schema": "geology-area-fraction-evidence-1.0.0",
+  "scope": "Five existing Earth AOIs, one existing lunar ROI, and explicitly marked Mars test AOIs, or an externally supplied bounded subset; never a global survey.",
+  "score_role": "evidence_only",
+  "source_record": "pipelines/geology/records/geology-e920e7e3ae79e176.json",
+  "source_record_generated_at": "2026-11-14T12:02:15.495827+00:00",
+  "source_record_sha256": "af658c17b22a2f35fc9359fa707d249c6fae20c18d524024d8237d2daaedb3d8",
+  "warnings": [
+    "earth-atacama-desert/glim-niveau-i-mirror: no registered legend; availability recorded without process labels",
+    "earth-death-valley/glim-niveau-i-mirror: no registered legend; availability recorded without process labels",
+    "earth-lanzarote/glim-niveau-i-mirror: no registered legend; availability recorded without process labels",
+    "earth-devon-island/glim-niveau-i-mirror: no registered legend; availability recorded without process labels",
+    "earth-rio-tinto/glim-niveau-i-mirror: no registered legend; availability recorded without process labels",
+    "earth-atacama-desert/emit-l2bmin-002: no registered legend; availability recorded without process labels",
+    "earth-atacama-desert/emit-l2bmin-001: no registered legend; availability recorded without process labels",
+    "earth-death-valley/emit-l2bmin-002: no registered legend; availability recorded without process labels",
+    "earth-death-valley/emit-l2bmin-001: no registered legend; availability recorded without process labels",
+    "earth-lanzarote/emit-l2bmin-002: no registered legend; availability recorded without process labels",
+    "earth-lanzarote/emit-l2bmin-001: no registered legend; availability recorded without process labels",
+    "earth-devon-island/emit-l2bmin-002: no registered legend; availability recorded without process labels",
+    "earth-devon-island/emit-l2bmin-001: no registered legend; availability recorded without process labels",
+    "earth-rio-tinto/emit-l2bmin-002: no registered legend; availability recorded without process labels",
+    "earth-rio-tinto/emit-l2bmin-001: no registered legend; availability recorded without process labels",
+    "moon-shackleton-rim-site04-roi2/lunar-polar-minerals-zenodo-v4: no registered legend; availability recorded without process labels",
+    "mars-test-jezero-western-delta/crism-mtrdr-context: no registered legend; availability recorded without process labels",
+    "mars-test-jezero-floor/crism-mtrdr-context: no registered legend; availability recorded without process labels"
+  ]
+}

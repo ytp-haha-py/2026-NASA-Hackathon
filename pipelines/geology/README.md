@@ -116,6 +116,32 @@ uv run pytest pipelines/tests/test_mineral_evidence.py -o addopts='' -q
 builder 會先驗證 pinned snapshot 與 typed observations checksum，無網路存取，只寫上述兩個檔案；
 不修改既有 snapshot、typed export 或 Terrain observation。
 
+## Area-fraction／process evidence pilot（#41）
+
+`pipelines/geology/area-fraction/` 是獨立的 bounded pilot，只使用已驗證的 Moon
+Unified Geologic Map v2 與 Mars SIM3464 Jezero/Nili 圖幅，以及已提交的 AOI 與
+source-derived overlay record。它**不**新增地質相似度、排名或六維合併分數。
+
+- `registry.json`：`geology-legend-registry-1.0.0`，非互斥的 raw code → Igneous／
+  Impact／Sedimentary／Aqueous-alteration process evidence 對照。Mapping 以 dataset
+  為界，Moon `Ec` 與 Mars `cr` 不會互相等價；未審查的 code 保持 `unmapped_code`。
+  `aqueous_alteration` 必須有正面陳述的 alteration 證據，iron oxide／spectral
+  index 本身不合格。
+- `evidence.json` / `evidence.jsonl` / `manifest.json`：每個單元的原始 code、
+  fraction、area、source product/version/license、map scale、native/analysis CRS、
+  uncertainty／QA 與非互斥 process labels。`no_coverage`／`unknown` 的 fraction 與
+  area 為 `null`，不是 0。
+- `earth-glim-license.json`：GLiM polygon GIS 的授權查核結果為
+  `license_unverified`，不得提交或發布幾何與逐單元數值；替代方案為 Geological
+  Survey of Canada Open File 5529（Open Government Licence – Canada），狀態
+  `candidate_not_ingested`。
+- `SOURCE_VERIFICATION.md`：來源版本／授權、實測 fraction、方法與 blocker。
+
+Area 量測使用各天體正確 radius 的 equal-area LAEA；class raster 僅允許
+nearest-neighbour（超出來源範圍必須明示 nodata）；invalid geometry 預設排除並計數，
+`make_valid` 修復須明確開啟。實際結果與可重現指令見該目錄 README 與
+`SOURCE_VERIFICATION.md`。
+
 ## Clone 後直接離線讀取
 
 只需要原專案依賴，不必安裝 GIS 額外套件、不必重新下載原始資料，也不必登入 Earthdata。
