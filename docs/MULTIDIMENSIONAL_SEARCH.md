@@ -44,19 +44,21 @@ typed_areas.area_id == candidates.location_id   (exact string equality)
 No nearest-point or proximity merge is performed. Current audit from the committed data:
 
 ```text
-typed areas: 70
-fine candidates: 113
-typed areas exactly matching a fine candidate: 6
+typed areas: 73
+indexed fine candidates: 113 (+3 on-demand AOIs in the live demo database)
+typed areas exactly matching a fine candidate: 9
   earth-atacama-desert, earth-death-valley, earth-devon-island,
-  earth-lanzarote, earth-rio-tinto, earth-sahara-r1c1
+  earth-grand-canyon-r2c2, earth-iceland-r2c2, earth-lanzarote,
+  earth-namib-r2c2, earth-rio-tinto, earth-sahara-r1c1
 typed areas exactly matching a planetary reference: 9
   mars-jezero-ctx-window-01..05, moon-shackleton-rim-site04-roi1..4
 proximity_join_used: false
 ```
 
-D06 values exist for five of the six Earth typed areas (not Rio Tinto), so the scored D06 subset is
-five candidates. The other 108 fine candidates are excluded only when a D06 feature has a positive
-weight; with weight 0 they stay eligible. This is the required “missing ≠ zero” behavior.
+D06 values exist for eight of the nine exact-joined Earth typed areas (not Rio Tinto), so the
+scored D06 subset is eight candidates. The other 105 indexed candidates (108 including the three
+on-demand AOIs in the live database) are excluded only when a D06 feature has a positive weight;
+with weight 0 they stay eligible. This is the required “missing ≠ zero” behavior.
 
 ## D06 gate
 
@@ -92,7 +94,7 @@ curl -sS https://api.貓熊.台灣/api/v1/search/multidimensional \
       "slope_mean_deg":        {"value": 10,  "weight": 1},
       "soil_clay_0_5cm_mean":  {"value": 200, "weight": 1}
     },
-    "limit": 5
+    "limit": 10
   }'
 ```
 
@@ -101,10 +103,13 @@ Observed result (data snapshot `dv-b46f3bad38ea`):
 | Rank | Candidate | Combined distance | D01 contribution | D06 contribution | Soil clay (g/kg) | Source observation |
 |---:|---|---:|---:|---:|---:|---|
 | 1 | `earth-lanzarote` | 0.12049 | 0.00314 | 0.01138 | 230.1667 | `soilgrids:earth-lanzarote:clay:0-5cm:mean` |
-| 2 | `earth-devon-island` | 0.44244 | 0.14125 | 0.05458 | 266.2689 | `soilgrids:earth-devon-island:clay:0-5cm:mean` |
-| 3 | `earth-sahara-r1c1` | 0.58704 | 0.34222 | 0.00247 | 213.6944 | `soilgrids:earth-sahara-r1c1:clay:0-5cm:mean` |
-| 4 | `earth-death-valley` | 0.65939 | 0.30411 | 0.13035 | 97.8857 | `soilgrids:earth-death-valley:clay:0-5cm:mean` |
-| 5 | `earth-atacama-desert` | 0.74572 | 0.49885 | 0.05723 | 132.3333 | `soilgrids:earth-atacama-desert:clay:0-5cm:mean` |
+| 2 | `earth-devon-island` | 0.44244 | 0.14085 | 0.05490 | 266.2689 | `soilgrids:earth-devon-island:clay:0-5cm:mean` |
+| 3 | `earth-namib-r2c2` | 0.46526 | 0.02648 | 0.18999 | 76.7143 | `soilgrids:earth-namib-r2c2:clay:0-5cm:mean` |
+| 4 | `earth-iceland-r2c2` | 0.47889 | 0.12660 | 0.10273 | 109.3438 | `soilgrids:earth-iceland-r2c2:clay:0-5cm:mean` |
+| 5 | `earth-sahara-r1c1` | 0.58696 | 0.34217 | 0.00234 | 213.6944 | `soilgrids:earth-sahara-r1c1:clay:0-5cm:mean` |
+| 6 | `earth-death-valley` | 0.65939 | 0.30445 | 0.13034 | 97.8857 | `soilgrids:earth-death-valley:clay:0-5cm:mean` |
+| 7 | `earth-atacama-desert` | 0.74567 | 0.49879 | 0.05724 | 132.3333 | `soilgrids:earth-atacama-desert:clay:0-5cm:mean` |
+| 8 | `earth-grand-canyon-r2c2` | 1.57575 | 2.41438 | 0.06861 | 125.9125 | `soilgrids:earth-grand-canyon-r2c2:clay:0-5cm:mean` |
 
 The D06 contribution is recomputable from the returned fields:
 
@@ -114,7 +119,7 @@ contribution = weight * ((candidate - target) / scale)^2 / total_weight
              = 0.0113753472
 ```
 
-D01-only comparison, restricted to the same five candidates with a D06 hard filter:
+D01-only comparison, restricted to the same eight candidates with a D06 hard filter:
 
 ```bash
 curl -sS https://api.貓熊.台灣/api/v1/search/multidimensional \
@@ -122,20 +127,23 @@ curl -sS https://api.貓熊.台灣/api/v1/search/multidimensional \
   -d '{
     "targets": {"slope_mean_deg": {"value": 10, "weight": 1}},
     "filters": {"soil_clay_0_5cm_mean": {"min": 0, "max": 1000}},
-    "limit": 5
+    "limit": 10
   }'
 ```
 
 | Rank | D01-only | D01+D06 |
 |---:|---|---|
 | 1 | earth-lanzarote | earth-lanzarote |
-| 2 | earth-devon-island | earth-devon-island |
-| 3 | earth-death-valley | **earth-sahara-r1c1** |
-| 4 | earth-sahara-r1c1 | **earth-death-valley** |
-| 5 | earth-atacama-desert | earth-atacama-desert |
+| 2 | earth-namib-r2c2 | **earth-devon-island** |
+| 3 | earth-iceland-r2c2 | **earth-namib-r2c2** |
+| 4 | earth-devon-island | **earth-iceland-r2c2** |
+| 5 | earth-death-valley | **earth-sahara-r1c1** |
+| 6 | earth-sahara-r1c1 | **earth-death-valley** |
+| 7 | earth-atacama-desert | earth-atacama-desert |
+| 8 | earth-grand-canyon-r2c2 | earth-grand-canyon-r2c2 |
 
-D06 flips the Sahara/Death Valley pair. This is the required real, non-D01 non-zero contribution; the
-query is not a six-dimensional total.
+D06 flips the Death Valley/Sahara pair and also reorders Devon/Namib/Iceland. This is the required
+real, non-D01 non-zero contribution; the query is not a six-dimensional total.
 
 ## Missing, zero weight and incompatible values
 
@@ -143,11 +151,11 @@ query is not a six-dimensional total.
 # Positive D06 weight: candidates without a gated value are excluded with
 # missing_feature:soil_clay_0_5cm_mean.
 curl ... -d '{"targets":{"slope_mean_deg":{"value":10,"weight":1},"soil_clay_0_5cm_mean":{"value":200,"weight":1}}}'
-# eligible=5, excluded=108
+# eligible=8, excluded=108 (105 indexed-only candidates + 3 on-demand AOIs)
 
 # Zero D06 weight: the same candidates stay eligible and D06 is not compared.
 curl ... -d '{"targets":{"slope_mean_deg":{"value":10,"weight":1},"soil_clay_0_5cm_mean":{"value":200,"weight":0}}}'
-# eligible=113, excluded=0
+# eligible=116, excluded=0
 ```
 
 Other hard failures are explicit: `unit_mismatch`, `method_version_mismatch`,
@@ -219,7 +227,8 @@ quantiles:  40 uncertainty/evidence records (same measurement family as the mean
 ```
 
 All 60 D06 feature ids are present in the registry, but only the 20 means are scoreable. The actual
-gated candidate count for every 0–5 cm mean is 5; deeper means are also 5. See
+gated candidate count for every 0–5 cm mean is 8; deeper means are still 5 because the expansion
+release acquired only 0–5 cm. See `pipelines/pilots/d06_earth_soilgrids_expansion_01/`. See
 [`FEATURE_ELIGIBILITY_AUDIT.md`](FEATURE_ELIGIBILITY_AUDIT.md) for the full table.
 
 ## Frontend handoff
@@ -260,7 +269,7 @@ bash scripts/verify.sh --ci
 
 ### Materialisation is query-time, not a source rewrite
 
-The 520 typed rows are read from SQLite and materialised for the exact candidate ids at request
+The 565 typed rows are read from SQLite and materialised for the exact candidate ids at request
 time. This keeps the source `score_role`, observation ids, checksums and provenance untouched;
 materialisation is deterministic (same rows + registry version → same values) and bounded
 (113 candidates, 520 rows, no raster I/O). A future persisted index can reuse the same

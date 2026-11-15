@@ -1,0 +1,1503 @@
+{
+  "generated_at": "2026-11-15T10:06:35.459891+00:00",
+  "notes": [],
+  "plan_version": "acquisition-plan-1.0.0",
+  "scope": "d06-earth-expansion-01",
+  "tasks": [
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "clay_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "clay",
+        "statistic": "mean",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-clay-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "clay_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "clay",
+        "statistic": "Q0.05",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-clay-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "clay_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "clay",
+        "statistic": "Q0.95",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-clay-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "sand_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "sand",
+        "statistic": "mean",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-sand-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "sand_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "sand",
+        "statistic": "Q0.05",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-sand-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "sand_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "sand",
+        "statistic": "Q0.95",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-sand-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "silt_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "silt",
+        "statistic": "mean",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-silt-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "silt_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "silt",
+        "statistic": "Q0.05",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-silt-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "silt_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "silt",
+        "statistic": "Q0.95",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-silt-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "soc_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "soc",
+        "statistic": "mean",
+        "unit": "dg kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-soc-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "soc_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "soc",
+        "statistic": "Q0.05",
+        "unit": "dg kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-soc-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "soc_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "soc",
+        "statistic": "Q0.95",
+        "unit": "dg kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-soc-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "bdod_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "bdod",
+        "statistic": "mean",
+        "unit": "cg cm-3"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-bdod-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "bdod_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "bdod",
+        "statistic": "Q0.05",
+        "unit": "cg cm-3"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-bdod-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-grand-canyon-r2c2",
+        "bbox": {
+          "east": -112.18885517,
+          "north": 36.20903344,
+          "south": 36.1909656,
+          "west": -112.21114733
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "grand-canyon sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N36_00_W113_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:acba857cdb1fa4517422c4b0bb46c95dd5ab7b83555626d29e36e34c9a07a7ba; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-112.21114733%2C-112.18885517%29&subset=Lat%2836.1909656%2C36.20903344%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "bdod_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "bdod",
+        "statistic": "Q0.95",
+        "unit": "cg cm-3"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-grand-canyon-r2c2-bdod-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "clay_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "clay",
+        "statistic": "mean",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-clay-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "clay_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "clay",
+        "statistic": "Q0.05",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-clay-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "clay_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "clay",
+        "statistic": "Q0.95",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-clay-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "sand_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "sand",
+        "statistic": "mean",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-sand-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "sand_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "sand",
+        "statistic": "Q0.05",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-sand-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "sand_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "sand",
+        "statistic": "Q0.95",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-sand-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "silt_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "silt",
+        "statistic": "mean",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-silt-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "silt_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "silt",
+        "statistic": "Q0.05",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-silt-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "silt_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "silt",
+        "statistic": "Q0.95",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-silt-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "soc_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "soc",
+        "statistic": "mean",
+        "unit": "dg kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-soc-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "soc_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "soc",
+        "statistic": "Q0.05",
+        "unit": "dg kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-soc-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "soc_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "soc",
+        "statistic": "Q0.95",
+        "unit": "dg kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-soc-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "bdod_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "bdod",
+        "statistic": "mean",
+        "unit": "cg cm-3"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-bdod-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "bdod_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "bdod",
+        "statistic": "Q0.05",
+        "unit": "cg cm-3"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-bdod-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-iceland-r2c2",
+        "bbox": {
+          "east": -16.77784115,
+          "north": 65.70913071,
+          "south": 65.69086645,
+          "west": -16.82217361
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "iceland sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_N65_00_W017_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:d78df9777026ad33c23040068e2600e8de020fc1d2cd038a2734b4fbcc97c54e; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-16.82217361%2C-16.77784115%29&subset=Lat%2865.69086645%2C65.70913071%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "bdod_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "bdod",
+        "statistic": "Q0.95",
+        "unit": "cg cm-3"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-iceland-r2c2-bdod-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "clay_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "clay",
+        "statistic": "mean",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-clay-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "clay_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "clay",
+        "statistic": "Q0.05",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-clay-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fclay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "clay_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "clay",
+        "statistic": "Q0.95",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-clay-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "sand_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "sand",
+        "statistic": "mean",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-sand-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "sand_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "sand",
+        "statistic": "Q0.05",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-sand-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsand.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=sand_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "sand_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "sand",
+        "statistic": "Q0.95",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-sand-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "silt_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "silt",
+        "statistic": "mean",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-silt-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "silt_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "silt",
+        "statistic": "Q0.05",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-silt-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsilt.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=silt_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "silt_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "silt",
+        "statistic": "Q0.95",
+        "unit": "g kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-silt-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "soc_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "soc",
+        "statistic": "mean",
+        "unit": "dg kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-soc-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "soc_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "soc",
+        "statistic": "Q0.05",
+        "unit": "dg kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-soc-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fsoc.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=soc_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "soc_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "soc",
+        "statistic": "Q0.95",
+        "unit": "dg kg-1"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-soc-0-5cm-Q0.95"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "bdod_0-5cm_mean",
+        "depth": "0-5cm",
+        "property": "bdod",
+        "statistic": "mean",
+        "unit": "cg cm-3"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-bdod-0-5cm-mean"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.05&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "bdod_0-5cm_Q0.05",
+        "depth": "0-5cm",
+        "property": "bdod",
+        "statistic": "Q0.05",
+        "unit": "cg cm-3"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-bdod-0-5cm-Q0.05"
+    },
+    {
+      "area": {
+        "area_id": "earth-namib-r2c2",
+        "bbox": {
+          "east": 15.3098091,
+          "north": -24.6910391,
+          "south": -24.70896026,
+          "west": 15.2901923
+        },
+        "body": "Earth",
+        "coordinate_frame": "earth_wgs84",
+        "crs": "EPSG:4326",
+        "display_name": "namib sampling window R2 C2",
+        "notes": "Copernicus DEM GLO-90 tile Copernicus_DSM_COG_30_S25_00_E015_00_DEM; source COG read via HTTPS range request and cropped locally; window_checksum=sha256:6b0f2d09a229c63dd7b87d1fcc61f7cf3d2283d1f3fd721c06a911b82bca1a80; warnings=source_nodata_undefined Flat fraction: slope <5 degrees / valid complete Horn neighborhoods, same 90 m grid; outer rim excluded."
+      },
+      "body": "Earth",
+      "dataset_id": "soilgrids-250m-v2",
+      "dimension": "D06",
+      "endpoint": "https://maps.isric.org/mapserv?map=%2Fmap%2Fbdod.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=bdod_0-5cm_Q0.95&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%2815.2901923%2C15.3098091%29&subset=Lat%28-24.70896026%2C-24.6910391%29&format=image%2Ftiff",
+      "expected_bytes": 80000,
+      "method_version": "soilgrids-wcs-2.0.0",
+      "output_suffix": ".tif",
+      "parameters": {
+        "coverage_id": "bdod_0-5cm_Q0.95",
+        "depth": "0-5cm",
+        "property": "bdod",
+        "statistic": "Q0.95",
+        "unit": "cg cm-3"
+      },
+      "provider_id": "soilgrids-wcs",
+      "source_id": "soilgrids-250m-v2",
+      "task_id": "soilgrids-D06-earth-earth-namib-r2c2-bdod-0-5cm-Q0.95"
+    }
+  ],
+  "totals": {
+    "by_body": {
+      "Earth": 45
+    },
+    "by_dimension": {
+      "D06": 45
+    },
+    "expected_bytes": 3600000,
+    "tasks": 45
+  }
+}

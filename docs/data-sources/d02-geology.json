@@ -1,0 +1,2823 @@
+{
+  "audit_date": "2026-11-15",
+  "catalog_version": "1.0.0",
+  "dimension": "D02",
+  "evidence_policy": {
+    "checked_on": "2026-11-15",
+    "default_user_agent": "planetary-analog-d02-audit/1.0 (source verification; contact repo maintainers)",
+    "http_clients": "stdlib urllib only",
+    "large_products": "Only HEAD requests for zips and PDFs; no raster or archive download.",
+    "max_body_bytes_per_get": 300000,
+    "methods": [
+      "GET",
+      "HEAD"
+    ],
+    "regression_rule": "A non-200 status, a changed content type, a missing assertion or a failed JSON path exits non-zero."
+  },
+  "expansion_checkpoints": [
+    {
+      "acceptance": "check_d02_sources.py passes; no observation created.",
+      "action": "Metadata, labels and licence only; no archive/raster download.",
+      "body": "all",
+      "id": "D02-EXP-0",
+      "max_download_bytes": 0,
+      "phase": "this audit",
+      "status": "complete"
+    },
+    {
+      "acceptance": "Checksum, class-count table, and an explicit coarse-resolution limitation; no local similarity.",
+      "action": "Ingest the 38,670-byte GLiM 0.5 degree grid; verify 720x360, 16 codes, nodata -9999.",
+      "body": "Earth",
+      "id": "D02-EXP-1",
+      "max_download_bytes": 100000,
+      "phase": "Earth coarse category",
+      "status": "planned"
+    },
+    {
+      "acceptance": "Five bounded JSON responses; no area fraction; empty responses recorded as no_coverage, never zero-filled.",
+      "action": "Query Macrostrat at the five existing Earth AOI centroids; keep raw unit/lithology/source_id.",
+      "body": "Earth",
+      "id": "D02-EXP-2",
+      "max_download_bytes": 300000,
+      "phase": "Earth point map units",
+      "status": "planned"
+    },
+    {
+      "acceptance": "Every code has a citation; unmapped codes stay unmapped_code; one AOI only.",
+      "action": "Expand the versioned crosswalk only for DOMU codes intersecting the one existing ROI; cite the official CSV/description.",
+      "body": "Moon",
+      "id": "D02-EXP-3",
+      "max_download_bytes": 0,
+      "phase": "Moon crosswalk",
+      "status": "planned"
+    },
+    {
+      "acceptance": "Every code has a citation; no cross-body code equivalence; two AOIs only.",
+      "action": "Expand the SIM3464 crosswalk only for codes intersecting the two test AOIs; cite the pamphlet.",
+      "body": "Mars",
+      "id": "D02-EXP-4",
+      "max_download_bytes": 0,
+      "phase": "Mars crosswalk",
+      "status": "planned"
+    },
+    {
+      "acceptance": "Explicit budget approval, SHA-256 receipt, bounded clip, no global claim; otherwise remains accessible-only.",
+      "action": "Download SIM3292 once outside the repository, checksum it, and clip to two test AOIs plus one named region.",
+      "body": "Mars",
+      "id": "D02-EXP-5",
+      "max_download_bytes": 808910442,
+      "phase": "Mars global map (gated)",
+      "status": "blocked_pending_budget"
+    },
+    {
+      "acceptance": "Byte receipts, label scaling applied, values kept as spectral parameters; no abundance.",
+      "action": "Range-read OMEGA olivine/pyroxene windows only for named AOIs; no full 7200x14400 map download.",
+      "body": "Mars",
+      "id": "D02-EXP-6",
+      "max_download_bytes": 2000000,
+      "phase": "Mars spectral windows",
+      "status": "planned"
+    },
+    {
+      "acceptance": "Documented QA mask, uncertainty, valid_fraction and an offline fixture; otherwise stays unknown.",
+      "action": "Validate one CRISM/OMEGA/M3/EMIT granule and a published threshold before any detected state.",
+      "body": "Earth/Moon/Mars",
+      "id": "D02-EXP-7",
+      "max_download_bytes": 50000000,
+      "phase": "method validation (gated)",
+      "status": "blocked_pending_method"
+    }
+  ],
+  "feature_decision": {
+    "category_filter_candidates_after_crosswalk": [
+      "geologic_unit",
+      "geologic_process"
+    ],
+    "category_filter_candidates_after_method_validation": [
+      "mineral_olivine",
+      "mineral_pyroxene",
+      "mineral_clay_minerals",
+      "mineral_hydrated_sulfates",
+      "mineral_carbonates"
+    ],
+    "context_only_never_filter": [
+      "context_olindex3",
+      "context_lcpindex2",
+      "context_hcpindex2",
+      "context_d2300",
+      "context_bd1900_2",
+      "context_sindex2",
+      "context_cindex2"
+    ],
+    "quality_only": [
+      "geology_analysis_availability"
+    ],
+    "similarity_features": [],
+    "statement": "No D02 feature is registered for weighted similarity. Map units and processes are category-match candidates only after a versioned crosswalk; minerals need a validated detector and uncertainty; spectral indices stay context/evidence."
+  },
+  "license_evidence": [
+    {
+      "applies_to": [
+        "usgs-moon-unified-geologic-map-v2",
+        "usgs-mars-sim3292-global-geologic-map",
+        "usgs-mars-sim3464-jezero-geologic-map",
+        "usgs-astrogeology-stac"
+      ],
+      "expect": {
+        "body_contains": [
+          "U.S. Public Domain"
+        ],
+        "body_not_contains": [],
+        "content_type_any_of": [
+          "text/html"
+        ],
+        "status": 200
+      },
+      "id": "usgs-public-domain",
+      "label": "USGS copyright page",
+      "max_bytes": 200000,
+      "method": "GET",
+      "note": "USGS-authored material is U.S. public domain; individual third-party items may be excluded.",
+      "observed": {
+        "bytes_read": 88994,
+        "checked_on": "2026-11-15",
+        "content_length": null,
+        "content_type": "text/html; charset=utf-8",
+        "final_url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+        "status": 200
+      },
+      "url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits"
+    },
+    {
+      "applies_to": [
+        "pds-crism-mtrdr",
+        "pds-omega-global-mineral-maps",
+        "pds-m3-l2-reflectance",
+        "pds-tes-special-products",
+        "pds-registry-search"
+      ],
+      "expect": {
+        "body_contains": [],
+        "body_not_contains": [],
+        "content_type_any_of": [
+          "application/pdf"
+        ],
+        "status": 200
+      },
+      "id": "pds-public-domain",
+      "label": "PDS Geosciences data-use document HEAD",
+      "max_bytes": 0,
+      "method": "HEAD",
+      "note": "The PDS Geosciences data-use document is the existing repository reference for public-domain PDS data.",
+      "observed": {
+        "bytes_read": 0,
+        "checked_on": "2026-11-15",
+        "content_length": 1181900,
+        "content_type": "application/pdf",
+        "final_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "status": 200
+      },
+      "url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf"
+    }
+  ],
+  "scope": "Official/public read-only APIs and metadata endpoints for D02 map units, mineral detections and spectral indices on Earth, Moon and Mars. This is a bounded source audit, not a global survey and not a similarity score.",
+  "sources": [
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "Anonymous JSON metadata requests; no credential was used.",
+        "redistribution": "not_applicable"
+      },
+      "blockers": [],
+      "body": "cross-body",
+      "coverage": {
+        "excludes": [
+          "non-PDS archives",
+          "unindexed PDS3-only holdings"
+        ],
+        "extent": "PDS4 products indexed by the PDS Registry",
+        "product_coverage_verified": true,
+        "repository_usage": "Discovery only; no D02 observation is derived from API metadata.",
+        "scope": "catalogue"
+      },
+      "crs": {
+        "frame": "not_applicable",
+        "latitude_type": "not_applicable",
+        "longitude_direction": "not_applicable",
+        "native_crs": null,
+        "notes": "Discovery API; CRS belongs to the discovered product.",
+        "projection": "not_applicable",
+        "radius_m": null
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "Discovery only.",
+          "state": "not_a_product",
+          "supported": false
+        },
+        "mineral_detection": {
+          "notes": "Discovery only.",
+          "state": "not_a_product",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "Discovery only.",
+          "state": "not_a_product",
+          "supported": false
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "urn:nasa:pds:mro_crism_mtrdr::1.0"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "application/json"
+            ],
+            "status": 200
+          },
+          "label": "PDS search CRISM bundle query",
+          "max_bytes": 100000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 9755,
+            "checked_on": "2026-11-15",
+            "content_length": null,
+            "content_type": "application/json",
+            "final_url": "https://pds.mcp.nasa.gov/api/search/1/products?q=title%20eq%20%22CRISM%20MTRDR%22&limit=1",
+            "status": 200
+          },
+          "url": "https://pds.mcp.nasa.gov/api/search/1/products?q=title%20eq%20%22CRISM%20MTRDR%22&limit=1"
+        }
+      ],
+      "feature_mapping": [],
+      "license": {
+        "evidence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "name": "NASA PDS metadata; PDS archived data are public domain",
+        "notes": "The search API itself carries no separate data licence.",
+        "spdx": "pds-public-domain",
+        "url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "verified": true
+      },
+      "limitations": [
+        "The q parameter is a field/operator query; it is not a free-text search.",
+        "A hit proves catalogue metadata, not data quality, licence or local coverage.",
+        "Search results must be followed by the authoritative product label."
+      ],
+      "product": "PDS4 product and collection discovery API",
+      "product_type": "discovery_api",
+      "product_version": "search/1 (live service)",
+      "provider": "NASA Planetary Data System / Jet Propulsion Laboratory",
+      "reproduce": "python3 scripts/check_d02_sources.py --source pds-registry-search",
+      "resolution": {
+        "aggregation": null,
+        "kind": "metadata",
+        "map_scale_denominator": null,
+        "native": "not_applicable",
+        "pixel_size_m": null
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "pds-registry-search",
+      "status": "accessible",
+      "status_reason": "The API answered a real query for the CRISM MTRDR bundle. It is a discovery endpoint, not an observation product.",
+      "subgroups": [],
+      "title": "NASA PDS Registry Search API"
+    },
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "Direct HTTPS zip; no account or token.",
+        "redistribution": "yes"
+      },
+      "blockers": [],
+      "body": "Moon",
+      "coverage": {
+        "excludes": [],
+        "extent": "Global Moon, 90S to 90N, 180W to 180E",
+        "product_coverage_verified": true,
+        "repository_usage": "One Shackleton ROI only. The global product is not a global survey and is not a reference map for every lunar candidate.",
+        "scope": "global"
+      },
+      "crs": {
+        "frame": "Moon 2000 sphere; LOLA control",
+        "latitude_type": "planetocentric",
+        "longitude_direction": "east",
+        "native_crs": "Moon 2000 sphere / Mercator, planetocentric, -180..180",
+        "notes": "Never substitute Earth WGS84. Fine-scale alignment below map scale is unverified.",
+        "projection": "Mercator",
+        "radius_m": 1737400.0
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "Official DOMU unit names are available; only Ec is mapped in this repository.",
+          "state": "requires_crosswalk",
+          "supported": true
+        },
+        "mineral_detection": {
+          "notes": "A geologic map is not a mineral detector.",
+          "state": "not_supported",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "No spectral data in this product.",
+          "state": "not_supported",
+          "supported": false
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "CC0",
+              "1:5,000,000",
+              "1737400",
+              "Mercator",
+              "Unified_Geologic_Map_of_the_Moon_GIS_v2.zip"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/html"
+            ],
+            "status": 200
+          },
+          "label": "Astropedia landing page",
+          "max_bytes": 100000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 26134,
+            "checked_on": "2026-11-15",
+            "content_length": null,
+            "content_type": "text/html; charset=utf-8",
+            "final_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+            "status": 200
+          },
+          "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/"
+        },
+        {
+          "expect": {
+            "body_contains": [],
+            "body_not_contains": [],
+            "content_length_max": 250000000,
+            "content_length_min": 200000000,
+            "content_type_any_of": [
+              "application/zip"
+            ],
+            "status": 200
+          },
+          "label": "product zip HEAD",
+          "max_bytes": 0,
+          "method": "HEAD",
+          "observed": {
+            "bytes_read": 0,
+            "checked_on": "2026-11-15",
+            "content_length": 224413040,
+            "content_type": "application/zip",
+            "final_url": "https://asc-astropedia.s3.us-west-2.amazonaws.com/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2.zip",
+            "status": 200
+          },
+          "url": "https://asc-astropedia.s3.us-west-2.amazonaws.com/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2.zip"
+        }
+      ],
+      "existing_observations": {
+        "by_feature": {
+          "geologic_process": 1,
+          "geologic_unit": 1
+        },
+        "count": 2,
+        "dataset_ids": [
+          "usgs-moon-geology-v2"
+        ],
+        "source_record": "pipelines/geology/records/geology-e920e7e3ae79e176.json"
+      },
+      "feature_mapping": [
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_unit",
+          "notes": "Raw DOMU/FIRST_Un_2 codes are dataset-scoped. Only Ec is mapped, for one ROI; the full lunar legend is not crosswalked."
+        },
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_process",
+          "notes": "Process labels are derived from official unit descriptions, never from morphology alone. Raw DOMU/FIRST_Un_2 codes are dataset-scoped. Only Ec is mapped, for one ROI; the full lunar legend is not crosswalked."
+        },
+        {
+          "blocked_by": "quality_field_not_a_measurement",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "geology_analysis_availability",
+          "notes": "Coverage/availability is a quality field. It is never converted to a mineral value and never used as a filter."
+        }
+      ],
+      "license": {
+        "evidence_url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+        "name": "CC0, but please cite Fortezzo, Spudis and Harrel (2020)",
+        "notes": "The Astropedia page states 'Use Constraints CC0, but please cite authors'.",
+        "spdx": "CC0-1.0",
+        "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2/",
+        "verified": true
+      },
+      "limitations": [
+        "Map scale 1:5,000,000 cannot resolve local lithology or composition.",
+        "One invalid source geometry was excluded in the existing bounded run.",
+        "Moon 2000 frame alignment against the 1.98 km ROI is unverified below map scale.",
+        "One observed unit and one process record are not a global lunar geology layer."
+      ],
+      "product": "Unified Geologic Map of the Moon GIS v2",
+      "product_type": "vector_geologic_map",
+      "product_version": "2.0 (2020-03-03)",
+      "provider": "U.S. Geological Survey, Astrogeology Science Center",
+      "reproduce": "python3 scripts/check_d02_sources.py --source usgs-moon-unified-geologic-map-v2",
+      "resolution": {
+        "aggregation": "polygon overlay at the native map scale",
+        "kind": "vector",
+        "map_scale_denominator": 5000000,
+        "native": "polygon and contact vectors",
+        "pixel_size_m": null
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "usgs-moon-unified-geologic-map-v2",
+      "status": "verified",
+      "status_reason": "The product page, licence, frame and download are reachable. The repository has already processed one Shackleton ROI; this audit did not re-download the 224 MB zip.",
+      "subgroups": [
+        "lithology",
+        "geological_process"
+      ],
+      "title": "Unified Geologic Map of the Moon, 1:5,000,000 (GIS v2)"
+    },
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "Direct HTTPS zip; no account or token.",
+        "redistribution": "yes"
+      },
+      "blockers": [
+        {
+          "id": "sim3292_download_budget",
+          "resolution": "Approve one bounded download outside the repository, checksum it, and clip to named test AOIs.",
+          "summary": "808,910,442-byte global GIS zip is outside the metadata-only checkpoint"
+        }
+      ],
+      "body": "Mars",
+      "coverage": {
+        "excludes": [],
+        "extent": "Global Mars, 90S to 90N, 180W to 180E",
+        "product_coverage_verified": true,
+        "repository_usage": "Not ingested. A future bounded run would clip to the two existing Jezero test AOIs and at most one new region; a global map download is not a global survey.",
+        "scope": "global"
+      },
+      "crs": {
+        "frame": "Mars 2000 sphere (D Mars 2000 Sphere)",
+        "latitude_type": "planetocentric",
+        "longitude_direction": "east",
+        "native_crs": "Mars 2000 sphere / Robinson, metres",
+        "notes": "The planetocentric label is the IAU Mars 2000 convention; verify the distributed .prj before any extraction. Never substitute Earth WGS84.",
+        "projection": "Robinson",
+        "radius_m": 3396190.0
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "SIM3292_Global_Geology has Unit and UnitDesc fields; no crosswalk is registered.",
+          "state": "requires_crosswalk",
+          "supported": true
+        },
+        "mineral_detection": {
+          "notes": "Unit descriptions are geologic interpretations, not mineral detections.",
+          "state": "not_supported",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "No spectral data in this product.",
+          "state": "not_supported",
+          "supported": false
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "Geologic Map of Mars",
+              "sim3292_database.zip"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/html"
+            ],
+            "status": 200
+          },
+          "label": "USGS publication page",
+          "max_bytes": 100000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 11996,
+            "checked_on": "2026-11-15",
+            "content_length": null,
+            "content_type": "text/html",
+            "final_url": "https://pubs.usgs.gov/sim/3292/",
+            "status": 200
+          },
+          "url": "https://pubs.usgs.gov/sim/3292/"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "Access_Constraints: None",
+              "Use_Constraints: please cite authors.",
+              "Robinson",
+              "Mars 2000 Sphere",
+              "West_Bounding_Coordinate: -180.0"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/plain"
+            ],
+            "status": 200
+          },
+          "label": "FGDC metadata",
+          "max_bytes": 60000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 14233,
+            "checked_on": "2026-11-15",
+            "content_length": null,
+            "content_type": "text/plain",
+            "final_url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_metadata.txt",
+            "status": 200
+          },
+          "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_metadata.txt"
+        },
+        {
+          "expect": {
+            "body_contains": [],
+            "body_not_contains": [],
+            "content_length_max": 820000000,
+            "content_length_min": 800000000,
+            "content_type_any_of": [
+              "application/zip"
+            ],
+            "status": 200
+          },
+          "label": "database zip HEAD",
+          "max_bytes": 0,
+          "method": "HEAD",
+          "observed": {
+            "bytes_read": 0,
+            "checked_on": "2026-11-15",
+            "content_length": 808910442,
+            "content_type": "application/zip",
+            "final_url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_database.zip",
+            "status": 200
+          },
+          "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_database.zip"
+        }
+      ],
+      "feature_mapping": [
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_unit",
+          "notes": "Unit and UnitDesc are global-map text, not a shared taxonomy. A 1:20M unit cannot be treated as the same unit as a 1:75k Jezero unit without an explicit crosswalk."
+        },
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_process",
+          "notes": "Process labels are derived from official unit descriptions, never from morphology alone. Unit and UnitDesc are global-map text, not a shared taxonomy. A 1:20M unit cannot be treated as the same unit as a 1:75k Jezero unit without an explicit crosswalk."
+        },
+        {
+          "blocked_by": "quality_field_not_a_measurement",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "geology_analysis_availability",
+          "notes": "Coverage/availability is a quality field. It is never converted to a mineral value and never used as a filter."
+        }
+      ],
+      "license": {
+        "evidence_url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_metadata.txt",
+        "name": "USGS-authored work, U.S. public domain; cite the authors",
+        "notes": "FGDC metadata states Access_Constraints: None and Use_Constraints: please cite authors.",
+        "spdx": "public-domain-usgs",
+        "url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+        "verified": true
+      },
+      "limitations": [
+        "Map scale 1:20,000,000; minimum mapped outcrop 40 km by 100 km.",
+        "The 808,910,442-byte database zip was not downloaded in this audit.",
+        "Descriptions are interpreted geology; no mineral abundance or aqueous-alteration flag.",
+        "Global product coverage is not evidence of local accuracy at a 1.98 km AOI."
+      ],
+      "product": "SIM 3292 global geologic map GIS database",
+      "product_type": "vector_geologic_map",
+      "product_version": "2014, edition 1",
+      "provider": "U.S. Geological Survey",
+      "reproduce": "python3 scripts/check_d02_sources.py --source usgs-mars-sim3292-global-geologic-map",
+      "resolution": {
+        "aggregation": "polygon overlay; minimum mapped outcrop is 40 km by 100 km",
+        "kind": "vector",
+        "map_scale_denominator": 20000000,
+        "native": "polygon, contact and structure vectors",
+        "pixel_size_m": null
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "usgs-mars-sim3292-global-geologic-map",
+      "status": "accessible",
+      "status_reason": "Publication page, FGDC metadata and the 808,910,442-byte database zip are reachable. The zip was not downloaded and no SIM 3292 observation exists in the repository.",
+      "subgroups": [
+        "lithology",
+        "geological_process"
+      ],
+      "title": "Geologic Map of Mars, 1:20,000,000 (SIM 3292)"
+    },
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "Direct HTTPS zip; no account or token.",
+        "redistribution": "yes"
+      },
+      "blockers": [],
+      "body": "Mars",
+      "coverage": {
+        "excludes": [
+          "the rest of Mars"
+        ],
+        "extent": "76.8E to 77.8E, 17.7N to 18.7N (1 x 1 degree, about 60 x 60 km)",
+        "product_coverage_verified": true,
+        "repository_usage": "Two explicitly marked Jezero test AOIs only. This is not a Mars reference and not a global survey.",
+        "scope": "regional"
+      },
+      "crs": {
+        "frame": "Mars 2000 sphere",
+        "latitude_type": "planetocentric",
+        "longitude_direction": "east",
+        "native_crs": "Mars 2000 sphere / MTM 77.5E, metres",
+        "notes": "Never substitute Earth WGS84.",
+        "projection": "MTM zone 77.5E (Transverse Mercator)",
+        "radius_m": 3396190.0
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "Six raw codes are mapped for the two test AOIs; other codes remain unmapped.",
+          "state": "requires_crosswalk",
+          "supported": true
+        },
+        "mineral_detection": {
+          "notes": "Map units are not mineral detections.",
+          "state": "not_supported",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "No spectral data in this product.",
+          "state": "not_supported",
+          "supported": false
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "sim3464_database.zip",
+              "sim3464_pamphlet.pdf"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/html"
+            ],
+            "status": 200
+          },
+          "label": "USGS publication index",
+          "max_bytes": 60000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 3879,
+            "checked_on": "2026-11-15",
+            "content_length": null,
+            "content_type": "text/html;charset=ISO-8859-1",
+            "final_url": "https://pubs.usgs.gov/sim/3464/",
+            "status": 200
+          },
+          "url": "https://pubs.usgs.gov/sim/3464/"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "1:75,000",
+              "76.8000",
+              "17.7000",
+              "Mars_2000_(Sphere)"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/plain"
+            ],
+            "status": 200
+          },
+          "label": "FGDC metadata",
+          "max_bytes": 80000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 20767,
+            "checked_on": "2026-11-15",
+            "content_length": null,
+            "content_type": "text/plain",
+            "final_url": "https://pubs.usgs.gov/sim/3464/sim3464_metadata.txt",
+            "status": 200
+          },
+          "url": "https://pubs.usgs.gov/sim/3464/sim3464_metadata.txt"
+        },
+        {
+          "expect": {
+            "body_contains": [],
+            "body_not_contains": [],
+            "content_length_max": 360000000,
+            "content_length_min": 340000000,
+            "content_type_any_of": [
+              "application/zip"
+            ],
+            "status": 200
+          },
+          "label": "database zip HEAD",
+          "max_bytes": 0,
+          "method": "HEAD",
+          "observed": {
+            "bytes_read": 0,
+            "checked_on": "2026-11-15",
+            "content_length": 349336873,
+            "content_type": "application/zip",
+            "final_url": "https://pubs.usgs.gov/sim/3464/sim3464_database.zip",
+            "status": 200
+          },
+          "url": "https://pubs.usgs.gov/sim/3464/sim3464_database.zip"
+        }
+      ],
+      "existing_observations": {
+        "by_feature": {
+          "geologic_process": 4,
+          "geologic_unit": 10
+        },
+        "count": 14,
+        "dataset_ids": [
+          "usgs-jezero-sim3464"
+        ],
+        "source_record": "pipelines/geology/records/geology-e920e7e3ae79e176.json"
+      },
+      "feature_mapping": [
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_unit",
+          "notes": "Raw codes cr, NHjf2, Aeb, Nue, Nle and Njf are mapped only for these two test AOIs; the mapping is dataset-scoped and not a global Mars legend."
+        },
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_process",
+          "notes": "Process labels are derived from official unit descriptions, never from morphology alone. Raw codes cr, NHjf2, Aeb, Nue, Nle and Njf are mapped only for these two test AOIs; the mapping is dataset-scoped and not a global Mars legend."
+        },
+        {
+          "blocked_by": "quality_field_not_a_measurement",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "geology_analysis_availability",
+          "notes": "Coverage/availability is a quality field. It is never converted to a mineral value and never used as a filter."
+        }
+      ],
+      "license": {
+        "evidence_url": "https://pubs.usgs.gov/sim/3464/sim3464_metadata.txt",
+        "name": "USGS-authored work, U.S. public domain; cite Sun and Stack (2020)",
+        "notes": "FGDC use constraint is 'GIS Software is required to view these data'.",
+        "spdx": "public-domain-usgs",
+        "url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+        "verified": true
+      },
+      "limitations": [
+        "Only 1 x 1 degree around Jezero/Nili Planum.",
+        "Two invalid source geometries were excluded in the existing run.",
+        "The distributed XML unit descriptions are empty; official pamphlet text was used.",
+        "No mineral abundance, aqueous-alteration assemblage or global coverage is claimed."
+      ],
+      "product": "SIM 3464 GIS database (GeoUnits_v1)",
+      "product_type": "vector_geologic_map",
+      "product_version": "2020",
+      "provider": "U.S. Geological Survey",
+      "reproduce": "python3 scripts/check_d02_sources.py --source usgs-mars-sim3464-jezero-geologic-map",
+      "resolution": {
+        "aggregation": "polygon overlay; CTX base is about 6 m/pixel",
+        "kind": "vector",
+        "map_scale_denominator": 75000,
+        "native": "polygon vectors",
+        "pixel_size_m": null
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "usgs-mars-sim3464-jezero-geologic-map",
+      "status": "verified",
+      "status_reason": "Publication page, FGDC metadata and the 349,336,873-byte zip are reachable. The repository has already processed two explicitly marked test AOIs.",
+      "subgroups": [
+        "lithology",
+        "geological_process"
+      ],
+      "title": "Geologic Map of Jezero Crater and Nili Planum, 1:75,000 (SIM 3464)"
+    },
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "PDS Geosciences HTTPS; no account or token for the metadata or summary files.",
+        "redistribution": "yes"
+      },
+      "blockers": [
+        {
+          "id": "crism_thresholds",
+          "resolution": "Pin the CRISM ATBD/DP-mask definition and validate on labelled spectra before any detected state.",
+          "summary": "Summary-parameter thresholds and DP-mask semantics are undocumented here"
+        },
+        {
+          "id": "crism_bounded_query",
+          "resolution": "Any wider claim needs a new bounded audit with explicit product counts.",
+          "summary": "The bounded query is not exhaustive coverage"
+        }
+      ],
+      "body": "Mars",
+      "coverage": {
+        "excludes": [
+          "global continuous coverage",
+          "areas without a targeted observation"
+        ],
+        "extent": "Targeted CRISM observations; the example product covers part of Jezero",
+        "product_coverage_verified": true,
+        "repository_usage": "Two Jezero test AOIs; seven summary parameters are context only.",
+        "scope": "targeted"
+      },
+      "crs": {
+        "frame": "Mars 2000 sphere (custom Mars sphere in the repository)",
+        "latitude_type": "planetocentric",
+        "longitude_direction": "east",
+        "native_crs": "Mars equirectangular, native 36 m",
+        "notes": "The existing reference context product uses a custom Mars sphere CRS.",
+        "projection": "Equirectangular",
+        "radius_m": 3396190.0
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "CRISM does not map geologic units.",
+          "state": "not_supported",
+          "supported": false
+        },
+        "mineral_detection": {
+          "notes": "Ten mineral observations are unknown. No validated threshold, DP-mask bit mapping, continuum removal or uncertainty propagation is registered.",
+          "state": "requires_method_validation",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "OLINDEX3, LCPINDEX2, HCPINDEX2, D2300, BD1900_2, SINDEX2 and CINDEX2 are context values.",
+          "state": "context_only",
+          "supported": true
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "\"pdsid\": \"hrl000040ff_07_if183j_mtr3\"",
+              "\"iid\": \"CRISM\""
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "application/json"
+            ],
+            "status": 200
+          },
+          "label": "ODE product query",
+          "max_bytes": 100000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 42107,
+            "checked_on": "2026-11-15",
+            "content_length": null,
+            "content_type": "application/json; charset=utf-8",
+            "final_url": "https://oderest.rsl.wustl.edu/live2/?query=product&pdsid=HRL000040FF_07_IF183J_MTR3&results=fp&output=JSON",
+            "status": 200
+          },
+          "url": "https://oderest.rsl.wustl.edu/live2/?query=product&pdsid=HRL000040FF_07_IF183J_MTR3&results=fp&output=JSON"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "MRO-M-CRISM-5-RDR-MPTARGETED-V1.0",
+              "0.0360000",
+              "EQUIRECTANGULAR"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/plain"
+            ],
+            "status": 200
+          },
+          "label": "MTRDR PDS3 label",
+          "max_bytes": 50000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 6179,
+            "checked_on": "2026-11-15",
+            "content_length": 6179,
+            "content_type": "text/plain",
+            "final_url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_if183j_mtr3.lbl",
+            "status": 200
+          },
+          "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/mtrdr/2007/2007_029/hrl000040ff/hrl000040ff_07_if183j_mtr3.lbl"
+        }
+      ],
+      "existing_observations": {
+        "by_feature": {
+          "context_bd1900_2": 2,
+          "context_cindex2": 2,
+          "context_d2300": 2,
+          "context_hcpindex2": 2,
+          "context_lcpindex2": 2,
+          "context_olindex3": 2,
+          "context_sindex2": 2,
+          "mineral_carbonates": 2,
+          "mineral_clay_minerals": 2,
+          "mineral_hydrated_sulfates": 2,
+          "mineral_olivine": 2,
+          "mineral_pyroxene": 2
+        },
+        "count": 24,
+        "dataset_ids": [
+          "crism-mtrdr-context"
+        ],
+        "source_record": "pipelines/geology/records/geology-e920e7e3ae79e176.json"
+      },
+      "feature_mapping": [
+        {
+          "blocked_by": "crism_thresholds_and_dp_mask_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_olivine",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "crism_thresholds_and_dp_mask_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_pyroxene",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "crism_thresholds_and_dp_mask_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_clay_minerals",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "crism_thresholds_and_dp_mask_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_hydrated_sulfates",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "crism_thresholds_and_dp_mask_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_carbonates",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_olindex3",
+          "notes": "Dimensionless spectral parameter medians; not a mineral detection, not abundance, and never a similarity or hard-filter value."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_lcpindex2",
+          "notes": "Dimensionless spectral parameter medians; not a mineral detection, not abundance, and never a similarity or hard-filter value."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_hcpindex2",
+          "notes": "Dimensionless spectral parameter medians; not a mineral detection, not abundance, and never a similarity or hard-filter value."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_d2300",
+          "notes": "Dimensionless spectral parameter medians; not a mineral detection, not abundance, and never a similarity or hard-filter value."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_bd1900_2",
+          "notes": "Dimensionless spectral parameter medians; not a mineral detection, not abundance, and never a similarity or hard-filter value."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_sindex2",
+          "notes": "Dimensionless spectral parameter medians; not a mineral detection, not abundance, and never a similarity or hard-filter value."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_cindex2",
+          "notes": "Dimensionless spectral parameter medians; not a mineral detection, not abundance, and never a similarity or hard-filter value."
+        },
+        {
+          "blocked_by": "quality_field_not_a_measurement",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "geology_analysis_availability",
+          "notes": "Availability/quality only."
+        }
+      ],
+      "license": {
+        "evidence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "name": "PDS archived data, public domain",
+        "notes": "The PDS Geosciences data-use document is the repository's established statement.",
+        "spdx": "pds-public-domain",
+        "url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "verified": true
+      },
+      "limitations": [
+        "No validated CRISM summary-parameter detection thresholds or DP-mask bit mapping.",
+        "No continuum removal or uncertainty propagation.",
+        "The ODE query is bounded to two test AOIs and a small product set.",
+        "A spectral parameter is not a mineral abundance and not proof of aqueous alteration."
+      ],
+      "product": "MRO-M-CRISM-5-RDR-MPTARGETED-V1.0; example hrl000040ff_07_if183j_mtr3",
+      "product_type": "hyperspectral_targeted_product",
+      "product_version": "PDS3 volume MROCR_4001; product version 3",
+      "provider": "NASA PDS Geosciences Node / Johns Hopkins University APL",
+      "reproduce": "python3 scripts/check_d02_sources.py --source pds-crism-mtrdr",
+      "resolution": {
+        "aggregation": "native pixel summary statistics; seven dimensionless parameters",
+        "kind": "raster",
+        "map_scale_denominator": null,
+        "native": "36 m/pixel in the example MTRDR label",
+        "pixel_size_m": 36.0
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "pds-crism-mtrdr",
+      "status": "verified",
+      "status_reason": "ODE metadata and the PDS3 product label are reachable. The repository already reads the refined summary and DP information for two test AOIs; mineral detection is disabled.",
+      "subgroups": [
+        "mineral_spectral_detection"
+      ],
+      "title": "MRO CRISM Map-Projected Targeted RDR (MTRDR)"
+    },
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "PDS Geosciences HTTPS; no account or token.",
+        "redistribution": "yes"
+      },
+      "blockers": [
+        {
+          "id": "omega_thresholds",
+          "resolution": "Pin the Ody et al. (2012) method and validate band-depth thresholds on labelled spectra.",
+          "summary": "No validated OMEGA detection thresholds or abundance conversion"
+        },
+        {
+          "id": "omega_size",
+          "resolution": "Range-read only the rows/columns covering named AOIs and record byte counts.",
+          "summary": "Full maps are large; only bounded window reads are allowed"
+        }
+      ],
+      "body": "Mars",
+      "coverage": {
+        "excludes": [],
+        "extent": "Global Mars, 90S to 90N, 180W to 180E",
+        "product_coverage_verified": true,
+        "repository_usage": "Not ingested. A future bounded run could range-read only AOI windows, not the full 7200 x 14400 maps.",
+        "scope": "global"
+      },
+      "crs": {
+        "frame": "Mars sphere, 3396.0 km radius",
+        "latitude_type": "planetocentric",
+        "longitude_direction": "east",
+        "native_crs": "Simple cylindrical, 40 pixels/degree",
+        "notes": "The label states A/B/C axis radius 3396.0 km and east-positive longitude.",
+        "projection": "Simple cylindrical",
+        "radius_m": 3396000.0
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "OMEGA maps mineral spectral parameters, not geologic units.",
+          "state": "not_supported",
+          "supported": false
+        },
+        "mineral_detection": {
+          "notes": "Olivine OSP1, pyroxene BD2000 and hydrated-mineral sites are candidates, but no threshold, detection state or abundance is validated here.",
+          "state": "requires_method_validation",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "OSP1 and BD2000 are published spectral parameters; the hydrous CSV is a site list.",
+          "state": "context_only",
+          "supported": true
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "MEX-M-OMEGA-5-DDR-GLOBAL-MAPS-V1.0",
+              "SIMPLE CYLINDRICAL",
+              "MAP_RESOLUTION",
+              "40.0",
+              "MISSING_CONSTANT",
+              "1.040"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/plain"
+            ],
+            "status": 200
+          },
+          "label": "olivine map label",
+          "max_bytes": 50000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 4679,
+            "checked_on": "2026-11-15",
+            "content_length": 4679,
+            "content_type": "text/plain",
+            "final_url": "https://pds-geosciences.wustl.edu/mex/mex-m-omega-5-ddr-global-maps-v1/mexomg_2000/data/olivine/olivine_osp1_equ_map.lbl",
+            "status": 200
+          },
+          "url": "https://pds-geosciences.wustl.edu/mex/mex-m-omega-5-ddr-global-maps-v1/mexomg_2000/data/olivine/olivine_osp1_equ_map.lbl"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "pyroxene spectral parameter",
+              "2 micrometer",
+              "0.010",
+              "0.110"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/plain"
+            ],
+            "status": 200
+          },
+          "label": "pyroxene map label",
+          "max_bytes": 50000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 4576,
+            "checked_on": "2026-11-15",
+            "content_length": 4576,
+            "content_type": "text/plain",
+            "final_url": "https://pds-geosciences.wustl.edu/mex/mex-m-omega-5-ddr-global-maps-v1/mexomg_2000/data/pyroxene/pyroxene_bd2000_equ_map.lbl",
+            "status": 200
+          },
+          "url": "https://pds-geosciences.wustl.edu/mex/mex-m-omega-5-ddr-global-maps-v1/mexomg_2000/data/pyroxene/pyroxene_bd2000_equ_map.lbl"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "global map of hydrated",
+              "1855",
+              "Planetocentric longitude"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/plain"
+            ],
+            "status": 200
+          },
+          "label": "hydrous sites label",
+          "max_bytes": 50000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 5378,
+            "checked_on": "2026-11-15",
+            "content_length": 5378,
+            "content_type": "text/plain",
+            "final_url": "https://pds-geosciences.wustl.edu/mex/mex-m-omega-5-ddr-global-maps-v1/mexomg_2000/data/hydrous/hydrous_sites_geo_map.lbl",
+            "status": 200
+          },
+          "url": "https://pds-geosciences.wustl.edu/mex/mex-m-omega-5-ddr-global-maps-v1/mexomg_2000/data/hydrous/hydrous_sites_geo_map.lbl"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "OMEGA Mars Global Maps Data Set",
+              "Olivine",
+              "Pyroxene"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/plain"
+            ],
+            "status": 200
+          },
+          "label": "volume readme",
+          "max_bytes": 50000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 11508,
+            "checked_on": "2026-11-15",
+            "content_length": 11508,
+            "content_type": "text/plain",
+            "final_url": "https://pds-geosciences.wustl.edu/mex/mex-m-omega-5-ddr-global-maps-v1/mexomg_2000/aareadme.txt",
+            "status": 200
+          },
+          "url": "https://pds-geosciences.wustl.edu/mex/mex-m-omega-5-ddr-global-maps-v1/mexomg_2000/aareadme.txt"
+        }
+      ],
+      "feature_mapping": [
+        {
+          "blocked_by": "omega_thresholds_and_abundance_semantics_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_olivine",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "omega_thresholds_and_abundance_semantics_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_pyroxene",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "omega_thresholds_and_abundance_semantics_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_clay_minerals",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "omega_thresholds_and_abundance_semantics_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_hydrated_sulfates",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "omega_thresholds_and_abundance_semantics_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_carbonates",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_olindex3",
+          "notes": "Published spectral parameters are context/evidence. Hydrous sites are coordinates without a mineral species column, so they cannot populate a mineral category directly."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_lcpindex2",
+          "notes": "Published spectral parameters are context/evidence. Hydrous sites are coordinates without a mineral species column, so they cannot populate a mineral category directly."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_hcpindex2",
+          "notes": "Published spectral parameters are context/evidence. Hydrous sites are coordinates without a mineral species column, so they cannot populate a mineral category directly."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_d2300",
+          "notes": "Published spectral parameters are context/evidence. Hydrous sites are coordinates without a mineral species column, so they cannot populate a mineral category directly."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_bd1900_2",
+          "notes": "Published spectral parameters are context/evidence. Hydrous sites are coordinates without a mineral species column, so they cannot populate a mineral category directly."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_sindex2",
+          "notes": "Published spectral parameters are context/evidence. Hydrous sites are coordinates without a mineral species column, so they cannot populate a mineral category directly."
+        },
+        {
+          "blocked_by": "dimensionless_spectral_parameter",
+          "candidate_role": "context_only",
+          "current_role": "context_only",
+          "feature_id": "context_cindex2",
+          "notes": "Published spectral parameters are context/evidence. Hydrous sites are coordinates without a mineral species column, so they cannot populate a mineral category directly."
+        }
+      ],
+      "license": {
+        "evidence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "name": "PDS archived data, public domain",
+        "notes": "The volume is an ESA instrument product archived by PDS Geosciences.",
+        "spdx": "pds-public-domain",
+        "url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "verified": true
+      },
+      "limitations": [
+        "The maps record the highest value in a 0.025 degree cell, not an AOI mean.",
+        "Olivine OSP1 and pyroxene BD2000 mix grain size, composition and abundance; they are not abundance.",
+        "The hydrous CSV has 1,855 point sites with coordinates and observation IDs, but no species field.",
+        "No uncertainty layer or validated detection threshold is supplied."
+      ],
+      "product": "MEX-M-OMEGA-5-DDR-GLOBAL-MAPS-V1.0",
+      "product_type": "global_spectral_maps",
+      "product_version": "release 0001 (2013-2014)",
+      "provider": "ESA Mars Express / NASA PDS Geosciences Node",
+      "reproduce": "python3 scripts/check_d02_sources.py --source pds-omega-global-mineral-maps",
+      "resolution": {
+        "aggregation": "highest spectral-parameter value within each 0.025 x 0.025 degree cell",
+        "kind": "raster",
+        "map_scale_denominator": null,
+        "native": "40 pixels/degree, about 1.48 km/pixel at the equator",
+        "pixel_size_m": 1481.78
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "pds-omega-global-mineral-maps",
+      "status": "accessible",
+      "status_reason": "The volume readme, olivine and pyroxene labels and hydrous-site label are reachable. No OMEGA product is ingested in the repository.",
+      "subgroups": [
+        "mineral_spectral_detection"
+      ],
+      "title": "Mars Express OMEGA Mars Global Maps"
+    },
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "PDS Imaging HTTPS; no account or token.",
+        "redistribution": "yes"
+      },
+      "blockers": [
+        {
+          "id": "m3_registration",
+          "resolution": "Download one bounded L2 granule and validate detached-label geolocation and band binning.",
+          "summary": "M3 registration/geolocation not validated in this repository"
+        },
+        {
+          "id": "m3_thresholds",
+          "resolution": "Pin an estimator and threshold with a citation and offline fixtures.",
+          "summary": "No validated M3 mineral detection thresholds"
+        }
+      ],
+      "body": "Moon",
+      "coverage": {
+        "excludes": [
+          "unobserved swath gaps",
+          "areas without a validated registration"
+        ],
+        "extent": "Global-mode and targeted M3 swaths; not a continuous global cube",
+        "product_coverage_verified": true,
+        "repository_usage": "No granule downloaded; one Shackleton ROI is the only lunar AOI.",
+        "scope": "targeted_swaths"
+      },
+      "crs": {
+        "frame": "Moon Mean Earth (documented), not embedded as an ENVI CRS",
+        "latitude_type": "planetocentric",
+        "longitude_direction": "east",
+        "native_crs": null,
+        "notes": "The ENVI header has no CRS; detached geometry/label must be validated before extraction.",
+        "projection": "none in the ENVI header",
+        "radius_m": 1737400.0
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "M3 is a spectrometer, not a geologic map.",
+          "state": "not_supported",
+          "supported": false
+        },
+        "mineral_detection": {
+          "notes": "No validated continuum removal, band-depth threshold, thermal correction or per-pixel registration exists in this repository.",
+          "state": "requires_method_validation",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "Reflectance is not a validated spectral index or mineral detection.",
+          "state": "requires_method_validation",
+          "supported": false
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "CH1M3_0004",
+              "Level 2"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/html"
+            ],
+            "status": 200
+          },
+          "label": "M3 volume page",
+          "max_bytes": 30000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 6960,
+            "checked_on": "2026-11-15",
+            "content_length": 6960,
+            "content_type": "text/html; charset=UTF-8",
+            "final_url": "https://pds-imaging.jpl.nasa.gov/volumes/m3.html",
+            "status": 200
+          },
+          "url": "https://pds-imaging.jpl.nasa.gov/volumes/m3.html"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "M3G20081118T222604_V01_RFL",
+              "\"MOON\"",
+              "\"MOON MINERALOGY MAPPER\""
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [],
+            "status": 200
+          },
+          "label": "L2 PDS label",
+          "max_bytes": 50000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 7315,
+            "checked_on": "2026-11-15",
+            "content_length": 7315,
+            "content_type": "",
+            "final_url": "https://planetarydata.jpl.nasa.gov/img/data/m3/CH1M3_0004/DATA/20081118_20090214/200811/L2/M3G20081118T222604_V01_L2.LBL",
+            "status": 200
+          },
+          "url": "https://pds-imaging.jpl.nasa.gov/data/m3/CH1M3_0004/DATA/20081118_20090214/200811/L2/M3G20081118T222604_V01_L2.LBL"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "bands =         85",
+              "data ignore value = -999.0",
+              "interleave = bil"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [],
+            "status": 200
+          },
+          "label": "L2 ENVI header",
+          "max_bytes": 60000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 37989,
+            "checked_on": "2026-11-15",
+            "content_length": 37989,
+            "content_type": "",
+            "final_url": "https://planetarydata.jpl.nasa.gov/img/data/m3/CH1M3_0004/DATA/20081118_20090214/200811/L2/M3G20081118T222604_V01_RFL.HDR",
+            "status": 200
+          },
+          "url": "https://pds-imaging.jpl.nasa.gov/data/m3/CH1M3_0004/DATA/20081118_20090214/200811/L2/M3G20081118T222604_V01_RFL.HDR"
+        }
+      ],
+      "feature_mapping": [
+        {
+          "blocked_by": "m3_registration_and_thresholds_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_olivine",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "m3_registration_and_thresholds_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_pyroxene",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "m3_registration_and_thresholds_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_clay_minerals",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "m3_registration_and_thresholds_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_hydrated_sulfates",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "m3_registration_and_thresholds_unvalidated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_carbonates",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        }
+      ],
+      "license": {
+        "evidence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "name": "PDS archived data, public domain",
+        "notes": "NASA mission data archived by PDS.",
+        "spdx": "pds-public-domain",
+        "url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "verified": true
+      },
+      "limitations": [
+        "No M3 granule downloaded; the label and header only are verified here.",
+        "Per-pixel geolocation, thermal correction and band alignment are unverified.",
+        "No validated mineral detection thresholds or abundance conversion.",
+        "Global-mode sampling is not a continuous global coverage claim."
+      ],
+      "product": "CH1-ORB-L-M3-4-L2-REFLECTANCE-V1.0; volume CH1M3_0004",
+      "product_type": "hyperspectral_swath",
+      "product_version": "1.0",
+      "provider": "NASA PDS Imaging Node / JPL; Chandrayaan-1",
+      "reproduce": "python3 scripts/check_d02_sources.py --source pds-m3-l2-reflectance",
+      "resolution": {
+        "aggregation": "native swath pixels; no AOI aggregation is validated",
+        "kind": "raster",
+        "map_scale_denominator": null,
+        "native": "304 samples x 1,182 lines x 85 bands in the example L2 product",
+        "pixel_size_m": null
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "pds-m3-l2-reflectance",
+      "status": "accessible",
+      "status_reason": "The volume page and an L2 label/ENVI header are reachable. No M3 granule is ingested and no per-pixel registration is validated in this repository.",
+      "subgroups": [
+        "mineral_spectral_detection"
+      ],
+      "title": "Moon Mineralogy Mapper (M3) Level 2 reflectance"
+    },
+    {
+      "access": {
+        "access": "auth_required",
+        "authentication": "earthdata_login",
+        "notes": "CMR metadata is anonymous. The repository's prior audit observed every LP DAAC asset URL as lp-prod-protected; no credential was requested, read or stored.",
+        "redistribution": "yes"
+      },
+      "blockers": [
+        {
+          "id": "emit_auth",
+          "resolution": "An authorized operator downloads one bounded granule and records its checksum; access stays outside CI.",
+          "summary": "Earthdata Login required for granule assets"
+        },
+        {
+          "id": "emit_decoder",
+          "resolution": "Validate group/band names, fill values, QA mask and uncertainty on one pinned granule.",
+          "summary": "NetCDF mineral-ID/quality/uncertainty decoding not validated"
+        },
+        {
+          "id": "emit_native_swath",
+          "resolution": "Intersect native pixel centres and retain valid_fraction per AOI.",
+          "summary": "Native swath geolocation not validated for the AOIs"
+        }
+      ],
+      "body": "Earth",
+      "coverage": {
+        "excludes": [
+          "global coverage",
+          "areas outside the observed ISS swaths"
+        ],
+        "extent": "Arid dust source regions between 52N and 52S during the prime mission; extended-mission acquisitions are broader",
+        "product_coverage_verified": true,
+        "repository_usage": "CMR candidate counts only; no EMIT granule or observation was produced.",
+        "scope": "regional"
+      },
+      "crs": {
+        "frame": "per-pixel geolocation; spatially raw, non-orthocorrected",
+        "latitude_type": "geodetic",
+        "longitude_direction": "east",
+        "native_crs": null,
+        "notes": "A granule is not a single analysis-ready CRS raster; native swath geolocation must be used.",
+        "projection": "none in the product",
+        "radius_m": null
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "EMIT is a mineral product, not a geologic map.",
+          "state": "not_supported",
+          "supported": false
+        },
+        "mineral_detection": {
+          "notes": "The product design supports mineral identification and band depth, but the repository has no granule-validated decoder, mineral-group lookup or QA mask.",
+          "state": "requires_method_validation",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "Band depth accompanies a mineral identification; it is not abundance.",
+          "state": "context_only",
+          "supported": true
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "C4079846859-LPCLOUD",
+              "\"version_id\":\"002\"",
+              "\"processing_level_id\":\"2B\""
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "application/json"
+            ],
+            "status": 200
+          },
+          "label": "CMR collection 002",
+          "max_bytes": 60000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 9728,
+            "checked_on": "2026-11-15",
+            "content_length": 9728,
+            "content_type": "application/json;charset=utf-8",
+            "final_url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&version=002&page_size=1",
+            "status": 200
+          },
+          "url": "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=EMITL2BMIN&version=002&page_size=1"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "EMIT L2B",
+              "60 m",
+              "EMITL2BMIN",
+              "V002"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/html"
+            ],
+            "status": 200
+          },
+          "label": "Earthdata catalog page",
+          "max_bytes": 300000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 237696,
+            "checked_on": "2026-11-15",
+            "content_length": 237696,
+            "content_type": "text/html; charset=UTF-8",
+            "final_url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-emitl2bmin-002",
+            "status": 200
+          },
+          "url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-emitl2bmin-002"
+        }
+      ],
+      "existing_observations": {
+        "by_feature": {
+          "geology_analysis_availability": 10
+        },
+        "count": 10,
+        "dataset_ids": [
+          "emit-l2bmin-002",
+          "emit-l2bmin-001"
+        ],
+        "source_record": "pipelines/geology/records/geology-e920e7e3ae79e176.json"
+      },
+      "feature_mapping": [
+        {
+          "blocked_by": "emit_auth_and_decoder_not_validated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_olivine",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "emit_auth_and_decoder_not_validated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_pyroxene",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "emit_auth_and_decoder_not_validated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_clay_minerals",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "emit_auth_and_decoder_not_validated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_hydrated_sulfates",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "emit_auth_and_decoder_not_validated",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "mineral_carbonates",
+          "notes": "No validated mineral detector, threshold, uncertainty model and native-pixel coverage are registered for the fine candidate pool."
+        },
+        {
+          "blocked_by": "quality_field_not_a_measurement",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "geology_analysis_availability",
+          "notes": "CMR candidate counts are availability evidence, not mineral coverage."
+        }
+      ],
+      "license": {
+        "evidence_url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-emitl2bmin-002",
+        "name": "NASA open data; cite DOI 10.5067/EMIT/EMITL2BMIN.002",
+        "notes": "No restrictive licence was observed; Earthdata Login governs granule access.",
+        "spdx": "nasa-open-data",
+        "url": "https://doi.org/10.5067/EMIT/EMITL2BMIN.002",
+        "verified": true
+      },
+      "limitations": [
+        "Granule access requires Earthdata Login; no credential was used.",
+        "No granule-validated NetCDF reader, fill-value/QA mask or per-pixel uncertainty mapping.",
+        "The repository has CMR bbox candidates only; no native-pixel AOI intersection.",
+        "Mineral identification is not abundance and not proof of aqueous alteration."
+      ],
+      "product": "EMITL2BMIN Version 002 (CMR C4079846859-LPCLOUD)",
+      "product_type": "imaging_spectroscopy_mineral_product",
+      "product_version": "002",
+      "provider": "NASA JPL / LP DAAC",
+      "reproduce": "python3 scripts/check_d02_sources.py --source nasa-emit-l2b-mineral",
+      "resolution": {
+        "aggregation": "mineral ID, band depth and uncertainty per native pixel",
+        "kind": "raster",
+        "map_scale_denominator": null,
+        "native": "60 m",
+        "pixel_size_m": 60.0
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "nasa-emit-l2b-mineral",
+      "status": "accessible",
+      "status_reason": "CMR collection metadata and the Earthdata catalogue page are reachable. Granule assets require Earthdata Login; no granule was downloaded and no decoder is validated.",
+      "subgroups": [
+        "mineral_spectral_detection"
+      ],
+      "title": "EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty"
+    },
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "Direct HTTPS zip; no account.",
+        "redistribution": "yes"
+      },
+      "blockers": [
+        {
+          "id": "glim_grid_scale",
+          "resolution": "Use it only as a coarse category context/filter, never as a local measurement.",
+          "summary": "0.5 degree grid is too coarse for local AOI similarity"
+        }
+      ],
+      "body": "Earth",
+      "coverage": {
+        "excludes": [
+          "ocean and ice cells set to -9999",
+          "sub-0.5-degree lithology"
+        ],
+        "extent": "720 x 360 cells, 180W to 180E, 90S to 90N, 0.5 degree",
+        "product_coverage_verified": true,
+        "repository_usage": "Format inspection only. The five Earth AOIs are about 1.98 km; a 0.5 degree cell is about 55 km at the equator and cannot resolve them.",
+        "scope": "global_land"
+      },
+      "crs": {
+        "frame": "WGS84",
+        "latitude_type": "geodetic",
+        "longitude_direction": "east",
+        "native_crs": "WGS84, 0.5 degree grid",
+        "notes": "Header: ncols 720, nrows 360, xllcorner -180, yllcorner -90, cellsize 0.5.",
+        "projection": "geographic latitude/longitude",
+        "radius_m": 6378137.0
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "16 first-level raw codes; the official legend/crosswalk is not registered.",
+          "state": "requires_crosswalk",
+          "supported": true
+        },
+        "mineral_detection": {
+          "notes": "Lithology class, not mineral detection.",
+          "state": "not_supported",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "No spectral data.",
+          "state": "not_supported",
+          "supported": false
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "CC-BY-3.0",
+              "0.5° spatial resolution",
+              "Global Lithological Map"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/html"
+            ],
+            "status": 200
+          },
+          "label": "PANGAEA DOI landing page",
+          "max_bytes": 100000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 27662,
+            "checked_on": "2026-11-15",
+            "content_length": 27662,
+            "content_type": "text/html;charset=utf-8",
+            "final_url": "https://doi.pangaea.de/10.1594/PANGAEA.788537",
+            "status": 200
+          },
+          "url": "https://doi.pangaea.de/10.1594/PANGAEA.788537"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "https://creativecommons.org/licenses/by/3.0/",
+              "10013/epic.39939.d001"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "application/ld+json"
+            ],
+            "status": 200
+          },
+          "label": "PANGAEA JSON-LD metadata",
+          "max_bytes": 50000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 5513,
+            "checked_on": "2026-11-15",
+            "content_length": 5513,
+            "content_type": "application/ld+json; charset=UTF-8",
+            "final_url": "https://doi.pangaea.de/10.1594/PANGAEA.788537?format=metadata_jsonld",
+            "status": 200
+          },
+          "url": "https://doi.pangaea.de/10.1594/PANGAEA.788537?format=metadata_jsonld"
+        },
+        {
+          "expect": {
+            "body_contains": [],
+            "body_not_contains": [],
+            "content_length_max": 50000,
+            "content_length_min": 30000,
+            "content_type_any_of": [
+              "application/zip"
+            ],
+            "status": 200
+          },
+          "label": "grid zip HEAD",
+          "max_bytes": 0,
+          "method": "HEAD",
+          "observed": {
+            "bytes_read": 0,
+            "checked_on": "2026-11-15",
+            "content_length": 38670,
+            "content_type": "application/zip",
+            "final_url": "https://epic.awi.de/id/eprint/31092/1/hartmann-moosdorf_2012.zip",
+            "status": 200
+          },
+          "url": "https://epic.awi.de/31092/1/hartmann-moosdorf_2012.zip"
+        }
+      ],
+      "feature_mapping": [
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_unit",
+          "notes": "The 0.5 degree grid uses 16 raw codes (su, vb, ss, pb, sm, sc, va, mt, pa, vi, wb, py, pi, ev, nd, ig). A shared category crosswalk is not registered and the grid is far coarser than a 1.98 km AOI."
+        },
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_process",
+          "notes": "Process labels are derived from official unit descriptions, never from morphology alone. The 0.5 degree grid uses 16 raw codes (su, vb, ss, pb, sm, sc, va, mt, pa, vi, wb, py, pi, ev, nd, ig). A shared category crosswalk is not registered and the grid is far coarser than a 1.98 km AOI."
+        },
+        {
+          "blocked_by": "quality_field_not_a_measurement",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "geology_analysis_availability",
+          "notes": "Coverage/availability is a quality field. It is never converted to a mineral value and never used as a filter."
+        }
+      ],
+      "license": {
+        "evidence_url": "https://doi.pangaea.de/10.1594/PANGAEA.788537?format=metadata_jsonld",
+        "name": "Creative Commons Attribution 3.0 Unported (CC BY 3.0)",
+        "notes": "Cite Hartmann and Moosdorf (2012), doi:10.1594/PANGAEA.788537.",
+        "spdx": "CC-BY-3.0",
+        "url": "https://creativecommons.org/licenses/by/3.0/",
+        "verified": true
+      },
+      "limitations": [
+        "0.5 degree cell is about 55 km at the equator; it cannot resolve a 1.98 km AOI.",
+        "16 first-level codes only; subclasses are not in this grid.",
+        "No per-cell uncertainty, no local accuracy claim.",
+        "The official vector GLiM is distributed separately; this grid is not a substitute."
+      ],
+      "product": "PANGAEA.788537 (GLiM 0.5 degree grid)",
+      "product_type": "gridded_lithology",
+      "product_version": "1.0, 2012",
+      "provider": "PANGAEA / Hartmann and Moosdorf",
+      "reproduce": "python3 scripts/check_d02_sources.py --source pangaea-glim-0p5-grid",
+      "resolution": {
+        "aggregation": "one first-level lithology class per 0.5 degree cell",
+        "kind": "raster",
+        "map_scale_denominator": null,
+        "native": "0.5 degree (~55 km at the equator)",
+        "pixel_size_m": 55600.0
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "pangaea-glim-0p5-grid",
+      "status": "accessible",
+      "status_reason": "DOI page, JSON-LD licence and the 38,670-byte grid zip are reachable. The small grid was inspected for format; no value is ingested as an observation.",
+      "subgroups": [
+        "lithology"
+      ],
+      "title": "Global Lithological Map (GLiM) v1.0, gridded to 0.5 degrees"
+    },
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "Query capability only; maxRecordCount 2000.",
+        "redistribution": "unknown"
+      },
+      "blockers": [
+        {
+          "id": "glim_mirror_license",
+          "resolution": "Use PANGAEA 0.5 degree CC BY 3.0 as the open alternative, or obtain the official vector licence.",
+          "summary": "Mirror has no licenseInfo and upstream equivalence is unverified"
+        }
+      ],
+      "body": "Earth",
+      "coverage": {
+        "excludes": [
+          "sub-map-scale lithology"
+        ],
+        "extent": "Global land polygons in Web Mercator",
+        "product_coverage_verified": false,
+        "repository_usage": "Five Earth AOIs were overlaid locally; all values remain withheld because redistribution is not verified.",
+        "scope": "global_land"
+      },
+      "crs": {
+        "frame": "WGS84 / Web Mercator",
+        "latitude_type": "geodetic",
+        "longitude_direction": "east",
+        "native_crs": "EPSG:3857",
+        "notes": "The layer extent is in EPSG:3857 (wkid 102100).",
+        "projection": "Web Mercator",
+        "radius_m": 6378137.0
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "Raw Litho code and description are present; licence blocks sharing.",
+          "state": "requires_crosswalk_and_license",
+          "supported": true
+        },
+        "mineral_detection": {
+          "notes": "Lithology only.",
+          "state": "not_supported",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "No spectral data.",
+          "state": "not_supported",
+          "supported": false
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "esriGeometryPolygon",
+              "copyrightText",
+              "Hartmann"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "application/json"
+            ],
+            "status": 200
+          },
+          "label": "ArcGIS layer metadata",
+          "max_bytes": 80000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 30011,
+            "checked_on": "2026-11-15",
+            "content_length": 30011,
+            "content_type": "application/json; charset=utf-8",
+            "final_url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1?f=pjson",
+            "status": 200
+          },
+          "url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1?f=pjson"
+        }
+      ],
+      "existing_observations": {
+        "by_feature": {
+          "geology_analysis_availability": 5
+        },
+        "count": 5,
+        "dataset_ids": [
+          "glim-niveau-i-mirror"
+        ],
+        "source_record": "pipelines/geology/records/geology-e920e7e3ae79e176.json"
+      },
+      "feature_mapping": [
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_unit",
+          "notes": "Raw Litho codes are dataset-scoped. No value may be shared or used as a filter until the upstream licence and a versioned crosswalk are verified."
+        },
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_process",
+          "notes": "Process labels are derived from official unit descriptions, never from morphology alone. Raw Litho codes are dataset-scoped. No value may be shared or used as a filter until the upstream licence and a versioned crosswalk are verified."
+        },
+        {
+          "blocked_by": "quality_field_not_a_measurement",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "geology_analysis_availability",
+          "notes": "Coverage/availability is a quality field. It is never converted to a mineral value and never used as a filter."
+        }
+      ],
+      "license": {
+        "evidence_url": "https://services8.arcgis.com/4KhTMTZ1x0f76DSg/arcgis/rest/services/GLiM_Niveau_I/FeatureServer/1?f=pjson",
+        "name": "Unknown; the mirror publishes no licenseInfo",
+        "notes": "The metadata has copyrightText but no licenseInfo field. The original GLiM vector distribution and its licence are separate; PANGAEA 0.5 degree is CC BY 3.0.",
+        "spdx": "unknown",
+        "url": null,
+        "verified": false
+      },
+      "limitations": [
+        "No licence field on the mirror; redistribution status is unknown.",
+        "Upstream equivalence to the official GLiM v1.1 is not verified.",
+        "Third-party mirror; not an official USGS/PANGAEA endpoint.",
+        "Five local overlays exist but their values are withheld."
+      ],
+      "product": "GLiM_Niveau_I FeatureServer layer 1",
+      "product_type": "vector_lithology",
+      "product_version": "1.1 (mirror description; upstream equivalence not verified)",
+      "provider": "Third-party ArcGIS-hosted mirror; original by Hartmann and Moosdorf",
+      "reproduce": "python3 scripts/check_d02_sources.py --source arcgis-glim-vector-mirror",
+      "resolution": {
+        "aggregation": "polygon overlay; source scale varies by region",
+        "kind": "vector",
+        "map_scale_denominator": 3750000,
+        "native": "lithology polygons",
+        "pixel_size_m": null
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "arcgis-glim-vector-mirror",
+      "status": "identified",
+      "status_reason": "The layer metadata is reachable and states polygon geometry and a 1:3,750,000 map scale, but no licence field is published. Values are not redistributed.",
+      "subgroups": [
+        "lithology"
+      ],
+      "title": "GLiM v1.1 vector polygons (third-party ArcGIS mirror)"
+    },
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "Public WMS; no account. A ~550 MB global zip is optional and was not downloaded here.",
+        "redistribution": "yes"
+      },
+      "blockers": [],
+      "body": "Earth",
+      "coverage": {
+        "excludes": [
+          "local detail below 1:35,000,000",
+          "aqueous alteration as a mapped class"
+        ],
+        "extent": "Global generalized bedrock domains",
+        "product_coverage_verified": true,
+        "repository_usage": "Two bounded Earth AOIs in the separate GSC pilot; point-grid and polygon artifacts are not typed-v2 observations.",
+        "scope": "global"
+      },
+      "crs": {
+        "frame": "WGS84",
+        "latitude_type": "geodetic",
+        "longitude_direction": "east",
+        "native_crs": "EPSG:4326",
+        "notes": "WMS declares EPSG:4326.",
+        "projection": "geographic",
+        "radius_m": 6378137.0
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "Raw rxtyp values are mapped for the two pilot AOIs only.",
+          "state": "requires_crosswalk",
+          "supported": true
+        },
+        "mineral_detection": {
+          "notes": "Lithology only.",
+          "state": "not_supported",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "No spectral data.",
+          "state": "not_supported",
+          "supported": false
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "GSC_WorldGeology",
+              "<Name>geology</Name>",
+              "Geological Survey of Canada generalized geology of the world"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/xml"
+            ],
+            "status": 200
+          },
+          "label": "WMS GetCapabilities",
+          "max_bytes": 60000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 11572,
+            "checked_on": "2026-11-15",
+            "content_length": null,
+            "content_type": "text/xml; charset=UTF-8",
+            "final_url": "https://mrdata.usgs.gov/services/gscworld?service=WMS&request=GetCapabilities&version=1.3.0",
+            "status": 200
+          },
+          "url": "https://mrdata.usgs.gov/services/gscworld?service=WMS&request=GetCapabilities&version=1.3.0"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "Open Government Licence - Canada"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/html"
+            ],
+            "status": 200
+          },
+          "label": "OGL Canada licence",
+          "max_bytes": 100000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 23088,
+            "checked_on": "2026-11-15",
+            "content_length": 23088,
+            "content_type": "text/html; charset=utf-8",
+            "final_url": "https://open.canada.ca/en/open-government-licence-canada",
+            "status": 200
+          },
+          "url": "https://open.canada.ca/en/open-government-licence-canada"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "Generalized geology of the world"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/html"
+            ],
+            "status": 200
+          },
+          "label": "NRCan DOI landing",
+          "max_bytes": 200000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 119426,
+            "checked_on": "2026-11-15",
+            "content_length": 119426,
+            "content_type": "text/html; charset=utf-8",
+            "final_url": "https://ostrnrcan-dostrncan.canada.ca/handle/1845/181152",
+            "status": 200
+          },
+          "url": "https://doi.org/10.4095/223767"
+        }
+      ],
+      "existing_observations": {
+        "by_feature": {},
+        "count": 0,
+        "dataset_ids": [],
+        "source_record": "pipelines/geology/gsc-world/polygon/"
+      },
+      "feature_mapping": [
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_unit",
+          "notes": "rxtyp values are dataset-scoped. The pilot maps INTRUSIVE, SEDIMENT, SEDVOL and VOLCANIC; no code maps to aqueous alteration, and the scale is 1:35M."
+        },
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_process",
+          "notes": "Process labels are derived from official unit descriptions, never from morphology alone. rxtyp values are dataset-scoped. The pilot maps INTRUSIVE, SEDIMENT, SEDVOL and VOLCANIC; no code maps to aqueous alteration, and the scale is 1:35M."
+        },
+        {
+          "blocked_by": "quality_field_not_a_measurement",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "geology_analysis_availability",
+          "notes": "Coverage/availability is a quality field. It is never converted to a mineral value and never used as a filter."
+        }
+      ],
+      "license": {
+        "evidence_url": "https://open.canada.ca/en/open-government-licence-canada",
+        "name": "Open Government Licence - Canada 2.0; attribution required",
+        "notes": "Third-party rights are excluded by the licence; cite Chorlton (2007).",
+        "spdx": "OGL-Canada-2.0",
+        "url": "https://open.canada.ca/en/open-government-licence-canada",
+        "verified": true
+      },
+      "limitations": [
+        "Map scale about 1:35,000,000 is far coarser than a 1.98 km AOI.",
+        "The 5 x 5 point-grid pilot is not a polygon area fraction.",
+        "Only two Earth AOIs were exercised.",
+        "Aqueous alteration is not a mapped class; iron oxide or spectral indices are insufficient."
+      ],
+      "product": "Geological Survey of Canada generalized geology of the world, layer geology",
+      "product_type": "vector_geologic_map",
+      "product_version": "Open File 5529 (2007)",
+      "provider": "Geological Survey of Canada / USGS Mineral Resources Program WMS",
+      "reproduce": "python3 scripts/check_d02_sources.py --source gsc-of5529-world-geology",
+      "resolution": {
+        "aggregation": "point-grid or polygon intersection; the source is coarser than a 1.98 km AOI",
+        "kind": "vector",
+        "map_scale_denominator": 35000000,
+        "native": "generalized bedrock polygons",
+        "pixel_size_m": null
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "gsc-of5529-world-geology",
+      "status": "verified",
+      "status_reason": "WMS GetCapabilities, OGL-Canada licence and DOI page are reachable. The separate polygon pilot has already processed two Earth AOIs; typed-v2 does not include it.",
+      "subgroups": [
+        "lithology",
+        "geological_process"
+      ],
+      "title": "Generalized Geology of the World (GSC Open File 5529)"
+    },
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "Anonymous JSON; cite Macrostrat and the underlying source map.",
+        "redistribution": "yes"
+      },
+      "blockers": [],
+      "body": "Earth",
+      "coverage": {
+        "excludes": [
+          "Antarctica (empty point response)",
+          "areas without a source map"
+        ],
+        "extent": "Regional map coverage assembled by Macrostrat; not a seamless global map",
+        "product_coverage_verified": true,
+        "repository_usage": "Not ingested. Point queries at the five Earth AOI centroids are the bounded next step; no area fraction or global claim.",
+        "scope": "partial_global"
+      },
+      "crs": {
+        "frame": "WGS84",
+        "latitude_type": "geodetic",
+        "longitude_direction": "east",
+        "native_crs": "EPSG:4326",
+        "notes": "Latitude/longitude point query.",
+        "projection": "geographic",
+        "radius_m": 6378137.0
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "Map unit names and lithology strings are available; no shared crosswalk.",
+          "state": "requires_crosswalk",
+          "supported": true
+        },
+        "mineral_detection": {
+          "notes": "Lithology only.",
+          "state": "not_supported",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "No spectral data.",
+          "state": "not_supported",
+          "supported": false
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "CC-BY 4.0",
+              "geologic_units/map"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "application/json"
+            ],
+            "status": 200
+          },
+          "label": "API root",
+          "max_bytes": 30000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 1687,
+            "checked_on": "2026-11-15",
+            "content_length": 1687,
+            "content_type": "application/json; charset=utf-8",
+            "final_url": "https://macrostrat.org/api/v2",
+            "status": 200
+          },
+          "url": "https://macrostrat.org/api/v2"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "\"license\":\"CC-BY 4.0\"",
+              "\"lith\"",
+              "\"source_id\""
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "application/json"
+            ],
+            "status": 200
+          },
+          "label": "Death Valley point query",
+          "max_bytes": 30000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 4654,
+            "checked_on": "2026-11-15",
+            "content_length": 4654,
+            "content_type": "application/json; charset=utf-8",
+            "final_url": "https://macrostrat.org/api/v2/geologic_units/map?lat=36.25&lng=-117.11",
+            "status": 200
+          },
+          "url": "https://macrostrat.org/api/v2/geologic_units/map?lat=36.25&lng=-117.11"
+        }
+      ],
+      "feature_mapping": [
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_unit",
+          "notes": "Macrostrat aggregates regional maps; unit names, lithology strings and source scales are heterogeneous. A point hit is not an AOI fraction."
+        },
+        {
+          "blocked_by": "versioned_dataset_scoped_crosswalk",
+          "candidate_role": "category_match_candidate",
+          "current_role": "evidence_only",
+          "feature_id": "geologic_process",
+          "notes": "Process labels are derived from official unit descriptions, never from morphology alone. Macrostrat aggregates regional maps; unit names, lithology strings and source scales are heterogeneous. A point hit is not an AOI fraction."
+        },
+        {
+          "blocked_by": "quality_field_not_a_measurement",
+          "candidate_role": "evidence_only",
+          "current_role": "evidence_only",
+          "feature_id": "geology_analysis_availability",
+          "notes": "Coverage/availability is a quality field. It is never converted to a mineral value and never used as a filter."
+        }
+      ],
+      "license": {
+        "evidence_url": "https://macrostrat.org/api/v2",
+        "name": "CC BY 4.0 (API response); underlying maps retain their own attribution",
+        "notes": "The API root states 'CC-BY 4.0. More info at /meta'.",
+        "spdx": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "verified": true
+      },
+      "limitations": [
+        "Coverage is partial; an Antarctic point returned an empty data array.",
+        "Point query only; no polygon area fraction in this audit.",
+        "Source maps have different scales and attributions; a single CC BY label is not enough to merge units.",
+        "Not a substitute for GLiM or a national geologic map."
+      ],
+      "product": "Macrostrat API v2 /geologic_units/map",
+      "product_type": "map_unit_api",
+      "product_version": "v2 (live service)",
+      "provider": "Macrostrat, University of Wisconsin-Madison",
+      "reproduce": "python3 scripts/check_d02_sources.py --source macrostrat-api-map-units",
+      "resolution": {
+        "aggregation": "point query only in this audit; no area fraction",
+        "kind": "vector",
+        "map_scale_denominator": null,
+        "native": "source-map polygons; scale varies by region",
+        "pixel_size_m": null
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "macrostrat-api-map-units",
+      "status": "accessible",
+      "status_reason": "The API root and point queries for Death Valley, Atacama and Lanzarote returned CC-BY 4.0 map units. Coverage is not global: an Antarctic point returned no data.",
+      "subgroups": [
+        "lithology",
+        "geological_process"
+      ],
+      "title": "Macrostrat API v2 geologic map units"
+    },
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "Anonymous JSON; metadata only.",
+        "redistribution": "yes"
+      },
+      "blockers": [],
+      "body": "cross-body",
+      "coverage": {
+        "excludes": [
+          "geologic map units",
+          "mineral detections"
+        ],
+        "extent": "18 planetary imagery/terrain collections",
+        "product_coverage_verified": true,
+        "repository_usage": "Negative finding: STAC is not a D02 geology source.",
+        "scope": "catalogue"
+      },
+      "crs": {
+        "frame": "varies by collection",
+        "latitude_type": "varies",
+        "longitude_direction": "varies",
+        "native_crs": null,
+        "notes": "Not applicable to D02.",
+        "projection": "varies",
+        "radius_m": null
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "No geologic-map collection.",
+          "state": "not_a_product",
+          "supported": false
+        },
+        "mineral_detection": {
+          "notes": "No mineral product.",
+          "state": "not_a_product",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "No spectral product.",
+          "state": "not_a_product",
+          "supported": false
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "lunar_orbiter_laser_altimeter",
+              "mro_hirise_socet_dtms"
+            ],
+            "body_not_contains": [
+              "\"id\":\"geologic",
+              "\"geologic_map"
+            ],
+            "content_type_any_of": [
+              "application/json"
+            ],
+            "status": 200
+          },
+          "label": "collections",
+          "max_bytes": 100000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 64658,
+            "checked_on": "2026-11-15",
+            "content_length": 64658,
+            "content_type": "application/json; charset=utf-8",
+            "final_url": "https://stac.astrogeology.usgs.gov/api/collections",
+            "status": 200
+          },
+          "url": "https://stac.astrogeology.usgs.gov/api/collections"
+        }
+      ],
+      "feature_mapping": [],
+      "license": {
+        "evidence_url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+        "name": "USGS-authored metadata, U.S. public domain",
+        "notes": "Collection items may carry their own attribution.",
+        "spdx": "public-domain-usgs",
+        "url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+        "verified": true
+      },
+      "limitations": [
+        "STAC lists imagery and terrain, not the Astropedia geologic-map catalogue.",
+        "Geologic maps must be found through Astropedia/CKAN or PDS, not this STAC."
+      ],
+      "product": "STAC API 1.1.0 (18 collections)",
+      "product_type": "discovery_api",
+      "product_version": "1.1.0",
+      "provider": "U.S. Geological Survey, Astrogeology Science Center",
+      "reproduce": "python3 scripts/check_d02_sources.py --source usgs-astrogeology-stac",
+      "resolution": {
+        "aggregation": null,
+        "kind": "metadata",
+        "map_scale_denominator": null,
+        "native": "varies",
+        "pixel_size_m": null
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "usgs-astrogeology-stac",
+      "status": "not_applicable",
+      "status_reason": "The collections endpoint is reachable and lists 18 imagery/terrain collections. No geologic-map collection is present, so this is not a D02 shortcut.",
+      "subgroups": [],
+      "title": "USGS Astrogeology STAC API"
+    },
+    {
+      "access": {
+        "access": "open",
+        "authentication": "none",
+        "notes": "PDS Geosciences HTTPS.",
+        "redistribution": "yes"
+      },
+      "blockers": [],
+      "body": "Mars",
+      "coverage": {
+        "excludes": [
+          "mineral identification",
+          "mineral abundance"
+        ],
+        "extent": "Global Mars thermal inertia and albedo",
+        "product_coverage_verified": true,
+        "repository_usage": "Not a D02 source; relevant to D03 thermal environment.",
+        "scope": "global"
+      },
+      "crs": {
+        "frame": "Mars 2000 sphere",
+        "latitude_type": "planetocentric",
+        "longitude_direction": "east",
+        "native_crs": "Mars simple cylindrical",
+        "notes": "Thermal products only.",
+        "projection": "simple cylindrical",
+        "radius_m": 3396190.0
+      },
+      "d02_outputs": {
+        "map_unit_category": {
+          "notes": "No map units.",
+          "state": "not_a_product",
+          "supported": false
+        },
+        "mineral_detection": {
+          "notes": "TES thermal products are not mineral maps in this archive.",
+          "state": "not_a_product",
+          "supported": false
+        },
+        "spectral_index": {
+          "notes": "No D02 spectral index.",
+          "state": "not_a_product",
+          "supported": false
+        }
+      },
+      "dimension": "D02",
+      "evidence": [
+        {
+          "expect": {
+            "body_contains": [
+              "MGS TES derived thermal inertia"
+            ],
+            "body_not_contains": [],
+            "content_type_any_of": [
+              "text/plain"
+            ],
+            "status": 200
+          },
+          "label": "TES thermal-inertia readme",
+          "max_bytes": 50000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 10194,
+            "checked_on": "2026-11-15",
+            "content_length": 10194,
+            "content_type": "text/plain",
+            "final_url": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/aareadme.txt",
+            "status": 200
+          },
+          "url": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/aareadme.txt"
+        },
+        {
+          "expect": {
+            "body_contains": [
+              "global_ti_60n_50s_8ppd.img",
+              "global_albedo_8ppd.img"
+            ],
+            "body_not_contains": [
+              "olivine",
+              "pyroxene"
+            ],
+            "content_type_any_of": [
+              "text/html"
+            ],
+            "status": 200
+          },
+          "label": "TES special-products listing",
+          "max_bytes": 20000,
+          "method": "GET",
+          "observed": {
+            "bytes_read": 939,
+            "checked_on": "2026-11-15",
+            "content_length": 939,
+            "content_type": "text/html; charset=UTF-8",
+            "final_url": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-special-v1/",
+            "status": 200
+          },
+          "url": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-special-v1/"
+        }
+      ],
+      "feature_mapping": [],
+      "license": {
+        "evidence_url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "name": "PDS archived data, public domain",
+        "notes": "PDS mission archive.",
+        "spdx": "pds-public-domain",
+        "url": "https://pds-geosciences.wustl.edu/documents/ViewingPDSImagesAndExportingToOtherFormats.pdf",
+        "verified": true
+      },
+      "limitations": [
+        "TES thermal inertia is a D03 quantity, not mineralogy.",
+        "Do not relabel thermal inertia or albedo as a mineral detection.",
+        "A separate TES mineral product/DOI would need its own audit."
+      ],
+      "product": "MGS-M-TES-SPECIAL-V1 and MGS-M-TES-5-TIMAP-V1",
+      "product_type": "thermal_products",
+      "product_version": "PDS3",
+      "provider": "NASA PDS Geosciences Node / Arizona State University TES",
+      "reproduce": "python3 scripts/check_d02_sources.py --source pds-tes-special-products",
+      "resolution": {
+        "aggregation": "thermal inertia / albedo",
+        "kind": "raster",
+        "map_scale_denominator": null,
+        "native": "8 pixels/degree special products (about 7 km/pixel); other TES maps vary",
+        "pixel_size_m": 7400.0
+      },
+      "scope_note": "Bounded audit of official open-data sources. No global survey is claimed.",
+      "source_id": "pds-tes-special-products",
+      "status": "not_applicable",
+      "status_reason": "The archive listing contains global albedo and thermal-inertia products, and the thermal-inertia readme describes thermal inertia. No mineral map is present.",
+      "subgroups": [],
+      "title": "MGS TES special products and thermal-inertia maps"
+    }
+  ],
+  "summary": {
+    "by_body": {
+      "Earth": 5,
+      "Mars": 5,
+      "Moon": 2,
+      "cross-body": 2
+    },
+    "by_status": {
+      "accessible": 7,
+      "identified": 1,
+      "not_applicable": 2,
+      "verified": 4
+    },
+    "data_archives_downloaded_by_checker": 0,
+    "existing_typed_observations": {
+      "Earth": 15,
+      "Mars": 38,
+      "Moon": 3,
+      "availability": 16,
+      "map_unit_detected": 11,
+      "mineral_detected": 0,
+      "mineral_unknown": 10,
+      "process_detected": 5,
+      "spectral_context_values": 14,
+      "total": 56
+    },
+    "global_survey_claim": false,
+    "large_products_head_only": true,
+    "similarity_score": false,
+    "small_grid_inspected_bytes": 38670,
+    "sources_total": 14
+  },
+  "taxonomy_gaps": {
+    "datasets": [
+      {
+        "crosswalk_version": "geology-legend-registry-1.0.0",
+        "dataset_id": "usgs-moon-geology-v2",
+        "gap": "The full lunar legend is not crosswalked; one code is not a taxonomy.",
+        "mapped_codes": [
+          "Ec"
+        ],
+        "mapped_scope": "one Shackleton ROI",
+        "raw_code_system": "DOMU / FIRST_Un_2"
+      },
+      {
+        "crosswalk_version": "geology-legend-registry-1.0.0",
+        "dataset_id": "usgs-jezero-sim3464",
+        "gap": "Codes are dataset-scoped; no global Mars legend and no other region.",
+        "mapped_codes": [
+          "cr",
+          "NHjf2",
+          "Aeb",
+          "Nue",
+          "Nle",
+          "Njf"
+        ],
+        "mapped_scope": "two Jezero test AOIs",
+        "raw_code_system": "SIM3464 GeoUnits_v1 symbol"
+      },
+      {
+        "crosswalk_version": null,
+        "dataset_id": "usgs-mars-sim3292-global-geologic-map",
+        "gap": "Global 1:20M legend is not crosswalked and the GIS zip is not ingested.",
+        "mapped_codes": [],
+        "mapped_scope": "none",
+        "raw_code_system": "SIM3292_Global_Geology.Unit / UnitDesc"
+      },
+      {
+        "crosswalk_version": null,
+        "dataset_id": "pangaea-glim-0p5-grid",
+        "gap": "Raw codes need the official GLiM legend; the 0.5 degree grid cannot resolve a local AOI.",
+        "mapped_codes": [],
+        "mapped_scope": "none",
+        "raw_code_system": "GLiM first-level code (16 values)"
+      },
+      {
+        "crosswalk_version": "gsc-world-polygon-registry-1.0.0",
+        "dataset_id": "gsc-of5529-world-geology",
+        "gap": "Only four broad values; no aqueous alteration; 1:35M scale.",
+        "mapped_codes": [
+          "INTRUSIVE",
+          "SEDIMENT",
+          "SEDVOL",
+          "VOLCANIC"
+        ],
+        "mapped_scope": "two pilot AOIs",
+        "raw_code_system": "GSC rxtyp"
+      },
+      {
+        "crosswalk_version": null,
+        "dataset_id": "macrostrat-api-map-units",
+        "gap": "Heterogeneous regional maps; no shared crosswalk or global coverage.",
+        "mapped_codes": [],
+        "mapped_scope": "none",
+        "raw_code_system": "Macrostrat unit/lithology strings"
+      }
+    ],
+    "requirements": [
+      "Version the crosswalk independently of the source dataset.",
+      "Cite the official legend/description for every code.",
+      "Keep raw codes and original descriptions in every observation.",
+      "Never equate the same text code across bodies or datasets.",
+      "Do not infer aqueous alteration from iron oxide or a spectral index alone.",
+      "A crosswalk produces category_match/hard_filter only, never a similarity distance."
+    ],
+    "shared_taxonomy_registered": false,
+    "statement": "Map units are dataset-scoped free text/codes. Only the bounded Moon and SIM 3464 pilots have a registry, and it covers the codes observed in those AOIs, not a global legend. No map unit may become a category filter before a versioned crosswalk with official legend citations is registered.",
+    "status": "open"
+  },
+  "title": "D02 geology and mineralogy open-data source audit"
+}
