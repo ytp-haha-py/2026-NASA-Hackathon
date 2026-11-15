@@ -184,7 +184,6 @@ describe("Research presets", () => {
     await user.click(screen.getByRole("radio", { name: "精準登陸與危險地形辨識" }));
     expect(current()).toBe("precision-landing");
     expect(trigger()).toHaveAttribute("aria-expanded", "false");
-    expect(screen.getByText(/這組權重最重視/)).toBeInTheDocument();
     expect(screen.queryByText(/初始 0 值不是 NASA 建議的目標/)).not.toBeInTheDocument();
   });
 
@@ -215,12 +214,7 @@ describe("Research presets", () => {
     ]);
     await user.keyboard("{Escape}");
     expect(scenarioRadios()).toHaveLength(0);
-    expect(screen.queryByText(/Weights emphasize/)).not.toBeInTheDocument();
     await choose(user, "precision-landing");
-    expect(screen.getByText(/Weights emphasize 90th percentile slope, Flat terrain fraction/)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Based on NASA — SPLICE" })).toHaveAttribute(
-      "href",
-      RESEARCH_PRESETS[1].reference.url,
-    );
+    expect(trigger()).toHaveTextContent("Precision Landing & Hazard Avoidance");
   });
 });

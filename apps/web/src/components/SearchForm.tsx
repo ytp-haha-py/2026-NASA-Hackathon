@@ -25,9 +25,7 @@ import {
 } from "../lib/dimensions";
 import type { SearchSubmission, SearchTargetPreset } from "../lib/search-types";
 import {
-  RESEARCH_FEATURE_IDS,
   RESEARCH_PRESETS,
-  type ResearchPreset,
   researchWeights,
   unavailableResearchFeatures,
 } from "../lib/research-presets";
@@ -896,32 +894,32 @@ export function SearchForm({
             onChange={applyResearchPreset}
           />
         )}
-      </section>
 
-      <div id="planet-preview" className="planet-preview" hidden={!planetMapOpen}>
-        {body !== "custom" && planetMapOpen && (
-          <>
-            <button
-              type="button"
-              className="secondary-button planet-preview-collapse"
-              onClick={() => {
-                setPlanetMapOpen(false);
-                activeBodyButton.current?.focus();
-              }}
-            >
-              {t("map.collapsePlanetPreview")}
-            </button>
-            <PlanetMap
-              key={body}
-              body={body}
-              references={mapReferences}
-              selectedReferenceId={selectedReference?.reference_id ?? null}
-              onSelectReference={selectReference}
-              regionLabel={t("map.planetRegionLabel", { body: label.body(body) })}
-            />
-          </>
-        )}
-      </div>
+        <div id="planet-preview" className="planet-preview" hidden={!planetMapOpen}>
+          {body !== "custom" && planetMapOpen && (
+            <>
+              <button
+                type="button"
+                className="secondary-button planet-preview-collapse"
+                onClick={() => {
+                  setPlanetMapOpen(false);
+                  activeBodyButton.current?.focus();
+                }}
+              >
+                {t("map.collapsePlanetPreview")}
+              </button>
+              <PlanetMap
+                key={body}
+                body={body}
+                references={mapReferences}
+                selectedReferenceId={selectedReference?.reference_id ?? null}
+                onSelectReference={selectReference}
+                regionLabel={t("map.planetRegionLabel", { body: label.body(body) })}
+              />
+            </>
+          )}
+        </div>
+      </section>
 
       {renderedErrors.length > 0 && (
         <div className="alert alert-error" role="alert" aria-labelledby="form-errors-title">
@@ -1142,7 +1140,6 @@ export function SearchForm({
 
 /**
  * "How to compare": one button shows the current research scenario; it opens a grouped list.
- * Each option carries a five-bar weight signature (importance of the five D01 metrics).
  */
 function ResearchScenarioPicker({
   selectedId,
@@ -1158,12 +1155,6 @@ function ResearchScenarioPicker({
   const rootRef = useRef<HTMLDivElement>(null);
   const unavailable = missing.length > 0;
   const selected = RESEARCH_PRESETS.find((item) => item.id === selectedId);
-  const emphasis = selected
-    ? RESEARCH_FEATURE_IDS.map((id, index) => ({ id, index, r: selected.importance[id] }))
-        .sort((a, b) => b.r - a.r || a.index - b.index)
-        .slice(0, 3)
-        .map((entry) => label.feature(entry.id))
-    : [];
   const groups = [...new Set(RESEARCH_PRESETS.map((item) => item.groupKey))];
 
   useEffect(() => {
@@ -1193,17 +1184,7 @@ function ResearchScenarioPicker({
     setOpen(false);
   }
 
-  function signature(importance: ResearchPreset["importance"]) {
-    return (
-      <span className="weight-signature" aria-hidden="true">
-        {RESEARCH_FEATURE_IDS.map((id) => (
-          <span key={id} style={{ height: `${(importance[id] / 5) * 100}%` }} />
-        ))}
-      </span>
-    );
-  }
-
-  function option(id: string, title: string, importance: ResearchPreset["importance"] | null) {
+  function option(id: string, title: string) {
     return (
       <label key={id} className={`scenario-option${id === selectedId ? " is-selected" : ""}`}>
         <input
@@ -1215,7 +1196,6 @@ function ResearchScenarioPicker({
           onChange={() => choose(id)}
         />
         <span className="scenario-option-title">{title}</span>
-        {importance && signature(importance)}
       </label>
     );
   }
@@ -1241,7 +1221,6 @@ function ResearchScenarioPicker({
           onClick={() => setOpen((value) => !value)}
         >
           <span id="research-trigger-value">{selected ? t(selected.titleKey) : t("research.manual")}</span>
-          {selected && signature(selected.importance)}
           <span className="scenario-chevron" aria-hidden="true" />
         </button>
         {open && (
@@ -1251,24 +1230,16 @@ function ResearchScenarioPicker({
               <div key={groupKey} className="scenario-group">
                 <p className="scenario-group-title">{t(groupKey)}</p>
                 {RESEARCH_PRESETS.filter((item) => item.groupKey === groupKey).map((item) =>
-                  option(item.id, t(item.titleKey), item.importance),
+                  option(item.id, t(item.titleKey)),
                 )}
               </div>
             ))}
             <div className="scenario-group is-manual">
-              {option("manual", t("research.manualLong"), null)}
+              {option("manual", t("research.manualLong"))}
             </div>
           </fieldset>
         )}
       </div>
-      {selected && (
-        <p className="research-emphasis">
-          {t("research.emphasis", { features: fmt.list(emphasis) })}{" "}
-          <a href={selected.reference.url} target="_blank" rel="noreferrer">
-            {t("research.basedOn", { source: selected.reference.label })}
-          </a>
-        </p>
-      )}
     </div>
   );
 }
