@@ -30,11 +30,13 @@ from sqlalchemy.orm import Session
 from analog_api.adapters.db import Meta
 from analog_api.adapters.typed_db import TypedObservationStore
 from analog_api.domain.aoi import AoiResult
+from analog_api.domain.features import FEATURES
 
 logger = logging.getLogger("analog_api.planetary_store")
 
 PLANETARY_METHOD_VERSION = "coarse-planetary-dem-horn-1.0.0"
 PLANETARY_DIMENSION = "D01"
+FINE_D01_BY_ID = {feature.id: feature for feature in FEATURES}
 
 _BODY_RADIUS_M = {"Moon": 1_737_400.0, "Mars": 3_396_190.0}
 _BODY_FRAME = {
@@ -156,8 +158,31 @@ def persist_planetary_aoi_result(session: Session, result: AoiResult) -> str:
     crs = area.crs
     for feature_id, value in result.features.items():
         definition = COARSE_FEATURE_BY_ID.get(feature_id)
-        if definition is None:
+        fine_definition = FINE_D01_BY_ID.get(feature_id) if definition is None else None
+        if definition is None and fine_definition is None:
             raise ValueError(f"unsupported planetary AOI feature {feature_id!r}")
+        unit = definition.unit if definition is not None else fine_definition.unit
+        method_version = (
+            definition.method_version
+            if definition is not None
+            else (result.method_version or fine_definition.method_version)
+        )
+        quality_flags = (
+            [
+                "on_demand_planetary_aoi",
+                "d01_coarse_250m_support",
+                "not_earth_wgs84",
+                "not_a_cross_body_score",
+            ]
+            if definition is not None
+            else [
+                "on_demand_planetary_aoi",
+                "global_dem_aoi",
+                "not_earth_wgs84",
+                "not_a_cross_body_score",
+                f"resolution_class:{'upsampled_from_coarse_source' if (dataset.native_resolution_m or 0) > result.resolution_m else 'native_or_downsampled'}",
+            ]
+        )
         observation = TypedObservation(
             observation_id=f"{result.area_id}:{feature_id}",
             area_id=result.area_id,
@@ -167,7 +192,7 @@ def persist_planetary_aoi_result(session: Session, result: AoiResult) -> str:
             value_kind="numeric",
             state="detected",
             value=float(value),
-            unit=definition.unit,
+            unit=unit,
             spatial_support=SpatialSupport(
                 kind="window",
                 crs=crs,
@@ -181,7 +206,7 @@ def persist_planetary_aoi_result(session: Session, result: AoiResult) -> str:
                 valid_fraction=result.valid_fraction,
                 notes=(
                     "Bounded planetary AOI window recomputed from the verified source; "
-                    "support is the union of the selected coarse cells."
+                    "support is the requested window, not an Earth WGS84 or cross-body score."
                 ),
             ),
             temporal_support=TemporalSupport(
@@ -189,19 +214,14 @@ def persist_planetary_aoi_result(session: Session, result: AoiResult) -> str:
                 notes="Static planetary topography source release.",
             ),
             depth_support=DepthSupport(kind="surface"),
-            method_version=definition.method_version,
+            method_version=method_version,
             dataset_ids=[dataset.dataset_id],
             source_asset_ids=[source_asset["asset_id"]],
-            quality_flags=[
-                "on_demand_planetary_aoi",
-                "d01_coarse_250m_support",
-                "not_earth_wgs84",
-                "not_a_cross_body_score",
-            ],
+            quality_flags=quality_flags,
             score_role="evidence_only",
             notes=(
-                "Recomputed from the committed/verified planetary fixture; evidence for "
-                "D01 terrain context, not an Earth-analog similarity value."
+                "Recomputed from a verified planetary DEM source; evidence for D01 terrain "
+                "context, not an Earth-analog similarity value."
             ),
         )
         store.upsert_observation(observation)
