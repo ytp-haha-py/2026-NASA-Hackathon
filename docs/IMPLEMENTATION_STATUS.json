@@ -1,5 +1,5 @@
 {
-  "base_commit": "c8342858b6fad6de763f55abde3e2ae476df33df",
+  "base_commit": "10603ebdcd946f01cdbbf4cca564bf2e1582711c",
   "dimensions": {
     "D01": {
       "actual_observation_counts": {
@@ -126,7 +126,7 @@
       "scientific_data_status": "pilot_observations"
     }
   },
-  "generated_at": "2026-11-15T05:10:00+00:00",
+  "generated_at": "2026-11-15T02:05:00+00:00",
   "issues": [
     {
       "comparison_status": "not_comparable",
@@ -588,13 +588,33 @@
       "merge_commit": "c8342858b6fad6de763f55abde3e2ae476df33df",
       "number": 59,
       "title": "acquisition framework, truthful contracts and D05 Earth pilot"
+    },
+    {
+      "merge_commit": "ff4c0f3cfedbfc5d8403803bd66b135ec4753813",
+      "number": 61,
+      "title": "D02 geology typed integration"
+    },
+    {
+      "merge_commit": "ed9877e1455523717c4917331744fee21e13ec2a",
+      "number": 62,
+      "title": "D06 SoilGrids provider and Earth pilot"
+    },
+    {
+      "merge_commit": "d16128b10c39cc84f26a41c9039fc66610bed8c4",
+      "number": 63,
+      "title": "D03 NASA POWER thermal pilot"
+    },
+    {
+      "merge_commit": "10603ebdcd946f01cdbbf4cca564bf2e1582711c",
+      "number": 64,
+      "title": "D04 NASA POWER water-context pilot"
     }
   ],
   "next_independent_tasks": [
-    "implement Moon/Mars illumination only after SPICE frame and horizon validation",
-    "acquire a real coarse Geomorpho index only under an authorized bounded data plan",
-    "resolve GLiM rights, EMIT authentication, lunar mineral registration and CRISM thresholds",
-    "add a public CMR discovery provider for authenticated D03/D04 granule metadata"
+    "Moon/Mars D03-D06 observations require authenticated/authorized source products or larger DEM/SPICE ingestion",
+    "real D01 coarse Geomorpho index requires an authorized bounded raster acquisition plan and disk budget",
+    "optional public CMR discovery provider for authenticated D03/D04 granule metadata",
+    "resolve GLiM rights, EMIT authentication, lunar mineral registration and CRISM thresholds"
   ],
   "repository": "ytp-haha-py/2026-NASA-Hackathon",
   "status_legend": {
