@@ -24,6 +24,7 @@ from analog_api.api.routes_features import router as features_router
 from analog_api.api.routes_global import router as global_router
 from analog_api.api.routes_planetary import router as planetary_router
 from analog_api.api.routes_planetary_aoi import router as planetary_aoi_router
+from analog_api.api.routes_planetary_aoi_engine import router as planetary_aoi_engine_router
 from analog_api.api.routes_typed import router as typed_router
 from analog_api.config import Settings, resolve_repo_path
 from analog_api.domain.aoi import AoiProcessor, AoiResult, ValidatedAoi
@@ -57,7 +58,11 @@ def error_response(
     )
 
 
-def create_app(settings: Settings | None = None, aoi_processor=None) -> FastAPI:
+def create_app(
+    settings: Settings | None = None,
+    aoi_processor=None,
+    planetary_processor=None,
+) -> FastAPI:
     settings = settings or Settings()
     if settings.sqlite_path is not None:
         settings.sqlite_path.parent.mkdir(parents=True, exist_ok=True)
@@ -67,10 +72,11 @@ def create_app(settings: Settings | None = None, aoi_processor=None) -> FastAPI:
     session_factory = sessionmaker(bind=engine, expire_on_commit=False)
 
     earth_processor = aoi_processor if aoi_processor is not None else EarthAoiProvider()
-    planetary_processor = PlanetaryAoiProvider(
-        root=resolve_repo_path(settings.planetary_coarse_dir),
-        allow_network=settings.planetary_allow_network,
-    )
+    if planetary_processor is None:
+        planetary_processor = PlanetaryAoiProvider(
+            root=resolve_repo_path(settings.planetary_coarse_dir),
+            allow_network=settings.planetary_allow_network,
+        )
     processor = MultiBodyAoiProvider(earth_processor, planetary_processor)
     job_runner = JobRunner(
         session_factory=session_factory,
@@ -120,6 +126,7 @@ def create_app(settings: Settings | None = None, aoi_processor=None) -> FastAPI:
     app.include_router(features_router)
     app.include_router(planetary_router)
     app.include_router(planetary_aoi_router)
+    app.include_router(planetary_aoi_engine_router)
 
     @app.exception_handler(AppError)
     async def app_error_handler(_: Request, exc: AppError) -> JSONResponse:

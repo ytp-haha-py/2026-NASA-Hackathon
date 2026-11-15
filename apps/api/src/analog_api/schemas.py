@@ -401,6 +401,76 @@ class AoiAnalyzeResponse(BaseModel):
     dimension_support: dict[str, object] = Field(default_factory=dict)
 
 
+class PlanetaryAoiEngineRequest(BaseModel):
+    """Create a full-AOI Moon/Mars job with explicit six-dimension statuses.
+
+    ``bbox`` is planetocentric lon/lat in the declared body frame, never Earth
+    EPSG:4326. The engine route requests the whole bounded bbox; the response reports
+    whether the persisted analysis envelope actually covered it (``full_aoi``).
+    D02-D06 are reported as explicit status entries, not fabricated measurements.
+    """
+
+    model_config = {"extra": "forbid"}
+    body: Literal["Moon", "Mars"]
+    bbox: GeoBBoxIn
+    bbox_lon_convention: Literal["signed", "360"] = "signed"
+    requested_features: list[str] | None = None
+    idempotency_key: str | None = Field(default=None, max_length=128)
+
+
+class PlanetaryAoiEngineDimensionOut(BaseModel):
+    dimension_code: str
+    label: str
+    status: Literal[
+        "available",
+        "evidence",
+        "no_coverage",
+        "not_indexed",
+        "unsupported",
+        "pending",
+    ]
+    value_origin: Literal[
+        "observed_derived",
+        "stored_evidence",
+        "declared_source",
+        "not_measured",
+        "none",
+    ]
+    reason: str | None = None
+    method_version: str | None = None
+    features: list[dict[str, Any]] = Field(default_factory=list)
+    provenance: dict[str, Any] = Field(default_factory=dict)
+    support: dict[str, Any] = Field(default_factory=dict)
+    limitations: list[str] = Field(default_factory=list)
+
+
+class PlanetaryAoiEngineResponse(BaseModel):
+    contract_version: str
+    job_id: str
+    status: Literal["queued", "running", "completed", "partial", "failed"]
+    area_id: str | None
+    cache_key: str
+    cached: bool
+    body: str | None = None
+    coordinate_frame: str | None = None
+    requested_bbox: dict[str, float] | None = None
+    analysis_bbox: dict[str, float] | None = None
+    full_aoi: bool | None = None
+    analysis_scope: str
+    coverage: dict[str, Any] = Field(default_factory=dict)
+    method_version: str | None = None
+    coverage_note: str | None = None
+    data_version: str | None = None
+    dimensions: dict[str, PlanetaryAoiEngineDimensionOut] = Field(default_factory=dict)
+    dimension_status: dict[str, dict[str, Any]] = Field(default_factory=dict)
+    provenance: dict[str, Any] = Field(default_factory=dict)
+    support: dict[str, Any] = Field(default_factory=dict)
+    provider_status: dict[str, object] = Field(default_factory=dict)
+    warnings: list[str] = Field(default_factory=list)
+    result: dict[str, object] | None = None
+    links: dict[str, str] = Field(default_factory=dict)
+
+
 class JobOut(BaseModel):
     job_id: str
     status: Literal["queued", "running", "completed", "partial", "failed"]
