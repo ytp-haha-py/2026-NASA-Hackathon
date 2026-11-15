@@ -548,7 +548,8 @@ def _trek_layer(
 ) -> PlanetaryMapLayer:
     info = PLANETARY_BODIES[body]
     base = f"{TREK_CAPABILITIES_ROOT}/{body}/EQ/{layer_path}/1.0.0"
-    template = f"{base}/default/default028mm/{{TileMatrix}}/{{TileRow}}/{{TileCol}}.{format}"
+    extension = "jpg" if format == "jpeg" else format
+    template = f"{base}/default/default028mm/{{TileMatrix}}/{{TileRow}}/{{TileCol}}.{extension}"
     matrices = tuple((zoom, 2 * (2**zoom), 2**zoom) for zoom in range(zoom_max + 1))
     return PlanetaryMapLayer(
         layer_id=layer_id,
@@ -590,7 +591,7 @@ PLANETARY_MAP_LAYERS: tuple[PlanetaryMapLayer, ...] = (
         title="LRO WAC Global Mosaic (303 ppd)",
         layer_path="LRO_WAC_Mosaic_Global_303ppd_v02",
         layer_type="imagery",
-        format="jpg",
+        format="jpeg",
         zoom_max=8,
         attribution=(
             "NASA / GSFC / Arizona State University, LRO Wide Angle Camera mosaic; "
@@ -632,7 +633,7 @@ PLANETARY_MAP_LAYERS: tuple[PlanetaryMapLayer, ...] = (
         title="Mars Viking MDIM21 Color Mosaic (232 m)",
         layer_path="Mars_Viking_MDIM21_ClrMosaic_global_232m",
         layer_type="imagery",
-        format="jpg",
+        format="jpeg",
         zoom_max=7,
         attribution=(
             "NASA / JPL / USGS, Mars Viking MDIM21 color mosaic; served by NASA Trek. "
@@ -652,7 +653,7 @@ PLANETARY_MAP_LAYERS: tuple[PlanetaryMapLayer, ...] = (
         title="Mars MGS MOLA Colored Shaded Relief (463 m)",
         layer_path="Mars_MGS_MOLA_ClrShade_merge_global_463m",
         layer_type="elevation",
-        format="jpg",
+        format="jpeg",
         zoom_max=7,
         attribution=(
             "NASA / GSFC / MOLA Science Team, Mars Global Surveyor MOLA shaded relief; "
