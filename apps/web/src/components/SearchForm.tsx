@@ -966,15 +966,6 @@ export function SearchForm({
             <button type="button" className="link-button" onClick={resetAll}>
               {t("search.reset")}
             </button>
-            {onOpenDimensions && (
-              <button
-                type="button"
-                className="link-button"
-                onClick={onOpenDimensions}
-              >
-                {t("search.dimensionOpen")}
-              </button>
-            )}
             <button
               type="button"
               className="secondary-button"
