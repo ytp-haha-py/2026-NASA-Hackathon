@@ -1,0 +1,18 @@
+[
+  {
+    "access": "public WMS, no credentials",
+    "dataset_id": "gsc-of-5529-world-geology",
+    "license": "Open Government Licence - Canada 2.0",
+    "license_url": "https://open.canada.ca/en/open-government-licence-canada",
+    "map_scale": "1:35,000,000",
+    "native_crs": "EPSG:4326",
+    "product": "Generalized Geology of the World: Bedrock Domains and Major Faults in GIS Format",
+    "provider": "Geological Survey of Canada / Natural Resources Canada; WMS by USGS Mineral Resources Program",
+    "redistribution_allowed": "yes",
+    "service_url": "https://mrdata.usgs.gov/geology/gscworld/",
+    "source_id": "gsc-of-5529-world-geology",
+    "url": "https://doi.org/10.4095/223767",
+    "version": "Open File 5529 (2007), approximately 1:35,000,000",
+    "wms_url": "https://mrdata.usgs.gov/services/gscworld"
+  }
+]
