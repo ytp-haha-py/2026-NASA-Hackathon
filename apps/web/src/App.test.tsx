@@ -884,12 +884,14 @@ describe("dimension board", () => {
     expect(attempts).toBe(2);
   });
 
-  it("opens the six-dimension workspace from the board without losing the selected reference", async () => {
+  it("opens the six-dimension workspace from its own section without a board shortcut", async () => {
     const user = userEvent.setup();
     await renderReady({ references: () => jsonResponse([referenceFixture]) });
     await user.click(screen.getByRole("radio", { name: "Moon" }));
     await user.click(screen.getByRole("button", { name: referenceFixture.display_name }));
-    await user.click(screen.getByRole("button", { name: "Open six dimensions" }));
+    const board = within(screen.getByRole("region", { name: "Dimensions" }));
+    expect(board.queryByRole("button", { name: "Open six dimensions" })).not.toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Six-dimension comparison" }));
     expect(await screen.findByRole("heading", { name: "D01–D06 observations for one area" }))
       .toBeInTheDocument();
 
