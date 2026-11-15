@@ -11,6 +11,26 @@ export const zhTW: { [K in MessageKey]?: string } = {
   // Language switcher
   "language.label": "語言",
 
+  "research.label": "研究權重預設",
+  "research.manual": "手動設定",
+  "research.targetHint": "預設只調整 D01 權重。仍需自行設定符合研究目的的目標數值；初始 0 值不是 NASA 建議的目標。按下搜尋才會執行。",
+  "research.unavailable": "研究預設需要全部五項可量化比較的 D01 指標。API capabilities 未提供：{features}。仍可手動設定。",
+  "research.disclaimer": "這些是根據研究需求設計的初始啟發式權重，並非 NASA 官方權重，也未經實驗驗證為最佳權重。",
+  "research.basisTitle": "權重設計依據與輔助證據",
+  "research.basis": "重要性 r：5 核心、4 高、3 中、2 低、1 輔助、0 不適用。滑桿使用 r/2，正規化權重為 r/sum(r)；沿用既有固定 scales 與距離規則。重要性越高表示越重視與目標的接近程度，不是偏好較高或較低的地形數值。",
+  "research.roverTitle": "探測車移動能力與自主導航",
+  "research.roverDescription": "參考 ERNEST 探測車野外測試，優先考量陡坡、平均坡度及粗糙度，以匹配具有代表性移動與導航挑戰的地形。",
+  "research.roverContext": "D06 地表材料、D05 光照及 D03 熱環境暫列為輔助證據，不納入此次數值評分。",
+  "research.roverLimitation": "90 m 地形匹配無法判斷輪尺度的通行能力或實際探測車安全性。",
+  "research.landingTitle": "精準登陸與危險地形辨識",
+  "research.landingDescription": "參考 SPLICE，優先考量 P90 坡度、平坦地形比例及粗糙度，以匹配具有代表性登陸避障挑戰的地形。",
+  "research.landingContext": "D05 光照與 D06 地表材料暫列為輔助證據，不納入此次數值評分。",
+  "research.landingLimitation": "90 m DEM 無法判斷局部岩石、連續安全著陸區域或實際登陸安全性。此預設匹配地形挑戰，不用於選定安全著陸點。",
+  "research.fieldworkTitle": "地質野外調查與採樣",
+  "research.fieldworkDescription": "參考 Artemis JETT / D-RATS 野外測試，優先考量地形高低落差、粗糙度及平均坡度，以匹配野外地質調查的地貌環境。",
+  "research.fieldworkContext": "D02 地質與礦物是研究核心需求，D06 地表材料亦有研究價值；目前均只作輔助證據，不納入數值評分。",
+  "research.fieldworkLimitation": "此預設僅代表地形匹配，不代表完整地質相似度，也不是採樣場址建議。",
+
   // Common
   "common.errorCode": "錯誤代碼：{code}",
   "common.httpStatus": " · HTTP {status}",
