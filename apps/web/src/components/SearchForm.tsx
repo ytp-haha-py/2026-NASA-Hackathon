@@ -25,6 +25,7 @@ import {
 } from "../lib/dimensions";
 import type { SearchSubmission, SearchTargetPreset } from "../lib/search-types";
 import {
+  RESEARCH_FEATURE_IDS,
   RESEARCH_PRESETS,
   researchWeights,
   unavailableResearchFeatures,
@@ -891,6 +892,7 @@ export function SearchForm({
           <ResearchScenarioPicker
             selectedId={selectedResearchPreset?.id ?? "manual"}
             missing={missingResearchFeatures}
+            features={features}
             onChange={applyResearchPreset}
           />
         )}
@@ -1144,10 +1146,12 @@ export function SearchForm({
 function ResearchScenarioPicker({
   selectedId,
   missing,
+  features,
   onChange,
 }: {
   selectedId: string;
   missing: readonly string[];
+  features: FeatureOut[];
   onChange: (id: string) => void;
 }) {
   const { t, fmt, label } = useI18n();
@@ -1155,6 +1159,19 @@ function ResearchScenarioPicker({
   const rootRef = useRef<HTMLDivElement>(null);
   const unavailable = missing.length > 0;
   const selected = RESEARCH_PRESETS.find((item) => item.id === selectedId);
+  const featureLabels = useMemo(
+    () => new Map(features.map((f) => [f.id, f.label])),
+    [features],
+  );
+  const emphasis = useMemo(
+    () => selected
+      ? RESEARCH_FEATURE_IDS.map((id, index) => ({ id, index, r: selected.importance[id] }))
+          .sort((a, b) => b.r - a.r || a.index - b.index)
+          .slice(0, 3)
+          .map((entry) => label.feature(entry.id, featureLabels.get(entry.id)))
+      : [],
+    [selected, featureLabels, label],
+  );
   const groups = [...new Set(RESEARCH_PRESETS.map((item) => item.groupKey))];
 
   useEffect(() => {
@@ -1240,6 +1257,11 @@ function ResearchScenarioPicker({
           </fieldset>
         )}
       </div>
+      {selected && emphasis.length > 0 && (
+        <p className="research-emphasis">
+          {t("research.emphasis", { features: fmt.list(emphasis) })}{" "}
+        </p>
+      )}
     </div>
   );
 }
