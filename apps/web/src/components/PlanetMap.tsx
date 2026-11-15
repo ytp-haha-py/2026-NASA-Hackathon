@@ -5,10 +5,17 @@ import type { ReferenceOut } from "../api/client";
 
 export type PlanetBody = "Moon" | "Mars";
 
+type MapReference = ReferenceOut & { lat: number; lon: number };
+
+export function hasMapCoordinates(reference: ReferenceOut): reference is MapReference {
+  return Number.isFinite(reference.lat) && Number.isFinite(reference.lon);
+}
+
 type PlanetMapProps = {
   body: PlanetBody;
-  references: ReferenceOut[];
+  references: MapReference[];
   selectedReferenceId: string | null;
+  onSelectReference: (id: string) => void;
   regionLabel: string;
 };
 
@@ -32,24 +39,25 @@ const BODY_TILES: Record<PlanetBody, { url: string; maxNativeZoom: number; attri
   },
 };
 
-const WORLD: L.LatLngBoundsExpression = [
+const WORLD: L.LatLngTuple[] = [
   [-90, -180],
   [90, 180],
 ];
 
-const PIN_COLOR = "#b93d0a";
+const PIN_SIZE = 24;
+const MAP_PADDING: L.PointExpression = [24, 24];
 
-function coordinateText(lat: number, lon: number): string {
-  const ns = lat >= 0 ? "N" : "S";
-  const ew = lon >= 0 ? "E" : "W";
-  return `${Math.abs(lat).toFixed(2)}°${ns}  ${Math.abs(lon).toFixed(2)}°${ew}`;
-}
-
-/** Reference sites of one body on that body's own basemap. Mount with `key={body}`. */
-export function PlanetMap({ body, references, selectedReferenceId, regionLabel }: PlanetMapProps) {
+export function PlanetMap({
+  body,
+  references,
+  selectedReferenceId,
+  onSelectReference,
+  regionLabel,
+}: PlanetMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
+  const pins = useRef(new Map<string, HTMLButtonElement>());
 
   useEffect(() => {
     const container = containerRef.current;
@@ -57,20 +65,22 @@ export function PlanetMap({ body, references, selectedReferenceId, regionLabel }
       return;
     }
     const spec = BODY_TILES[body];
+    // The closest lunar ROIs still overlap at the imagery's native zoom.
+    const maxZoom = body === "Moon" ? 14 : spec.maxNativeZoom + 2;
     const map = L.map(container, {
       crs: L.CRS.EPSG4326,
       center: [0, 0],
       zoom: 1,
       minZoom: 1,
-      maxZoom: spec.maxNativeZoom + 2,
-      maxBounds: WORLD,
+      maxZoom,
+      maxBounds: L.latLngBounds(WORLD).pad(0.1),
       maxBoundsViscosity: 1,
       zoomControl: false,
     });
     L.control.zoom({ position: "bottomright" }).addTo(map);
     L.tileLayer(spec.url, {
       maxNativeZoom: spec.maxNativeZoom,
-      maxZoom: spec.maxNativeZoom + 2,
+      maxZoom,
       noWrap: true,
       bounds: WORLD,
       attribution: spec.attribution,
@@ -94,12 +104,8 @@ export function PlanetMap({ body, references, selectedReferenceId, regionLabel }
       return;
     }
     layer.clearLayers();
-
-    const sites = references.flatMap((reference) =>
-      reference.body === body && typeof reference.lat === "number" && typeof reference.lon === "number"
-        ? [{ ...reference, lat: reference.lat, lon: reference.lon }]
-        : [],
-    );
+    pins.current.clear();
+    const sites = references.filter((reference) => reference.body === body);
     if (sites.length === 0) {
       map.setView([0, 0], 1);
       return;
@@ -107,43 +113,54 @@ export function PlanetMap({ body, references, selectedReferenceId, regionLabel }
 
     const bounds = L.latLngBounds([]);
     for (const site of sites) {
-      const selected = site.reference_id === selectedReferenceId;
-      const position: L.LatLngTuple = [site.lat, site.lon];
+      const position = L.latLng(site.lat, site.lon);
       bounds.extend(position);
-      const marker = L.circleMarker(position, {
-        radius: selected ? 9 : 6,
-        color: "#ffffff",
-        weight: 2,
-        fillColor: PIN_COLOR,
-        fillOpacity: selected ? 1 : 0.85,
+      const pin = document.createElement("button");
+      pin.type = "button";
+      pin.className = "planet-reference-pin";
+      pin.setAttribute("aria-label", site.display_name);
+      L.DomEvent.disableClickPropagation(pin);
+      pins.current.set(site.reference_id, pin);
+
+      const marker = L.marker(position, {
+        keyboard: false,
+        icon: L.divIcon({
+          className: "planet-reference-marker",
+          html: pin,
+          iconSize: [PIN_SIZE, PIN_SIZE],
+          iconAnchor: [PIN_SIZE / 2, PIN_SIZE / 2],
+        }),
       });
       const tooltip = document.createElement("span");
       tooltip.textContent = site.display_name;
-      marker.bindTooltip(tooltip, { direction: "top", offset: [0, -6] });
+      marker.bindTooltip(tooltip, { direction: "top", offset: [0, -10] });
+      pin.addEventListener("click", (event) => {
+        // A keyboard press already identifies one named button.
+        if (event.detail > 0 && map.getZoom() < map.getMaxZoom()) {
+          const point = map.project(position);
+          const nearby = sites.filter((other) =>
+            other !== site && point.distanceTo(map.project([other.lat, other.lon])) < PIN_SIZE,
+          );
+          if (nearby.length > 0) {
+            const group = L.latLngBounds([position]);
+            nearby.forEach((other) => group.extend([other.lat, other.lon]));
+            marker.closeTooltip();
+            map.fitBounds(group, { padding: MAP_PADDING, animate: false });
+            return;
+          }
+        }
+        onSelectReference(site.reference_id);
+      });
       marker.addTo(layer);
-
-      if (selected) {
-        const popup = document.createElement("div");
-        popup.className = "map-popup";
-        const name = document.createElement("strong");
-        name.textContent = site.display_name;
-        const coords = document.createElement("div");
-        coords.className = "mono map-popup-coords";
-        coords.textContent = coordinateText(site.lat, site.lon);
-        popup.append(name, coords);
-        marker
-          .bindPopup(popup, { closeButton: false, autoPan: false, className: "pae-popup" })
-          .openPopup();
-      }
     }
+    map.fitBounds(bounds, { maxZoom: 5, padding: MAP_PADDING, animate: false });
+  }, [body, references, onSelectReference]);
 
-    const selectedSite = sites.find((site) => site.reference_id === selectedReferenceId);
-    if (selectedSite) {
-      map.setView([selectedSite.lat, selectedSite.lon], Math.min(5, BODY_TILES[body].maxNativeZoom));
-    } else {
-      map.fitBounds(bounds.pad(0.4), { maxZoom: 5 });
+  useEffect(() => {
+    for (const [id, pin] of pins.current) {
+      pin.setAttribute("aria-pressed", String(id === selectedReferenceId));
     }
-  }, [body, references, selectedReferenceId]);
+  }, [body, references, onSelectReference, selectedReferenceId]);
 
   return (
     <div
