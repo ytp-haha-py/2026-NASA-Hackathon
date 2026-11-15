@@ -210,7 +210,9 @@ def _assert_explicit_non_fabricated_failure(
     failed_area_id = None
     observed: dict[str, object] = {
         "http_status": response.status_code,
-        "body": response.json() if response.headers.get("content-type", "").startswith("application/json") else {},
+        "body": response.json()
+        if response.headers.get("content-type", "").startswith("application/json")
+        else {},
     }
     if response.status_code in {200, 202}:
         payload = response.json()
@@ -232,7 +234,9 @@ def _assert_explicit_non_fabricated_failure(
         err = response.json().get("error", {}) or {}
         code = str(err.get("code", "")).lower()
         codes = allowed_codes or COVERAGE_CODES
-        assert code in codes or any(token in code for token in ("coverage", "outside", "nodata", "source")), (
+        assert code in codes or any(
+            token in code for token in ("coverage", "outside", "nodata", "source")
+        ), (
             code,
             response.text,
         )
@@ -245,9 +249,24 @@ def _assert_explicit_non_fabricated_failure(
 @pytest.mark.parametrize(
     ("case_id", "label", "bbox", "lat_band_note"),
     [
-        ("moon_committed_real_1", "moon_sw_cell_low_lat", MOON_SW_CELL, "low latitude (~10S), committed pilot"),
-        ("moon_committed_real_2", "moon_ne_cell_low_lat", MOON_NE_CELL, "low latitude (~10S), committed pilot"),
-        ("moon_committed_real_3", "moon_full_block_low_lat", MOON_FULL_BLOCK, "low latitude (~10S), committed pilot"),
+        (
+            "moon_committed_real_1",
+            "moon_sw_cell_low_lat",
+            MOON_SW_CELL,
+            "low latitude (~10S), committed pilot",
+        ),
+        (
+            "moon_committed_real_2",
+            "moon_ne_cell_low_lat",
+            MOON_NE_CELL,
+            "low latitude (~10S), committed pilot",
+        ),
+        (
+            "moon_committed_real_3",
+            "moon_full_block_low_lat",
+            MOON_FULL_BLOCK,
+            "low latitude (~10S), committed pilot",
+        ),
     ],
 )
 def test_moon_real_aoi_e2e_three_committed_cases(
@@ -266,9 +285,24 @@ def test_moon_real_aoi_e2e_three_committed_cases(
 @pytest.mark.parametrize(
     ("case_id", "label", "bbox", "lat_band_note"),
     [
-        ("mars_committed_real_1", "mars_sw_cell_low_mid_lat", MARS_SW_CELL, "low/mid latitude (~18.5N), committed pilot"),
-        ("mars_committed_real_2", "mars_ne_cell_low_mid_lat", MARS_NE_CELL, "low/mid latitude (~18.6N), committed pilot"),
-        ("mars_committed_real_3", "mars_full_block_low_mid_lat", MARS_FULL_BLOCK, "low/mid latitude (~18.5N), committed pilot"),
+        (
+            "mars_committed_real_1",
+            "mars_sw_cell_low_mid_lat",
+            MARS_SW_CELL,
+            "low/mid latitude (~18.5N), committed pilot",
+        ),
+        (
+            "mars_committed_real_2",
+            "mars_ne_cell_low_mid_lat",
+            MARS_NE_CELL,
+            "low/mid latitude (~18.6N), committed pilot",
+        ),
+        (
+            "mars_committed_real_3",
+            "mars_full_block_low_mid_lat",
+            MARS_FULL_BLOCK,
+            "low/mid latitude (~18.5N), committed pilot",
+        ),
     ],
 )
 def test_mars_real_aoi_e2e_three_committed_cases(
@@ -282,12 +316,42 @@ def test_mars_real_aoi_e2e_three_committed_cases(
 @pytest.mark.parametrize(
     ("case_id", "body", "bbox", "note"),
     [
-        ("moon_nodata_out_of_coverage", "Moon", MOON_NODATA_EQUIVALENT, "nodata/out-of-coverage outside committed pilots"),
-        ("moon_midlat_outside_committed", "Moon", MOON_MIDLAT_OUTSIDE, "mid-latitude request; committed Moon pilot is low-lat (~10S) only"),
-        ("moon_highlat_outside_committed", "Moon", MOON_HIGHLAT_OUTSIDE, "high-latitude request; outside committed pilot coverage"),
-        ("mars_nodata_out_of_coverage", "Mars", MARS_NODATA_EQUIVALENT, "nodata/out-of-coverage outside committed pilots"),
-        ("mars_lowlat_outside_committed", "Mars", MARS_LOWLAT_OUTSIDE, "low-latitude request outside committed Mars pilot (~18.5N)"),
-        ("mars_highlat_outside_committed", "Mars", MARS_HIGHLAT_OUTSIDE, "high-latitude request; outside committed pilot coverage"),
+        (
+            "moon_nodata_out_of_coverage",
+            "Moon",
+            MOON_NODATA_EQUIVALENT,
+            "nodata/out-of-coverage outside committed pilots",
+        ),
+        (
+            "moon_midlat_outside_committed",
+            "Moon",
+            MOON_MIDLAT_OUTSIDE,
+            "mid-latitude request; committed Moon pilot is low-lat (~10S) only",
+        ),
+        (
+            "moon_highlat_outside_committed",
+            "Moon",
+            MOON_HIGHLAT_OUTSIDE,
+            "high-latitude request; outside committed pilot coverage",
+        ),
+        (
+            "mars_nodata_out_of_coverage",
+            "Mars",
+            MARS_NODATA_EQUIVALENT,
+            "nodata/out-of-coverage outside committed pilots",
+        ),
+        (
+            "mars_lowlat_outside_committed",
+            "Mars",
+            MARS_LOWLAT_OUTSIDE,
+            "low-latitude request outside committed Mars pilot (~18.5N)",
+        ),
+        (
+            "mars_highlat_outside_committed",
+            "Mars",
+            MARS_HIGHLAT_OUTSIDE,
+            "high-latitude request; outside committed pilot coverage",
+        ),
     ],
 )
 def test_planetary_required_nodata_and_lat_band_explicit_non_fabricated(
@@ -450,7 +514,13 @@ def test_openapi_and_types_contract_compatibility_170(client: TestClient):
     assert "AoiAnalyzeResponse" in resp_schema
 
     schemas = spec.get("components", {}).get("schemas", {})
-    for name in ("PlanetaryAoiAnalyzeRequest", "AoiAnalyzeResponse", "JobOut", "GeoBBoxIn", "ErrorOut"):
+    for name in (
+        "PlanetaryAoiAnalyzeRequest",
+        "AoiAnalyzeResponse",
+        "JobOut",
+        "GeoBBoxIn",
+        "ErrorOut",
+    ):
         assert name in schemas, f"missing schema {name}"
     planetary_req = schemas["PlanetaryAoiAnalyzeRequest"]
     props = planetary_req.get("properties", {})
@@ -459,7 +529,9 @@ def test_openapi_and_types_contract_compatibility_170(client: TestClient):
 
     committed_openapi = json.loads((ROOT / "contracts/openapi.json").read_text())
     assert "/api/v1/planetary/areas/analyze" in committed_openapi.get("paths", {})
-    assert "PlanetaryAoiAnalyzeRequest" in committed_openapi.get("components", {}).get("schemas", {})
+    assert "PlanetaryAoiAnalyzeRequest" in committed_openapi.get("components", {}).get(
+        "schemas", {}
+    )
 
     schema_dts = (ROOT / "apps/web/src/api/schema.d.ts").read_text()
     assert "/api/v1/planetary/areas/analyze" in schema_dts
