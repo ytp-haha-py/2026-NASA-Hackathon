@@ -1,5 +1,10 @@
 # Raster Data Infrastructure (Goal C, #170)
 
+> **Implementation note (C1, 2026-11-15):** the delivered source adapter and bounded
+> window contract is documented in [`RASTER_SOURCE_170.md`](RASTER_SOURCE_170.md).
+> Adapter class names below are the original planning sketch; the implemented surface is
+> `RasterSource` / `RasterReader` and the cache remains in `raster_cache.py`.
+
 ## Purpose
 
 Provide a shared, offline-first raster access layer for pipelines that need Earth (and

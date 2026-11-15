@@ -5,63 +5,46 @@ from __future__ import annotations
 import os
 import threading
 import time
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
+import numpy as np
+import rasterio
 from analog_pipelines.raster_cache import HeavyJobLimiter, RasterCache
-from analog_pipelines.raster_source import HttpRangeSource
+from analog_pipelines.raster_source import RasterAccessKind, RasterSource, read_source_window
+from rasterio.transform import from_origin
+from rasterio.windows import Window
 
 
-class _Handler(BaseHTTPRequestHandler):
-    payload = b""
+def test_bounded_window_read_throughput_small_synthetic(tmp_path: Path):
+    path = tmp_path / "synthetic_raster_perf_fixture_not_an_observation.tif"
+    profile = {
+        "driver": "GTiff",
+        "width": 256,
+        "height": 256,
+        "count": 1,
+        "dtype": "float32",
+        "crs": "EPSG:32633",
+        "transform": from_origin(500_000.0, 5_000_000.0, 30.0, 30.0),
+        "nodata": -9999.0,
+        "tiled": True,
+        "blockxsize": 64,
+        "blockysize": 64,
+    }
+    with rasterio.open(path, "w", **profile) as dataset:
+        dataset.write(np.arange(256 * 256, dtype="float32").reshape(256, 256), 1)
 
-    def do_HEAD(self):  # noqa: N802
-        self.send_response(200)
-        self.send_header("Content-Length", str(len(self.payload)))
-        self.send_header("Accept-Ranges", "bytes")
-        self.end_headers()
-
-    def do_GET(self):  # noqa: N802
-        rng = self.headers.get("Range")
-        body = self.payload
-        if rng and rng.startswith("bytes="):
-            start_s, end_s = rng.split("=", 1)[1].split("-", 1)
-            start = int(start_s)
-            end = int(end_s) if end_s else len(body) - 1
-            chunk = body[start : min(end, len(body) - 1) + 1]
-            self.send_response(206)
-            self.send_header("Content-Range", f"bytes {start}-{start + len(chunk) - 1}/{len(body)}")
-            self.send_header("Content-Length", str(len(chunk)))
-            self.end_headers()
-            self.wfile.write(chunk)
-            return
-        self.send_response(200)
-        self.send_header("Content-Length", str(len(body)))
-        self.end_headers()
-        self.wfile.write(body)
-
-    def log_message(self, fmt, *args):  # noqa: A003
-        return
-
-
-def test_chunked_download_throughput_small_synthetic(tmp_path: Path):
-    payload = os.urandom(256 * 1024)
-    handler = type("H", (_Handler,), {"payload": payload})
-    server = ThreadingHTTPServer(("127.0.0.1", 0), handler)
-    t = threading.Thread(target=server.serve_forever, daemon=True)
-    t.start()
-    try:
-        url = f"http://127.0.0.1:{server.server_address[1]}/x.bin"
-        src = HttpRangeSource(url, chunk_size=32 * 1024)
-        start = time.perf_counter()
-        res = src.fetch(tmp_path / "x.bin")
-        elapsed = time.perf_counter() - start
-        assert res.path.read_bytes() == payload
-        assert res.state.complete is True
-        assert elapsed < 10.0
-    finally:
-        server.shutdown()
-        t.join(timeout=2)
+    source = RasterSource(
+        path,
+        kind=RasterAccessKind.STAGED_TILE,
+        version="synthetic",
+        license="test only",
+    )
+    start = time.perf_counter()
+    result = read_source_window(source, window=Window(64, 64, 128, 128))
+    elapsed = time.perf_counter() - start
+    assert result.data.shape == (128, 128)
+    assert result.valid_fraction == 1.0
+    assert elapsed < 10.0
 
 
 def test_cache_put_get_micro_perf(tmp_path: Path):
