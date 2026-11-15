@@ -165,3 +165,12 @@ Tests live alongside pipeline tests and must remain **fast, offline, and synthet
 - Do not “repair” missing data by filling nodata with zeros/defaults.
 - Do not broaden tests to require credentials, large fixtures, or network access.
 - Keep CRS/frame handling explicit; planetary products are not Earth products.
+
+## Implementation status (C2)
+
+The cache/resume/budget implementation is in
+[`raster_cache.py`](../pipelines/src/analog_pipelines/raster_cache.py) and is
+described in detail in [`RASTER_CACHE_170.md`](RASTER_CACHE_170.md). Where the
+API sketch above differs from the shipped names (`CacheKey`, `RasterCache`,
+`ChunkedWrite`, `ResourceBudget`, `read_window_cached`), the C2 document and the
+module are authoritative.
