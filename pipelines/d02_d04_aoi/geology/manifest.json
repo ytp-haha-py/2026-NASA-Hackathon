@@ -112,5 +112,5 @@
     "unknown": 10
   },
   "typed_manifest": "pipelines/geology/typed/manifest.json",
-  "typed_manifest_sha256": "sha256:57519e5d35175a6a739d51277ee70e3bcb99946f941dba5c3e181aca2a6c986a"
+  "typed_manifest_sha256": "sha256:8e0df469625d809cf3a05717f823dbd37004b22223237b9275bcc748ad7acc98"
 }

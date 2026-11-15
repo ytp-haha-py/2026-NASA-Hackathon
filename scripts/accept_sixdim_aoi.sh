@@ -598,7 +598,8 @@ role_guard = post(
     expected=422,
 )
 assert role_guard["error"]["code"] == "feature_role_not_scoreable"
-assert role_guard["error"]["details"][0]["legal_roles"] == ["evidence"]
+# Issue #170 adds an exact-label category filter; similarity stays disabled.
+assert role_guard["error"]["details"][0]["legal_roles"] == ["category_match", "evidence"]
 print(
     f"    cross-body={cross_body['error']['code']} role={role_guard['error']['code']}"
 )
@@ -735,7 +736,7 @@ print(
 )
 print(
     "[sixdim-aoi] non-claims: subset coverage only; no global survey; "
-    "D02-D05 are evidence/context; D06 is Earth-only SoilGrids 0-5 cm means."
+    "D02-D05 expose filters/category controls but no similarity; D06 is Earth-only SoilGrids 0-5 cm means."
 )
 PY
 
