@@ -134,3 +134,10 @@ uv run python -m analog_pipelines.acquisition run \
 The committed pilot contains 75 observations: clay, sand, silt, SOC and bulk density at 0–5 cm,
 with mean/Q0.05/Q0.95 quantiles. All are evidence-only, use 250 m metric source resolution and
 preserve the depth interval. They do not enter Terrain similarity.
+
+## D03 Earth thermal pilot
+
+The same NASA POWER provider now also plans D03 thermal tasks (`T2M`, `T2M_MAX`, `T2M_MIN`, `TS`).
+The committed pilot contains 20 context-only timeseries observations for 5 AOIs over
+2024-01-01..07. Air temperature and skin temperature are kept distinct; no thermal inertia, diurnal
+range or cross-body thermal score is derived.

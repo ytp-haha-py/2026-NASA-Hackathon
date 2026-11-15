@@ -227,10 +227,27 @@ dimensions:
     research_question: "地表具有什麼溫度及熱物理環境？"
     subgroups: [surface_temperature, thermal_inertia]
     research_classes: []
-    baseline: "No D03 observations; candidate sources only"
+    baseline: "20 Earth NASA POWER thermal context observations; no thermal inertia; Moon/Mars thermal still unavailable"
     bodies:
       Earth:
         sources:
+          - source_id: nasa-power-thermal-daily
+            provider: NASA Langley Research Center / NASA POWER
+            product: NASA POWER Daily Point API thermal parameters
+            url: https://power.larc.nasa.gov/api/temporal/daily/point
+            license: NASA POWER data are free and open; cite NASA POWER
+            license_url: https://power.larc.nasa.gov/docs/services/api/
+            native_resolution: approximately 0.5 x 0.625 degree
+            spatial_support: Five Earth AOI point contexts; not a 1.98 km measurement
+            temporal_support: Daily; pilot 2024-01-01 through 2024-01-07
+            depth_support: near-surface air and skin temperature; not subsurface
+            observation_kinds: [timeseries]
+            qa: Fill/finite checks; model/reanalysis context; no thermal inertia derived
+            availability: accessible
+            data_status: existing_observed
+            comparability: context_only
+            notes: "Pilot: 5 AOIs, 20 timeseries observations (T2M, T2M_MAX, T2M_MIN, TS)."
+            unknown_fields: []
           - source_id: nasa-mod11a2
             provider: NASA LP DAAC
             product: MOD11A2 Version 6.1 (8-day LST)

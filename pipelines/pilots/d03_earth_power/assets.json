@@ -1,0 +1,62 @@
+[
+  {
+    "asset_id": "nasa-power:earth-atacama-desert:nasa-power-D03-earth-earth-atacama-desert-2024-01-01-2024-01-07",
+    "bytes": 1167,
+    "checksum": "14b401a9789206a3bd89020c87271ff1be8aef5665ff6b9030156b9b180a9777",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "nasa-power-daily-point",
+    "fetched_at": "2026-11-15T01:56:29.112145+00:00",
+    "redistribution_allowed": "unknown",
+    "source_endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CTS&community=RE&longitude=-68.399999&latitude=-23.500000&start=20240101&end=20240107&format=JSON",
+    "uri": "raw/nasa-power-D03-earth-earth-atacama-desert-2024-01-01-2024-01-07.json"
+  },
+  {
+    "asset_id": "nasa-power:earth-death-valley:nasa-power-D03-earth-earth-death-valley-2024-01-01-2024-01-07",
+    "bytes": 1146,
+    "checksum": "1b3963a85b621546af19dd34d3aaa084b3dd099aeab9ba7b105d36ed04abba89",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "nasa-power-daily-point",
+    "fetched_at": "2026-11-15T01:56:29.068392+00:00",
+    "redistribution_allowed": "unknown",
+    "source_endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CTS&community=RE&longitude=-117.100001&latitude=36.249999&start=20240101&end=20240107&format=JSON",
+    "uri": "raw/nasa-power-D03-earth-earth-death-valley-2024-01-01-2024-01-07.json"
+  },
+  {
+    "asset_id": "nasa-power:earth-devon-island:nasa-power-D03-earth-earth-devon-island-2024-01-01-2024-01-07",
+    "bytes": 1195,
+    "checksum": "87b7642c374d2664e9c25d8b1a6c873758cac071019a200281e0ec350e7482bb",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "nasa-power-daily-point",
+    "fetched_at": "2026-11-15T01:56:30.034431+00:00",
+    "redistribution_allowed": "unknown",
+    "source_endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CTS&community=RE&longitude=-89.850021&latitude=75.399998&start=20240101&end=20240107&format=JSON",
+    "uri": "raw/nasa-power-D03-earth-earth-devon-island-2024-01-01-2024-01-07.json"
+  },
+  {
+    "asset_id": "nasa-power:earth-lanzarote:nasa-power-D03-earth-earth-lanzarote-2024-01-01-2024-01-07",
+    "bytes": 1164,
+    "checksum": "7f9e2d16224c61fc412a9e3b45fe2308e809ebfd28703df0cdf744ab16b64c20",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "nasa-power-daily-point",
+    "fetched_at": "2026-11-15T01:56:29.252596+00:00",
+    "redistribution_allowed": "unknown",
+    "source_endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CTS&community=RE&longitude=-13.629999&latitude=29.040000&start=20240101&end=20240107&format=JSON",
+    "uri": "raw/nasa-power-D03-earth-earth-lanzarote-2024-01-01-2024-01-07.json"
+  },
+  {
+    "asset_id": "nasa-power:earth-sahara-r1c1:nasa-power-D03-earth-earth-sahara-r1c1-2024-01-01-2024-01-07",
+    "bytes": 1162,
+    "checksum": "755e6e6512496b1f0e9964bd1668ac1d62ca38fbb9d339ffef35859339a4ed84",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "nasa-power-daily-point",
+    "fetched_at": "2026-11-15T01:56:30.111476+00:00",
+    "redistribution_allowed": "unknown",
+    "source_endpoint": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CTS&community=RE&longitude=10.470085&latitude=24.473205&start=20240101&end=20240107&format=JSON",
+    "uri": "raw/nasa-power-D03-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json"
+  }
+]

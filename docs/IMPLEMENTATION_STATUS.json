@@ -46,16 +46,24 @@
       "scientific_data_status": "pilot_observations"
     },
     "D03": {
-      "actual_observation_counts": {},
-      "comparison_status": "not_comparable",
+      "actual_observation_counts": {
+        "Earth_power_thermal": 20,
+        "Mars": 0,
+        "Moon": 0,
+        "thermal_inertia": 0
+      },
+      "comparison_status": "context_only",
       "evidence": [
-        "typed contracts and inventory only"
+        "typed contracts and inventory only",
+        "20 NASA POWER thermal timeseries observations across 5 AOIs"
       ],
-      "implementation_status": "not_started",
+      "implementation_status": "pilot",
       "remaining_blockers": [
-        "provider adapters and access"
+        "Moon/Mars thermal products",
+        "thermal inertia and local-solar-time products",
+        "no local 1.98 km measurement"
       ],
-      "scientific_data_status": "none"
+      "scientific_data_status": "pilot_observations"
     },
     "D04": {
       "actual_observation_counts": {},
@@ -203,20 +211,23 @@
       "title": "D02 mineral detection"
     },
     {
-      "comparison_status": "not_comparable",
+      "comparison_status": "context_only",
       "dependencies": [
         26,
         27
       ],
       "evidence": [
-        "inventory only"
+        "inventory only",
+        "20 real NASA POWER thermal observations imported as context-only D03 records"
       ],
-      "implementation_status": "not_started",
+      "implementation_status": "in_progress",
       "number": 43,
       "remaining_blockers": [
-        "MODIS/THEMIS/Diviner adapters and acquisition authorization"
+        "MODIS/Diviner/THEMIS thermal products",
+        "thermal inertia and local-solar-time support",
+        "no local 1.98 km measurement"
       ],
-      "scientific_data_status": "none",
+      "scientific_data_status": "pilot_observations",
       "title": "D03 thermal"
     },
     {
@@ -569,7 +580,6 @@
     }
   ],
   "next_independent_tasks": [
-    "implement D03 Earth thermal provider discovery with explicit Earthdata authentication blockers",
     "implement D04 Earth water/ice metadata discovery with explicit authentication/coverage blockers",
     "implement Moon/Mars illumination only after SPICE frame and horizon validation",
     "acquire a real coarse Geomorpho index only under an authorized bounded data plan",
