@@ -614,6 +614,428 @@
         "title": "CoverageOut",
         "type": "object"
       },
+      "CrossBodyBodyOut": {
+        "properties": {
+          "analysis_support_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Support M"
+          },
+          "analysis_support_ratio_vs_earth": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Support Ratio Vs Earth"
+          },
+          "body": {
+            "title": "Body",
+            "type": "string"
+          },
+          "frame_kind": {
+            "title": "Frame Kind",
+            "type": "string"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          },
+          "manifest": {
+            "title": "Manifest",
+            "type": "string"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/CrossBodyMetricOut"
+            },
+            "title": "Metrics",
+            "type": "array"
+          },
+          "native_support_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Native Support M"
+          },
+          "quality_flags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Quality Flags",
+            "type": "array"
+          },
+          "region_id": {
+            "title": "Region Id",
+            "type": "string"
+          },
+          "sample_label": {
+            "title": "Sample Label",
+            "type": "string"
+          },
+          "source_id": {
+            "title": "Source Id",
+            "type": "string"
+          },
+          "support_ratio_vs_earth": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Support Ratio Vs Earth"
+          },
+          "vertical_unit_status": {
+            "title": "Vertical Unit Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "body",
+          "source_id",
+          "region_id",
+          "manifest",
+          "method_version",
+          "native_support_m",
+          "analysis_support_m",
+          "support_ratio_vs_earth",
+          "analysis_support_ratio_vs_earth",
+          "frame_kind",
+          "sample_label",
+          "vertical_unit_status",
+          "metrics",
+          "limitations",
+          "quality_flags"
+        ],
+        "title": "CrossBodyBodyOut",
+        "type": "object"
+      },
+      "CrossBodyCountsOut": {
+        "properties": {
+          "eligible_metric_observations": {
+            "title": "Eligible Metric Observations",
+            "type": "integer"
+          },
+          "evidence_sources": {
+            "title": "Evidence Sources",
+            "type": "integer"
+          },
+          "excluded_metric_observations": {
+            "title": "Excluded Metric Observations",
+            "type": "integer"
+          },
+          "ranked_candidates": {
+            "title": "Ranked Candidates",
+            "type": "integer"
+          },
+          "scanned_metric_observations": {
+            "title": "Scanned Metric Observations",
+            "type": "integer"
+          },
+          "unknown_metric_observations": {
+            "title": "Unknown Metric Observations",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "evidence_sources",
+          "scanned_metric_observations",
+          "eligible_metric_observations",
+          "excluded_metric_observations",
+          "unknown_metric_observations",
+          "ranked_candidates"
+        ],
+        "title": "CrossBodyCountsOut",
+        "type": "object"
+      },
+      "CrossBodyEarthBaselineOut": {
+        "properties": {
+          "features": {
+            "items": {
+              "$ref": "#/components/schemas/CrossBodyEarthFeatureOut"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "frame_kind": {
+            "title": "Frame Kind",
+            "type": "string"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "support_m": {
+            "title": "Support M",
+            "type": "number"
+          },
+          "value_source": {
+            "title": "Value Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "method_version",
+          "support_m",
+          "frame_kind",
+          "value_source",
+          "features"
+        ],
+        "title": "CrossBodyEarthBaselineOut",
+        "type": "object"
+      },
+      "CrossBodyEarthFeatureOut": {
+        "properties": {
+          "feature_id": {
+            "title": "Feature Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "scale": {
+            "title": "Scale",
+            "type": "number"
+          },
+          "spatial_support": {
+            "title": "Spatial Support",
+            "type": "string"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          }
+        },
+        "required": [
+          "feature_id",
+          "label",
+          "unit",
+          "scale",
+          "spatial_support"
+        ],
+        "title": "CrossBodyEarthFeatureOut",
+        "type": "object"
+      },
+      "CrossBodyGateOut": {
+        "properties": {
+          "blocking_features": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Blocking Features",
+            "type": "array"
+          },
+          "bodies": {
+            "items": {
+              "$ref": "#/components/schemas/CrossBodyBodyOut"
+            },
+            "title": "Bodies",
+            "type": "array"
+          },
+          "claim_scope": {
+            "title": "Claim Scope",
+            "type": "string"
+          },
+          "comparability_decisions": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Comparability Decisions",
+            "type": "array"
+          },
+          "counts": {
+            "$ref": "#/components/schemas/CrossBodyCountsOut"
+          },
+          "earth_baseline": {
+            "$ref": "#/components/schemas/CrossBodyEarthBaselineOut"
+          },
+          "eligibility_contract": {
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "title": "Eligibility Contract",
+            "type": "array"
+          },
+          "gate_version": {
+            "title": "Gate Version",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "ranked": {
+            "title": "Ranked",
+            "type": "boolean"
+          },
+          "ranked_candidates": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Ranked Candidates",
+            "type": "array"
+          },
+          "ranking_enabled": {
+            "title": "Ranking Enabled",
+            "type": "boolean"
+          },
+          "status": {
+            "enum": [
+              "blocked",
+              "ready",
+              "no_evidence"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "uncertainty": {
+            "additionalProperties": true,
+            "title": "Uncertainty",
+            "type": "object"
+          }
+        },
+        "required": [
+          "gate_version",
+          "ranked",
+          "ranking_enabled",
+          "status",
+          "claim_scope",
+          "eligibility_contract",
+          "earth_baseline",
+          "bodies",
+          "comparability_decisions",
+          "blocking_features",
+          "uncertainty",
+          "ranked_candidates",
+          "counts",
+          "note"
+        ],
+        "title": "CrossBodyGateOut",
+        "type": "object"
+      },
+      "CrossBodyMetricOut": {
+        "properties": {
+          "analysis_support_ratio_vs_earth": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Support Ratio Vs Earth"
+          },
+          "decision": {
+            "title": "Decision",
+            "type": "string"
+          },
+          "earth_method_version": {
+            "title": "Earth Method Version",
+            "type": "string"
+          },
+          "eligible": {
+            "title": "Eligible",
+            "type": "boolean"
+          },
+          "feature_id": {
+            "title": "Feature Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "$ref": "#/components/schemas/CrossBodyReasonOut"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "support_ratio_vs_earth": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Support Ratio Vs Earth"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          }
+        },
+        "required": [
+          "feature_id",
+          "label",
+          "unit",
+          "decision",
+          "eligible",
+          "method_version",
+          "earth_method_version",
+          "support_ratio_vs_earth",
+          "analysis_support_ratio_vs_earth",
+          "reasons"
+        ],
+        "title": "CrossBodyMetricOut",
+        "type": "object"
+      },
+      "CrossBodyReasonOut": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "CrossBodyReasonOut",
+        "type": "object"
+      },
       "DatasetOut": {
         "properties": {
           "access_timestamp": {
@@ -2596,6 +3018,55 @@
           }
         },
         "summary": "Global Coverage"
+      }
+    },
+    "/api/v1/global/cross-body": {
+      "get": {
+        "description": "Report the cross-body eligibility gate without ever emitting a cross-body score.",
+        "operationId": "global_cross_body_gate_api_v1_global_cross_body_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrossBodyGateOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Global Cross Body Gate"
       }
     },
     "/api/v1/global/refine-plan": {

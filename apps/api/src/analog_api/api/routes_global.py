@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from dataclasses import asdict
 from pathlib import Path
 
@@ -14,11 +15,13 @@ from analog_pipelines.coarse_index import (
     resolve_index_root,
 )
 from analog_pipelines.coarse_reference import plan_refine_windows
+from analog_pipelines.cross_body_gate import build_cross_body_gate
 from fastapi import APIRouter, Request
 
 from analog_api.config import resolve_repo_path
 from analog_api.domain.errors import AppError
 from analog_api.schemas import (
+    CrossBodyGateOut,
     ErrorOut,
     GlobalCoverageOut,
     GlobalSearchRequest,
@@ -130,6 +133,52 @@ def global_search(request: Request, payload: GlobalSearchRequest) -> dict[str, o
             "Refine explicitly before comparing with the existing 90 m index."
         ),
     }
+
+
+@router.get("/cross-body", response_model=CrossBodyGateOut, responses=ERROR_RESPONSES)
+def global_cross_body_gate(request: Request) -> dict[str, object]:
+    """Report the cross-body eligibility gate without ever emitting a cross-body score."""
+    directory = resolve_repo_path(request.app.state.settings.planetary_coarse_dir)
+    index_path = directory / "index.json"
+    if not index_path.is_file():
+        return build_cross_body_gate({}, {})
+    try:
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise AppError(
+            "cross_body_evidence_invalid",
+            f"Planetary coarse index {index_path} could not be read: {exc}",
+            status_code=409,
+        ) from exc
+    if not isinstance(index, dict):
+        raise AppError(
+            "cross_body_evidence_invalid",
+            "Planetary coarse index must be a JSON object.",
+            status_code=409,
+        )
+    manifests: dict[str, dict[str, object]] = {}
+    for pilot in index.get("pilots", []):
+        if not isinstance(pilot, dict):
+            continue
+        reference = pilot.get("manifest")
+        if not isinstance(reference, str) or not reference:
+            continue
+        manifest_path = Path(reference)
+        if not manifest_path.is_absolute():
+            manifest_path = resolve_repo_path(reference)
+        if not manifest_path.is_file():
+            continue
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise AppError(
+                "cross_body_evidence_invalid",
+                f"Planetary coarse manifest {reference} could not be read: {exc}",
+                status_code=409,
+            ) from exc
+        if isinstance(manifest, dict):
+            manifests[reference] = manifest
+    return build_cross_body_gate(index, manifests)
 
 
 @router.get("/candidates/{candidate_id}", responses=ERROR_RESPONSES)

@@ -309,3 +309,92 @@ def test_real_pilot_search_exposes_region_scope_versions_and_never_claims_global
         assert unknown.json()["eligible_candidate_count"] == 0
         assert unknown.json()["excluded_candidate_count"] == 168
         assert unknown.json()["coverage_label"] == body["label"]
+
+
+def test_cross_body_gate_refuses_to_rank_and_explains_every_exclusion(tmp_path: Path):
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'cross-body.db'}",
+        manifest_dir=str(tmp_path / "none"),
+        manifest_dir_planetary=str(tmp_path / "none"),
+        manifest_dir_context=str(tmp_path / "none"),
+        global_index_dir=str(tmp_path / "no-global-index"),
+        planetary_coarse_dir=str(ROOT / "pipelines/planetary/coarse"),
+        seed_include_synthetic=False,
+    )
+    with TestClient(create_app(settings)) as client:
+        response = client.get("/api/v1/global/cross-body")
+        assert response.status_code == 200, response.text
+        body = response.json()
+        assert body["ranked"] is False
+        assert body["ranking_enabled"] is False
+        assert body["status"] == "blocked"
+        assert body["ranked_candidates"] == []
+        assert body["counts"] == {
+            "evidence_sources": 3,
+            "scanned_metric_observations": 9,
+            "eligible_metric_observations": 0,
+            "excluded_metric_observations": 9,
+            "unknown_metric_observations": 0,
+            "ranked_candidates": 0,
+        }
+        assert body["blocking_features"] == [
+            "coarse_flat_fraction_lt5deg",
+            "coarse_slope_mean_deg",
+            "coarse_slope_p90_deg",
+        ]
+        assert len(body["bodies"]) == 3
+        assert len(body["comparability_decisions"]) == 9
+        assert all(
+            decision["decision"] != "comparable" for decision in body["comparability_decisions"]
+        )
+        for source in body["bodies"]:
+            assert source["metrics"]
+            for metric in source["metrics"]:
+                assert metric["eligible"] is False
+                assert metric["reasons"]
+                assert "distance" not in metric
+                assert "score" not in metric
+        assert '"distance"' not in response.text
+        assert "not a global or exhaustive survey" in body["note"]
+        # The endpoint is read-only and does not need an Earth coarse index to explain
+        # why cross-body ranking is refused.
+        assert client.get("/api/v1/global/coverage").json()["status"] == "no_index"
+
+
+def test_cross_body_gate_without_evidence_is_explicit(tmp_path: Path):
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'cross-body-empty.db'}",
+        manifest_dir=str(tmp_path / "none"),
+        manifest_dir_planetary=str(tmp_path / "none"),
+        manifest_dir_context=str(tmp_path / "none"),
+        planetary_coarse_dir=str(tmp_path / "missing-planetary-coarse"),
+        seed_include_synthetic=False,
+    )
+    with TestClient(create_app(settings)) as client:
+        response = client.get("/api/v1/global/cross-body")
+        assert response.status_code == 200, response.text
+        body = response.json()
+        assert body["status"] == "no_evidence"
+        assert body["ranked"] is False
+        assert body["ranking_enabled"] is False
+        assert body["bodies"] == []
+        assert body["comparability_decisions"] == []
+        assert body["counts"]["scanned_metric_observations"] == 0
+
+
+def test_cross_body_gate_rejects_a_corrupt_index(tmp_path: Path):
+    directory = tmp_path / "corrupt-planetary-coarse"
+    directory.mkdir()
+    (directory / "index.json").write_text("{not json", encoding="utf-8")
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'cross-body-corrupt.db'}",
+        manifest_dir=str(tmp_path / "none"),
+        manifest_dir_planetary=str(tmp_path / "none"),
+        manifest_dir_context=str(tmp_path / "none"),
+        planetary_coarse_dir=str(directory),
+        seed_include_synthetic=False,
+    )
+    with TestClient(create_app(settings)) as client:
+        response = client.get("/api/v1/global/cross-body")
+        assert response.status_code == 409
+        assert response.json()["error"]["code"] == "cross_body_evidence_invalid"

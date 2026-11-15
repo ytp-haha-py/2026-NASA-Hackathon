@@ -483,6 +483,84 @@ class GlobalSearchResponse(BaseModel):
     note: str
 
 
+class CrossBodyReasonOut(BaseModel):
+    code: str
+    message: str
+
+
+class CrossBodyMetricOut(BaseModel):
+    feature_id: str
+    label: str
+    unit: str
+    decision: str
+    eligible: bool
+    method_version: str
+    earth_method_version: str
+    support_ratio_vs_earth: float | None
+    analysis_support_ratio_vs_earth: float | None
+    reasons: list[CrossBodyReasonOut]
+
+
+class CrossBodyBodyOut(BaseModel):
+    body: str
+    source_id: str
+    region_id: str
+    manifest: str
+    method_version: str
+    native_support_m: float | None
+    analysis_support_m: float | None
+    support_ratio_vs_earth: float | None
+    analysis_support_ratio_vs_earth: float | None
+    frame_kind: str
+    sample_label: str
+    vertical_unit_status: str
+    metrics: list[CrossBodyMetricOut]
+    limitations: list[str]
+    quality_flags: list[str]
+
+
+class CrossBodyEarthFeatureOut(BaseModel):
+    feature_id: str
+    label: str
+    unit: str
+    scale: float
+    spatial_support: str
+
+
+class CrossBodyEarthBaselineOut(BaseModel):
+    method_version: str
+    support_m: float
+    frame_kind: str
+    value_source: str
+    features: list[CrossBodyEarthFeatureOut]
+
+
+class CrossBodyCountsOut(BaseModel):
+    evidence_sources: int
+    scanned_metric_observations: int
+    eligible_metric_observations: int
+    excluded_metric_observations: int
+    unknown_metric_observations: int
+    ranked_candidates: int
+
+
+class CrossBodyGateOut(BaseModel):
+    gate_version: str
+    ranked: bool
+    ranking_enabled: bool
+    status: Literal["blocked", "ready", "no_evidence"]
+    claim_scope: str
+    eligibility_contract: list[dict[str, str]]
+    earth_baseline: CrossBodyEarthBaselineOut
+    bodies: list[CrossBodyBodyOut]
+    comparability_decisions: list[dict[str, Any]]
+    blocking_features: list[str]
+    uncertainty: dict[str, Any]
+    ranked_candidates: list[dict[str, Any]]
+    counts: CrossBodyCountsOut
+    note: str
+
+
 class RefinePlanRequest(BaseModel):
     model_config = {"extra": "forbid"}
     candidate_id: str

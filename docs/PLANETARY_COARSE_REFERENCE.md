@@ -90,6 +90,56 @@ preprocessed-product vs DEM-derivative difference against Earth is **unmeasured*
 slope-derived planetary metrics stay `evidence_only`. The Mars CTX-vs-MOLA comparison is
 the only method/support difference actually measured here.
 
+## Cross-body coarse-ranking gate (Issue #36)
+
+The gate is implemented in `pipelines/src/analog_pipelines/cross_body_gate.py` and exposed
+read-only at `GET /api/v1/global/cross-body`. It is an eligibility gate, not a ranking: it
+returns `ranked=false`, `ranking_enabled=false`, no distance/score, and a per-source,
+per-metric exclusion explanation.
+
+A metric is eligible only when all of the following hold:
+
+| Criterion | Requirement | Current pilot result |
+| --- | --- | --- |
+| Quantity | Same coarse feature id as the Earth baseline | Pass for the three coarse slope metrics |
+| Method | Same producing method version | Fail: `coarse-planetary-dem-horn-1.0.0` vs Earth `coarse-terrain-250m-1.0.0` |
+| Support | Native support is not coarser than Earth support beyond the explicit +5% tolerance; a finer source may be aggregated to the common analysis grid, but a coarser source is never upsampled | Moon 236.9 m and CTX 20 m -> 250 m pass; MOLA 463.1 m fails |
+| Units | Same unit as the Earth feature | Pass (`degree` / `fraction`) |
+| Frame | Both records use a projected metric body-fixed frame class; Earth WGS84 or geographic degrees are never mixed with planetary frames | Pass for the committed projected planetary cells; an Earth/WGS84 or geographic record is rejected |
+| Validation | An explicit `comparable` decision | Fail: every metric is `evidence_only` or `not_comparable` |
+
+The support rule is deliberately asymmetric. A 20 m CTX DTM aggregated to the 250 m
+analysis grid is not the same native support as the Earth product, but it is not coarser;
+it is reported with both native and analysis support ratios. A 463.0576672 m MOLA grid
+cannot be upsampled into same-support evidence. The +5% tolerance is an explicit gate
+threshold, not a method validation or a correction factor.
+
+Current result (committed manifests):
+
+- 3 evidence sources, 9 metric observations, 0 eligible, 9 excluded, 0 unknown;
+- every metric is excluded for `method_mismatch` plus its recorded
+  `decision_evidence_only` / `decision_not_comparable` reason;
+- all three MOLA metrics additionally fail `support_mismatch`;
+- `blocking_features` is the full set of three coarse slope metrics;
+- `ranked_candidates` is empty.
+
+Exact blocker: **no planetary metric is produced by the Earth Geomorpho250 preprocessed
+slope product, and no `comparable` validation decision exists.** The Earth-vs-planetary
+method difference is unmeasured (see the previous section), and MOLA's support is ~2x
+coarser. There is therefore no legitimate same-support/subset to rank. The gate refuses
+rather than falling back to legacy 90 m weights.
+
+Offline coverage:
+
+```bash
+uv run pytest pipelines/tests/test_cross_body_gate.py -q
+uv run pytest apps/api/tests/test_global_api.py -q
+```
+
+The tests cover refusal, missing support (never zero-filled), Earth-frame rejection for a
+planetary body, support-tolerance boundaries, deterministic tie ordering for a synthetic
+same-method eligible subset, and refusal to emit any score when no metric is comparable.
+
 ## Reproducibility, I/O and cost
 
 Commands:

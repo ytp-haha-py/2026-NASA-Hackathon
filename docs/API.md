@@ -383,6 +383,41 @@ Returns planned 1.98 km fine windows. It does **not** run the 90 m AOI pipeline 
 download a DEM. Coarse and fine methods are explicitly different; a comparison is
 rejected rather than silently rescaled.
 
+### GET /global/cross-body
+
+Read-only cross-body coarse-ranking gate (Issue #36). It returns `ranked=false` and
+`ranking_enabled=false` while no metric satisfies the same
+quantity/method/support/unit/frame/validation contract:
+
+```json
+{
+  "ranked": false,
+  "ranking_enabled": false,
+  "status": "blocked",
+  "claim_scope": "bounded_pilot_cells_only_not_a_global_survey",
+  "counts": {
+    "evidence_sources": 3,
+    "scanned_metric_observations": 9,
+    "eligible_metric_observations": 0,
+    "excluded_metric_observations": 9,
+    "unknown_metric_observations": 0,
+    "ranked_candidates": 0
+  },
+  "bodies": ["per-source metric decisions with exclusion reasons"],
+  "comparability_decisions": ["the committed planetary decisions"],
+  "blocking_features": [
+    "coarse_flat_fraction_lt5deg",
+    "coarse_slope_mean_deg",
+    "coarse_slope_p90_deg"
+  ],
+  "ranked_candidates": []
+}
+```
+
+The endpoint does not require an Earth coarse index and never returns a distance,
+score or percentage for an ineligible metric. A missing index returns
+`status=no_evidence`; a corrupt index returns `409 cross_body_evidence_invalid`.
+
 ## Typed v2 observations
 
 `GET /typed/observations?dimension=D02&body=Earth&feature_id=...` and
