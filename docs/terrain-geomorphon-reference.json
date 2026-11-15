@@ -1,0 +1,75 @@
+{
+  "core": {
+    "buffered_halo_cells": 12,
+    "full_core_row_col": [
+      29,
+      29
+    ],
+    "size": 22
+  },
+  "dem": {
+    "crs": "EPSG:32633",
+    "features": [
+      "pit",
+      "peak",
+      "ridge",
+      "valley",
+      "slope",
+      "flat"
+    ],
+    "resolution_m": 90,
+    "size": 80,
+    "synthetic": true
+  },
+  "limitations": [
+    "Synthetic DEM only; no Earth/Moon/Mars real-DEM geomorphon class validation.",
+    "WhiteboxTools is an independent reference implementation, not a production dependency.",
+    "No geomorphon feature is added to the production registry or similarity score.",
+    "Class codes are WhiteboxTools' 10-class output; class-name equivalence is not asserted."
+  ],
+  "reference": {
+    "algorithm": "Jasiewicz & Stepinski (2013) geomorphon",
+    "implementation": "WhiteboxTools Geomorphons",
+    "parameters": {
+      "fdist": 0,
+      "forms": true,
+      "search": 12,
+      "skip": 0,
+      "threshold_degrees": 1.0
+    },
+    "version": "WhiteboxTools v2.4.0 (c) Dr. John Lindsay 2017-2023\n\nWhiteboxTools is an advanced geospatial data analysis platform developed at\nthe University of Guelph's Geomorphometry and Hydrogeomatics Research \nGroup (GHRG). See www.whiteboxgeo.com for more details.\n"
+  },
+  "results": {
+    "buffered_46x46": {
+      "class_counts": {
+        "1": 1759,
+        "4": 143,
+        "6": 1,
+        "8": 33
+      },
+      "core_size": 22,
+      "forms_agreement": 1.0,
+      "forms_comparable": 484,
+      "forms_equal": 484,
+      "ternary_agreement": 1.0,
+      "ternary_comparable": 484,
+      "ternary_equal": 484,
+      "valid_cells": 1936,
+      "window_size": 46
+    },
+    "normal_22x22": {
+      "class_counts": {
+        "1": 400
+      },
+      "core_size": 22,
+      "forms_agreement": 1.0,
+      "forms_comparable": 400,
+      "forms_equal": 400,
+      "ternary_agreement": 0.955,
+      "ternary_comparable": 400,
+      "ternary_equal": 382,
+      "valid_cells": 400,
+      "window_size": 22
+    }
+  }
+}
