@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15",
+  "generated_at": "2026-11-15T19:30:00+08:00",
   "coordinator": {
     "issue": 142,
     "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-coordinator-142",
@@ -24,8 +24,14 @@
       "session_id": "ses_e2111ccf7ffevCZ3c5V62sEAX8",
       "touch": false
     },
-    "issue_108": {"state": "open", "active_worktree": null},
-    "issue_97": {"state": "open", "active_worktree": null},
+    "issue_108": {
+      "state": "open",
+      "active_worktree": null
+    },
+    "issue_97": {
+      "state": "open",
+      "active_worktree": null
+    },
     "open_pr_134": "feat/130-research-weight-presets",
     "indices": {
       "var/global-coarse-index": "111 MB",
@@ -42,11 +48,17 @@
       "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-135-d01",
       "branch": "phase2/135-d01",
       "session_id": "ses_e20fc8691ffeaMvQ1pjnNWscZp",
-      "goal_id": "7433f495-d3a0-4b1c-9534-0e372fdd4f71",
+      "goal_id": "0199a330-c186-4293-acd6-71762469219d",
       "goal_status": "running",
       "subagents": "delegated inside Goal",
       "pr": null,
-      "blockers": ["coordinate with #108/#97", "no duplicate global D01 work"]
+      "blockers": [
+        "coordinate with #108/#97",
+        "no duplicate global D01 work"
+      ],
+      "native_goal_verified": true,
+      "head_commit": "89c01d6",
+      "note": "coverage matrix committed; PR pending"
     },
     {
       "issue": 136,
@@ -55,11 +67,16 @@
       "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-136-d02",
       "branch": "phase2/136-d02",
       "session_id": "ses_e20fc69adffe9JAGca55A3aX5R",
-      "goal_id": "8c39f2b9-c93a-48ec-9458-d2ec3f2d1d84",
+      "goal_id": "8004c26a-8e34-464d-9bfb-8dc31680d2fe",
       "goal_status": "running",
       "subagents": "delegated inside Goal",
       "pr": null,
-      "blockers": ["taxonomy/crosswalk validation"]
+      "blockers": [
+        "taxonomy/crosswalk validation"
+      ],
+      "native_goal_verified": true,
+      "head_commit": "4f9c3bd",
+      "note": "geology matrix committed; PR pending"
     },
     {
       "issue": 137,
@@ -68,11 +85,16 @@
       "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-137-d03",
       "branch": "phase2/137-d03",
       "session_id": "ses_e20fc6930ffeoPYLni2B8ZosUx",
-      "goal_id": "1f7c814b-5425-4bbc-982f-2ffe007527f0",
-      "goal_status": "running",
+      "goal_id": "0ceab842-708d-4164-81e2-96c4aeb23ca4",
+      "goal_status": "idle",
       "subagents": "delegated inside Goal",
-      "pr": null,
-      "blockers": ["time/local-solar-time support"]
+      "pr": 146,
+      "blockers": [
+        "time/local-solar-time support"
+      ],
+      "native_goal_verified": true,
+      "head_commit": "7e08d88",
+      "note": "phase PR open"
     },
     {
       "issue": 138,
@@ -81,11 +103,16 @@
       "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-138-d04",
       "branch": "phase2/138-d04",
       "session_id": "ses_e20fc68bbffe2Sar4coxcaeuS7",
-      "goal_id": "87ae711a-860d-4874-bf8d-f3813a5f45b5",
-      "goal_status": "running",
+      "goal_id": "642a1a88-25bc-4515-a3bb-2d153bad8bb1",
+      "goal_status": "idle",
       "subagents": "delegated inside Goal",
-      "pr": null,
-      "blockers": ["proxy vs confirmed ice separation"]
+      "pr": 144,
+      "blockers": [
+        "proxy vs confirmed ice separation"
+      ],
+      "native_goal_verified": true,
+      "head_commit": "b658f86",
+      "note": "phase PR open"
     },
     {
       "issue": 139,
@@ -94,11 +121,16 @@
       "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-139-d05",
       "branch": "phase2/139-d05",
       "session_id": "ses_e20fc684affe5mrOOQ6dvy5Ju5",
-      "goal_id": "250c8206-32b1-48ed-9a29-6d1f3d536c7a",
+      "goal_id": "993b3503-c9c2-4a47-a256-76f6e2f35ed9",
       "goal_status": "running",
       "subagents": "delegated inside Goal",
-      "pr": null,
-      "blockers": ["DEM horizon/shielding inputs"]
+      "pr": 145,
+      "blockers": [
+        "DEM horizon/shielding inputs"
+      ],
+      "native_goal_verified": true,
+      "head_commit": "54e2789",
+      "note": "phase PR open"
     },
     {
       "issue": 140,
@@ -107,24 +139,35 @@
       "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-140-d06",
       "branch": "phase2/140-d06",
       "session_id": "ses_e20fc67c3ffeEHNB8Ra3Q5CLqP",
-      "goal_id": "b54efab7-61f4-4f01-9902-b48b02b99e3e",
+      "goal_id": "96555f26-c85b-448d-8ed1-6c55880da63c",
       "goal_status": "running",
       "subagents": "delegated inside Goal",
       "pr": null,
-      "blockers": ["sparse Moon/Mars in-situ data"]
+      "blockers": [
+        "sparse Moon/Mars in-situ data"
+      ],
+      "native_goal_verified": true,
+      "head_commit": "ca0fc8f",
+      "note": "native goal active; worktree dirty"
     },
     {
       "issue": 141,
       "dimension": "integration",
-      "scope": "arbitrary-location D01-D06 status, dimension×feature weights, search contract",
+      "scope": "arbitrary-location D01-D06 status, dimension\u00d7feature weights, search contract",
       "worktree": "/home/panda/.local/share/opencode/worktree/204e7a/phase2-141-integration",
       "branch": "phase2/141-integration",
       "session_id": "ses_e20fc6751ffeXuPBKd6WZyqGcN",
-      "goal_id": "5f5a47ff-310d-44b8-9be5-4b4626abf4d4",
+      "goal_id": "2f312370-3a07-400f-b15a-95cd4cc8d251",
       "goal_status": "running",
       "subagents": "delegated inside Goal",
       "pr": null,
-      "blockers": ["dimension×feature weighting contract"]
+      "blockers": [
+        "dimension\u00d7feature weighting contract"
+      ],
+      "native_goal_verified": true,
+      "head_commit": "ca0fc8f",
+      "note": "native goal active; worktree dirty"
     }
-  ]
+  ],
+  "native_goal_mechanism": "POST /api/session/{sessionID}/command with {\"name\":\"goal\",\"text\":objective}; verified by a synthetic first-class goal message"
 }

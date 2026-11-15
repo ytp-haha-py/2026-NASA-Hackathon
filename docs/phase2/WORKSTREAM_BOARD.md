@@ -8,16 +8,17 @@ worktree/session/goal ownership. It does not replace each Issue's acceptance cri
 
 ## Workstreams
 
-| Issue | Worktree | Branch | Session ID | Goal status | Subagents | PR | Current blocker |
-|---|---|---|---|---|---|---|---|
-| #142 Program coordinator | `/home/panda/.local/share/opencode/worktree/204e7a/phase2-coordinator-142` | `phase2/coordinator-142` | `ses_e253e85e9ffeLjB1ipw0gIVen0` | running (`a1caf80d-100c-4491-a301-cdf5020f0a69`) | coordinator + ad-hoc | pending | none |
-| #135 D01 terrain | `.../phase2-135-d01` | `phase2/135-d01` | `ses_e20fc8691ffeaMvQ1pjnNWscZp` | running (`7433f495-d3a0-4b1c-9534-0e372fdd4f71`) | delegated inside Goal | pending | shares #108/#97 scope; must coordinate |
-| #136 D02 geology | `.../phase2-136-d02` | `phase2/136-d02` | `ses_e20fc69adffe9JAGca55A3aX5R` | running (`8c39f2b9-c93a-48ec-9458-d2ec3f2d1d84`) | delegated inside Goal | pending | taxonomy/crosswalk validation |
-| #137 D03 thermal | `.../phase2-137-d03` | `phase2/137-d03` | `ses_e20fc6930ffeoPYLni2B8ZosUx` | running (`1f7c814b-5425-4bbc-982f-2ffe007527f0`) | delegated inside Goal | pending | time/local-solar-time support |
-| #138 D04 water/ice | `.../phase2-138-d04` | `phase2/138-d04` | `ses_e20fc68bbffe2Sar4coxcaeuS7` | running (`87ae711a-860d-4874-bf8d-f3813a5f45b5`) | delegated inside Goal | pending | proxy vs confirmed ice separation |
-| #139 D05 illumination | `.../phase2-139-d05` | `phase2/139-d05` | `ses_e20fc684affe5mrOOQ6dvy5Ju5` | running (`250c8206-32b1-48ed-9a29-6d1f3d536c7a`) | delegated inside Goal | pending | DEM horizon/shielding inputs |
-| #140 D06 regolith | `.../phase2-140-d06` | `phase2/140-d06` | `ses_e20fc67c3ffeEHNB8Ra3Q5CLqP` | running (`b54efab7-61f4-4f01-9902-b48b02b99e3e`) | delegated inside Goal | pending | sparse Moon/Mars in-situ data |
-| #141 Integration | `.../phase2-141-integration` | `phase2/141-integration` | `ses_e20fc6751ffeXuPBKd6WZyqGcN` | running (`5f5a47ff-310d-44b8-9be5-4b4626abf4d4`) | delegated inside Goal | pending | dimension×feature weighting contract |
+| Issue | Worktree | Branch | Session ID | Native Goal ID | Goal status | Subagents | PR | Blocker |
+|---|---|---|---|---|---|---|---|---|
+| #142 Program coordinator |`.../phase2-coordinator-142`|`phase2/coordinator-142`|`ses_e253e85e9ffeLjB1ipw0gIVen0`|`a1caf80d-100c-4491-a301-cdf5020f0a69`|running|coordinator + ad-hoc|pending|none|
+| #135 D01 |`.../phase2-135-d01`|`phase2/135-d01`|`ses_e20fc8691ffeaMvQ1pjnNWscZp`|`0199a330-c186-4293-acd6-71762469219d`|running|delegated inside Goal|coverage matrix committed; PR pending|coordinate with #108/#97, no duplicate global D01 work|
+| #136 D02 |`.../phase2-136-d02`|`phase2/136-d02`|`ses_e20fc69adffe9JAGca55A3aX5R`|`8004c26a-8e34-464d-9bfb-8dc31680d2fe`|running|delegated inside Goal|geology matrix committed; PR pending|taxonomy/crosswalk validation|
+| #137 D03 |`.../phase2-137-d03`|`phase2/137-d03`|`ses_e20fc6930ffeoPYLni2B8ZosUx`|`0ceab842-708d-4164-81e2-96c4aeb23ca4`|idle|delegated inside Goal|#146|time/local-solar-time support|
+| #138 D04 |`.../phase2-138-d04`|`phase2/138-d04`|`ses_e20fc68bbffe2Sar4coxcaeuS7`|`642a1a88-25bc-4515-a3bb-2d153bad8bb1`|idle|delegated inside Goal|#144|proxy vs confirmed ice separation|
+| #139 D05 |`.../phase2-139-d05`|`phase2/139-d05`|`ses_e20fc684affe5mrOOQ6dvy5Ju5`|`993b3503-c9c2-4a47-a256-76f6e2f35ed9`|running|delegated inside Goal|#145|DEM horizon/shielding inputs|
+| #140 D06 |`.../phase2-140-d06`|`phase2/140-d06`|`ses_e20fc67c3ffeEHNB8Ra3Q5CLqP`|`96555f26-c85b-448d-8ed1-6c55880da63c`|running|delegated inside Goal|native goal active; worktree dirty|sparse Moon/Mars in-situ data|
+| #141 integration |`.../phase2-141-integration`|`phase2/141-integration`|`ses_e20fc6751ffeXuPBKd6WZyqGcN`|`2f312370-3a07-400f-b15a-95cd4cc8d251`|running|delegated inside Goal|native goal active; worktree dirty|dimension×feature weighting contract|
+
 
 `...` expands to `/home/panda/.local/share/opencode/worktree/204e7a/`.
 
@@ -55,7 +56,23 @@ opencode api get /api/session/active --param directory=<worktree>
 Expected for every Goal: a distinct worktree, branch, session id, and first-message metadata
 `{"source":"goal","goalID":"..."}`. A session without that metadata is not a native Goal.
 
+## Native Goal verification
+
+The native `/goal` command was executed through the supported session command API:
+
+```text
+GET  /api/command                  -> {"name":"goal","description":"keep working until an objective is met [pause|resume|clear]"}
+POST /api/session/{id}/command     -> {"name":"goal","text":"<Issue objective>"}
+```
+
+Each primary session now contains a **synthetic** message with
+`metadata={"source":"goal","goalID":"..."}` and text `A goal is now active for this session.`
+This distinguishes a native Goal from an ordinary user prompt, even if that prompt also contained
+goal-shaped text. #141 was additionally paused/resumed to verify the native manager accepted it.
+
 ## Update log
 
 - 2026-11-15: preflight completed; 7 independent worktrees and sessions created; native Goal
   messages posted to #135–#141; all sessions report `running`.
+
+- 2026-11-15 19:30: all seven primary sessions confirmed with a delivered (not queued) native `/goal` synthetic message. `GET /api/command` exposes the native `goal` command; `POST /api/session/{id}/command` with `{"name":"goal","text":...}` was used. #137/#138 opened phase PRs #146/#144; #139 opened #145.

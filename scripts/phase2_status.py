@@ -29,22 +29,44 @@ def git_state(directory: Path) -> tuple[str, str, str]:
     return branch or "DETACHED", head, "dirty" if status else "clean"
 
 
-def session_state(session_id: str) -> tuple[str, str, str, str]:
+def session_state(session_id: str) -> tuple[str, str, str, str, str]:
     exported = run(["opencode", "session", "export", session_id])
     if exported.returncode != 0:
-        return "UNREADABLE", "-", "-", exported.stderr.strip()[:80]
+        return "UNREADABLE", "-", "-", "-", exported.stderr.strip()[:80]
     try:
         payload = json.loads(exported.stdout)
     except json.JSONDecodeError:
-        return "BAD_JSON", "-", "-", ""
+        return "BAD_JSON", "-", "-", "-", ""
     messages = payload.get("messages") or []
-    metadata = (messages[0].get("metadata") if messages else None) or {}
-    goal_id = metadata.get("goalID") or "-"
-    source = metadata.get("source") or "-"
     info = payload.get("info") or {}
     directory = (info.get("location") or {}).get("directory") or "-"
     outcome = info.get("outcome") or "active"
-    return source, goal_id, directory, outcome
+
+    delivered = [
+        message
+        for message in messages
+        if message.get("type") == "synthetic"
+        and (message.get("metadata") or {}).get("source") == "goal"
+        and str(message.get("text") or "").startswith("A goal is now active")
+    ]
+    goal_id = ((delivered[-1].get("metadata") or {}).get("goalID") if delivered else None) or "-"
+    native_state = "delivered" if delivered else "missing"
+    if not delivered:
+        inbox = run(["opencode", "api", "get", f"/api/session/{session_id}/inbox"])
+        if inbox.returncode == 0:
+            try:
+                queued = json.loads(inbox.stdout).get("data") or []
+            except json.JSONDecodeError:
+                queued = []
+            if any(
+                item.get("type") == "synthetic"
+                and str((item.get("payload") or {}).get("text") or "").startswith(
+                    "A goal is now active"
+                )
+                for item in queued
+            ):
+                native_state = "queued"
+    return native_state, goal_id, directory, outcome, str(len(messages))
 
 
 def active_sessions() -> set[str]:
@@ -74,20 +96,35 @@ def main() -> int:
             coordinator["goal_id"],
             "running" if coordinator["session_id"] in active else "not-running",
             *git_state(Path(coordinator["worktree"])),
+            "-",
         )
     )
     for workstream in board["workstreams"]:
         issue = f"#{workstream['issue']} {workstream['dimension']}"
-        source, goal_id, session_dir, outcome = session_state(workstream["session_id"])
+        native_state, goal_id, session_dir, outcome, message_count = session_state(
+            workstream["session_id"]
+        )
         running = "running" if workstream["session_id"] in active else f"idle/{outcome}"
         branch, head, status = git_state(Path(workstream["worktree"]))
         rows.append(
-            (issue, "goal", workstream["session_id"], goal_id, running, branch, head, status)
+            (
+                issue,
+                f"native/{native_state}",
+                workstream["session_id"],
+                goal_id,
+                running,
+                branch,
+                head,
+                status,
+                message_count,
+            )
         )
-        if source != "goal":
-            failures.append(f"{issue}: first message source is {source!r}, not 'goal'")
-        if goal_id != workstream["goal_id"]:
-            failures.append(f"{issue}: goalID {goal_id} != board {workstream['goal_id']}")
+        if native_state == "missing":
+            failures.append(f"{issue}: no delivered or queued native /goal message")
+        if goal_id != "-" and goal_id != workstream["goal_id"]:
+            warnings.append(f"{issue}: native goalID {goal_id} differs from board")
+        if native_state == "queued":
+            warnings.append(f"{issue}: native /goal is queued behind the current run")
         if session_dir != workstream["worktree"]:
             failures.append(f"{issue}: session directory {session_dir} != {workstream['worktree']}")
         if running.startswith("UNREADABLE") or running.startswith("BAD_JSON"):
@@ -97,7 +134,17 @@ def main() -> int:
         if status == "dirty":
             warnings.append(f"{issue}: worktree is dirty (expected while the Goal is editing)")
 
-    header = ("workstream", "kind", "session", "goal", "active", "branch", "head", "worktree")
+    header = (
+        "workstream",
+        "native-goal",
+        "session",
+        "goal",
+        "active",
+        "branch",
+        "head",
+        "worktree",
+        "msgs",
+    )
     widths = [max(len(str(row[i])) for row in [header, *rows]) for i in range(len(header))]
     print("  ".join(str(value).ljust(widths[i]) for i, value in enumerate(header)))
     print("  ".join("-" * width for width in widths))
