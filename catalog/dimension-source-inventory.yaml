@@ -453,27 +453,27 @@ dimensions:
     research_question: "地表材料如何表現？"
     subgroups: [particle_size, thickness_density_porosity, strength, dust]
     research_classes: []
-    baseline: "No D06 observations; sparse evidence sources only"
+    baseline: "75 Earth SoilGrids 250 m evidence-only observations across 5 AOIs; Moon/Mars sparse measurements still unavailable"
     bodies:
       Earth:
         sources:
-          - source_id: earth-regolith-source-not-selected
-            provider: not_selected
-            product: not_selected
-            url: not_verified
-            license: not_verified
-            license_url: not_verified
-            native_resolution: not_verified
-            spatial_support: not_verified
-            temporal_support: not_verified
-            depth_support: not_verified
-            observation_kinds: [distribution, numeric, evidence]
-            qa: not_verified
-            availability: planned
-            data_status: not_fetched
-            comparability: unknown
-            notes: "No soil/regolith product or global raster is claimed."
-            unknown_fields: [provider, product, url, license, native_resolution, spatial_support, temporal_support, qa]
+          - source_id: soilgrids-250m-v2
+            provider: ISRIC World Soil Information
+            product: SoilGrids 2.0 250 m WCS
+            url: https://maps.isric.org/mapserv
+            license: CC BY 4.0; cite ISRIC SoilGrids 2.0
+            license_url: https://docs.isric.org/globaldata/soilgrids/
+            native_resolution: 250 m
+            spatial_support: Five bounded Earth AOI windows; WCS subset, not global download
+            temporal_support: SoilGrids 2.0 static model release
+            depth_support: 0-5 cm pilot interval (other standard depths supported)
+            observation_kinds: [numeric]
+            qa: Mean, Q0.05 and Q0.95 preserved; native 250 m model cells; not a local sample
+            availability: accessible
+            data_status: existing_observed
+            comparability: evidence_only
+            notes: "Pilot: 5 AOIs, 75 observations (clay, sand, silt, SOC, bulk density at 0-5 cm)."
+            unknown_fields: []
       Moon:
         sources:
           - source_id: lunar-regolith-source-not-selected

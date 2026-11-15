@@ -91,16 +91,23 @@
       "scientific_data_status": "pilot_observations"
     },
     "D06": {
-      "actual_observation_counts": {},
-      "comparison_status": "not_comparable",
+      "actual_observation_counts": {
+        "Earth_soilgrids": 75,
+        "Mars": 0,
+        "Moon": 0
+      },
+      "comparison_status": "evidence_only",
       "evidence": [
-        "typed contracts and inventory only"
+        "typed contracts and inventory only",
+        "75 SoilGrids 2.0 WCS observations across 5 AOIs, 5 properties, 0-5 cm, mean/Q0.05/Q0.95"
       ],
-      "implementation_status": "not_started",
+      "implementation_status": "pilot",
       "remaining_blockers": [
-        "SoilGrids/WebDAV and sparse sample tables"
+        "Moon/Mars sparse sample measurements",
+        "deeper/other property pilots",
+        "no cross-body comparability"
       ],
-      "scientific_data_status": "none"
+      "scientific_data_status": "pilot_observations"
     }
   },
   "generated_at": "2026-11-15T05:10:00+00:00",
@@ -251,20 +258,23 @@
       "title": "D05 illumination and radiation"
     },
     {
-      "comparison_status": "not_comparable",
+      "comparison_status": "evidence_only",
       "dependencies": [
         26,
         27
       ],
       "evidence": [
-        "inventory only"
+        "inventory only",
+        "75 real SoilGrids observations imported as evidence-only D06 records"
       ],
-      "implementation_status": "not_started",
+      "implementation_status": "in_progress",
       "number": 46,
       "remaining_blockers": [
-        "SoilGrids/WebDAV and sparse sample tables"
+        "Moon/Mars sample tables",
+        "additional depths/properties",
+        "no cross-body comparison"
       ],
-      "scientific_data_status": "none",
+      "scientific_data_status": "pilot_observations",
       "title": "D06 regolith"
     },
     {
@@ -560,7 +570,7 @@
   ],
   "next_independent_tasks": [
     "implement D03 Earth thermal provider discovery with explicit Earthdata authentication blockers",
-    "implement bounded D06 Earth SoilGrids/WebDAV acquisition with depth and uncertainty support",
+    "implement D04 Earth water/ice metadata discovery with explicit authentication/coverage blockers",
     "implement Moon/Mars illumination only after SPICE frame and horizon validation",
     "acquire a real coarse Geomorpho index only under an authorized bounded data plan",
     "resolve GLiM rights, EMIT authentication, lunar mineral registration and CRISM thresholds"

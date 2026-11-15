@@ -149,3 +149,32 @@ def test_committed_geology_bundle_imports_as_evidence_only_d02(tmp_path: Path):
         assert mars.status_code == 200, mars.text
         assert mars.json()["crs"].startswith("+proj=laea")
         assert mars.json()["coordinate_frame"] == "mars_projected"
+
+
+def test_committed_d06_soilgrids_release_imports_and_queries(tmp_path: Path):
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'd06.db'}",
+        manifest_dir=str(tmp_path / "none"),
+        manifest_dir_planetary=str(tmp_path / "none"),
+        manifest_dir_context=str(tmp_path / "none"),
+        seed_include_synthetic=False,
+    )
+    app = create_app(settings)
+    with TestClient(app) as client:
+        with app.state.session_factory() as session:
+            result = import_release(session, ROOT / "pipelines/pilots/d06_earth_soilgrids")
+            session.commit()
+        assert result["observations"] == 75
+        response = client.get(
+            "/api/v1/typed/observations", params={"dimension": "D06", "body": "Earth"}
+        )
+        assert response.status_code == 200, response.text
+        rows = response.json()
+        assert len(rows) == 75
+        assert {row["state"] for row in rows} == {"detected"}
+        assert {row["score_role"] for row in rows} == {"evidence_only"}
+        assert {row["spatial_support"]["resolution_m"] for row in rows} == {250.0}
+        assert {row["spatial_support"]["native_resolution_m"] for row in rows} == {250.0}
+        assert any(row["depth_support"]["max_m"] == 0.05 for row in rows)
+        coverage = client.get("/api/v1/typed/coverage").json()
+        assert coverage["by_dimension"]["D06"]["total"] == 75

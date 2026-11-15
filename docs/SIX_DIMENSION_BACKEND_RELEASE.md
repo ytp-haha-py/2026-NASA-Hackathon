@@ -28,7 +28,7 @@ Machine-readable issue state is in [`IMPLEMENTATION_STATUS.json`](IMPLEMENTATION
 
 | Body | D01 Terrain | D02 Geology/mineralogy | D03 Thermal | D04 Water/ice | D05 Illumination/radiation | D06 Regolith |
 |---|---|---|---|---|---|---|
-| Earth | 113 fine windows, 565 feature observations; no real coarse index | 15 evidence-only availability/status records; 0 shareable GLiM values | No observations | No observations | **10 NASA POWER context observations**; no ionizing radiation | No observations |
+| Earth | 113 fine windows, 565 feature observations; no real coarse index | 15 evidence-only availability/status records; 0 shareable GLiM values | No observations | No observations | **10 NASA POWER context observations**; no ionizing radiation | **75 SoilGrids evidence-only observations** (5 AOIs, 5 properties, 0–5 cm) |
 | Moon | 18 fine reference windows | **1 map unit + 1 process record**; 0 verified quantitative minerals | No observations | No observations | No observations | No observations |
 | Mars | 5 fine reference windows | **10 map units + 4 process records + 14 CRISM context values**; 10 unknown mineral states; 0 verified quantitative minerals | No observations | No observations | No observations | No observations |
 
@@ -42,7 +42,8 @@ zero-filled and are not reported as negative detections.
 | D01 fine terrain | Comparable only among the same 90 m method/support subset |
 | D01 coarse | Software and synthetic fixtures only; no real global index or same-support Moon/Mars coarse reference |
 | D02 geology | 56 evidence-only typed records; no Terrain Euclidean score; quantitative minerals unavailable |
-| D03–D04, D06 | Not comparable; no validated observations in this backend |
+| D03–D04 | Not comparable; no validated observations in this backend |
+| D06 Earth SoilGrids | Evidence-only; 250 m model, not a local sample |
 | D05 Earth POWER | Context-only; coarse model/reanalysis, not local irradiance |
 | D05 radiation | Unavailable; never converted from solar geometry |
 
@@ -75,7 +76,7 @@ The committed release is under `pipelines/pilots/d05_earth_power/` with SHA-256 
 - D03 Earth/Moon/Mars thermal provider access and calibration.
 - D04 snow/soil-moisture/neutron/radar/spectral evidence and detection semantics.
 - D05 Moon/Mars illumination with SPICE/frame validation and detector-based radiation.
-- D06 SoilGrids/WebDAV and sparse sample measurement tables.
+- D06 Moon/Mars sparse sample measurement tables and additional SoilGrids depths/properties.
 - R2 publication, deployment and Tunnel are out of scope for this report.
 
 No unsupported comparison, large raster download, R2 transfer, deployment or automatic merge is

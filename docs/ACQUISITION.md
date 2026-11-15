@@ -117,3 +117,20 @@ Current bundle: 8 areas, 7 datasets, 33 assets and 56 observations. They are all
 map units/processes are categories or process evidence, mineral non-observations remain
 `unknown`/`no_coverage`, and CRISM parameters remain context. Mars geographic AOIs are transformed
 to a projected Mars analysis CRS while the original geometry/CRS is retained in legacy provenance.
+
+## D06 SoilGrids pilot
+
+```bash
+uv run python -m analog_pipelines.acquisition plan \
+  --scope pilot-d06-earth --dimension D06 --body Earth --provider soilgrids-wcs \
+  --area-id earth-atacama-desert --area-id earth-death-valley \
+  --area-id earth-lanzarote --area-id earth-devon-island --area-id earth-sahara-r1c1 \
+  --output var/plans/d06-earth-pilot.json
+uv run python -m analog_pipelines.acquisition run \
+  --plan var/plans/d06-earth-pilot.json --output var/runs/d06-earth-pilot \
+  --cache var/cache/acquisition --workers 4 --resume
+```
+
+The committed pilot contains 75 observations: clay, sand, silt, SOC and bulk density at 0–5 cm,
+with mean/Q0.05/Q0.95 quantiles. All are evidence-only, use 250 m metric source resolution and
+preserve the depth interval. They do not enter Terrain similarity.
