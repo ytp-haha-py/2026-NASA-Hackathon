@@ -1670,47 +1670,17 @@ input[type="checkbox"] {
   line-height: 1.45;
 }
 
-.sources-methods .section-heading {
-  margin-bottom: 0.8rem;
-}
-
-.coverage-disclosure,
-.methods-block,
-.datasets-block {
-  margin-top: 1rem;
-  padding: 0.9rem 1rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-
-.coverage-disclosure {
-  border-left: 5px solid var(--rust);
-}
-
-.coverage-disclosure ul {
-  margin-bottom: 0;
-}
-
 .method-features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  align-items: start;
   gap: 0.8rem;
-  margin-top: 0.9rem;
 }
 
 .method-feature {
-  padding: 0.75rem;
-  background: var(--surface-muted);
+  min-width: 0;
   border: 1px solid var(--line);
-  border-radius: 3px;
-}
-
-.method-feature h4 {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.4rem;
+  border-radius: var(--radius);
 }
 
 .method-feature p {
@@ -1719,7 +1689,7 @@ input[type="checkbox"] {
 }
 
 .dataset-provenance-list {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
 }
 
 .dataset-card-heading {
@@ -3087,18 +3057,6 @@ input.metric-number:disabled {
 
 .about-panel[open] > summary {
   border-bottom: 1px solid var(--line-soft);
-}
-
-.about-panel > section,
-.about-panel > .sources-methods {
-  margin: 0;
-  border: 0;
-  border-bottom: 1px solid var(--line-soft);
-  border-radius: 0;
-}
-
-.about-panel > :last-child {
-  border-bottom: 0;
 }
 
 /* ---------- Footer ---------- */

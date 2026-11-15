@@ -6,6 +6,7 @@ import {
   analyzeQueuedFixture,
   capabilitiesFixture,
   aoiLocationFixture,
+  datasetFixture,
   emptySearchResponseFixture,
   jobCompletedFixture,
   jobFailedFixture,
@@ -341,6 +342,33 @@ describe("search states and results", () => {
   });
 });
 
+describe("about panel", () => {
+  it("shows the coverage summary first and loads provenance inside its disclosure", async () => {
+    const pending = deferredResponse();
+    const user = userEvent.setup();
+    await renderReady({ datasets: () => pending.promise });
+
+    const toggle = screen.getByText("About this tool, coverage and limits");
+    await user.click(toggle);
+    const about = within(toggle.closest("details")!);
+    expect(about.getByText(/^Results are the closest matches/)).toBeVisible();
+    expect(about.getByText("On-demand AOI limits")).not.toBeVisible();
+    expect(about.getByText("Loading dataset provenance…")).not.toBeVisible();
+
+    await user.click(about.getByText("Dataset provenance"));
+    expect(about.getByRole("status")).toHaveTextContent("Loading dataset provenance…");
+    await act(async () => pending.resolve(jsonResponse([datasetFixture])));
+    expect(await about.findByRole("link", { name: datasetFixture.license }))
+      .toHaveAttribute("href", datasetFixture.license_url);
+    expect(about.queryByText("Loading dataset provenance…")).not.toBeInTheDocument();
+    expect(about.getByText("On-demand AOI limits")).not.toBeVisible();
+
+    await user.click(about.getByText("Analysis method"));
+    expect(about.getByText("On-demand AOI limits")).toBeVisible();
+    expect(about.getByText("Coarse and fine are separate methods")).toBeVisible();
+  });
+});
+
 describe("selection, map state and context export", () => {
   it("updates detail and map/list selection without duplicating repeated clicks", async () => {
     const user = userEvent.setup();
@@ -547,7 +575,9 @@ describe("context filters and Moon reference mode", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "Set at least one weight above 0. Metrics with weight 0 are not compared.",
     );
-    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/search"))).toBe(false);
+    expect(fetchMock.mock.calls.some(([url, init]) =>
+      init?.method === "POST" && /\/api\/v1\/search(?:\/multidimensional)?$/.test(String(url)),
+    )).toBe(false);
 
     const slopeGroup = screen.getByRole("group", { name: "Mean slope" });
     const slopeWeight = within(slopeGroup).getByLabelText("Weight (≥ 0)");

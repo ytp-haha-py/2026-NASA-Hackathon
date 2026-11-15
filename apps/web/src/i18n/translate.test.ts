@@ -71,7 +71,7 @@ describe("catalogs", () => {
 
   it("keeps mandatory scientific caveats in the zh-TW catalog", () => {
     expect(zhTW["results.notGlobalTitle"]).toContain("不是全球");
-    expect(zhTW["app.idleItemDistance"]).toContain("不是百分比");
+    expect(zhTW["sources.distanceValue"]).toContain("不是百分比");
     expect(zhTW["location.contextHeading"]).toMatch(/不是.*礦物學/);
     expect(zhTW["location.limitWorldCover"]).toContain("月球");
     expect(zhTW["search.lolaCaveat"]).toContain("90%");
