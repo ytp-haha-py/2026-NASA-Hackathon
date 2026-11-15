@@ -1,0 +1,18 @@
+{
+  "area_summaries": 21,
+  "bodies": [
+    "Earth",
+    "Mars",
+    "Moon"
+  ],
+  "evidence_json_sha256": "9c3aada23490c5f4148235fb96b9ad439f6018b4b3f5321dbaa8e1bb3c15e2f8",
+  "evidence_jsonl_sha256": "992483acfb10b72bd109314e9d7f9bb401fab7ff41346a4f961da37ded298b2a",
+  "export_version": "geology-area-fraction-1.0.0",
+  "records": 29,
+  "registry_sha256": "e565e62ae0e55915915bf8f3040bc0c21ce3953748e16dee876df2f1390b9daa",
+  "registry_version": "geology-legend-registry-1.0.0",
+  "schema": "geology-area-fraction-manifest-1.0.0",
+  "scope_note": "D02 evidence-only area fractions and non-exclusive process labels. No similarity or combined score; no_coverage is not zero.",
+  "source_record": "pipelines/geology/records/geology-e920e7e3ae79e176.json",
+  "source_record_sha256": "af658c17b22a2f35fc9359fa707d249c6fae20c18d524024d8237d2daaedb3d8"
+}
