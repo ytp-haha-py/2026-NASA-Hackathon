@@ -84,6 +84,8 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "soil.soc": "土壤有機碳",
   "search.errLandcoverWithSoil": "土地覆蓋篩選目前不能和表土比對一起使用。請清除土地覆蓋篩選，或把表土權重設為 0。",
   "search.observationCount": "{count} 筆觀測",
+  "soil.depthLabel": "深度",
+  "soil.depthWeighted": "已設權重",
   "app.coverageEyebrow": "可搜尋的覆蓋範圍",
   "app.coverageHeading_other": "{count} 個可搜尋的地球區域",
   "app.coverageOrigins":

@@ -1720,3 +1720,23 @@ body {
   gap: 4px 16px;
   color: var(--ink-soft);
 }
+
+.depth-tabs {
+  display: inline-flex;
+  margin: 4px 0 12px;
+}
+
+.depth-tabs .segment {
+  position: relative;
+  font-size: 15px;
+}
+
+.depth-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+  background: var(--accent);
+  border-radius: 50%;
+}

@@ -84,6 +84,8 @@ export const en = {
   "soil.soc": "Soil organic carbon",
   "search.errLandcoverWithSoil": "Land-cover filters can't be combined with regolith comparisons yet. Clear the land-cover filters, or set the regolith weights to 0.",
   "search.observationCount": "{count} obs.",
+  "soil.depthLabel": "Depth",
+  "soil.depthWeighted": "has weights",
   "app.coverageEyebrow": "Searchable coverage",
   "app.coverageHeading_one": "{count} searchable Earth region",
   "app.coverageHeading_other": "{count} searchable Earth regions",

@@ -157,6 +157,7 @@ export function SearchForm({
   const [limit, setLimit] = useState("10");
   const [boardOpen, setBoardOpen] = useState(true);
   const [activeDimension, setActiveDimension] = useState("D01");
+  const [soilDepth, setSoilDepth] = useState("0–5 cm");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [errors, setErrors] = useState<UiMessage[]>([]);
   const lastAppliedPreset = useRef<number | null>(null);
@@ -663,6 +664,47 @@ export function SearchForm({
     setRanges((current) => ({ ...current, [featureId]: next }));
   }
 
+  /**
+   * SoilGrids features come as property × depth. Show one depth at a time (5 rows instead of 20);
+   * a dot marks depths that already carry a weight.
+   */
+  function renderFeatureGroup(groupFeatures: FeatureOut[]) {
+    const soil = groupFeatures.map((feature) => soilFeatureParts(feature.id));
+    if (soil.some((part) => part === null)) {
+      return <div className="metric-list">{groupFeatures.map(renderMetric)}</div>;
+    }
+    const depths = [...new Set(soil.map((part) => part!.depth))].sort(
+      (a, b) => parseFloat(a) - parseFloat(b),
+    );
+    const depth = depths.includes(soilDepth) ? soilDepth : depths[0];
+    return (
+      <>
+        <div className="segmented depth-tabs" role="group" aria-label={t("soil.depthLabel")}>
+          {depths.map((value) => {
+            const weighted = groupFeatures.some(
+              (feature, index) => soil[index]!.depth === value && weightOf(feature.id) > 0,
+            );
+            return (
+              <button
+                key={value}
+                type="button"
+                aria-pressed={value === depth}
+                className={`segment${value === depth ? " is-active" : ""}`}
+                onClick={() => setSoilDepth(value)}
+              >
+                {value}
+                {weighted && <span className="depth-dot" aria-label={t("soil.depthWeighted")} />}
+              </button>
+            );
+          })}
+        </div>
+        <div className="metric-list">
+          {groupFeatures.filter((_, index) => soil[index]!.depth === depth).map(renderMetric)}
+        </div>
+      </>
+    );
+  }
+
   function renderMetric(feature: FeatureOut) {
     const row = rows[feature.id] ?? { value: "", weight: "0" };
     const slider = sliderRange(feature);
@@ -1150,7 +1192,7 @@ export function SearchForm({
                   {card.features.length > 0 ? (
                     <>
                       {card.code === "D01" && <p className="field-hint">{role}</p>}
-                      <div className="metric-list">{card.features.map(renderMetric)}</div>
+                      {renderFeatureGroup(card.features)}
                     </>
                   ) : typedLoading ? (
                     <p className="field-hint" role="status">
