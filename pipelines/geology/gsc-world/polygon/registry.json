@@ -1,0 +1,41 @@
+{
+  "mapping": [
+    {
+      "categories": [
+        "igneous"
+      ],
+      "evidence_basis": "official GSC RXTP attribute",
+      "raw_rxtp": "INTRUSIVE"
+    },
+    {
+      "categories": [
+        "sedimentary"
+      ],
+      "evidence_basis": "official GSC RXTP attribute",
+      "raw_rxtp": "SEDIMENT"
+    },
+    {
+      "categories": [
+        "sedimentary",
+        "igneous"
+      ],
+      "evidence_basis": "official GSC RXTP attribute",
+      "raw_rxtp": "SEDVOL"
+    },
+    {
+      "categories": [
+        "igneous"
+      ],
+      "evidence_basis": "official GSC RXTP attribute",
+      "raw_rxtp": "VOLCANIC"
+    }
+  ],
+  "non_exclusive": true,
+  "notes": [
+    "CRYSTALLINE is a texture, not metamorphic process evidence.",
+    "SEDVOL maps to both sedimentary and igneous; labels are non-exclusive.",
+    "No code is mapped to aqueous alteration."
+  ],
+  "registry_version": "gsc-world-polygon-registry-1.0.0",
+  "source_id": "gsc-of-5529-world-geology"
+}
