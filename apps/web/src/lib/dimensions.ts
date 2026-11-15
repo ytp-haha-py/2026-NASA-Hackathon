@@ -56,6 +56,10 @@ const UNIT_RANGES: Record<string, { hi: number; step: number; dp: number }> = {
   degree: { hi: 60, step: 0.5, dp: 1 },
   meter: { hi: 1000, step: 10, dp: 0 },
   fraction: { hi: 1, step: 0.05, dp: 2 },
+  // SoilGrids (D06): bulk density, texture fractions, organic carbon
+  "cg cm-3": { hi: 300, step: 1, dp: 0 },
+  "g kg-1": { hi: 1000, step: 5, dp: 0 },
+  "dg kg-1": { hi: 1000, step: 5, dp: 0 },
 };
 
 const FEATURE_RANGES: Record<string, { hi: number; step: number; dp: number }> = {
@@ -154,8 +158,9 @@ const DIMENSION_NAME: Record<DimensionCode, string> = {
 /**
  * Build fixed D01–D06 cards from the formal ontology codes.
  *
- * Similarity features are always D01. D02–D06 counts/kinds come from the typed API
- * and are display/evidence only; they never become score controls here.
+ * D01 holds the capability features. A D02–D06 card gets score controls only for features the
+ * query registry marks as legal similarity inputs (passed in with dimension_id "D0n"); its
+ * observation counts/kinds come from the typed API.
  */
 export function dimensionCards(
   features: FeatureOut[],
@@ -175,7 +180,11 @@ export function dimensionCards(
       code,
       name: DIMENSION_NAME[code],
       role: DIMENSION_ROLE[code],
-      features: code === "D01" ? features : [],
+      features: features.filter((feature) =>
+        code === "D01"
+          ? !/^D0[2-6]$/.test(feature.dimension_id)
+          : feature.dimension_id === code,
+      ),
       total: summary?.total ?? (code === "D01" ? features.length : 0),
       byBody: summary?.by_body ?? {},
       byState: summary?.by_state ?? {},

@@ -54,6 +54,8 @@ export type FetchHandlers = {
   typedObservations?: ResponseFactory<[string]>;
   typedArea?: ResponseFactory<[string]>;
   search?: ResponseFactory<[SearchRequest]>;
+  searchFeatures?: ResponseFactory;
+  multidim?: ResponseFactory<[unknown]>;
   location?: ResponseFactory<[string]>;
   context?: ResponseFactory<[string, string | null]>;
   analyze?: ResponseFactory<[AoiAnalyzeRequest]>;
@@ -156,6 +158,19 @@ export function installMockFetch(handlers: FetchHandlers = {}) {
       return handlers.job
         ? await handlers.job(decodeURIComponent(match?.[1] ?? ""))
         : jsonResponse(jobCompletedFixture);
+    }
+
+    if (url.endsWith("/api/v1/search/features")) {
+      return handlers.searchFeatures
+        ? await handlers.searchFeatures()
+        : errorResponse(404, "not_found", "No feature registry in this test.");
+    }
+
+    if (url.endsWith("/api/v1/search/multidimensional")) {
+      const body = JSON.parse(String(init?.body ?? "{}")) as unknown;
+      return handlers.multidim
+        ? await handlers.multidim(body)
+        : errorResponse(404, "not_found", "No multidimensional search in this test.");
     }
 
     if (url.endsWith("/api/v1/search")) {

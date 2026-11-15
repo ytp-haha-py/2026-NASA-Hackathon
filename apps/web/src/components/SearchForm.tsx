@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
+  getSearchFeatures,
   getTypedCoverage,
   getTypedObservations,
   type ContextFeatureOut,
   type FeatureOut,
+  type FeatureRegistryOut,
+  type MultiDimSearchRequest,
   type NumericTarget,
   type RangeFilterIn,
   type ReferenceOut,
@@ -30,6 +33,7 @@ import {
   researchWeights,
   unavailableResearchFeatures,
 } from "../lib/research-presets";
+import { queryFeaturesBeyondD01, soilFeatureParts } from "../lib/multidim";
 import { hasMapCoordinates, PlanetMap, type PlanetBody } from "./PlanetMap";
 import { RangeSlider, SingleSlider } from "./RangeSlider";
 
@@ -183,13 +187,16 @@ export function SearchForm({
     }
     const weights = researchWeights(researchPreset, features);
     if (Object.keys(weights).length === 0) return;
-    setRows((current) => Object.fromEntries(features.map((feature) => [
-      feature.id,
-      {
-        ...(current[feature.id] ?? initialRows([feature])[feature.id]),
-        weight: weights[feature.id],
-      },
-    ])));
+    setRows((current) => ({
+      ...current,
+      ...Object.fromEntries(features.map((feature) => [
+        feature.id,
+        {
+          ...(current[feature.id] ?? initialRows([feature])[feature.id]),
+          weight: weights[feature.id],
+        },
+      ])),
+    }));
     setResearchPresetId(id);
     setErrors([]);
     setFieldErrors({});
@@ -255,9 +262,71 @@ export function SearchForm({
     return () => controller.abort();
   }, [typedRetry]);
 
+  const [registry, setRegistry] = useState<FeatureRegistryOut | null>(null);
+  useEffect(() => {
+    const controller = new AbortController();
+    getSearchFeatures(controller.signal)
+      .then((payload) => setRegistry(payload))
+      .catch(() => {
+        if (!controller.signal.aborted) {
+          setRegistry(null);
+        }
+      });
+    return () => controller.abort();
+  }, [typedRetry]);
+
+  /** D02–D06 features the API accepts as similarity targets (Earth only today). */
+  const queryFeatures = useMemo(() => {
+    const capabilityIds = new Set(features.map((feature) => feature.id));
+    return queryFeaturesBeyondD01(registry)
+      .filter((feature) => !capabilityIds.has(feature.id))
+      .map((feature) => {
+        const soil = soilFeatureParts(feature.id);
+        return soil
+          ? {
+              ...feature,
+              label: t("soil.label", {
+                property: t(`soil.${soil.property}` as MessageKey),
+                depth: soil.depth,
+              }),
+            }
+          : feature;
+      });
+  }, [registry, features, t]);
+  /** Registry features per dimension that are observed but not score inputs (listed read-only). */
+  const registryByDimension = useMemo(() => {
+    const groups = new Map<string, FeatureRegistryOut["features"]>();
+    for (const feature of registry?.features ?? []) {
+      if (feature.roles.similarity?.supported) {
+        continue;
+      }
+      if (!(feature.coverage?.observation_count)) {
+        continue;
+      }
+      const list = groups.get(feature.dimension_id) ?? [];
+      list.push(feature);
+      groups.set(feature.dimension_id, list);
+    }
+    return groups;
+  }, [registry]);
+  const queryFeatureIds = useMemo(
+    () => new Set(queryFeatures.map((feature) => feature.id)),
+    [queryFeatures],
+  );
+
+  useEffect(() => {
+    setRows((current) => ({ ...initialRows(queryFeatures), ...current }));
+    setRanges((current) => ({ ...fullRanges(queryFeatures, []), ...current }));
+  }, [queryFeatures]);
+
   const cards = useMemo(
-    () => dimensionCards(features, typedCoverage, typedObservations),
-    [features, typedCoverage, typedObservations],
+    () =>
+      dimensionCards(
+        referenceMode ? features : [...features, ...queryFeatures],
+        typedCoverage,
+        typedObservations,
+      ),
+    [features, queryFeatures, referenceMode, typedCoverage, typedObservations],
   );
   const { primary: primaryContext, more: moreContext } = useMemo(
     () => orderContextFeatures(contextFeatures),
@@ -327,7 +396,9 @@ export function SearchForm({
     }
 
     setRows((current) => {
-      const merged: Record<string, RowState> = {};
+      const merged: Record<string, RowState> = Object.fromEntries(
+        Object.entries(current).map(([id, row]) => [id, { ...row, weight: "0" }]),
+      );
       for (const feature of currentFeatures) {
         merged[feature.id] = nextRows[feature.id] ?? {
           ...(current[feature.id] ?? { value: "", weight: "0" }),
@@ -374,9 +445,9 @@ export function SearchForm({
 
   function resetAll() {
     setResearchPresetId("manual");
-    setRows(initialRows(features));
+    setRows(initialRows([...features, ...queryFeatures]));
     setReferenceWeights(initialReferenceWeights(features));
-    setRanges(fullRanges(features, contextFeatures));
+    setRanges(fullRanges([...features, ...queryFeatures], contextFeatures));
     setLimit("10");
     setErrors([]);
     setFieldErrors({});
@@ -426,7 +497,7 @@ export function SearchForm({
         }
       }
     } else {
-      for (const feature of features) {
+      for (const feature of [...features, ...queryFeatures]) {
         const row = rows[feature.id];
         if (!row) {
           continue;
@@ -500,8 +571,36 @@ export function SearchForm({
       limit: parsedLimit,
     };
 
+    // Features beyond D01 (e.g. D06 soil) are only accepted by the multidimensional search.
+    let multidim: MultiDimSearchRequest | undefined;
+    if (!referenceMode) {
+      const queryFilters = buildFilters(queryFeatures, [], ranges);
+      const usesQueryFeatures =
+        Object.keys(target).some((id) => queryFeatureIds.has(id)) ||
+        Object.keys(queryFilters).length > 0;
+      if (usesQueryFeatures) {
+        const contextIds = new Set(contextFeatures.map((feature) => feature.feature_id));
+        if (Object.keys(request.filters ?? {}).some((id) => contextIds.has(id))) {
+          setErrors([{ key: "search.errLandcoverWithSoil" }]);
+          return;
+        }
+        multidim = {
+          candidate_body: "Earth",
+          reference_id: null,
+          targets: target,
+          filters: { ...buildFilters(features, [], ranges), ...queryFilters },
+          dimension_weights: {},
+          limit: parsedLimit,
+          offset: 0,
+          include_evidence: false,
+          evidence_limit: 12,
+        };
+      }
+    }
+
     onSearch({
       request,
+      multidim,
       target: effectiveTarget,
       body,
       referenceId,
@@ -1025,15 +1124,9 @@ export function SearchForm({
                   : card.role === "context_only"
                     ? t("search.dimensionRoleContext")
                     : t("search.dimensionRoleEvidence");
-              const bodies = Object.entries(card.byBody)
-                .map(([body, count]) => `${label.body(body)} ${count}`)
-                .join(" · ");
-              const states = Object.entries(card.byState)
-                .map(([state, count]) => `${label.status(state)} ${count}`)
-                .join(" · ");
               return (
                 <section
-                  className={`dimension-column dimension-card${card.code === "D01" ? " is-similarity" : ""}${card.code === activeDimension ? " is-active" : ""}`}
+                  className={`dimension-column dimension-card${card.features.length > 0 ? " is-similarity" : ""}${card.code === activeDimension ? " is-active" : ""}`}
                   key={card.code}
                   aria-label={`${card.code} ${name}`}
                   data-testid={`dimension-card-${card.code}`}
@@ -1042,7 +1135,7 @@ export function SearchForm({
                     <h3>
                       <span className="dimension-code mono">{card.code}</span> {name}
                     </h3>
-                    {card.code === "D01" ? (
+                    {card.features.length > 0 && (
                       <span className={`dimension-tag${activeCount > 0 ? " is-active" : ""}`}>
                         {activeCount > 0
                           ? t("search.dimensionCount", {
@@ -1051,16 +1144,12 @@ export function SearchForm({
                             })
                           : t("search.dimensionNone")}
                       </span>
-                    ) : (
-                      <span className={`dimension-tag${card.role === "similarity" ? " is-active" : " is-context"}`}>
-                        {role}
-                      </span>
                     )}
                   </div>
 
-                  {card.code === "D01" ? (
+                  {card.features.length > 0 ? (
                     <>
-                      <p className="field-hint">{role}</p>
+                      {card.code === "D01" && <p className="field-hint">{role}</p>}
                       <div className="metric-list">{card.features.map(renderMetric)}</div>
                     </>
                   ) : typedLoading ? (
@@ -1074,22 +1163,44 @@ export function SearchForm({
                           ? t("search.dimensionObservations", { count: card.total })
                           : t("search.dimensionNoObservations")}
                       </p>
-                      {bodies && (
-                        <p className="field-hint">
-                          {t("search.dimensionBodies", { bodies })}
-                        </p>
-                      )}
-                      {states && (
-                        <p className="field-hint">
-                          {t("search.dimensionStates", { states })}
-                        </p>
-                      )}
-                      {card.valueKinds.length > 0 && (
-                        <p className="field-hint">
-                          {t("search.dimensionKinds", {
-                            kinds: card.valueKinds.join(", "),
+                      {(registryByDimension.get(card.code) ?? []).length > 0 && (
+                        <ul className="observed-feature-list">
+                          {(registryByDimension.get(card.code) ?? []).map((feature) => {
+                            const coverage = feature.coverage;
+                            const bodies = fmt.list(
+                              Object.keys(coverage?.by_body ?? {}).map((name) => label.body(name)),
+                            );
+                            // Long technical units (e.g. dimensionless_spectral_parameter) add noise.
+                            const unit =
+                              feature.unit.length <= 12 && !feature.unit.includes("_")
+                                ? feature.unit
+                                : "";
+                            const min = coverage?.observed_numeric_min;
+                            const max = coverage?.observed_numeric_max;
+                            return (
+                              <li key={feature.feature_id}>
+                                <span className="observed-feature-name">
+                                  {readableFeatureName(feature.feature_id, feature.label, label.feature)}
+                                </span>
+                                <span className="observed-feature-meta">
+                                  {bodies && <span>{bodies}</span>}
+                                  <span className="mono">
+                                    {t("search.observationCount", {
+                                      count: coverage?.observation_count ?? 0,
+                                    })}
+                                  </span>
+                                  {typeof min === "number" && typeof max === "number" && (
+                                    <span className="mono">
+                                      {min === max
+                                        ? `${fmt.number(min, 3)} ${unit}`.trim()
+                                        : `${fmt.number(min, 3)} – ${fmt.number(max, 3)} ${unit}`.trim()}
+                                    </span>
+                                  )}
+                                </span>
+                              </li>
+                            );
                           })}
-                        </p>
+                        </ul>
                       )}
                       <button
                         type="button"
@@ -1255,4 +1366,18 @@ function ResearchScenarioPicker({
       )}
     </div>
   );
+}
+
+/** Uses a localized label when one exists, otherwise tidies the registry's raw label. */
+function readableFeatureName(
+  featureId: string,
+  apiLabel: string,
+  localize: (id: string, fallback?: string | null) => string,
+): string {
+  const localized = localize(featureId, null);
+  if (localized && localized !== featureId && localized !== featureId.replaceAll("_", " ")) {
+    return localized;
+  }
+  const text = apiLabel.trim() || featureId.replaceAll("_", " ");
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
