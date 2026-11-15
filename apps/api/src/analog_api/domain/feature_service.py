@@ -27,8 +27,11 @@ from analog_api.domain.entities import CandidateEntity, ReferenceEntity
 from analog_api.domain.errors import AppError
 from analog_api.domain.features import FEATURES
 from analog_api.domain.multidim import (
-    DISTANCE_SCOPE,
+    DISTANCE_SCOPE_LEGACY,
     MAX_MULTIDIM_LIMIT,
+    SCORING_VERSION_DIMENSION_RMS,
+    SCORING_VERSION_LEGACY,
+    DimensionControl,
     MultiDimCandidate,
     MultiDimError,
     MultiDimExclusion,
@@ -513,6 +516,8 @@ def execute_multidimensional_search(
     filters: Mapping[str, Mapping[str, float | None]],
     reference_id: str | None,
     candidate_body: str,
+    dimension_weights: Mapping[str, tuple[float, bool]] | None = None,
+    scoring_version: str | None = None,
     limit: int,
     offset: int,
     include_evidence: bool,
@@ -563,11 +568,21 @@ def execute_multidimensional_search(
         )
 
     source_body = reference.body if reference is not None else candidate_body
+    dim_controls = (
+        {
+            dimension_id: DimensionControl(weight=weight, enabled=enabled)
+            for dimension_id, (weight, enabled) in dimension_weights.items()
+        }
+        if dimension_weights
+        else None
+    )
     try:
-        targets = resolve_targets(
+        targets, effective_scoring = resolve_targets(
             raw_targets=merged,
             registry=snapshot.registry,
             candidate_body=source_body,
+            dimension_weights=dim_controls,
+            scoring_version=scoring_version,
         )
     except MultiDimError as exc:
         raise AppError(exc.code, exc.message, status_code=422, details=exc.details) from exc
@@ -575,7 +590,13 @@ def execute_multidimensional_search(
     candidates, filter_excluded, filters_applied = _filter_values(
         snapshot=snapshot, filters=filters
     )
-    outcome = rank_candidates(targets=targets, candidates=candidates, registry=snapshot.registry)
+    outcome = rank_candidates(
+        targets=targets,
+        candidates=candidates,
+        registry=snapshot.registry,
+        dimension_weights=dim_controls,
+        scoring_version=effective_scoring,
+    )
     total_eligible = len(outcome.matches)
     window = outcome.matches[offset : offset + limit]
     by_id = {candidate.location_id: candidate for candidate in snapshot.candidates}
@@ -585,11 +606,30 @@ def execute_multidimensional_search(
         candidate = by_id[match.location_id]
         dimension_contributions = {
             dimension: {
-                "contribution": contribution,
-                "distance": math.sqrt(contribution),
+                **{
+                    "contribution": values.get("contribution", contribution)
+                    if isinstance(values, dict)
+                    else contribution,
+                    "distance": values.get("distance", math.sqrt(contribution))
+                    if isinstance(values, dict)
+                    else math.sqrt(contribution),
+                }
             }
-            for dimension, contribution in sorted(match.dimension_contributions.items())
+            for dimension, values, contribution in (
+                (
+                    dimension,
+                    getattr(match, "dimension_scores", {}).get(dimension, {}),
+                    contribution,
+                )
+                for dimension, contribution in sorted(match.dimension_contributions.items())
+            )
         }
+        # prefer rich dimension_scores when present
+        if getattr(match, "dimension_scores", None):
+            dimension_contributions = {
+                dimension: dict(values)
+                for dimension, values in sorted(match.dimension_scores.items())
+            }
         result: dict[str, object] = {
             "rank": rank,
             "location_id": candidate.location_id,
@@ -599,7 +639,7 @@ def execute_multidimensional_search(
             "lon": candidate.lon,
             "bbox": candidate.bbox.as_dict(),
             "distance": match.distance,
-            "distance_scope": DISTANCE_SCOPE,
+            "distance_scope": getattr(outcome, "distance_scope", DISTANCE_SCOPE_LEGACY),
             "dimension_contributions": dimension_contributions,
             "contributions": [
                 {
@@ -654,10 +694,58 @@ def execute_multidimensional_search(
         for item in outcome.excluded
     )
 
+    scoring_version_out = getattr(outcome, "scoring_version", SCORING_VERSION_LEGACY)
+    dim_controls_out: dict[str, dict[str, object]] = {}
+    requested_dims = sorted({snapshot.registry[t.feature_id].dimension_id for t in targets})
+    for dimension_id in requested_dims:
+        if dim_controls and dimension_id in dim_controls:
+            control = dim_controls[dimension_id]
+            dim_controls_out[dimension_id] = {
+                "weight": control.weight,
+                "enabled": control.enabled,
+                "active": control.enabled and control.weight > 0,
+            }
+        else:
+            dim_controls_out[dimension_id] = {
+                "weight": 1.0,
+                "enabled": True,
+                "active": True,
+                "implicit": True,
+            }
+    if scoring_version_out == SCORING_VERSION_DIMENSION_RMS:
+        formula = (
+            "For each compared feature f in dimension d: z_df = (x_df - t_df) / s_df. "
+            "q_d = Σ(v_df * z_df^2) / Σ(v_df) over compared positive-weight features in d. "
+            "distance = sqrt(Σ(w_d * q_d) / Σ(w_d)) over enabled dimensions with positive w_d."
+        )
+        note = (
+            "Feature-count invariant at the dimension level: each active dimension contributes by "
+            "its feature-weighted mean squared normalised delta, then dimensions are combined by "
+            "user dimension weights. Disabled/zero-weight dimensions and zero-weight features do "
+            "not contribute and do not exclude candidates."
+        )
+    else:
+        formula = (
+            "distance = sqrt(Σ(v_f * ((x_f - t_f) / s_f)^2) / Σ(v_f)) over compared "
+            "positive-weight features (legacy flat feature-weighted Euclidean)."
+        )
+        note = (
+            "Legacy scoring preserved for backward compatibility. Provide dimension_weights or "
+            "scoring_version='dimension-weighted-rms-v1' for dimension-level feature-count "
+            "invariant aggregation."
+        )
+
     return {
         "registry_version": REGISTRY_VERSION,
         "data_version": repo.data_version(),
         "data_snapshot_id": repo.data_version(),
+        "scoring": {
+            "version": scoring_version_out,
+            "formula": formula,
+            "dimension_controls": dim_controls_out,
+            "active_dimensions": list(getattr(outcome, "active_dimensions", requested_dims)),
+            "note": note,
+        },
         "candidate_body": candidate_body,
         "source_body": source_body,
         "cross_body_gate": {
