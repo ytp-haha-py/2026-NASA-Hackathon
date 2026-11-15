@@ -2,7 +2,8 @@
 
 The MVP uses SQLite through SQLAlchemy 2. The storage adapter maps rows to domain dataclasses, so
 the API and scoring code do not import ORM objects. `ports/repository.py` defines the narrow
-Protocols that a PostGIS adapter would implement later.
+Protocols implemented by both the default SQLite adapter and the optional PostGIS adapter
+(`docs/POSTGIS.md`; code and offline contract tests exist, but no PostGIS deployment is verified).
 
 ## Tables
 
@@ -121,5 +122,7 @@ uv run alembic init apps/api/alembic
 # configure sqlalchemy.url from ANALOG_DATABASE_URL, autogenerate, review, then upgrade head
 ```
 
-The API must never depend on SQLite-specific SQL. A PostGIS adapter replaces
-`adapters/repository.py` and `adapters/seed.py` while preserving the same Protocol methods.
+The API must never depend on SQLite-specific SQL. The optional PostGIS adapter implements the
+same Protocols and preserves entity results (`docs/POSTGIS.md`); it has not been verified against
+a live deployment. Deployment still needs a PostgreSQL/PostGIS service, Alembic migrations, a
+spatial index, and a backup/restore runbook.

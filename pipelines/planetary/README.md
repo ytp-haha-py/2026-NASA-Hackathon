@@ -323,23 +323,21 @@ The tests cover:
   manifest.
 - CLI `--dry-run` writes no manifest/cache; `--list-products` works offline.
 
-## Future Mars adapter (interface only)
+## Mars references and MOLA interface
 
-`lola.py` defines `PlanetaryReferenceProvider` and a `MolaReferenceProvider` stub. The
-stub raises `mola_not_implemented` and makes **no Mars data claim**. A real MOLA adapter
-must:
+Committed Mars terrain windows come from the real USGS Mars 2020 Jezero CTX DEM
+(`pipelines/planetary/manifests/ctx_mars_references.json`), not MOLA. `lola.py` retains a
+`MolaReferenceProvider` extension point.
 
-1. Read a real MOLA product's metadata and a bounded window (same byte/timeout/cache
-   rules), with a documented Martian projected metric CRS.
-2. Return a `PreparedWindow` with `body="Mars"`, `source_kind="martian_dem"`, the real
-   source citation/license, and a cache checksum.
-3. Use the shared extractor with `body="Mars"` and document its own vertical
-   uncertainty/interpolation caveats.
-4. Validate against the same manifest contract before writing, using
-   `validate_manifest(..., expected_body="Mars")` and its own synthetic/observed
-   quality-flag policy.
+A separate metadata-only PDS4 MOLA MEGDR interface and an evidence-only THEMIS thermal-inertia
+interface live in `analog_pipelines.acquisition.providers_mars`. They verify official metadata
+but deliberately produce **no observations**: MEGDR native support (3.704 km/pixel at 16 ppd,
+0.463 km/pixel at 128 ppd) is far coarser than the 90 m terrain method, and no approved D03
+thermal-inertia feature or per-pixel QA exists. See
+[`docs/MARS_PROVIDER_GATES.md`](../../docs/MARS_PROVIDER_GATES.md) for identifiers, gates,
+blockers, and tests.
 
-No Mars raster, URL, resolution, or value is asserted by this repository yet.
+Do not treat a MOLA or THEMIS metadata record as measured Mars coverage.
 
 ## Files
 
