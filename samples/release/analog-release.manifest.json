@@ -1648,7 +1648,7 @@
       "bodies": [
         "Earth"
       ],
-      "bytes": 363211,
+      "bytes": 416496,
       "counts": {
         "areas": 5,
         "assets": 75,
@@ -1669,15 +1669,9 @@
           "D06": 75
         },
         "observations": 75,
-        "raw_files_bundled": 0,
-        "raw_files_not_bundled": 75,
-        "raw_files_not_bundled_examples": [
-          "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.05.tif",
-          "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.95.tif",
-          "raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-mean.tif",
-          "raw/soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-Q0.05.tif",
-          "raw/soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-Q0.95.tif"
-        ],
+        "raw_files_bundled": 75,
+        "raw_files_not_bundled": 0,
+        "raw_files_not_bundled_examples": [],
         "raw_files_referenced": 75,
         "tasks_attempted": 75,
         "tasks_failed": 0,
@@ -1700,7 +1694,7 @@
         "overlapping_area_examples": [],
         "overlapping_area_pairs": 0
       },
-      "file_count": 5,
+      "file_count": 80,
       "files": [
         {
           "bytes": 486,
@@ -1726,13 +1720,387 @@
           "bytes": 122226,
           "path": "pipelines/pilots/d06_earth_soilgrids/plan.json",
           "sha256": "1299cbe2c7a070f6ac83bd3f95d7afb388f79b49855680f35d1d61396c435982"
+        },
+        {
+          "bytes": 651,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.05.tif",
+          "sha256": "73846eef15b29647645b77aaa022cbfa1cf9899202651597e2c5d1b0d0a28905"
+        },
+        {
+          "bytes": 618,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-Q0.95.tif",
+          "sha256": "a13ee63c7716dff49e2897f90d38f822da83a5817049a978cd40e0327a8819f4"
+        },
+        {
+          "bytes": 667,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-bdod-0-5cm-mean.tif",
+          "sha256": "5895a43770987c1324fd187ae7ca5464e0b86ed1289c36cf8acbcf62212ad1ac"
+        },
+        {
+          "bytes": 641,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-Q0.05.tif",
+          "sha256": "804dc8fcebff63f2118bdedf33b7ccb0c966d399b6690059149d29bc82ab556f"
+        },
+        {
+          "bytes": 619,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-Q0.95.tif",
+          "sha256": "03827946e32e8634cea79eb4bcaec1140371cc021c7c73da353bc9df33dc6770"
+        },
+        {
+          "bytes": 672,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-clay-0-5cm-mean.tif",
+          "sha256": "10211f0d1ebd975330614bf3b15b525417fa7feab451fe3d753f157193877339"
+        },
+        {
+          "bytes": 668,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-sand-0-5cm-Q0.05.tif",
+          "sha256": "314de051dbe22d27099dc4c6edad68c826082162cadfdf04b057a92f00c12315"
+        },
+        {
+          "bytes": 642,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-sand-0-5cm-Q0.95.tif",
+          "sha256": "7b3d1c07d8fda03e83439472cb9aa1722f96c30e57426a3ff2bc28b3a1b8d8ac"
+        },
+        {
+          "bytes": 700,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-sand-0-5cm-mean.tif",
+          "sha256": "132673faef0f9ccf0d857d1ce48c1d1caad38e25289373943e4f15e61f5da0fe"
+        },
+        {
+          "bytes": 648,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-silt-0-5cm-Q0.05.tif",
+          "sha256": "c23483ead4ab6f512621b7edc9c9f965b5b28e2e284aa5a91495cf6966842598"
+        },
+        {
+          "bytes": 686,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-silt-0-5cm-Q0.95.tif",
+          "sha256": "35052ef3ee83c747a73db5a967f4524a1b7b9ba2411035ccc205856f24e8f320"
+        },
+        {
+          "bytes": 699,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-silt-0-5cm-mean.tif",
+          "sha256": "e11c7f3876423055be92f1b95771f824ea61fa3ab317112434918bc72ffd630e"
+        },
+        {
+          "bytes": 668,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-soc-0-5cm-Q0.05.tif",
+          "sha256": "c5f4795dccd6e2e374c1be21c60bba906ebaf535d4eb4409cc588e347c8b6857"
+        },
+        {
+          "bytes": 715,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-soc-0-5cm-Q0.95.tif",
+          "sha256": "a827d5427a26256adce8b90b21e2686846c9db5a46fb0b9f590928efbb69f252"
+        },
+        {
+          "bytes": 719,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-atacama-desert-soc-0-5cm-mean.tif",
+          "sha256": "8d939a71a58def178af4beedc173a3bf6b39ed9c477ef66e2a761bd3875ec30a"
+        },
+        {
+          "bytes": 640,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-bdod-0-5cm-Q0.05.tif",
+          "sha256": "1303eb5ae398dae51fd8687a9cb42d463c2bb6db8e631243e30b48dc1c4d790c"
+        },
+        {
+          "bytes": 654,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-bdod-0-5cm-Q0.95.tif",
+          "sha256": "d465d310a4dca14da59f64cd4eb0b46ec8b74c3d6daec9f003681c81dbac84fa"
+        },
+        {
+          "bytes": 679,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-bdod-0-5cm-mean.tif",
+          "sha256": "1d0b063b2a58f763da339f73b5d28dab3ea984d50cf4e919b38f72ad149d899c"
+        },
+        {
+          "bytes": 685,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-clay-0-5cm-Q0.05.tif",
+          "sha256": "e322f0dc317607b0e0b36c4453ca752f424b84e8e65e7dbb495684079827ba17"
+        },
+        {
+          "bytes": 718,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-clay-0-5cm-Q0.95.tif",
+          "sha256": "48987c342644a6248d38ca8b82462e66306a9ef29643bc3b9b0a5c4c6c82cba3"
+        },
+        {
+          "bytes": 706,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-clay-0-5cm-mean.tif",
+          "sha256": "5540f94d8d707a93e2ef5271b6e8279e8069920da33914389e2362196f85005f"
+        },
+        {
+          "bytes": 725,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-sand-0-5cm-Q0.05.tif",
+          "sha256": "b3e4b64b1b3fe08eeda88c182362701b19d8991cfc3edcc4c572daffbb2bf54e"
+        },
+        {
+          "bytes": 717,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-sand-0-5cm-Q0.95.tif",
+          "sha256": "869a396464d649e175b11eb63b0a3dc897f7145aef8f70bbe49c90ef53ce2bd3"
+        },
+        {
+          "bytes": 720,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-sand-0-5cm-mean.tif",
+          "sha256": "d7856a85bf3a85a488ce291ee656a48865ea4b6177bb18d11d82bb812f2a5e6d"
+        },
+        {
+          "bytes": 695,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-silt-0-5cm-Q0.05.tif",
+          "sha256": "688b5d36a6c10840181b7538f2043328dc2e22787e6efda8ac7bb199815f4f2e"
+        },
+        {
+          "bytes": 723,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-silt-0-5cm-Q0.95.tif",
+          "sha256": "c810a2e835ec304a57b4a83e4aed87d51797fb754a0fee3711bf86dd1a0f379c"
+        },
+        {
+          "bytes": 704,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-silt-0-5cm-mean.tif",
+          "sha256": "d1a0c24a57e1c66283031cbd5b3a6922ebe558bbbf3427fe33de77249569d5aa"
+        },
+        {
+          "bytes": 692,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-soc-0-5cm-Q0.05.tif",
+          "sha256": "618f00b981391e4e0d01185f88581b308208c072aac98b2c60463db83a763814"
+        },
+        {
+          "bytes": 732,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-soc-0-5cm-Q0.95.tif",
+          "sha256": "605fa81cc9801d2f294f63dc446993914675bf494acc14e9931ab265db18b06c"
+        },
+        {
+          "bytes": 720,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-death-valley-soc-0-5cm-mean.tif",
+          "sha256": "6b752047a6b6f225427d76666fe1dd492485e1fd1c7c684cd82842b4b5819bd3"
+        },
+        {
+          "bytes": 680,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-bdod-0-5cm-Q0.05.tif",
+          "sha256": "4fa1ed22eeec58c61e864d475f4f722205a129d4ca308214b8b221a2477da03a"
+        },
+        {
+          "bytes": 717,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-bdod-0-5cm-Q0.95.tif",
+          "sha256": "4cb9de26792fc376e5e9fda396d913c626695a49343163fcf2290afce1c65bdc"
+        },
+        {
+          "bytes": 761,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-bdod-0-5cm-mean.tif",
+          "sha256": "76705092c1b22390469b054b21c484ca210a83d86d26e2ab7f0b9c0f26587746"
+        },
+        {
+          "bytes": 732,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-clay-0-5cm-Q0.05.tif",
+          "sha256": "ebf2c648e93d87c89517a6abc02961e0a0f18fd3b91c49e53962412ea567348c"
+        },
+        {
+          "bytes": 824,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-clay-0-5cm-Q0.95.tif",
+          "sha256": "85698f972ea03e0b63942f56dd4a58a0050b42212cbf81d02391411103188db0"
+        },
+        {
+          "bytes": 819,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-clay-0-5cm-mean.tif",
+          "sha256": "70774c5a17e5e8307e859563813255af66b7469b1b6676ec64c7d47fd3ce619d"
+        },
+        {
+          "bytes": 748,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-sand-0-5cm-Q0.05.tif",
+          "sha256": "ddd7fc0e3d0730612c88487bb51d559a4ca09b54d8f999135de3571145922119"
+        },
+        {
+          "bytes": 806,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-sand-0-5cm-Q0.95.tif",
+          "sha256": "9e20231d47ae2877682e5fef7dbd3a57575f131aec35ae82bff8120aa5add9d7"
+        },
+        {
+          "bytes": 826,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-sand-0-5cm-mean.tif",
+          "sha256": "42d24c07aa212c895595c6ad6362cf4a5555467eba130cd62dd36f77c30174e0"
+        },
+        {
+          "bytes": 746,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-silt-0-5cm-Q0.05.tif",
+          "sha256": "9b79fbadba284b6873084e13f89fa099e70c4fa24b500362b38cdf3e1b39b34e"
+        },
+        {
+          "bytes": 811,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-silt-0-5cm-Q0.95.tif",
+          "sha256": "bc69ad3ce9b8839a16b65a9c2b207e0d76591bd5e8a989eb4571a4e7b3d89acf"
+        },
+        {
+          "bytes": 820,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-silt-0-5cm-mean.tif",
+          "sha256": "789dce8ab2d1d4a96cd54452347eb991b30cc3f6ea0419fb105500f967ca0ca2"
+        },
+        {
+          "bytes": 620,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-soc-0-5cm-Q0.05.tif",
+          "sha256": "2c08a7485124eeebff98c06eb6545bd45aa73fa7b811b681feb78de59a0e7954"
+        },
+        {
+          "bytes": 757,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-soc-0-5cm-Q0.95.tif",
+          "sha256": "3ca9d6bcb9bf9b8ed71bfa73c71e21bff832e1bf52f292d43fbd2b6a8d67af07"
+        },
+        {
+          "bytes": 891,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-devon-island-soc-0-5cm-mean.tif",
+          "sha256": "cceb10c6661b1674ad83ca6219b6450076807b64bb0cec2e420dfb7de55b338c"
+        },
+        {
+          "bytes": 672,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-bdod-0-5cm-Q0.05.tif",
+          "sha256": "2ae6f29356565fcca1c4645092c90109e980558c69ea23c9f31d622a1c7c03cb"
+        },
+        {
+          "bytes": 679,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-bdod-0-5cm-Q0.95.tif",
+          "sha256": "06e36276788b5791cfc4b980816d2065fde52402a05b831b95b997d5046d6247"
+        },
+        {
+          "bytes": 681,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-bdod-0-5cm-mean.tif",
+          "sha256": "afa6c27be6a82d22a4e477931a75f4323f0ab8906a7a3ff8da54dccc5c906446"
+        },
+        {
+          "bytes": 701,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-clay-0-5cm-Q0.05.tif",
+          "sha256": "0ed0109e27c5c099994a03c00b9b83714e035d9fd9b853236d745d3a94e5dadc"
+        },
+        {
+          "bytes": 742,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-clay-0-5cm-Q0.95.tif",
+          "sha256": "23f491db612243c6f8f11231254ad0708bbe23b7fb095ac2c5446b725c177d7b"
+        },
+        {
+          "bytes": 725,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-clay-0-5cm-mean.tif",
+          "sha256": "b772220212456959b0202656075301e389ea93348adc8b5e7d779d75360088d5"
+        },
+        {
+          "bytes": 717,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-sand-0-5cm-Q0.05.tif",
+          "sha256": "a5b6e80c5cea8a560df80726b3d8df9f074cd19981d31ca6c26856152362ab2e"
+        },
+        {
+          "bytes": 723,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-sand-0-5cm-Q0.95.tif",
+          "sha256": "318a4cc76048e9efee28c1b3b33fe76f9082158a06b327b21c03d22e8d27f428"
+        },
+        {
+          "bytes": 724,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-sand-0-5cm-mean.tif",
+          "sha256": "41dfca70f508708424d358597b2aaa41ce46a3913e8752e1dba270817a3ae51e"
+        },
+        {
+          "bytes": 709,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-silt-0-5cm-Q0.05.tif",
+          "sha256": "169a36a99a8f86dc726c83ac498f71966faa233ae69a6f550378ce123fa50992"
+        },
+        {
+          "bytes": 740,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-silt-0-5cm-Q0.95.tif",
+          "sha256": "e077f799ad6fa814b0fc2edaddc4dc77daf1ffc89357b2be9acc63bb6abf7328"
+        },
+        {
+          "bytes": 723,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-silt-0-5cm-mean.tif",
+          "sha256": "b1e90c7c0a290f2b3c37e6aa8236f81ae597852462e311351336ab8e8f2255b0"
+        },
+        {
+          "bytes": 671,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-soc-0-5cm-Q0.05.tif",
+          "sha256": "e872fca18b0f6db81f0f7cdbc872ab0e6fe6bbd9525951cfa727bde9c9ce03b6"
+        },
+        {
+          "bytes": 748,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-soc-0-5cm-Q0.95.tif",
+          "sha256": "6a3633704f32aa2456ed6f02beda036b1686b435bf7fb516f71afbbcdac02bc3"
+        },
+        {
+          "bytes": 733,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-lanzarote-soc-0-5cm-mean.tif",
+          "sha256": "fed80a48c5d634e353d2d88d95b9d2640267e04a8ae28273bea3838975d7aebc"
+        },
+        {
+          "bytes": 709,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-bdod-0-5cm-Q0.05.tif",
+          "sha256": "7929c5d1d3f880872fa07321ec1c6e70ce7c2d0ec32e7a57114acb2ce4be3048"
+        },
+        {
+          "bytes": 645,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-bdod-0-5cm-Q0.95.tif",
+          "sha256": "b04c20573eb1a85e82be31fd3886b9e48599eb918fa2e5695c87c02be4326245"
+        },
+        {
+          "bytes": 698,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-bdod-0-5cm-mean.tif",
+          "sha256": "d0718e5850e5067aa6e053366abdfb77cd916a6365d682b29caebf2ba347bdc5"
+        },
+        {
+          "bytes": 669,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-clay-0-5cm-Q0.05.tif",
+          "sha256": "c4d512689be70d7eb0452443602d4f3690cb0e6e3cdf43d35b327f71153d4449"
+        },
+        {
+          "bytes": 739,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-clay-0-5cm-Q0.95.tif",
+          "sha256": "08b18d2b6342ebc4f71fc65753e61b713b10b63a52c623573fcc7dcd9baadca3"
+        },
+        {
+          "bytes": 726,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-clay-0-5cm-mean.tif",
+          "sha256": "740129da2f9c2a00cde733eb3f34bdfc2140b93cab9f9feabc7d3c69b4605881"
+        },
+        {
+          "bytes": 676,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-sand-0-5cm-Q0.05.tif",
+          "sha256": "ff33923ed8aadab15fd89889b33a6778f7816b10404825b22174c9be39af73e2"
+        },
+        {
+          "bytes": 723,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-sand-0-5cm-Q0.95.tif",
+          "sha256": "9fc00c7f0118170c1dda94876a0bf9f2591bec73736bd0ec24ce3e7e1262bc50"
+        },
+        {
+          "bytes": 734,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-sand-0-5cm-mean.tif",
+          "sha256": "6f8d4e2ca0b599f3a331413c819872b72fd4cd59387cd37580dd1608a4c31a55"
+        },
+        {
+          "bytes": 682,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-silt-0-5cm-Q0.05.tif",
+          "sha256": "78456aff4bf77addaba1b222ef4eb4d2b2f2c2f51e50dcff034a9e83291634d4"
+        },
+        {
+          "bytes": 732,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-silt-0-5cm-Q0.95.tif",
+          "sha256": "1a6920c8c3ab5a39a7af056eaa8408a21e401c36bb2b404b1dcead52ddc75a5e"
+        },
+        {
+          "bytes": 731,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-silt-0-5cm-mean.tif",
+          "sha256": "b5e7e19630820e55de03ed726e3064fe4f8fa4d7534f0189d6293c5f15738e3e"
+        },
+        {
+          "bytes": 657,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-soc-0-5cm-Q0.05.tif",
+          "sha256": "63cc6c6033d50329f9f4e79b77649af60370cfc94b4cc10c16703a91a6efe38a"
+        },
+        {
+          "bytes": 690,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-soc-0-5cm-Q0.95.tif",
+          "sha256": "4af19fdd74de10269e686fcf66a36d536fba27ed06d0dcd74c28541a80e4a00f"
+        },
+        {
+          "bytes": 705,
+          "path": "pipelines/pilots/d06_earth_soilgrids/raw/soilgrids-D06-earth-earth-sahara-r1c1-soc-0-5cm-mean.tif",
+          "sha256": "e753bdc34ccb7c6ed49a69698e8d31e59b9bc2272dcb8920331a8d0650bd47e8"
         }
       ],
       "hash_method": "sha256(canonical-json(files[]))",
       "kind": "typed_bundle_acquisition",
       "limitations": [
-        "SoilGrids 250 m model prediction at 0-5 cm, not a local sample.",
-        "75 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
+        "SoilGrids 250 m model prediction at 0-5 cm, not a local sample."
       ],
       "method_versions": [
         "soilgrids-wcs-2.0.0"
@@ -1744,7 +2112,7 @@
         "plan": "acquisition-plan-1.0.0",
         "release": "acquisition-release-1.0.0"
       },
-      "sha256": "4c982e30c2ad0a6f162bfb9bce5292c009bceaabca3263dce321bfd40ed6c469",
+      "sha256": "1deda67766a0afda24f482f5c4c6e718a6b654b3698771c83372a68aac215db2",
       "source_references": [
         {
           "availability": "accessible",
@@ -1916,7 +2284,7 @@
     "coarse_partitions": 3,
     "coarse_regions": 3,
     "dataset_references": 19,
-    "files": 65,
+    "files": 140,
     "fine_candidates": 113,
     "fine_context_observations": 1243,
     "fine_data_version": "dv-b46f3bad38ea",
@@ -3694,7 +4062,7 @@
   "generated_at": "2026-11-15T05:45:52Z",
   "generated_by": "pipelines/src/analog_pipelines/release.py",
   "notes": "Bounded local multi-dimension release assembled from committed artifacts only. This is not global coverage; missing bodies/dimensions are listed explicitly and no value is zero-filled.",
-  "release_id": "rel-072e483bfdff1acd",
+  "release_id": "rel-3b5e3af6b6bd4a23",
   "release_version": "multi-dimension-release-1.0.0",
   "scope": {
     "bodies": [
