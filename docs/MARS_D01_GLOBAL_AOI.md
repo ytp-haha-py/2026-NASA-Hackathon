@@ -36,6 +36,10 @@ CTX as all-Mars.
   (no global tile/download); read upper bounds and source windows recorded per AOI.
   License not stated in PDS4 bundle/collection/product labels (recorded as-is).
 
+## Implementation notes
+- **Source:** MOLA MEGDR 128 ppd tiles (PDS4 `urn:nasa:pds:mgs_mola_topography_derived` v1.0 / data_meg128 v2.0, DOI `10.17189/1z1b-kv84`), 463.0576672 m native, planetocentric Mars (R=3396 km), nodata -32768, metre. Bounded per-window `/vsicurl/` reads only (no global download); read windows/byte upper bounds recorded.
+- **Chunked/bounded reads & cache:** reads are bounded to intersecting tile windows (`source_windows` with shape/offsets/read-byte upper bounds per AOI). `mola_global.analyze_mars_bbox_d01(..., cache_dir=...)` stores a rebuildable, checksumed, versioned local AOI result cache (`AOI_CACHE_VERSION`, key by bbox/method/source/resolution/label, `cache_result_sha256`, meta sidecar, hit/miss reported). Cache is gitignored and rebuildable by deletion+rerun. Low-level chunked tile window reads can be staged to local GeoTIFF via `mola_global.read_window(..., --output)` with sidecar metadata.
+
 ## D01 computation (full requested bbox)
 
 - Five D01 features: `slope_mean_deg`, `slope_p90_deg`, `terrain_relief_p95_p05_m`,
@@ -68,6 +72,36 @@ PY
 ```
 
 Evidence regeneration (bounded, 3 AOIs): `PYTHONPATH=pipelines/planetary:pipelines/src uv run python pipelines/planetary/mola_aoi.py --evidence` (writes `pipelines/planetary/evidence/mars_mola_aoi_evidence.json`).
+
+
+## Rebuildable/checksumed/versioned local cache (item 2 evidence)
+
+`mola_global.analyze_mars_bbox_d01(..., cache_dir=...)` persists AOI results as a
+versioned, checksumed, rebuildable local cache (gitignored path). Demonstration (real
+bounded read, Jezero AOI):
+
+```bash
+# miss (reads bounded MOLA window, computes D01, stores cache)
+PYTHONPATH=pipelines/planetary:pipelines/src uv run python pipelines/planetary/mola_global.py \
+  --analyze-bbox 77.35 18.35 77.55 18.53 --allow-remote --cache-dir /tmp/mola_cache_demo --label cache-demo
+# -> cache.cache_hit=false, cache.cache_version="mola-aoi-cache-1.0.0",
+#    cache.cache_key="10a949191d7c203c0e4b561d",
+#    cache.cache_result_sha256="sha256:1af3dca76744745ad2fe043d2854a41160e11916cda10d6b0b34e568470a976d",
+#    cache.cache_path=".../10/10a949191d7c203c0e4b561d.json", rebuildable=true
+
+# hit (no recompute; checksum-verified)
+PYTHONPATH=pipelines/planetary:pipelines/src uv run python pipelines/planetary/mola_global.py \
+  --analyze-bbox 77.35 18.35 77.55 18.53 --allow-remote --cache-dir /tmp/mola_cache_demo --label cache-demo
+# -> cache.cache_hit=true (same key/version/sha256)
+
+# rebuildable: delete cache and rerun -> miss/recomputed
+rm -rf /tmp/mola_cache_demo
+```
+
+Stored artifacts: `<key>.json` (result payload) + `<key>.meta.json` (cache_version,
+cache_key, created_at, result_sha256, result checksum, method/source/version, bbox,
+rebuildable). Chunked/bounded source reads remain recorded in `source_windows`
+(shape/offsets/read-byte upper bounds).
 
 ## 3 dispersed real Mars AOIs (low/mid/high latitude) — observed evidence
 

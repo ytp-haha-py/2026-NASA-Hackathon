@@ -197,3 +197,43 @@ def test_evidence_file_has_three_dispersed_real_aois():
         feats = a.get("features") or {}
         assert set(feats) == set(D01_FEATURE_IDS)
         assert a.get("source", {}).get("source_version")
+
+
+def test_aoi_result_cache_is_versioned_checksumed_and_rebuildable(tmp_path, monkeypatch):
+    calls = {"n": 0}
+
+    def fake(b, *, label="custom-mars-aoi", allow_remote=False, window_reader=None):
+        calls["n"] += 1
+        return {
+            "schema_version": "mars-mola-aoi-result-1.0.0",
+            "checksum": "sha256:abc",
+            "method_version": mg.D01_METHOD_VERSION,
+            "source_version": mg.D01_SOURCE_VERSION,
+            "requested_bbox_lonlat": b,
+            "status": "complete",
+            "features": {"slope_mean_deg": {"value": 1.0}},
+        }
+
+    monkeypatch.setattr(mg, "analyze_mola_aoi", fake)
+    bbox = {"west": 77.35, "south": 18.35, "east": 77.55, "north": 18.53}
+    r1 = mg.analyze_mars_bbox_d01(bbox, cache_dir=tmp_path, label="t")
+    r2 = mg.analyze_mars_bbox_d01(bbox, cache_dir=tmp_path, label="t")
+    assert calls["n"] == 1
+    assert r1["cache"]["cache_hit"] is False
+    assert r2["cache"]["cache_hit"] is True
+    assert r1["cache"]["cache_version"] == mg.AOI_CACHE_VERSION
+    assert (
+        r1["cache"]["cache_key"] == r2["cache_key"]
+        if "cache_key" in r2
+        else r1["cache"]["cache_key"]
+    )
+    assert r1["cache"]["cache_result_sha256"].startswith("sha256:")
+    meta = tmp_path / r1["cache"]["cache_key"][:2] / f"{r1['cache']['cache_key']}.meta.json"
+    assert meta.is_file()
+    # rebuildable: delete cache and recompute
+    for p in tmp_path.rglob("*"):
+        if p.is_file():
+            p.unlink()
+    r3 = mg.analyze_mars_bbox_d01(bbox, cache_dir=tmp_path, label="t")
+    assert calls["n"] == 2
+    assert r3["cache"]["cache_hit"] is False

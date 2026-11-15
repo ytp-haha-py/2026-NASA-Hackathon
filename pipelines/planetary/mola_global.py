@@ -519,13 +519,8 @@ def tile_for_product_id(product_id: str) -> MolaTile:
     return MOLA_TILE_INDEX[text]
 
 
-def tiles_for_collection(ppd: int | str = 128) -> tuple[MolaTile, ...]:
-    collection = resolve_collection(ppd)
-    return tuple(
-        tile
-        for tile in MOLA_TILE_INDEX.values()
-        if tile.collection_lid == collection.collection_lid
-    )
+def tiles_for_collection(ppd: int | str = 128, role: str = "topography") -> tuple[MolaTile, ...]:
+    return tiles(ppd, role)
 
 
 def _contains_lonlat(tile: MolaTile, lon: float, lat: float) -> bool:
@@ -1388,7 +1383,7 @@ def _metadata_from_dataset(
         georeference_delta=georeference_delta(tile, gdal_transform),
         native_resolution_m=tile.pixel_resolution_m,
         block_shapes=tuple((int(shape[0]), int(shape[1])) for shape in src.block_shapes),
-        is_tiled=bool(src.is_tiled),
+        is_tiled=bool(src.profile.get("tiled", False)),
         full_image_bytes=tile.image_bytes,
     )
 
@@ -1763,6 +1758,90 @@ METHOD_VERSION = D01_METHOD_VERSION
 TERRAIN_METHOD_VERSION = "terrain-metrics-1.0.0"
 MARS_FRAME = "mars_planetocentric"
 MEG128_RESOLUTION_M = MOLA_NATIVE_RESOLUTION_M
+AOI_CACHE_VERSION = "mola-aoi-cache-1.0.0"
+DEFAULT_AOI_CACHE_DIR = Path("data/cache/mola_global_aoi")
+
+
+def _aoi_cache_key(bbox: Mapping[str, float], label: str) -> str:
+    norm = {
+        "west": round(float(bbox["west"]), 8),
+        "south": round(float(bbox["south"]), 8),
+        "east": round(float(bbox["east"]), 8),
+        "north": round(float(bbox["north"]), 8),
+    }
+    identity = {
+        "cache_version": AOI_CACHE_VERSION,
+        "method_version": D01_METHOD_VERSION,
+        "source_version": D01_SOURCE_VERSION,
+        "analysis_resolution_m": MOLA_NATIVE_RESOLUTION_M,
+        "label": label,
+        "bbox": norm,
+    }
+    return hashlib.sha256(json.dumps(identity, sort_keys=True).encode("utf-8")).hexdigest()[:24]
+
+
+def _aoi_cache_paths(cache_dir: Path, key: str) -> tuple[Path, Path]:
+    root = cache_dir / key[:2]
+    return root / f"{key}.json", root / f"{key}.meta.json"
+
+
+def _sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _load_aoi_cache(cache_dir: Path, key: str) -> dict[str, Any] | None:
+    json_path, meta_path = _aoi_cache_paths(cache_dir, key)
+    if not (json_path.is_file() and meta_path.is_file()):
+        return None
+    try:
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        if meta.get("cache_version") != AOI_CACHE_VERSION or meta.get("cache_key") != key:
+            return None
+        if meta.get("result_sha256") != _sha256_file(json_path):
+            return None
+        payload = json.loads(json_path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    payload["cache"] = {
+        "cache_version": AOI_CACHE_VERSION,
+        "cache_key": key,
+        "cache_path": str(json_path),
+        "cache_hit": True,
+        "cache_result_sha256": f"sha256:{meta.get('result_sha256')}",
+        "rebuildable": True,
+    }
+    return payload
+
+
+def _store_aoi_cache(cache_dir: Path, key: str, payload: Mapping[str, Any]) -> dict[str, Any]:
+    json_path, meta_path = _aoi_cache_paths(cache_dir, key)
+    json_path.parent.mkdir(parents=True, exist_ok=True)
+    to_store = {k: v for k, v in payload.items() if k != "cache"}
+    text = json.dumps(to_store, indent=2, sort_keys=True, allow_nan=False) + "\n"
+    json_path.write_text(text, encoding="utf-8")
+    result_sha = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    meta = {
+        "cache_version": AOI_CACHE_VERSION,
+        "cache_key": key,
+        "created_at": utc_now_iso(),
+        "result_sha256": result_sha,
+        "checksum": to_store.get("checksum"),
+        "method_version": to_store.get("method_version"),
+        "source_version": to_store.get("source_version"),
+        "requested_bbox_lonlat": to_store.get("requested_bbox_lonlat"),
+        "rebuildable": True,
+    }
+    meta_path.write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    out = dict(to_store)
+    out["cache"] = {
+        "cache_version": AOI_CACHE_VERSION,
+        "cache_key": key,
+        "cache_path": str(json_path),
+        "cache_hit": False,
+        "cache_result_sha256": f"sha256:{result_sha}",
+        "rebuildable": True,
+    }
+    return out
 
 
 def analyze_mars_bbox_d01(
@@ -1778,18 +1857,25 @@ def analyze_mars_bbox_d01(
 ) -> dict[str, Any]:
     """Compute D01 terrain features for an arbitrary Mars bbox from global MOLA MEGDR.
 
-    This is the Goal B entry point owned by ``mola_global.py``. It performs bounded
-    reads from the MOLA MEGDR 128 ppd tiles covering the requested bbox and computes
-    the five D01 terrain features (slope_mean_deg, slope_p90_deg,
-    terrain_relief_p95_p05_m, roughness_std_m, flat_terrain_fraction). Results include
-    actual feature/elevation values, valid fraction, CRS/resolution, QA/warnings, and
-    source checksum/version/provenance. Missing data is never zero-filled.
+    Performs bounded reads from MOLA MEGDR 128 ppd tiles covering the requested bbox and
+    computes the five D01 terrain features. Results include actual feature/elevation
+    values, valid fraction, CRS/resolution, QA/warnings, and source
+    checksum/version/provenance. Missing data is never zero-filled.
 
-    Extra keyword arguments (cache_dir, analysis_resolution_m, timeout,
-    max_read_bytes, refresh) are accepted for API compatibility; the primary bounded
-    reader uses GDAL/vsicurl range reads via the planetary coarse infrastructure.
+    When ``cache_dir`` is provided, AOI results are stored in a rebuildable, checksumed,
+    versioned local cache (hit/miss reported in ``result['cache']``). Deleting the cache
+    directory and rerunning rebuilds from source.
     """
-    _ = (cache_dir, analysis_resolution_m, timeout, max_read_bytes, refresh)
+    _ = (analysis_resolution_m, timeout, max_read_bytes)
+    cache_root = Path(cache_dir) if cache_dir is not None else None
+    if cache_root is not None:
+        key = _aoi_cache_key(bbox, label)
+        if not refresh:
+            cached = _load_aoi_cache(cache_root, key)
+            if cached is not None:
+                return cached
+        result = analyze_mola_aoi(bbox, label=label, allow_remote=allow_remote)
+        return _store_aoi_cache(cache_root, key, result)
     return analyze_mola_aoi(bbox, label=label, allow_remote=allow_remote)
 
 
@@ -1807,6 +1893,16 @@ def _build_parser_with_aoi() -> argparse.ArgumentParser:
         "--allow-remote",
         action="store_true",
         help="allow bounded remote MOLA reads for AOI analysis",
+    )
+    parser.add_argument(
+        "--cache-dir",
+        default=None,
+        help="optional rebuildable AOI result cache directory (never a raster tile cache)",
+    )
+    parser.add_argument(
+        "--refresh-cache",
+        action="store_true",
+        help="ignore an existing AOI result cache entry",
     )
     return parser
 
@@ -1828,6 +1924,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 },
                 label=args.label,
                 allow_remote=bool(args.allow_remote),
+                cache_dir=args.cache_dir,
+                refresh=bool(getattr(args, "refresh_cache", False)),
             )
             _print_json(result)
             return 0
@@ -1861,11 +1959,25 @@ def main(argv: Sequence[str] | None = None) -> int:
             _print_json({"url": MOLA_CHECKSUM_INDEX_URL, "count": len(index), "checksums": index})
             return 0
         if args.probe:
-            probe_tile = tiles(args.ppd, args.role)[0]
+            if args.metadata:
+                probe_tile = tile_for_product_id(args.metadata)
+            elif args.lonlat:
+                probe_tile = tile_for_lonlat(
+                    args.lonlat[0], args.lonlat[1], ppd=args.ppd, role=args.role
+                )
+            else:
+                probe_tile = tiles(args.ppd, args.role)[0]
             _print_json(probe_remote(probe_tile, timeout=min(args.timeout, 60.0)).to_payload())
             return 0
         if args.verify:
-            verify_tile = tiles(args.ppd, args.role)[0]
+            if args.metadata:
+                verify_tile = tile_for_product_id(args.metadata)
+            elif args.lonlat:
+                verify_tile = tile_for_lonlat(
+                    args.lonlat[0], args.lonlat[1], ppd=args.ppd, role=args.role
+                )
+            else:
+                verify_tile = tiles(args.ppd, args.role)[0]
             meta = inspect_remote_product(verify_tile, timeout=args.timeout)
             _print_json(
                 {
