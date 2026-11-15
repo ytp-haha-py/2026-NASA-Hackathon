@@ -806,6 +806,40 @@ export const typedAreaFixture: TypedAreaOut = {
       notes: "Coarse model context, not a local thermal-inertia measurement.",
     },
     {
+      observation_id: "fixture:earth-observed-1:D04:water",
+      area_id: "earth-observed-1",
+      body: "Earth",
+      dimension_code: "D04",
+      feature_id: "root_zone_soil_wetness_fraction",
+      value_kind: "timeseries",
+      state: "detected",
+      value: {
+        timestamps: ["2024-01-01"],
+        values: [0.21],
+      },
+      unit: "fraction",
+      method_version: "nasa-power-daily-1.0.0",
+      dataset_ids: ["nasa-power-daily"],
+      source_asset_ids: ["nasa-power:earth-observed-1:d04"],
+      quality_flags: ["model_reanalysis_context"],
+      score_role: "context_only",
+      spatial_support: {
+        ...typedSupport,
+        native_resolution_m: 50000,
+        source_resolution_m: 50000,
+        resolution_m: 50000,
+      },
+      temporal_support: {
+        kind: "interval",
+        start: "2024-01-01T00:00:00Z",
+        end: "2024-01-02T00:00:00Z",
+        notes: "Daily model/reanalysis context.",
+      },
+      depth_support: { kind: "surface", min_m: null, max_m: null },
+      uncertainty: null,
+      notes: "Soil wetness context only; no confirmed ice or subsurface water.",
+    },
+    {
       observation_id: "fixture:earth-observed-1:D05:detection",
       area_id: "earth-observed-1",
       body: "Earth",
@@ -856,10 +890,11 @@ export const emptyTypedAreaFixture: TypedAreaOut = {
 };
 
 export const typedCoverageFixture: TypedCoverageOut = {
-  total: 4,
+  total: 5,
   by_dimension: {
     D02: { total: 1, by_body: { Earth: 1 }, by_state: { unknown: 1 } },
     D03: { total: 1, by_body: { Earth: 1 }, by_state: { detected: 1 } },
+    D04: { total: 1, by_body: { Earth: 1 }, by_state: { detected: 1 } },
     D05: { total: 1, by_body: { Earth: 1 }, by_state: { not_detected: 1 } },
     D06: { total: 1, by_body: { Earth: 1 }, by_state: { detected: 1 } },
   },

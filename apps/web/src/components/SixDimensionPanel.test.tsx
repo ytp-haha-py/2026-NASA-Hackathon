@@ -71,6 +71,11 @@ describe("SixDimensionPanel", () => {
     expect(within(d03).getByText("2024-01-01")).toBeInTheDocument();
     expect(within(d03).getByText("11.5 degree_C")).toBeInTheDocument();
 
+    const d04 = screen.getByRole("region", { name: "Water & Ice" });
+    expect(within(d04).getAllByText("Context only — never scored").length).toBeGreaterThan(0);
+    expect(within(d04).getByText("0.21 fraction")).toBeInTheDocument();
+    expect(within(d04).getByText(/no confirmed ice/)).toBeInTheDocument();
+
     const d05 = screen.getByRole("region", { name: "Solar Illumination & Radiation" });
     expect(within(d05).getAllByText("Not detected").length).toBeGreaterThan(0);
     expect(
