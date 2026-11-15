@@ -1,5 +1,5 @@
 {
-  "base_commit": "f0bff49c473bf45fcad00b1b4d1532e4777500d7",
+  "base_commit": "c3050f1cc2825fafb21b2c514175aef9b37577dc",
   "dimensions": {
     "D01": {
       "actual_observation_counts": {
@@ -141,7 +141,7 @@
       "scientific_data_status": "pilot_observations"
     }
   },
-  "generated_at": "2026-11-15T08:45:00+00:00",
+  "generated_at": "2026-11-15T09:15:00+00:00",
   "issues": [
     {
       "comparison_status": "not_comparable",
@@ -203,13 +203,14 @@
       ],
       "evidence": [
         "Moon Ec map unit and Mars Jezero units retained as map evidence",
-        "Moon/Mars map units and processes exported to typed-v2; Earth shareable values remain zero"
+        "Moon/Mars map units and processes exported to typed-v2; Earth shareable values remain zero",
+        "PR #104: GSC OF 5529 ingested via bounded public WMS with OGL-Canada licence"
       ],
       "implementation_status": "merged",
       "number": 41,
       "remaining_blockers": [
-        "Earth GLiM redistribution rights",
-        "Moon/Mars frame validation"
+        "GSC source is ~1:35M, far coarser than a 1.98 km AOI",
+        "only two Earth AOIs sampled; point-grid estimate, not polygon intersection"
       ],
       "scientific_data_status": "pilot_observations",
       "title": "D02 geologic mapping"
@@ -569,12 +570,14 @@
         29
       ],
       "evidence": [
-        "not implemented"
+        "not implemented",
+        "PR #105: WhiteboxTools reference matches buffered core 484/484; normal crop 95.5% ternary agreement"
       ],
       "implementation_status": "merged",
       "number": 40,
       "remaining_blockers": [
-        "geomorphon class values not validated without GRASS reference"
+        "no production geomorphon feature",
+        "real Earth/Moon/Mars geomorphon class composition not validated"
       ],
       "scientific_data_status": "verified_subset",
       "title": "Curvature and geomorphon validation"
@@ -730,6 +733,16 @@
       "merge_commit": "3b5848f43af047e3827ac8402ef96cf0fdba5941",
       "number": 100,
       "title": "D02 spectral-detection evidence"
+    },
+    {
+      "merge_commit": "dbe619122350f316b05053d9f3a1bb4b130be534",
+      "number": 104,
+      "title": "GSC OF 5529 Earth lithology"
+    },
+    {
+      "merge_commit": "c3050f1cc2825fafb21b2c514175aef9b37577dc",
+      "number": 105,
+      "title": "geomorphon reference validation"
     }
   ],
   "next_independent_tasks": [
