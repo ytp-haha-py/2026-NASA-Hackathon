@@ -9,6 +9,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 MATRIX = ROOT / "docs" / "data-sources" / "d04-water-ice-coverage-matrix.json"
 EARTH_OBS = ROOT / "pipelines" / "pilots" / "d04_earth_power" / "observations.jsonl"
+EARTH_EXPANSION = (
+    ROOT / "pipelines" / "pilots" / "d04_earth_power_expansion_01" / "observations.jsonl"
+)
 PLANET_OBS = ROOT / "pipelines" / "pilots" / "d04_water_ice_planetary" / "observations.jsonl"
 
 
@@ -24,14 +27,14 @@ def test_d04_coverage_matrix_matches_indexed_releases() -> None:
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     assert matrix["dimension"] == "D04"
     assert matrix["generated_for_issue"] == 138
-    assert matrix["totals"]["indexed_observations"] == 75
-    assert matrix["totals"]["by_body"] == {"Earth": 20, "Mars": 2, "Moon": 53}
+    assert matrix["totals"]["indexed_observations"] == 87
+    assert matrix["totals"]["by_body"] == {"Earth": 32, "Mars": 2, "Moon": 53}
 
-    earth = load_jsonl(EARTH_OBS)
+    earth = load_jsonl(EARTH_OBS) + load_jsonl(EARTH_EXPANSION)
     planet = load_jsonl(PLANET_OBS)
     all_obs = earth + planet
-    assert len(all_obs) == 75
-    assert Counter(o["body"] for o in all_obs) == Counter({"Earth": 20, "Moon": 53, "Mars": 2})
+    assert len(all_obs) == 87
+    assert Counter(o["body"] for o in all_obs) == Counter({"Earth": 32, "Moon": 53, "Mars": 2})
 
     rows = matrix["rows"]
     # every indexed body/feature count in matrix matches actual observations

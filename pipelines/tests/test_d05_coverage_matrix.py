@@ -7,6 +7,9 @@ ROOT = Path(__file__).resolve().parents[2]
 MATRIX = ROOT / "docs" / "data-sources" / "d05-illumination-radiation-coverage-matrix.json"
 DOC = ROOT / "docs" / "D05_COVERAGE_MATRIX.md"
 EARTH_OBS = ROOT / "pipelines" / "pilots" / "d05_earth_power" / "observations.jsonl"
+EARTH_EXPANSION = (
+    ROOT / "pipelines" / "pilots" / "d05_earth_power_expansion_01" / "observations.jsonl"
+)
 SPICE_OBS = ROOT / "pipelines" / "pilots" / "d05_spice_illumination" / "observations.jsonl"
 
 
@@ -93,7 +96,7 @@ def test_d05_matrix_separates_illumination_and_radiation_and_no_fabricated_dose(
         )
 
     # Committed pilot observations must not contain ionizing dose/flux products.
-    for path in (EARTH_OBS, SPICE_OBS):
+    for path in (EARTH_OBS, EARTH_EXPANSION, SPICE_OBS):
         for obs in _load_jsonl(path):
             fid = obs.get("feature_id", "")
             unit = obs.get("unit")
@@ -104,12 +107,12 @@ def test_d05_matrix_separates_illumination_and_radiation_and_no_fabricated_dose(
 
 def test_d05_matrix_matches_committed_pilot_counts_and_bodies():
     data = json.loads(MATRIX.read_text(encoding="utf-8"))
-    earth = _load_jsonl(EARTH_OBS)
+    earth = _load_jsonl(EARTH_OBS) + _load_jsonl(EARTH_EXPANSION)
     spice = _load_jsonl(SPICE_OBS)
     moon = [o for o in spice if o["body"] == "Moon"]
     mars = [o for o in spice if o["body"] == "Mars"]
 
-    assert len(earth) == 10
+    assert len(earth) == 16
     assert len(moon) == 8
     assert len(mars) == 10
     assert {o["feature_id"] for o in earth} == {
@@ -120,12 +123,12 @@ def test_d05_matrix_matches_committed_pilot_counts_and_bodies():
 
     # Matrix must report these bounded committed coverages.
     coverage_text = " ".join(e["actual_indexed_queryable_coverage"] for e in data["entries"])
-    assert "5 Earth areas" in coverage_text or "5 areas" in coverage_text
+    assert "8 Earth areas" in coverage_text or "8 areas" in coverage_text
     assert "4 Moon areas" in coverage_text
     assert "5 Mars areas" in coverage_text
 
     doc_text = DOC.read_text(encoding="utf-8")
-    assert "28" in doc_text
+    assert "44" in doc_text
     assert (
         "committed ionizing radiation dose/flux observations:** 0" in doc_text.lower()
         or "committed ionizing observations 0" in doc_text.lower()

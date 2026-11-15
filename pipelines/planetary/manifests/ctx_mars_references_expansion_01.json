@@ -1,0 +1,148 @@
+{
+  "manifest_version": "1.0.0",
+  "contract_version": "1.0.0",
+  "generated_by": "scripts/build_ctx_expansion.py",
+  "generated_at": "2026-11-15T12:40:58Z",
+  "data_kind": "observed",
+  "datasets": [
+    {
+      "dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "provider": "USGS Astrogeology Science Center / NASA Mars Missions",
+      "product_id": "M20_JezeroCrater_CTXDEM_20m",
+      "title": "Mars 2020 Science Investigation CTX DEM Mosaic",
+      "url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+      "license": "public domain",
+      "license_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+      "access_timestamp": "2026-11-15T12:40:58Z",
+      "source_crs": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "native_resolution_m": 20.0,
+      "processing_version": "jezero-ctx-import-1.0.0",
+      "checksum": "sha256:ba7f706ea1b5d63a562f28a7dcf7a7f3c79bce7f048e6974b57e8a33c30d1ba2",
+      "source_kind": "martian_dem",
+      "notes": "20 m stereo-derived mosaic; official product page: DEMs localized vertically to MOLA. Source GeoTIFF uses Mars_2000_Sphere radius 3396190 m; catalog page lists 3396160 m. Retain authoritative raster CRS without substituting Earth WGS84. Elevation in metres; no absolute elevations compared across bodies. Horizontal accuracy: Accurate to Control Net; per-window vertical uncertainty not verified. Mosaic seams and stereo artifacts may affect metrics. Dataset checksum covers full source GeoTIFF. Source redirects to USGS public S3. Citation/product documentation: https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic"
+    }
+  ],
+  "candidates": [],
+  "references": [
+    {
+      "reference_id": "mars-jezero-ctx-window-06",
+      "body": "Mars",
+      "display_name": "Jezero CTX expansion window 06",
+      "dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "lat": 17.798488125311554,
+      "lon": 77.1930877446839,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "stereo_dem_mosaic",
+        "vertical_uncertainty_not_verified"
+      ],
+      "notes": "Fixed source-CRS centre X=4340000.0 m Y=1055000.0 m; diagonal sampling transect at 10 km X/Y increments; no landform label inferred. 22x22 bilinear 90 m grid; Horn slope uses complete 3x3 neighborhoods only. window_checksum=sha256:2d437fb803ff9ea3fcf322e2585703b6542f074c7012db9644b19b4fc063be2a.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 3.068294,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 5.194449,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 77.693901,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 9.068552,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.8775,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    },
+    {
+      "reference_id": "mars-jezero-ctx-window-07",
+      "body": "Mars",
+      "display_name": "Jezero CTX expansion window 07",
+      "dataset_id": "mars2020-jezero-ctx-dem-20m",
+      "lat": 19.14813651396077,
+      "lon": 78.3492054182794,
+      "bbox": null,
+      "window_size_m": 1980.0,
+      "analysis_resolution_m": 90.0,
+      "crs": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "valid_fraction": 1.0,
+      "quality_flags": [
+        "stereo_dem_mosaic",
+        "vertical_uncertainty_not_verified"
+      ],
+      "notes": "Fixed source-CRS centre X=4405000.0 m Y=1135000.0 m; diagonal sampling transect at 10 km X/Y increments; no landform label inferred. 22x22 bilinear 90 m grid; Horn slope uses complete 3x3 neighborhoods only. window_checksum=sha256:1fc3f07ae8bafb1fe411fa6e82062237f7b4d5e84d6c1b2020ec093310f4751c.",
+      "features": {
+        "slope_mean_deg": {
+          "value": 4.830566,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "slope_p90_deg": {
+          "value": 8.467398,
+          "unit": "degree",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "terrain_relief_p95_p05_m": {
+          "value": 105.272675,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "roughness_std_m": {
+          "value": 18.446172,
+          "unit": "meter",
+          "method_version": "terrain-metrics-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        },
+        "flat_terrain_fraction": {
+          "value": 0.615,
+          "unit": "fraction",
+          "method_version": "flat-terrain-fraction-1.0.0",
+          "extraction_scale_m": 90.0,
+          "valid_fraction": 1.0,
+          "quality": "verified"
+        }
+      }
+    }
+  ]
+}

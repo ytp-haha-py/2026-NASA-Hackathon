@@ -61,6 +61,11 @@ def test_d01_coverage_matrix_matches_committed_manifest_counts():
         for p in (ROOT / "pipelines/planetary/manifests").glob("lola*.json")
     )
     moon_all = sum(len(_load(p)["references"]) for p in moon_manifest_paths)
+    mars_paths = sorted(
+        str(p.relative_to(ROOT))
+        for p in (ROOT / "pipelines/planetary/manifests").glob("ctx_mars*.json")
+    )
+    mars_all = sum(len(_load(p)["references"]) for p in mars_paths)
     mars = _load("pipelines/planetary/manifests/ctx_mars_references.json")
     coarse = _load("docs/global-terrain-results/coverage.json")
 
@@ -76,9 +81,12 @@ def test_d01_coverage_matrix_matches_committed_manifest_counts():
             ]["indexed_windows"]
             == moon_all
         )
-        assert entries[("Mars", fid, "usgs-m20-jezero-ctx-dem-20m")][
-            "actual_indexed_queryable_coverage"
-        ]["indexed_windows"] == len(mars["references"])
+        assert (
+            entries[("Mars", fid, "usgs-m20-jezero-ctx-dem-20m")][
+                "actual_indexed_queryable_coverage"
+            ]["indexed_windows"]
+            == mars_all
+        )
     for fid in ["coarse_slope_mean_deg", "coarse_slope_p90_deg", "coarse_flat_fraction_lt5deg"]:
         assert (
             entries[("Earth", fid, "geomorpho250-slope")]["actual_indexed_queryable_coverage"][

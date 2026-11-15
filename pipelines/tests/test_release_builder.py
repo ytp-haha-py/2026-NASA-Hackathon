@@ -84,16 +84,16 @@ def test_two_clean_builds_reproduce_ids_counts_and_checksums(tmp_path: Path):
     ]
 
     counts = first["counts"]
-    assert counts["fine_snapshot_id"] == "snap-0cef4d75b147866a"
-    assert counts["fine_data_version"] == "dv-b46f3bad38ea"
+    assert counts["fine_snapshot_id"] == "snap-0faad9cee4386729"
+    assert counts["fine_data_version"] == "dv-6fefaf3a7974"
     assert counts["fine_candidates"] == 113
-    assert counts["fine_references"] == 23
+    assert counts["fine_references"] == 25
     assert counts["fine_datasets"] == 9
     assert counts["fine_feature_observations"] == 565
     assert counts["fine_context_observations"] == 1243
-    assert counts["typed_observations"] == 520
+    assert counts["typed_observations"] == 523
     assert counts["typed_by_dimension"] == {
-        "typed-d02-geology": 56,
+        "typed-d02-geology": 59,
         "typed-d03-thermal": 20,
         "typed-d03-planetary-thermal": 41,
         "typed-d04-water-ice": 20,
@@ -211,10 +211,10 @@ def test_build_does_not_mutate_pinned_inputs_and_old_snapshot_still_verifies(tmp
     after = {path: sha256_file(path) for path in pinned}
     assert after == before
     report = verify_snapshot(SNAPSHOT, root=REPO_ROOT)
-    assert report["snapshot_id"] == "snap-0cef4d75b147866a"
-    assert report["data_version"] == "dv-b46f3bad38ea"
+    assert report["snapshot_id"] == "snap-0faad9cee4386729"
+    assert report["data_version"] == "dv-6fefaf3a7974"
     assert report["candidate_count"] == 113
-    assert report["reference_count"] == 23
+    assert report["reference_count"] == 25
 
 
 def test_sqlite_aoi_and_jobs_survive_a_copy_only_rebuild_drill(tmp_path: Path):
@@ -279,7 +279,7 @@ def test_sqlite_aoi_and_jobs_survive_a_copy_only_rebuild_drill(tmp_path: Path):
 
     assert before["sha256"] == after["sha256"], "the source database must never be mutated"
     assert result["label"] == "copy_only_drill_source_never_modified"
-    assert result["after_rebuild"]["data_version"] == "dv-b46f3bad38ea"
+    assert result["after_rebuild"]["data_version"] == "dv-6fefaf3a7974"
     for name, counts in result["before"]["counts"].items():
         if name in result["protected_counts_preserved"]:
             assert result["after_rebuild"]["counts"][name] == counts
