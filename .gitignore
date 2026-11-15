@@ -49,3 +49,6 @@ apps/web/playwright-report/
 
 # Local data artifacts
 samples/**/cache/
+
+# wrangler local cache
+.wrangler/

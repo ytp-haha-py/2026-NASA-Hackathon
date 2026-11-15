@@ -40,6 +40,17 @@ Production frontend builds default to `https://api.貓熊.台灣/api/v1`; overri
 the relative `/api/v1` base. Verified on 2026-11-15: `api` health and typed coverage return HTTP 200,
 and the web routes return HTTP 200.
 
+## Public frontend (Cloudflare Pages)
+
+```text
+https://2026-nasa-hackathon.貓熊.台灣/
+https://2026-nasa-hackathon.xn--2vxr09c.xn--kpry57d/   # ASCII/punycode form
+```
+
+The React/Vite app is built on Cloudflare Pages from GitHub `main`; the FastAPI, SQLite, DuckDB
+and scientific data remain on the existing Tunnel host. See
+[`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) and `scripts/pages_acceptance.sh`.
+
 The public demo stack is Dockerized (`api`, `web`, `cloudflared`) with restart policies,
 healthchecks and persistent SQLite. One command starts it:
 

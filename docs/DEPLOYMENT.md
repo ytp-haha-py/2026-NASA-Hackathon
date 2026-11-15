@@ -110,6 +110,73 @@ Verified in this WSL environment on 2026-11-15:
 - `api` and `web` are healthy; host ports bind to `127.0.0.1:18000` and `127.0.0.1:18080` only.
 - `docker compose -f compose.public.yaml ps` shows all three services up and healthy.
 
+## Cloudflare Pages frontend (production)
+
+Public URL: **https://2026-nasa-hackathon.貓熊.台灣/** (punycode
+`https://2026-nasa-hackathon.xn--2vxr09c.xn--kpry57d/`).
+
+The React/Vite frontend is hosted on Cloudflare Pages while the FastAPI/SQLite/DuckDB
+backend and scientific data remain on the existing host behind the
+`api.貓熊.台灣` Tunnel.
+
+| Setting | Value |
+|---|---|
+| Pages project | `2026-nasa-hackathon` |
+| Production branch | `main` |
+| Root directory | `apps/web` |
+| Build command | `npm ci && npm run build` |
+| Output directory | `dist` |
+| Production env | `VITE_API_BASE=https://api.貓熊.台灣/api/v1`, `NODE_VERSION=22` |
+| Custom domain | `2026-nasa-hackathon.貓熊.台灣` (active, HTTPS) |
+| DNS | proxied CNAME `2026-nasa-hackathon` → `2026-nasa-hackathon.pages.dev` |
+| SPA fallback | `apps/web/public/_redirects`: `/* /index.html 200` |
+| Asset cache | `apps/web/public/_headers`: immutable one-year cache for `/assets/*` |
+
+### Automatic deployment from GitHub main
+
+`.github/workflows/pages.yml` builds `apps/web` and runs:
+
+```bash
+npx --yes wrangler@4.162.0 pages deploy dist   --project-name 2026-nasa-hackathon --branch main
+```
+
+Repository secrets:
+
+- `CLOUDFLARE_API_TOKEN` — scoped account token with **Pages Read + Pages Write** only
+- `CLOUDFLARE_ACCOUNT_ID`
+
+The token is not committed or bundled. The workflow triggers on `main` pushes touching
+`apps/web/**`, `contracts/openapi.json` or the workflow itself.
+
+Cloudflare's native Pages Git integration (`cf pages source connect`) returned
+`401 Unauthorized / Pages Git installation` because the Cloudflare Pages GitHub App is not
+installed on this account/repo. GitHub Actions is used for the same outcome (push `main` →
+build → deploy) without exposing a token to the browser. Installing the GitHub App later can
+replace the Action if desired; the Pages project/build settings are already stored.
+
+### CORS
+
+`ANALOG_CORS_ORIGINS` adds both the Unicode and punycode Pages origins while retaining
+`https://貓熊.台灣`, `https://www.貓熊.台灣`, `https://api.貓熊.台灣`, local development and
+the existing punycode forms. No wildcard is used.
+
+Verified preflight and POST response:
+
+```text
+access-control-allow-origin: https://2026-nasa-hackathon.xn--2vxr09c.xn--kpry57d
+access-control-allow-methods: GET, POST
+```
+
+### Pages acceptance
+
+```bash
+bash scripts/pages_acceptance.sh
+```
+
+Checks home + hashed assets, SPA deep link, CORS preflight/POST from the Pages origin,
+typed coverage, global coverage, and the existing apex web/API. Real browser checks are in
+`docs/E2E_ACCEPTANCE.md`; screenshots `docs/screenshots/14`–`22`.
+
 ## Docker Compose
 
 ```bash
