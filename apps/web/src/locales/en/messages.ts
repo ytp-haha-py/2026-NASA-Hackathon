@@ -146,7 +146,7 @@ export const en = {
   "search.presetsUnavailable_other":
     "The {bodies} presets are unavailable because GET /references returned no reference records for those bodies. They are not simulated.",
   "search.referenceTargetHint":
-    "Reference target supplied by GET /references for {name}. Weights default to 1.0 for every compatible reference feature.",
+    "Reference target supplied by GET /references for {name}. Every reference value is shown read-only; raise a weight above 0 to compare that metric.",
   "search.referenceDetails": "Selected reference details",
   "search.factBody": "Body",
   "search.factDataset": "Dataset",

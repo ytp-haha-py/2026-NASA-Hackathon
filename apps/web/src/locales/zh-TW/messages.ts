@@ -136,7 +136,7 @@ export const zhTW: { [K in MessageKey]?: string } = {
   "search.presetsUnavailable_other":
     "{bodies}預設無法使用，因為 GET /references 沒有回傳該天體的參考紀錄。系統不會模擬這些資料。",
   "search.referenceTargetHint":
-    "參考目標由 GET /references 提供，來源為 {name}。每個相容的參考特徵權重預設為 1.0。",
+    "參考目標由 GET /references 提供，來源為 {name}。所有參考值以唯讀方式顯示；把指標權重調到大於 0 才會納入比較。",
   "search.referenceDetails": "已選參考紀錄詳情",
   "search.factBody": "天體",
   "search.factDataset": "資料集",
