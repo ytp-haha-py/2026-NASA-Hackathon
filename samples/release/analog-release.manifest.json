@@ -978,7 +978,7 @@
       "bodies": [
         "Earth"
       ],
-      "bytes": 64932,
+      "bytes": 59098,
       "counts": {
         "areas": 5,
         "assets": 5,
@@ -999,9 +999,15 @@
           "D03": 20
         },
         "observations": 20,
-        "raw_files_bundled": 5,
-        "raw_files_not_bundled": 0,
-        "raw_files_not_bundled_examples": [],
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 5,
+        "raw_files_not_bundled_examples": [
+          "raw/nasa-power-D03-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D03-earth-earth-death-valley-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D03-earth-earth-devon-island-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D03-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D03-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json"
+        ],
         "raw_files_referenced": 5,
         "tasks_attempted": 5,
         "tasks_failed": 0,
@@ -1024,7 +1030,7 @@
         "overlapping_area_examples": [],
         "overlapping_area_pairs": 0
       },
-      "file_count": 11,
+      "file_count": 6,
       "files": [
         {
           "bytes": 1978,
@@ -1055,38 +1061,14 @@
           "bytes": 8331,
           "path": "pipelines/pilots/d03_earth_power/plan.json",
           "sha256": "e783793d05e71a0e9bbc2417ea340d919cd314c3f3d874c9c3d9af304e6bbec2"
-        },
-        {
-          "bytes": 1167,
-          "path": "pipelines/pilots/d03_earth_power/raw/nasa-power-D03-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
-          "sha256": "14b401a9789206a3bd89020c87271ff1be8aef5665ff6b9030156b9b180a9777"
-        },
-        {
-          "bytes": 1146,
-          "path": "pipelines/pilots/d03_earth_power/raw/nasa-power-D03-earth-earth-death-valley-2024-01-01-2024-01-07.json",
-          "sha256": "1b3963a85b621546af19dd34d3aaa084b3dd099aeab9ba7b105d36ed04abba89"
-        },
-        {
-          "bytes": 1195,
-          "path": "pipelines/pilots/d03_earth_power/raw/nasa-power-D03-earth-earth-devon-island-2024-01-01-2024-01-07.json",
-          "sha256": "87b7642c374d2664e9c25d8b1a6c873758cac071019a200281e0ec350e7482bb"
-        },
-        {
-          "bytes": 1164,
-          "path": "pipelines/pilots/d03_earth_power/raw/nasa-power-D03-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
-          "sha256": "7f9e2d16224c61fc412a9e3b45fe2308e809ebfd28703df0cdf744ab16b64c20"
-        },
-        {
-          "bytes": 1162,
-          "path": "pipelines/pilots/d03_earth_power/raw/nasa-power-D03-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json",
-          "sha256": "755e6e6512496b1f0e9964bd1668ac1d62ca38fbb9d339ffef35859339a4ed84"
         }
       ],
       "hash_method": "sha256(canonical-json(files[]))",
       "kind": "typed_bundle_acquisition",
       "limitations": [
         "NASA POWER coarse model/reanalysis context, not a local temperature measurement.",
-        "No thermal inertia is derived."
+        "No thermal inertia is derived.",
+        "5 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
       ],
       "method_versions": [
         "nasa-power-daily-1.0.0"
@@ -1098,7 +1080,7 @@
         "plan": "acquisition-plan-1.0.0",
         "release": "acquisition-release-1.0.0"
       },
-      "sha256": "6cec151a5bd3f33aea2a718fb1feca5fd08c3d9cf09ce204084b1028305e5e37",
+      "sha256": "39dcfd68507f7b8c27a7200f8c3ed5fb3b4f0eb13c1ff389aa3ba7e6a500205f",
       "source_references": [
         {
           "availability": "accessible",
@@ -1142,7 +1124,7 @@
       "bodies": [
         "Earth"
       ],
-      "bytes": 65431,
+      "bytes": 59813,
       "counts": {
         "areas": 5,
         "assets": 5,
@@ -1163,9 +1145,15 @@
           "D04": 20
         },
         "observations": 20,
-        "raw_files_bundled": 5,
-        "raw_files_not_bundled": 0,
-        "raw_files_not_bundled_examples": [],
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 5,
+        "raw_files_not_bundled_examples": [
+          "raw/nasa-power-D04-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D04-earth-earth-death-valley-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D04-earth-earth-devon-island-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D04-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D04-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json"
+        ],
         "raw_files_referenced": 5,
         "tasks_attempted": 5,
         "tasks_failed": 0,
@@ -1188,7 +1176,7 @@
         "overlapping_area_examples": [],
         "overlapping_area_pairs": 0
       },
-      "file_count": 11,
+      "file_count": 6,
       "files": [
         {
           "bytes": 2004,
@@ -1219,37 +1207,13 @@
           "bytes": 8441,
           "path": "pipelines/pilots/d04_earth_power/plan.json",
           "sha256": "312d0585f8ce9ce584946f9bb9ce2404e537d8e7c5a91a0f7bb9c1c32356cd2b"
-        },
-        {
-          "bytes": 1122,
-          "path": "pipelines/pilots/d04_earth_power/raw/nasa-power-D04-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
-          "sha256": "fe886486cec473441b54b287d3fb059d4d5baa3f23e64f247690281c9ee5b2eb"
-        },
-        {
-          "bytes": 1121,
-          "path": "pipelines/pilots/d04_earth_power/raw/nasa-power-D04-earth-earth-death-valley-2024-01-01-2024-01-07.json",
-          "sha256": "52728d31058640ee997fd7185d505d96a1dba5b30f973a58535266fbff4ff63e"
-        },
-        {
-          "bytes": 1138,
-          "path": "pipelines/pilots/d04_earth_power/raw/nasa-power-D04-earth-earth-devon-island-2024-01-01-2024-01-07.json",
-          "sha256": "99f2f09dd8f57f732181058aa870f56aabff2dee50f4965dfe2e8ff67ccb18db"
-        },
-        {
-          "bytes": 1118,
-          "path": "pipelines/pilots/d04_earth_power/raw/nasa-power-D04-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
-          "sha256": "de84df16160d030c7e0c5350bdee304b5c4d5359da255562012eb9064ec10150"
-        },
-        {
-          "bytes": 1119,
-          "path": "pipelines/pilots/d04_earth_power/raw/nasa-power-D04-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json",
-          "sha256": "6af54474a2e6e693dd8297c2cdc12b894b82b340006942096e527333f9cce684"
         }
       ],
       "hash_method": "sha256(canonical-json(files[]))",
       "kind": "typed_bundle_acquisition",
       "limitations": [
-        "NASA POWER wetness/snow/precipitation context only; no confirmed ice."
+        "NASA POWER wetness/snow/precipitation context only; no confirmed ice.",
+        "5 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
       ],
       "method_versions": [
         "nasa-power-daily-1.0.0"
@@ -1261,7 +1225,7 @@
         "plan": "acquisition-plan-1.0.0",
         "release": "acquisition-release-1.0.0"
       },
-      "sha256": "52f4e95076d1cbfe0c3c09bba14c34eb1a1b893d8b250824681d6358fa32cede",
+      "sha256": "5e4b40648301b52399e802d5d0b8a1c01f1fd416f20fe98d4ff6e49db2bdaf7c",
       "source_references": [
         {
           "availability": "accessible",
@@ -1307,7 +1271,7 @@
       "bodies": [
         "Earth"
       ],
-      "bytes": 45108,
+      "bytes": 40619,
       "counts": {
         "areas": 5,
         "assets": 5,
@@ -1328,9 +1292,15 @@
           "D05": 10
         },
         "observations": 10,
-        "raw_files_bundled": 5,
-        "raw_files_not_bundled": 0,
-        "raw_files_not_bundled_examples": [],
+        "raw_files_bundled": 0,
+        "raw_files_not_bundled": 5,
+        "raw_files_not_bundled_examples": [
+          "raw/nasa-power-D05-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D05-earth-earth-death-valley-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D05-earth-earth-devon-island-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D05-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
+          "raw/nasa-power-D05-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json"
+        ],
         "raw_files_referenced": 5,
         "tasks_attempted": 5,
         "tasks_failed": 0,
@@ -1353,7 +1323,7 @@
         "overlapping_area_examples": [],
         "overlapping_area_pairs": 0
       },
-      "file_count": 11,
+      "file_count": 6,
       "files": [
         {
           "bytes": 2835,
@@ -1384,37 +1354,13 @@
           "bytes": 8401,
           "path": "pipelines/pilots/d05_earth_power/plan.json",
           "sha256": "6a3f9b9cf5efa6f12ecc9633c6704f3d1ce441a38ebda2a7e975fb089737d6a4"
-        },
-        {
-          "bytes": 902,
-          "path": "pipelines/pilots/d05_earth_power/raw/nasa-power-D05-earth-earth-atacama-desert-2024-01-01-2024-01-07.json",
-          "sha256": "0d1c77ef1b25d64c06dc6434ad36665d1b1b7072d89a08f6c7476c540beae2d7"
-        },
-        {
-          "bytes": 900,
-          "path": "pipelines/pilots/d05_earth_power/raw/nasa-power-D05-earth-earth-death-valley-2024-01-01-2024-01-07.json",
-          "sha256": "530aaadb66a181826b2589450b45a49ac1dd1bf1876cb5cd4a91e5161fd0a026"
-        },
-        {
-          "bytes": 881,
-          "path": "pipelines/pilots/d05_earth_power/raw/nasa-power-D05-earth-earth-devon-island-2024-01-01-2024-01-07.json",
-          "sha256": "2b286e578efb3d32616941839f40bf320eca54e77c58b3d7fac764c77fcff95e"
-        },
-        {
-          "bytes": 902,
-          "path": "pipelines/pilots/d05_earth_power/raw/nasa-power-D05-earth-earth-lanzarote-2024-01-01-2024-01-07.json",
-          "sha256": "5f99e782c0393505c01e446d75fafb2fea8823c44523c598d78b14f75998950b"
-        },
-        {
-          "bytes": 904,
-          "path": "pipelines/pilots/d05_earth_power/raw/nasa-power-D05-earth-earth-sahara-r1c1-2024-01-01-2024-01-07.json",
-          "sha256": "6d5ffb9b8a2612746c56fe137faed1d3b10340357638796acdaac13acc55e3cb"
         }
       ],
       "hash_method": "sha256(canonical-json(files[]))",
       "kind": "typed_bundle_acquisition",
       "limitations": [
-        "NASA POWER coarse irradiance context, not local illuminance and not ionizing radiation."
+        "NASA POWER coarse irradiance context, not local illuminance and not ionizing radiation.",
+        "5 source raster(s) are referenced by the release manifest but not bundled in Git; only committed files are SHA-256 verified."
       ],
       "method_versions": [
         "nasa-power-daily-1.0.0"
@@ -1426,7 +1372,7 @@
         "plan": "acquisition-plan-1.0.0",
         "release": "acquisition-release-1.0.0"
       },
-      "sha256": "da598016a0057c0c30c6612f24dfeebaddbea7d23a591919c14b6130be371cdf",
+      "sha256": "1249206fe81f0589d86a5ef924805f58f0cd5ffea0f97800d3810ca2eb2aa5e7",
       "source_references": [
         {
           "availability": "accessible",
@@ -1916,7 +1862,7 @@
     "coarse_partitions": 3,
     "coarse_regions": 3,
     "dataset_references": 19,
-    "files": 65,
+    "files": 50,
     "fine_candidates": 113,
     "fine_context_observations": 1243,
     "fine_data_version": "dv-b46f3bad38ea",
@@ -3694,7 +3640,7 @@
   "generated_at": "2026-11-15T05:45:52Z",
   "generated_by": "pipelines/src/analog_pipelines/release.py",
   "notes": "Bounded local multi-dimension release assembled from committed artifacts only. This is not global coverage; missing bodies/dimensions are listed explicitly and no value is zero-filled.",
-  "release_id": "rel-072e483bfdff1acd",
+  "release_id": "rel-5d6f8cf123055379",
   "release_version": "multi-dimension-release-1.0.0",
   "scope": {
     "bodies": [
