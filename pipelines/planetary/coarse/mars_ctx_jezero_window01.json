@@ -1,0 +1,507 @@
+{
+  "cells": [
+    {
+      "analysis_resolution_m": 250.0,
+      "bbox_body_lonlat": {
+        "east": 78.17134116080317,
+        "north": 18.55766534392674,
+        "south": 18.473312319636165,
+        "west": 78.08240903206506
+      },
+      "bbox_metric": {
+        "east": 4395000.0,
+        "north": 1100000.0,
+        "south": 1095000.0,
+        "west": 4390000.0
+      },
+      "body": "Mars",
+      "candidate_id": "planet-coarse-v1:8e7ce607c8c9001d",
+      "col": 0,
+      "crs_name": "Jezero_Crater_Projection",
+      "crs_wkt": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "elevation_stats": {
+        "elevation_max_m": -2085.675243325398,
+        "elevation_mean_m": -2279.274499301611,
+        "elevation_min_m": -2428.9820941061707,
+        "relief_p95_p05_m": 226.36723350208194,
+        "valid_elevation_pixels": 400
+      },
+      "features": {
+        "coarse_flat_fraction_lt5deg": 0.69,
+        "coarse_slope_mean_deg": 3.9766174118611417,
+        "coarse_slope_p90_deg": 6.966672456377621
+      },
+      "fixture": {
+        "bbox_metric": {
+          "east": 4395250.0,
+          "north": 1100250.0,
+          "south": 1094750.0,
+          "west": 4389750.0
+        },
+        "bytes": 4211,
+        "crs_wkt": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "pad_pixels": 1,
+        "path": "samples/planetary/coarse/fixtures/mars_8e7ce607c8c9001d.tif",
+        "sha256": "510b60bc70ad09de985b3a05e5f0c16d2bc04190f79d3db3ca33de62664e7018",
+        "shape": [
+          22,
+          22
+        ],
+        "transform": [
+          250.0,
+          0.0,
+          4389750.0,
+          0.0,
+          -250.0,
+          1100250.0
+        ]
+      },
+      "grid_shape": [
+        20,
+        20
+      ],
+      "missing_slope_pixels": 0,
+      "qa_flags": [
+        "stereo_dem_mosaic",
+        "public_domain",
+        "mars_2000_sphere",
+        "vertical_uncertainty_not_verified",
+        "bounded_vsicurl_window"
+      ],
+      "region_id": "mars-ctx-jezero-window-01",
+      "row": 0,
+      "source_id": "mars2020-jezero-ctx-dem-20m",
+      "source_read": {
+        "note": "Upper bound on raster bytes touched, including tiled/striped block alignment and a 64 KiB label/header allowance; not a network measurement.",
+        "source_window_pixels": 77841,
+        "source_window_shape": [
+          279,
+          279
+        ],
+        "upper_bound_bytes": 5038432
+      },
+      "source_resolution_m": 20.0,
+      "valid_fraction": 1.0,
+      "valid_slope_pixels": 400,
+      "window_size_m": 5000.0
+    },
+    {
+      "analysis_resolution_m": 250.0,
+      "bbox_body_lonlat": {
+        "east": 78.26027328954129,
+        "north": 18.55766534392674,
+        "south": 18.473312319636165,
+        "west": 78.17134116080317
+      },
+      "bbox_metric": {
+        "east": 4400000.0,
+        "north": 1100000.0,
+        "south": 1095000.0,
+        "west": 4395000.0
+      },
+      "body": "Mars",
+      "candidate_id": "planet-coarse-v1:e81519aa779ebeca",
+      "col": 1,
+      "crs_name": "Jezero_Crater_Projection",
+      "crs_wkt": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "elevation_stats": {
+        "elevation_max_m": -2076.872163988095,
+        "elevation_mean_m": -2219.0266861453265,
+        "elevation_min_m": -2433.1254998032364,
+        "relief_p95_p05_m": 256.0155962937947,
+        "valid_elevation_pixels": 400
+      },
+      "features": {
+        "coarse_flat_fraction_lt5deg": 0.54,
+        "coarse_slope_mean_deg": 4.869835139787125,
+        "coarse_slope_p90_deg": 8.139509735536356
+      },
+      "fixture": {
+        "bbox_metric": {
+          "east": 4400250.0,
+          "north": 1100250.0,
+          "south": 1094750.0,
+          "west": 4394750.0
+        },
+        "bytes": 4238,
+        "crs_wkt": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "pad_pixels": 1,
+        "path": "samples/planetary/coarse/fixtures/mars_e81519aa779ebeca.tif",
+        "sha256": "b6d18bd4bc4fc2490cc3b53006e314d26d502d43759b9f8b4dc133ace0fdeee6",
+        "shape": [
+          22,
+          22
+        ],
+        "transform": [
+          250.0,
+          0.0,
+          4394750.0,
+          0.0,
+          -250.0,
+          1100250.0
+        ]
+      },
+      "grid_shape": [
+        20,
+        20
+      ],
+      "missing_slope_pixels": 0,
+      "qa_flags": [
+        "stereo_dem_mosaic",
+        "public_domain",
+        "mars_2000_sphere",
+        "vertical_uncertainty_not_verified",
+        "bounded_vsicurl_window"
+      ],
+      "region_id": "mars-ctx-jezero-window-01",
+      "row": 0,
+      "source_id": "mars2020-jezero-ctx-dem-20m",
+      "source_read": {
+        "note": "Upper bound on raster bytes touched, including tiled/striped block alignment and a 64 KiB label/header allowance; not a network measurement.",
+        "source_window_pixels": 77841,
+        "source_window_shape": [
+          279,
+          279
+        ],
+        "upper_bound_bytes": 5038432
+      },
+      "source_resolution_m": 20.0,
+      "valid_fraction": 1.0,
+      "valid_slope_pixels": 400,
+      "window_size_m": 5000.0
+    },
+    {
+      "analysis_resolution_m": 250.0,
+      "bbox_body_lonlat": {
+        "east": 78.17134116080317,
+        "north": 18.642018368217318,
+        "south": 18.55766534392674,
+        "west": 78.08240903206506
+      },
+      "bbox_metric": {
+        "east": 4395000.0,
+        "north": 1105000.0,
+        "south": 1100000.0,
+        "west": 4390000.0
+      },
+      "body": "Mars",
+      "candidate_id": "planet-coarse-v1:2b7260352141922a",
+      "col": 0,
+      "crs_name": "Jezero_Crater_Projection",
+      "crs_wkt": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "elevation_stats": {
+        "elevation_max_m": -2196.394565112608,
+        "elevation_mean_m": -2383.932322475411,
+        "elevation_min_m": -2502.49230969313,
+        "relief_p95_p05_m": 254.2869055958231,
+        "valid_elevation_pixels": 400
+      },
+      "features": {
+        "coarse_flat_fraction_lt5deg": 0.6075,
+        "coarse_slope_mean_deg": 4.495656328366134,
+        "coarse_slope_p90_deg": 7.194686209293172
+      },
+      "fixture": {
+        "bbox_metric": {
+          "east": 4395250.0,
+          "north": 1105250.0,
+          "south": 1099750.0,
+          "west": 4389750.0
+        },
+        "bytes": 4239,
+        "crs_wkt": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "pad_pixels": 1,
+        "path": "samples/planetary/coarse/fixtures/mars_2b7260352141922a.tif",
+        "sha256": "f703c61163f7dcebeaedb4d8fa07327a658df194319344b5eea659f800d975e7",
+        "shape": [
+          22,
+          22
+        ],
+        "transform": [
+          250.0,
+          0.0,
+          4389750.0,
+          0.0,
+          -250.0,
+          1105250.0
+        ]
+      },
+      "grid_shape": [
+        20,
+        20
+      ],
+      "missing_slope_pixels": 0,
+      "qa_flags": [
+        "stereo_dem_mosaic",
+        "public_domain",
+        "mars_2000_sphere",
+        "vertical_uncertainty_not_verified",
+        "bounded_vsicurl_window"
+      ],
+      "region_id": "mars-ctx-jezero-window-01",
+      "row": 1,
+      "source_id": "mars2020-jezero-ctx-dem-20m",
+      "source_read": {
+        "note": "Upper bound on raster bytes touched, including tiled/striped block alignment and a 64 KiB label/header allowance; not a network measurement.",
+        "source_window_pixels": 77841,
+        "source_window_shape": [
+          279,
+          279
+        ],
+        "upper_bound_bytes": 5038432
+      },
+      "source_resolution_m": 20.0,
+      "valid_fraction": 1.0,
+      "valid_slope_pixels": 400,
+      "window_size_m": 5000.0
+    },
+    {
+      "analysis_resolution_m": 250.0,
+      "bbox_body_lonlat": {
+        "east": 78.26027328954129,
+        "north": 18.642018368217318,
+        "south": 18.55766534392674,
+        "west": 78.17134116080317
+      },
+      "bbox_metric": {
+        "east": 4400000.0,
+        "north": 1105000.0,
+        "south": 1100000.0,
+        "west": 4395000.0
+      },
+      "body": "Mars",
+      "candidate_id": "planet-coarse-v1:591d325c440579f8",
+      "col": 1,
+      "crs_name": "Jezero_Crater_Projection",
+      "crs_wkt": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "elevation_stats": {
+        "elevation_max_m": -2247.941134491862,
+        "elevation_mean_m": -2408.320399737163,
+        "elevation_min_m": -2468.5549829169145,
+        "relief_p95_p05_m": 120.01789617171426,
+        "valid_elevation_pixels": 400
+      },
+      "features": {
+        "coarse_flat_fraction_lt5deg": 0.9175,
+        "coarse_slope_mean_deg": 2.288862153252994,
+        "coarse_slope_p90_deg": 4.719774101307491
+      },
+      "fixture": {
+        "bbox_metric": {
+          "east": 4400250.0,
+          "north": 1105250.0,
+          "south": 1099750.0,
+          "west": 4394750.0
+        },
+        "bytes": 4175,
+        "crs_wkt": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "pad_pixels": 1,
+        "path": "samples/planetary/coarse/fixtures/mars_591d325c440579f8.tif",
+        "sha256": "e3e2ce647fcc53368d6b8806e03d4ada4e3254f714e9e34e5f5145cc4e8790d9",
+        "shape": [
+          22,
+          22
+        ],
+        "transform": [
+          250.0,
+          0.0,
+          4394750.0,
+          0.0,
+          -250.0,
+          1105250.0
+        ]
+      },
+      "grid_shape": [
+        20,
+        20
+      ],
+      "missing_slope_pixels": 0,
+      "qa_flags": [
+        "stereo_dem_mosaic",
+        "public_domain",
+        "mars_2000_sphere",
+        "vertical_uncertainty_not_verified",
+        "bounded_vsicurl_window"
+      ],
+      "region_id": "mars-ctx-jezero-window-01",
+      "row": 1,
+      "source_id": "mars2020-jezero-ctx-dem-20m",
+      "source_read": {
+        "note": "Upper bound on raster bytes touched, including tiled/striped block alignment and a 64 KiB label/header allowance; not a network measurement.",
+        "source_window_pixels": 77841,
+        "source_window_shape": [
+          279,
+          279
+        ],
+        "upper_bound_bytes": 5038432
+      },
+      "source_resolution_m": 20.0,
+      "valid_fraction": 1.0,
+      "valid_slope_pixels": 400,
+      "window_size_m": 5000.0
+    }
+  ],
+  "comparability": [
+    {
+      "decision": "evidence_only",
+      "earth_method_version": "coarse-terrain-250m-1.0.0",
+      "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+      "earth_value_source": "preprocessed Geomorpho250 slope product",
+      "feature_id": "coarse_slope_mean_deg",
+      "label": "Coarse mean slope (250 m source)",
+      "method_version": "coarse-planetary-dem-horn-1.0.0",
+      "planetary_support": "5 km window, 20.000 m native source, fixed 250 m analysis grid",
+      "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+      "reason": "coarse_slope_mean_deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 0.086.",
+      "support_ratio_vs_earth": 0.08623826727547405,
+      "unit": "degree"
+    },
+    {
+      "decision": "evidence_only",
+      "earth_method_version": "coarse-terrain-250m-1.0.0",
+      "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+      "earth_value_source": "preprocessed Geomorpho250 slope product",
+      "feature_id": "coarse_slope_p90_deg",
+      "label": "Coarse 90th percentile slope",
+      "method_version": "coarse-planetary-dem-horn-1.0.0",
+      "planetary_support": "5 km window, 20.000 m native source, fixed 250 m analysis grid",
+      "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+      "reason": "coarse_slope_p90_deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 0.086.",
+      "support_ratio_vs_earth": 0.08623826727547405,
+      "unit": "degree"
+    },
+    {
+      "decision": "evidence_only",
+      "earth_method_version": "coarse-terrain-250m-1.0.0",
+      "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+      "earth_value_source": "preprocessed Geomorpho250 slope product",
+      "feature_id": "coarse_flat_fraction_lt5deg",
+      "label": "Coarse flat fraction (<5\u00b0)",
+      "method_version": "coarse-planetary-dem-horn-1.0.0",
+      "planetary_support": "5 km window, 20.000 m native source, fixed 250 m analysis grid",
+      "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+      "reason": "coarse_flat_fraction_lt5deg has the same nominal quantity and a 5 km footprint, but the Earth value comes from the published Geomorpho250 preprocessed slope product at 7.5 arc-second support, while this value comes from a Horn 3x3 derivative of a planetary DEM on a fixed 250 m grid. The product's preprocessing algorithm is not replicated, so method equivalence is not established. Native support ratio vs Earth coarse = 0.086.",
+      "support_ratio_vs_earth": 0.08623826727547405,
+      "unit": "fraction"
+    }
+  ],
+  "counts": {
+    "computed_cells": 4,
+    "failed_cells": 0,
+    "missing_slope_pixels": 0,
+    "requested_cells": 4,
+    "valid_fraction": 1.0,
+    "valid_slope_pixels": 1600
+  },
+  "cross_body_ranking": {
+    "blocking_features": [
+      "coarse_flat_fraction_lt5deg",
+      "coarse_slope_mean_deg",
+      "coarse_slope_p90_deg"
+    ],
+    "claim_scope": "bounded_pilot_cells_only_not_a_global_survey",
+    "enabled": false,
+    "reason": "Cross-body coarse ranking is disabled: no coarse metric is validated as the same quantity, method and support as the Earth coarse index. Evidence-only and not_comparable metrics must not be scored against Earth candidates."
+  },
+  "data_kind": "observed_derived",
+  "generated_at": "2026-11-15T06:28:23Z",
+  "limitations": [
+    "Four 5 km cells inside one 10 x 10 km coordinate window of the Jezero CTX mosaic; not Mars global coverage and not a geological unit map.",
+    "The 20 m stereo DTM is aggregated to 250 m; mosaic seams and per-window vertical uncertainty are not validated.",
+    "The value is a Horn 3x3 derivative of elevation, not the published Geomorpho250 preprocessed slope product used by the Earth coarse index.",
+    "No cross-body ranking is enabled; every slope-derived metric is evidence_only."
+  ],
+  "method": {
+    "aggregation": "mean and linear p90 of valid Horn slope pixels, and fraction strictly below 5 degrees, over the central 5 km cell",
+    "analysis_resolution_m": 250.0,
+    "earth_coarse_grid_version": "coarse-grid-1.0.0",
+    "earth_coarse_method_version": "coarse-terrain-250m-1.0.0",
+    "elevation_fixture": "padded reprojected elevation in metres, committed so the slope and aggregation can be recomputed offline",
+    "grid_version": "planet-coarse-grid-1.0.0",
+    "method_version": "coarse-planetary-dem-horn-1.0.0",
+    "min_valid_fraction": 0.8,
+    "slope_algorithm": "Horn 3x3 on the reprojected elevation grid",
+    "vertical_scale_to_m": 1.0,
+    "window_size_m": 5000
+  },
+  "method_calibration": {
+    "earth_coarse_method_version": "coarse-terrain-250m-1.0.0",
+    "earth_source": "Geomorpho250 (PANGAEA 899135) dtm_slope_merit.dem_m_250m, a published 7.5 arc-second preprocessed slope product; the Earth pipeline never computes a slope derivative in this repository.",
+    "measured_on_mars": "The Mars pilot computes the same Horn 3x3 + 5 km aggregation twice: once from the 20 m CTX DTM reprojected to a 250 m grid (comparable support) and once from the native 463.0576672 m MOLA MEGDR grid. The observed per-cell deltas are in the MOLA evidence manifest and quantify a support/interpolation effect, not an Earth calibration.",
+    "not_measured_against_earth": "The Earth coarse pilot consumes a published slope product (PANGAEA 899135, 7.5 arc-second). The source MERIT DEM and the product's preprocessing kernel are not part of the pinned snapshot, so computing an Earth Horn-at-250 m control would require downloading a global DEM, which this issue forbids. The preprocessed-product vs DEM-derivative difference against Earth is therefore unmeasured, and every slope-derived planetary metric is marked evidence_only.",
+    "planetary_coarse_method_version": "coarse-planetary-dem-horn-1.0.0",
+    "unsupported_metrics": [
+      "terrain_relief_p95_p05_m",
+      "roughness_std_m",
+      "curvature",
+      "geomorphon_composition",
+      "any 90 m fine metric"
+    ],
+    "unsupported_reason": "The Earth coarse pilot defined only slope mean, slope p90, and flat fraction <5 degrees. Relief/roughness/curvature/geomorphon are not part of that coarse feature set, so no planetary coarse value is emitted for them."
+  },
+  "region": {
+    "analysis_resolution_m": 250.0,
+    "bbox_metric": {
+      "east": 4400000.0,
+      "north": 1105000.0,
+      "south": 1095000.0,
+      "west": 4390000.0
+    },
+    "body": "Mars",
+    "cell_count": 4,
+    "crs_frame_note": "body-fixed planetary frame; never Earth WGS84/UTM",
+    "crs_name": "Jezero_Crater_Projection",
+    "crs_wkt": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+    "label": "Mars Jezero CTX coordinate window 01",
+    "n_pixels_per_side": 20,
+    "notes": "Coordinate window inside the USGS Jezero CTX mosaic; no landform or geologic interpretation. The CRS is the raster's Mars_2000_Sphere Jezero equirectangular frame, not an Earth UTM zone.",
+    "region_id": "mars-ctx-jezero-window-01",
+    "sample_label": "bounded_pilot_not_global_exhaustive",
+    "window_size_m": 5000.0
+  },
+  "run": {
+    "command": "uv run python pipelines/build_planetary_coarse.py --allow-network",
+    "elapsed_s_at_write": 35.89,
+    "fixture_bytes": 16863,
+    "fixture_count": 4,
+    "network_io_note": "Per-cell upper bound includes block alignment and a 64 KiB label allowance; it is not a measured network byte count.",
+    "peak_rss_kib_at_write": 135680,
+    "pilot": "mars-ctx",
+    "source_read_upper_bound_bytes": 20153728
+  },
+  "schema_version": "planetary-coarse-reference-1.0.0",
+  "source": {
+    "body": "Mars",
+    "citation": "USGS Astrogeology Science Center, Mars 2020 Science Investigation CTX DEM Mosaic, M20_JezeroCrater_CTXDEM_20m.",
+    "coordinate_system": "Jezero_Crater_Projection equirectangular, planetocentric, metres",
+    "dataset_id": "mars2020-jezero-ctx-dem-20m",
+    "doi": null,
+    "frame": "Mars_2000_Sphere (IAU2000), body-fixed",
+    "license": "public domain",
+    "license_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+    "native_ppd": null,
+    "native_resolution_m": 20.0,
+    "native_support_note": "20 m stereo DEM aggregated to the fixed 250 m analysis grid; the source is finer than the 7.5 arc-second (231.9 m) Earth coarse support, so support is comparable, but the 20 m texture is not an independent 250 m measurement.",
+    "notes": "90,345,300-byte striped GeoTIFF (4456 x 5067, float32, no compression), Mars_2000_Sphere radius 3396190 m, Jezero Crater equirectangular analysis CRS. The product page states public domain and DEMs localized vertically to MOLA. Per-window vertical uncertainty and mosaic seams are not validated here. The existing five 90 m Mars references are unchanged; this pilot reads separate bounded windows and uses a separate coarse method version.",
+    "product_id": "M20_JezeroCrater_CTXDEM_20m",
+    "product_lid": null,
+    "product_page": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+    "provider": "USGS Astrogeology Science Center / NASA Mars Missions",
+    "quality_flags": [
+      "stereo_dem_mosaic",
+      "public_domain",
+      "mars_2000_sphere",
+      "vertical_uncertainty_not_verified",
+      "bounded_vsicurl_window"
+    ],
+    "raster_url": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+    "same_support_as_earth": true,
+    "source_id": "mars2020-jezero-ctx-dem-20m",
+    "title": "Mars 2020 Science Investigation CTX DEM Mosaic",
+    "url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+    "vertical_reference": "stereo-derived elevations localized vertically to MOLA",
+    "vertical_scale_to_m": 1.0,
+    "vertical_unit": "metre",
+    "vertical_unit_status": "declared by the existing verified USGS manifest and product documentation; no GeoTIFF unit tag"
+  }
+}

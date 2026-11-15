@@ -1,0 +1,394 @@
+{
+  "cells": [
+    {
+      "analysis_resolution_m": 463.0576672,
+      "bbox_body_lonlat": {
+        "east": 78.1698438464369,
+        "north": 18.55845758178426,
+        "south": 18.472520081778647,
+        "west": 78.08390634643129
+      },
+      "bbox_metric": {
+        "east": -6035614.023167978,
+        "north": 1099985.417483481,
+        "south": 1094891.7831442812,
+        "west": -6040707.657507178
+      },
+      "body": "Mars",
+      "candidate_id": "planet-coarse-v1:bfd9fa9df7f8a644",
+      "col": 0,
+      "crs_name": "SIMPLE_CYLINDRICAL MARS",
+      "crs_wkt": "PROJCRS[\"SIMPLE_CYLINDRICAL MARS\",BASEGEOGCRS[\"GCS_MARS\",DATUM[\"D_MARS\",ELLIPSOID[\"MARS\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",180,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "elevation_stats": {
+        "elevation_max_m": -2172.8693121368597,
+        "elevation_mean_m": -2282.32524789913,
+        "elevation_min_m": -2425.480629204933,
+        "relief_p95_p05_m": 207.42382963628506,
+        "valid_elevation_pixels": 121
+      },
+      "features": {
+        "coarse_flat_fraction_lt5deg": 0.9173553719008265,
+        "coarse_slope_mean_deg": 3.2418688484030906,
+        "coarse_slope_p90_deg": 4.893897565410639
+      },
+      "fixture": {
+        "bbox_metric": {
+          "east": -6035150.965500778,
+          "north": 1100448.475150681,
+          "south": 1094428.7254770813,
+          "west": -6041170.715174379
+        },
+        "bytes": 1921,
+        "crs_wkt": "PROJCRS[\"SIMPLE_CYLINDRICAL MARS\",BASEGEOGCRS[\"GCS_MARS\",DATUM[\"D_MARS\",ELLIPSOID[\"MARS\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",180,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "pad_pixels": 1,
+        "path": "samples/planetary/coarse/fixtures/mars_bfd9fa9df7f8a644.tif",
+        "sha256": "9cf7302de5097b315b12843ec563022c0a0f83a25c6f6f7d5aede93c9b2faa86",
+        "shape": [
+          13,
+          13
+        ],
+        "transform": [
+          463.05766720009535,
+          0.0,
+          -6041170.715174379,
+          0.0,
+          -463.0576671999879,
+          1100448.475150681
+        ]
+      },
+      "grid_shape": [
+        11,
+        11
+      ],
+      "missing_slope_pixels": 0,
+      "qa_flags": [
+        "global_median_binned_grid",
+        "interpolated_bins_where_no_shot",
+        "planetocentric",
+        "native_support_463m",
+        "not_same_support_as_earth_coarse",
+        "bounded_vsicurl_window"
+      ],
+      "region_id": "mars-mola-meg128-evidence-01",
+      "row": 0,
+      "source_id": "mars-mola-megdr-meg128-t44n000",
+      "source_read": {
+        "note": "Upper bound on raster bytes touched, including tiled/striped block alignment and a 64 KiB label/header allowance; not a network measurement.",
+        "source_window_pixels": 289,
+        "source_window_shape": [
+          17,
+          17
+        ],
+        "upper_bound_bytes": 457216
+      },
+      "source_resolution_m": 463.0576672,
+      "valid_fraction": 1.0,
+      "valid_slope_pixels": 121,
+      "window_size_m": 5093.6343392
+    },
+    {
+      "analysis_resolution_m": 463.0576672,
+      "bbox_body_lonlat": {
+        "east": 78.25877597517503,
+        "north": 18.642810606074836,
+        "south": 18.556873106069222,
+        "west": 78.17283847516941
+      },
+      "bbox_metric": {
+        "east": -6030342.893047029,
+        "north": 1104985.1377582597,
+        "south": 1099891.5034190598,
+        "west": -6035436.5273862295
+      },
+      "body": "Mars",
+      "candidate_id": "planet-coarse-v1:a4c4f3fd39796da8",
+      "col": 1,
+      "crs_name": "SIMPLE_CYLINDRICAL MARS",
+      "crs_wkt": "PROJCRS[\"SIMPLE_CYLINDRICAL MARS\",BASEGEOGCRS[\"GCS_MARS\",DATUM[\"D_MARS\",ELLIPSOID[\"MARS\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",180,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+      "elevation_stats": {
+        "elevation_max_m": -2255.332372045466,
+        "elevation_mean_m": -2393.443002545148,
+        "elevation_min_m": -2447.099295665848,
+        "relief_p95_p05_m": 144.01011861900952,
+        "valid_elevation_pixels": 121
+      },
+      "features": {
+        "coarse_flat_fraction_lt5deg": 0.9090909090909091,
+        "coarse_slope_mean_deg": 2.047845829602442,
+        "coarse_slope_p90_deg": 4.9432507835654205
+      },
+      "fixture": {
+        "bbox_metric": {
+          "east": -6029879.835379829,
+          "north": 1105448.1954254596,
+          "south": 1099428.4457518598,
+          "west": -6035899.58505343
+        },
+        "bytes": 1912,
+        "crs_wkt": "PROJCRS[\"SIMPLE_CYLINDRICAL MARS\",BASEGEOGCRS[\"GCS_MARS\",DATUM[\"D_MARS\",ELLIPSOID[\"MARS\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",180,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "pad_pixels": 1,
+        "path": "samples/planetary/coarse/fixtures/mars_a4c4f3fd39796da8.tif",
+        "sha256": "6e7c1d9ce6663cae875541b28af47a3ab75bb8047e88a4ad68eba90b34cc8c78",
+        "shape": [
+          13,
+          13
+        ],
+        "transform": [
+          463.05766720009535,
+          0.0,
+          -6035899.58505343,
+          0.0,
+          -463.0576671999879,
+          1105448.1954254596
+        ]
+      },
+      "grid_shape": [
+        11,
+        11
+      ],
+      "missing_slope_pixels": 0,
+      "qa_flags": [
+        "global_median_binned_grid",
+        "interpolated_bins_where_no_shot",
+        "planetocentric",
+        "native_support_463m",
+        "not_same_support_as_earth_coarse",
+        "bounded_vsicurl_window"
+      ],
+      "region_id": "mars-mola-meg128-evidence-01",
+      "row": 1,
+      "source_id": "mars-mola-megdr-meg128-t44n000",
+      "source_read": {
+        "note": "Upper bound on raster bytes touched, including tiled/striped block alignment and a 64 KiB label/header allowance; not a network measurement.",
+        "source_window_pixels": 289,
+        "source_window_shape": [
+          17,
+          17
+        ],
+        "upper_bound_bytes": 457216
+      },
+      "source_resolution_m": 463.0576672,
+      "valid_fraction": 1.0,
+      "valid_slope_pixels": 121,
+      "window_size_m": 5093.6343392
+    }
+  ],
+  "comparability": [
+    {
+      "decision": "not_comparable",
+      "earth_method_version": "coarse-terrain-250m-1.0.0",
+      "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+      "earth_value_source": "preprocessed Geomorpho250 slope product",
+      "feature_id": "coarse_slope_mean_deg",
+      "label": "Coarse mean slope (250 m source)",
+      "method_version": "coarse-planetary-dem-horn-1.0.0",
+      "planetary_support": "5 km window, 463.058 m native source, fixed 250 m analysis grid",
+      "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+      "reason": "MEGDR native support is 463.0576672 m/pixel (128 ppd), 1.85x coarser than the 250 m coarse analysis grid and 2.0x coarser than the 7.5 arc-second Earth coarse support; each 5 km cell contains only ~11 native pixels, and MEGDR supplies interpolated median values where no MOLA shot falls in a bin. A 250 m grid would upsample an interpolated product, not measure the same quantity at the same support.",
+      "support_ratio_vs_earth": 1.9966645433975558,
+      "unit": "degree"
+    },
+    {
+      "decision": "not_comparable",
+      "earth_method_version": "coarse-terrain-250m-1.0.0",
+      "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+      "earth_value_source": "preprocessed Geomorpho250 slope product",
+      "feature_id": "coarse_slope_p90_deg",
+      "label": "Coarse 90th percentile slope",
+      "method_version": "coarse-planetary-dem-horn-1.0.0",
+      "planetary_support": "5 km window, 463.058 m native source, fixed 250 m analysis grid",
+      "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+      "reason": "MEGDR native support is 463.0576672 m/pixel (128 ppd), 1.85x coarser than the 250 m coarse analysis grid and 2.0x coarser than the 7.5 arc-second Earth coarse support; each 5 km cell contains only ~11 native pixels, and MEGDR supplies interpolated median values where no MOLA shot falls in a bin. A 250 m grid would upsample an interpolated product, not measure the same quantity at the same support.",
+      "support_ratio_vs_earth": 1.9966645433975558,
+      "unit": "degree"
+    },
+    {
+      "decision": "not_comparable",
+      "earth_method_version": "coarse-terrain-250m-1.0.0",
+      "earth_support": "5 km window, 7.5 arc-second (~231.9 m at the equator)",
+      "earth_value_source": "preprocessed Geomorpho250 slope product",
+      "feature_id": "coarse_flat_fraction_lt5deg",
+      "label": "Coarse flat fraction (<5\u00b0)",
+      "method_version": "coarse-planetary-dem-horn-1.0.0",
+      "planetary_support": "5 km window, 463.058 m native source, fixed 250 m analysis grid",
+      "planetary_value_source": "Horn 3x3 derivative of a planetary DEM",
+      "reason": "MEGDR native support is 463.0576672 m/pixel (128 ppd), 1.85x coarser than the 250 m coarse analysis grid and 2.0x coarser than the 7.5 arc-second Earth coarse support; each 5 km cell contains only ~11 native pixels, and MEGDR supplies interpolated median values where no MOLA shot falls in a bin. A 250 m grid would upsample an interpolated product, not measure the same quantity at the same support.",
+      "support_ratio_vs_earth": 1.9966645433975558,
+      "unit": "fraction"
+    }
+  ],
+  "counts": {
+    "computed_cells": 2,
+    "failed_cells": 0,
+    "missing_slope_pixels": 0,
+    "requested_cells": 2,
+    "valid_fraction": 1.0,
+    "valid_slope_pixels": 242
+  },
+  "cross_body_ranking": {
+    "blocking_features": [
+      "coarse_flat_fraction_lt5deg",
+      "coarse_slope_mean_deg",
+      "coarse_slope_p90_deg"
+    ],
+    "claim_scope": "bounded_pilot_cells_only_not_a_global_survey",
+    "enabled": false,
+    "reason": "Cross-body coarse ranking is disabled: no coarse metric is validated as the same quantity, method and support as the Earth coarse index. Evidence-only and not_comparable metrics must not be scored against Earth candidates."
+  },
+  "data_kind": "observed_derived",
+  "generated_at": "2026-11-15T06:28:33Z",
+  "limitations": [
+    "Evidence-only: MEGDR native support is 463.0576672 m/pixel, so each cell contains ~11 native pixels and a 250 m grid would upsample an interpolated product.",
+    "MEGDR stores median observed topography and supplies interpolated values where no MOLA shot falls in a bin; the two evidence cells are at Jezero for a paired support comparison with CTX, not a new global grid.",
+    "MOLA licence/redistribution terms are not stated in the PDS4 bundle labels.",
+    "No cross-body or cross-method ranking is enabled."
+  ],
+  "method": {
+    "aggregation": "mean and linear p90 of valid Horn slope pixels, and fraction strictly below 5 degrees, over the central 5 km cell",
+    "analysis_resolution_m": 250.0,
+    "earth_coarse_grid_version": "coarse-grid-1.0.0",
+    "earth_coarse_method_version": "coarse-terrain-250m-1.0.0",
+    "elevation_fixture": "padded reprojected elevation in metres, committed so the slope and aggregation can be recomputed offline",
+    "grid_version": "planet-coarse-grid-1.0.0",
+    "method_version": "coarse-planetary-dem-horn-1.0.0",
+    "min_valid_fraction": 0.8,
+    "slope_algorithm": "Horn 3x3 on the reprojected elevation grid",
+    "vertical_scale_to_m": 1.0,
+    "window_size_m": 5000
+  },
+  "method_calibration": {
+    "earth_coarse_method_version": "coarse-terrain-250m-1.0.0",
+    "earth_source": "Geomorpho250 (PANGAEA 899135) dtm_slope_merit.dem_m_250m, a published 7.5 arc-second preprocessed slope product; the Earth pipeline never computes a slope derivative in this repository.",
+    "measured_on_mars": "The Mars pilot computes the same Horn 3x3 + 5 km aggregation twice: once from the 20 m CTX DTM reprojected to a 250 m grid (comparable support) and once from the native 463.0576672 m MOLA MEGDR grid. The observed per-cell deltas are in the MOLA evidence manifest and quantify a support/interpolation effect, not an Earth calibration.",
+    "not_measured_against_earth": "The Earth coarse pilot consumes a published slope product (PANGAEA 899135, 7.5 arc-second). The source MERIT DEM and the product's preprocessing kernel are not part of the pinned snapshot, so computing an Earth Horn-at-250 m control would require downloading a global DEM, which this issue forbids. The preprocessed-product vs DEM-derivative difference against Earth is therefore unmeasured, and every slope-derived planetary metric is marked evidence_only.",
+    "planetary_coarse_method_version": "coarse-planetary-dem-horn-1.0.0",
+    "unsupported_metrics": [
+      "terrain_relief_p95_p05_m",
+      "roughness_std_m",
+      "curvature",
+      "geomorphon_composition",
+      "any 90 m fine metric"
+    ],
+    "unsupported_reason": "The Earth coarse pilot defined only slope mean, slope p90, and flat fraction <5 degrees. Relief/roughness/curvature/geomorphon are not part of that coarse feature set, so no planetary coarse value is emitted for them."
+  },
+  "region": {
+    "analysis_resolution_m": 463.0576672,
+    "bbox_metric": {
+      "east": -6030342.893047029,
+      "north": 1104985.1377582597,
+      "south": 1094891.7831442812,
+      "west": -6040707.657507178
+    },
+    "body": "Mars",
+    "cell_count": 2,
+    "crs_frame_note": "body-fixed planetary frame; never Earth WGS84/UTM",
+    "crs_name": "SIMPLE_CYLINDRICAL MARS",
+    "crs_wkt": "PROJCRS[\"SIMPLE_CYLINDRICAL MARS\",BASEGEOGCRS[\"GCS_MARS\",DATUM[\"D_MARS\",ELLIPSOID[\"MARS\",3396000,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",180,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+    "label": "Mars MOLA MEGDR 128 ppd evidence cells at Jezero",
+    "n_pixels_per_side": 11,
+    "notes": "Evidence cells use native MEGDR support (11 pixels of 463.0576672 m, 5093.634 m per side); they are not 5 km same-support cells. Paired with two non-adjacent CTX 250 m cells to quantify a support/interpolation difference on the same body and region.",
+    "region_id": "mars-mola-meg128-evidence-01",
+    "sample_label": "bounded_pilot_not_global_exhaustive",
+    "window_size_m": 5093.6343392
+  },
+  "run": {
+    "command": "uv run python pipelines/build_planetary_coarse.py --allow-network",
+    "elapsed_s_at_write": 45.74,
+    "fixture_bytes": 3833,
+    "fixture_count": 2,
+    "network_io_note": "Per-cell upper bound includes block alignment and a 64 KiB label allowance; it is not a measured network byte count.",
+    "peak_rss_kib_at_write": 135680,
+    "pilot": "mars-mola",
+    "source_read_upper_bound_bytes": 914432
+  },
+  "schema_version": "planetary-coarse-reference-1.0.0",
+  "source": {
+    "body": "Mars",
+    "citation": "Smith, D. E., et al. (2001), Mars Orbiter Laser Altimeter: Experiment summary after the first year of global mapping of Mars, J. Geophys. Res. 106(E10), 23689-23722. PDS bundle urn:nasa:pds:mgs_mola_topography_derived (1.0), collection data_meg128 (2.0), DOI 10.17189/1z1b-kv84.",
+    "coordinate_system": "equirectangular, east-positive, planetocentric latitude",
+    "dataset_id": "pds-mgs-mola-megdr-meg128",
+    "doi": "10.17189/1z1b-kv84",
+    "frame": "IAU2000 Mars body-fixed, planetocentric",
+    "license": "not stated in the PDS4 bundle, collection or product labels",
+    "license_url": null,
+    "native_ppd": 128.0,
+    "native_resolution_m": 463.0576672,
+    "native_support_note": "PDS4 pixel_resolution is 0.4630576672 km/pixel (128 pixel/degree), 1.85x coarser than the 250 m coarse analysis grid and 2.0x coarser than the 7.5 arc-second (231.9 m) Earth coarse support at the equator.",
+    "notes": "PDS4 product label: SignedMSB2, 5632 lines x 11520 samples, unit meter, median observed topography within each 0.0078125-degree bin, with an interpolated value supplied where no MOLA observation falls in the bin. The PDS3 label retained in the bundle gives MAP_SCALE 0.463 km and A_AXIS_RADIUS 3396.0 km. The PDS3 label path is used for GDAL raster I/O because GDAL has a PDS3 driver; the numeric metadata is taken from the PDS4 product label.",
+    "product_id": "megt44n000hb",
+    "product_lid": "urn:nasa:pds:mgs_mola_topography_derived:data_meg128:megt44n000hb",
+    "product_page": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/",
+    "provider": "NASA PDS Geosciences Node / MGS MOLA",
+    "quality_flags": [
+      "global_median_binned_grid",
+      "interpolated_bins_where_no_shot",
+      "planetocentric",
+      "native_support_463m",
+      "not_same_support_as_earth_coarse",
+      "bounded_vsicurl_window"
+    ],
+    "raster_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n000hb.img",
+    "same_support_as_earth": false,
+    "source_id": "mars-mola-megdr-meg128-t44n000",
+    "title": "MGS MOLA MEGDR median topography, 128 pixels/degree, 0-44N / 0-90E tile",
+    "url": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt44n000hb.lbl",
+    "vertical_reference": "planetary radius minus the GMM3 (mgm1025) areoid, evaluated to degree and order 50",
+    "vertical_scale_to_m": 1.0,
+    "vertical_unit": "metre",
+    "vertical_unit_status": "label declared: PDS4 <unit>meter</unit>"
+  },
+  "support_comparison": {
+    "interpretation": "Observed deltas between a 20 m CTX DTM aggregated to 250 m and the native 463.0576672 m MEGDR median grid. Differences combine support, binning, interpolation, vertical registration and mosaic effects; they must not be read as a correction factor or a physical equivalence.",
+    "label": "same-region support/interpolation comparison, not an Earth calibration",
+    "pairs": [
+      {
+        "centre_separation_m": 8.206898912543696e-10,
+        "ctx_candidate_id": "planet-coarse-v1:8e7ce607c8c9001d",
+        "ctx_features": {
+          "coarse_flat_fraction_lt5deg": 0.69,
+          "coarse_slope_mean_deg": 3.9766174118611417,
+          "coarse_slope_p90_deg": 6.966672456377621
+        },
+        "ctx_window_size_m": 5000.0,
+        "evidence_index": 1,
+        "mola_candidate_id": "planet-coarse-v1:bfd9fa9df7f8a644",
+        "mola_features": {
+          "coarse_flat_fraction_lt5deg": 0.9173553719008265,
+          "coarse_slope_mean_deg": 3.2418688484030906,
+          "coarse_slope_p90_deg": 4.893897565410639
+        },
+        "mola_native_pixels_per_side": 11,
+        "mola_window_size_m": 5093.6343392,
+        "observed_delta": {
+          "coarse_flat_fraction_lt5deg": 0.22735537190082655,
+          "coarse_slope_mean_deg": -0.7347485634580511,
+          "coarse_slope_p90_deg": -2.072774890966982
+        }
+      },
+      {
+        "centre_separation_m": 1.8852641670008552e-10,
+        "ctx_candidate_id": "planet-coarse-v1:591d325c440579f8",
+        "ctx_features": {
+          "coarse_flat_fraction_lt5deg": 0.9175,
+          "coarse_slope_mean_deg": 2.288862153252994,
+          "coarse_slope_p90_deg": 4.719774101307491
+        },
+        "ctx_window_size_m": 5000.0,
+        "evidence_index": 2,
+        "mola_candidate_id": "planet-coarse-v1:a4c4f3fd39796da8",
+        "mola_features": {
+          "coarse_flat_fraction_lt5deg": 0.9090909090909091,
+          "coarse_slope_mean_deg": 2.047845829602442,
+          "coarse_slope_p90_deg": 4.9432507835654205
+        },
+        "mola_native_pixels_per_side": 11,
+        "mola_window_size_m": 5093.6343392,
+        "observed_delta": {
+          "coarse_flat_fraction_lt5deg": -0.008409090909090922,
+          "coarse_slope_mean_deg": -0.2410163236505518,
+          "coarse_slope_p90_deg": 0.22347668225792905
+        }
+      }
+    ]
+  }
+}

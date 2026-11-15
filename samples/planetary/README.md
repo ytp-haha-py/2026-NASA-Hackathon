@@ -1,11 +1,24 @@
 # samples/planetary — committed vs non-committed artifacts
 
-This directory is **documentation-only**. No raster binary or synthetic fixture is
-committed here. The real Moon reference is the validated numeric manifest at
+This directory holds **documentation and tiny derived test fixtures only**. It does not
+hold a raw planetary raster or a synthetic observation. The real Moon reference is the
+validated numeric manifest at
 `pipelines/planetary/manifests/lola_moon_reference.json`; the derived source window is a
 runtime cache under `data/cache/lola/` and is gitignored.
 
+## Issue #35 coarse fixtures
+
+`coarse/fixtures/*.tif` are ten **derived, padded 250 m / native-support elevation
+windows** (float64, ~2-4 KB each, total 37,700 bytes) extracted from bounded reads of
+three public sources. They exist only so the committed coarse features can be recomputed
+offline. They are not observations of a new location, not global coverage, and not
+suitable for mapping. Provenance, source SHA-256, fixture SHA-256 and the comparability
+decision table are in `pipelines/planetary/coarse/*.json` and
+`docs/PLANETARY_COARSE_REFERENCE.md`. The existing 18 Moon + 5 Mars 90 m references are
+unchanged.
+
 ## Committed
+
 
 | Path | What it is |
 | --- | --- |
