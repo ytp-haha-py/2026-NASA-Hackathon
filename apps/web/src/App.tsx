@@ -18,14 +18,12 @@ import {
   type SearchResultOut,
 } from "./api/client";
 import { adaptMultiDimResponse } from "./lib/multidim";
-import { readAoiLimits } from "./lib/aoi";
 import { I18nProvider, SourceText, useI18n } from "./i18n/I18nProvider";
 import type { Locale } from "./i18n/translate";
 import type { SearchSubmission } from "./lib/search-types";
 import { DetailPanel } from "./components/DetailPanel";
-import { GlobalPanel } from "./components/GlobalPanel";
+import { MapPanel } from "./components/MapPanel";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
-import { ResultsPanel } from "./components/ResultsPanel";
 import { SearchForm } from "./components/SearchForm";
 import { SourcesAndMethods } from "./components/SourcesAndMethods";
 
@@ -44,15 +42,15 @@ type AppProps = {
   initialLocale?: Locale;
 };
 
-export function App({ aoiPollIntervalMs = 1000, initialLocale }: AppProps) {
+export function App({ initialLocale }: AppProps) {
   return (
     <I18nProvider initialLocale={initialLocale}>
-      <AppContent aoiPollIntervalMs={aoiPollIntervalMs} />
+      <AppContent />
     </I18nProvider>
   );
 }
 
-function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
+function AppContent() {
   const { t, tp, rich, fmt, label } = useI18n();
   const [capabilities, setCapabilities] = useState<CapabilitiesOut | null>(null);
   const [capabilitiesError, setCapabilitiesError] = useState<string | null>(null);
@@ -65,7 +63,6 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const [bootstrapKey, setBootstrapKey] = useState(0);
 
   const [searching, setSearching] = useState(false);
-  const [lastSubmission, setLastSubmission] = useState<SearchSubmission | null>(null);
   const [searchResponse, setSearchResponse] = useState<SearchResponse | null>(null);
   const [searchError, setSearchError] = useState<SearchErrorState | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -129,7 +126,6 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
     searchController.current = controller;
 
     setSearching(true);
-    setLastSubmission(submission);
     setSearchError(null);
     setSearchResponse(null);
     setSelectedId(null);
@@ -181,10 +177,6 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
   const searchErrorMeaning = label.errorCode(searchError?.code);
   const moonReferenceCount = references.filter((reference) => reference.body === "Moon").length;
   const marsReferenceCount = references.filter((reference) => reference.body === "Mars").length;
-  const aoiLimits = capabilities ? readAoiLimits(capabilities.aoi_analysis) : null;
-  const canRefine =
-    aoiLimits?.supportedBody === "Earth" &&
-    aoiLimits.providerStatus["copernicus-dem-glo90"]?.status === "verified";
 
   return (
     <div className="app">
@@ -306,50 +298,22 @@ function AppContent({ aoiPollIntervalMs }: { aoiPollIntervalMs: number }) {
                 </div>
               )}
 
-              <GlobalPanel
-                indexedCount={searchResponse?.eligible_candidate_count ?? capabilities.indexed_candidate_count}
-                indexedSnapshot={searchResponse?.data_snapshot_id ?? capabilities.data_snapshot_id}
-                indexedLoading={searching}
-                indexedSearched={searchResponse !== null}
-                canRefine={canRefine}
-                pollIntervalMs={aoiPollIntervalMs}
-                onRerank={lastSubmission ? () => void handleSearch(lastSubmission) : undefined}
-                map={{
-                  results: searchResponse?.results ?? NO_RESULTS,
-                  selectedId,
-                  onSelect: setSelectedId,
-                  response: searching ? undefined : (searchResponse ?? undefined),
-                  features: capabilities.features,
-                  target: activeTarget,
-                  showIdle: !searchResponse && !searching,
-                }}
+              <MapPanel
+                results={searchResponse?.results ?? NO_RESULTS}
+                selectedId={selectedId}
+                onSelect={setSelectedId}
+                response={searching ? undefined : (searchResponse ?? undefined)}
+                features={capabilities.features}
+                target={activeTarget}
+                showIdle={!searchResponse && !searching}
               />
 
-              {searchResponse && !searching && (
-                <div className="results-grid">
-                  <ResultsPanel
-                    response={searchResponse}
-                    features={capabilities.features}
-                    contextFeatures={capabilities.context_features}
-                    selectedId={selectedId}
-                    onSelect={setSelectedId}
-                    selectedOnly
-                  />
-                  {selectedResult ? (
-                    <DetailPanel
-                      selected={selectedResult}
-                      activeTarget={activeTarget}
-                      features={capabilities.features}
-                    />
-                  ) : (
-                    searchResponse.results.length > 0 && (
-                      <div className="detail-placeholder" role="status">
-                        <h2>{t("app.inspectTitle")}</h2>
-                        <p>{t("app.inspectBody")}</p>
-                      </div>
-                    )
-                  )}
-                </div>
+              {selectedResult && !searching && (
+                <DetailPanel
+                  selected={selectedResult}
+                  activeTarget={activeTarget}
+                  features={capabilities.features}
+                />
               )}
 
 

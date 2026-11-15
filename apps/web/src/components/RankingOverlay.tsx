@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState } from "react";
 import type { FeatureOut, NumericTarget, SearchResponse } from "../api/client";
 import { useI18n } from "../i18n/I18nProvider";
 import { DataKindBadge } from "./DataKindBadge";
@@ -9,7 +9,6 @@ type RankingOverlayProps = {
   target: NumericTarget;
   selectedId: string | null;
   onSelect: (locationId: string) => void;
-  controls?: ReactNode;
 };
 
 type DimensionGroup = {
@@ -44,7 +43,6 @@ export function RankingOverlay({
   target,
   selectedId,
   onSelect,
-  controls,
 }: RankingOverlayProps) {
   const { t, fmt, label } = useI18n();
   const [expanded, setExpanded] = useState(false);
@@ -76,7 +74,6 @@ export function RankingOverlay({
       className={`ranking-overlay${expanded ? " is-expanded" : ""}`}
       aria-label={t("overlay.regionLabel")}
     >
-      {controls}
       <div className="ranking-overlay-head">
         <div className="ranking-overlay-title">
           <strong>{t("overlay.heading", { count: fmt.number(results.length, 0) })}</strong>

@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type {
   FeatureOut,
-  GlobalSearchResultOut,
   NumericTarget,
   SearchResponse,
   SearchResultOut,
@@ -13,15 +12,6 @@ import { addEarthBasemap, type EarthBasemap } from "../lib/earthBasemap";
 import { RankingOverlay } from "./RankingOverlay";
 
 const BASEMAP_ORDER: EarthBasemap[] = ["map", "terrain", "satellite"];
-const NO_CANDIDATES: GlobalSearchResultOut[] = [];
-
-export type CoarseMapResults = {
-  results: GlobalSearchResultOut[];
-  selectedId: string | null;
-  onSelect: (candidateId: string) => void;
-  content: ReactNode;
-  refineWindow?: { bbox: Record<string, unknown>; status: string; method: string };
-};
 
 type MapPanelProps = {
   results: SearchResultOut[];
@@ -31,8 +21,6 @@ type MapPanelProps = {
   response?: SearchResponse;
   features?: FeatureOut[];
   target?: NumericTarget;
-  searchScope?: ReactNode;
-  coarse?: CoarseMapResults;
   /** Show the "nothing ranked yet" panel before the first search. */
   showIdle?: boolean;
   /** Area to outline (drawn here or typed in the analysis form). */
@@ -74,15 +62,13 @@ function earthBounds({ west, south, east, north }: Record<string, unknown>, near
 const COLORS = {
   earth: "#1d4ed8",
   selected: "#b93d0a",
-  coarse: "#a34a11",
-  refine: "#087d72",
   source: "#8247a5",
 };
 
-function rankIcon(rank: number, selected: boolean, coarse = false): L.DivIcon {
+function rankIcon(rank: number, selected: boolean): L.DivIcon {
   const size = selected ? 30 : 24;
   const pin = document.createElement("span");
-  pin.className = `rank-pin${coarse ? " is-coarse" : ""}${selected ? " is-selected" : ""}`;
+  pin.className = `rank-pin${selected ? " is-selected" : ""}`;
   const text = document.createElement("span");
   text.textContent = String(rank);
   pin.append(text);
@@ -109,23 +95,15 @@ export function MapPanel({
   response,
   features = [],
   target = {},
-  searchScope,
-  coarse,
   showIdle = false,
   aoiBbox = null,
   onDrawBbox,
 }: MapPanelProps) {
-  const { locale, t, tp, fmt, label } = useI18n();
+  const { locale, t, tp, fmt } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
   const onSelectRef = useRef(onSelect);
-  const selectCoarse = coarse?.onSelect;
-  const onSelectCoarseRef = useRef(selectCoarse);
-  const indexedResults = coarse ? null : results;
-  const coarseResults = coarse?.results ?? NO_CANDIDATES;
-  const coarseSelectedId = coarse?.selectedId ?? null;
-  const refineWindow = coarse?.refineWindow;
   const [basemap, setBasemap] = useState<EarthBasemap>("map");
   const [drawing, setDrawing] = useState(false);
   const aoiLayerRef = useRef<L.Rectangle | null>(null);
@@ -136,9 +114,8 @@ export function MapPanel({
 
   useEffect(() => {
     onSelectRef.current = onSelect;
-    onSelectCoarseRef.current = selectCoarse;
     onDrawRef.current = onDrawBbox;
-  }, [onSelect, selectCoarse, onDrawBbox]);
+  }, [onSelect, onDrawBbox]);
 
   // Outline the area chosen for analysis.
   useEffect(() => {
@@ -281,15 +258,13 @@ export function MapPanel({
   }, []);
 
   const windows = useMemo(() => {
-    const candidates = coarseResults.filter((result) => result.body === "Earth");
-    const entries = indexedResults ?? candidates;
-    const first = entries.map((result) => earthBounds(result.bbox)).find(Boolean);
+    const first = results.map((result) => earthBounds(result.bbox)).find(Boolean);
     const near = first?.getCenter().lng;
-    return entries.flatMap((result) => {
+    return results.flatMap((result) => {
       const bounds = earthBounds(result.bbox, near);
       return bounds ? [{ result, bounds }] : [];
     });
-  }, [indexedResults, coarseResults]);
+  }, [results]);
 
   const showAll = useCallback(() => {
     const map = mapRef.current;
@@ -317,11 +292,7 @@ export function MapPanel({
   // Zoom to a window when the user selects it (results never auto-select, so the overview stays).
   useEffect(() => {
     const map = mapRef.current;
-    const selected = windows.find(({ result }) =>
-      "candidate_id" in result
-        ? result.candidate_id === coarseSelectedId
-        : result.location_id === selectedId,
-    );
+    const selected = windows.find(({ result }) => result.location_id === selectedId);
     if (!map || !selected) {
       return;
     }
@@ -332,7 +303,7 @@ export function MapPanel({
     });
     // Re-run on selection only; a new result set clears the selection in App.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedId, coarseSelectedId, Boolean(coarse)]);
+  }, [selectedId]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -344,24 +315,6 @@ export function MapPanel({
     layer.clearLayers();
 
     for (const { result, bounds } of windows) {
-      if ("candidate_id" in result) {
-        const selected = result.candidate_id === coarseSelectedId;
-        const select = () => onSelectCoarseRef.current?.(result.candidate_id);
-        L.rectangle(bounds, {
-          color: COLORS.coarse,
-          weight: selected ? 3 : 1.5,
-          dashArray: "5 4",
-          fillOpacity: selected ? 0.2 : 0.08,
-        }).on("click", select).addTo(layer);
-        const tooltip = document.createElement("span");
-        tooltip.textContent = `${t("map.coarseLayer")} · ${result.candidate_id} · ${result.method_version}`;
-        L.marker(bounds.getCenter(), { icon: rankIcon(result.rank, selected, true), keyboard: false })
-          .bindTooltip(tooltip, { direction: "top" })
-          .on("click", select)
-          .addTo(layer);
-        continue;
-      }
-
       const selected = result.location_id === selectedId;
       const color = selected ? COLORS.selected : COLORS.earth;
       const rectangle = L.rectangle(
@@ -413,20 +366,7 @@ export function MapPanel({
           .openPopup();
       }
     }
-    if (refineWindow) {
-      const bounds = earthBounds(refineWindow.bbox, map.getCenter().lng);
-      if (bounds) {
-        const tooltip = document.createElement("span");
-        tooltip.textContent = `${t("map.refineLayer")} · ${t("global.executionStatus", { status: label.status(refineWindow.status) })} · ${refineWindow.method}`;
-        L.rectangle(bounds, {
-          color: COLORS.refine,
-          weight: 3,
-          dashArray: refineWindow.status === "completed" ? undefined : "3 4",
-          fillOpacity: 0.16,
-        }).bindTooltip(tooltip).addTo(layer);
-      }
-    }
-  }, [windows, selectedId, coarseSelectedId, refineWindow, t, fmt, label]);
+  }, [windows, selectedId, t, fmt]);
 
   return (
     <section className="map-panel" aria-labelledby="map-heading">
@@ -434,7 +374,7 @@ export function MapPanel({
         {t("map.heading")}
       </h2>
 
-      <div className={searchScope ? "map-stage has-search-scope" : "map-stage"}>
+      <div className="map-stage has-ranking">
         <div
           ref={containerRef}
           className="map-canvas"
@@ -478,23 +418,16 @@ export function MapPanel({
           </button>
         )}
 
-        {coarse ? (
-          <section className="ranking-overlay coarse-ranking" aria-label={t("overlay.regionLabel")}>
-            {searchScope}
-            <div className="coarse-ranking-body">{coarse.content}</div>
-          </section>
-        ) : response ? (
+        {response ? (
           <RankingOverlay
             response={response}
             features={features}
             target={target}
             selectedId={selectedId}
             onSelect={onSelect}
-            controls={searchScope}
           />
-        ) : (showIdle || searchScope) && (
+        ) : showIdle && (
           <section className="ranking-overlay is-idle" aria-label={t("overlay.regionLabel")}>
-            {searchScope}
             {showIdle && <p className="ranking-overlay-empty">{t("overlay.idle")}</p>}
           </section>
         )}
@@ -512,19 +445,14 @@ export function MapPanel({
         </p>
       )}
 
-      {searchScope && (
+      {aoiBbox && (
         <ul className="map-key">
-          {aoiBbox && <li><i className="source-key" aria-hidden="true" />{t("map.sourceLayer")}</li>}
-          <li>
-            <i className={coarse ? "coarse-key" : "indexed-key"} aria-hidden="true" />
-            {coarse ? t("map.coarseLayer") : t("map.indexedLayer")}
-          </li>
-          {refineWindow && <li><i className="refine-key" aria-hidden="true" />{t("map.refineLayer")}</li>}
+          <li><i className="source-key" aria-hidden="true" />{t("map.sourceLayer")}</li>
+          <li><i className="indexed-key" aria-hidden="true" />{t("map.indexedLayer")}</li>
         </ul>
       )}
       <p className="map-note">
-        {coarse ? t("map.coarseCount", { count: fmt.number(windows.length, 0) }) :
-          windows.length === 0 ? t("map.noWindows") : tp("map.plotted", windows.length)}{" "}
+        {windows.length === 0 ? t("map.noWindows") : tp("map.plotted", windows.length)}{" "}
         <span className="map-attribution-note">{t("map.attribution")}</span>
       </p>
     </section>

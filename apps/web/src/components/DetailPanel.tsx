@@ -67,6 +67,16 @@ export function DetailPanel({ selected, activeTarget, features, onViewDimensions
             distance: fmt.number(selected.distance, 4),
           })}
         </p>
+        {selected.caveats.length > 0 && (
+          <details className="result-caveats">
+            <summary>{t("results.caveats")}</summary>
+            <ul>
+              {selected.caveats.map((caveat) => (
+                <li key={caveat}><SourceText>{caveat}</SourceText></li>
+              ))}
+            </ul>
+          </details>
+        )}
         {onViewDimensions && (
           <button type="button" className="secondary-button" onClick={onViewDimensions}>
             {t("search.dimensionOpen")}
