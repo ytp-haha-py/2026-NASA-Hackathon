@@ -104,6 +104,51 @@ def test_committed_d05_power_release_imports_and_queries(tmp_path: Path):
         assert len(area.json()["observations"]) == 2
 
 
+def test_committed_d05_spice_model_geometry_imports_and_queries(tmp_path: Path):
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'd05-spice.db'}",
+        manifest_dir=str(tmp_path / "none"),
+        manifest_dir_planetary=str(tmp_path / "none"),
+        manifest_dir_context=str(tmp_path / "none"),
+        seed_include_synthetic=False,
+    )
+    app = create_app(settings)
+    with TestClient(app) as client:
+        with app.state.session_factory() as session:
+            result = import_release(session, ROOT / "pipelines/pilots/d05_spice_illumination")
+            session.commit()
+        assert result["areas"] == 9
+        assert result["observations"] == 18
+        response = client.get("/api/v1/typed/observations", params={"dimension": "D05"})
+        assert response.status_code == 200, response.text
+        rows = response.json()
+        assert len(rows) == 18
+        assert {row["body"] for row in rows} == {"Moon", "Mars"}
+        assert {row["feature_id"] for row in rows} == {
+            "solar_incidence_deg",
+            "solar_elevation_deg",
+        }
+        assert {row["state"] for row in rows} == {"detected"}
+        assert {row["score_role"] for row in rows} == {"context_only"}
+        assert {row["unit"] for row in rows} == {"degree"}
+        assert not any(row["feature_id"].startswith("ionizing") for row in rows)
+        assert not any(row["unit"] in {"Gy", "Sv"} for row in rows)
+        assert all("flat_ellipsoid_tangent_plane" in row["quality_flags"] for row in rows)
+        moon = client.get("/api/v1/typed/areas/moon-shackleton-rim-site04-roi1")
+        assert moon.status_code == 200, moon.text
+        assert moon.json()["coordinate_frame"] == "lunar_projected"
+        assert {item["feature_id"] for item in moon.json()["observations"]} == {
+            "solar_incidence_deg",
+            "solar_elevation_deg",
+        }
+        mars = client.get("/api/v1/typed/areas/mars-jezero-ctx-window-01")
+        assert mars.status_code == 200, mars.text
+        assert mars.json()["coordinate_frame"] == "mars_projected"
+        coverage = client.get("/api/v1/typed/coverage").json()
+        assert coverage["by_dimension"]["D05"]["total"] == 18
+        assert coverage["by_dimension"]["D05"]["by_body"] == {"Mars": 10, "Moon": 8}
+
+
 def test_committed_geology_bundle_imports_as_evidence_only_d02(tmp_path: Path):
     settings = Settings(
         database_url=f"sqlite+pysqlite:///{tmp_path / 'geology.db'}",

@@ -21,7 +21,7 @@ https://www.貓熊.台灣/
 health: ok dv-b46f3bad38ea
 capabilities: features=5 indexed=113
 dimensions: 2
-typed coverage: total=181, dimensions D02,D03,D04,D05,D06
+typed coverage: total=199, dimensions D02,D03,D04,D05,D06
 global coverage: ready, rows=168, regions=pilot-alps,pilot-grand-canyon,pilot-sahara
 global top-3: coarse-v1:95046a41aeb31ca9, coarse-v1:61c31ae082cf0dbe, coarse-v1:d558cc84b2550c64
 legacy Moon reference search: results=3
@@ -35,6 +35,7 @@ RESULT: PASS
 - [Home/search](screenshots/01-home.png)
 - [D03–D06 Earth observations](screenshots/02-six-dimensions-earth.png)
 - [D02 Mars evidence/context](screenshots/03-six-dimensions-mars.png)
+- [D02 Moon geology + D05 SPICE illumination](screenshots/05-six-dimensions-moon.png)
 - [Real 168-cell global discovery](screenshots/04-global-discovery.png)
 
 The six-dimension panel is driven by `/api/v1/dimensions`, `/api/v1/typed/areas/{id}` and
@@ -48,9 +49,9 @@ by the real committed Geomorpho pilot index, not a synthetic worldwide claim.
 D02 = 56  (Earth availability/status 15, Moon 3, Mars 38)
 D03 = 20  (Earth NASA POWER thermal context)
 D04 = 20  (Earth NASA POWER water context)
-D05 = 10  (Earth NASA POWER solar context)
+D05 = 28  (Earth NASA POWER 10 + Moon SPICE 8 + Mars SPICE 10)
 D06 = 75  (Earth SoilGrids 0-5 cm)
-typed total = 181
+typed total = 199
 real global coarse = 168 cells / 3 pilot regions
 legacy fine terrain = 113 Earth / 18 Moon / 5 Mars
 ```

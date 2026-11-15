@@ -52,7 +52,8 @@ The live object was verified by bounded HTTP range reads:
 The real pilot used three smaller 0.4° windows around Sahara (10–10.4E), Alps
 (10–10.4E) and Grand Canyon (-112.2–-111.8E), producing 168 real 5 km cells. See
 [`GEOMORPHO_REAL_PILOT.md`](GEOMORPHO_REAL_PILOT.md). This is still not a global scan or a
-scientific global result.
+scientific global result. The resumable batch runner over the same staged windows is
+documented in [`GEOMORPHO_BATCH_PILOT.md`](GEOMORPHO_BATCH_PILOT.md).
 
 ## Pilot acquisition actually executed
 

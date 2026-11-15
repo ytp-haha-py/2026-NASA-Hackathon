@@ -1,0 +1,301 @@
+{
+  "generated_at": "2026-11-15T12:00:00Z",
+  "notes": [
+    "Bounded pilot at existing Moon/Mars reference coordinates only.",
+    "Model-derived solar geometry; not observed irradiance or radiation.",
+    "No kernel bytes and no DEM are committed."
+  ],
+  "plan_version": "acquisition-plan-1.0.0",
+  "scope": "pilot-d05-spice-illumination",
+  "tasks": [
+    {
+      "area": {
+        "area_id": "moon-shackleton-rim-site04-roi1",
+        "bbox": {
+          "east": -1812.5000520850217,
+          "north": -5647.500121704051,
+          "south": -7647.500121704051,
+          "west": -3812.5000520850217
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_projected",
+        "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+        "display_name": "Shackleton Rim (LOLA Site04 roi1)",
+        "notes": "Moon point site (-89.76196621 deg, -157.06719662 deg, east-positive), body-fixed frame MOON_ME; source dataset nasa-lola-site04-5mpp-surf. The projected bbox is a 2 km database envelope, not an analysis footprint; solar geometry is computed at the centre point."
+      },
+      "body": "Moon",
+      "dataset_id": "naif-spice-generic-kernels",
+      "dimension": "D05",
+      "endpoint": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/",
+      "expected_bytes": null,
+      "method_version": "spice-solar-geometry-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "body_fixed_frame": "MOON_ME",
+        "epoch_utc": "2026-11-15T12:00:00Z",
+        "method_version": "spice-solar-geometry-1.0.0"
+      },
+      "provider_id": "naif-spice",
+      "source_id": "naif-spice-generic-kernels",
+      "task_id": "spice-solar-geometry-moon-shackleton-rim-site04-roi1"
+    },
+    {
+      "area": {
+        "area_id": "moon-shackleton-rim-site04-roi2",
+        "bbox": {
+          "east": -1757.4999439557428,
+          "north": -5342.499871778471,
+          "south": -7342.499871778471,
+          "west": -3757.4999439557428
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_projected",
+        "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+        "display_name": "Shackleton Rim (LOLA Site04 ROI 2)",
+        "notes": "Moon point site (-89.77192511 deg, -156.50226014 deg, east-positive), body-fixed frame MOON_ME; source dataset nasa-lola-site04-5mpp-surf. The projected bbox is a 2 km database envelope, not an analysis footprint; solar geometry is computed at the centre point."
+      },
+      "body": "Moon",
+      "dataset_id": "naif-spice-generic-kernels",
+      "dimension": "D05",
+      "endpoint": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/",
+      "expected_bytes": null,
+      "method_version": "spice-solar-geometry-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "body_fixed_frame": "MOON_ME",
+        "epoch_utc": "2026-11-15T12:00:00Z",
+        "method_version": "spice-solar-geometry-1.0.0"
+      },
+      "provider_id": "naif-spice",
+      "source_id": "naif-spice-generic-kernels",
+      "task_id": "spice-solar-geometry-moon-shackleton-rim-site04-roi2"
+    },
+    {
+      "area": {
+        "area_id": "moon-shackleton-rim-site04-roi3",
+        "bbox": {
+          "east": -1677.4999492647003,
+          "north": -5107.499884193499,
+          "south": -7107.499884193499,
+          "west": -3677.4999492647003
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_projected",
+        "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+        "display_name": "Shackleton Rim (LOLA Site04 roi3)",
+        "notes": "Moon point site (-89.78008311 deg, -156.32757511 deg, east-positive), body-fixed frame MOON_ME; source dataset nasa-lola-site04-5mpp-surf. The projected bbox is a 2 km database envelope, not an analysis footprint; solar geometry is computed at the centre point."
+      },
+      "body": "Moon",
+      "dataset_id": "naif-spice-generic-kernels",
+      "dimension": "D05",
+      "endpoint": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/",
+      "expected_bytes": null,
+      "method_version": "spice-solar-geometry-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "body_fixed_frame": "MOON_ME",
+        "epoch_utc": "2026-11-15T12:00:00Z",
+        "method_version": "spice-solar-geometry-1.0.0"
+      },
+      "provider_id": "naif-spice",
+      "source_id": "naif-spice-generic-kernels",
+      "task_id": "spice-solar-geometry-moon-shackleton-rim-site04-roi3"
+    },
+    {
+      "area": {
+        "area_id": "moon-shackleton-rim-site04-roi4",
+        "bbox": {
+          "east": -1657.4999378286784,
+          "north": -4957.499861833551,
+          "south": -6957.499861833551,
+          "west": -3657.4999378286784
+        },
+        "body": "Moon",
+        "coordinate_frame": "lunar_projected",
+        "crs": "PROJCRS[\"unnamed\",BASEGEOGCRS[\"unnamed ellipse\",DATUM[\"unknown\",ELLIPSOID[\"unnamed\",1737400,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Polar Stereographic (variant B)\",ID[\"EPSG\",9829]],PARAMETER[\"Latitude of standard parallel\",-90,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8832]],PARAMETER[\"Longitude of origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8833]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1]]]",
+        "display_name": "Shackleton Rim (LOLA Site04 roi4)",
+        "notes": "Moon point site (-89.78487392 deg, -155.95947877 deg, east-positive), body-fixed frame MOON_ME; source dataset nasa-lola-site04-5mpp-surf. The projected bbox is a 2 km database envelope, not an analysis footprint; solar geometry is computed at the centre point."
+      },
+      "body": "Moon",
+      "dataset_id": "naif-spice-generic-kernels",
+      "dimension": "D05",
+      "endpoint": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/",
+      "expected_bytes": null,
+      "method_version": "spice-solar-geometry-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "body_fixed_frame": "MOON_ME",
+        "epoch_utc": "2026-11-15T12:00:00Z",
+        "method_version": "spice-solar-geometry-1.0.0"
+      },
+      "provider_id": "naif-spice",
+      "source_id": "naif-spice-generic-kernels",
+      "task_id": "spice-solar-geometry-moon-shackleton-rim-site04-roi4"
+    },
+    {
+      "area": {
+        "area_id": "mars-jezero-ctx-window-01",
+        "bbox": {
+          "east": 4351000.0,
+          "north": 1081000.0,
+          "south": 1079000.0,
+          "west": 4349000.0
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_projected",
+        "crs": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "display_name": "Jezero CTX coordinate window 01",
+        "notes": "Mars point site (18.22025325 deg, 77.37095200 deg, east-positive), body-fixed frame IAU_MARS; source dataset mars2020-jezero-ctx-dem-20m. The projected bbox is a 2 km database envelope, not an analysis footprint; solar geometry is computed at the centre point."
+      },
+      "body": "Mars",
+      "dataset_id": "naif-spice-generic-kernels",
+      "dimension": "D05",
+      "endpoint": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/",
+      "expected_bytes": null,
+      "method_version": "spice-solar-geometry-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "body_fixed_frame": "IAU_MARS",
+        "epoch_utc": "2026-11-15T12:00:00Z",
+        "method_version": "spice-solar-geometry-1.0.0"
+      },
+      "provider_id": "naif-spice",
+      "source_id": "naif-spice-generic-kernels",
+      "task_id": "spice-solar-geometry-mars-jezero-ctx-window-01"
+    },
+    {
+      "area": {
+        "area_id": "mars-jezero-ctx-window-02",
+        "bbox": {
+          "east": 4361000.0,
+          "north": 1091000.0,
+          "south": 1089000.0,
+          "west": 4359000.0
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_projected",
+        "crs": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "display_name": "Jezero CTX coordinate window 02",
+        "notes": "Mars point site (18.38895930 deg, 77.54881626 deg, east-positive), body-fixed frame IAU_MARS; source dataset mars2020-jezero-ctx-dem-20m. The projected bbox is a 2 km database envelope, not an analysis footprint; solar geometry is computed at the centre point."
+      },
+      "body": "Mars",
+      "dataset_id": "naif-spice-generic-kernels",
+      "dimension": "D05",
+      "endpoint": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/",
+      "expected_bytes": null,
+      "method_version": "spice-solar-geometry-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "body_fixed_frame": "IAU_MARS",
+        "epoch_utc": "2026-11-15T12:00:00Z",
+        "method_version": "spice-solar-geometry-1.0.0"
+      },
+      "provider_id": "naif-spice",
+      "source_id": "naif-spice-generic-kernels",
+      "task_id": "spice-solar-geometry-mars-jezero-ctx-window-02"
+    },
+    {
+      "area": {
+        "area_id": "mars-jezero-ctx-window-03",
+        "bbox": {
+          "east": 4371000.0,
+          "north": 1101000.0,
+          "south": 1099000.0,
+          "west": 4369000.0
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_projected",
+        "crs": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "display_name": "Jezero CTX coordinate window 03",
+        "notes": "Mars point site (18.55766534 deg, 77.72668052 deg, east-positive), body-fixed frame IAU_MARS; source dataset mars2020-jezero-ctx-dem-20m. The projected bbox is a 2 km database envelope, not an analysis footprint; solar geometry is computed at the centre point."
+      },
+      "body": "Mars",
+      "dataset_id": "naif-spice-generic-kernels",
+      "dimension": "D05",
+      "endpoint": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/",
+      "expected_bytes": null,
+      "method_version": "spice-solar-geometry-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "body_fixed_frame": "IAU_MARS",
+        "epoch_utc": "2026-11-15T12:00:00Z",
+        "method_version": "spice-solar-geometry-1.0.0"
+      },
+      "provider_id": "naif-spice",
+      "source_id": "naif-spice-generic-kernels",
+      "task_id": "spice-solar-geometry-mars-jezero-ctx-window-03"
+    },
+    {
+      "area": {
+        "area_id": "mars-jezero-ctx-window-04",
+        "bbox": {
+          "east": 4381000.0,
+          "north": 1110999.9999999998,
+          "south": 1108999.9999999998,
+          "west": 4379000.0
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_projected",
+        "crs": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "display_name": "Jezero CTX coordinate window 04",
+        "notes": "Mars point site (18.72637139 deg, 77.90454477 deg, east-positive), body-fixed frame IAU_MARS; source dataset mars2020-jezero-ctx-dem-20m. The projected bbox is a 2 km database envelope, not an analysis footprint; solar geometry is computed at the centre point."
+      },
+      "body": "Mars",
+      "dataset_id": "naif-spice-generic-kernels",
+      "dimension": "D05",
+      "endpoint": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/",
+      "expected_bytes": null,
+      "method_version": "spice-solar-geometry-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "body_fixed_frame": "IAU_MARS",
+        "epoch_utc": "2026-11-15T12:00:00Z",
+        "method_version": "spice-solar-geometry-1.0.0"
+      },
+      "provider_id": "naif-spice",
+      "source_id": "naif-spice-generic-kernels",
+      "task_id": "spice-solar-geometry-mars-jezero-ctx-window-04"
+    },
+    {
+      "area": {
+        "area_id": "mars-jezero-ctx-window-05",
+        "bbox": {
+          "east": 4391000.0,
+          "north": 1121000.0,
+          "south": 1119000.0,
+          "west": 4389000.0
+        },
+        "body": "Mars",
+        "coordinate_frame": "mars_projected",
+        "crs": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+        "display_name": "Jezero CTX coordinate window 05",
+        "notes": "Mars point site (18.89507744 deg, 78.08240903 deg, east-positive), body-fixed frame IAU_MARS; source dataset mars2020-jezero-ctx-dem-20m. The projected bbox is a 2 km database envelope, not an analysis footprint; solar geometry is computed at the centre point."
+      },
+      "body": "Mars",
+      "dataset_id": "naif-spice-generic-kernels",
+      "dimension": "D05",
+      "endpoint": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/",
+      "expected_bytes": null,
+      "method_version": "spice-solar-geometry-1.0.0",
+      "output_suffix": ".json",
+      "parameters": {
+        "body_fixed_frame": "IAU_MARS",
+        "epoch_utc": "2026-11-15T12:00:00Z",
+        "method_version": "spice-solar-geometry-1.0.0"
+      },
+      "provider_id": "naif-spice",
+      "source_id": "naif-spice-generic-kernels",
+      "task_id": "spice-solar-geometry-mars-jezero-ctx-window-05"
+    }
+  ],
+  "totals": {
+    "bodies": {
+      "Mars": 5,
+      "Moon": 4
+    },
+    "epoch_utc": "2026-11-15T12:00:00Z",
+    "method_version": "spice-solar-geometry-1.0.0",
+    "sites": 9,
+    "tasks": 9
+  }
+}

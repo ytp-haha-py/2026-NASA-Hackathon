@@ -338,6 +338,9 @@ dependencies = [
 postgis = [
     { name = "psycopg", extra = ["binary"] },
 ]
+spice = [
+    { name = "spiceypy" },
+]
 storage = [
     { name = "boto3" },
 ]
@@ -361,10 +364,11 @@ requires-dist = [
     { name = "pydantic-settings", specifier = ">=2.6,<3" },
     { name = "pyproj", specifier = ">=3.7,<4" },
     { name = "rasterio", specifier = ">=1.4,<2" },
+    { name = "spiceypy", marker = "extra == 'spice'", specifier = ">=6.0,<7" },
     { name = "sqlalchemy", specifier = ">=2.0.36,<3" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.32,<1" },
 ]
-provides-extras = ["storage", "postgis"]
+provides-extras = ["storage", "postgis", "spice"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -756,6 +760,22 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/94/e7/b2c673351809dca68a0e064b6af791aa332cf192da575fd474ed7d6f16a2/six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81", size = 34031, upload-time = "2024-12-04T17:35:28.174Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274", size = 11050, upload-time = "2024-12-04T17:35:26.475Z" },
+]
+
+[[package]]
+name = "spiceypy"
+version = "6.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/92/94/f91c721921b9ec23b39534aaeb73e0725bb8a542c7aa54da5ff994132257/spiceypy-6.0.3.tar.gz", hash = "sha256:5b7338651525c605738f41b1ff3bd363ee2bc09380b574c671e0651b2298ca4b", size = 500040, upload-time = "2025-07-17T23:22:21.372Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e2/c8/aa33a52d16aee503211da35ecffbcf52f44353c92e9691f60c0c3cbc14f8/spiceypy-6.0.3-py3-none-macosx_10_13_x86_64.whl", hash = "sha256:303352c3881264c7177c4f7dfc163fcb4fb638226b670a9892799fd648be3e5e", size = 1455855, upload-time = "2025-07-17T23:22:13.789Z" },
+    { url = "https://files.pythonhosted.org/packages/97/6a/1eb03efcd24eba392cd4606e41d64fdb63ba132d685cb31a370151c7ea11/spiceypy-6.0.3-py3-none-macosx_11_0_arm64.whl", hash = "sha256:f579c85384fe0db50ca79eba019a5784ef24ca259010db0c0c4444ac0578776e", size = 1336081, upload-time = "2025-07-17T23:22:15.519Z" },
+    { url = "https://files.pythonhosted.org/packages/63/31/6ba29294929972a250c3127ba7632c3ab26ce6ceafc4f4ac42276f73aee5/spiceypy-6.0.3-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2818fdd9cdaf5f898be8cad257a4cabc0126f649a46272a1be088aa55990bcc5", size = 1631525, upload-time = "2025-07-17T23:22:16.994Z" },
+    { url = "https://files.pythonhosted.org/packages/80/a3/a14e97e52fc23f0a5bdaabf9f669bfba67b40201fee501a6afe03e7bd4ef/spiceypy-6.0.3-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:435404915f282e1002b59ae3a682a1e3558411d6f7dd5483aecbb1daaea8b574", size = 1669121, upload-time = "2025-07-17T23:22:18.566Z" },
+    { url = "https://files.pythonhosted.org/packages/d0/4f/e49c66bde8f0d48e60c5e9c49e77cddc0bae865e37aeb8d4f8cb63da9236/spiceypy-6.0.3-py3-none-win_amd64.whl", hash = "sha256:c64ec3ce9699ba41a955abcf2d86ca4e971ce8424fbe5c3ba0464f878581cf8b", size = 1447495, upload-time = "2025-07-17T23:22:19.968Z" },
 ]
 
 [[package]]

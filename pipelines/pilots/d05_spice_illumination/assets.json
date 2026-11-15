@@ -1,0 +1,72 @@
+[
+  {
+    "asset_id": "naif-kernel:naif0012.tls",
+    "bytes": 5257,
+    "checksum": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "naif-spice-generic-kernels",
+    "fetched_at": "2026-11-15T05:31:28.983881+00:00",
+    "local_cache_path": "var/cache/spice-45/naif0012.tls",
+    "purpose": "Leap-second kernel for UTC -> ephemeris time conversion.",
+    "redistribution_allowed": "unknown",
+    "source": "NASA JPL NAIF generic kernels",
+    "uri": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls"
+  },
+  {
+    "asset_id": "naif-kernel:pck00011.tpc",
+    "bytes": 131226,
+    "checksum": "3dff7b1dbeceaa01f25467767d3fa25816051c85d162d1edf04acb310ee28bb1",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "naif-spice-generic-kernels",
+    "fetched_at": "2026-11-15T05:31:30.719731+00:00",
+    "local_cache_path": "var/cache/spice-45/pck00011.tpc",
+    "purpose": "Text planetary constants: body radii and IAU_MARS orientation.",
+    "redistribution_allowed": "unknown",
+    "source": "NASA JPL NAIF generic kernels",
+    "uri": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc"
+  },
+  {
+    "asset_id": "naif-kernel:de421.bsp",
+    "bytes": 16790528,
+    "checksum": "08b20db2ae22488650641c5a9033e5bfda4b1c4b440cfeaf20f621cfa18ecdb3",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "naif-spice-generic-kernels",
+    "fetched_at": "2026-11-15T05:31:36.300009+00:00",
+    "local_cache_path": "var/cache/spice-45/de421.bsp",
+    "purpose": "JPL DE421 planetary ephemeris (1900-2050), Sun/Moon/Mars states.",
+    "redistribution_allowed": "unknown",
+    "source": "NASA JPL NAIF generic kernels",
+    "uri": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/a_old_versions/de421.bsp"
+  },
+  {
+    "asset_id": "naif-kernel:moon_pa_de421_1900-2050.bpc",
+    "bytes": 1770496,
+    "checksum": "656f90616403d75a75f0cd6c8830fc5b44f8cb4facb5ccb8915e752b397520cf",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "naif-spice-generic-kernels",
+    "fetched_at": "2026-11-15T05:31:39.344164+00:00",
+    "local_cache_path": "var/cache/spice-45/moon_pa_de421_1900-2050.bpc",
+    "purpose": "DE421 lunar principal-axis orientation (binary PCK).",
+    "redistribution_allowed": "unknown",
+    "source": "NASA JPL NAIF generic kernels",
+    "uri": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/moon_pa_de421_1900-2050.bpc"
+  },
+  {
+    "asset_id": "naif-kernel:moon_080317.tf",
+    "bytes": 21437,
+    "checksum": "78732477b96f9863e7b0d65bcee3c22b8707ca5ed0db56d1173319cb2e8c7993",
+    "checksum_algorithm": "sha256",
+    "checksum_scope": "source",
+    "dataset_id": "naif-spice-generic-kernels",
+    "fetched_at": "2026-11-15T05:31:40.588228+00:00",
+    "local_cache_path": "var/cache/spice-45/moon_080317.tf",
+    "purpose": "Lunar frame definitions: MOON_ME / MOON_PA realized from DE421.",
+    "redistribution_allowed": "unknown",
+    "source": "NASA JPL NAIF generic kernels",
+    "uri": "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/fk/satellites/moon_080317.tf"
+  }
+]

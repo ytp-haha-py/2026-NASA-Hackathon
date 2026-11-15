@@ -18,6 +18,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 CHECKPOINT_VERSION = "1.0.0"
+# A terminal task never recomputes on resume while its artifact still verifies.
+# `no_coverage` and `invalid` are auditable outcomes, not silent successes.
+TERMINAL_STATUSES = frozenset({"succeeded", "no_coverage", "invalid"})
 
 
 class BatchError(RuntimeError):
@@ -29,10 +32,13 @@ class PartitionTask:
     task_id: str
     region_id: str
     window_count: int = 0
+    input_checksum: str | None = None
 
     @property
     def fingerprint(self) -> str:
-        raw = f"{self.task_id}|{self.region_id}|{self.window_count}".encode()
+        raw = (
+            f"{self.task_id}|{self.region_id}|{self.window_count}|{self.input_checksum or ''}"
+        ).encode()
         return hashlib.sha256(raw).hexdigest()
 
 
@@ -42,9 +48,12 @@ class WorkerResult:
     rows: int
     output_path: str | None = None
     warnings: tuple[str, ...] = ()
+    status: str = "succeeded"
+    metrics: dict[str, int] = field(default_factory=dict)
 
 
 Worker = Callable[[PartitionTask], WorkerResult]
+ReuseCheck = Callable[[PartitionTask, dict[str, object]], bool]
 
 
 @dataclass(slots=True)
@@ -121,22 +130,22 @@ def _output_is_reusable(record: dict[str, object], task: PartitionTask) -> bool:
     return _sha256_file(path) == str(checksum)
 
 
-def _new_state(run_id: str, tasks: Iterable[PartitionTask]) -> BatchState:
-    state = BatchState(run_id=run_id)
-    for task in tasks:
-        state.tasks[task.task_id] = {
-            "status": "pending",
-            "attempts": 0,
-            "fingerprint": task.fingerprint,
-            "region_id": task.region_id,
-            "window_count": task.window_count,
-            "output_checksum": None,
-            "output_path": None,
-            "rows": 0,
-            "error": None,
-            "updated_at": None,
-        }
-    return state
+def _new_record(task: PartitionTask) -> dict[str, object]:
+    return {
+        "status": "pending",
+        "attempts": 0,
+        "fingerprint": task.fingerprint,
+        "region_id": task.region_id,
+        "window_count": task.window_count,
+        "input_checksum": task.input_checksum,
+        "output_checksum": None,
+        "output_path": None,
+        "rows": 0,
+        "metrics": {},
+        "warnings": [],
+        "error": None,
+        "updated_at": None,
+    }
 
 
 class BatchRunner:
@@ -149,6 +158,7 @@ class BatchRunner:
         max_workers: int = 2,
         max_retries: int = 1,
         max_tasks: int = 128,
+        reuse_check: ReuseCheck | None = None,
     ) -> None:
         if max_workers < 1 or max_workers > 8:
             raise BatchError("max_workers must be within 1..8")
@@ -162,6 +172,7 @@ class BatchRunner:
         self.max_workers = max_workers
         self.max_retries = max_retries
         self.max_tasks = max_tasks
+        self.reuse_check = reuse_check
         self.store = self._open_or_create()
         if self.store.state.run_id != self.run_id:
             raise BatchError(
@@ -180,44 +191,58 @@ class BatchRunner:
         return store
 
     def add_tasks(self, tasks: Iterable[PartitionTask]) -> None:
+        added = False
         for task in tasks:
             if task.task_id in self.store.state.tasks:
                 continue
             if len(self.store.state.tasks) >= self.max_tasks:
                 raise BatchError(f"task budget exceeded ({self.max_tasks})")
-            self.store.state.tasks[task.task_id] = {
-                "status": "pending",
-                "attempts": 0,
-                "region_id": task.region_id,
-                "window_count": task.window_count,
-                "output_checksum": None,
-                "rows": 0,
-                "error": None,
-                "updated_at": None,
-            }
-        self.store.save()
+            self.store.state.tasks[task.task_id] = _new_record(task)
+            added = True
+        if added:
+            self.store.save()
+
+    def _artifact_reusable(self, task: PartitionTask, record: dict[str, object]) -> bool:
+        if not _output_is_reusable(record, task):
+            return False
+        if self.reuse_check is None:
+            return True
+        try:
+            return bool(self.reuse_check(task, record))
+        except Exception:  # noqa: BLE001 - an unreadable artifact must force a recompute
+            return False
 
     def run(self, tasks: Iterable[PartitionTask], *, retry_failed: bool = False) -> dict[str, int]:
+        tasks = list(tasks)
         self.add_tasks(tasks)
         pending: list[PartitionTask] = []
         for task in tasks:
             record = self.store.state.tasks[task.task_id]
-            status = record["status"]
-            if status == "succeeded" and _output_is_reusable(record, task):
-                continue
-            if status == "succeeded":
+            status = str(record["status"])
+            if status in TERMINAL_STATUSES:
+                if self._artifact_reusable(task, record):
+                    continue
                 record["status"] = "pending"
                 record["error"] = "checkpoint output missing, corrupted, or task parameters changed"
             if status == "failed" and not retry_failed:
                 continue
             record["status"] = "running"
             record["fingerprint"] = task.fingerprint
+            record["region_id"] = task.region_id
+            record["window_count"] = task.window_count
+            record["input_checksum"] = task.input_checksum
             pending.append(task)
+        counts = {
+            "succeeded": 0,
+            "failed": 0,
+            "skipped": 0,
+            "no_coverage": 0,
+            "invalid": 0,
+        }
+        counts["skipped"] = len(tasks) - len(pending)
         self.store.save()
 
-        counts = {"succeeded": 0, "failed": 0, "skipped": 0}
         if not pending:
-            counts["skipped"] = len(tasks)
             return counts
 
         with ThreadPoolExecutor(max_workers=self.max_workers) as pool:
@@ -235,6 +260,13 @@ class BatchRunner:
                 else:
                     record = self.store.state.tasks[task.task_id]
                     output_path = Path(result.output_path) if result.output_path else None
+                    if result.status not in TERMINAL_STATUSES:
+                        record["status"] = "failed"
+                        record["error"] = f"worker returned unsupported status {result.status!r}"
+                        record["updated_at"] = datetime.now(UTC).isoformat()
+                        counts["failed"] += 1
+                        self.store.save()
+                        continue
                     if output_path is None or not output_path.is_file():
                         record["status"] = "failed"
                         record["error"] = "worker produced no verifiable output path"
@@ -250,40 +282,52 @@ class BatchRunner:
                         counts["failed"] += 1
                         self.store.save()
                         continue
-                    record["status"] = "succeeded"
+                    record["status"] = result.status
                     record["output_checksum"] = result.output_checksum
                     record["output_path"] = result.output_path
                     record["rows"] = result.rows
+                    record["metrics"] = dict(result.metrics)
+                    record["warnings"] = list(result.warnings)
                     record["error"] = None
                     record["updated_at"] = datetime.now(UTC).isoformat()
-                    counts["succeeded"] += 1
+                    counts[result.status] += 1
                 self.store.save()
         return counts
 
     def _run_task(self, task: PartitionTask) -> WorkerResult:
         record = self.store.state.tasks[task.task_id]
+        total_attempts = int(record.get("attempts", 0) or 0)
         attempts = 0
         last_error: Exception | None = None
         while attempts <= self.max_retries:
             attempts += 1
-            record["attempts"] = attempts
+            total_attempts += 1
+            record["attempts"] = total_attempts
             try:
                 return self.worker(task)
             except Exception as exc:  # noqa: BLE001 - retry policy is explicit
                 last_error = exc
-        raise BatchError(f"task {task.task_id} failed after {attempts} attempts: {last_error}")
+        raise BatchError(
+            f"task {task.task_id} failed after {attempts} attempt(s) this invocation "
+            f"({total_attempts} recorded): {last_error}"
+        )
 
     def report(self) -> dict[str, object]:
         records = self.store.state.tasks.values()
         counts: dict[str, int] = {}
         rows = 0
+        metrics: dict[str, int] = {}
         for record in records:
             counts[str(record["status"])] = counts.get(str(record["status"]), 0) + 1
             rows += int(record.get("rows", 0))
+            for key, value in dict(record.get("metrics") or {}).items():
+                metrics[str(key)] = metrics.get(str(key), 0) + int(value)
         return {
             "run_id": self.run_id,
             "checkpoint": str(self.checkpoint_path),
+            "checkpoint_version": self.store.state.checkpoint_version,
             "counts": counts,
             "rows": rows,
+            "metrics": metrics,
             "bounded": True,
         }

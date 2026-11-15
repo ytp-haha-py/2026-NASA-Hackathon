@@ -195,6 +195,25 @@ def _duplicate_across_files(paths: Sequence[Path]) -> str | None:
     return row[0] if row else None
 
 
+def write_coarse_parquet(path: str | Path, rows: Sequence[CoarseRow]) -> dict[str, object]:
+    """Atomically write one validated coarse Parquet partition.
+
+    Returns the checksum/size/row count of the published file. The file replaces any
+    previous version only after the complete Parquet payload was written and fsynced
+    by DuckDB, so an interrupted write never leaves a half-valid artifact.
+    """
+    destination = Path(path)
+    for row in rows:
+        _validate_row(row)
+    _write_partition(destination, rows)
+    return {
+        "path": str(destination),
+        "sha256": _sha256(destination),
+        "bytes": destination.stat().st_size,
+        "rows": len(rows),
+    }
+
+
 class CoarseIndexWriter:
     """Incremental, partition-bounded, immutable snapshot writer."""
 
