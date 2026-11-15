@@ -141,3 +141,9 @@ The same NASA POWER provider now also plans D03 thermal tasks (`T2M`, `T2M_MAX`,
 The committed pilot contains 20 context-only timeseries observations for 5 AOIs over
 2024-01-01..07. Air temperature and skin temperature are kept distinct; no thermal inertia, diurnal
 range or cross-body thermal score is derived.
+
+## D04 Earth water-context pilot
+
+NASA POWER D04 tasks use `GWETTOP`, `GWETROOT`, `SNODP` and `PRECTOTCORR`. The committed pilot has
+20 context-only timeseries observations over 5 AOIs. Surface soil wetness, root-zone wetness, snow
+depth and precipitation remain separate features; no confirmed extractable ice is claimed.

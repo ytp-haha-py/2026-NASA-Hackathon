@@ -206,3 +206,32 @@ def test_committed_d03_power_thermal_release_imports_and_queries(tmp_path: Path)
         assert {row["spatial_support"]["source_resolution_m"] for row in rows} == {50000.0}
         coverage = client.get("/api/v1/typed/coverage").json()
         assert coverage["by_dimension"]["D03"]["total"] == 20
+
+
+def test_committed_d04_power_water_context_imports_and_queries(tmp_path: Path):
+    settings = Settings(
+        database_url=f"sqlite+pysqlite:///{tmp_path / 'd04.db'}",
+        manifest_dir=str(tmp_path / "none"),
+        manifest_dir_planetary=str(tmp_path / "none"),
+        manifest_dir_context=str(tmp_path / "none"),
+        seed_include_synthetic=False,
+    )
+    app = create_app(settings)
+    with TestClient(app) as client:
+        with app.state.session_factory() as session:
+            result = import_release(session, ROOT / "pipelines/pilots/d04_earth_power")
+            session.commit()
+        assert result["observations"] == 20
+        rows = client.get(
+            "/api/v1/typed/observations", params={"dimension": "D04", "body": "Earth"}
+        ).json()
+        assert len(rows) == 20
+        assert {row["state"] for row in rows} == {"detected"}
+        assert {row["score_role"] for row in rows} == {"context_only"}
+        assert {row["feature_id"] for row in rows} == {
+            "surface_soil_wetness_fraction",
+            "root_zone_soil_wetness_fraction",
+            "snow_depth_cm",
+            "precipitation_mm_day",
+        }
+        assert any("not_confirmed_subsurface_ice" in row["quality_flags"] for row in rows)
