@@ -275,5 +275,8 @@
       "sun_distance_m": 240751537994.97003
     }
   ],
-  "spice_version": "6.0.3"
+  "spice_version": "6.0.3",
+  "observation_count": 18,
+  "area_count": 9,
+  "asset_count": 5
 }
