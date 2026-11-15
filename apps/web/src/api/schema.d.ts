@@ -268,6 +268,74 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/planetary/bodies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Planetary Bodies */
+        get: operations["planetary_bodies_api_v1_planetary_bodies_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/planetary/coordinate-contract": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Planetary Coordinate Contract */
+        get: operations["planetary_coordinate_contract_api_v1_planetary_coordinate_contract_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/planetary/map-features": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Planetary Map Features */
+        get: operations["planetary_map_features_api_v1_planetary_map_features_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/planetary/maps": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Planetary Maps */
+        get: operations["planetary_maps_api_v1_planetary_maps_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/references": {
         parameters: {
             query?: never;
@@ -296,6 +364,57 @@ export interface paths {
         put?: never;
         /** Search */
         post: operations["search_api_v1_search_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/search/features": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Features */
+        get: operations["list_features_api_v1_search_features_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/search/features/{feature_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Feature Detail */
+        get: operations["feature_detail_api_v1_search_features__feature_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/search/multidimensional": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Multidimensional Search */
+        post: operations["multidimensional_search_api_v1_search_multidimensional_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -404,6 +523,39 @@ export interface components {
              * @enum {string}
              */
             status: "queued" | "running" | "completed" | "partial" | "failed";
+        };
+        /** AuditSummaryOut */
+        AuditSummaryOut: {
+            /** By Dimension */
+            by_dimension: {
+                [key: string]: {
+                    [key: string]: number;
+                };
+            };
+            /** Gated Area Count By Feature */
+            gated_area_count_by_feature: {
+                [key: string]: number;
+            };
+            /** Observed Feature Count */
+            observed_feature_count: number;
+            /** Registered Feature Count */
+            registered_feature_count: number;
+            /** Registry Version */
+            registry_version: string;
+            /** Rejected Observation Count */
+            rejected_observation_count: number;
+            /** Rejection Reason Counts */
+            rejection_reason_counts: {
+                [key: string]: number;
+            };
+            /** Role Support Counts */
+            role_support_counts: {
+                [key: string]: number;
+            };
+            /** Similarity Feature Count */
+            similarity_feature_count: number;
+            /** Similarity Feature With Gated Values */
+            similarity_feature_with_gated_values: number;
         };
         /** BBoxOut */
         BBoxOut: {
@@ -798,6 +950,56 @@ export interface components {
             /** Reason */
             reason: string;
         };
+        /** FeatureCoverageOut */
+        FeatureCoverageOut: {
+            /** Area Count */
+            area_count: number;
+            /** Area Ids */
+            area_ids: string[];
+            /** By Body */
+            by_body: {
+                [key: string]: number;
+            };
+            /** By State */
+            by_state: {
+                [key: string]: number;
+            };
+            /** Dataset Ids */
+            dataset_ids: string[];
+            /** Gated Candidate Count */
+            gated_candidate_count: number;
+            /** Gated Candidate Ids */
+            gated_candidate_ids: string[];
+            /** Joined Candidate Count */
+            joined_candidate_count: number;
+            /** Joined Candidate Ids */
+            joined_candidate_ids: string[];
+            /** Method Versions */
+            method_versions: string[];
+            /** Numeric Observation Count */
+            numeric_observation_count: number;
+            /** Observation Count */
+            observation_count: number;
+            /** Observed Numeric Max */
+            observed_numeric_max: number | null;
+            /** Observed Numeric Min */
+            observed_numeric_min: number | null;
+            /** Rejected Observation Count */
+            rejected_observation_count: number;
+            /** Units */
+            units: string[];
+            /** Value Kinds */
+            value_kinds: string[];
+        };
+        /** FeatureDetailOut */
+        FeatureDetailOut: {
+            /** Data Version */
+            data_version: string;
+            feature: components["schemas"]["RegisteredFeatureOut"];
+            join_audit: components["schemas"]["JoinAuditOut"];
+            /** Registry Version */
+            registry_version: string;
+        };
         /** FeatureObservationOut */
         FeatureObservationOut: {
             /** Description */
@@ -865,6 +1067,23 @@ export interface components {
             valid_domain: string;
             /** Value Kind */
             value_kind: string;
+        };
+        /** FeatureRegistryOut */
+        FeatureRegistryOut: {
+            audit_summary: components["schemas"]["AuditSummaryOut"];
+            /** Data Version */
+            data_version: string;
+            /** Features */
+            features: components["schemas"]["RegisteredFeatureOut"][];
+            /** Filters */
+            filters: {
+                [key: string]: string | null;
+            };
+            join_audit: components["schemas"]["JoinAuditOut"];
+            /** Notes */
+            notes: string[];
+            /** Registry Version */
+            registry_version: string;
         };
         /** GeoBBoxIn */
         GeoBBoxIn: {
@@ -1032,6 +1251,29 @@ export interface components {
              */
             status: "queued" | "running" | "completed" | "partial" | "failed";
         };
+        /** JoinAuditOut */
+        JoinAuditOut: {
+            /** Fine Candidate Count */
+            fine_candidate_count: number;
+            /** Join Key */
+            join_key: string;
+            /** Matched Fine Candidate Ids */
+            matched_fine_candidate_ids: string[];
+            /** Matched Planetary Reference Ids */
+            matched_planetary_reference_ids: string[];
+            /** Note */
+            note: string;
+            /** Planetary Reference Count */
+            planetary_reference_count: number;
+            /** Proximity Join Used */
+            proximity_join_used: boolean;
+            /** Typed Area Count */
+            typed_area_count: number;
+            /** Typed Areas Exactly Matching Fine Candidate */
+            typed_areas_exactly_matching_fine_candidate: number;
+            /** Typed Areas Exactly Matching Planetary Reference */
+            typed_areas_exactly_matching_planetary_reference: number;
+        };
         /** LocationOut */
         LocationOut: {
             /** Analysis Resolution M */
@@ -1107,6 +1349,638 @@ export interface components {
             unit: string;
             /** Weight */
             weight: number;
+        };
+        /** MultiDimContributionOut */
+        MultiDimContributionOut: {
+            /** Candidate */
+            candidate: number;
+            /** Contribution */
+            contribution: number;
+            /** Contribution Fraction */
+            contribution_fraction: number;
+            /** Delta */
+            delta: number;
+            /** Dimension Id */
+            dimension_id: string;
+            /** Feature Id */
+            feature_id: string;
+            /** Label */
+            label: string;
+            /** Measurement Family */
+            measurement_family: string | null;
+            /** Normalized Delta */
+            normalized_delta: number;
+            /** Observation Id */
+            observation_id: string;
+            /** Scale */
+            scale: number;
+            /** Selector */
+            selector: {
+                [key: string]: unknown;
+            };
+            /** Support */
+            support: {
+                [key: string]: unknown;
+            };
+            /** Target */
+            target: number;
+            /** Uncertainty */
+            uncertainty: {
+                [key: string]: unknown;
+            } | null;
+            /** Unit */
+            unit: string;
+            /** Weight */
+            weight: number;
+        };
+        /** MultiDimCoverageFeatureOut */
+        MultiDimCoverageFeatureOut: {
+            /** Body Scope */
+            body_scope: string[];
+            /** Candidate Pool Size */
+            candidate_pool_size: number;
+            /** Comparison */
+            comparison: string;
+            /** Coverage Fraction */
+            coverage_fraction: number;
+            /** Dimension Id */
+            dimension_id: string;
+            /** Eligible Candidate Count */
+            eligible_candidate_count: number;
+            /** Label */
+            label: string;
+            /** Scored Result Count */
+            scored_result_count: number;
+            /** Selector */
+            selector: {
+                [key: string]: unknown;
+            };
+            /** Support */
+            support: {
+                [key: string]: unknown;
+            };
+            /** Unit */
+            unit: string;
+            /** Weight */
+            weight: number;
+        };
+        /** MultiDimCoverageOut */
+        MultiDimCoverageOut: {
+            /** Candidate Pool Size */
+            candidate_pool_size: number;
+            /** Features */
+            features: {
+                [key: string]: components["schemas"]["MultiDimCoverageFeatureOut"];
+            };
+            /** Requested Feature Count */
+            requested_feature_count: number;
+            /** Scope Note */
+            scope_note: string;
+        };
+        /** MultiDimCrossBodyGateOut */
+        MultiDimCrossBodyGateOut: {
+            /** Candidate Body */
+            candidate_body: string;
+            /** Reference Body */
+            reference_body: string | null;
+            /** Rule */
+            rule: string;
+            /** Target Body */
+            target_body: string;
+        };
+        /** MultiDimDimensionContributionOut */
+        MultiDimDimensionContributionOut: {
+            /** Contribution */
+            contribution: number;
+            /** Distance */
+            distance: number;
+        };
+        /** MultiDimEvidenceRecordOut */
+        MultiDimEvidenceRecordOut: {
+            /** Dataset Ids */
+            dataset_ids: string[];
+            /** Dimension Id */
+            dimension_id: string | null;
+            /** Feature Id */
+            feature_id: string;
+            /** Label */
+            label: string;
+            /** Legal Roles */
+            legal_roles: string[];
+            /** Method Version */
+            method_version: string;
+            /** Note */
+            note: string;
+            /** Observation Id */
+            observation_id: string;
+            /** Quality Flags */
+            quality_flags: string[];
+            /** Registry Score Role */
+            registry_score_role: string;
+            /** State */
+            state: string;
+            /** Stored Score Role */
+            stored_score_role: string;
+            /** Support */
+            support: {
+                [key: string]: unknown;
+            } | null;
+            /** Unit */
+            unit: string | null;
+            /** Value */
+            value: unknown;
+            /** Value Kind */
+            value_kind: string;
+        };
+        /** MultiDimExcludedOut */
+        MultiDimExcludedOut: {
+            /** Incompatible Features */
+            incompatible_features?: string[];
+            /** Location Id */
+            location_id: string;
+            /** Missing Features */
+            missing_features?: string[];
+            /** Reason */
+            reason: string;
+            /** Reasons */
+            reasons: string[];
+        };
+        /** MultiDimRangeFilterIn */
+        MultiDimRangeFilterIn: {
+            /** Max */
+            max?: number | null;
+            /** Min */
+            min?: number | null;
+        };
+        /** MultiDimResultOut */
+        MultiDimResultOut: {
+            bbox: components["schemas"]["BBoxOut"];
+            /** Body */
+            body: string;
+            /** Contributions */
+            contributions: components["schemas"]["MultiDimContributionOut"][];
+            /** Data Kind */
+            data_kind: string;
+            /** Dimension Contributions */
+            dimension_contributions: {
+                [key: string]: components["schemas"]["MultiDimDimensionContributionOut"];
+            };
+            /** Display Name */
+            display_name: string;
+            /** Distance */
+            distance: number;
+            /** Distance Scope */
+            distance_scope: string;
+            /** Evidence Records */
+            evidence_records?: components["schemas"]["MultiDimEvidenceRecordOut"][] | null;
+            /** Lat */
+            lat: number;
+            /** Location Id */
+            location_id: string;
+            /** Lon */
+            lon: number;
+            /** Quality Flags */
+            quality_flags: string[];
+            /** Rank */
+            rank: number;
+            /** Valid Features */
+            valid_features: string[];
+        };
+        /** MultiDimSearchRequest */
+        MultiDimSearchRequest: {
+            /**
+             * Candidate Body
+             * @default Earth
+             * @enum {string}
+             */
+            candidate_body: "Earth" | "Moon" | "Mars";
+            /**
+             * Evidence Limit
+             * @default 12
+             */
+            evidence_limit: number;
+            /** Filters */
+            filters?: {
+                [key: string]: components["schemas"]["MultiDimRangeFilterIn"];
+            };
+            /**
+             * Include Evidence
+             * @default true
+             */
+            include_evidence: boolean;
+            /**
+             * Limit
+             * @default 10
+             */
+            limit: number;
+            /**
+             * Offset
+             * @default 0
+             */
+            offset: number;
+            /** Reference Id */
+            reference_id?: string | null;
+            /** Targets */
+            targets?: {
+                [key: string]: components["schemas"]["MultiDimTargetIn"];
+            };
+        };
+        /** MultiDimSearchResponse */
+        MultiDimSearchResponse: {
+            /** Candidate Body */
+            candidate_body: string;
+            /** Candidate Pool Size */
+            candidate_pool_size: number;
+            coverage: components["schemas"]["MultiDimCoverageOut"];
+            cross_body_gate: components["schemas"]["MultiDimCrossBodyGateOut"];
+            /** Data Snapshot Id */
+            data_snapshot_id: string;
+            /** Data Version */
+            data_version: string;
+            /** Eligible Candidate Count */
+            eligible_candidate_count: number;
+            /** Excluded */
+            excluded: components["schemas"]["MultiDimExcludedOut"][];
+            /** Excluded Candidate Count */
+            excluded_candidate_count: number;
+            /** Filtered Candidate Count */
+            filtered_candidate_count: number;
+            /** Filters Applied */
+            filters_applied: {
+                [key: string]: unknown;
+            };
+            /** Limit */
+            limit: number;
+            /** Limitations */
+            limitations: string[];
+            /** Next Offset */
+            next_offset: number | null;
+            /** Offset */
+            offset: number;
+            /** Registry Version */
+            registry_version: string;
+            /** Requested Features */
+            requested_features: string[];
+            /** Requested Targets */
+            requested_targets: {
+                [key: string]: components["schemas"]["MultiDimTargetResolvedOut"];
+            };
+            /** Results */
+            results: components["schemas"]["MultiDimResultOut"][];
+            /** Returned */
+            returned: number;
+            /** Source Body */
+            source_body: string;
+            /** Total Matched */
+            total_matched: number;
+        };
+        /** MultiDimTargetIn */
+        MultiDimTargetIn: {
+            /** Value */
+            value: number;
+            /**
+             * Weight
+             * @default 1
+             */
+            weight: number;
+        };
+        /** MultiDimTargetResolvedOut */
+        MultiDimTargetResolvedOut: {
+            /** Body Scope */
+            body_scope: string[];
+            /** Dimension Id */
+            dimension_id: string;
+            /** Measurement Family */
+            measurement_family: string | null;
+            /** Unit */
+            unit: string;
+            /** Value */
+            value: number;
+            /** Weight */
+            weight: number;
+        };
+        /** PlanetaryBBoxOut */
+        PlanetaryBBoxOut: {
+            /** Crosses Antimeridian */
+            crosses_antimeridian: boolean;
+            /** East */
+            east: number;
+            /** Longitude Span Deg */
+            longitude_span_deg: number;
+            /** North */
+            north: number;
+            /** Source */
+            source: string;
+            /** South */
+            south: number;
+            /** West */
+            west: number;
+        };
+        /** PlanetaryBodyOut */
+        PlanetaryBodyOut: {
+            /** Api Longitude Domain */
+            api_longitude_domain: string;
+            /** Body */
+            body: string;
+            /** Coordinate System */
+            coordinate_system: string;
+            /** Earth Wgs84 */
+            earth_wgs84: boolean;
+            /** Flattening */
+            flattening: number;
+            /** Frame */
+            frame: string;
+            /** Geographic Epsg */
+            geographic_epsg: number;
+            /** Geographic Epsg Uri */
+            geographic_epsg_uri: string;
+            /** Latitude Kind */
+            latitude_kind: string;
+            /** Longitude Direction */
+            longitude_direction: string;
+            /** Mean Radius M */
+            mean_radius_m: number;
+            /** Native Longitude Domain */
+            native_longitude_domain: string;
+            /** Notes */
+            notes: string;
+            /** Polar Radius M */
+            polar_radius_m: number;
+        };
+        /** PlanetaryCenterOut */
+        PlanetaryCenterOut: {
+            /** Lat */
+            lat: number;
+            /** Lon */
+            lon: number;
+        };
+        /** PlanetaryCoordinateContractOut */
+        PlanetaryCoordinateContractOut: {
+            /** Antimeridian */
+            antimeridian: {
+                [key: string]: unknown;
+            };
+            /** Bodies */
+            bodies: components["schemas"]["PlanetaryBodyOut"][];
+            /** Contract Version */
+            contract_version: string;
+            /** Geojson */
+            geojson: {
+                [key: string]: unknown;
+            };
+            /** Longitude Conversion */
+            longitude_conversion: {
+                [key: string]: unknown;
+            };
+            /** Planetocentric To Planetographic */
+            planetocentric_to_planetographic: {
+                [key: string]: unknown;
+            };
+            /** Poles */
+            poles: {
+                [key: string]: unknown;
+            };
+            /** Rules */
+            rules: string[];
+        };
+        /** PlanetaryCoverageSeparationOut */
+        PlanetaryCoverageSeparationOut: {
+            /** Basemap Extent */
+            basemap_extent: string;
+            /** Scientific Coverage */
+            scientific_coverage: string;
+            /** Statement */
+            statement: string;
+        };
+        /** PlanetaryDimensionStatusOut */
+        PlanetaryDimensionStatusOut: {
+            /** Comparability Gate */
+            comparability_gate: string;
+            /** Record Count */
+            record_count: number;
+            /** Status */
+            status: string;
+            /** Value Origin */
+            value_origin: string | null;
+        };
+        /** PlanetaryFeatureOut */
+        PlanetaryFeatureOut: {
+            /** Availability */
+            availability: string;
+            bbox: components["schemas"]["PlanetaryBBoxOut"];
+            /** Bbox Geometry */
+            bbox_geometry: {
+                [key: string]: unknown;
+            };
+            /**
+             * Body
+             * @enum {string}
+             */
+            body: "Moon" | "Mars";
+            center: components["schemas"]["PlanetaryCenterOut"];
+            /** Coordinate Frame */
+            coordinate_frame?: string | null;
+            /** Crs */
+            crs: string | null;
+            /** Data Version */
+            data_version: string | null;
+            /** Detail Links */
+            detail_links: {
+                [key: string]: string | null;
+            };
+            /** Display Name */
+            display_name: string;
+            /** Feature Id */
+            feature_id: string;
+            /**
+             * Feature Type
+             * @enum {string}
+             */
+            feature_type: "planetary_reference" | "typed_area";
+            /** Geometry */
+            geometry: {
+                [key: string]: unknown;
+            };
+            /** Linked Feature Id */
+            linked_feature_id: string | null;
+            /** Quality Flags */
+            quality_flags: string[];
+            /** Reference Id */
+            reference_id: string | null;
+            /** Relationship */
+            relationship: string;
+            science_coverage: components["schemas"]["PlanetaryScienceCoverageOut"];
+            /** Typed Area Id */
+            typed_area_id: string | null;
+        };
+        /** PlanetaryLayerOut */
+        PlanetaryLayerOut: {
+            /** Attribution */
+            attribution: string;
+            /** Body */
+            body: string;
+            bounds: components["schemas"]["PlanetaryBBoxOut"];
+            /** Capabilities Url */
+            capabilities_url: string;
+            /** Crs */
+            crs: string;
+            /** Epsg */
+            epsg: number;
+            /** Fallback */
+            fallback: string | null;
+            /** Format */
+            format: string;
+            /** Layer Id */
+            layer_id: string;
+            /** Layer Type */
+            layer_type: string;
+            /** License */
+            license: string;
+            /** License Url */
+            license_url: string;
+            /** Notes */
+            notes: string[];
+            /** Service Type */
+            service_type: string;
+            /** Source Url */
+            source_url: string;
+            /** Tile Matrix */
+            tile_matrix: components["schemas"]["PlanetaryTileMatrixOut"][];
+            /** Tile Matrix Set */
+            tile_matrix_set: string;
+            /** Tile Size */
+            tile_size: number;
+            /** Tile Template */
+            tile_template: string;
+            /** Title */
+            title: string;
+            verification: components["schemas"]["PlanetaryLayerVerificationOut"];
+            zoom: components["schemas"]["PlanetaryZoomOut"];
+        };
+        /** PlanetaryLayerVerificationOut */
+        PlanetaryLayerVerificationOut: {
+            /** Capabilities Http Status */
+            capabilities_http_status: number;
+            /** Checked At */
+            checked_at: string;
+            /** Content Type */
+            content_type: string;
+            /** Http Status */
+            http_status: number;
+            /** Sample Tile Url */
+            sample_tile_url: string;
+            /** Status */
+            status: string;
+        };
+        /** PlanetaryMapFeaturesOut */
+        PlanetaryMapFeaturesOut: {
+            bbox: components["schemas"]["PlanetaryBBoxOut"];
+            /** Bbox Crs */
+            bbox_crs: string;
+            body: components["schemas"]["PlanetaryBodyOut"];
+            /** Catalog Version */
+            catalog_version: string;
+            /** Coordinate Contract Version */
+            coordinate_contract_version: string;
+            /** Coordinate System */
+            coordinate_system: string;
+            /** Data Version */
+            data_version: string;
+            /** Features */
+            features: components["schemas"]["PlanetaryFeatureOut"][];
+            /** Limit */
+            limit: number;
+            /** Next Offset */
+            next_offset: number | null;
+            /** Notes */
+            notes: string[];
+            /** Offset */
+            offset: number;
+            /** Query */
+            query: {
+                [key: string]: unknown;
+            };
+            /** Returned */
+            returned: number;
+            /** Science Coverage Summary */
+            science_coverage_summary: {
+                [key: string]: unknown;
+            };
+            /** Total */
+            total: number;
+            /** Unlocatable Reference Count */
+            unlocatable_reference_count: number;
+            /** Unlocatable Typed Area Count */
+            unlocatable_typed_area_count: number;
+        };
+        /** PlanetaryMapsOut */
+        PlanetaryMapsOut: {
+            body: components["schemas"]["PlanetaryBodyOut"];
+            /** Catalog Version */
+            catalog_version: string;
+            /** Coordinate Contract Version */
+            coordinate_contract_version: string;
+            coverage_separation: components["schemas"]["PlanetaryCoverageSeparationOut"];
+            /** Data Version */
+            data_version: string;
+            /** Layers */
+            layers: components["schemas"]["PlanetaryLayerOut"][];
+            /** Notes */
+            notes: string[];
+            /** Science Coverage */
+            science_coverage: {
+                [key: string]: unknown;
+            };
+        };
+        /** PlanetaryScienceCoverageOut */
+        PlanetaryScienceCoverageOut: {
+            /** Coverage Label */
+            coverage_label: string;
+            /** D01 Analysis Resolution M */
+            d01_analysis_resolution_m?: number | null;
+            /** D01 Feature Count */
+            d01_feature_count: number;
+            /** D01 Method Versions */
+            d01_method_versions?: string[];
+            /** D01 Window Size M */
+            d01_window_size_m?: number | null;
+            /** Dimension Status */
+            dimension_status: {
+                [key: string]: components["schemas"]["PlanetaryDimensionStatusOut"];
+            };
+            /** Typed Dimensions */
+            typed_dimensions?: string[];
+            /** Typed Feature Ids */
+            typed_feature_ids?: string[];
+            /**
+             * Typed Observation Count
+             * @default 0
+             */
+            typed_observation_count: number;
+            /** Typed State Counts */
+            typed_state_counts?: {
+                [key: string]: number;
+            };
+            /** Value Origins */
+            value_origins?: string[];
+        } & {
+            [key: string]: unknown;
+        };
+        /** PlanetaryTileMatrixOut */
+        PlanetaryTileMatrixOut: {
+            /** Matrix Height */
+            matrix_height: number;
+            /** Matrix Width */
+            matrix_width: number;
+            /** Zoom */
+            zoom: number;
+        };
+        /** PlanetaryZoomOut */
+        PlanetaryZoomOut: {
+            /** Max */
+            max: number;
+            /** Min */
+            min: number;
         };
         /**
          * RangeFilterIn
@@ -1188,6 +2062,75 @@ export interface components {
             parent_candidate_id: string;
             /** Window Size M */
             window_size_m: number;
+        };
+        /** RegisteredFeatureOut */
+        RegisteredFeatureOut: {
+            /** Body Scope */
+            body_scope: string[];
+            /** Comparability Gates */
+            comparability_gates: string[];
+            coverage: components["schemas"]["FeatureCoverageOut"] | null;
+            /** Dimension Id */
+            dimension_id: string;
+            /** Dimension Label */
+            dimension_label: string;
+            /** Feature Id */
+            feature_id: string;
+            /** Label */
+            label: string;
+            /** Max Value */
+            max_value: number | null;
+            /** Measurement Family */
+            measurement_family: string | null;
+            /** Method Versions */
+            method_versions: string[];
+            /** Min Value */
+            min_value: number | null;
+            /** Missing Policy */
+            missing_policy: string;
+            /** Qa Rules */
+            qa_rules: string[];
+            /** Registry Version */
+            registry_version: string;
+            /** Roles */
+            roles: {
+                [key: string]: components["schemas"]["RoleSupportOut"];
+            };
+            /** Scale */
+            scale: number | null;
+            /** Scale Rationale */
+            scale_rationale: string | null;
+            /** Score Role */
+            score_role: string;
+            /** Selector */
+            selector: {
+                [key: string]: unknown;
+            };
+            /** Source */
+            source: {
+                [key: string]: unknown;
+            };
+            /** Support */
+            support: {
+                [key: string]: unknown;
+            };
+            /** Uncertainty Feature Ids */
+            uncertainty_feature_ids: string[];
+            /** Unit */
+            unit: string;
+            /** Unsupported Reason */
+            unsupported_reason: string | null;
+            /** Value Kind */
+            value_kind: string;
+        };
+        /** RoleSupportOut */
+        RoleSupportOut: {
+            /** Constraints */
+            constraints?: string[];
+            /** Reason */
+            reason: string | null;
+            /** Supported */
+            supported: boolean;
         };
         /** SearchRequest */
         SearchRequest: {
@@ -1915,6 +2858,153 @@ export interface operations {
             };
         };
     };
+    planetary_bodies_api_v1_planetary_bodies_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
+            };
+        };
+    };
+    planetary_coordinate_contract_api_v1_planetary_coordinate_contract_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlanetaryCoordinateContractOut"];
+                };
+            };
+        };
+    };
+    planetary_map_features_api_v1_planetary_map_features_get: {
+        parameters: {
+            query: {
+                body: string;
+                /** @description west,south,east,north in planetocentric lon/lat degrees. west>east crosses the antimeridian. Omit for the whole body. */
+                bbox?: string | null;
+                bbox_lon_convention?: "signed" | "360";
+                limit?: number;
+                offset?: number;
+                feature_type?: "all" | "reference" | "typed_area";
+                dimension?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlanetaryMapFeaturesOut"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    planetary_maps_api_v1_planetary_maps_get: {
+        parameters: {
+            query: {
+                body: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlanetaryMapsOut"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
     references_api_v1_references_get: {
         parameters: {
             query?: never;
@@ -1955,6 +3045,139 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["SearchResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    list_features_api_v1_search_features_get: {
+        parameters: {
+            query?: {
+                body?: string | null;
+                dimension?: string | null;
+                role?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeatureRegistryOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    feature_detail_api_v1_search_features__feature_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                feature_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeatureDetailOut"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    multidimensional_search_api_v1_search_multidimensional_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MultiDimSearchRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MultiDimSearchResponse"];
                 };
             };
             /** @description Not Found */

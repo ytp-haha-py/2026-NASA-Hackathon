@@ -17,7 +17,9 @@ from analog_api.adapters.seed import ensure_seeded, make_engine
 from analog_api.adapters.typed_db import init_typed_db
 from analog_api.api.routes import router
 from analog_api.api.routes_aoi import router as aoi_router
+from analog_api.api.routes_features import router as features_router
 from analog_api.api.routes_global import router as global_router
+from analog_api.api.routes_planetary import router as planetary_router
 from analog_api.api.routes_typed import router as typed_router
 from analog_api.config import Settings
 from analog_api.domain.errors import AppError
@@ -89,6 +91,8 @@ def create_app(settings: Settings | None = None, aoi_processor=None) -> FastAPI:
     app.include_router(aoi_router)
     app.include_router(global_router)
     app.include_router(typed_router)
+    app.include_router(features_router)
+    app.include_router(planetary_router)
 
     @app.exception_handler(AppError)
     async def app_error_handler(_: Request, exc: AppError) -> JSONResponse:

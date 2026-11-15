@@ -242,15 +242,29 @@ class TypedObservationStore:
         row = self.session.get(TypedArea, area_id)
         if row is None:
             return None
-        return {
+        return self._area_payload(row, include_observations=True)
+
+    def list_areas(self, *, body: str | None = None) -> list[dict[str, Any]]:
+        query = select(TypedArea)
+        if body:
+            query = query.where(TypedArea.body == body)
+        rows = self.session.scalars(query.order_by(TypedArea.area_id)).all()
+        return [self._area_payload(row, include_observations=False) for row in rows]
+
+    def _area_payload(self, row: TypedArea, *, include_observations: bool) -> dict[str, Any]:
+        payload: dict[str, Any] = {
             "area_id": row.area_id,
             "body": row.body,
             "bbox": row.bbox,
+            "geometry": row.geometry,
             "crs": row.crs,
             "coordinate_frame": row.coordinate_frame,
             "area_km2": row.area_km2,
-            "observations": self.list_observations(area_id=row.area_id),
+            "notes": row.notes,
         }
+        if include_observations:
+            payload["observations"] = self.list_observations(area_id=row.area_id)
+        return payload
 
 
 def init_typed_db(engine) -> None:

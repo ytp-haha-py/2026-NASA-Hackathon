@@ -581,3 +581,456 @@ class RefinePlanOut(BaseModel):
     fine_method_version: str
     windows: list[RefineWindowOut]
     note: str
+
+
+# ---------------------------------------------------------------------------
+# Issue #116: feature eligibility registry and multi-dimensional search.
+# ---------------------------------------------------------------------------
+
+
+class RoleSupportOut(BaseModel):
+    supported: bool
+    reason: str | None
+    constraints: list[str] = Field(default_factory=list)
+
+
+class MultiDimTargetIn(BaseModel):
+    value: float = Field(..., allow_inf_nan=False)
+    weight: float = Field(default=1.0, ge=0, allow_inf_nan=False)
+
+
+class MultiDimRangeFilterIn(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    min: float | None = Field(default=None, allow_inf_nan=False)
+    max: float | None = Field(default=None, allow_inf_nan=False)
+
+    @model_validator(mode="after")
+    def ordered(self) -> MultiDimRangeFilterIn:
+        if self.min is not None and self.max is not None and self.min > self.max:
+            raise ValueError("filter min must be <= max")
+        return self
+
+
+class MultiDimSearchRequest(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    candidate_body: Literal["Earth", "Moon", "Mars"] = "Earth"
+    reference_id: str | None = None
+    targets: dict[str, MultiDimTargetIn] = Field(default_factory=dict)
+    filters: dict[str, MultiDimRangeFilterIn] = Field(default_factory=dict)
+    limit: int = Field(default=10, ge=1, le=50)
+    offset: int = Field(default=0, ge=0)
+    include_evidence: bool = True
+    evidence_limit: int = Field(default=12, ge=1, le=50)
+
+    @model_validator(mode="after")
+    def has_query(self) -> MultiDimSearchRequest:
+        if not self.targets and not self.reference_id:
+            raise ValueError("provide at least one target feature or a reference_id")
+        if self.reference_id is not None and self.candidate_body != "Earth":
+            raise ValueError(
+                "the fine candidate index contains Earth windows only; candidate_body must be "
+                "Earth when reference_id is used"
+            )
+        return self
+
+
+class MultiDimContributionOut(BaseModel):
+    feature_id: str
+    dimension_id: str
+    label: str
+    unit: str
+    target: float
+    candidate: float
+    delta: float
+    scale: float
+    weight: float
+    normalized_delta: float
+    contribution: float
+    contribution_fraction: float
+    measurement_family: str | None
+    observation_id: str
+    selector: dict[str, Any]
+    support: dict[str, Any]
+    uncertainty: dict[str, Any] | None
+
+
+class MultiDimDimensionContributionOut(BaseModel):
+    contribution: float
+    distance: float
+
+
+class MultiDimEvidenceRecordOut(BaseModel):
+    observation_id: str
+    dimension_id: str | None
+    feature_id: str
+    label: str
+    state: str
+    value_kind: str
+    value: Any
+    unit: str | None
+    method_version: str
+    stored_score_role: str
+    registry_score_role: str
+    legal_roles: list[str]
+    support: dict[str, Any] | None
+    quality_flags: list[str]
+    dataset_ids: list[str]
+    note: str
+
+
+class MultiDimResultOut(BaseModel):
+    rank: int
+    location_id: str
+    display_name: str
+    body: str
+    lat: float
+    lon: float
+    bbox: BBoxOut
+    distance: float
+    distance_scope: str
+    dimension_contributions: dict[str, MultiDimDimensionContributionOut]
+    contributions: list[MultiDimContributionOut]
+    valid_features: list[str]
+    data_kind: str
+    quality_flags: list[str]
+    evidence_records: list[MultiDimEvidenceRecordOut] | None = None
+
+
+class MultiDimExcludedOut(BaseModel):
+    location_id: str
+    reason: str
+    reasons: list[str]
+    missing_features: list[str] = Field(default_factory=list)
+    incompatible_features: list[str] = Field(default_factory=list)
+
+
+class MultiDimCoverageFeatureOut(BaseModel):
+    dimension_id: str
+    label: str
+    unit: str
+    body_scope: list[str]
+    weight: float
+    comparison: str
+    eligible_candidate_count: int
+    candidate_pool_size: int
+    coverage_fraction: float
+    scored_result_count: int
+    selector: dict[str, Any]
+    support: dict[str, Any]
+
+
+class MultiDimCoverageOut(BaseModel):
+    candidate_pool_size: int
+    requested_feature_count: int
+    features: dict[str, MultiDimCoverageFeatureOut]
+    scope_note: str
+
+
+class MultiDimCrossBodyGateOut(BaseModel):
+    reference_body: str | None
+    candidate_body: str
+    target_body: str
+    rule: str
+
+
+class MultiDimTargetResolvedOut(BaseModel):
+    value: float
+    weight: float
+    unit: str
+    dimension_id: str
+    body_scope: list[str]
+    measurement_family: str | None
+
+
+class MultiDimSearchResponse(BaseModel):
+    registry_version: str
+    data_version: str
+    data_snapshot_id: str
+    candidate_body: str
+    source_body: str
+    cross_body_gate: MultiDimCrossBodyGateOut
+    requested_features: list[str]
+    requested_targets: dict[str, MultiDimTargetResolvedOut]
+    filters_applied: dict[str, Any]
+    candidate_pool_size: int
+    filtered_candidate_count: int
+    eligible_candidate_count: int
+    excluded_candidate_count: int
+    total_matched: int
+    offset: int
+    limit: int
+    returned: int
+    next_offset: int | None
+    coverage: MultiDimCoverageOut
+    excluded: list[MultiDimExcludedOut]
+    results: list[MultiDimResultOut]
+    limitations: list[str]
+
+
+class FeatureCoverageOut(BaseModel):
+    observation_count: int
+    area_count: int
+    by_body: dict[str, int]
+    by_state: dict[str, int]
+    value_kinds: list[str]
+    units: list[str]
+    method_versions: list[str]
+    dataset_ids: list[str]
+    numeric_observation_count: int
+    observed_numeric_min: float | None
+    observed_numeric_max: float | None
+    area_ids: list[str]
+    joined_candidate_count: int
+    joined_candidate_ids: list[str]
+    gated_candidate_count: int
+    gated_candidate_ids: list[str]
+    rejected_observation_count: int
+
+
+class RegisteredFeatureOut(BaseModel):
+    feature_id: str
+    dimension_id: str
+    dimension_label: str
+    label: str
+    unit: str
+    value_kind: str
+    body_scope: list[str]
+    score_role: str
+    roles: dict[str, RoleSupportOut]
+    min_value: float | None
+    max_value: float | None
+    scale: float | None
+    scale_rationale: str | None
+    selector: dict[str, Any]
+    method_versions: list[str]
+    support: dict[str, Any]
+    missing_policy: str
+    qa_rules: list[str]
+    comparability_gates: list[str]
+    source: dict[str, Any]
+    unsupported_reason: str | None
+    measurement_family: str | None
+    uncertainty_feature_ids: list[str]
+    registry_version: str
+    coverage: FeatureCoverageOut | None
+
+
+class JoinAuditOut(BaseModel):
+    join_key: str
+    proximity_join_used: bool
+    typed_area_count: int
+    fine_candidate_count: int
+    planetary_reference_count: int
+    typed_areas_exactly_matching_fine_candidate: int
+    typed_areas_exactly_matching_planetary_reference: int
+    matched_fine_candidate_ids: list[str]
+    matched_planetary_reference_ids: list[str]
+    note: str
+
+
+class AuditSummaryOut(BaseModel):
+    registry_version: str
+    registered_feature_count: int
+    observed_feature_count: int
+    similarity_feature_count: int
+    similarity_feature_with_gated_values: int
+    gated_area_count_by_feature: dict[str, int]
+    role_support_counts: dict[str, int]
+    by_dimension: dict[str, dict[str, int]]
+    rejected_observation_count: int
+    rejection_reason_counts: dict[str, int]
+
+
+class FeatureRegistryOut(BaseModel):
+    registry_version: str
+    data_version: str
+    filters: dict[str, str | None]
+    features: list[RegisteredFeatureOut]
+    join_audit: JoinAuditOut
+    audit_summary: AuditSummaryOut
+    notes: list[str]
+
+
+class FeatureDetailOut(BaseModel):
+    registry_version: str
+    data_version: str
+    feature: RegisteredFeatureOut
+    join_audit: JoinAuditOut
+
+
+# ---------------------------------------------------------------------------
+# Issue #117: planetary map catalog, coordinate contract and overlays.
+# ---------------------------------------------------------------------------
+
+
+class PlanetaryBodyOut(BaseModel):
+    body: str
+    mean_radius_m: float
+    polar_radius_m: float
+    flattening: float
+    frame: str
+    coordinate_system: str
+    latitude_kind: str
+    longitude_direction: str
+    native_longitude_domain: str
+    api_longitude_domain: str
+    geographic_epsg: int
+    geographic_epsg_uri: str
+    earth_wgs84: bool
+    notes: str
+
+
+class PlanetaryBBoxOut(BaseModel):
+    west: float
+    south: float
+    east: float
+    north: float
+    crosses_antimeridian: bool
+    longitude_span_deg: float
+    source: str
+
+
+class PlanetaryZoomOut(BaseModel):
+    min: int
+    max: int
+
+
+class PlanetaryTileMatrixOut(BaseModel):
+    zoom: int
+    matrix_width: int
+    matrix_height: int
+
+
+class PlanetaryLayerVerificationOut(BaseModel):
+    status: str
+    checked_at: str
+    http_status: int
+    content_type: str
+    sample_tile_url: str
+    capabilities_http_status: int
+
+
+class PlanetaryLayerOut(BaseModel):
+    layer_id: str
+    body: str
+    title: str
+    layer_type: str
+    service_type: str
+    tile_template: str
+    format: str
+    tile_matrix_set: str
+    crs: str
+    epsg: int
+    zoom: PlanetaryZoomOut
+    tile_size: int
+    tile_matrix: list[PlanetaryTileMatrixOut]
+    bounds: PlanetaryBBoxOut
+    attribution: str
+    source_url: str
+    capabilities_url: str
+    license: str
+    license_url: str
+    verification: PlanetaryLayerVerificationOut
+    notes: list[str]
+    fallback: str | None
+
+
+class PlanetaryCoverageSeparationOut(BaseModel):
+    basemap_extent: str
+    scientific_coverage: str
+    statement: str
+
+
+class PlanetaryMapsOut(BaseModel):
+    catalog_version: str
+    coordinate_contract_version: str
+    data_version: str
+    body: PlanetaryBodyOut
+    layers: list[PlanetaryLayerOut]
+    science_coverage: dict[str, Any]
+    coverage_separation: PlanetaryCoverageSeparationOut
+    notes: list[str]
+
+
+class PlanetaryCenterOut(BaseModel):
+    lon: float
+    lat: float
+
+
+class PlanetaryDimensionStatusOut(BaseModel):
+    status: str
+    record_count: int
+    value_origin: str | None
+    comparability_gate: str
+
+
+class PlanetaryScienceCoverageOut(BaseModel):
+    model_config = {"extra": "allow"}
+
+    d01_feature_count: int
+    d01_method_versions: list[str] = Field(default_factory=list)
+    d01_analysis_resolution_m: float | None = None
+    d01_window_size_m: float | None = None
+    typed_dimensions: list[str] = Field(default_factory=list)
+    typed_observation_count: int = 0
+    typed_state_counts: dict[str, int] = Field(default_factory=dict)
+    typed_feature_ids: list[str] = Field(default_factory=list)
+    value_origins: list[str] = Field(default_factory=list)
+    dimension_status: dict[str, PlanetaryDimensionStatusOut]
+    coverage_label: str
+
+
+class PlanetaryFeatureOut(BaseModel):
+    feature_id: str
+    feature_type: Literal["planetary_reference", "typed_area"]
+    body: Literal["Moon", "Mars"]
+    display_name: str
+    reference_id: str | None
+    typed_area_id: str | None
+    linked_feature_id: str | None
+    relationship: str
+    bbox: PlanetaryBBoxOut
+    center: PlanetaryCenterOut
+    geometry: dict[str, Any]
+    bbox_geometry: dict[str, Any]
+    science_coverage: PlanetaryScienceCoverageOut
+    availability: str
+    quality_flags: list[str]
+    crs: str | None
+    coordinate_frame: str | None = None
+    data_version: str | None
+    detail_links: dict[str, str | None]
+
+
+class PlanetaryMapFeaturesOut(BaseModel):
+    catalog_version: str
+    coordinate_contract_version: str
+    data_version: str
+    body: PlanetaryBodyOut
+    bbox: PlanetaryBBoxOut
+    bbox_crs: str
+    coordinate_system: str
+    query: dict[str, Any]
+    total: int
+    returned: int
+    offset: int
+    limit: int
+    next_offset: int | None
+    unlocatable_reference_count: int
+    unlocatable_typed_area_count: int
+    features: list[PlanetaryFeatureOut]
+    science_coverage_summary: dict[str, Any]
+    notes: list[str]
+
+
+class PlanetaryCoordinateContractOut(BaseModel):
+    contract_version: str
+    bodies: list[PlanetaryBodyOut]
+    rules: list[str]
+    antimeridian: dict[str, Any]
+    poles: dict[str, Any]
+    longitude_conversion: dict[str, Any]
+    planetocentric_to_planetographic: dict[str, Any]
+    geojson: dict[str, Any]

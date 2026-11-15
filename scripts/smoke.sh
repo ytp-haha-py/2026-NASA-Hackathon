@@ -169,6 +169,15 @@ fetch context 200 \
   --data-urlencode 'target={"slope_mean_deg": 6.0}' \
   "$BASE/api/v1/locations/$LOCATION_ID/context"
 fetch missing_location 404 "$BASE/api/v1/locations/earth-does-not-exist"
+fetch features 200 "$BASE/api/v1/search/features"
+fetch multidim 200 \
+  -X POST \
+  -H 'Content-Type: application/json' \
+  --data '{"targets":{"slope_mean_deg":{"value":6.0,"weight":1.0}},"limit":2}' \
+  "$BASE/api/v1/search/multidimensional"
+fetch planetary_maps 200 "$BASE/api/v1/planetary/maps?body=Moon"
+fetch planetary_features 200 "$BASE/api/v1/planetary/map-features?body=Moon&bbox=-180,-90,180,90"
+fetch planetary_coords 200 "$BASE/api/v1/planetary/coordinate-contract"
 
 uv run python - "$TMP" "$LOCATION_ID" <<'PY'
 from __future__ import annotations
@@ -263,6 +272,42 @@ datetime.fromisoformat(context["generated_at"])
 missing = load("missing_location")
 assert missing["error"]["code"] == "not_found", missing
 
+features = load("features")
+assert features["registry_version"] == "feature-eligibility-1.0.0"
+assert features["join_audit"]["proximity_join_used"] is False
+slope_registry = next(
+    item for item in features["features"] if item["feature_id"] == "slope_mean_deg"
+)
+assert slope_registry["roles"]["similarity"]["supported"] is True
+assert slope_registry["dimension_id"] == "D01"
+
+multidim = load("multidim")
+assert multidim["registry_version"] == "feature-eligibility-1.0.0"
+assert multidim["eligible_candidate_count"] == 4, multidim["eligible_candidate_count"]
+assert multidim["returned"] == 2
+assert multidim["results"][0]["contributions"]
+assert multidim["results"][0]["contributions"][0]["feature_id"] == "slope_mean_deg"
+assert multidim["coverage"]["features"]["slope_mean_deg"]["scored_result_count"] == 4
+assert "six-dimension scientific total" in multidim["limitations"][0]
+
+planetary_maps = load("planetary_maps")
+assert planetary_maps["body"]["body"] == "Moon"
+assert {layer["layer_type"] for layer in planetary_maps["layers"]} == {"imagery", "elevation"}
+assert all(
+    layer["verification"]["http_status"] == 200 for layer in planetary_maps["layers"]
+)
+assert planetary_maps["coverage_separation"]["basemap_extent"].startswith("global")
+
+planetary_features = load("planetary_features")
+assert planetary_features["body"]["body"] == "Moon"
+assert planetary_features["bbox"]["west"] == -180.0
+assert planetary_features["features"] == []
+assert planetary_features["total"] == 0
+
+planetary_coords = load("planetary_coords")
+assert planetary_coords["contract_version"] == "planetary-coordinates-1.0.0"
+assert {body["body"] for body in planetary_coords["bodies"]} == {"Moon", "Mars"}
+
 print("\n[smoke] observed values")
 print(f"  health.status              = {health['status']}")
 print(f"  health.data_version        = {health['data_version']}")
@@ -278,6 +323,10 @@ print(f"  location.features          = {len(location['features'])}")
 print(f"  location.datasets          = {len(location['datasets'])}")
 print(f"  context.comparisons        = {len(context['computed_comparisons'])}")
 print(f"  missing.http_error         = {missing['error']['code']}")
+print(f"  features.registry          = {features['registry_version']}")
+print(f"  multidim.eligible          = {multidim['eligible_candidate_count']}")
+print(f"  planetary.layers           = {len(planetary_maps['layers'])}")
+print(f"  planetary.coverage         = {planetary_maps['science_coverage']['coverage_label']}")
 print("\n[smoke] RESULT: PASS - all endpoint assertions satisfied")
 PY
 

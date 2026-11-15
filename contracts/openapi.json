@@ -144,6 +144,79 @@
         "title": "AoiAnalyzeResponse",
         "type": "object"
       },
+      "AuditSummaryOut": {
+        "properties": {
+          "by_dimension": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "integer"
+              },
+              "type": "object"
+            },
+            "title": "By Dimension",
+            "type": "object"
+          },
+          "gated_area_count_by_feature": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Gated Area Count By Feature",
+            "type": "object"
+          },
+          "observed_feature_count": {
+            "title": "Observed Feature Count",
+            "type": "integer"
+          },
+          "registered_feature_count": {
+            "title": "Registered Feature Count",
+            "type": "integer"
+          },
+          "registry_version": {
+            "title": "Registry Version",
+            "type": "string"
+          },
+          "rejected_observation_count": {
+            "title": "Rejected Observation Count",
+            "type": "integer"
+          },
+          "rejection_reason_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Rejection Reason Counts",
+            "type": "object"
+          },
+          "role_support_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Role Support Counts",
+            "type": "object"
+          },
+          "similarity_feature_count": {
+            "title": "Similarity Feature Count",
+            "type": "integer"
+          },
+          "similarity_feature_with_gated_values": {
+            "title": "Similarity Feature With Gated Values",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "registry_version",
+          "registered_feature_count",
+          "observed_feature_count",
+          "similarity_feature_count",
+          "similarity_feature_with_gated_values",
+          "gated_area_count_by_feature",
+          "role_support_counts",
+          "by_dimension",
+          "rejected_observation_count",
+          "rejection_reason_counts"
+        ],
+        "title": "AuditSummaryOut",
+        "type": "object"
+      },
       "BBoxOut": {
         "properties": {
           "east": {
@@ -1276,6 +1349,166 @@
         "title": "ExclusionOut",
         "type": "object"
       },
+      "FeatureCoverageOut": {
+        "properties": {
+          "area_count": {
+            "title": "Area Count",
+            "type": "integer"
+          },
+          "area_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Area Ids",
+            "type": "array"
+          },
+          "by_body": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "By Body",
+            "type": "object"
+          },
+          "by_state": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "By State",
+            "type": "object"
+          },
+          "dataset_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Dataset Ids",
+            "type": "array"
+          },
+          "gated_candidate_count": {
+            "title": "Gated Candidate Count",
+            "type": "integer"
+          },
+          "gated_candidate_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Gated Candidate Ids",
+            "type": "array"
+          },
+          "joined_candidate_count": {
+            "title": "Joined Candidate Count",
+            "type": "integer"
+          },
+          "joined_candidate_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Joined Candidate Ids",
+            "type": "array"
+          },
+          "method_versions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Method Versions",
+            "type": "array"
+          },
+          "numeric_observation_count": {
+            "title": "Numeric Observation Count",
+            "type": "integer"
+          },
+          "observation_count": {
+            "title": "Observation Count",
+            "type": "integer"
+          },
+          "observed_numeric_max": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed Numeric Max"
+          },
+          "observed_numeric_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed Numeric Min"
+          },
+          "rejected_observation_count": {
+            "title": "Rejected Observation Count",
+            "type": "integer"
+          },
+          "units": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Units",
+            "type": "array"
+          },
+          "value_kinds": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Value Kinds",
+            "type": "array"
+          }
+        },
+        "required": [
+          "observation_count",
+          "area_count",
+          "by_body",
+          "by_state",
+          "value_kinds",
+          "units",
+          "method_versions",
+          "dataset_ids",
+          "numeric_observation_count",
+          "observed_numeric_min",
+          "observed_numeric_max",
+          "area_ids",
+          "joined_candidate_count",
+          "joined_candidate_ids",
+          "gated_candidate_count",
+          "gated_candidate_ids",
+          "rejected_observation_count"
+        ],
+        "title": "FeatureCoverageOut",
+        "type": "object"
+      },
+      "FeatureDetailOut": {
+        "properties": {
+          "data_version": {
+            "title": "Data Version",
+            "type": "string"
+          },
+          "feature": {
+            "$ref": "#/components/schemas/RegisteredFeatureOut"
+          },
+          "join_audit": {
+            "$ref": "#/components/schemas/JoinAuditOut"
+          },
+          "registry_version": {
+            "title": "Registry Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "registry_version",
+          "data_version",
+          "feature",
+          "join_audit"
+        ],
+        "title": "FeatureDetailOut",
+        "type": "object"
+      },
       "FeatureObservationOut": {
         "properties": {
           "description": {
@@ -1443,6 +1676,63 @@
           "comparability_gate"
         ],
         "title": "FeatureOut",
+        "type": "object"
+      },
+      "FeatureRegistryOut": {
+        "properties": {
+          "audit_summary": {
+            "$ref": "#/components/schemas/AuditSummaryOut"
+          },
+          "data_version": {
+            "title": "Data Version",
+            "type": "string"
+          },
+          "features": {
+            "items": {
+              "$ref": "#/components/schemas/RegisteredFeatureOut"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "filters": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Filters",
+            "type": "object"
+          },
+          "join_audit": {
+            "$ref": "#/components/schemas/JoinAuditOut"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Notes",
+            "type": "array"
+          },
+          "registry_version": {
+            "title": "Registry Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "registry_version",
+          "data_version",
+          "filters",
+          "features",
+          "join_audit",
+          "audit_summary",
+          "notes"
+        ],
+        "title": "FeatureRegistryOut",
         "type": "object"
       },
       "GeoBBoxIn": {
@@ -1929,6 +2219,70 @@
         "title": "JobOut",
         "type": "object"
       },
+      "JoinAuditOut": {
+        "properties": {
+          "fine_candidate_count": {
+            "title": "Fine Candidate Count",
+            "type": "integer"
+          },
+          "join_key": {
+            "title": "Join Key",
+            "type": "string"
+          },
+          "matched_fine_candidate_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Matched Fine Candidate Ids",
+            "type": "array"
+          },
+          "matched_planetary_reference_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Matched Planetary Reference Ids",
+            "type": "array"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "planetary_reference_count": {
+            "title": "Planetary Reference Count",
+            "type": "integer"
+          },
+          "proximity_join_used": {
+            "title": "Proximity Join Used",
+            "type": "boolean"
+          },
+          "typed_area_count": {
+            "title": "Typed Area Count",
+            "type": "integer"
+          },
+          "typed_areas_exactly_matching_fine_candidate": {
+            "title": "Typed Areas Exactly Matching Fine Candidate",
+            "type": "integer"
+          },
+          "typed_areas_exactly_matching_planetary_reference": {
+            "title": "Typed Areas Exactly Matching Planetary Reference",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "join_key",
+          "proximity_join_used",
+          "typed_area_count",
+          "fine_candidate_count",
+          "planetary_reference_count",
+          "typed_areas_exactly_matching_fine_candidate",
+          "typed_areas_exactly_matching_planetary_reference",
+          "matched_fine_candidate_ids",
+          "matched_planetary_reference_ids",
+          "note"
+        ],
+        "title": "JoinAuditOut",
+        "type": "object"
+      },
       "LocationOut": {
         "properties": {
           "analysis_resolution_m": {
@@ -2145,6 +2499,1716 @@
           "contribution"
         ],
         "title": "MetricOut",
+        "type": "object"
+      },
+      "MultiDimContributionOut": {
+        "properties": {
+          "candidate": {
+            "title": "Candidate",
+            "type": "number"
+          },
+          "contribution": {
+            "title": "Contribution",
+            "type": "number"
+          },
+          "contribution_fraction": {
+            "title": "Contribution Fraction",
+            "type": "number"
+          },
+          "delta": {
+            "title": "Delta",
+            "type": "number"
+          },
+          "dimension_id": {
+            "title": "Dimension Id",
+            "type": "string"
+          },
+          "feature_id": {
+            "title": "Feature Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "measurement_family": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Measurement Family"
+          },
+          "normalized_delta": {
+            "title": "Normalized Delta",
+            "type": "number"
+          },
+          "observation_id": {
+            "title": "Observation Id",
+            "type": "string"
+          },
+          "scale": {
+            "title": "Scale",
+            "type": "number"
+          },
+          "selector": {
+            "additionalProperties": true,
+            "title": "Selector",
+            "type": "object"
+          },
+          "support": {
+            "additionalProperties": true,
+            "title": "Support",
+            "type": "object"
+          },
+          "target": {
+            "title": "Target",
+            "type": "number"
+          },
+          "uncertainty": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uncertainty"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "weight": {
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "feature_id",
+          "dimension_id",
+          "label",
+          "unit",
+          "target",
+          "candidate",
+          "delta",
+          "scale",
+          "weight",
+          "normalized_delta",
+          "contribution",
+          "contribution_fraction",
+          "measurement_family",
+          "observation_id",
+          "selector",
+          "support",
+          "uncertainty"
+        ],
+        "title": "MultiDimContributionOut",
+        "type": "object"
+      },
+      "MultiDimCoverageFeatureOut": {
+        "properties": {
+          "body_scope": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Body Scope",
+            "type": "array"
+          },
+          "candidate_pool_size": {
+            "title": "Candidate Pool Size",
+            "type": "integer"
+          },
+          "comparison": {
+            "title": "Comparison",
+            "type": "string"
+          },
+          "coverage_fraction": {
+            "title": "Coverage Fraction",
+            "type": "number"
+          },
+          "dimension_id": {
+            "title": "Dimension Id",
+            "type": "string"
+          },
+          "eligible_candidate_count": {
+            "title": "Eligible Candidate Count",
+            "type": "integer"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "scored_result_count": {
+            "title": "Scored Result Count",
+            "type": "integer"
+          },
+          "selector": {
+            "additionalProperties": true,
+            "title": "Selector",
+            "type": "object"
+          },
+          "support": {
+            "additionalProperties": true,
+            "title": "Support",
+            "type": "object"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "weight": {
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "dimension_id",
+          "label",
+          "unit",
+          "body_scope",
+          "weight",
+          "comparison",
+          "eligible_candidate_count",
+          "candidate_pool_size",
+          "coverage_fraction",
+          "scored_result_count",
+          "selector",
+          "support"
+        ],
+        "title": "MultiDimCoverageFeatureOut",
+        "type": "object"
+      },
+      "MultiDimCoverageOut": {
+        "properties": {
+          "candidate_pool_size": {
+            "title": "Candidate Pool Size",
+            "type": "integer"
+          },
+          "features": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/MultiDimCoverageFeatureOut"
+            },
+            "title": "Features",
+            "type": "object"
+          },
+          "requested_feature_count": {
+            "title": "Requested Feature Count",
+            "type": "integer"
+          },
+          "scope_note": {
+            "title": "Scope Note",
+            "type": "string"
+          }
+        },
+        "required": [
+          "candidate_pool_size",
+          "requested_feature_count",
+          "features",
+          "scope_note"
+        ],
+        "title": "MultiDimCoverageOut",
+        "type": "object"
+      },
+      "MultiDimCrossBodyGateOut": {
+        "properties": {
+          "candidate_body": {
+            "title": "Candidate Body",
+            "type": "string"
+          },
+          "reference_body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Body"
+          },
+          "rule": {
+            "title": "Rule",
+            "type": "string"
+          },
+          "target_body": {
+            "title": "Target Body",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reference_body",
+          "candidate_body",
+          "target_body",
+          "rule"
+        ],
+        "title": "MultiDimCrossBodyGateOut",
+        "type": "object"
+      },
+      "MultiDimDimensionContributionOut": {
+        "properties": {
+          "contribution": {
+            "title": "Contribution",
+            "type": "number"
+          },
+          "distance": {
+            "title": "Distance",
+            "type": "number"
+          }
+        },
+        "required": [
+          "contribution",
+          "distance"
+        ],
+        "title": "MultiDimDimensionContributionOut",
+        "type": "object"
+      },
+      "MultiDimEvidenceRecordOut": {
+        "properties": {
+          "dataset_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Dataset Ids",
+            "type": "array"
+          },
+          "dimension_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dimension Id"
+          },
+          "feature_id": {
+            "title": "Feature Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "legal_roles": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Legal Roles",
+            "type": "array"
+          },
+          "method_version": {
+            "title": "Method Version",
+            "type": "string"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "observation_id": {
+            "title": "Observation Id",
+            "type": "string"
+          },
+          "quality_flags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Quality Flags",
+            "type": "array"
+          },
+          "registry_score_role": {
+            "title": "Registry Score Role",
+            "type": "string"
+          },
+          "state": {
+            "title": "State",
+            "type": "string"
+          },
+          "stored_score_role": {
+            "title": "Stored Score Role",
+            "type": "string"
+          },
+          "support": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Support"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
+          },
+          "value": {
+            "title": "Value"
+          },
+          "value_kind": {
+            "title": "Value Kind",
+            "type": "string"
+          }
+        },
+        "required": [
+          "observation_id",
+          "dimension_id",
+          "feature_id",
+          "label",
+          "state",
+          "value_kind",
+          "value",
+          "unit",
+          "method_version",
+          "stored_score_role",
+          "registry_score_role",
+          "legal_roles",
+          "support",
+          "quality_flags",
+          "dataset_ids",
+          "note"
+        ],
+        "title": "MultiDimEvidenceRecordOut",
+        "type": "object"
+      },
+      "MultiDimExcludedOut": {
+        "properties": {
+          "incompatible_features": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Incompatible Features",
+            "type": "array"
+          },
+          "location_id": {
+            "title": "Location Id",
+            "type": "string"
+          },
+          "missing_features": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Missing Features",
+            "type": "array"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          }
+        },
+        "required": [
+          "location_id",
+          "reason",
+          "reasons"
+        ],
+        "title": "MultiDimExcludedOut",
+        "type": "object"
+      },
+      "MultiDimRangeFilterIn": {
+        "additionalProperties": false,
+        "properties": {
+          "max": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max"
+          },
+          "min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min"
+          }
+        },
+        "title": "MultiDimRangeFilterIn",
+        "type": "object"
+      },
+      "MultiDimResultOut": {
+        "properties": {
+          "bbox": {
+            "$ref": "#/components/schemas/BBoxOut"
+          },
+          "body": {
+            "title": "Body",
+            "type": "string"
+          },
+          "contributions": {
+            "items": {
+              "$ref": "#/components/schemas/MultiDimContributionOut"
+            },
+            "title": "Contributions",
+            "type": "array"
+          },
+          "data_kind": {
+            "title": "Data Kind",
+            "type": "string"
+          },
+          "dimension_contributions": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/MultiDimDimensionContributionOut"
+            },
+            "title": "Dimension Contributions",
+            "type": "object"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "distance": {
+            "title": "Distance",
+            "type": "number"
+          },
+          "distance_scope": {
+            "title": "Distance Scope",
+            "type": "string"
+          },
+          "evidence_records": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/MultiDimEvidenceRecordOut"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Records"
+          },
+          "lat": {
+            "title": "Lat",
+            "type": "number"
+          },
+          "location_id": {
+            "title": "Location Id",
+            "type": "string"
+          },
+          "lon": {
+            "title": "Lon",
+            "type": "number"
+          },
+          "quality_flags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Quality Flags",
+            "type": "array"
+          },
+          "rank": {
+            "title": "Rank",
+            "type": "integer"
+          },
+          "valid_features": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Valid Features",
+            "type": "array"
+          }
+        },
+        "required": [
+          "rank",
+          "location_id",
+          "display_name",
+          "body",
+          "lat",
+          "lon",
+          "bbox",
+          "distance",
+          "distance_scope",
+          "dimension_contributions",
+          "contributions",
+          "valid_features",
+          "data_kind",
+          "quality_flags"
+        ],
+        "title": "MultiDimResultOut",
+        "type": "object"
+      },
+      "MultiDimSearchRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "candidate_body": {
+            "default": "Earth",
+            "enum": [
+              "Earth",
+              "Moon",
+              "Mars"
+            ],
+            "title": "Candidate Body",
+            "type": "string"
+          },
+          "evidence_limit": {
+            "default": 12,
+            "maximum": 50.0,
+            "minimum": 1.0,
+            "title": "Evidence Limit",
+            "type": "integer"
+          },
+          "filters": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/MultiDimRangeFilterIn"
+            },
+            "title": "Filters",
+            "type": "object"
+          },
+          "include_evidence": {
+            "default": true,
+            "title": "Include Evidence",
+            "type": "boolean"
+          },
+          "limit": {
+            "default": 10,
+            "maximum": 50.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "default": 0,
+            "minimum": 0.0,
+            "title": "Offset",
+            "type": "integer"
+          },
+          "reference_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Id"
+          },
+          "targets": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/MultiDimTargetIn"
+            },
+            "title": "Targets",
+            "type": "object"
+          }
+        },
+        "title": "MultiDimSearchRequest",
+        "type": "object"
+      },
+      "MultiDimSearchResponse": {
+        "properties": {
+          "candidate_body": {
+            "title": "Candidate Body",
+            "type": "string"
+          },
+          "candidate_pool_size": {
+            "title": "Candidate Pool Size",
+            "type": "integer"
+          },
+          "coverage": {
+            "$ref": "#/components/schemas/MultiDimCoverageOut"
+          },
+          "cross_body_gate": {
+            "$ref": "#/components/schemas/MultiDimCrossBodyGateOut"
+          },
+          "data_snapshot_id": {
+            "title": "Data Snapshot Id",
+            "type": "string"
+          },
+          "data_version": {
+            "title": "Data Version",
+            "type": "string"
+          },
+          "eligible_candidate_count": {
+            "title": "Eligible Candidate Count",
+            "type": "integer"
+          },
+          "excluded": {
+            "items": {
+              "$ref": "#/components/schemas/MultiDimExcludedOut"
+            },
+            "title": "Excluded",
+            "type": "array"
+          },
+          "excluded_candidate_count": {
+            "title": "Excluded Candidate Count",
+            "type": "integer"
+          },
+          "filtered_candidate_count": {
+            "title": "Filtered Candidate Count",
+            "type": "integer"
+          },
+          "filters_applied": {
+            "additionalProperties": true,
+            "title": "Filters Applied",
+            "type": "object"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          },
+          "next_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Offset"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "registry_version": {
+            "title": "Registry Version",
+            "type": "string"
+          },
+          "requested_features": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Requested Features",
+            "type": "array"
+          },
+          "requested_targets": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/MultiDimTargetResolvedOut"
+            },
+            "title": "Requested Targets",
+            "type": "object"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/MultiDimResultOut"
+            },
+            "title": "Results",
+            "type": "array"
+          },
+          "returned": {
+            "title": "Returned",
+            "type": "integer"
+          },
+          "source_body": {
+            "title": "Source Body",
+            "type": "string"
+          },
+          "total_matched": {
+            "title": "Total Matched",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "registry_version",
+          "data_version",
+          "data_snapshot_id",
+          "candidate_body",
+          "source_body",
+          "cross_body_gate",
+          "requested_features",
+          "requested_targets",
+          "filters_applied",
+          "candidate_pool_size",
+          "filtered_candidate_count",
+          "eligible_candidate_count",
+          "excluded_candidate_count",
+          "total_matched",
+          "offset",
+          "limit",
+          "returned",
+          "next_offset",
+          "coverage",
+          "excluded",
+          "results",
+          "limitations"
+        ],
+        "title": "MultiDimSearchResponse",
+        "type": "object"
+      },
+      "MultiDimTargetIn": {
+        "properties": {
+          "value": {
+            "title": "Value",
+            "type": "number"
+          },
+          "weight": {
+            "default": 1.0,
+            "minimum": 0.0,
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "title": "MultiDimTargetIn",
+        "type": "object"
+      },
+      "MultiDimTargetResolvedOut": {
+        "properties": {
+          "body_scope": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Body Scope",
+            "type": "array"
+          },
+          "dimension_id": {
+            "title": "Dimension Id",
+            "type": "string"
+          },
+          "measurement_family": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Measurement Family"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          },
+          "weight": {
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "value",
+          "weight",
+          "unit",
+          "dimension_id",
+          "body_scope",
+          "measurement_family"
+        ],
+        "title": "MultiDimTargetResolvedOut",
+        "type": "object"
+      },
+      "PlanetaryBBoxOut": {
+        "properties": {
+          "crosses_antimeridian": {
+            "title": "Crosses Antimeridian",
+            "type": "boolean"
+          },
+          "east": {
+            "title": "East",
+            "type": "number"
+          },
+          "longitude_span_deg": {
+            "title": "Longitude Span Deg",
+            "type": "number"
+          },
+          "north": {
+            "title": "North",
+            "type": "number"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "south": {
+            "title": "South",
+            "type": "number"
+          },
+          "west": {
+            "title": "West",
+            "type": "number"
+          }
+        },
+        "required": [
+          "west",
+          "south",
+          "east",
+          "north",
+          "crosses_antimeridian",
+          "longitude_span_deg",
+          "source"
+        ],
+        "title": "PlanetaryBBoxOut",
+        "type": "object"
+      },
+      "PlanetaryBodyOut": {
+        "properties": {
+          "api_longitude_domain": {
+            "title": "Api Longitude Domain",
+            "type": "string"
+          },
+          "body": {
+            "title": "Body",
+            "type": "string"
+          },
+          "coordinate_system": {
+            "title": "Coordinate System",
+            "type": "string"
+          },
+          "earth_wgs84": {
+            "title": "Earth Wgs84",
+            "type": "boolean"
+          },
+          "flattening": {
+            "title": "Flattening",
+            "type": "number"
+          },
+          "frame": {
+            "title": "Frame",
+            "type": "string"
+          },
+          "geographic_epsg": {
+            "title": "Geographic Epsg",
+            "type": "integer"
+          },
+          "geographic_epsg_uri": {
+            "title": "Geographic Epsg Uri",
+            "type": "string"
+          },
+          "latitude_kind": {
+            "title": "Latitude Kind",
+            "type": "string"
+          },
+          "longitude_direction": {
+            "title": "Longitude Direction",
+            "type": "string"
+          },
+          "mean_radius_m": {
+            "title": "Mean Radius M",
+            "type": "number"
+          },
+          "native_longitude_domain": {
+            "title": "Native Longitude Domain",
+            "type": "string"
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "string"
+          },
+          "polar_radius_m": {
+            "title": "Polar Radius M",
+            "type": "number"
+          }
+        },
+        "required": [
+          "body",
+          "mean_radius_m",
+          "polar_radius_m",
+          "flattening",
+          "frame",
+          "coordinate_system",
+          "latitude_kind",
+          "longitude_direction",
+          "native_longitude_domain",
+          "api_longitude_domain",
+          "geographic_epsg",
+          "geographic_epsg_uri",
+          "earth_wgs84",
+          "notes"
+        ],
+        "title": "PlanetaryBodyOut",
+        "type": "object"
+      },
+      "PlanetaryCenterOut": {
+        "properties": {
+          "lat": {
+            "title": "Lat",
+            "type": "number"
+          },
+          "lon": {
+            "title": "Lon",
+            "type": "number"
+          }
+        },
+        "required": [
+          "lon",
+          "lat"
+        ],
+        "title": "PlanetaryCenterOut",
+        "type": "object"
+      },
+      "PlanetaryCoordinateContractOut": {
+        "properties": {
+          "antimeridian": {
+            "additionalProperties": true,
+            "title": "Antimeridian",
+            "type": "object"
+          },
+          "bodies": {
+            "items": {
+              "$ref": "#/components/schemas/PlanetaryBodyOut"
+            },
+            "title": "Bodies",
+            "type": "array"
+          },
+          "contract_version": {
+            "title": "Contract Version",
+            "type": "string"
+          },
+          "geojson": {
+            "additionalProperties": true,
+            "title": "Geojson",
+            "type": "object"
+          },
+          "longitude_conversion": {
+            "additionalProperties": true,
+            "title": "Longitude Conversion",
+            "type": "object"
+          },
+          "planetocentric_to_planetographic": {
+            "additionalProperties": true,
+            "title": "Planetocentric To Planetographic",
+            "type": "object"
+          },
+          "poles": {
+            "additionalProperties": true,
+            "title": "Poles",
+            "type": "object"
+          },
+          "rules": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Rules",
+            "type": "array"
+          }
+        },
+        "required": [
+          "contract_version",
+          "bodies",
+          "rules",
+          "antimeridian",
+          "poles",
+          "longitude_conversion",
+          "planetocentric_to_planetographic",
+          "geojson"
+        ],
+        "title": "PlanetaryCoordinateContractOut",
+        "type": "object"
+      },
+      "PlanetaryCoverageSeparationOut": {
+        "properties": {
+          "basemap_extent": {
+            "title": "Basemap Extent",
+            "type": "string"
+          },
+          "scientific_coverage": {
+            "title": "Scientific Coverage",
+            "type": "string"
+          },
+          "statement": {
+            "title": "Statement",
+            "type": "string"
+          }
+        },
+        "required": [
+          "basemap_extent",
+          "scientific_coverage",
+          "statement"
+        ],
+        "title": "PlanetaryCoverageSeparationOut",
+        "type": "object"
+      },
+      "PlanetaryDimensionStatusOut": {
+        "properties": {
+          "comparability_gate": {
+            "title": "Comparability Gate",
+            "type": "string"
+          },
+          "record_count": {
+            "title": "Record Count",
+            "type": "integer"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "value_origin": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value Origin"
+          }
+        },
+        "required": [
+          "status",
+          "record_count",
+          "value_origin",
+          "comparability_gate"
+        ],
+        "title": "PlanetaryDimensionStatusOut",
+        "type": "object"
+      },
+      "PlanetaryFeatureOut": {
+        "properties": {
+          "availability": {
+            "title": "Availability",
+            "type": "string"
+          },
+          "bbox": {
+            "$ref": "#/components/schemas/PlanetaryBBoxOut"
+          },
+          "bbox_geometry": {
+            "additionalProperties": true,
+            "title": "Bbox Geometry",
+            "type": "object"
+          },
+          "body": {
+            "enum": [
+              "Moon",
+              "Mars"
+            ],
+            "title": "Body",
+            "type": "string"
+          },
+          "center": {
+            "$ref": "#/components/schemas/PlanetaryCenterOut"
+          },
+          "coordinate_frame": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coordinate Frame"
+          },
+          "crs": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Crs"
+          },
+          "data_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Version"
+          },
+          "detail_links": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Detail Links",
+            "type": "object"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "feature_id": {
+            "title": "Feature Id",
+            "type": "string"
+          },
+          "feature_type": {
+            "enum": [
+              "planetary_reference",
+              "typed_area"
+            ],
+            "title": "Feature Type",
+            "type": "string"
+          },
+          "geometry": {
+            "additionalProperties": true,
+            "title": "Geometry",
+            "type": "object"
+          },
+          "linked_feature_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Linked Feature Id"
+          },
+          "quality_flags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Quality Flags",
+            "type": "array"
+          },
+          "reference_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Id"
+          },
+          "relationship": {
+            "title": "Relationship",
+            "type": "string"
+          },
+          "science_coverage": {
+            "$ref": "#/components/schemas/PlanetaryScienceCoverageOut"
+          },
+          "typed_area_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Typed Area Id"
+          }
+        },
+        "required": [
+          "feature_id",
+          "feature_type",
+          "body",
+          "display_name",
+          "reference_id",
+          "typed_area_id",
+          "linked_feature_id",
+          "relationship",
+          "bbox",
+          "center",
+          "geometry",
+          "bbox_geometry",
+          "science_coverage",
+          "availability",
+          "quality_flags",
+          "crs",
+          "data_version",
+          "detail_links"
+        ],
+        "title": "PlanetaryFeatureOut",
+        "type": "object"
+      },
+      "PlanetaryLayerOut": {
+        "properties": {
+          "attribution": {
+            "title": "Attribution",
+            "type": "string"
+          },
+          "body": {
+            "title": "Body",
+            "type": "string"
+          },
+          "bounds": {
+            "$ref": "#/components/schemas/PlanetaryBBoxOut"
+          },
+          "capabilities_url": {
+            "title": "Capabilities Url",
+            "type": "string"
+          },
+          "crs": {
+            "title": "Crs",
+            "type": "string"
+          },
+          "epsg": {
+            "title": "Epsg",
+            "type": "integer"
+          },
+          "fallback": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fallback"
+          },
+          "format": {
+            "title": "Format",
+            "type": "string"
+          },
+          "layer_id": {
+            "title": "Layer Id",
+            "type": "string"
+          },
+          "layer_type": {
+            "title": "Layer Type",
+            "type": "string"
+          },
+          "license": {
+            "title": "License",
+            "type": "string"
+          },
+          "license_url": {
+            "title": "License Url",
+            "type": "string"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Notes",
+            "type": "array"
+          },
+          "service_type": {
+            "title": "Service Type",
+            "type": "string"
+          },
+          "source_url": {
+            "title": "Source Url",
+            "type": "string"
+          },
+          "tile_matrix": {
+            "items": {
+              "$ref": "#/components/schemas/PlanetaryTileMatrixOut"
+            },
+            "title": "Tile Matrix",
+            "type": "array"
+          },
+          "tile_matrix_set": {
+            "title": "Tile Matrix Set",
+            "type": "string"
+          },
+          "tile_size": {
+            "title": "Tile Size",
+            "type": "integer"
+          },
+          "tile_template": {
+            "title": "Tile Template",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "verification": {
+            "$ref": "#/components/schemas/PlanetaryLayerVerificationOut"
+          },
+          "zoom": {
+            "$ref": "#/components/schemas/PlanetaryZoomOut"
+          }
+        },
+        "required": [
+          "layer_id",
+          "body",
+          "title",
+          "layer_type",
+          "service_type",
+          "tile_template",
+          "format",
+          "tile_matrix_set",
+          "crs",
+          "epsg",
+          "zoom",
+          "tile_size",
+          "tile_matrix",
+          "bounds",
+          "attribution",
+          "source_url",
+          "capabilities_url",
+          "license",
+          "license_url",
+          "verification",
+          "notes",
+          "fallback"
+        ],
+        "title": "PlanetaryLayerOut",
+        "type": "object"
+      },
+      "PlanetaryLayerVerificationOut": {
+        "properties": {
+          "capabilities_http_status": {
+            "title": "Capabilities Http Status",
+            "type": "integer"
+          },
+          "checked_at": {
+            "title": "Checked At",
+            "type": "string"
+          },
+          "content_type": {
+            "title": "Content Type",
+            "type": "string"
+          },
+          "http_status": {
+            "title": "Http Status",
+            "type": "integer"
+          },
+          "sample_tile_url": {
+            "title": "Sample Tile Url",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "checked_at",
+          "http_status",
+          "content_type",
+          "sample_tile_url",
+          "capabilities_http_status"
+        ],
+        "title": "PlanetaryLayerVerificationOut",
+        "type": "object"
+      },
+      "PlanetaryMapFeaturesOut": {
+        "properties": {
+          "bbox": {
+            "$ref": "#/components/schemas/PlanetaryBBoxOut"
+          },
+          "bbox_crs": {
+            "title": "Bbox Crs",
+            "type": "string"
+          },
+          "body": {
+            "$ref": "#/components/schemas/PlanetaryBodyOut"
+          },
+          "catalog_version": {
+            "title": "Catalog Version",
+            "type": "string"
+          },
+          "coordinate_contract_version": {
+            "title": "Coordinate Contract Version",
+            "type": "string"
+          },
+          "coordinate_system": {
+            "title": "Coordinate System",
+            "type": "string"
+          },
+          "data_version": {
+            "title": "Data Version",
+            "type": "string"
+          },
+          "features": {
+            "items": {
+              "$ref": "#/components/schemas/PlanetaryFeatureOut"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "next_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Offset"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Notes",
+            "type": "array"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "query": {
+            "additionalProperties": true,
+            "title": "Query",
+            "type": "object"
+          },
+          "returned": {
+            "title": "Returned",
+            "type": "integer"
+          },
+          "science_coverage_summary": {
+            "additionalProperties": true,
+            "title": "Science Coverage Summary",
+            "type": "object"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          },
+          "unlocatable_reference_count": {
+            "title": "Unlocatable Reference Count",
+            "type": "integer"
+          },
+          "unlocatable_typed_area_count": {
+            "title": "Unlocatable Typed Area Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "catalog_version",
+          "coordinate_contract_version",
+          "data_version",
+          "body",
+          "bbox",
+          "bbox_crs",
+          "coordinate_system",
+          "query",
+          "total",
+          "returned",
+          "offset",
+          "limit",
+          "next_offset",
+          "unlocatable_reference_count",
+          "unlocatable_typed_area_count",
+          "features",
+          "science_coverage_summary",
+          "notes"
+        ],
+        "title": "PlanetaryMapFeaturesOut",
+        "type": "object"
+      },
+      "PlanetaryMapsOut": {
+        "properties": {
+          "body": {
+            "$ref": "#/components/schemas/PlanetaryBodyOut"
+          },
+          "catalog_version": {
+            "title": "Catalog Version",
+            "type": "string"
+          },
+          "coordinate_contract_version": {
+            "title": "Coordinate Contract Version",
+            "type": "string"
+          },
+          "coverage_separation": {
+            "$ref": "#/components/schemas/PlanetaryCoverageSeparationOut"
+          },
+          "data_version": {
+            "title": "Data Version",
+            "type": "string"
+          },
+          "layers": {
+            "items": {
+              "$ref": "#/components/schemas/PlanetaryLayerOut"
+            },
+            "title": "Layers",
+            "type": "array"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Notes",
+            "type": "array"
+          },
+          "science_coverage": {
+            "additionalProperties": true,
+            "title": "Science Coverage",
+            "type": "object"
+          }
+        },
+        "required": [
+          "catalog_version",
+          "coordinate_contract_version",
+          "data_version",
+          "body",
+          "layers",
+          "science_coverage",
+          "coverage_separation",
+          "notes"
+        ],
+        "title": "PlanetaryMapsOut",
+        "type": "object"
+      },
+      "PlanetaryScienceCoverageOut": {
+        "additionalProperties": true,
+        "properties": {
+          "coverage_label": {
+            "title": "Coverage Label",
+            "type": "string"
+          },
+          "d01_analysis_resolution_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "D01 Analysis Resolution M"
+          },
+          "d01_feature_count": {
+            "title": "D01 Feature Count",
+            "type": "integer"
+          },
+          "d01_method_versions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "D01 Method Versions",
+            "type": "array"
+          },
+          "d01_window_size_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "D01 Window Size M"
+          },
+          "dimension_status": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/PlanetaryDimensionStatusOut"
+            },
+            "title": "Dimension Status",
+            "type": "object"
+          },
+          "typed_dimensions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Typed Dimensions",
+            "type": "array"
+          },
+          "typed_feature_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Typed Feature Ids",
+            "type": "array"
+          },
+          "typed_observation_count": {
+            "default": 0,
+            "title": "Typed Observation Count",
+            "type": "integer"
+          },
+          "typed_state_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Typed State Counts",
+            "type": "object"
+          },
+          "value_origins": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Value Origins",
+            "type": "array"
+          }
+        },
+        "required": [
+          "d01_feature_count",
+          "dimension_status",
+          "coverage_label"
+        ],
+        "title": "PlanetaryScienceCoverageOut",
+        "type": "object"
+      },
+      "PlanetaryTileMatrixOut": {
+        "properties": {
+          "matrix_height": {
+            "title": "Matrix Height",
+            "type": "integer"
+          },
+          "matrix_width": {
+            "title": "Matrix Width",
+            "type": "integer"
+          },
+          "zoom": {
+            "title": "Zoom",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "zoom",
+          "matrix_width",
+          "matrix_height"
+        ],
+        "title": "PlanetaryTileMatrixOut",
+        "type": "object"
+      },
+      "PlanetaryZoomOut": {
+        "properties": {
+          "max": {
+            "title": "Max",
+            "type": "integer"
+          },
+          "min": {
+            "title": "Min",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "min",
+          "max"
+        ],
+        "title": "PlanetaryZoomOut",
         "type": "object"
       },
       "RangeFilterIn": {
@@ -2382,6 +4446,240 @@
           "method_version"
         ],
         "title": "RefineWindowOut",
+        "type": "object"
+      },
+      "RegisteredFeatureOut": {
+        "properties": {
+          "body_scope": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Body Scope",
+            "type": "array"
+          },
+          "comparability_gates": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Comparability Gates",
+            "type": "array"
+          },
+          "coverage": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FeatureCoverageOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "dimension_id": {
+            "title": "Dimension Id",
+            "type": "string"
+          },
+          "dimension_label": {
+            "title": "Dimension Label",
+            "type": "string"
+          },
+          "feature_id": {
+            "title": "Feature Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "max_value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Value"
+          },
+          "measurement_family": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Measurement Family"
+          },
+          "method_versions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Method Versions",
+            "type": "array"
+          },
+          "min_value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Value"
+          },
+          "missing_policy": {
+            "title": "Missing Policy",
+            "type": "string"
+          },
+          "qa_rules": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Qa Rules",
+            "type": "array"
+          },
+          "registry_version": {
+            "title": "Registry Version",
+            "type": "string"
+          },
+          "roles": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RoleSupportOut"
+            },
+            "title": "Roles",
+            "type": "object"
+          },
+          "scale": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scale"
+          },
+          "scale_rationale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scale Rationale"
+          },
+          "score_role": {
+            "title": "Score Role",
+            "type": "string"
+          },
+          "selector": {
+            "additionalProperties": true,
+            "title": "Selector",
+            "type": "object"
+          },
+          "source": {
+            "additionalProperties": true,
+            "title": "Source",
+            "type": "object"
+          },
+          "support": {
+            "additionalProperties": true,
+            "title": "Support",
+            "type": "object"
+          },
+          "uncertainty_feature_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Uncertainty Feature Ids",
+            "type": "array"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "unsupported_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unsupported Reason"
+          },
+          "value_kind": {
+            "title": "Value Kind",
+            "type": "string"
+          }
+        },
+        "required": [
+          "feature_id",
+          "dimension_id",
+          "dimension_label",
+          "label",
+          "unit",
+          "value_kind",
+          "body_scope",
+          "score_role",
+          "roles",
+          "min_value",
+          "max_value",
+          "scale",
+          "scale_rationale",
+          "selector",
+          "method_versions",
+          "support",
+          "missing_policy",
+          "qa_rules",
+          "comparability_gates",
+          "source",
+          "unsupported_reason",
+          "measurement_family",
+          "uncertainty_feature_ids",
+          "registry_version",
+          "coverage"
+        ],
+        "title": "RegisteredFeatureOut",
+        "type": "object"
+      },
+      "RoleSupportOut": {
+        "properties": {
+          "constraints": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Constraints",
+            "type": "array"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "supported": {
+            "title": "Supported",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "supported",
+          "reason"
+        ],
+        "title": "RoleSupportOut",
         "type": "object"
       },
       "SearchRequest": {
@@ -3396,6 +5694,263 @@
         "summary": "Location Context"
       }
     },
+    "/api/v1/planetary/bodies": {
+      "get": {
+        "operationId": "planetary_bodies_api_v1_planetary_bodies_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  "title": "Response Planetary Bodies Api V1 Planetary Bodies Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Planetary Bodies",
+        "tags": [
+          "planetary"
+        ]
+      }
+    },
+    "/api/v1/planetary/coordinate-contract": {
+      "get": {
+        "operationId": "planetary_coordinate_contract_api_v1_planetary_coordinate_contract_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanetaryCoordinateContractOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Planetary Coordinate Contract",
+        "tags": [
+          "planetary"
+        ]
+      }
+    },
+    "/api/v1/planetary/map-features": {
+      "get": {
+        "operationId": "planetary_map_features_api_v1_planetary_map_features_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "title": "Body",
+              "type": "string"
+            }
+          },
+          {
+            "description": "west,south,east,north in planetocentric lon/lat degrees. west>east crosses the antimeridian. Omit for the whole body.",
+            "in": "query",
+            "name": "bbox",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "west,south,east,north in planetocentric lon/lat degrees. west>east crosses the antimeridian. Omit for the whole body.",
+              "title": "Bbox"
+            }
+          },
+          {
+            "in": "query",
+            "name": "bbox_lon_convention",
+            "required": false,
+            "schema": {
+              "default": "signed",
+              "enum": [
+                "signed",
+                "360"
+              ],
+              "title": "Bbox Lon Convention",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "feature_type",
+            "required": false,
+            "schema": {
+              "default": "all",
+              "enum": [
+                "all",
+                "reference",
+                "typed_area"
+              ],
+              "title": "Feature Type",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "dimension",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Dimension"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanetaryMapFeaturesOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Planetary Map Features",
+        "tags": [
+          "planetary"
+        ]
+      }
+    },
+    "/api/v1/planetary/maps": {
+      "get": {
+        "operationId": "planetary_maps_api_v1_planetary_maps_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "title": "Body",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanetaryMapsOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Planetary Maps",
+        "tags": [
+          "planetary"
+        ]
+      }
+    },
     "/api/v1/references": {
       "get": {
         "operationId": "references_api_v1_references_get",
@@ -3474,6 +6029,210 @@
           }
         },
         "summary": "Search"
+      }
+    },
+    "/api/v1/search/features": {
+      "get": {
+        "operationId": "list_features_api_v1_search_features_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Body"
+            }
+          },
+          {
+            "in": "query",
+            "name": "dimension",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Dimension"
+            }
+          },
+          {
+            "in": "query",
+            "name": "role",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Role"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeatureRegistryOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Features",
+        "tags": [
+          "six-dimension"
+        ]
+      }
+    },
+    "/api/v1/search/features/{feature_id}": {
+      "get": {
+        "operationId": "feature_detail_api_v1_search_features__feature_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "feature_id",
+            "required": true,
+            "schema": {
+              "title": "Feature Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeatureDetailOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Feature Detail",
+        "tags": [
+          "six-dimension"
+        ]
+      }
+    },
+    "/api/v1/search/multidimensional": {
+      "post": {
+        "operationId": "multidimensional_search_api_v1_search_multidimensional_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MultiDimSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiDimSearchResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          }
+        },
+        "summary": "Multidimensional Search",
+        "tags": [
+          "six-dimension"
+        ]
       }
     },
     "/api/v1/typed/areas/{area_id}": {
