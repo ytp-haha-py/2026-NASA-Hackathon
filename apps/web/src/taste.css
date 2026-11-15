@@ -1886,6 +1886,48 @@ body {
   color: var(--ink-soft);
 }
 
+.observed-feature-reason {
+  flex-basis: 100%;
+  margin: 2px 0 0;
+}
+
+/* D02–D05 filter-only controls: never a target or weight slider. */
+.filter-metric .metric-head {
+  align-items: baseline;
+}
+
+.filter-metric .dimension-tag {
+  font-size: 12px;
+}
+
+.filter-row {
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.metric-select {
+  width: 100%;
+  min-height: 32px;
+  padding: 4px 8px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.metric-select:disabled {
+  color: var(--ink-soft);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.filter-reason {
+  margin: 0;
+}
+
 .depth-tabs {
   display: inline-flex;
   margin: 4px 0 12px;

@@ -6,6 +6,49 @@ import type {
 } from "../api/client";
 
 /**
+ * A registry feature that may legally be scored, in the capability `FeatureOut` shape the
+ * dimension board already renders. Returns null when the registry lacks a numeric domain or
+ * contrast scale (no invented values).
+ */
+export function registrySimilarityFeature(
+  feature: FeatureRegistryOut["features"][number],
+): FeatureOut | null {
+  if (
+    feature.value_kind !== "numeric" ||
+    feature.roles.similarity?.supported !== true ||
+    feature.min_value === null ||
+    feature.max_value === null ||
+    feature.scale === null
+  ) {
+    return null;
+  }
+  return {
+    id: feature.feature_id,
+    label: feature.label,
+    dimension_id: feature.dimension_id,
+    unit: feature.unit,
+    min_value: feature.min_value,
+    max_value: feature.max_value,
+    scale: feature.scale,
+    scale_rationale: feature.scale_rationale ?? "",
+    score_role: "similarity",
+    value_kind: "numeric",
+    description: "",
+    comparability_gate: feature.comparability_gates.join("; "),
+    extraction_scale_m: 0,
+    method: "",
+    method_version: feature.method_versions[0] ?? "",
+    missing_policy: feature.missing_policy,
+    provider_coverage_by_body: Object.fromEntries(
+      feature.body_scope.map((body) => [body, "supported"]),
+    ),
+    spatial_support: "",
+    temporal_support: "",
+    valid_domain: `${feature.min_value}–${feature.max_value} ${feature.unit}`,
+  };
+}
+
+/**
  * Registry features outside D01 that the API accepts as similarity targets (today: Earth
  * SoilGrids means in D06). Shaped as FeatureOut so the dimension board can render them like
  * D01 metrics; `dimension_id` keeps the registry code (D02–D06).
@@ -15,40 +58,10 @@ export function queryFeaturesBeyondD01(registry: FeatureRegistryOut | null): Fea
     return [];
   }
   return registry.features
-    .filter(
-      (feature) =>
-        feature.dimension_id !== "D01" &&
-        feature.value_kind === "numeric" &&
-        feature.roles.similarity?.supported === true &&
-        feature.min_value !== null &&
-        feature.max_value !== null &&
-        feature.scale !== null,
-    )
+    .filter((feature) => feature.dimension_id !== "D01")
     .sort((a, b) => soilOrder(a.feature_id) - soilOrder(b.feature_id))
-    .map((feature) => ({
-      id: feature.feature_id,
-      label: feature.label,
-      dimension_id: feature.dimension_id,
-      unit: feature.unit,
-      min_value: feature.min_value as number,
-      max_value: feature.max_value as number,
-      scale: feature.scale as number,
-      scale_rationale: feature.scale_rationale ?? "",
-      score_role: "similarity",
-      value_kind: "numeric",
-      description: "",
-      comparability_gate: feature.comparability_gates.join("; "),
-      extraction_scale_m: 0,
-      method: "",
-      method_version: feature.method_versions[0] ?? "",
-      missing_policy: feature.missing_policy,
-      provider_coverage_by_body: Object.fromEntries(
-        feature.body_scope.map((body) => [body, "supported"]),
-      ),
-      spatial_support: "",
-      temporal_support: "",
-      valid_domain: `${feature.min_value}–${feature.max_value} ${feature.unit}`,
-    }));
+    .map(registrySimilarityFeature)
+    .filter((feature): feature is FeatureOut => feature !== null);
 }
 
 const SOIL_ID = /^soil_(bdod|clay|sand|silt|soc)_(\d+)_(\d+)cm_mean$/;
