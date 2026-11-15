@@ -1,0 +1,750 @@
+{
+  "matrix_id": "d04-water-ice-coverage-matrix",
+  "schema_version": "1.0.0",
+  "dimension": "D04",
+  "generated_for_issue": 138,
+  "status": "bounded_pilot_coverage_with_verified_gaps",
+  "non_claims": [
+    "Not a global, exhaustive, or representative water/ice survey for any body.",
+    "No ice fraction, subsurface ice volume, mineable ice, or liquid-water inventory is claimed.",
+    "Hydrogen/neutron/CPR values are evidence or proxies, not confirmed ice unless a source-specific detection criterion is explicitly met and recorded; none are confirmed ice detections in current indexed observations.",
+    "not_detected and no_coverage are distinct states; no-detection is never converted to no-ice.",
+    "Hydrated-mineral spectral evidence is D02 evidence and is not duplicated as D04 similarity/filter evidence.",
+    "No D04 similarity/filter score is produced from these observations; cross-body equivalence is not claimed."
+  ],
+  "releases": [
+    {
+      "release_id": "d04_earth_power",
+      "path": "pipelines/pilots/d04_earth_power",
+      "manifest_path": "pipelines/pilots/d04_earth_power/manifest.json",
+      "observations_path": "pipelines/pilots/d04_earth_power/observations.jsonl",
+      "release_version": "acquisition-release-1.0.0",
+      "scope": "pilot-d04-earth",
+      "observation_count": 20,
+      "observations_sha256": "6d42daff339896949edcab1e278d8eba6ccee1b3b1a0787bb9af67d4402a3835",
+      "plan_sha256": "312d0585f8ce9ce584946f9bb9ce2404e537d8e7c5a91a0f7bb9c1c32356cd2b"
+    },
+    {
+      "release_id": "d04_water_ice_planetary",
+      "path": "pipelines/pilots/d04_water_ice_planetary",
+      "manifest_path": "pipelines/pilots/d04_water_ice_planetary/manifest.json",
+      "observations_path": "pipelines/pilots/d04_water_ice_planetary/observations.jsonl",
+      "release_version": "d04-water-ice-pilot-1.0.0",
+      "scope": "pilot-d04-water-ice-planetary",
+      "observation_count": null,
+      "observations_sha256": "c4d5ae7bcafc098870ee638b07778e46928fc523c71960aa828bebb9a123f72e",
+      "plan_sha256": "ab3b233a78a72c0700e206dfc5bc8ba5f82ae3f78a252a4f18ed0e4d78112db4",
+      "assets_sha256": "cb8919fc33ee777517171c8cd7d4a2ac88a743ff2817b6044aff5bb24e254549"
+    }
+  ],
+  "rows": [
+    {
+      "source": "NASA POWER daily point API (AG community)",
+      "version": "nasa-power-daily-1.0.0",
+      "licence": "NASA POWER data policy / open access for use; attribution required per NASA POWER terms (https://power.larc.nasa.gov/docs/methodology/). Not redistributed as raw bulk; bounded point responses committed with checksums.",
+      "product": "POWER Daily Point (GWETTOP, GWETROOT, SNODP, PRECTOTCORR)",
+      "indexed_queryable_coverage": "5 Earth pilot AOIs, 2024-01-01..2024-01-07 daily values (20 observations total). Queryable from pipelines/pilots/d04_earth_power/observations.jsonl and importable via acquisition/typed release tooling.",
+      "spatial_support": "Point at AOI centre on ~0.5 x 0.625 degree POWER grid (~50 km native); CRS EPSG:4326; not a 1.98 km local measurement.",
+      "time_support": "Daily interval 2024-01-01 to 2024-01-07 (pilot); source supports historical daily series subject to provider availability.",
+      "depth_support": "Surface/root-zone model context as defined by POWER parameters; not subsurface ice depth.",
+      "crs": "EPSG:4326",
+      "uncertainty": "Unknown per-point uncertainty; model/reanalysis context values.",
+      "qa": "Detected states recorded for returned daily series; missing_count tracked per observation value payload; 5/5 tasks succeeded in manifest.",
+      "legal_score_filter_roles": {
+        "score_role": "context_only",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "evidence_only": false,
+        "notes": "Coarse modeled/reanalysis context only; never enters Terrain similarity or cross-body water/ice score."
+      },
+      "gaps": "No local in-situ measurement, no confirmed extractable ice, no subsurface ice volume, no global coverage, no Moon/Mars applicability.",
+      "rebuild_instructions": "uv run python -m analog_pipelines.acquisition plan --scope pilot-d04-earth --dimension D04 --body Earth --provider nasa-power --area-id earth-atacama-desert --area-id earth-death-valley --area-id earth-lanzarote --area-id earth-devon-island --area-id earth-sahara-r1c1 --start 2024-01-01 --end 2024-01-07 --output var/plans/d04-earth-pilot.json && uv run python -m analog_pipelines.acquisition run --plan var/plans/d04-earth-pilot.json --output var/runs/d04-earth-pilot --cache var/cache/acquisition --workers 3 --resume && uv run python -m analog_pipelines.acquisition validate --run-dir var/runs/d04-earth-pilot && uv run python -m analog_pipelines.acquisition report --run-dir var/runs/d04-earth-pilot && uv run python -m analog_pipelines.acquisition release --plan var/plans/d04-earth-pilot.json --run-dir var/runs/d04-earth-pilot --output pipelines/pilots/d04_earth_power",
+      "body": "Earth",
+      "feature_id": "surface_soil_wetness_fraction",
+      "quantity_class": "soil_moisture",
+      "data_kind": "modeled_context",
+      "value_kind": "timeseries",
+      "unit": "1",
+      "actual_counts": {
+        "observations": 5,
+        "states": {
+          "detected": 5
+        }
+      },
+      "phase": "soil_moisture"
+    },
+    {
+      "source": "NASA POWER daily point API (AG community)",
+      "version": "nasa-power-daily-1.0.0",
+      "licence": "NASA POWER data policy / open access for use; attribution required per NASA POWER terms (https://power.larc.nasa.gov/docs/methodology/). Not redistributed as raw bulk; bounded point responses committed with checksums.",
+      "product": "POWER Daily Point (GWETTOP, GWETROOT, SNODP, PRECTOTCORR)",
+      "indexed_queryable_coverage": "5 Earth pilot AOIs, 2024-01-01..2024-01-07 daily values (20 observations total). Queryable from pipelines/pilots/d04_earth_power/observations.jsonl and importable via acquisition/typed release tooling.",
+      "spatial_support": "Point at AOI centre on ~0.5 x 0.625 degree POWER grid (~50 km native); CRS EPSG:4326; not a 1.98 km local measurement.",
+      "time_support": "Daily interval 2024-01-01 to 2024-01-07 (pilot); source supports historical daily series subject to provider availability.",
+      "depth_support": "Surface/root-zone model context as defined by POWER parameters; not subsurface ice depth.",
+      "crs": "EPSG:4326",
+      "uncertainty": "Unknown per-point uncertainty; model/reanalysis context values.",
+      "qa": "Detected states recorded for returned daily series; missing_count tracked per observation value payload; 5/5 tasks succeeded in manifest.",
+      "legal_score_filter_roles": {
+        "score_role": "context_only",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "evidence_only": false,
+        "notes": "Coarse modeled/reanalysis context only; never enters Terrain similarity or cross-body water/ice score."
+      },
+      "gaps": "No local in-situ measurement, no confirmed extractable ice, no subsurface ice volume, no global coverage, no Moon/Mars applicability.",
+      "rebuild_instructions": "uv run python -m analog_pipelines.acquisition plan --scope pilot-d04-earth --dimension D04 --body Earth --provider nasa-power --area-id earth-atacama-desert --area-id earth-death-valley --area-id earth-lanzarote --area-id earth-devon-island --area-id earth-sahara-r1c1 --start 2024-01-01 --end 2024-01-07 --output var/plans/d04-earth-pilot.json && uv run python -m analog_pipelines.acquisition run --plan var/plans/d04-earth-pilot.json --output var/runs/d04-earth-pilot --cache var/cache/acquisition --workers 3 --resume && uv run python -m analog_pipelines.acquisition validate --run-dir var/runs/d04-earth-pilot && uv run python -m analog_pipelines.acquisition report --run-dir var/runs/d04-earth-pilot && uv run python -m analog_pipelines.acquisition release --plan var/plans/d04-earth-pilot.json --run-dir var/runs/d04-earth-pilot --output pipelines/pilots/d04_earth_power",
+      "body": "Earth",
+      "feature_id": "root_zone_soil_wetness_fraction",
+      "quantity_class": "soil_moisture",
+      "data_kind": "modeled_context",
+      "value_kind": "timeseries",
+      "unit": "1",
+      "actual_counts": {
+        "observations": 5,
+        "states": {
+          "detected": 5
+        }
+      },
+      "phase": "soil_moisture"
+    },
+    {
+      "source": "NASA POWER daily point API (AG community)",
+      "version": "nasa-power-daily-1.0.0",
+      "licence": "NASA POWER data policy / open access for use; attribution required per NASA POWER terms (https://power.larc.nasa.gov/docs/methodology/). Not redistributed as raw bulk; bounded point responses committed with checksums.",
+      "product": "POWER Daily Point (GWETTOP, GWETROOT, SNODP, PRECTOTCORR)",
+      "indexed_queryable_coverage": "5 Earth pilot AOIs, 2024-01-01..2024-01-07 daily values (20 observations total). Queryable from pipelines/pilots/d04_earth_power/observations.jsonl and importable via acquisition/typed release tooling.",
+      "spatial_support": "Point at AOI centre on ~0.5 x 0.625 degree POWER grid (~50 km native); CRS EPSG:4326; not a 1.98 km local measurement.",
+      "time_support": "Daily interval 2024-01-01 to 2024-01-07 (pilot); source supports historical daily series subject to provider availability.",
+      "depth_support": "Surface/root-zone model context as defined by POWER parameters; not subsurface ice depth.",
+      "crs": "EPSG:4326",
+      "uncertainty": "Unknown per-point uncertainty; model/reanalysis context values.",
+      "qa": "Detected states recorded for returned daily series; missing_count tracked per observation value payload; 5/5 tasks succeeded in manifest.",
+      "legal_score_filter_roles": {
+        "score_role": "context_only",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "evidence_only": false,
+        "notes": "Coarse modeled/reanalysis context only; never enters Terrain similarity or cross-body water/ice score."
+      },
+      "gaps": "No local in-situ measurement, no confirmed extractable ice, no subsurface ice volume, no global coverage, no Moon/Mars applicability.",
+      "rebuild_instructions": "uv run python -m analog_pipelines.acquisition plan --scope pilot-d04-earth --dimension D04 --body Earth --provider nasa-power --area-id earth-atacama-desert --area-id earth-death-valley --area-id earth-lanzarote --area-id earth-devon-island --area-id earth-sahara-r1c1 --start 2024-01-01 --end 2024-01-07 --output var/plans/d04-earth-pilot.json && uv run python -m analog_pipelines.acquisition run --plan var/plans/d04-earth-pilot.json --output var/runs/d04-earth-pilot --cache var/cache/acquisition --workers 3 --resume && uv run python -m analog_pipelines.acquisition validate --run-dir var/runs/d04-earth-pilot && uv run python -m analog_pipelines.acquisition report --run-dir var/runs/d04-earth-pilot && uv run python -m analog_pipelines.acquisition release --plan var/plans/d04-earth-pilot.json --run-dir var/runs/d04-earth-pilot --output pipelines/pilots/d04_earth_power",
+      "body": "Earth",
+      "feature_id": "snow_depth_cm",
+      "quantity_class": "snow_ice_proxy",
+      "data_kind": "modeled_context",
+      "value_kind": "timeseries",
+      "unit": "cm",
+      "actual_counts": {
+        "observations": 5,
+        "states": {
+          "detected": 5
+        }
+      },
+      "phase": "snow_depth_context"
+    },
+    {
+      "source": "NASA POWER daily point API (AG community)",
+      "version": "nasa-power-daily-1.0.0",
+      "licence": "NASA POWER data policy / open access for use; attribution required per NASA POWER terms (https://power.larc.nasa.gov/docs/methodology/). Not redistributed as raw bulk; bounded point responses committed with checksums.",
+      "product": "POWER Daily Point (GWETTOP, GWETROOT, SNODP, PRECTOTCORR)",
+      "indexed_queryable_coverage": "5 Earth pilot AOIs, 2024-01-01..2024-01-07 daily values (20 observations total). Queryable from pipelines/pilots/d04_earth_power/observations.jsonl and importable via acquisition/typed release tooling.",
+      "spatial_support": "Point at AOI centre on ~0.5 x 0.625 degree POWER grid (~50 km native); CRS EPSG:4326; not a 1.98 km local measurement.",
+      "time_support": "Daily interval 2024-01-01 to 2024-01-07 (pilot); source supports historical daily series subject to provider availability.",
+      "depth_support": "Surface/root-zone model context as defined by POWER parameters; not subsurface ice depth.",
+      "crs": "EPSG:4326",
+      "uncertainty": "Unknown per-point uncertainty; model/reanalysis context values.",
+      "qa": "Detected states recorded for returned daily series; missing_count tracked per observation value payload; 5/5 tasks succeeded in manifest.",
+      "legal_score_filter_roles": {
+        "score_role": "context_only",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "evidence_only": false,
+        "notes": "Coarse modeled/reanalysis context only; never enters Terrain similarity or cross-body water/ice score."
+      },
+      "gaps": "No local in-situ measurement, no confirmed extractable ice, no subsurface ice volume, no global coverage, no Moon/Mars applicability.",
+      "rebuild_instructions": "uv run python -m analog_pipelines.acquisition plan --scope pilot-d04-earth --dimension D04 --body Earth --provider nasa-power --area-id earth-atacama-desert --area-id earth-death-valley --area-id earth-lanzarote --area-id earth-devon-island --area-id earth-sahara-r1c1 --start 2024-01-01 --end 2024-01-07 --output var/plans/d04-earth-pilot.json && uv run python -m analog_pipelines.acquisition run --plan var/plans/d04-earth-pilot.json --output var/runs/d04-earth-pilot --cache var/cache/acquisition --workers 3 --resume && uv run python -m analog_pipelines.acquisition validate --run-dir var/runs/d04-earth-pilot && uv run python -m analog_pipelines.acquisition report --run-dir var/runs/d04-earth-pilot && uv run python -m analog_pipelines.acquisition release --plan var/plans/d04-earth-pilot.json --run-dir var/runs/d04-earth-pilot --output pipelines/pilots/d04_earth_power",
+      "body": "Earth",
+      "feature_id": "precipitation_mm_day",
+      "quantity_class": "liquid_water_input_proxy",
+      "data_kind": "modeled_context",
+      "value_kind": "timeseries",
+      "unit": "mm day-1",
+      "actual_counts": {
+        "observations": 5,
+        "states": {
+          "detected": 5
+        }
+      },
+      "phase": "precipitation"
+    },
+    {
+      "body": "Moon",
+      "feature_id": "water_equivalent_hydrogen_wt_percent",
+      "quantity_class": "hydrogen_proxy",
+      "source": "NASA PDS Geosciences - Lunar Prospector Neutron Spectrometer reduced special product",
+      "version": "hydrogenhd (Hydrogen_halfdeg, December 2001)",
+      "licence": "CC0-1.0 (NASA-led mission data archived by PDS; citation requested)",
+      "product": "hydrogenhd.txt",
+      "data_kind": "derived_evidence",
+      "value_kind": "numeric",
+      "unit": "wt%",
+      "indexed_queryable_coverage": "12 native 0.5x0.5 degree cells covering existing Moon reference windows (12 observations). Queryable from pipelines/pilots/d04_water_ice_planetary/observations.jsonl.",
+      "actual_counts": {
+        "observations": 12,
+        "states": {
+          "detected": 12
+        }
+      },
+      "spatial_support": "0.5 x 0.5 degree native cells; coarse relative to 1.98 km windows.",
+      "time_support": "Static mission-derived product.",
+      "depth_support": "Upper ~1 m neutron sensing depth (integrated hydrogen proxy).",
+      "crs": "Moon planetocentric simple cylindrical / native PDS grid (preserved in source metadata).",
+      "uncertainty": "No per-cell uncertainty in source; treated as evidence proxy.",
+      "qa": "Checksummed source/window assets; 30/30 tasks succeeded overall in pilot manifest; values detected at native support.",
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "WEH/hydrogen is not ice fraction, phase, depth-resolved ice, or mineable ice."
+      },
+      "gaps": "Cannot resolve 1.98 km AOI-scale detection; no global coverage; no confirmed ice.",
+      "phase": "hydrogen_proxy_subsurface",
+      "rebuild_instructions": "uv run python scripts/build_water_ice_pilot.py --download && uv run python scripts/build_water_ice_pilot.py && uv run python scripts/build_water_ice_pilot.py --check"
+    },
+    {
+      "body": "Moon",
+      "feature_id": "radar_circular_polarization_ratio",
+      "quantity_class": "radar_cpr",
+      "source": "NASA PDS Geosciences - LRO Mini-RF global CPR mosaic",
+      "version": "GLOBAL_CPR_128PPD_SIMP_0C.IMG v1",
+      "licence": "CC0-1.0 (NASA-led mission data archived by PDS; citation requested)",
+      "product": "GLOBAL_CPR_128PPD_SIMP_0C.IMG/.LBL",
+      "data_kind": "measured_evidence",
+      "value_kind": "numeric",
+      "unit": "1",
+      "indexed_queryable_coverage": "12 bounded native windows covering existing Moon reference windows (12 observations).",
+      "actual_counts": {
+        "observations": 12,
+        "states": {
+          "detected": 12
+        }
+      },
+      "spatial_support": "128 pixels/degree, ~236.9 m/pixel native mosaic windows.",
+      "time_support": "Mosaic product; acquisition mix preserved by source, not a single observation time.",
+      "depth_support": "Near-surface radar scattering sensitivity; not a depth-resolved ice measurement.",
+      "crs": "Moon simple cylindrical mosaic grid (native).",
+      "uncertainty": "No per-pixel uncertainty in committed product; CPR is a scattering ratio, not ice abundance.",
+      "qa": "Bounded byte-range reads checksummed in assets manifest.",
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "Radar CPR is ice-consistent in some contexts but not diagnostic; never treated as confirmed ice."
+      },
+      "gaps": "Mosaic gaps possible; no depth retrieval; no global completeness claim.",
+      "phase": "radar_scattering_proxy",
+      "rebuild_instructions": "uv run python scripts/build_water_ice_pilot.py --download && uv run python scripts/build_water_ice_pilot.py && uv run python scripts/build_water_ice_pilot.py --check"
+    },
+    {
+      "body": "Moon",
+      "feature_id": "water_ice_detection",
+      "quantity_class": "ice_detection_claim",
+      "source": "Derived claims from LP NS hydrogenhd and LRO Mini-RF CPR over bounded native windows",
+      "version": "water-ice-evidence-0.1.0",
+      "licence": "Derived from CC0-1.0 PDS-archived NASA mission products (see upstream rows)",
+      "product": "Claim observations in d04_water_ice_planetary release",
+      "data_kind": "derived_claim",
+      "value_kind": "detection",
+      "unit": "detection",
+      "indexed_queryable_coverage": "29 Moon detection claims linked to reference windows/native cells.",
+      "actual_counts": {
+        "observations": 29,
+        "states": {
+          "unknown": 23,
+          "no_coverage": 5,
+          "not_detected": 1
+        }
+      },
+      "spatial_support": "Native source supports preserved (0.5 degree neutron cells, ~237 m radar windows).",
+      "time_support": "Inherits source temporal support; static/mosaic-derived.",
+      "depth_support": "Proxy-dependent (upper ~1 m neutron; near-surface radar scattering).",
+      "crs": "Native Moon frames preserved per source.",
+      "uncertainty": "Semantic uncertainty encoded as state/reason flags; not confirmed ice.",
+      "qa": "State semantics enforced: no_coverage/not_detected/unknown/detected/not_applicable; zero detected ice claims.",
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "No detection claim is promoted to confirmed ice or used for scoring."
+      },
+      "gaps": "No AOI-scale confirmed ice detection; coarse neutron support dominates uncertainty.",
+      "phase": "ice_claim_proxy",
+      "rebuild_instructions": "uv run python scripts/build_water_ice_pilot.py --download && uv run python scripts/build_water_ice_pilot.py && uv run python scripts/build_water_ice_pilot.py --check"
+    },
+    {
+      "body": "Mars",
+      "feature_id": "epithermal_neutron_flux_ratio",
+      "quantity_class": "hydrogen_proxy",
+      "source": "NASA PDS Geosciences - Mars Odyssey HEND derived epithermal map",
+      "version": "hend_epithermal_020917.tab",
+      "licence": "CC0-1.0 (NASA-led mission data archived by PDS; citation requested)",
+      "product": "hend_epithermal_020917.tab",
+      "data_kind": "derived_evidence",
+      "value_kind": "numeric",
+      "unit": "1",
+      "indexed_queryable_coverage": "1 native 4x4 degree cell covering existing Mars reference window context (1 observation).",
+      "actual_counts": {
+        "observations": 1,
+        "states": {
+          "detected": 1
+        }
+      },
+      "spatial_support": "4 x 4 degree native cells (~237 km).",
+      "time_support": "Static derived map from Odyssey mapping period (product-level).",
+      "depth_support": "Upper ~1 m neutron sensing depth proxy.",
+      "crs": "Mars planetocentric native grid.",
+      "uncertainty": "Normalized flux without per-cell uncertainty in this bounded pilot.",
+      "qa": "Checksummed source ingestion recorded in assets/manifest.",
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "Normalized flux is not water-equivalent hydrogen and not ice abundance."
+      },
+      "gaps": "Single coarse cell; cannot resolve 1.98 km windows; no WEH conversion.",
+      "phase": "hydrogen_proxy_subsurface",
+      "rebuild_instructions": "uv run python scripts/build_water_ice_pilot.py --download && uv run python scripts/build_water_ice_pilot.py && uv run python scripts/build_water_ice_pilot.py --check"
+    },
+    {
+      "body": "Mars",
+      "feature_id": "water_ice_detection",
+      "quantity_class": "ice_detection_claim",
+      "source": "Derived claim from Mars Odyssey HEND epithermal flux over native cell",
+      "version": "water-ice-evidence-0.1.0",
+      "licence": "Derived from CC0-1.0 PDS-archived NASA mission product",
+      "product": "Claim observation in d04_water_ice_planetary release",
+      "data_kind": "derived_claim",
+      "value_kind": "detection",
+      "unit": "detection",
+      "indexed_queryable_coverage": "1 Mars detection claim.",
+      "actual_counts": {
+        "observations": 1,
+        "states": {
+          "unknown": 1
+        }
+      },
+      "spatial_support": "4 x 4 degree native HEND cell.",
+      "time_support": "Inherits source temporal support.",
+      "depth_support": "Neutron hydrogen proxy, upper ~1 m.",
+      "crs": "Mars planetocentric native grid.",
+      "uncertainty": "Claim state unknown due to proxy/coarse support; not confirmed ice.",
+      "qa": "No detected ice claim emitted.",
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "No confirmed ice or scoring."
+      },
+      "gaps": "No AOI-scale detection; no subsurface ice depth/volume.",
+      "phase": "ice_claim_proxy",
+      "rebuild_instructions": "uv run python scripts/build_water_ice_pilot.py --download && uv run python scripts/build_water_ice_pilot.py && uv run python scripts/build_water_ice_pilot.py --check"
+    },
+    {
+      "body": "Earth",
+      "feature_id": "liquid_water",
+      "quantity_class": "liquid_water",
+      "source": "No bounded D04 liquid-water product indexed in this worktree.",
+      "version": "n/a",
+      "licence": "n/a",
+      "product": "n/a",
+      "data_kind": "unsupported_or_unindexed",
+      "value_kind": "none",
+      "unit": "n/a",
+      "indexed_queryable_coverage": "0 observations.",
+      "actual_counts": {
+        "observations": 0,
+        "states": {}
+      },
+      "spatial_support": "n/a",
+      "time_support": "n/a",
+      "depth_support": "n/a",
+      "crs": "n/a",
+      "uncertainty": "n/a",
+      "qa": "Explicit gap recorded; missing remains missing.",
+      "legal_score_filter_roles": {
+        "score_role": "unsupported",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "Do not infer liquid water from soil moisture, snow, hydrogen proxies, or hydrated minerals."
+      },
+      "gaps": "No verified bounded liquid-water index for this body in D04 pilot releases.",
+      "phase": "liquid",
+      "rebuild_instructions": "n/a (no ingest). Record future bounded source in this matrix with evidence before indexing."
+    },
+    {
+      "body": "Moon",
+      "feature_id": "liquid_water",
+      "quantity_class": "liquid_water",
+      "source": "No bounded D04 liquid-water product indexed in this worktree.",
+      "version": "n/a",
+      "licence": "n/a",
+      "product": "n/a",
+      "data_kind": "unsupported_or_unindexed",
+      "value_kind": "none",
+      "unit": "n/a",
+      "indexed_queryable_coverage": "0 observations.",
+      "actual_counts": {
+        "observations": 0,
+        "states": {}
+      },
+      "spatial_support": "n/a",
+      "time_support": "n/a",
+      "depth_support": "n/a",
+      "crs": "n/a",
+      "uncertainty": "n/a",
+      "qa": "Explicit gap recorded; missing remains missing.",
+      "legal_score_filter_roles": {
+        "score_role": "unsupported",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "Do not infer liquid water from soil moisture, snow, hydrogen proxies, or hydrated minerals."
+      },
+      "gaps": "No verified bounded liquid-water index for this body in D04 pilot releases.",
+      "phase": "liquid",
+      "rebuild_instructions": "n/a (no ingest). Record future bounded source in this matrix with evidence before indexing."
+    },
+    {
+      "body": "Mars",
+      "feature_id": "liquid_water",
+      "quantity_class": "liquid_water",
+      "source": "No bounded D04 liquid-water product indexed in this worktree.",
+      "version": "n/a",
+      "licence": "n/a",
+      "product": "n/a",
+      "data_kind": "unsupported_or_unindexed",
+      "value_kind": "none",
+      "unit": "n/a",
+      "indexed_queryable_coverage": "0 observations.",
+      "actual_counts": {
+        "observations": 0,
+        "states": {}
+      },
+      "spatial_support": "n/a",
+      "time_support": "n/a",
+      "depth_support": "n/a",
+      "crs": "n/a",
+      "uncertainty": "n/a",
+      "qa": "Explicit gap recorded; missing remains missing.",
+      "legal_score_filter_roles": {
+        "score_role": "unsupported",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "Do not infer liquid water from soil moisture, snow, hydrogen proxies, or hydrated minerals."
+      },
+      "gaps": "No verified bounded liquid-water index for this body in D04 pilot releases.",
+      "phase": "liquid",
+      "rebuild_instructions": "n/a (no ingest). Record future bounded source in this matrix with evidence before indexing."
+    },
+    {
+      "body": "Earth",
+      "feature_id": "ice_phase_resolved",
+      "quantity_class": "ice",
+      "source": "No bounded phase-resolved ice product indexed (POWER snow depth is context only).",
+      "version": "n/a",
+      "licence": "n/a",
+      "product": "n/a",
+      "data_kind": "unsupported_or_unindexed",
+      "value_kind": "none",
+      "unit": "n/a",
+      "indexed_queryable_coverage": "0 observations.",
+      "actual_counts": {
+        "observations": 0,
+        "states": {}
+      },
+      "spatial_support": "n/a",
+      "time_support": "n/a",
+      "depth_support": "n/a",
+      "crs": "n/a",
+      "uncertainty": "n/a",
+      "qa": "Explicit gap.",
+      "legal_score_filter_roles": {
+        "score_role": "unsupported",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "Snow depth context is not phase-resolved ice detection/volume."
+      },
+      "gaps": "No phase-resolved ice index; snow depth remains separate context.",
+      "phase": "ice",
+      "rebuild_instructions": "n/a"
+    },
+    {
+      "body": "Moon",
+      "feature_id": "ice_phase_resolved",
+      "quantity_class": "ice",
+      "source": "No confirmed phase-resolved ice product indexed; neutron/CPR are proxies only.",
+      "version": "n/a",
+      "licence": "n/a",
+      "product": "n/a",
+      "data_kind": "unsupported_or_unindexed",
+      "value_kind": "none",
+      "unit": "n/a",
+      "indexed_queryable_coverage": "0 confirmed observations.",
+      "actual_counts": {
+        "observations": 0,
+        "states": {}
+      },
+      "spatial_support": "n/a",
+      "time_support": "n/a",
+      "depth_support": "n/a",
+      "crs": "n/a",
+      "uncertainty": "n/a",
+      "qa": "Detection claims exist but none confirmed; proxies not converted to ice phase.",
+      "legal_score_filter_roles": {
+        "score_role": "unsupported",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "No-detection/unknown never treated as no-ice; no confirmed ice phase."
+      },
+      "gaps": "Confirmed ice phase/depth unresolved at indexed supports.",
+      "phase": "ice",
+      "rebuild_instructions": "n/a"
+    },
+    {
+      "body": "Mars",
+      "feature_id": "ice_phase_resolved",
+      "quantity_class": "ice",
+      "source": "No confirmed phase-resolved ice product indexed; neutron/CPR are proxies only.",
+      "version": "n/a",
+      "licence": "n/a",
+      "product": "n/a",
+      "data_kind": "unsupported_or_unindexed",
+      "value_kind": "none",
+      "unit": "n/a",
+      "indexed_queryable_coverage": "0 confirmed observations.",
+      "actual_counts": {
+        "observations": 0,
+        "states": {}
+      },
+      "spatial_support": "n/a",
+      "time_support": "n/a",
+      "depth_support": "n/a",
+      "crs": "n/a",
+      "uncertainty": "n/a",
+      "qa": "Detection claims exist but none confirmed; proxies not converted to ice phase.",
+      "legal_score_filter_roles": {
+        "score_role": "unsupported",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "No-detection/unknown never treated as no-ice; no confirmed ice phase."
+      },
+      "gaps": "Confirmed ice phase/depth unresolved at indexed supports.",
+      "phase": "ice",
+      "rebuild_instructions": "n/a"
+    },
+    {
+      "body": "Earth",
+      "feature_id": "water_ice_depth_interval",
+      "quantity_class": "subsurface_depth",
+      "source": "Registered feature has no bounded observations indexed.",
+      "version": "n/a",
+      "licence": "n/a",
+      "product": "n/a",
+      "data_kind": "no_coverage_in_index",
+      "value_kind": "none",
+      "unit": "n/a",
+      "indexed_queryable_coverage": "0 observations.",
+      "actual_counts": {
+        "observations": 0,
+        "states": {}
+      },
+      "spatial_support": "n/a",
+      "time_support": "n/a",
+      "depth_support": "n/a",
+      "crs": "n/a",
+      "uncertainty": "n/a",
+      "qa": "Explicit no_coverage gap; neutron sensing depth noted on proxy rows is not a resolved ice interval.",
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only_or_unsupported",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "Depth interval must come from a source-specific resolved product; proxies are insufficient."
+      },
+      "gaps": "No resolved depth interval observations.",
+      "phase": "subsurface_depth",
+      "rebuild_instructions": "n/a until a bounded depth-resolved source is verified and added via D04 ingest."
+    },
+    {
+      "body": "Moon",
+      "feature_id": "water_ice_depth_interval",
+      "quantity_class": "subsurface_depth",
+      "source": "Registered feature has no bounded observations indexed.",
+      "version": "n/a",
+      "licence": "n/a",
+      "product": "n/a",
+      "data_kind": "no_coverage_in_index",
+      "value_kind": "none",
+      "unit": "n/a",
+      "indexed_queryable_coverage": "0 observations.",
+      "actual_counts": {
+        "observations": 0,
+        "states": {}
+      },
+      "spatial_support": "n/a",
+      "time_support": "n/a",
+      "depth_support": "n/a",
+      "crs": "n/a",
+      "uncertainty": "n/a",
+      "qa": "Explicit no_coverage gap; neutron sensing depth noted on proxy rows is not a resolved ice interval.",
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only_or_unsupported",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "Depth interval must come from a source-specific resolved product; proxies are insufficient."
+      },
+      "gaps": "No resolved depth interval observations.",
+      "phase": "subsurface_depth",
+      "rebuild_instructions": "n/a until a bounded depth-resolved source is verified and added via D04 ingest."
+    },
+    {
+      "body": "Mars",
+      "feature_id": "water_ice_depth_interval",
+      "quantity_class": "subsurface_depth",
+      "source": "Registered feature has no bounded observations indexed.",
+      "version": "n/a",
+      "licence": "n/a",
+      "product": "n/a",
+      "data_kind": "no_coverage_in_index",
+      "value_kind": "none",
+      "unit": "n/a",
+      "indexed_queryable_coverage": "0 observations.",
+      "actual_counts": {
+        "observations": 0,
+        "states": {}
+      },
+      "spatial_support": "n/a",
+      "time_support": "n/a",
+      "depth_support": "n/a",
+      "crs": "n/a",
+      "uncertainty": "n/a",
+      "qa": "Explicit no_coverage gap; neutron sensing depth noted on proxy rows is not a resolved ice interval.",
+      "legal_score_filter_roles": {
+        "score_role": "evidence_only_or_unsupported",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "Depth interval must come from a source-specific resolved product; proxies are insufficient."
+      },
+      "gaps": "No resolved depth interval observations.",
+      "phase": "subsurface_depth",
+      "rebuild_instructions": "n/a until a bounded depth-resolved source is verified and added via D04 ingest."
+    },
+    {
+      "body": "Mars",
+      "feature_id": "hydrated_mineral_evidence",
+      "quantity_class": "hydrated_mineral",
+      "source": "MRO CRISM hydration evidence is D02 spectral evidence (not indexed as D04).",
+      "version": "n/a",
+      "licence": "See D02 source records; not redistributed/indexed here as D04.",
+      "product": "n/a in D04 releases",
+      "data_kind": "handled_by_other_dimension",
+      "value_kind": "none",
+      "unit": "n/a",
+      "indexed_queryable_coverage": "0 D04 observations; D02 owns hydrated-mineral evidence to avoid duplicate counting.",
+      "actual_counts": {
+        "observations": 0,
+        "states": {}
+      },
+      "spatial_support": "Targeted CRISM products (source-dependent), not a D04 per-cell grid in this repo.",
+      "time_support": "Per-target acquisition (source-dependent).",
+      "depth_support": "Surface/spectral sensitivity, not subsurface ice depth.",
+      "crs": "Source-dependent (D02).",
+      "uncertainty": "Source-dependent (D02).",
+      "qa": "Explicit separation recorded to prevent D04/D02 duplication.",
+      "legal_score_filter_roles": {
+        "score_role": "context_or_evidence_in_D02",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "Do not duplicate D02 hydrated mineral in D04 scoring/filtering."
+      },
+      "gaps": "CRISM TRDR requires atmospheric correction/spectral processing; not a D04 ice observation.",
+      "phase": "hydrated_mineral",
+      "rebuild_instructions": "Refer to D02 pipelines/docs for hydrated-mineral evidence; add D04 cross-reference only, never duplicate values."
+    },
+    {
+      "body": "Earth",
+      "feature_id": "hydrated_mineral_evidence",
+      "quantity_class": "hydrated_mineral",
+      "source": "No D04-indexed hydrated-mineral observations for this body; any mineral spectroscopy belongs to D02 where applicable.",
+      "version": "n/a",
+      "licence": "n/a",
+      "product": "n/a",
+      "data_kind": "unsupported_or_other_dimension",
+      "value_kind": "none",
+      "unit": "n/a",
+      "indexed_queryable_coverage": "0 D04 observations.",
+      "actual_counts": {
+        "observations": 0,
+        "states": {}
+      },
+      "spatial_support": "n/a",
+      "time_support": "n/a",
+      "depth_support": "n/a",
+      "crs": "n/a",
+      "uncertainty": "n/a",
+      "qa": "Explicit separation/no-coverage.",
+      "legal_score_filter_roles": {
+        "score_role": "unsupported",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "No duplicate D02 counting."
+      },
+      "gaps": "Not indexed in D04.",
+      "phase": "hydrated_mineral",
+      "rebuild_instructions": "n/a"
+    },
+    {
+      "body": "Moon",
+      "feature_id": "hydrated_mineral_evidence",
+      "quantity_class": "hydrated_mineral",
+      "source": "No D04-indexed hydrated-mineral observations for this body; any mineral spectroscopy belongs to D02 where applicable.",
+      "version": "n/a",
+      "licence": "n/a",
+      "product": "n/a",
+      "data_kind": "unsupported_or_other_dimension",
+      "value_kind": "none",
+      "unit": "n/a",
+      "indexed_queryable_coverage": "0 D04 observations.",
+      "actual_counts": {
+        "observations": 0,
+        "states": {}
+      },
+      "spatial_support": "n/a",
+      "time_support": "n/a",
+      "depth_support": "n/a",
+      "crs": "n/a",
+      "uncertainty": "n/a",
+      "qa": "Explicit separation/no-coverage.",
+      "legal_score_filter_roles": {
+        "score_role": "unsupported",
+        "similarity_eligible": false,
+        "filter_eligible": false,
+        "notes": "No duplicate D02 counting."
+      },
+      "gaps": "Not indexed in D04.",
+      "phase": "hydrated_mineral",
+      "rebuild_instructions": "n/a"
+    }
+  ],
+  "totals": {
+    "indexed_observations": 75,
+    "by_body": {
+      "Earth": 20,
+      "Mars": 2,
+      "Moon": 53
+    },
+    "by_release": {
+      "d04_earth_power": 20,
+      "d04_water_ice_planetary": 55
+    }
+  }
+}
