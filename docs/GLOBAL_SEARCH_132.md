@@ -312,10 +312,18 @@ database persistence:
   committed snapshot or user-created AOIs by this pilot.
 - The verifier finds no DB row reference in the committed report; the link exists only
   in committed JSON plus the committed coarse Parquet rows.
-- Therefore #97 DB persistence is **not demonstrated by this committed artifact**. The
-  separate Issue #132 `/api/v1/global/refine` path may persist an on-demand candidate
-  through the durable AOI queue, but that runtime result is not part of this committed
-  snapshot and must be verified against a live/copied database separately.
+- The separate Issue #132 `/api/v1/global/refine` path persists one executed focus
+  window through the durable AOI queue. That runtime path was executed against the
+  real Sahara coarse candidate `coarse-v1:95046a41aeb31ca9` in an isolated temporary
+  database: refinement completed with `copernicus-dem-glo90` and
+  `esa-worldcover-2021-v200` verified, the persisted area
+  `earth-refine-01a341a9cef18971` was readable via `/locations/{id}`, and a standard
+  `/search` query using its own fine target values returned it at distance `0.0`.
+  The full response evidence is committed in
+  [`ISSUE132_REAL_REFINE_EVIDENCE.json`](ISSUE132_REAL_REFINE_EVIDENCE.json).
+- That runtime result is intentionally **not** promoted into the committed pilot
+  snapshot; it uses a temporary SQLite database and bounded HTTPS reads. The committed
+  snapshot remains the reproducible 168-cell coarse pilot plus its 3-link report.
 
 No synthetic row is promoted as observed, and no failure is zero-filled.
 

@@ -1,0 +1,89 @@
+{
+  "acceptance": "Issue #132 Earth coarse -> fine -> persisted -> searchable",
+  "claim_scope": "one bounded committed coarse candidate; not global or exhaustive",
+  "coarse_candidate_id": "coarse-v1:95046a41aeb31ca9",
+  "coarse_region_id": "pilot-sahara",
+  "coarse_method_version": "coarse-terrain-250m-1.0.0",
+  "fine_method_version": "terrain-metrics-1.0.0",
+  "focus_window": {
+    "placement_rule": "coarse_recorded_metric_bbox_centre_v1",
+    "window_m": 1980.0,
+    "bbox_wgs84": {
+      "west": 10.061742310452072,
+      "south": 24.103397593988802,
+      "east": 10.081371610453793,
+      "north": 24.121414749696896
+    },
+    "center": {
+      "lon": 10.071556284236385,
+      "lat": 24.112406459057567
+    },
+    "coarse_crs": "EPSG:32632"
+  },
+  "refined_area_id": "earth-refine-01a341a9cef18971",
+  "refine_status": "completed",
+  "refine_cache_behavior": "repeated request returns cached=true",
+  "fine_features": {
+    "slope_mean_deg": 12.248047769059921,
+    "slope_p90_deg": 22.62435203944558,
+    "terrain_relief_p95_p05_m": 153.72640548419963,
+    "roughness_std_m": 41.86727528165205,
+    "flat_terrain_fraction": 0.18
+  },
+  "fine_units": {
+    "slope_mean_deg": "degree",
+    "slope_p90_deg": "degree",
+    "terrain_relief_p95_p05_m": "meter",
+    "roughness_std_m": "meter",
+    "flat_terrain_fraction": "fraction"
+  },
+  "valid_fraction": 1.0,
+  "analysis_resolution_m": 91.375,
+  "datasets": [
+    "copernicus-dem-glo90",
+    "esa-worldcover-2021-v200"
+  ],
+  "provider_status": {
+    "copernicus-dem-glo90": {
+      "status": "verified",
+      "tile": "Copernicus_DSM_COG_30_N24_00_E010_00_DEM",
+      "source_url": "https://copernicus-dem-90m.s3.amazonaws.com/Copernicus_DSM_COG_30_N24_00_E010_00_DEM/Copernicus_DSM_COG_30_N24_00_E010_00_DEM.tif",
+      "read_mode": "bounded_gdal_vsicurl_range_read_bounded_mosaic"
+    },
+    "esa-worldcover-2021-v200": {
+      "status": "verified",
+      "source_url": "https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/",
+      "tiles": 1,
+      "valid_pixels": 50976
+    }
+  },
+  "persisted_location": {
+    "http_status": 200,
+    "origin": "on_demand",
+    "crs": "EPSG:32632",
+    "data_kind": "observed",
+    "valid_fraction": 1.0
+  },
+  "search_after_persist": {
+    "http_status": 200,
+    "query_target_features": [
+      "slope_mean_deg",
+      "slope_p90_deg",
+      "terrain_relief_p95_p05_m",
+      "roughness_std_m"
+    ],
+    "contains_refined_area": true,
+    "top_location_ids": [
+      "earth-refine-01a341a9cef18971",
+      "earth-sahara-r3c3",
+      "earth-sahara-r1c3"
+    ],
+    "refined_area_distance": 0.0
+  },
+  "reproduction": {
+    "isolation": "temporary SQLite database; no shared or production database",
+    "network": "bounded HTTPS range reads only; no full raster download",
+    "command_summary": "POST /api/v1/global/refine with candidate_id=coarse-v1:95046a41aeb31ca9, then GET /api/v1/locations/{area_id}, then POST /api/v1/search using the persisted area's own fine target values",
+    "note": "Runtime evidence from this worktree on 2026-11-15. The result is a bounded refinement, not a global survey, and coarse/fine method versions are never merged."
+  }
+}
