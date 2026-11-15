@@ -456,6 +456,7 @@ Request:
   "body": "Moon",
   "bbox": {"west": 19.85, "south": -10.15, "east": 20.15, "north": -9.85},
   "bbox_lon_convention": "signed",
+  "latitude_kind": "planetocentric",
   "requested_features": ["coarse_slope_mean_deg"],
   "idempotency_key": "moon-full-aoi-demo"
 }
@@ -477,6 +478,20 @@ Each dimension carries `provenance` (datasets, source asset ids, method versions
 inventory) and `support` (requested/analysed bbox, resolution, valid fraction, temporal/depth
 support). A queued/running job reports D01 as `pending`; the result route returns `409` until a
 `completed`/`partial` job has persisted observations.
+
+Requests are validated by the canonical `validate_aoi_geometry` contract before a job row is
+created. The explicit limits preserve the existing provider caps instead of the looser geometry
+defaults:
+
+- Moon/Mars: 1,000 m minimum side, 12,000 m maximum side, 144 km2 maximum area.
+- Earth (shared helper contract): 600 m minimum side, 2,000 m maximum side, 4 km2 maximum area.
+
+`latitude_kind=planetographic` or `geocentric` on Moon/Mars is rejected with
+`invalid_latitude_convention`; it is never silently converted to planetocentric. `support` also
+exposes the normalised bbox, `bbox_pieces` (two pieces for an antimeridian-crossing AOI), the
+`metric_envelope`, pole/full-longitude flags, `analysis_extent`, and `shrink_applied`. These fields
+are nested in the existing dict-valued `support`/`coverage` objects, so no breaking schema change is
+needed.
 
 The provider interface is the same `validate`/`analyze` protocol as `#132`. A Goal A/B full-AOI
 engine is injected as `planetary_processor` in `create_app`; until then the committed-fixture
