@@ -5007,7 +5007,7 @@
   },
   "info": {
     "description": "Search indexed Earth terrain windows for similarity to a user-supplied target vector, and analyze bounded new Earth AOIs on demand. Results are subset-based, terrain-shape-only comparisons with land-cover context.",
-    "title": "Planetary Analog Explorer API",
+    "title": "AnalogX API",
     "version": "0.1.0"
   },
   "openapi": "3.1.0",

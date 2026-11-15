@@ -61,7 +61,7 @@ def test_expansion_release_is_bounded_complete_and_detected():
         candidate["location_id"]
         for candidate in json.loads(EARTH_MANIFEST.read_text(encoding="utf-8"))["candidates"]
     }
-    assert EXPECTED_AREAS <= candidate_ids
+    assert candidate_ids >= EXPECTED_AREAS
 
     for row in observations:
         property_id = row["feature_id"].split("_")[1]
