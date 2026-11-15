@@ -12,7 +12,7 @@ This document satisfies the #138 D04-owned deliverable for a body × feature cov
 - Hydrogen/neutron/CPR observations are evidence/proxies, not confirmed ice fraction, mineable ice, or resolved subsurface ice volume. Current indexed detection claims contain **0 confirmed ice detections**.
 - Hydrated-mineral spectral evidence is D02 evidence (e.g. CRISM processing context) and is **not duplicated** as D04 scoring/filter evidence.
 - Soil moisture, snow depth, and precipitation are distinct quantities and are never merged.
-- Bounded pilot coverage only: 5 Earth AOIs / 7 days of NASA POWER context and 30 Moon/Mars native planetary tasks. This is **not** global, exhaustive, or representative coverage.
+- Bounded pilot coverage only: 5 Earth AOIs / 7 days of NASA POWER context and 30 Moon/Mars native planetary tasks/areas producing 55 observations (17 bounded Mini-RF window reads/assets support 12 CPR observations plus window-level detection claims, including no-coverage cases). This is **not** global, exhaustive, or representative coverage.
 
 ## Indexed releases (bounded, reproducible)
 

@@ -31,7 +31,7 @@
       "observations_path": "pipelines/pilots/d04_water_ice_planetary/observations.jsonl",
       "release_version": "d04-water-ice-pilot-1.0.0",
       "scope": "pilot-d04-water-ice-planetary",
-      "observation_count": null,
+      "observation_count": 55,
       "observations_sha256": "c4d5ae7bcafc098870ee638b07778e46928fc523c71960aa828bebb9a123f72e",
       "plan_sha256": "ab3b233a78a72c0700e206dfc5bc8ba5f82ae3f78a252a4f18ed0e4d78112db4",
       "assets_sha256": "cb8919fc33ee777517171c8cd7d4a2ac88a743ff2817b6044aff5bb24e254549"
