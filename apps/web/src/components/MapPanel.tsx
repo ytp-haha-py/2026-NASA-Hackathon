@@ -1,11 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import type { FeatureOut, NumericTarget, SearchResponse, SearchResultOut } from "../api/client";
+import type {
+  FeatureOut,
+  NumericTarget,
+  ReferenceOut,
+  SearchResponse,
+  SearchResultOut,
+} from "../api/client";
 import { useI18n } from "../i18n/I18nProvider";
+import { PlanetMap, type PlanetBody } from "./PlanetMap";
 import { RankingOverlay } from "./RankingOverlay";
 
 type Basemap = "map" | "terrain" | "satellite";
+type BodyView = "Earth" | PlanetBody;
+
+const BODY_ORDER: BodyView[] = ["Earth", "Moon", "Mars"];
 
 const BASEMAP_ORDER: Basemap[] = ["map", "terrain", "satellite"];
 
@@ -19,6 +29,9 @@ type MapPanelProps = {
   target?: NumericTarget;
   /** Show the "nothing ranked yet" panel before the first search. */
   showIdle?: boolean;
+  /** Moon and Mars reference sites, shown on their own basemaps. */
+  references?: ReferenceOut[];
+  selectedReferenceId?: string | null;
 };
 
 const BASEMAPS: Record<Basemap, { url: string; maxZoom: number; attribution: string }> = {
@@ -95,14 +108,18 @@ export function MapPanel({
   features = [],
   target = {},
   showIdle = false,
+  references = [],
+  selectedReferenceId = null,
 }: MapPanelProps) {
-  const { t, tp, fmt } = useI18n();
+  const { t, tp, fmt, label } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
   const tilesRef = useRef<L.TileLayer | null>(null);
   const onSelectRef = useRef(onSelect);
   const [basemap, setBasemap] = useState<Basemap>("map");
+  const [bodyView, setBodyView] = useState<BodyView>("Earth");
+  const onEarth = bodyView === "Earth";
   const [basemapUnavailable, setBasemapUnavailable] = useState(
     () => typeof navigator !== "undefined" && navigator.onLine === false,
   );
@@ -282,7 +299,36 @@ export function MapPanel({
           aria-label={t("map.regionLabel")}
         />
 
-        <div className="map-toggle" role="group" aria-label={t("map.basemapLabel")}>
+        {!onEarth && (
+          <PlanetMap
+            key={bodyView}
+            body={bodyView}
+            references={references}
+            selectedReferenceId={selectedReferenceId}
+            regionLabel={t("map.planetRegionLabel", { body: label.body(bodyView) })}
+          />
+        )}
+
+        <div className="map-toggle map-body-toggle" role="group" aria-label={t("map.bodyLabel")}>
+          {BODY_ORDER.map((value) => (
+            <button
+              key={value}
+              type="button"
+              aria-pressed={bodyView === value}
+              className={bodyView === value ? "is-active" : ""}
+              onClick={() => setBodyView(value)}
+            >
+              {label.body(value)}
+            </button>
+          ))}
+        </div>
+
+        <div
+          className="map-toggle"
+          role="group"
+          aria-label={t("map.basemapLabel")}
+          hidden={!onEarth}
+        >
           {BASEMAP_ORDER.map((value) => (
             <button
               key={value}
@@ -300,13 +346,13 @@ export function MapPanel({
           ))}
         </div>
 
-        {results.length > 0 && (
+        {onEarth && results.length > 0 && (
           <button type="button" className="map-show-all" onClick={showAll}>
             {t("map.showAll")}
           </button>
         )}
 
-        {response && (
+        {onEarth && response && (
           <RankingOverlay
             response={response}
             features={features}

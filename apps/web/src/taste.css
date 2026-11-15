@@ -987,3 +987,246 @@ fieldset legend,
 .metric > .metric-row-weight {
   order: 1;
 }
+
+/* ==========================================================================
+   Moon and Mars maps: the planet canvas covers the Earth map; body switch on
+   top, Earth basemap switch under it.
+   ========================================================================== */
+
+.map-stage > .map-canvas {
+  isolation: isolate;
+}
+
+.planet-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 450;
+  background: #0b0b0b;
+}
+
+:root[data-theme="dark"] .planet-canvas .leaflet-tile-pane {
+  filter: none;
+}
+
+.map-toggle {
+  top: 60px;
+  border-radius: var(--r-btn);
+  box-shadow: 0 1px 3px rgb(17 17 17 / 18%);
+}
+
+.map-toggle.map-body-toggle {
+  top: 12px;
+}
+
+.map-toggle[hidden] {
+  display: none;
+}
+
+.map-show-all {
+  top: 108px;
+}
+
+/* ==========================================================================
+   No cards: one white page. Sections are separated by space and a hairline,
+   not by boxes, fills or shadows. Only the map keeps a frame, because it is a
+   picture.
+   ========================================================================== */
+
+:root {
+  --bg: #ffffff;
+  --shadow-float: none;
+  --shadow-lift: none;
+}
+
+:root[data-theme="dark"] {
+  --bg: #111111;
+  --surface: #111111;
+  --surface-muted: #111111;
+}
+
+.target-bar,
+.dimension-board,
+.search-form,
+.aoi-form,
+.aoi-workspace,
+.results-panel,
+.detail-panel,
+.about-panel,
+.coverage-strip,
+.coverage-panel,
+.six-dimension-panel,
+.six-controls,
+.six-dimension-card,
+.global-panel,
+.global-search,
+.context-filters,
+.context-only-section,
+.context-export,
+.map-panel,
+.datasets-block,
+.refine-plan,
+fieldset {
+  padding-inline: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.app-main {
+  gap: 0;
+  max-width: 1280px;
+  padding-top: 8px;
+}
+
+.panel-stack,
+.search-form {
+  gap: 0;
+}
+
+/* each top-level block: space above and below, hairline between */
+.target-bar,
+.dimension-board,
+.map-panel,
+.results-grid,
+.about-panel,
+.aoi-form,
+.aoi-workspace,
+.six-dimension-panel,
+.global-panel {
+  padding-block: 36px;
+  border-bottom: 1px solid var(--line);
+}
+
+.target-bar {
+  padding-block: 28px;
+}
+
+.about-panel {
+  border-bottom: 0;
+}
+
+.board-head {
+  padding: 0 0 24px;
+  border-bottom: 0;
+}
+
+.board-head h2 {
+  font-size: 26px;
+  letter-spacing: -0.02em;
+}
+
+.dimension-nav {
+  padding: 0 24px 0 0;
+}
+
+.dimension-nav-item {
+  margin-left: -14px;
+}
+
+.dimension-board-grid {
+  padding: 4px 0 8px 40px;
+  background: transparent;
+}
+
+.context-filters {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* results: rows on rules, not boxed cards */
+.results-grid {
+  gap: 64px;
+}
+
+.results-list {
+  gap: 0;
+}
+
+.result-card,
+.result-card.is-selected {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line-soft);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.result-select,
+.result-select:hover {
+  padding: 18px 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+.result-card.is-selected .result-title strong,
+.result-select:hover .result-title strong {
+  color: var(--accent);
+}
+
+.result-body {
+  padding: 0 0 20px;
+}
+
+.detail-panel {
+  padding-block: 0;
+}
+
+.section-heading h2 {
+  font-size: 26px;
+  letter-spacing: -0.02em;
+}
+
+/* the map: a framed picture; the ranking is a flush column inside it */
+.map-stage {
+  border: 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.ranking-overlay {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  max-height: none;
+  border-right: 1px solid var(--line);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.ranking-overlay.is-expanded {
+  width: 100%;
+}
+
+.leaflet-popup-content-wrapper,
+.pae-popup .leaflet-popup-content-wrapper {
+  border-radius: var(--r-sm);
+  box-shadow: 0 2px 10px rgb(17 17 17 / 16%);
+}
+
+/* evidence pane and notices: plain text blocks */
+.alert {
+  padding: 4px 0 4px 16px;
+  background: transparent;
+  border: 0;
+  border-left: 3px solid currentColor;
+  border-radius: 0;
+}
+
+.about-panel > summary {
+  padding: 0;
+}
+
+table {
+  border: 0;
+}
+
+.result-card.is-selected .result-select,
+.result-card.is-selected {
+  background: transparent;
+}
