@@ -1,0 +1,2177 @@
+{
+  "bounded_expansion": {
+    "checkpoints": [
+      {
+        "acceptance": "Existing manifests, observations and QA counts unchanged; no source substitution.",
+        "action": "Freeze the current 75 D04 and 300 D06 observations; verify release integrity and manifest checksums.",
+        "id": "checkpoint-0",
+        "requests": 0,
+        "status": "complete"
+      },
+      {
+        "acceptance": "300/300 successful or per-request failure recorded; 100 new QA groups; 0 fabricated values; report explicitly says 10 AOIs, not global.",
+        "action": "Add 5 pre-registered Earth AOIs at the same SoilGrids 250 m support, 5 properties, 4 depths and 3 statistics.",
+        "blockers": "AOI list must be fixed in a plan file before requests; no ad hoc coordinate expansion.",
+        "id": "checkpoint-1",
+        "requests": "5 AOIs x 5 properties x 4 depths x 3 statistics = 300 tiny WCS requests",
+        "status": "proposed"
+      },
+      {
+        "acceptance": "Update contracts/d06-regolith-semantics-v1.json, _D06_PATTERN, _DEPTHS and eligibility tests; 150/150 or explicit failures; depth never pooled.",
+        "action": "Extend SoilGrids to 60-100 and 100-200 cm at the existing 5 AOIs.",
+        "blockers": "Semantics change; current eligibility regex stops at 30-60 cm. Do not ingest before the version bump.",
+        "id": "checkpoint-2",
+        "requests": "5 AOIs x 5 properties x 2 depths x 3 statistics = 150 tiny WCS requests",
+        "status": "proposed"
+      },
+      {
+        "acceptance": "Per-sample depth, bin edges and basis documented; D06 detected observations pass explicit-depth validation; otherwise record state=unknown and do not claim coverage.",
+        "action": "Evaluate PlanetGSD lunar/Martian particle-size distributions for D06 evidence-only observations.",
+        "blockers": "Depth metadata and bin/basis mapping; third-party license/attribution review.",
+        "id": "checkpoint-3",
+        "requests": "2 XLSX downloads (36.8 KB Moon; 3.66 MB Mars), no raster",
+        "status": "proposed"
+      },
+      {
+        "acceptance": "Register an absolute flux feature or a documented normalization; keep it evidence-only; do not reuse epithermal_neutron_flux_ratio without unit proof.",
+        "action": "Evaluate the Odyssey NS 0.5 degree epithermal table as a D04 evidence-only Mars source.",
+        "blockers": "No registered counts/second feature; 0.5 degree is still ~30 km.",
+        "id": "checkpoint-4",
+        "requests": "1 ASCII table (6.7 MB) plus label, no raster",
+        "status": "proposed"
+      }
+    ],
+    "do_not_do": [
+      "Do not treat SoilGrids model predictions as measured samples.",
+      "Do not map D04 atmospheric D/H, neutron flux or CPR directly to ice abundance.",
+      "Do not pool SoilGrids depths or substitute a point query for an AOI mean.",
+      "Do not ingest PlanetGSD or Zenodo data without depth/license review.",
+      "Do not call any checkpoint global, exhaustive or representative."
+    ],
+    "principle": "Add coverage in small, pre-registered checkpoints. Every checkpoint must preserve exact area_id/depth/statistic joins, report per-AOI counts, and avoid any global or representative claim."
+  },
+  "catalog_id": "d04-d06-open-data-source-audit",
+  "existing_coverage": {
+    "D04": {
+      "by_body": {
+        "Earth": 20,
+        "Mars": 2,
+        "Moon": 53
+      },
+      "by_feature": {
+        "epithermal_neutron_flux_ratio": 1,
+        "precipitation_mm_day": 5,
+        "radar_circular_polarization_ratio": 12,
+        "root_zone_soil_wetness_fraction": 5,
+        "snow_depth_cm": 5,
+        "surface_soil_wetness_fraction": 5,
+        "water_equivalent_hydrogen_wt_percent": 12,
+        "water_ice_detection": 30
+      },
+      "by_state": {
+        "detected": 45,
+        "no_coverage": 5,
+        "not_detected": 1,
+        "unknown": 24
+      },
+      "confirmed_ice_detections": 0,
+      "notes": [
+        "The 55 Moon/Mars observations are evidence-only; 30 water_ice_detection claims are unknown/no_coverage/not_detected.",
+        "The 20 Earth NASA POWER observations are context-only.",
+        "No D04 similarity feature exists."
+      ],
+      "observation_count": 75,
+      "releases": [
+        "pipelines/pilots/d04_water_ice_planetary",
+        "pipelines/pilots/d04_earth_power"
+      ]
+    },
+    "D06": {
+      "areas": [
+        "earth-atacama-desert",
+        "earth-death-valley",
+        "earth-devon-island",
+        "earth-lanzarote",
+        "earth-sahara-r1c1"
+      ],
+      "by_body": {
+        "Earth": 300
+      },
+      "by_depth_cm": {
+        "0-5": 75,
+        "15-30": 75,
+        "30-60": 75,
+        "5-15": 75
+      },
+      "by_property": {
+        "bdod": 60,
+        "clay": 60,
+        "sand": 60,
+        "silt": 60,
+        "soc": 60
+      },
+      "by_statistic": {
+        "mean": 100,
+        "q05": 100,
+        "q95": 100
+      },
+      "notes": [
+        "Five AOIs only; not a global or exhaustive SoilGrids survey.",
+        "Each observation carries its own depth interval; depths are never pooled.",
+        "0-5 cm means are the preferred gated Earth-Earth non-D01 similarity feature; Q05/Q95 are uncertainty evidence."
+      ],
+      "observation_count": 300,
+      "qa_groups": 100,
+      "qa_groups_complete": 100,
+      "release": "pipelines/pilots/d06_earth_soilgrids_depths",
+      "requests_failed": 0,
+      "requests_succeeded": 300
+    }
+  },
+  "feature_registry": {
+    "D04": [
+      {
+        "bodies": [
+          "Earth",
+          "Moon",
+          "Mars"
+        ],
+        "current_observations": 30,
+        "feature_id": "water_ice_detection",
+        "registered_in": "pipelines/src/analog_pipelines/dimensions.py",
+        "role": "evidence_only"
+      },
+      {
+        "bodies": [
+          "Earth",
+          "Moon",
+          "Mars"
+        ],
+        "current_observations": 0,
+        "feature_id": "water_ice_depth_interval",
+        "registered_in": "pipelines/src/analog_pipelines/dimensions.py",
+        "role": "evidence_only"
+      },
+      {
+        "bodies": [
+          "Moon",
+          "Mars"
+        ],
+        "current_observations": 12,
+        "feature_id": "water_equivalent_hydrogen_wt_percent",
+        "registered_in": "pipelines/src/analog_pipelines/dimensions.py",
+        "role": "evidence_only"
+      },
+      {
+        "bodies": [
+          "Moon",
+          "Mars"
+        ],
+        "current_observations": 1,
+        "feature_id": "epithermal_neutron_flux_ratio",
+        "registered_in": "pipelines/src/analog_pipelines/dimensions.py",
+        "role": "evidence_only"
+      },
+      {
+        "bodies": [
+          "Moon",
+          "Mars"
+        ],
+        "current_observations": 12,
+        "feature_id": "radar_circular_polarization_ratio",
+        "registered_in": "pipelines/src/analog_pipelines/dimensions.py",
+        "role": "evidence_only"
+      },
+      {
+        "bodies": [
+          "Earth"
+        ],
+        "current_observations": 5,
+        "feature_id": "surface_soil_wetness_fraction",
+        "registered_in": "pilot-local only (not FEATURES_V2)",
+        "role": "context_only"
+      },
+      {
+        "bodies": [
+          "Earth"
+        ],
+        "current_observations": 5,
+        "feature_id": "root_zone_soil_wetness_fraction",
+        "registered_in": "pilot-local only (not FEATURES_V2)",
+        "role": "context_only"
+      },
+      {
+        "bodies": [
+          "Earth"
+        ],
+        "current_observations": 5,
+        "feature_id": "snow_depth_cm",
+        "registered_in": "pilot-local only (not FEATURES_V2)",
+        "role": "context_only"
+      },
+      {
+        "bodies": [
+          "Earth"
+        ],
+        "current_observations": 5,
+        "feature_id": "precipitation_mm_day",
+        "registered_in": "pilot-local only (not FEATURES_V2)",
+        "role": "context_only"
+      }
+    ],
+    "D06": [
+      {
+        "current_observations": 5,
+        "feature_id": "soil_clay_0_5cm_mean",
+        "registered_in": "eligibility.py (194375c)",
+        "role": "similarity (Earth only)"
+      },
+      {
+        "current_observations": 5,
+        "feature_id": "soil_sand_0_5cm_mean",
+        "registered_in": "eligibility.py (194375c)",
+        "role": "similarity (Earth only)"
+      },
+      {
+        "current_observations": 5,
+        "feature_id": "soil_silt_0_5cm_mean",
+        "registered_in": "eligibility.py (194375c)",
+        "role": "similarity (Earth only)"
+      },
+      {
+        "current_observations": 5,
+        "feature_id": "soil_bdod_0_5cm_mean",
+        "registered_in": "eligibility.py (194375c)",
+        "role": "similarity (Earth only)"
+      },
+      {
+        "current_observations": 5,
+        "feature_id": "soil_soc_0_5cm_mean",
+        "registered_in": "eligibility.py (194375c)",
+        "role": "similarity (Earth only)"
+      },
+      {
+        "current_observations": 200,
+        "feature_id": "soil_*_q05|q95",
+        "registered_in": "eligibility.py (194375c)",
+        "role": "uncertainty evidence"
+      },
+      {
+        "current_observations": 0,
+        "feature_id": "particle_size_distribution",
+        "registered_in": "pipelines/src/analog_pipelines/dimensions.py",
+        "role": "evidence_only"
+      },
+      {
+        "current_observations": 0,
+        "feature_id": "bulk_density_kg_m3",
+        "registered_in": "pipelines/src/analog_pipelines/dimensions.py",
+        "role": "evidence_only"
+      },
+      {
+        "current_observations": 0,
+        "feature_id": "porosity_fraction",
+        "registered_in": "pipelines/src/analog_pipelines/dimensions.py",
+        "role": "evidence_only"
+      },
+      {
+        "current_observations": 0,
+        "feature_id": "cohesion_kpa",
+        "registered_in": "pipelines/src/analog_pipelines/dimensions.py",
+        "role": "evidence_only"
+      },
+      {
+        "current_observations": 0,
+        "feature_id": "friction_angle_deg",
+        "registered_in": "pipelines/src/analog_pipelines/dimensions.py",
+        "role": "evidence_only"
+      },
+      {
+        "current_observations": 0,
+        "feature_id": "bearing_strength_kpa",
+        "registered_in": "pipelines/src/analog_pipelines/dimensions.py",
+        "role": "evidence_only"
+      },
+      {
+        "current_observations": 0,
+        "feature_id": "regolith_thickness_m",
+        "registered_in": "absent",
+        "role": "no registered feature"
+      }
+    ]
+  },
+  "observed_on": "2026-11-15",
+  "repository_context": {
+    "audit_branch": "audit/d-source-audit",
+    "base_commit": "df6e365",
+    "d04_rule": "All D04 records are evidence-only. No cross-body or same-quantity mapping is registered for hydrogen proxies, radar CPR, soil wetness or snow depth.",
+    "d06_similarity_rule": "Only soil_<property>_<depth>cm_mean features with state=detected, Earth body, exact area_id, method soilgrids-wcs-2.0.0, exact unit and bbox within 1e-6 degree are similarity-eligible. Q05/Q95 are uncertainty evidence only.",
+    "eligibility_note": "apps/api/src/analog_api/domain/eligibility.py exists on feat/116-multidim-search (commit 194375c), not on this audit branch. It was read via git show and is cited, not modified.",
+    "eligibility_source_commit": "194375c"
+  },
+  "reproduce": {
+    "ci_default": "not run in CI; the reproducibility command is manual/opt-in",
+    "command": "python3 scripts/check_d04_d06_sources.py",
+    "network_required": true,
+    "notes": "The checker uses stdlib only, sends small Range/metadata/WCS requests, never downloads the 4.25 GB Mini-RF image or the 14.3 MB LP table, and exits non-zero on any regression."
+  },
+  "schema_version": "1.0.0",
+  "scope": {
+    "bodies": [
+      "Earth",
+      "Moon",
+      "Mars"
+    ],
+    "dimensions": [
+      "D04",
+      "D06"
+    ],
+    "non_claims": [
+      "This catalog is not a global or exhaustive survey.",
+      "No observation is fabricated, zero-filled, interpolated or transferred across bodies.",
+      "A reachable source is not the same as an ingested observation.",
+      "D04 water-equivalent hydrogen, neutron flux and radar CPR are evidence, not confirmed ice.",
+      "SoilGrids values are 250 m model predictions, not local measurements.",
+      "No Moon or Mars D06 physical-property coverage is claimed."
+    ],
+    "purpose": "Reproducible audit of public D04 water/ice and D06 regolith/soil sources, with verified HTTP evidence, license, coverage, CRS/frame, depth/time support, feature mapping and a bounded expansion path."
+  },
+  "sources": [
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "ASCII table",
+        "rate_limit": "none declared"
+      },
+      "availability": "usable_existing",
+      "blockers": [],
+      "bodies": [
+        "Moon"
+      ],
+      "coverage": "12 native lunar cells covering the existing reference windows in pipelines/pilots/d04_water_ice_planetary. Not global.",
+      "crs_or_frame": "IAU_MOON planetocentric longitude/latitude; 0.5 x 0.5 degree simple cylindrical cells",
+      "dataset_id": "lp-ns-hydrogenhd",
+      "depth_support": "Integrated over the upper ~1 m neutron sensing depth; method-level approximation, not per-pixel retrieval.",
+      "dimensions": [
+        "D04"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 12,
+          "dimension": "D04",
+          "feature_id": "water_equivalent_hydrogen_wt_percent",
+          "notes": "H ppm by weight x 9; not an ice fraction and not a detection.",
+          "status": "existing_observed"
+        }
+      ],
+      "license": {
+        "attribution": "NASA Planetary Data System (PDS); cite the instrument team and the exact PDS product.",
+        "id": "CC0-1.0",
+        "redistribution": "allowed_with_attribution",
+        "url": "https://science.data.nasa.gov/about/license",
+        "verification": {
+          "bytes_max": 200000,
+          "bytes_min": 40000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "Science Data Licenses",
+            "Creative Commons"
+          ],
+          "note": "NASA open-data policy page. It does not enumerate per-product terms; repository precedent records NASA-led PDS products as CC0-1.0.",
+          "observed_bytes": 72405,
+          "reproduce": "curl -sS -L 'https://science.data.nasa.gov/about/license'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://science.data.nasa.gov/about/license",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "0.5 degree cells cannot resolve a 1.98 km reference window.",
+        "No per-cell uncertainty column; retrieval is unreliable where thorium/rare-earth abundances are high.",
+        "Water-equivalent hydrogen is not water ice, ice phase, or mineable ice."
+      ],
+      "native_resolution": "0.5 x 0.5 degree (about 15.1 km at the equator)",
+      "product": "Hydrogen_halfdeg, December 2001 (hydrogenhd.txt)",
+      "provider": "NASA Lunar Prospector Neutron Spectrometer (PDS Geosciences Node special product)",
+      "source_id": "pds-lp-ns-hydrogenhd",
+      "time_support": "1998-01-16 through 1999-07-31 low-altitude mission phase; mission composite, not a time series.",
+      "verification": {
+        "bytes_max": 2048,
+        "bytes_min": 2048,
+        "check": true,
+        "content_range_total": 14256401,
+        "content_type": "text/plain",
+        "http_status": 206,
+        "must_contain": [
+          "Hydrogen_halfdeg",
+          "H ppm by weight"
+        ],
+        "note": "Range request only; the 14.3 MB ASCII table is never downloaded by the checker.",
+        "observed_bytes": 2048,
+        "reproduce": "curl -sS -L -r 0-2047 'https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt'",
+        "request": {
+          "headers": {
+            "Range": "bytes=0-2047"
+          },
+          "method": "GET",
+          "url": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced/hydrogenhd.txt",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "PDS3 IMG + LBL",
+        "rate_limit": "none declared"
+      },
+      "additional_checks": [
+        {
+          "bytes_max": 1024,
+          "bytes_min": 1024,
+          "check": true,
+          "content_range_total": 4246732800,
+          "content_type": "application/octet-stream",
+          "http_status": 206,
+          "must_contain": [],
+          "note": "Byte-range probe of the first 1 KB only.",
+          "observed_bytes": 1024,
+          "reproduce": "curl -sS -L -r 0-1023 'https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img'",
+          "request": {
+            "headers": {
+              "Range": "bytes=0-1023"
+            },
+            "method": "GET",
+            "url": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.img",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      ],
+      "availability": "usable_existing",
+      "blockers": [],
+      "bodies": [
+        "Moon"
+      ],
+      "coverage": "12 native 8x8 pixel windows in the existing pilot; not global.",
+      "crs_or_frame": "IAU_MOON planetocentric; simple cylindrical, 128 pixels/degree, 0.23690117518867 km/pixel",
+      "dataset_id": "lro-minirf-cpr-128ppd",
+      "depth_support": "Near-surface S-band (12.6 cm) radar scattering; no depth retrieval and no inversion depth asserted.",
+      "dimensions": [
+        "D04"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 12,
+          "dimension": "D04",
+          "feature_id": "radar_circular_polarization_ratio",
+          "notes": "CPR = SC/OS; CPR >= 1 is ice-consistent but not diagnostic.",
+          "status": "existing_observed"
+        }
+      ],
+      "license": {
+        "attribution": "NASA Planetary Data System (PDS); cite the instrument team and the exact PDS product.",
+        "id": "CC0-1.0",
+        "redistribution": "allowed_with_attribution",
+        "url": "https://science.data.nasa.gov/about/license",
+        "verification": {
+          "bytes_max": 200000,
+          "bytes_min": 40000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "Science Data Licenses",
+            "Creative Commons"
+          ],
+          "note": "NASA open-data policy page. It does not enumerate per-product terms; repository precedent records NASA-led PDS products as CC0-1.0.",
+          "observed_bytes": 72405,
+          "reproduce": "curl -sS -L 'https://science.data.nasa.gov/about/license'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://science.data.nasa.gov/about/license",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "Rough surfaces and wavelength-scale rocks also raise CPR; CPR is not an ice detection.",
+        "No per-pixel calibration uncertainty in the mosaic; observed min/max spread is not a confidence interval.",
+        "Mixed acquisitions and no depth retrieval."
+      ],
+      "native_resolution": "128 ppd (about 237 m/pixel)",
+      "product": "LRO-L-MRFLRO-5-GLOBAL-MOSAIC-V1.0; GLOBAL_CPR_128PPD_SIMP_0C.IMG",
+      "provider": "NASA LRO Mini-RF (PDS Geosciences Node global mosaic bundle)",
+      "source_id": "pds-lro-minirf-cpr-128ppd",
+      "time_support": "2009-07-19 through 2010-12-26 per label START_TIME/STOP_TIME; mosaic mixes acquisitions.",
+      "verification": {
+        "bytes_max": 2048,
+        "bytes_min": 2048,
+        "check": true,
+        "content_range_total": 3875,
+        "content_type": "text/plain",
+        "http_status": 206,
+        "must_contain": [
+          "GLOBAL_CPR_128PPD_SIMP_0C.IMG"
+        ],
+        "note": "The label is 3,875 bytes; the checker reads only the first 2 KB. The image is 4.25 GB and is never downloaded.",
+        "observed_bytes": 2048,
+        "reproduce": "curl -sS -L -r 0-2047 'https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.lbl'",
+        "request": {
+          "headers": {
+            "Range": "bytes=0-2047"
+          },
+          "method": "GET",
+          "url": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/128ppd/global_cpr_128ppd_simp_0c.lbl",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "PDS4 table",
+        "rate_limit": "none declared"
+      },
+      "availability": "usable_existing",
+      "blockers": [],
+      "bodies": [
+        "Mars"
+      ],
+      "coverage": "1 native Mars cell covering the Jezero reference areas; 2 observations in the existing pilot. Not global.",
+      "crs_or_frame": "IAU_MARS planetocentric longitude/latitude; 4 x 4 degree cells",
+      "dataset_id": "mro-hend-epithermal-020917",
+      "depth_support": "Upper ~1 m of regolith via epithermal neutron escape depth; method-level approximation, not per-pixel retrieval.",
+      "dimensions": [
+        "D04"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 1,
+          "dimension": "D04",
+          "feature_id": "epithermal_neutron_flux_ratio",
+          "notes": "Normalized to 1 at Solis Planum; low flux is a hydrogen proxy, not ice abundance.",
+          "status": "existing_observed"
+        }
+      ],
+      "license": {
+        "attribution": "NASA Planetary Data System (PDS); cite the instrument team and the exact PDS product.",
+        "id": "CC0-1.0",
+        "redistribution": "allowed_with_attribution",
+        "url": "https://science.data.nasa.gov/about/license",
+        "verification": {
+          "bytes_max": 200000,
+          "bytes_min": 40000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "Science Data Licenses",
+            "Creative Commons"
+          ],
+          "note": "NASA open-data policy page. It does not enumerate per-product terms; repository precedent records NASA-led PDS products as CC0-1.0.",
+          "observed_bytes": 72405,
+          "reproduce": "curl -sS -L 'https://science.data.nasa.gov/about/license'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://science.data.nasa.gov/about/license",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "4 degree cells do not resolve 1.98 km windows.",
+        "No per-cell uncertainty column; normalization is documented but not a WEH conversion.",
+        "A hydrogen proxy is not an ice fraction, phase, or volume."
+      ],
+      "native_resolution": "4 x 4 degree cells (about 237 km at the equator); 4,050 cells",
+      "product": "HEND epithermal neutron flux ratio (hend_epithermal_020917.tab)",
+      "provider": "NASA 2001 Mars Odyssey HEND (PDS Geosciences Node GRS special products)",
+      "source_id": "pds-odyssey-hend-epithermal",
+      "time_support": "First 55 days of Odyssey mapping (2002); the label has no start/stop dates, so the exact interval is unknown.",
+      "verification": {
+        "bytes_max": 2048,
+        "bytes_min": 2048,
+        "check": true,
+        "content_range_total": 202500,
+        "content_type": "text/plain",
+        "http_status": 206,
+        "must_contain": [
+          "-178.0000000"
+        ],
+        "observed_bytes": 2048,
+        "reproduce": "curl -sS -L -r 0-2047 'https://pds-geosciences.wustl.edu/ody/urn-nasa-pds-odyssey_grs_special/data/hend_epithermal_020917.tab'",
+        "request": {
+          "headers": {
+            "Range": "bytes=0-2047"
+          },
+          "method": "GET",
+          "url": "https://pds-geosciences.wustl.edu/ody/urn-nasa-pds-odyssey_grs_special/data/hend_epithermal_020917.tab",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "PDS4 table",
+        "rate_limit": "none declared"
+      },
+      "additional_checks": [
+        {
+          "bytes_max": 1024,
+          "bytes_min": 1024,
+          "check": true,
+          "content_range_total": 6739200,
+          "content_type": "text/plain",
+          "http_status": 206,
+          "must_contain": [
+            "180.25"
+          ],
+          "note": "6.7 MB ASCII table; the checker reads the first 1 KB only.",
+          "observed_bytes": 1024,
+          "reproduce": "curl -sS -L -r 0-1023 'https://pds-geosciences.wustl.edu/ody/urn-nasa-pds-odyssey_grs_special/data/ns_epithermal_020917.tab'",
+          "request": {
+            "headers": {
+              "Range": "bytes=0-1023"
+            },
+            "method": "GET",
+            "url": "https://pds-geosciences.wustl.edu/ody/urn-nasa-pds-odyssey_grs_special/data/ns_epithermal_020917.tab",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      ],
+      "availability": "usable_candidate",
+      "blockers": [
+        "No registered feature id for absolute epithermal neutron flux in counts/second.",
+        "Normalization constants/method are not in the table."
+      ],
+      "bodies": [
+        "Mars"
+      ],
+      "coverage": "0.5 degree table covering the latitude/longitude grid described in the label. Not ingested in the current pilot; overlap with the Jezero windows was not used to claim a local measurement.",
+      "crs_or_frame": "IAU_MARS planetocentric longitude/latitude; 0.5 x 0.5 degree cells",
+      "dataset_id": "mars-odyssey-ns-epithermal-0p5deg",
+      "depth_support": "Upper ~1 m neutron sensing depth; method-level approximation, not per-pixel retrieval.",
+      "dimensions": [
+        "D04"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 0,
+          "dimension": "D04",
+          "feature_id": "epithermal_neutron_flux_ratio",
+          "notes": "The product stores COUNTS/SECOND, not the normalized ratio. Reusing the existing ratio feature would be a unit/semantics error; a new feature id or a documented normalization method is required.",
+          "status": "candidate_new_method"
+        }
+      ],
+      "license": {
+        "attribution": "NASA Planetary Data System (PDS); cite the instrument team and the exact PDS product.",
+        "id": "CC0-1.0",
+        "redistribution": "allowed_with_attribution",
+        "url": "https://science.data.nasa.gov/about/license",
+        "verification": {
+          "bytes_max": 200000,
+          "bytes_min": 40000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "Science Data Licenses",
+            "Creative Commons"
+          ],
+          "note": "NASA open-data policy page. It does not enumerate per-product terms; repository precedent records NASA-led PDS products as CC0-1.0.",
+          "observed_bytes": 72405,
+          "reproduce": "curl -sS -L 'https://science.data.nasa.gov/about/license'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://science.data.nasa.gov/about/license",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "0.5 degree is still ~30 km, far coarser than the 1.98 km reference windows.",
+        "Counts/second require normalization before comparison with HEND or any other instrument.",
+        "No per-cell uncertainty column."
+      ],
+      "native_resolution": "0.5 x 0.5 degree (about 30 km at the equator)",
+      "product": "NS epithermal neutron flux, 0.5 degree table (ns_epithermal_020917.tab)",
+      "provider": "NASA 2001 Mars Odyssey Neutron Spectrometer (PDS Geosciences Node GRS special products)",
+      "source_id": "pds-odyssey-ns-epithermal-0p5deg",
+      "time_support": "First 55 days of mapping (2002) per product label; mission composite.",
+      "verification": {
+        "bytes_max": 2860,
+        "bytes_min": 2860,
+        "check": true,
+        "content_type": "text/plain",
+        "http_status": 200,
+        "must_contain": [
+          "0.5 by 0.5",
+          "COUNTS/SECOND",
+          "EPITHERMAL"
+        ],
+        "observed_bytes": 2860,
+        "reproduce": "curl -sS -L 'https://pds-geosciences.wustl.edu/ody/urn-nasa-pds-odyssey_grs_special/data/ns_epithermal_020917.lbl'",
+        "request": {
+          "headers": {},
+          "method": "GET",
+          "url": "https://pds-geosciences.wustl.edu/ody/urn-nasa-pds-odyssey_grs_special/data/ns_epithermal_020917.lbl",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "PDS4 XML label + binary table",
+        "rate_limit": "none declared"
+      },
+      "additional_checks": [
+        {
+          "bytes_max": 1024,
+          "bytes_min": 1024,
+          "check": true,
+          "content_range_total": 4464000,
+          "content_type": "application/octet",
+          "http_status": 206,
+          "must_contain": [],
+          "note": "PDS4 binary table; first 1 KB only.",
+          "observed_bytes": 1024,
+          "reproduce": "curl -sS -L -r 0-1023 'https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alds_20090915.dat'",
+          "request": {
+            "headers": {
+              "Range": "bytes=0-1023"
+            },
+            "method": "GET",
+            "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alds_20090915.dat",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      ],
+      "availability": "blocked",
+      "blockers": [
+        "Missing per-detector normalization constants for flux/WEH conversion.",
+        "No existing D04 numeric observation is emitted from this product."
+      ],
+      "bodies": [
+        "Moon"
+      ],
+      "coverage": "South polar 0.5 degree grid; not global. No existing pilot observation is derived from this product.",
+      "crs_or_frame": "IAU_MOON planetocentric; 0.5 degree polar grid below -80 degrees latitude (14,400 cells)",
+      "dataset_id": "lro-lend-alds-20090915",
+      "depth_support": "Upper ~1 m neutron sensing depth; method-level approximation.",
+      "dimensions": [
+        "D04"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 0,
+          "dimension": "D04",
+          "feature_id": "water_equivalent_hydrogen_wt_percent",
+          "notes": "Relative counting rates are not WEH.",
+          "status": "blocked_not_derived"
+        }
+      ],
+      "license": {
+        "attribution": "NASA Planetary Data System (PDS); cite the instrument team and the exact PDS product.",
+        "id": "CC0-1.0",
+        "redistribution": "allowed_with_attribution",
+        "url": "https://science.data.nasa.gov/about/license",
+        "verification": {
+          "bytes_max": 200000,
+          "bytes_min": 40000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "Science Data Licenses",
+            "Creative Commons"
+          ],
+          "note": "NASA open-data policy page. It does not enumerate per-product terms; repository precedent records NASA-led PDS products as CC0-1.0.",
+          "observed_bytes": 72405,
+          "reproduce": "curl -sS -L 'https://science.data.nasa.gov/about/license'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://science.data.nasa.gov/about/license",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "The ALDS table carries normalized relative counting rates but not the per-detector normalization constants needed for flux or water-equivalent hydrogen.",
+        "Reinterpreting the counts as abundance would invent a conversion."
+      ],
+      "native_resolution": "0.5 x 0.5 degree (about 15.1 km at the equator; smaller in longitude near the pole)",
+      "product": "LEND RDR averaged south-polar neutron counting rates, lend_rdr_alds_20090915",
+      "provider": "NASA LRO LEND (PDS Geosciences Node)",
+      "source_id": "pds-lro-lend-alds",
+      "time_support": "2009-09-15 through 2011-12-11 per table START/STOP.",
+      "verification": {
+        "bytes_max": 4096,
+        "bytes_min": 4096,
+        "check": true,
+        "content_range_total": 19224,
+        "content_type": "application/xml",
+        "http_status": 206,
+        "must_contain": [
+          "lend_rdr_alds",
+          "logical_identifier"
+        ],
+        "observed_bytes": 4096,
+        "reproduce": "curl -sS -L -r 0-4095 'https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alds_20090915.xml'",
+        "request": {
+          "headers": {
+            "Range": "bytes=0-4095"
+          },
+          "method": "GET",
+          "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alds_20090915.xml",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "PDS4 bundle: radargram IMG, label, XML",
+        "rate_limit": "none declared"
+      },
+      "additional_checks": [
+        {
+          "bytes_max": 7630,
+          "bytes_min": 7630,
+          "check": true,
+          "content_type": "application/xml",
+          "http_status": 200,
+          "must_contain": [
+            "Mars Reconnaissance Orbiter SHARAD U.S. Radargrams Data Collection",
+            "urn:nasa:pds:mro_sharad_us_radargrams:data"
+          ],
+          "observed_bytes": 7630,
+          "reproduce": "curl -sS -L 'https://pds-geosciences.wustl.edu/mro/mro-m-sharad-5-radargram-v2/mrosh_2101/data/collection_data.xml'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://pds-geosciences.wustl.edu/mro/mro-m-sharad-5-radargram-v2/mrosh_2101/data/collection_data.xml",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        },
+        {
+          "bytes_max": 2152,
+          "bytes_min": 2152,
+          "check": true,
+          "content_type": "text/plain",
+          "http_status": 200,
+          "must_contain": [
+            "SHALLOW RADAR",
+            "MARS",
+            "2006-12-06"
+          ],
+          "observed_bytes": 2152,
+          "reproduce": "curl -sS -L 'https://pds-geosciences.wustl.edu/mro/mro-m-sharad-5-radargram-v2/mrosh_2101/data/rgram/s_0016xx/s_00168901_rgram.lbl'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://pds-geosciences.wustl.edu/mro/mro-m-sharad-5-radargram-v2/mrosh_2101/data/rgram/s_0016xx/s_00168901_rgram.lbl",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      ],
+      "availability": "blocked",
+      "blockers": [
+        "No bounded Jezero-targeted SHARAD detection product with registered processing method.",
+        "No validated depth/clutter model for these windows."
+      ],
+      "bodies": [
+        "Mars"
+      ],
+      "coverage": "Orbit tracks and radargrams; no per-cell detection mask or abundance grid. The Jezero CTX windows are not a SHARAD detection product.",
+      "crs_or_frame": "Orbit-track radargrams with per-product geometry; not an areal map grid.",
+      "dataset_id": "mro-sharad-radargrams",
+      "depth_support": "Sounding radar with subsurface reflectors; depth depends on dielectric model and clutter interpretation.",
+      "dimensions": [
+        "D04"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 0,
+          "dimension": "D04",
+          "feature_id": "water_ice_detection",
+          "notes": "A defensible subsurface detection needs track selection, clutter modelling and reflector interpretation.",
+          "status": "blocked_not_derived"
+        },
+        {
+          "current_observations": 0,
+          "dimension": "D04",
+          "feature_id": "water_ice_depth_interval",
+          "notes": "No depth interval is registered for these windows.",
+          "status": "blocked_not_derived"
+        }
+      ],
+      "license": {
+        "attribution": "NASA Planetary Data System (PDS); cite the instrument team and the exact PDS product.",
+        "id": "CC0-1.0",
+        "redistribution": "allowed_with_attribution",
+        "url": "https://science.data.nasa.gov/about/license",
+        "verification": {
+          "bytes_max": 200000,
+          "bytes_min": 40000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "Science Data Licenses",
+            "Creative Commons"
+          ],
+          "note": "NASA open-data policy page. It does not enumerate per-product terms; repository precedent records NASA-led PDS products as CC0-1.0.",
+          "observed_bytes": 72405,
+          "reproduce": "curl -sS -L 'https://science.data.nasa.gov/about/license'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://science.data.nasa.gov/about/license",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "Radargrams are not a per-cell detection mask.",
+        "Clutter simulations and reflector interpretation are required; that is a research method, not a metadata join."
+      ],
+      "native_resolution": "Along-track radargram samples; no per-cell areal resolution. Not comparable to a 1.98 km window without resampling/interpretation.",
+      "product": "MRO-M-SHARAD-5-RADARGRAM-V2.0; U.S. radargram bundle",
+      "provider": "NASA MRO SHARAD (PDS Geosciences Node)",
+      "source_id": "pds-mro-sharad-radargrams",
+      "time_support": "Per-orbit acquisition times (example: 2006-12-06T02:08:22.929 to 02:09:48.723); not a composite map.",
+      "verification": {
+        "bytes_max": 5303,
+        "bytes_min": 5303,
+        "check": true,
+        "content_type": "application/xml",
+        "http_status": 200,
+        "must_contain": [
+          "urn:nasa:pds:mro_sharad_us_radargrams",
+          "SHARAD"
+        ],
+        "observed_bytes": 5303,
+        "reproduce": "curl -sS -L 'https://pds-geosciences.wustl.edu/mro/mro-m-sharad-5-radargram-v2/mrosh_2101/bundle_mro_sharad_us_radargrams.xml'",
+        "request": {
+          "headers": {},
+          "method": "GET",
+          "url": "https://pds-geosciences.wustl.edu/mro/mro-m-sharad-5-radargram-v2/mrosh_2101/bundle_mro_sharad_us_radargrams.xml",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "PDS3 label + radiance cube",
+        "rate_limit": "none declared"
+      },
+      "additional_checks": [
+        {
+          "bytes_max": 9512,
+          "bytes_min": 9512,
+          "check": true,
+          "content_type": "text/plain",
+          "http_status": 200,
+          "must_contain": [
+            "COMPACT RECONNAISSANCE",
+            "MARS",
+            "2006-09-27"
+          ],
+          "observed_bytes": 9512,
+          "reproduce": "curl -sS -L 'https://pds-geosciences.wustl.edu/mro/mro-m-crism-3-rdr-targeted-v1/mrocr_2101/trdr/2006/2006_270/frt000027b2/frt000027b2_01_if156l_trr3.lbl'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-3-rdr-targeted-v1/mrocr_2101/trdr/2006/2006_270/frt000027b2/frt000027b2_01_if156l_trr3.lbl",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      ],
+      "availability": "blocked",
+      "blockers": [
+        "No D04 numeric observation is derived from CRISM in this repository.",
+        "D02 hydration method is not part of this audit."
+      ],
+      "bodies": [
+        "Mars"
+      ],
+      "coverage": "Targeted cubes only; no areal ice product for the Jezero windows.",
+      "crs_or_frame": "Targeted image cubes with per-product geometry; not a global grid.",
+      "dataset_id": "mro-crism-trdr",
+      "depth_support": "Surface reflectance/radiance; no subsurface ice depth retrieval in TRDR.",
+      "dimensions": [
+        "D04",
+        "D02"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 0,
+          "dimension": "D04",
+          "feature_id": "water_ice_detection",
+          "notes": "Hydration is D02 mineral evidence, not automatically D04 ice.",
+          "status": "not_applicable"
+        },
+        {
+          "current_observations": 0,
+          "dimension": "D02",
+          "feature_id": "mineral_spectral_detection",
+          "notes": "Requires atmospheric correction and summary-product computation; out of D04 scope.",
+          "status": "candidate_d02"
+        }
+      ],
+      "license": {
+        "attribution": "NASA Planetary Data System (PDS); cite the instrument team and the exact PDS product.",
+        "id": "CC0-1.0",
+        "redistribution": "allowed_with_attribution",
+        "url": "https://science.data.nasa.gov/about/license",
+        "verification": {
+          "bytes_max": 200000,
+          "bytes_min": 40000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "Science Data Licenses",
+            "Creative Commons"
+          ],
+          "note": "NASA open-data policy page. It does not enumerate per-product terms; repository precedent records NASA-led PDS products as CC0-1.0.",
+          "observed_bytes": 72405,
+          "reproduce": "curl -sS -L 'https://science.data.nasa.gov/about/license'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://science.data.nasa.gov/about/license",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "TRDR cubes are radiance/I-F data, not an ice detection or abundance map.",
+        "Hydrated minerals are evidence of water-bearing phases, not necessarily ice.",
+        "Requires atmospheric correction and spectral summary computation."
+      ],
+      "native_resolution": "Targeted hyperspectral/multispectral cubes (product-dependent); not an ice-abundance grid.",
+      "product": "MRO-M-CRISM-3-RDR-TARGETED-V1.0; TRDR radiance cubes",
+      "provider": "NASA MRO CRISM (PDS Geosciences Node)",
+      "source_id": "pds-mro-crism-trdr",
+      "time_support": "Per-target acquisition times (example: 2006-09-27T17:12:00.329).",
+      "verification": {
+        "bytes_max": 5815,
+        "bytes_min": 5815,
+        "check": true,
+        "content_type": "application/xml",
+        "http_status": 200,
+        "must_contain": [
+          "urn:nasa:pds:mro_crism_trdr_2101",
+          "CRISM"
+        ],
+        "observed_bytes": 5815,
+        "reproduce": "curl -sS -L 'https://pds-geosciences.wustl.edu/mro/mro-m-crism-3-rdr-targeted-v1/mrocr_2101/bundle_crism_trdr_2101.xml'",
+        "request": {
+          "headers": {},
+          "method": "GET",
+          "url": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-3-rdr-targeted-v1/mrocr_2101/bundle_crism_trdr_2101.xml",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "PDS4 atmospheric spectra/profiles",
+        "rate_limit": "none declared"
+      },
+      "availability": "not_applicable",
+      "blockers": [
+        "No surface/subsurface ice product in this instrument."
+      ],
+      "bodies": [
+        "Mars"
+      ],
+      "coverage": "Atmospheric D/H and corona observations; no surface/subsurface water-ice product.",
+      "crs_or_frame": "Atmospheric limb/disk/corona observations; not a surface or subsurface grid.",
+      "dataset_id": "maven-iuvs",
+      "depth_support": "Atmosphere from the homopause upward; not regolith or surface ice.",
+      "dimensions": [
+        "D04"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 0,
+          "dimension": "D04",
+          "feature_id": "water_ice_detection",
+          "notes": "Atmospheric D/H is not surface ice. No D04 surface feature is produced.",
+          "status": "not_applicable"
+        }
+      ],
+      "license": {
+        "attribution": "NASA Planetary Data System (PDS); cite the instrument team and the exact PDS product.",
+        "id": "CC0-1.0",
+        "redistribution": "allowed_with_attribution",
+        "url": "https://science.data.nasa.gov/about/license",
+        "verification": {
+          "bytes_max": 200000,
+          "bytes_min": 40000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "Science Data Licenses",
+            "Creative Commons"
+          ],
+          "note": "NASA open-data policy page. It does not enumerate per-product terms; repository precedent records NASA-led PDS products as CC0-1.0.",
+          "observed_bytes": 72405,
+          "reproduce": "curl -sS -L 'https://science.data.nasa.gov/about/license'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://science.data.nasa.gov/about/license",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "IUVS measures atmospheric composition and escape, not surface or subsurface ice.",
+        "Do not map atmospheric D/H onto a regolith water-ice feature."
+      ],
+      "native_resolution": "Spectral/vertical atmospheric profiles; no surface areal resolution.",
+      "product": "Imaging Ultraviolet Spectrograph PDS4 data (through 2025-12-15)",
+      "provider": "NASA MAVEN IUVS (PDS Atmospheres Node)",
+      "source_id": "pds-maven-iuvs",
+      "time_support": "Mission data through 2025-12-15 (Ls 43.8, MY 38).",
+      "verification": {
+        "bytes_max": 60000,
+        "bytes_min": 10000,
+        "check": true,
+        "content_type": "text/html",
+        "http_status": 200,
+        "must_contain": [
+          "Imaging Ultraviolet Spectrograph",
+          "D/H",
+          "PDS4"
+        ],
+        "observed_bytes": 20080,
+        "reproduce": "curl -sS -L 'https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/MAVEN/maven_iuvs.html'",
+        "request": {
+          "headers": {},
+          "method": "GET",
+          "url": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/MAVEN/maven_iuvs.html",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "JSON",
+        "rate_limit": "none declared"
+      },
+      "availability": "usable_existing",
+      "blockers": [],
+      "bodies": [
+        "Earth"
+      ],
+      "coverage": "5 Earth AOIs, 20 observations in pipelines/pilots/d04_earth_power. Not global.",
+      "crs_or_frame": "Earth WGS84 point; POWER grid approximately 0.5 x 0.625 degree",
+      "dataset_id": "nasa-power-daily-point",
+      "depth_support": "Surface/root-zone soil wetness and snow depth; not subsurface ice.",
+      "dimensions": [
+        "D04"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 5,
+          "dimension": "D04",
+          "feature_id": "surface_soil_wetness_fraction",
+          "notes": "Context-only; not in FEATURES_V2.",
+          "status": "existing_pilot_local"
+        },
+        {
+          "current_observations": 5,
+          "dimension": "D04",
+          "feature_id": "root_zone_soil_wetness_fraction",
+          "notes": "Context-only; not in FEATURES_V2.",
+          "status": "existing_pilot_local"
+        },
+        {
+          "current_observations": 5,
+          "dimension": "D04",
+          "feature_id": "snow_depth_cm",
+          "notes": "Context-only; not in FEATURES_V2.",
+          "status": "existing_pilot_local"
+        },
+        {
+          "current_observations": 5,
+          "dimension": "D04",
+          "feature_id": "precipitation_mm_day",
+          "notes": "Context-only; not in FEATURES_V2.",
+          "status": "existing_pilot_local"
+        }
+      ],
+      "license": {
+        "attribution": "NASA POWER; cite the NASA POWER project and the Agroclimatology community.",
+        "id": "NASA-POWER-open",
+        "redistribution": "allowed_with_attribution",
+        "url": "https://power.larc.nasa.gov/docs/services/api/",
+        "verification": {
+          "bytes_max": 60000,
+          "bytes_min": 10000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "API Overview",
+            "NASA POWER"
+          ],
+          "note": "NASA POWER data are free and open with attribution.",
+          "observed_bytes": 21050,
+          "reproduce": "curl -sS -L 'https://power.larc.nasa.gov/docs/services/api/'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://power.larc.nasa.gov/docs/services/api/",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "Reanalysis/model context at ~50 km, not a local water/ice measurement.",
+        "Soil wetness, snow depth and precipitation are distinct quantities and are never merged.",
+        "No confirmed extractable ice or subsurface ice volume."
+      ],
+      "native_resolution": "About 0.5 x 0.625 degree (about 50 km); not a 1.98 km measurement.",
+      "product": "Daily point API: GWETTOP, GWETROOT, SNODP, PRECTOTCORR",
+      "provider": "NASA Langley Research Center / NASA POWER",
+      "source_id": "nasa-power-daily-point",
+      "time_support": "Daily; existing pilot 2024-01-01 through 2024-01-07.",
+      "verification": {
+        "bytes_max": 5000,
+        "bytes_min": 500,
+        "check": true,
+        "content_type": "application/json",
+        "http_status": 200,
+        "must_contain": [
+          "GWETTOP",
+          "GWETROOT",
+          "SNODP",
+          "PRECTOTCORR"
+        ],
+        "note": "Body size varied by 2 bytes across runs (745-747 B); the regression gate uses a broad 500-5000 B range.",
+        "observed_bytes": 747,
+        "reproduce": "curl -sS -L 'https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=-68.399999&latitude=-23.500000&start=20240101&end=20240101&format=JSON'",
+        "request": {
+          "headers": {},
+          "method": "GET",
+          "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=GWETTOP%2CGWETROOT%2CSNODP%2CPRECTOTCORR&community=AG&longitude=-68.399999&latitude=-23.500000&start=20240101&end=20240101&format=JSON",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "OGC WCS 2.0.1 GeoTIFF",
+        "rate_limit": "pilot uses min 0.25 s between requests, 4 attempts, honours Retry-After"
+      },
+      "additional_checks": [
+        {
+          "bytes_max": 50000,
+          "bytes_min": 5000,
+          "check": false,
+          "content_type": "text/xml; charset=UTF-8",
+          "http_status": 200,
+          "must_contain": [
+            "clay_0-5cm_mean",
+            "clay_60-100cm_mean",
+            "clay_100-200cm_mean"
+          ],
+          "note": "Large discovery document. It intermittently exceeds the 30 s request timeout, so it is recorded but not part of the regression gate; DescribeCoverage/GetCoverage are the gated checks.",
+          "observed_bytes": 12503,
+          "reproduce": "curl -sS -L 'https://maps.isric.org/mapserv?map=/map/clay.map&service=WCS&version=2.0.1&request=GetCapabilities'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://maps.isric.org/mapserv?map=/map/clay.map&service=WCS&version=2.0.1&request=GetCapabilities",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        },
+        {
+          "bytes_max": 10000,
+          "bytes_min": 1000,
+          "check": true,
+          "content_type": "text/xml; charset=UTF-8",
+          "http_status": 200,
+          "must_contain": [
+            "clay_60-100cm_mean",
+            "250.000000"
+          ],
+          "observed_bytes": 2543,
+          "reproduce": "curl -sS -L 'https://maps.isric.org/mapserv?map=/map/clay.map&service=WCS&version=2.0.1&request=DescribeCoverage&CoverageId=clay_60-100cm_mean'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://maps.isric.org/mapserv?map=/map/clay.map&service=WCS&version=2.0.1&request=DescribeCoverage&CoverageId=clay_60-100cm_mean",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        },
+        {
+          "bytes_max": 10000,
+          "bytes_min": 1000,
+          "check": true,
+          "content_type": "text/xml; charset=UTF-8",
+          "http_status": 200,
+          "must_contain": [
+            "clay_100-200cm_mean",
+            "250.000000"
+          ],
+          "observed_bytes": 2547,
+          "reproduce": "curl -sS -L 'https://maps.isric.org/mapserv?map=/map/clay.map&service=WCS&version=2.0.1&request=DescribeCoverage&CoverageId=clay_100-200cm_mean'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://maps.isric.org/mapserv?map=/map/clay.map&service=WCS&version=2.0.1&request=DescribeCoverage&CoverageId=clay_100-200cm_mean",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        },
+        {
+          "bytes_max": 5000,
+          "bytes_min": 400,
+          "check": true,
+          "content_type": "image/tiff",
+          "http_status": 200,
+          "must_contain": [],
+          "must_start_with_hex": "49492a00",
+          "note": "2x2 cell TIFF subset; 601 bytes. No raster download beyond the tiny AOI.",
+          "observed_bytes": 601,
+          "reproduce": "curl -sS -L 'https://maps.isric.org/mapserv?map=/map/clay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.402%2C-68.398%29&subset=Lat%28-23.502%2C-23.498%29&format=image%2Ftiff'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://maps.isric.org/mapserv?map=/map/clay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_0-5cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.402%2C-68.398%29&subset=Lat%28-23.502%2C-23.498%29&format=image%2Ftiff",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          },
+          "timeout_s": 60
+        },
+        {
+          "bytes_max": 5000,
+          "bytes_min": 400,
+          "check": false,
+          "content_type": "image/tiff",
+          "http_status": 200,
+          "must_contain": [],
+          "must_start_with_hex": "49492a00",
+          "note": "Optional deeper-depth probe; DescribeCoverage 60-100 is the gated availability check. The 603-byte observed response is recorded, not gated, because this endpoint intermittently exceeds the timeout.",
+          "observed_bytes": 603,
+          "reproduce": "curl -sS -L 'https://maps.isric.org/mapserv?map=/map/clay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_60-100cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.402%2C-68.398%29&subset=Lat%28-23.502%2C-23.498%29&format=image%2Ftiff'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://maps.isric.org/mapserv?map=/map/clay.map&service=WCS&version=2.0.1&request=GetCoverage&CoverageId=clay_60-100cm_mean&subsettingCrs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FEPSG%2F0%2F4326&subset=Long%28-68.402%2C-68.398%29&subset=Lat%28-23.502%2C-23.498%29&format=image%2Ftiff",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      ],
+      "availability": "usable_existing",
+      "blockers": [],
+      "bodies": [
+        "Earth"
+      ],
+      "coverage": "5 Earth AOIs, 5 properties (bdod, clay, sand, silt, soc), 4 depths, 3 statistics: 300 observations and 100 QA groups. Not a global survey.",
+      "crs_or_frame": "Native WCS grid: EPSG:152160 (Interrupted Goode Homolosine, metre axes). Subsetting CRS used by the pilot: EPSG:4326. Native cell 250 m.",
+      "dataset_id": "soilgrids-250m-v2",
+      "depth_support": "Six standard SoilGrids depth intervals exist: 0-5, 5-15, 15-30, 30-60, 60-100 and 100-200 cm. The existing pilot registers 0-5, 5-15, 15-30 and 30-60 cm; 60-100 and 100-200 cm are reachable but out of scope.",
+      "dimensions": [
+        "D06"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 5,
+          "dimension": "D06",
+          "feature_id": "soil_clay_0_5cm_mean",
+          "notes": "Gated Earth-Earth similarity in eligibility.py; 0-5 cm mean is the preferred non-D01 feature.",
+          "status": "existing_similarity_eligible"
+        },
+        {
+          "current_observations": 5,
+          "dimension": "D06",
+          "feature_id": "soil_sand_0_5cm_mean",
+          "notes": "Compositional sibling of clay/silt; not independent measurements.",
+          "status": "existing_similarity_eligible"
+        },
+        {
+          "current_observations": 5,
+          "dimension": "D06",
+          "feature_id": "soil_silt_0_5cm_mean",
+          "notes": "Compositional sibling of clay/sand; not independent measurements.",
+          "status": "existing_similarity_eligible"
+        },
+        {
+          "current_observations": 5,
+          "dimension": "D06",
+          "feature_id": "soil_bdod_0_5cm_mean",
+          "notes": "Bulk density of fine earth, cg cm-3; excludes coarse fragments.",
+          "status": "existing_similarity_eligible"
+        },
+        {
+          "current_observations": 5,
+          "dimension": "D06",
+          "feature_id": "soil_soc_0_5cm_mean",
+          "notes": "Soil organic carbon, dg kg-1.",
+          "status": "existing_similarity_eligible"
+        },
+        {
+          "current_observations": 200,
+          "dimension": "D06",
+          "feature_id": "soil_*_q05|q95",
+          "notes": "Prediction quantiles at the same area/property/depth; never independent observations and never a confidence interval for the AOI mean.",
+          "status": "existing_uncertainty_evidence"
+        }
+      ],
+      "license": {
+        "attribution": "ISRIC - World Soil Information, SoilGrids 2.0; cite Poggio et al. (2021), SOIL 7, 217-240.",
+        "id": "CC-BY-4.0",
+        "redistribution": "allowed_with_attribution",
+        "url": "https://docs.isric.org/globaldata/soilgrids/",
+        "verification": {
+          "bytes_max": 80000,
+          "bytes_min": 20000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "six standard depth intervals",
+            "250 meters",
+            "CC-BY 4.0"
+          ],
+          "observed_bytes": 34690,
+          "reproduce": "curl -sS -L 'https://docs.isric.org/globaldata/soilgrids/'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://docs.isric.org/globaldata/soilgrids/",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "SoilGrids is a model prediction trained on sparse samples, not a local measurement.",
+        "The AOI value is the mean of native 250 m model cells over the envelope, not a product cell value at a point.",
+        "Clay/sand/silt are compositional components; requesting several double-weights the same texture information.",
+        "bdod is fine-earth bulk density and excludes coarse fragments; not total regolith density.",
+        "Five AOIs only; not global, representative, or exhaustive."
+      ],
+      "native_resolution": "250 m",
+      "product": "SoilGrids 2.0, 250 m global soil property predictions; OGC WCS 2.0.1",
+      "provider": "ISRIC - World Soil Information",
+      "source_id": "isric-soilgrids-2-wcs",
+      "time_support": "SoilGrids 2.0 static model release; no time series.",
+      "verification": {
+        "bytes_max": 10000,
+        "bytes_min": 1000,
+        "check": true,
+        "content_type": "text/xml; charset=UTF-8",
+        "http_status": 200,
+        "must_contain": [
+          "EPSG/0/152160",
+          "250.000000",
+          "clay_0-5cm_mean"
+        ],
+        "observed_bytes": 2531,
+        "reproduce": "curl -sS -L 'https://maps.isric.org/mapserv?map=/map/clay.map&service=WCS&version=2.0.1&request=DescribeCoverage&CoverageId=clay_0-5cm_mean'",
+        "request": {
+          "headers": {},
+          "method": "GET",
+          "url": "https://maps.isric.org/mapserv?map=/map/clay.map&service=WCS&version=2.0.1&request=DescribeCoverage&CoverageId=clay_0-5cm_mean",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "JSON point query",
+        "rate_limit": "unknown"
+      },
+      "availability": "unavailable",
+      "blockers": [
+        "HTTP request timed out with 0 bytes from this environment.",
+        "Use the WCS endpoint instead."
+      ],
+      "bodies": [
+        "Earth"
+      ],
+      "coverage": "Point query only; not an AOI mean and not used by the pilot.",
+      "crs_or_frame": "Earth WGS84 point query",
+      "dataset_id": "soilgrids-rest-v2",
+      "depth_support": "Same six standard depths if the service responds; not verified in this run.",
+      "dimensions": [
+        "D06"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 0,
+          "dimension": "D06",
+          "feature_id": "soil_clay_0_5cm_mean",
+          "notes": "No response observed; do not substitute a point query for the verified WCS AOI mean.",
+          "status": "unavailable_no_evidence"
+        }
+      ],
+      "license": {
+        "attribution": "ISRIC - World Soil Information, SoilGrids 2.0; cite Poggio et al. (2021), SOIL 7, 217-240.",
+        "id": "CC-BY-4.0",
+        "redistribution": "allowed_with_attribution",
+        "url": "https://docs.isric.org/globaldata/soilgrids/",
+        "verification": {
+          "bytes_max": 80000,
+          "bytes_min": 20000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "six standard depth intervals",
+            "250 meters",
+            "CC-BY 4.0"
+          ],
+          "observed_bytes": 34690,
+          "reproduce": "curl -sS -L 'https://docs.isric.org/globaldata/soilgrids/'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://docs.isric.org/globaldata/soilgrids/",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "Observed timeout; availability is not established.",
+        "A point query would not match the pilot's AOI-envelope mean support even if it responded."
+      ],
+      "native_resolution": "250 m model grid",
+      "product": "SoilGrids REST API v2.0 point query",
+      "provider": "ISRIC - World Soil Information",
+      "source_id": "isric-soilgrids-rest-api",
+      "time_support": "SoilGrids 2.0 static model release.",
+      "verification": {
+        "bytes_max": 0,
+        "bytes_min": 0,
+        "check": false,
+        "content_type": null,
+        "http_status": null,
+        "must_contain": [],
+        "note": "Observed timeout after 60 s with 0 bytes on 2026-11-15. Excluded from the regression check; the WCS endpoint is the verified alternative.",
+        "observed_bytes": 0,
+        "reproduce": "curl -sS -L --max-time 60 'https://rest.isric.org/soilgrids/v2.0/properties/query?lon=-68.4&lat=-23.5&property=clay&depth=0-5cm&value=mean'",
+        "request": {
+          "headers": {},
+          "method": "GET",
+          "url": "https://rest.isric.org/soilgrids/v2.0/properties/query?lon=-68.4&lat=-23.5&property=clay&depth=0-5cm&value=mean",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "XLSX",
+        "rate_limit": "none declared"
+      },
+      "additional_checks": [
+        {
+          "bytes_max": 80000,
+          "bytes_min": 20000,
+          "check": true,
+          "content_type": "application/octet-stream",
+          "http_status": 200,
+          "must_contain": [],
+          "note": "Moon XLSX is 36.8 KB and was inspected (8 mission sheets: Apollo 11/12/14/15/16/17, CE5C0400, CE-6). The Mars XLSX is 3.66 MB and was not downloaded.",
+          "observed_bytes": 36833,
+          "reproduce": "curl -sS -L 'https://ndownloader.figshare.com/files/64804113'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://ndownloader.figshare.com/files/64804113",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        },
+        {
+          "bytes_max": 700000,
+          "bytes_min": 150000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "max_read": 700000,
+          "must_contain": [
+            "PlanetGSD",
+            "379",
+            "1729",
+            "CC BY"
+          ],
+          "note": "Peer-reviewed dataset description; the 379 lunar / 1,729 Martian counts are paper-reported and were string-checked on this page.",
+          "observed_bytes": 340549,
+          "reproduce": "curl -sS -L 'https://essd.copernicus.org/articles/18/4983/2026'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://essd.copernicus.org/articles/18/4983/2026",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      ],
+      "availability": "usable_candidate",
+      "blockers": [
+        "Per-sample depth metadata missing (S2) or unverified (S3) for a detected D06 particle-size observation.",
+        "Bin edges/basis must be mapped to the repository's USDA lower-edge convention before ingestion.",
+        "The Mars XLSX is 3.66 MB and was not downloaded in this audit."
+      ],
+      "bodies": [
+        "Moon",
+        "Mars",
+        "Earth"
+      ],
+      "coverage": "379 lunar grain-size distributions and 1,729 Martian image-derived distributions in the paper's count; the Moon file has 8 mission sheets. This is a sparse sample/observation compilation, not a global map.",
+      "crs_or_frame": "Sample/site tables with latitude/longitude where published; no raster grid.",
+      "dataset_id": "planetgsd-1",
+      "depth_support": "Per-sample depth is not present in the inspected S2 lunar table; the S3 Mars table was not downloaded, so its depth fields are unverified. D06 requires explicit depth for a detected observation.",
+      "dimensions": [
+        "D06"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 0,
+          "dimension": "D06",
+          "feature_id": "particle_size_distribution",
+          "notes": "Could supply bin curves, but the inspected S2 table does not carry per-sample depth; S3 depth fields are unverified. A detected D06 observation would fail the explicit-depth rule.",
+          "status": "candidate_blocked_by_depth"
+        },
+        {
+          "current_observations": 0,
+          "dimension": "D06",
+          "feature_id": "bulk_density_kg_m3",
+          "notes": "PlanetGSD is grain size, not bulk density.",
+          "status": "not_provided"
+        }
+      ],
+      "license": {
+        "attribution": "Zhang et al., PlanetGSD 1.0; cite the ESSD paper and Figshare DOI 10.6084/m9.figshare.32362083.",
+        "id": "CC-BY-4.0",
+        "redistribution": "allowed_with_attribution",
+        "url": "https://api.figshare.com/v2/articles/32362083",
+        "verification": {
+          "bytes_max": 20000,
+          "bytes_min": 3000,
+          "check": true,
+          "content_type": "application/json",
+          "http_status": 200,
+          "must_contain": [
+            "CC BY 4.0",
+            "S2 GSD data from Moon.xlsx",
+            "32362083"
+          ],
+          "observed_bytes": 5874,
+          "reproduce": "curl -sS -L 'https://api.figshare.com/v2/articles/32362083'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://api.figshare.com/v2/articles/32362083",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "Third-party compilation, not a NASA/ISRO mission archive.",
+        "Lunar sample depth is not in the inspected S2 table; the S3 Mars depth fields were not verified because the 3.66 MB file was not downloaded. D06 detected observations require explicit depth.",
+        "The Martian distributions are image-derived and truncated below the imaging resolution; they are not sieved samples.",
+        "No areal coverage and no global claim."
+      ],
+      "native_resolution": "Sample/site measurements; no areal grid resolution.",
+      "product": "S2 lunar and S3 Martian grain-size distributions (XLSX)",
+      "provider": "PlanetGSD 1.0 compilation (Zhang et al., ESSD 2026); Figshare",
+      "source_id": "planetgsd-1-figshare",
+      "time_support": "Compilation published 2026; sample acquisition times vary by mission.",
+      "verification": {
+        "bytes_max": 20000,
+        "bytes_min": 3000,
+        "check": true,
+        "content_type": "application/json",
+        "http_status": 200,
+        "must_contain": [
+          "CC BY 4.0",
+          "S2 GSD data from Moon.xlsx",
+          "S3 GSD data from Mars.xlsx"
+        ],
+        "observed_bytes": 5874,
+        "reproduce": "curl -sS -L 'https://api.figshare.com/v2/articles/32362083'",
+        "request": {
+          "headers": {},
+          "method": "GET",
+          "url": "https://api.figshare.com/v2/articles/32362083",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "ZIP with CSV/Excel tables and Python code",
+        "rate_limit": "none declared"
+      },
+      "availability": "blocked",
+      "blockers": [
+        "Missing D06 thickness feature and depth/units contract.",
+        "License review required before redistribution.",
+        "No standalone CSV endpoint; data are inside an 18.8 MB ZIP."
+      ],
+      "bodies": [
+        "Moon"
+      ],
+      "coverage": "Sparse published measurements plus a first-order global interpolation. The repository does not claim global measured coverage.",
+      "crs_or_frame": "Point measurements with latitude/longitude and a derived global IDW map; the map is not ingested.",
+      "dataset_id": "lunar-regolith-thickness-2026",
+      "depth_support": "Regolith thickness in metres; not a depth interval of a soil property.",
+      "dimensions": [
+        "D06"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 0,
+          "dimension": "D06",
+          "feature_id": "regolith_thickness_m",
+          "notes": "D06 has no thickness feature id in FEATURES_V2 or eligibility.py. Adding one is a semantics change.",
+          "status": "no_registered_feature"
+        }
+      ],
+      "license": {
+        "attribution": "Jones & Rajsic (2026), Lunar Surface Regolith Thickness Mapping; cite DOI 10.5281/zenodo.18829373.",
+        "id": "GPL-3.0",
+        "redistribution": "review_required",
+        "url": "https://zenodo.org/api/records/18829373",
+        "verification": {
+          "bytes_max": 20000,
+          "bytes_min": 3000,
+          "check": true,
+          "content_type": "application/json",
+          "http_status": 200,
+          "must_contain": [
+            "Lunar Surface Regolith Thickness Mapping",
+            "gpl-3.0"
+          ],
+          "note": "GPL-3.0 is a software license. Data-specific redistribution terms are not separately stated; review required before reuse.",
+          "observed_bytes": 5089,
+          "reproduce": "curl -sS -L 'https://zenodo.org/api/records/18829373'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://zenodo.org/api/records/18829373",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "No D06 feature id for thickness.",
+        "The archive is 18.8 MB and was not downloaded; only metadata was verified.",
+        "GPL-3.0 is a software license; data redistribution terms need review.",
+        "The interpolated global map is a model product, not measured coverage."
+      ],
+      "native_resolution": "Point measurements; the derived map resolution is not a measured support.",
+      "product": "Scattered regolith-thickness measurements and IDW tools (v2.0.0)",
+      "provider": "Jones & Rajsic (2026), Lunar Surface Regolith Thickness Mapping; Zenodo",
+      "source_id": "zenodo-lunar-regolith-thickness",
+      "time_support": "Compilation published 2026; measurement epochs vary by contributing mission and are not a single observation date.",
+      "verification": {
+        "bytes_max": 20000,
+        "bytes_min": 3000,
+        "check": true,
+        "content_type": "application/json",
+        "http_status": 200,
+        "must_contain": [
+          "Lunar Surface Regolith Thickness Mapping",
+          "gpl-3.0"
+        ],
+        "observed_bytes": 5089,
+        "reproduce": "curl -sS -L 'https://zenodo.org/api/records/18829373'",
+        "request": {
+          "headers": {},
+          "method": "GET",
+          "url": "https://zenodo.org/api/records/18829373",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "CSV/PDS4 tabular bundle",
+        "rate_limit": "none declared"
+      },
+      "availability": "not_applicable",
+      "blockers": [
+        "No verified D04/D06 property product at USGS Astrogeology.",
+        "License review required."
+      ],
+      "bodies": [
+        "Moon"
+      ],
+      "coverage": "Selected small craters near landing sites; not global.",
+      "crs_or_frame": "Lunar sample/crater sites with latitude/longitude; no global raster grid.",
+      "dataset_id": "usgs-astropedia",
+      "depth_support": "Surface boulder size-frequency context; no regolith depth interval or bulk property.",
+      "dimensions": [
+        "D06"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 0,
+          "dimension": "D06",
+          "feature_id": "particle_size_distribution",
+          "notes": "Boulder size-frequency is not a soil particle-size distribution.",
+          "status": "not_applicable"
+        },
+        {
+          "current_observations": 0,
+          "dimension": "D06",
+          "feature_id": "regolith_thickness_m",
+          "notes": "The boulder database does not measure regolith thickness.",
+          "status": "not_provided"
+        }
+      ],
+      "license": {
+        "attribution": "USGS Astrogeology Science Center; cite the product, authors and PDS status.",
+        "id": "public-domain-us-government",
+        "redistribution": "review_required",
+        "url": "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins",
+        "verification": {
+          "bytes_max": 60000,
+          "bytes_min": 10000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "Regolith",
+            "lunar_boulder_data_bundle",
+            "Tabular Data"
+          ],
+          "note": "Product page states Access Scope=PDS and PDS Status='PDS 4 In Review' but no license. USGS license pages returned HTTP 403 from this environment.",
+          "observed_bytes": 18873,
+          "reproduce": "curl -sS -L 'https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "No machine-readable D04 water-ice or D06 physical-property product was verified in the Astropedia search.",
+        "The boulder database is surface context, not a D06 regolith property.",
+        "USGS license pages returned HTTP 403 from this environment; per-product terms need confirmation."
+      ],
+      "native_resolution": "Boulder counts around small craters from LROC NAC at ~0.5-2 m/pixel; the boulder database is not a regolith physical-property grid.",
+      "product": "Astropedia catalog; Moon LRO LROC NAC Boulder Database v1 Watkins",
+      "provider": "USGS Astrogeology Science Center / NASA PDS Cartography and Imaging Science Node",
+      "source_id": "usgs-astrogeology-astropedia",
+      "time_support": "Boulder database v1 (2019); crater ages vary.",
+      "verification": {
+        "bytes_max": 60000,
+        "bytes_min": 10000,
+        "check": true,
+        "content_type": "text/html",
+        "http_status": 200,
+        "must_contain": [
+          "Regolith",
+          "lunar_boulder_data_bundle",
+          "Tabular Data"
+        ],
+        "observed_bytes": 18873,
+        "reproduce": "curl -sS -L 'https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins'",
+        "request": {
+          "headers": {},
+          "method": "GET",
+          "url": "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "credentials": false,
+        "format": "ASCII table",
+        "rate_limit": "none declared"
+      },
+      "availability": "not_applicable",
+      "blockers": [
+        "No D06 feature mapping for chemistry under the current registry."
+      ],
+      "bodies": [
+        "Moon"
+      ],
+      "coverage": "Apollo 15/16/17 and Luna 16/20/24 site averages; not global.",
+      "crs_or_frame": "Landing-site/region averages; no raster grid.",
+      "dataset_id": "usgs-lunar-sourcebook-tab7-15",
+      "depth_support": "Bulk soil composition; no depth interval.",
+      "dimensions": [
+        "D06"
+      ],
+      "feature_mapping": [
+        {
+          "current_observations": 0,
+          "dimension": "D06",
+          "feature_id": "particle_size_distribution",
+          "notes": "Chemistry is not particle size.",
+          "status": "not_applicable"
+        },
+        {
+          "current_observations": 0,
+          "dimension": "D06",
+          "feature_id": "bulk_density_kg_m3",
+          "notes": "Table 7.15 is chemistry, not bulk density.",
+          "status": "not_provided"
+        }
+      ],
+      "license": {
+        "attribution": "USGS Astrogeology Science Center; cite the product, authors and PDS status.",
+        "id": "public-domain-us-government",
+        "redistribution": "review_required",
+        "url": "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins",
+        "verification": {
+          "bytes_max": 60000,
+          "bytes_min": 10000,
+          "check": true,
+          "content_type": "text/html",
+          "http_status": 200,
+          "must_contain": [
+            "Regolith",
+            "lunar_boulder_data_bundle",
+            "Tabular Data"
+          ],
+          "note": "Product page states Access Scope=PDS and PDS Status='PDS 4 In Review' but no license. USGS license pages returned HTTP 403 from this environment.",
+          "observed_bytes": 18873,
+          "reproduce": "curl -sS -L 'https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins'",
+          "request": {
+            "headers": {},
+            "method": "GET",
+            "url": "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins",
+            "user_agent": "analog-d04-d06-audit/1.0"
+          }
+        }
+      },
+      "limitations": [
+        "Chemistry table, not a D06 physical-property table.",
+        "Site averages, not local measurements at the 1.98 km windows."
+      ],
+      "native_resolution": "Site/region averages; no areal resolution.",
+      "product": "Lunar Sourcebook Table 7.15: chemical compositions of average soils",
+      "provider": "USGS Astrogeology Science Center / Lunar Consortium Data",
+      "source_id": "usgs-lunar-sourcebook-tables",
+      "time_support": "Apollo/Luna sample-return era; Lunar Sourcebook compilation.",
+      "verification": {
+        "bytes_max": 20000,
+        "bytes_min": 3000,
+        "check": true,
+        "content_type": "binary/octet-stream",
+        "http_status": 200,
+        "must_contain": [
+          "Table 7.15",
+          "Chemical compositions"
+        ],
+        "observed_bytes": 6745,
+        "reproduce": "curl -sS -L 'https://lunar-consortium.astrogeology.usgs.gov/data/chem_min/tab7_15.asc'",
+        "request": {
+          "headers": {},
+          "method": "GET",
+          "url": "https://lunar-consortium.astrogeology.usgs.gov/data/chem_min/tab7_15.asc",
+          "user_agent": "analog-d04-d06-audit/1.0"
+        }
+      }
+    }
+  ],
+  "support_gap_table": [
+    {
+      "body": "Earth",
+      "depth": "surface/root-zone; no subsurface ice",
+      "dimension": "D04",
+      "feature": "pilot-local context ids",
+      "gap": "No 1.98 km measurement and no subsurface ice.",
+      "quantity": "surface/root-zone wetness, snow depth, precipitation",
+      "source": "NASA POWER",
+      "support": "~50 km point; daily"
+    },
+    {
+      "body": "Moon",
+      "depth": "integrated upper ~1 m",
+      "dimension": "D04",
+      "feature": "water_equivalent_hydrogen_wt_percent",
+      "gap": "Coarse; no per-cell uncertainty; not ice fraction.",
+      "quantity": "water-equivalent hydrogen",
+      "source": "Lunar Prospector NS",
+      "support": "0.5 degree (~15 km); upper ~1 m"
+    },
+    {
+      "body": "Moon",
+      "depth": "no depth retrieval",
+      "dimension": "D04",
+      "feature": "radar_circular_polarization_ratio",
+      "gap": "Not diagnostic of ice; mixed acquisitions.",
+      "quantity": "radar CPR",
+      "source": "LRO Mini-RF",
+      "support": "~237 m; near-surface"
+    },
+    {
+      "body": "Mars",
+      "depth": "integrated upper ~1 m",
+      "dimension": "D04",
+      "feature": "epithermal_neutron_flux_ratio",
+      "gap": "One cell; no WEH conversion; no per-cell uncertainty.",
+      "quantity": "epithermal neutron flux",
+      "source": "Odyssey HEND",
+      "support": "4 degree (~237 km); upper ~1 m"
+    },
+    {
+      "body": "Mars",
+      "depth": "integrated upper ~1 m",
+      "dimension": "D04",
+      "feature": "candidate new feature (counts/s)",
+      "gap": "Not a ratio; needs normalization and a new method/feature.",
+      "quantity": "epithermal neutron flux (0.5 degree)",
+      "source": "Odyssey NS",
+      "support": "0.5 degree (~30 km); upper ~1 m"
+    },
+    {
+      "body": "Moon",
+      "depth": "upper ~1 m",
+      "dimension": "D04",
+      "feature": "blocked",
+      "gap": "Missing normalization constants for flux/WEH.",
+      "quantity": "polar neutron count rate",
+      "source": "LRO LEND ALDS",
+      "support": "0.5 degree polar"
+    },
+    {
+      "body": "Mars",
+      "depth": "model-dependent",
+      "dimension": "D04",
+      "feature": "blocked",
+      "gap": "No per-cell detection mask; needs clutter modelling and interpretation.",
+      "quantity": "subsurface radar reflectors",
+      "source": "MRO SHARAD",
+      "support": "orbit-track radargrams"
+    },
+    {
+      "body": "Mars",
+      "depth": "surface",
+      "dimension": "D04",
+      "feature": "D02 (not D04)",
+      "gap": "Hydration is mineral evidence, not ice; needs atmospheric correction.",
+      "quantity": "surface hydration/radiance",
+      "source": "MRO CRISM",
+      "support": "targeted cubes"
+    },
+    {
+      "body": "Mars",
+      "depth": "not surface",
+      "dimension": "D04",
+      "feature": "not applicable",
+      "gap": "Does not measure surface/subsurface ice.",
+      "quantity": "atmospheric D/H",
+      "source": "MAVEN IUVS",
+      "support": "atmospheric profiles"
+    },
+    {
+      "body": "Earth",
+      "depth": "0-5, 5-15, 15-30, 30-60 cm",
+      "dimension": "D06",
+      "feature": "soil_*_mean/q05/q95",
+      "gap": "Model prediction; 5 AOIs; no 60-200 cm; not local samples.",
+      "quantity": "clay/sand/silt, SOC, fine-earth bulk density",
+      "source": "SoilGrids 2.0 WCS",
+      "support": "250 m; 5 AOIs"
+    },
+    {
+      "body": "Earth",
+      "depth": "60-100, 100-200 cm reachable",
+      "dimension": "D06",
+      "feature": "not registered",
+      "gap": "Eligibility regex/semantics stop at 60 cm; adding depths is a semantics change.",
+      "quantity": "same properties deeper",
+      "source": "SoilGrids 2.0 WCS",
+      "support": "250 m"
+    },
+    {
+      "body": "Moon",
+      "depth": "per-sample depth not in inspected table",
+      "dimension": "D06",
+      "feature": "particle_size_distribution (blocked)",
+      "gap": "Missing depth; bin/basis mapping; third-party compilation.",
+      "quantity": "particle-size distribution",
+      "source": "PlanetGSD 1.0",
+      "support": "sample curves; no areal grid"
+    },
+    {
+      "body": "Moon",
+      "depth": "thickness in metres",
+      "dimension": "D06",
+      "feature": "no feature id",
+      "gap": "No D06 thickness feature; license review; archive not downloaded.",
+      "quantity": "regolith thickness",
+      "source": "Zenodo 18829373",
+      "support": "sparse points + derived map"
+    },
+    {
+      "body": "Moon",
+      "depth": "surface / bulk",
+      "dimension": "D06",
+      "feature": "not applicable",
+      "gap": "No D06 physical-property product verified.",
+      "quantity": "boulder size-frequency / soil chemistry",
+      "source": "USGS Astrogeology",
+      "support": "selected sites / site averages"
+    },
+    {
+      "body": "Mars",
+      "depth": "S3 not downloaded; per-sample depth unverified",
+      "dimension": "D06",
+      "feature": "particle_size_distribution (blocked)",
+      "gap": "Image-derived, truncated fine tail; depth unverified; no areal coverage.",
+      "quantity": "particle-size distribution",
+      "source": "PlanetGSD 1.0",
+      "support": "image-derived curves; no areal grid"
+    },
+    {
+      "body": "Mars",
+      "depth": "n/a",
+      "dimension": "D06",
+      "feature": "no coverage",
+      "gap": "No public per-cell or per-site machine-readable product verified in this audit.",
+      "quantity": "bulk density, porosity, cohesion, friction, bearing",
+      "source": "none verified",
+      "support": "n/a"
+    }
+  ]
+}
