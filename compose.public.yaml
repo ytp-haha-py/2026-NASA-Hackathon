@@ -14,6 +14,7 @@ services:
       ANALOG_DATABASE_URL: sqlite+pysqlite:////data/analog.db
       ANALOG_CORS_ORIGINS: "http://localhost:5173,https://貓熊.台灣,https://www.貓熊.台灣,https://xn--2vxr09c.xn--kpry57d,https://www.xn--2vxr09c.xn--kpry57d"
       ANALOG_SEED_INCLUDE_SYNTHETIC: "false"
+      ANALOG_SEED_INCLUDE_TYPED: "true"
       ANALOG_MANIFEST_DIR: /app/pipelines/earth/manifests
       ANALOG_MANIFEST_DIR_CONTEXT: /app/pipelines/worldcover/manifests
       ANALOG_MANIFEST_DIR_PLANETARY: /app/pipelines/planetary/manifests
